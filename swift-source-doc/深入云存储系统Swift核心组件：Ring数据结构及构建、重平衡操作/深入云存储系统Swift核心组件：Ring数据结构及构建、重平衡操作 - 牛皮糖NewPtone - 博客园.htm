@@ -1,0 +1,855 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0059)http://www.cnblogs.com/yuxc/archive/2012/06/28/2568584.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/shares.php" charset="utf-8"></script>
+
+<title>深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/style.css">
+<link type="text/css" rel="stylesheet" href="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/common2.css">
+<link type="text/css" rel="stylesheet" href="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/shStyle.css">
+<link type="text/css" rel="stylesheet" href="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/customcss.aspx">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/yuxc/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/yuxc/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/yuxc/wlwmanifest.xml">
+<script async="" type="text/javascript" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/gpt.js"></script><script type="text/javascript" async="" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/ga.js"></script><script src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">
+var currentBlogApp = 'yuxc';
+</script>
+<script src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/common.js" type="text/javascript"></script> 
+<script src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/json2.js" type="text/javascript"></script>
+<script type="text/javascript" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/syntaxHighlighter.js"></script>
+<script async="" type="text/javascript" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/google_ads_gpt.js"></script><script type="text/javascript" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/osd.js"></script></head>
+<body><link href="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/jiathis_counter.css" rel="stylesheet" type="text/css"><script src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/jiathis.php" charset="utf-8"></script><link href="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/jiathis_share.css" rel="stylesheet" type="text/css"><iframe frameborder="0" style="position: absolute; display: none; opacity: 0;"></iframe><div class="jiathis_style" style="position: absolute; z-index: 1000000000; display: none; top: 50%; left: 50%; overflow: auto;"></div><div class="jiathis_style" style="position: absolute; z-index: 1000000000; display: none; overflow: auto;"></div><iframe frameborder="0" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/jiathis_utility.htm" style="display: none;"></iframe>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<script type="text/javascript">
+window.onload = show;
+function show(){
+ var h3 = document.getElementsByTagName('H3');
+ var len = h3.length;
+ var currH3;
+ for(var i = 0 ; i < len ; i++){
+    currH3 = h3[i].innerText;
+    if(currH3 == '公告'){
+        h3[i].innerText='牛皮糖的Blog';
+       }
+  }
+}
+</script>
+<!--PageBeginHtml Block End-->
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/yuxc/">牛皮糖的旅程</a></div>
+<div class="subtitle">Brick walls,they let us prove how badly we want things.    
+            --------摘自Randy Pausch的《最后一课》</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/yuxc/">首页</a></li>
+<li id="nav_q"><a class="menu" href="http://q.cnblogs.com/">博问</a></li>
+<li id="nav_ing"><a class="menu" href="http://home.cnblogs.com/ing/">闪存</a></li>
+<li id="nav_newpost"></li>
+<li id="nav_contact"><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://space.cnblogs.com/msg/send/%e7%89%9b%e7%9a%ae%e7%b3%96NewPtone">联系</a></li>
+<li id="nav_rss">
+<!----></li>
+<li id="nav_admin"><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://www.cnblogs.com/yuxc/admin/EditPosts.aspx">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔-215&nbsp;
+文章-0&nbsp;
+评论-165&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+	
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园.htm">深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><div class="Section0" style="line-height: normal; text-indent: 0pt; layout-grid: 15.6pt none; word-break: normal;"><br><span style="font-size: 16px;">　　在上一篇<span style="color: #3366ff;"><strong><a href="http://www.cnblogs.com/yuxc/archive/2012/06/22/2558312.html"><span style="color: #3366ff;">深入云存储系统Swift核心组件：Ring实现原理剖析</span></a></strong></span>中，我们分析了Ring的设计原理，深入探讨了<span lang="EN-US">Swift</span>如何通过<span lang="EN-US">Ring</span>组件来实现冗余的、可扩展的目的。本文旨在分析在实际swift的运行中，如何来构建Ring文件。</span></div>
+<h1 class="Section0" style="line-height: normal; text-indent: 0pt; layout-grid: 15.6pt none; word-break: normal;"><strong><span style="font-size: 16px;">Ring数据结构</span></strong></h1>
+<div class="Section0" style="line-height: normal; text-indent: 0pt; layout-grid: 15.6pt none; word-break: normal;">
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000; font-size: 16px;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">　　Ring </span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">的数据结构由三个顶层域</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">构成，其中</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">：</span></span></span></p>
+<ol>
+<li class="p0" style="text-indent: 0pt; margin-top: 0pt; margin-right: 0pt; margin-bottom: 0pt;"><span style="font-size: 16px;"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">List of Devices，</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">表示集群中设备的列表</span></span><span style="font-family: 宋体;">；</span></span></li>
+<li class="p0" style="text-indent: 0pt; margin-top: 0pt; margin-right: 0pt; margin-bottom: 0pt;"><span style="font-size: 16px;"><span style="font-family: &#39;times new roman&#39;, times;">Partition Assignment List</span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">，</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">表示</span><span style="font-family: &#39;Times New Roman&#39;;">partition</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">到</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">device的指派；</span></span></span></li>
+<li class="p0" style="text-indent: 0pt; margin-top: 0pt; margin-right: 0pt; margin-bottom: 0pt;"><span style="font-size: 16px;"><span style="font-family: 宋体;"><span style="font-family: &#39;times new roman&#39;, times;">Partition Shift Value</span>，表示</span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">计算</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">数据</span><span style="font-family: &#39;Times New Roman&#39;;">hash</span><span style="font-family: 宋体;">的移位量</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">。</span></span></span></li>
+
+
+
+
+
+
+</ol>
+<h1 align="justify"><span style="color: #000000;"><strong><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">List of Devices</span></span></span></strong></span></h1>
+<p class="p0" style="line-height: 12pt; text-indent: 0pt; margin: 0pt 0pt 10pt;" align="justify"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">　　设备列表在Ring</span></span><span style="font-size: 12pt;"><span style="font-family: 宋体;">类内部被称为</span><span style="font-family: &#39;Times New Roman&#39;;">devs</span><span style="font-family: 宋体;">。在设备列表中的每</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">一项</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">是带有以下键的字典：</span></span></span></span></p>
+<p class="p0" style="line-height: 12pt; text-indent: 0pt; margin: 0pt 0pt 10pt;" align="justify"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">　　　　　　　　　　　　　　　　　　　　　　 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="font-size: 13px;">表1：Devs键值说明</span></span></span></span></span></p>
+<table>
+<tbody>
+<tr>
+<td valign="center" width="58">
+<p class="p0">id</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="59">
+<p class="p0">integer</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="458">
+<p class="p0">在<span style="font-family: &#39;Times New Roman&#39;;">device</span><span style="font-family: 宋体;">列表</span>中的索引</p>
+
+
+
+
+
+
+</td>
+
+
+
+
+
+
+</tr>
+<tr>
+<td valign="center" width="58">
+<p class="p0">zone</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="59">
+<p class="p0">integer</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="458">
+<p class="p0">设备所在的zone</p>
+
+
+
+
+
+
+</td>
+
+
+
+
+
+
+</tr>
+<tr>
+<td valign="center" width="58">
+<p class="p0">weight</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="59">
+<p class="p0">float</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="458">
+<p class="p0">device与其他device的相对权重。这常常直接与device和其它device的磁盘空间数量的比有关</p>
+
+
+
+
+
+
+</td>
+
+
+
+
+
+
+</tr>
+<tr>
+<td valign="center" width="58">
+<p class="p0">ip</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="59">
+<p class="p0">string</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="458">
+<p class="p0">device的服务器<span style="font-family: &#39;Times New Roman&#39;;">IP</span><span style="font-family: 宋体;">地址</span></p>
+
+
+
+
+
+
+</td>
+
+
+
+
+
+
+</tr>
+<tr>
+<td valign="center" width="58">
+<p class="p0">port</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="59">
+<p class="p0">int</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="458">
+<p class="p0">服务器进程所使用的<span style="font-family: &#39;Times New Roman&#39;;">TCP</span><span style="font-family: 宋体;">端口用来提供该设备的服务请求</span></p>
+
+
+
+
+
+
+</td>
+
+
+
+
+
+
+</tr>
+<tr>
+<td valign="center" width="58">
+<p class="p0">device</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="59">
+<p class="p0">string</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="458">
+<p class="p0">&nbsp;<span style="font-family: 宋体;">服务器上</span>device的磁盘名称。例如：<span style="font-family: &#39;Times New Roman&#39;;">sdb1</span></p>
+
+
+
+
+
+
+</td>
+
+
+
+
+
+
+</tr>
+<tr>
+<td valign="center" width="58">
+<p class="p0">meta</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="59">
+<p class="p0">string</p>
+
+
+
+
+
+
+</td>
+<td valign="center" width="458">
+<p class="p0">存储设备额外信息的通用字段。该信息并不直接被服务器进程使用，但是在调试时会派上用场。例如，安装的日期和时间和硬件生产商可以存储在这。</p>
+
+
+
+
+
+
+</td>
+
+
+
+
+
+
+</tr>
+
+
+
+
+
+
+</tbody>
+
+
+
+
+
+
+</table>
+<p class="p0" style="line-height: 12pt; text-indent: 0pt; margin: 0pt 0pt 10pt;" align="justify"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">&nbsp;</span></span></span></span></p>
+<h1 align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><span style="font-size: 12pt; color: #000000;"><strong>2.Partition Assignment List</strong></span></span></span></h1>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">　　用于存放每个</span></span><span style="font-size: 12pt;"><span style="font-family: &#39;Times New Roman&#39;;">replica</span><span style="font-family: 宋体;">与</span><span style="font-family: &#39;Times New Roman&#39;;">device</span><span style="font-family: 宋体;">间映射关系。</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">在Ring</span><span style="font-family: 宋体;">类内部被称为</span><span style="font-family: &#39;Times New Roman&#39;;">_replica2part2dev_id</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">，列表中含有</span><span style="font-family: &#39;Times New Roman&#39;;">replica</span><span style="font-family: 宋体;">数量</span><span style="font-family: &#39;Times New Roman&#39;;">(3)</span><span style="font-family: 宋体;">的</span><span style="font-family: &#39;Times New Roman&#39;;">array(</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">‘</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">I</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">’</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">)，</span><span style="font-family: &#39;Times New Roman&#39;;">array(</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">‘</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">I</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">’</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">)的长度等于</span><span style="font-family: &#39;Times New Roman&#39;;">ring</span><span style="font-family: 宋体;">的</span><span style="font-family: &#39;Times New Roman&#39;;">partition</span><span style="font-family: 宋体;">数量，在</span><span style="font-family: &#39;Times New Roman&#39;;">array(</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">‘</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">I</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">’</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">)中的每个值为</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><strong>List of Devices</strong></span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-size: 12pt;"><span style="font-family: 宋体;">中的索引</span><span style="font-family: &#39;Times New Roman&#39;;">id</span></span><span style="font-family: 宋体;"><span style="font-size: 12pt;">。</span></span></span></span></p>
+<h1 align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><span style="font-size: 12pt; color: #000000;"><strong>3.Partition Shift Value</strong></span></span></span></h1>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><strong><span style="font-size: 12pt;">　　Partition Shift Value</span></strong></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">在Ring</span><span style="font-family: 宋体;">类内部称为</span><span style="font-family: &#39;Times New Roman&#39;;">_part_shift</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">。该</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">值用于转换一个MD5</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"> hash</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">值来计算对于</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">该</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">哈希值</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">的</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">数据</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">所在的</span><span style="font-family: &#39;Times New Roman&#39;;">partition</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">。</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">使用</span><span style="font-family: &#39;Times New Roman&#39;;">hash</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">值的前4</span><span style="font-family: 宋体;">个字节用于</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">计算。</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-size: 12pt;"><span style="font-family: &#39;Times New Roman&#39;;">例如，为了计算路径/account/container/object</span><span style="font-family: 宋体;">的虚节点，</span><span style="font-family: &#39;Times New Roman&#39;;">Python</span></span><span style="font-family: 宋体;"><span style="font-size: 12pt;">代码如下：</span></span></span></span></p>
+<blockquote>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">partition = unpack_from('&gt;I',md5('/account/container/object').digest())[0] &gt;&gt; self._part_shift</span></span></span></p>
+
+
+
+
+
+
+</blockquote>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left">&nbsp;</p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">　　其中</span></span><span style="font-size: 12pt;"><span style="font-family: &#39;Times New Roman&#39;;">&gt;</span><span style="font-family: 宋体;">表示</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">big-endian</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"> byte order，</span><span style="font-family: &#39;Times New Roman&#39;;">I</span><span style="font-family: 宋体;">表示长度为</span><span style="font-family: &#39;Times New Roman&#39;;">4 byte </span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">unsigned int</span></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left">&nbsp;</p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="color: #000000;"><span style="font-family: 宋体;"><span style="font-size: 12pt;"><strong>　　举例</strong>：我们以</span></span><span style="font-size: 12pt;"><span style="font-family: &#39;Times New Roman&#39;;">SAIO</span><span style="font-family: 宋体;">安装下的</span><span style="font-family: &#39;Times New Roman&#39;;">ring</span></span><span style="font-family: 宋体;"><span style="font-size: 12pt;">文件为例，</span></span></span></span><span><span style="font-family: 宋体;"><span style="font-size: 12pt;">使用</span></span><span style="font-size: 12pt;"><span style="font-family: &#39;Times New Roman&#39;;">python</span><span style="font-family: 宋体;">读取</span><span style="font-family: &#39;Times New Roman&#39;;">/etc/swift/object.ring.gz</span><span style="font-family: 宋体;">存放的数据，获得的是以</span><span style="font-family: &#39;Times New Roman&#39;;">devs</span><span style="font-family: 宋体;">、&nbsp;</span><span style="font-family: &#39;Times New Roman&#39;;">part_shift</span><span style="font-family: 宋体;">、&nbsp;</span></span></span><span style="font-size: 12pt;"><span><span style="font-family: &#39;Times New Roman&#39;;">replica2part2dev_id&nbsp;</span></span></span><span><span style="font-size: 12pt;"><span style="font-family: 宋体;">为</span><span style="font-family: &#39;Times New Roman&#39;;">key</span><span style="font-family: 宋体;">的</span><span style="font-family: &#39;Times New Roman&#39;;">dict</span></span><span style="font-family: 宋体;"><span style="font-size: 12pt;">类数据，其中：</span></span></span></p>
+<blockquote>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">&nbsp;</span></span></span><span style="font-family: 宋体;"><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><strong>devs</strong></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-size: 12pt;">=</span></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">[{'device': 'sdb1',</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'id': 0,</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'ip': '127.0.0.1',</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'meta': '',</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'port': 6010,</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'weight': 1.0,</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'zone': 1},</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">{'device': 'sdb2',</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'id': 1,</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'ip': '127.0.0.1',</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'meta': '',</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'port': 6020,</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'weight': 1.0,</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'zone': 2},</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">{'device': 'sdb3',</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'id': 2,</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'ip': '127.0.0.1',</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'meta': '',</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'port': 6030,</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'weight': 1.0,</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'zone': 3},</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">{'device': 'sdb4',</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'id': 3,</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'ip': '127.0.0.1',</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'meta': '',</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'port': 6040,</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'weight': 1.0,</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;">&nbsp; 'zone': 4}]</span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left">&nbsp;</p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="font-family: 宋体;"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><strong><span style="font-size: 12pt;">part_shift</span></strong></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-size: 12pt;">=4</span></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><strong><span style="font-size: 12pt;">replica2part2dev_id</span></strong></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">=[array(</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">‘</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">I</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">’</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">,</span></span></span><span style="font-family: &#39;Times New Roman&#39;;"><span style="mso-spacerun: &#39;yes&#39;;">&nbsp;</span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-size: 12pt;">[3, 2</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">...]) array(</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">‘</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">I</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">’</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">,</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"> [</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">0,</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">&nbsp;</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">1...]), array(</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">‘</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">I</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">’</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">,</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"> [</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">1</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">, </span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">3...])]</span></span></span></span></p>
+
+
+
+
+
+</blockquote>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left">&nbsp;</p>
+<h1 class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="font-size: 16px;">构建Ring文件</span></h1>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left">&nbsp;</p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left">　　假设我们配置了一个4个node组成的集群，分别为node0、node1、node2、node3，在这个集群中，我们为4个存储节点配置了2^18个partition，平均每个存储节点分配65536个partition。</p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left">　　需要使用<em><strong>swift-ring-bulider</strong></em>命令来构建ring文件，关于swift-ring-builder命令的详细用法，在shell下直接敲该命令即可获得提示。这里只涉及构建新Ring文件的方法，需要用到两个相关选项：</p>
+<ol>
+<li>构建相关的builder文件：swift-ring-builder &lt;builder_file&gt; create &lt;part_power&gt; &lt;replicas&gt;&lt;min_part_hours&gt;</li>
+<li class="p0" style="text-indent: 0pt; margin-top: 0pt; margin-right: 0pt; margin-bottom: 0pt;">添加node到builder文件：swift-ring-builder &lt;builder_file&gt; add &nbsp;z&lt;zone&gt;-&lt;ip&gt;:&lt;port&gt;/&lt;device_name&gt;_&lt;meta&gt; &lt;weight&gt;</li>
+
+
+
+
+
+
+</ol>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left">例如，该集群目前ring的配置如下：</p>
+<blockquote>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder account.builder create 18 3 1</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder account.builder add z1-192.168.1.50:6002/sdc 100</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder account.builder add z2-192.168.1.51:6002/sdc 100</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder account.builder add z3-192.168.1.52:6002/sdc 100</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder account.builder add z4-192.168.1.54:6002/sdc 100</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder account.builder rebalance</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;">&nbsp;</span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder container.builder create 18 3 1</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder container.builder add z1-192.168.1.50:6001/sdc 100</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder container.builder add z2-192.168.1.51:6001/sdc 100</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder container.builder add z3-192.168.1.52:6001/sdc 100</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder container.builder add z4-192.168.1.54:6001/sdc 100</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder container.builder rebalance</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;">&nbsp;</span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder object.builder create 18 3 1</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder object.builder add z1-192.168.1.50:6000/sdc 100</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder object.builder add z2-192.168.1.51:6000/sdc 100</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder object.builder add z3-192.168.1.52:6000/sdc 100</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder object.builder add z4-192.168.1.54:6000/sdc 100</em></span></p>
+<p class="p0" align="left"><span style="font-family: &#39;times new roman&#39;, times;"><em>swift-ring-builder object.builder rebalance</em></span></p>
+
+
+
+
+
+
+</blockquote>
+<p class="p0" align="left">&nbsp;</p>
+<h1 align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><span style="font-size: 12pt; color: #000000;"><strong>Ring的Rebalance机制</strong></span></span></span></h1>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="color: #000000;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">　　当集群中发生存储节点宕机、新增（删）存储节点、新增（删）</span></span><span style="font-size: 12pt;"><span style="font-family: &#39;Times New Roman&#39;;">zone</span><span style="font-family: 宋体;">等必须改变partition和</span><span style="font-family: &#39;Times New Roman&#39;;">node</span><span style="font-family: 宋体;">间的映射关系时，就需要对</span><span style="font-family: &#39;Times New Roman&#39;;">Ring</span></span><span style="font-family: 宋体;"><span style="font-size: 12pt;">文件进行更新，也就是在swift文档中见到的rebalance一词。</span></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">　　在</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">基于原有的</span><span style="font-family: &#39;Times New Roman&#39;;">Ring</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">来</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">构造</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">新</span></span><span style="font-family: &#39;times new roman&#39;, times;">Ring</span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">时，swift-ring-builder</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">首先要</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">重新计算每个设备所需的</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">partition</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">数量。</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">然后</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">，将</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">需要</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">重新分配的</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">partition</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">收集起来。取消分配</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">给</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">被移除设备</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">上</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">的</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">partition</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">并把这些</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">partition</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">添加到收集列表。</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">从拥有比当前所需的</span><span style="font-family: &#39;Times New Roman&#39;;">partition</span><span style="font-family: 宋体;">数多的设备上随机地取消分配多出的</span><span style="font-family: &#39;Times New Roman&#39;;">partition</span><span style="font-family: 宋体;">并添加到收集列表中。</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">最后，</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">将</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">收集列表中的</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">partition</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">使用与初始化分配</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">时</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">类似的方法重新分配。</span></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="color: #000000;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">　　在本地执行</span></span><span style="font-size: 12pt;"><span style="font-family: &#39;Times New Roman&#39;;">swift-ring-builder</span><span style="font-family: 宋体;">命令行来生成新的</span><span style="font-family: &#39;Times New Roman&#39;;">ring</span><span style="font-family: 宋体;">文件，然后把这些文件复制到集群的每个节点的</span><span style="font-family: &#39;Times New Roman&#39;;">/etc/swift</span><span style="font-family: 宋体;">目录中，所有需要使用</span><span style="font-family: &#39;Times New Roman&#39;;">ring</span><span style="font-family: 宋体;">的</span><span style="font-family: &#39;Times New Roman&#39;;">server</span><span style="font-family: 宋体;">进程会每</span><span style="font-family: &#39;Times New Roman&#39;;">15</span><span style="font-family: 宋体;">秒（默认值）检查一遍</span><span style="font-family: &#39;Times New Roman&#39;;">ring</span><span style="font-family: 宋体;">文件的修改时间</span><span style="font-family: &#39;Times New Roman&#39;;">mtime</span><span style="font-family: 宋体;">，如果发现和内存中的不一致，则重新加载</span><span style="font-family: &#39;Times New Roman&#39;;">ring</span></span><span style="font-family: 宋体;"><span style="font-size: 12pt;">文件到内存中去。</span></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="font-family: 宋体; font-size: medium;">　　<strong>举例说明</strong><br></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">　　</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">现在再增加一台存储节点node4</span><span style="font-family: 宋体;">并作为</span><span style="font-family: &#39;Times New Roman&#39;;">zone5</span><span style="font-family: 宋体;">，使用相同权重的</span><span style="font-family: &#39;Times New Roman&#39;;">devcie</span><span style="font-family: 宋体;">。那么每个存储节点上的</span><span style="font-family: &#39;Times New Roman&#39;;">partition</span><span style="font-family: 宋体;">数是</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">52428.8</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">。需要从每台存储节点上随机地移除</span><span style="font-family: &#39;Times New Roman&#39;;">13107.2</span><span style="font-family: 宋体;">个</span><span style="font-family: &#39;Times New Roman&#39;;">partition</span><span style="font-family: 宋体;">到收集列表，然后再重新分配这些</span><span style="font-family: &#39;Times New Roman&#39;;">parttion</span><span style="font-family: 宋体;">到</span><span style="font-family: &#39;Times New Roman&#39;;">node4</span><span style="font-family: 宋体;">上。当有</span><span style="font-family: &#39;Times New Roman&#39;;">partition</span><span style="font-family: 宋体;">的</span><span style="font-family: &#39;Times New Roman&#39;;">replica</span><span style="font-family: 宋体;">被重分配时，重分配的时间将被记录。</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">在RingBuilder</span><span style="font-family: 宋体;">类</span></span><span style="font-family: 宋体;"><span style="mso-spacerun: &#39;yes&#39;;">内</span><span style="mso-spacerun: &#39;yes&#39;;">使用</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">min_part_hours</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-size: 12pt;"><span style="font-family: 宋体;">来限制在规定时间内，同一个</span><span style="font-family: &#39;Times New Roman&#39;;">partition</span></span><span style="font-family: 宋体;"><span style="font-size: 12pt;">不会被移动两次。</span></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">　　由于收集用来重新分配</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">的</span><span style="font-family: &#39;Times New Roman&#39;;">partition</span><span style="font-family: 宋体;">是基于</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">随机</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">的</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">，</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">rebalacne</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">进程</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">并不能一次就</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">可以完美地重平衡</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">ring</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">。为了达到一个</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">较为</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">平衡的</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">ring</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">，</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">rebalacne</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">进程被重复执行直到接近完美(</span><span style="font-family: 宋体;">小于</span><span style="font-family: &#39;Times New Roman&#39;;">1%</span><span style="font-family: 宋体;">）或者当</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">rebalacne</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">的提升达不到最小值1%</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">。</span></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">　　具体的操作如下，首先</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-size: 12pt;"><span style="font-family: 宋体;">移除旧的</span><span style="font-family: &#39;Times New Roman&#39;;">ring</span></span><span style="font-family: 宋体;"><span style="font-size: 12pt;">文件：</span></span></span></span></p>
+<blockquote>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="color: #000000; font-family: &#39;Times New Roman&#39;;">rm -f account.builder account.ring.gz backups/account.builder backups/account.ring.gz</span></span></em></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="color: #000000; font-family: &#39;Times New Roman&#39;;">.......</span></span></em></p>
+
+
+
+
+
+
+
+</blockquote>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left">&nbsp;</p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="color: #000000;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">　　然后，重新平衡</span></span><span style="font-size: 12pt;"><span style="font-family: &#39;Times New Roman&#39;;">ring</span></span><span style="font-family: 宋体;"><span style="font-size: 12pt;">文件：</span></span></span></span></p>
+<blockquote>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;"><em>swift-ring-builder account.builder create 18 3 1</em></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder account.builder add z1-</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">50:6002/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder account.builder add z2-</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">51:6002/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder account.builder add z3-</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">52:6002/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder account.builder add z4-</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">54:6002/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #ff0000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder account.builder add z</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">5</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">-</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.53</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">:6002/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;"><em>swift-ring-builder account.builder rebalance</em></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left">&nbsp;</p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;"><em>swift-ring-builder container.builder create 18 3 1</em></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder container.builder add z1-</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">50:6001/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder container.builder add z2-</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">51:6001/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder container.builder add z3-</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">52:6001/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder container.builder add z4-</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">54:6001/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #ff0000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder container.builder add z</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">5</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">-</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">5</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">3</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">:6001/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;"><em>swift-ring-builder container.builder rebalance</em></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left">&nbsp;</p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;"><em>swift-ring-builder object.builder create 18 3 1</em></span></span></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder object.builder add z1-</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">50:6000/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder object.builder add z2-</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">51:6000/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder object.builder add z3-</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">52:6000/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #000000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder object.builder add z4-</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">54:6000/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="color: #ff0000;"><em><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">swift-ring-builder object.builder add z</span></span></span><span style="font-size: 12pt;"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">5</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">-</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">192.168.1.</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;">5</span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: 宋体;">3</span></span></span><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt;">:6000/sdc 100</span></span></span></em></span></p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="font-family: &#39;Times New Roman&#39;;"><span style="font-size: 12pt; color: #000000;"><em>swift-ring-builder object.builder rebalance</em></span></span></span></p>
+
+
+
+
+
+
+
+</blockquote>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left">&nbsp;</p>
+<p class="p0" style="text-indent: 0pt; margin: 0pt;" align="left"><span style="mso-spacerun: &#39;yes&#39;;"><span style="color: #000000;"><span style="font-family: 宋体;"><span style="font-size: 12pt;">　　最后，复制</span></span><span style="font-size: 12pt;"><span style="font-family: &#39;Times New Roman&#39;;">account.ring.gz</span><span style="font-family: 宋体;">、</span><span style="font-family: &#39;Times New Roman&#39;;">container.ring.gz</span><span style="font-family: 宋体;">、</span><span style="font-family: &#39;Times New Roman&#39;;">object.ring.gz</span><span style="font-family: 宋体;">到集群的各节点的</span><span style="font-family: &#39;Times New Roman&#39;;">/etc/swift</span></span><span style="font-family: 宋体;"><span style="font-size: 12pt;">目录下。这样我们就完成了Ring的重平衡(rebalance)。</span></span></span></span></p>
+
+
+
+
+
+
+
+</div></div><div id="MySignature"><br>
+<br>
+<p><span style="font-family: 幼圆; color: #000000; font-size: 14px;">---</span><span style="font-family: Comic Sans MS; color: #000000; font-size: 14px">我是低调的不显眼的简洁的不会被敌人发现的分割</span><span style="font-family: 幼圆; color: #000000; font-size: 14px">线---</span></p>
+<!-- JiaThis 代码 -->
+<div id="jiathis_style_32x32">
+<a class="jiathis_button_tsina" title="分享到新浪微博"><span class="jiathis_txt jtico jtico_tsina"></span></a>
+<a class="jiathis_button_tqq" title="分享到腾讯微博"><span class="jiathis_txt jtico jtico_tqq"></span></a>
+<a class="jiathis_button_renren" title="分享到人人网"><span class="jiathis_txt jtico jtico_renren"></span></a>
+<a class="jiathis_button_kaixin001" title="分享到开心网"><span class="jiathis_txt jtico jtico_kaixin001"></span></a>
+<a class="jiathis_button_douban" title="分享到豆瓣"><span class="jiathis_txt jtico jtico_douban"></span></a>
+<a class="jiathis_button_hi" title="分享到百度空间"><span class="jiathis_txt jtico jtico_hi"></span></a>
+<a class="jiathis_button_fanfou" title="分享到饭否"><span class="jiathis_txt jtico jtico_fanfou"></span></a>
+<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+<a class="jiathis_counter_style"><span class="jiathis_button_expanded jiathis_counter jiathis_bubble_style" id="jiathis_counter_19" title="累计分享3次">3</span></a>
+</div>
+<div style="position:absolute;width:0px;height:0px;"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="0" height="0" id="JIATHISSWF" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab"><param name="allowScriptAccess" value="always"><param name="swLiveConnect" value="true"><param name="movie" value="http://www.jiathis.com/code/swf/m.swf"><param name="FlashVars" value="z=a"><embed name="JIATHISSWF" src="http://www.jiathis.com/code/swf/m.swf" flashvars="z=a" width="0" height="0" allowscriptaccess="always" swliveconnect="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></object></div><!-- JiaThis Button END -->
+<br>
+<!-- 自定义代码 -->
+<br>
+<div style="background-color: #a2dcea;">
+<p><span style="font-family: Georgia; color: #000000; font-size: 12pt">&nbsp;&nbsp;&nbsp;&nbsp; This </span><span style="font-family: Georgia; color: #ff6600; font-size: 12pt">article</span><span style="font-family: Georgia; color: #ff0000; font-size: 12pt"> Powered </span><span style="font-family: Georgia; color: #008000; font-size: 12pt">by </span><strong><span style="font-family: Georgia; color: #0000ff; font-size: 12pt">努力</span><span style="font-family: Georgia; color: #0000ff; font-size: 12pt">的</span><span style="color: #808080; font-size: 12pt">牛皮</span><span style="color: #808080; font-size: 12pt">糖</span></strong><span></span></p>
+<div><strong><span style="color: #00ccff;"><span style="font-family: 宋体;"><span style="color: #0000ff;"><span style="widows: 2; text-transform: none; text-indent: 0px; border-collapse: separate; font: medium Simsun; white-space: normal; orphans: 2; letter-spacing: normal; color: #000000; word-spacing: 0px;"><span style="line-height: 21px; font-family: Comic Sans MS; color: #0000ff; font-size: 10pt">&nbsp;&nbsp; &nbsp; 新手上路，不恰之处，恳请指出，不胜感谢</span></span></span></span></span></strong></div>
+<p><strong><span style="color: #00ccff"><span style="font-family: 宋体"><span style="font-family: Comic Sans MS; color: #0000ff; font-size: 10pt">&nbsp;&nbsp; 转载请注明出处</span><span style="font-family: Comic Sans MS; color: #0000ff; font-size: 10pt">“</span><span style="color: #0000ff"><a href="http://www.cnblogs.com/yuxc/"><font color="#000000"><span style="font-family: Comic Sans MS; font-size: 10pt">一块努力的牛皮糖</span></font></a></span><span style="font-family: Comic Sans MS; color: #0000ff; font-size: 10pt">”：<a href="http://www.cnblogs.com/yuxc/"><font color="#000000"><span style="font-family: Comic Sans MS; font-size: 10pt">http://www.cnblogs.com/yuxc/</span></font></a></span></span></span></strong></p>
+<p><strong><span style="color: #00ccff;"><span style="font-family: 宋体;"><span style="color: #0000ff;"><span style="widows: 2; text-transform: none; text-indent: 0px; border-collapse: separate; font: medium Simsun; white-space: normal; orphans: 2; letter-spacing: normal; color: #000000; word-spacing: 0px;" class="Apple-style-span"><span style="line-height: 21px; font-family: Comic Sans MS; color: #0000ff; font-size: 10pt" class="Apple-style-span"></span></span></span></span></span></strong></p>
+</div>
+</div>
+<script type="text/javascript">
+var isLogined = false;
+var cb_blogId = 88100;
+var cb_entryId = 2568584;
+var cb_blogApp = currentBlogApp;
+var cb_blogUserGuid = "4e16972c-ba5d-e011-a53f-842b2b196315";
+var cb_entryCreatedDate = '2012/6/28 18:30:00';
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</script>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/yuxc/category/324510.html">Swift云存储</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/yuxc/tag/Python/">Python</a>, <a href="http://www.cnblogs.com/yuxc/tag/Swift/">Swift</a>, <a href="http://www.cnblogs.com/yuxc/tag/%E4%BA%91%E5%AD%98%E5%82%A8/">云存储</a>, <a href="http://www.cnblogs.com/yuxc/tag/Ring/">Ring</a></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/%e7%89%9b%e7%9a%ae%e7%b3%96NewPtone" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/yuxc/" target="_blank"><img src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/u288756.jpg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/yuxc/">牛皮糖NewPtone</a><br>
+<a href="http://home.cnblogs.com/u/yuxc/followees">关注 - 50</a><br>
+<a href="http://home.cnblogs.com/u/yuxc/followers">粉丝 - 98</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,&#39;Digg&#39;)"> 
+		<span class="diggnum" id="digg_count">1</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/yuxc/archive/2012/06/22/2558312.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/yuxc/archive/2012/06/22/2558312.html" title="发布于2012-06-22 08:50">深入云存储系统Swift核心组件：Ring实现原理剖析</a><br><a href="http://www.cnblogs.com/yuxc/archive/2012/07/04/2575536.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/yuxc/archive/2012/07/04/2575536.html" title="发布于2012-07-04 10:00">深入云存储系统Swift存储节点：存储实现分析</a><br></div>
+</div>
+<script type="text/javascript">
+    //SyntaxHighlighter.config.strings.expandSource = '<span><img src="http://static.cnblogs.com/images/expand-code.gif" alt="" class="expand-code-icon"/>View Code</span>';
+    $(function () {  
+        loadViewCount(cb_entryId);
+        fixPostBodyFormat();
+        loadAdUnderPost();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);        
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);        
+    });
+</script>
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2012-06-28 18:30</span> <a href="http://www.cnblogs.com/yuxc/">牛皮糖NewPtone</a> 阅读(<span id="post_view_count">2242</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://www.cnblogs.com/yuxc/admin/EditPosts.aspx?postid=2568584" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/yuxc/archive/2012/06/28/2568584.html#" onclick="AddToWz(2568584);return false;">收藏</a></div>
+	</div>
+	<script src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/2568584" type="text/javascript"></script>
+	
+</div><!--end: topics 文章、评论容器-->
+<div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="http://www.cnblogs.com/yuxc/archive/2012/06/28/2568584.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/yuxc/archive/2012/06/28/2568584.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+
+<script type="text/javascript">
+    if (typeof commentManager === 'undefined') {
+        commentManager = new blogCommentManager();
+    }
+    commentManager.loadCommentForm();   
+</script>
+
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="ad_under_post_holder">
+<div id="google_ad_c1" class="c_ad_block">
+    <!-- cnblogs_blogpost_C1_sitehome -->
+    <div id="div-gpt-ad-1346480159711-0" style="width:300px; height:250px;">
+    
+    <iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;"></iframe></div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/182345/" target="_blank">果冻豆迅速普及难解决Android碎片化问题</a><br> ·  <a href="http://news.cnblogs.com/n/182344/" target="_blank">阿里技术嘉年华7月14日上午场内容</a><br> ·  <a href="http://news.cnblogs.com/n/182343/" target="_blank">德国电信开售阿卡手机 搭载Firefox OS</a><br> ·  <a href="http://news.cnblogs.com/n/182342/" target="_blank">世界级3D设计师拉斐尔•格拉萨蒂访谈录</a><br> ·  <a href="http://news.cnblogs.com/n/182341/" target="_blank">Gartner：三星苹果将继续上演“双雄争霸”</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/182265/" target="_blank">硅谷归来7点分享：创业者，做你自己</a><br> ·  <a href="http://kb.cnblogs.com/page/182200/" target="_blank">我为什么不能坚持？</a><br> ·  <a href="http://kb.cnblogs.com/page/168725/" target="_blank">成为高效程序员的7个重要习惯</a><br> ·  <a href="http://kb.cnblogs.com/page/182047/" target="_blank">谈谈对BPM的理解</a><br> ·  <a href="http://kb.cnblogs.com/page/175976/" target="_blank">编程从业五年的十四条经验，句句朴实</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="google_ad_c2" class="c_ad_block">
+    <!-- cnblogs_blogpost_C2_sitehome -->
+    <div id="div-gpt-ad-1346479110744-1" style="width:468px; height:60px;">
+    
+    <iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div>
+</div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+</div>
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">牛皮糖的Blog</h3>
+	<div id="blog-news"><div>
+<div><span style="font-family: Comic Sans MS; color: #800080">This is a newbie' Blog...</span><span style="color: #0000ff"><span style="color: #0000ff"><span style="color: #0000ff"><img alt="" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/224027861.gif"></span></span></span></div></div>
+<p><span style="font-family: Comic Sans MS; color: #ff6600">Welcome here,If you like...</span><span style="color: #0000ff"><span style="color: #0000ff"><img alt="" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/224026855.gif"></span></span></p><p>&nbsp;</p><p><span style="font-family: &#39;Comic Sans MS&#39;; color: #0000ff; ">You could do something as follows:&nbsp;</span></p><div><ul><li><a href="http://www.cnblogs.com/yuxc/rss" rel="nofollow" target="_blank"><img border="0" alt="订阅我的博客" align="absMiddle" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/feed-icon32x32.png" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; border-bottom-width: medium; border-bottom-color: initial; border-left-width: medium; border-left-color: initial; border-top-width: medium; border-top-color: initial; border-right-width: medium; border-right-color: initial; ">&nbsp;订阅我的博客</a>&nbsp;</li><li><a href="http://weibo.com/nupta" rel="nofollow" target="_blank"><img border="0" alt="" align="absMiddle" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/sina.jpg" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; ">&nbsp;我的新浪微博</a>&nbsp;</li><li><a href="http://www.douban.com/people/Nupta/" target="_blank"><img align="absMiddle" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/douban.jpg" width="32" height="32" border="0" alt="" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; ">&nbsp;我的豆瓣</a>&nbsp;</li><li><a href="http://blog.163.com/yuxcer@126/" target="_blank"><img alt="YuxcBlog" align="absMiddle" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/ava.s" width="32" height="32" border="0" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; ">&nbsp;我的网易博客</a>&nbsp;</li><li><a href="http://www.google.com/reader/view/feed/http://www.cnblogs.com/yuxc/rss" rel="nofollow" target="_blank"><img border="0" alt="通过Google订阅本站" align="absMiddle" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/icon_subshot01_google.gif" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; "></a></li><li><a href="http://www.xianguo.com/subscribe.php?url=http://www.cnblogs.com/yuxc/rss" rel="nofollow" target="_blank"><img border="0" alt="通过鲜果订阅本站" align="absMiddle" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/icon_subshot01_xianguo.gif" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; "></a></li><li><a href="http://www.zhuaxia.com/add_channel.php?url=http://www.cnblogs.com/yuxc/rss" target="_blank"><img border="0" alt="抓虾" vspace="2" align="absMiddle" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/icon_subshot01_zhuaxia.gif" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; margin-bottom: 3px; "></a></li></ul></div><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/yuxc/">牛皮糖NewPtone</a><br>园龄：<a href="http://home.cnblogs.com/u/yuxc/" title="入园时间：2011-04-03">2年3个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/yuxc/followers/">98</a><br>关注：<a href="http://home.cnblogs.com/u/yuxc/followees/">50</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger(&#39;4e16972c-ba5d-e011-a53f-842b2b196315&#39;)">+加关注</a></div></div></div>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="displya:none"></div></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn">
+
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+
+</div>
+
+
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(218)</span></h3>
+
+<ul>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/yuxc/category/416768.html">DevOps(6)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/yuxc/category/359533.html">Linux集市(24)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/yuxc/category/400759.html">Mac OS(1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/yuxc/category/416451.html">OpenStack云计算(7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/yuxc/category/296453.html">Project 1：Audio(5)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/yuxc/category/296463.html">Project 2：Grid(7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/yuxc/category/431506.html">Puppet(2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/yuxc/category/296461.html">PYMOTW(1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/yuxc/category/314865.html">Python美味食谱(9)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/yuxc/category/307122.html">Python自然语言处理(71)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/yuxc/category/410887.html">StackOps(3)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/yuxc/category/324510.html">Swift云存储(18)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/yuxc/category/296455.html">ThinkPython(7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/yuxc/category/493381.html">生活和思考(1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/yuxc/category/318339.html">数据库(2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/yuxc/category/313480.html">网络编程(4)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/yuxc/category/307123.html">我在看的书(7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/yuxc/category/296458.html">形式化技术(7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/yuxc/category/296450.html">有趣的Python(22)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/yuxc/category/296486.html">杂货铺(14)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(215)</span></h3>
+
+<ul>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/yuxc/archive/2013/06.html">2013年6月 (2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/yuxc/archive/2013/04.html">2013年4月 (2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/yuxc/archive/2013/03.html">2013年3月 (2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/yuxc/archive/2013/02.html">2013年2月 (4)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/yuxc/archive/2012/12.html">2012年12月 (1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/yuxc/archive/2012/11.html">2012年11月 (10)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/yuxc/archive/2012/10.html">2012年10月 (3)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/yuxc/archive/2012/09.html">2012年9月 (6)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/yuxc/archive/2012/08.html">2012年8月 (8)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/yuxc/archive/2012/07.html">2012年7月 (4)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/yuxc/archive/2012/06.html">2012年6月 (4)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/yuxc/archive/2012/05.html">2012年5月 (7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/yuxc/archive/2012/03.html">2012年3月 (4)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/yuxc/archive/2012/02.html">2012年2月 (5)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/yuxc/archive/2012/01.html">2012年1月 (1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/yuxc/archive/2011/12.html">2011年12月 (2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/yuxc/archive/2011/11.html">2011年11月 (1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/yuxc/archive/2011/10.html">2011年10月 (2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/yuxc/archive/2011/09.html">2011年9月 (13)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/yuxc/archive/2011/08.html">2011年8月 (67)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/yuxc/archive/2011/07.html">2011年7月 (10)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/yuxc/archive/2011/06.html">2011年6月 (19)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/yuxc/archive/2011/05.html">2011年5月 (7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/yuxc/archive/2011/04.html">2011年4月 (20)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/yuxc/archive/2011/03.html">2011年3月 (9)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/yuxc/archive/2009/07.html">2009年7月 (1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/yuxc/archive/2008/10.html">2008年10月 (1)</a> </li>
+
+</ul>
+
+</div>
+
+
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	92647
+	</li>
+	<li class="liRank">
+		排名 -	1267
+	</li>
+</ul>
+</div>
+
+
+
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/yuxc/archive/2012/07/04/2575536.html#2726683">1. Re:深入云存储系统Swift存储节点：存储实现分析</a></li>
+    <li class="recent_comment_body">作者有没有研究过riak，和swift类似的云存储，用erlang编写，apache lisence。有兴趣可以一起讨论。<br><a href="http://basho.com/riak/" target="_blank">http://basho.com/riak/</a></li>
+    <li class="recent_comment_author">--IntoTheRain</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/yuxc/archive/2012/06/22/2558312.html#2720594">2. Re:深入云存储系统Swift核心组件：Ring实现原理剖析</a></li>
+    <li class="recent_comment_body">你好，首先谢谢作者能写这么好的博文让我们学习，我有一点不太明白博文中有这样一段， “所以在设置虚结点数的时候，需要对系统预期的规模做充分考虑，假如集群的规模不会超过6000个结点，那么可以将虚结点数设置为结点数的100倍。这样，变动任意一个结点的负载仅影响1%的数据项。此时有6百万个vnode数，使用2bytes来存储结点数(0~65535)。基本的内存占用是6*106*2bytes=12Mb，”...</li>
+    <li class="recent_comment_author">--SA高处不胜寒</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/yuxc/archive/2012/06/22/2558312.html#2696999">3. Re:深入云存储系统Swift核心组件：Ring实现原理剖析</a></li>
+    <li class="recent_comment_body"><a href="http://www.cnblogs.com/yuxc/archive/2012/06/28/2568584.html#2696938" title="查看所回复的评论">@</a>IntoTheRain<br>我在致谢里添加了详细说明，以杜绝抄袭之嫌。<br>另外感谢指出我的错误，关于虚拟节点的说明，已经更正。</li>
+    <li class="recent_comment_author">--牛皮糖NewPtone</li>
+</ul>
+</div>
+</div>
+</div>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2013 牛皮糖NewPtone
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<script type="text/javascript" src="./深入云存储系统Swift核心组件：Ring数据结构及构建、重平衡操作 - 牛皮糖NewPtone - 博客园_files/google-analytics.js"></script>
+
+
+</body></html>

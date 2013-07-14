@@ -1,0 +1,1542 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0059)http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/style.css">
+<link type="text/css" rel="stylesheet" href="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/common2.css">
+<link type="text/css" rel="stylesheet" href="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/shStyle.css">
+<link type="text/css" rel="stylesheet" href="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/customcss.aspx">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/yuxc/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/yuxc/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/yuxc/wlwmanifest.xml">
+<script async="" type="text/javascript" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/gpt.js"></script><script type="text/javascript" async="" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/ga.js"></script><script src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">
+var currentBlogApp = 'yuxc';
+</script>
+<script src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/common.js" type="text/javascript"></script> 
+<script src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/json2.js" type="text/javascript"></script>
+<script type="text/javascript" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/syntaxHighlighter.js"></script>
+<script async="" type="text/javascript" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/google_ads_gpt.js"></script><script type="text/javascript" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/osd.js"></script></head>
+<body><link href="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/jiathis_counter.css" rel="stylesheet" type="text/css"><script src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/jiathis.php" charset="utf-8"></script><link href="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/jiathis_share.css" rel="stylesheet" type="text/css"><iframe frameborder="0" style="position: absolute; display: none; opacity: 0;"></iframe><div class="jiathis_style" style="position: absolute; z-index: 1000000000; display: none; top: 50%; left: 50%; overflow: auto;"></div><div class="jiathis_style" style="position: absolute; z-index: 1000000000; display: none; overflow: auto;"></div><iframe frameborder="0" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/jiathis_utility.htm" style="display: none;"></iframe>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<script type="text/javascript">
+window.onload = show;
+function show(){
+ var h3 = document.getElementsByTagName('H3');
+ var len = h3.length;
+ var currH3;
+ for(var i = 0 ; i < len ; i++){
+    currH3 = h3[i].innerText;
+    if(currH3 == '公告'){
+        h3[i].innerText='牛皮糖的Blog';
+       }
+  }
+}
+</script>
+<!--PageBeginHtml Block End-->
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/yuxc/">牛皮糖的旅程</a></div>
+<div class="subtitle">Brick walls,they let us prove how badly we want things.    
+            --------摘自Randy Pausch的《最后一课》</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/yuxc/">首页</a></li>
+<li id="nav_q"><a class="menu" href="http://q.cnblogs.com/">博问</a></li>
+<li id="nav_ing"><a class="menu" href="http://home.cnblogs.com/ing/">闪存</a></li>
+<li id="nav_newpost"></li>
+<li id="nav_contact"><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://space.cnblogs.com/msg/send/%e7%89%9b%e7%9a%ae%e7%b3%96NewPtone">联系</a></li>
+<li id="nav_rss">
+<!----></li>
+<li id="nav_admin"><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://www.cnblogs.com/yuxc/admin/EditPosts.aspx">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔-215&nbsp;
+文章-0&nbsp;
+评论-165&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+	
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园.htm">Swift 云存储技术详解</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><div>
+<h1><strong><span style="font-size: 16pt; line-height: 115%; font-family: &#39;Comic Sans MS&#39;;">Swift云存储<span style="font-family: 宋体;"><span style="font-family: &#39;Comic Sans MS&#39;;">技术详解：综述与概念</span></span></span></strong></h1>
+<p><span style="font-size: 12pt;">&nbsp; &nbsp; &nbsp; &nbsp;</span><span style="font-family: &#39;Times New Roman&#39;, serif; font-size: 12pt;">OpenStack Object Storage (Swift)&nbsp;</span><span style="font-family: 宋体; font-size: 12pt;">是用来创建冗余的、可扩展的对象存储（引擎）的开源软件。通过阅读Swift的技术文档，我们可以理解其中的设计的原理和实现的方法</span><span style="font-size: 12pt;">&nbsp;。</span></p>
+<p><span style="font-size: 12pt;">&nbsp; &nbsp; &nbsp; &nbsp;</span><span style="font-size: 12pt;">Swift项目已经进展有两年了，对外开放也一年有余，在国外的社区你可以获得许多帮助，但在国内只能找到一些零零散散不齐全的资料，许多人更喜欢坐享其成，而不是参与其中。</span><span style="font-size: 12pt;">本人于9月底开始接触swift，刚开始看文档的时候一知半解，有幸阅读了zzcase等人的博客，才得以入门。</span><span style="font-size: 12pt;">非常赞同</span><a style="color: #336699; text-decoration: none; font-family: Arial; line-height: 26px; text-align: left; background-color: #ffffff;" href="http://dreamhead.blogbus.com/"><span style="font-size: 12pt;">郑烨</span></a><span style="font-size: 12pt;">在某本书序言中所说的话：</span><span style="font-size: 12pt;">“翻译向来是一件费力不讨好的事情。”</span><span style="font-size: 12pt;">。本人</span><span class="Apple-style-span" style="font-size: 16px; line-height: 24px;">本着知识共享、共同进步的目的，与诸位分享。随着对swift设计原理的理解和源码的深入，文档经过数次反复的修改，希望对各位学习swift的童鞋有所帮助，水平有限，若各位发现有错误之处，恳请指出。文档中的红字部分表示还需斟酌，欢迎提出各种建议和想法。</span></p>
+<p><span style="font-size: 12pt;">&nbsp;</span><span style="font-size: 12pt;">转载请注明译者和出处，谢谢！</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size: 16.0pt; line-height: 115%;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></strong><strong><span style="font-size: 16.0pt; line-height: 115%; color: #c0504d;">Overview and Concepts<strong></strong></span></strong></p>
+<div style="border: none; border-top: solid #C0504D 1.5pt; padding: 1.0pt 0cm 0cm 0cm;">
+<p style="text-align: right;" align="right">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong><span style="font-family: &#39;Comic Sans MS&#39;;">&nbsp; &nbsp;&nbsp;</span></strong></p>
+<div style="display: inline-block;">
+<div>
+<p class="MsoTitle" style="text-align: left;" align="left"><strong><span lang="EN-US">Translate&nbsp;by&nbsp;</span><span style="font-family: 宋体; mso-ascii-font-family: Cambria; mso-hansi-font-family: Cambria;">余兴超</span></strong></p>
+<p class="MsoTitle" style="text-align: left;" align="left"><span lang="EN-US">Begin @
+2011/10/11 &nbsp;</span></p>
+<p class="MsoTitle" style="text-align: left;" align="left"><span lang="EN-US">UPDATE
+2011/12/6 &nbsp;</span></p>
+</div>
+</div>
+<strong style="text-align: justify; font-family: &#39;Comic Sans MS&#39;;">&nbsp;</strong><strong style="text-align: justify;">&nbsp; &nbsp;</strong></div><p>原文链接：&nbsp;<a id="Editor_Edit_hlEntryLink" title="view: Swift 技术详解" href="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园.htm" target="_blank" style="color: #002c99; text-decoration: none; background: inherit; font-family: Verdana; font-size: 13px; line-height: normal; background-color: #f5f5f5; ">http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html</a>&nbsp;&nbsp;</p>
+<div>
+<div style="border: none; border-top: solid #C0504D 1.5pt; padding: 1.0pt 0cm 0cm 0cm;">&nbsp;</div>
+<p><span style="font-family: &#39;Times New Roman&#39;, serif;"><br></span></p>
+<p><strong><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;">&nbsp;</span></strong><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">0.</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">术语约定</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.................................................................................................................... </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">3</span></p>
+<div style="display: inline-block;">
+<div>
+<p class="MsoToc1"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">1</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US"> Swift
+Architectural Overview &nbsp; Swift</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;">架构</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">概述</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">........................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";font-weight:normal;
+mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span>
+PAGEREF _Toc307940373 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">3<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300370033000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";font-weight:normal;mso-bidi-font-weight:
+bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">1.1 Proxy Server
+&nbsp;</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">代理服务器</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">...................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940374 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">3<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300370034000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">1.2 The Ring
+&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">环</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.......................................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940375 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">4<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300370035000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">1.3 Object
+Server &nbsp;</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">对象服务器</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940376 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">4<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300370036000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">1.4 Container
+Server </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">容器服务器</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">................................................................................ </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940377 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">5<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300370037000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">1.5 Account
+Server &nbsp;</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">帐号服务器</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">................................................................................. </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940378 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">5<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300370038000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">1.6 Replication
+&nbsp;</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">复制</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.................................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940379 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">5<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300370039000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">1.7 Updaters
+&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">更新器</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.................................................................................................. </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940380 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">5<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300380030000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">1.8 Auditors
+&nbsp;</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">审计器</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.................................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940381 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">6<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300380031000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc1"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">2. The Rings &nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">环</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">..................................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";font-weight:normal;
+mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span>
+PAGEREF _Toc307940382 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">6<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300380032000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";font-weight:normal;mso-bidi-font-weight:
+bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">2.1 Ring Builder
+&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">环构造器</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">........................................................................................ </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940383 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">7<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300380033000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">2.2 Ring Data
+Structure &nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">环数据结构</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">........................................................................ </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940384 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">7<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300380034000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc3"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">2.2.1 List of Devices &nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">设备列表</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.............................................................................. </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF
+_Toc307940385 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">8<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300380035000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc3"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">2.2.2 Partition Assignment List &nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">虚节点</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;">分配</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">列表</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">................................................. </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF
+_Toc307940386 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">8<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300380036000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc3"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">2.2.3 Partition Shift Value &nbsp;</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">虚节点</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;">位移</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">值</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">............................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF
+_Toc307940387 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">9<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300380037000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">2.3 Building the
+Ring &nbsp;</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">构建环</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">...................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940388 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">9<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300380038000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">2.4 History
+&nbsp;</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">发展史</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.................................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940389 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">10<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300380039000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc1"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">3. The Account Reaper &nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">账号收割器</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">........................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";font-weight:normal;
+mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span>
+PAGEREF _Toc307940390 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">13<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300390030000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";font-weight:normal;mso-bidi-font-weight:
+bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">3.1 History </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">发展史</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">..................................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940391 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">14<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300390031000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc1"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">4. The Auth System &nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">认证系统</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">........................................................................ </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";font-weight:normal;
+mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span>
+PAGEREF _Toc307940392 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">15<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300390032000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";font-weight:normal;mso-bidi-font-weight:
+bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">4.1 TempAuth.............................................................................................................. </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940393 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">15<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300390033000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">4.2 Extending
+Auth &nbsp;</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">扩展认证</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.................................................................................. </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940394 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">17<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300390034000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc1"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">5. </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">Replication &nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">复制</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">......................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";font-weight:normal;
+mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span>
+PAGEREF _Toc307940395 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">17<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300390035000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";font-weight:normal;mso-bidi-font-weight:
+bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">5.1 DB Replication &nbsp;DB</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;">复制器</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">................................................................................. </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940396 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">19<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300390036000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">5.2 Object Replication &nbsp;</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;">对象复制</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.............................................................................. </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940397 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">20<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300390037000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc1"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">5. Rate
+Limiting&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;">速率限制</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">................................................................................ </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";font-weight:normal;
+mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span>
+PAGEREF _Toc307940398 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">21<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300390038000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";font-weight:normal;mso-bidi-font-weight:
+bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">5.1 Configuration&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;">配置</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.............................................................................................. </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940399 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">21<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003300390039000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc1"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">6. Large Object Support&nbsp;&nbsp;&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">大对象支持</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">........................................................ </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";font-weight:normal;
+mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span>
+PAGEREF _Toc307940400 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">23<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400300030000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";font-weight:normal;mso-bidi-font-weight:
+bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">6.1
+Overview&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">概述</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">..................................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940401 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">23<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400300031000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">6.2
+Using&nbsp;swift&nbsp;for Segmented Objects&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">使用</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">swift</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">来分割对象</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">............................. </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940402 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">24<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400300032000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">6.3 Direct
+API&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">直接的</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">API....................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940403 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">25<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400300033000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">6.4 Additional
+Notes&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">其他注意事项</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">........................................................................ </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940404 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">27<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400300034000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">6.5
+History&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">发展史</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">.................................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940405 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">28<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400300035000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc1"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">7. Container to Container Synchronization&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">容器同步</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">............... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";font-weight:normal;
+mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span>
+PAGEREF _Toc307940406 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">30<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400300036000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";font-weight:normal;mso-bidi-font-weight:
+bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">7.1
+Overview&nbsp; </span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">概述</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">..................................................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940407 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">30<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400300037000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">7.2 Configuring
+a Cluster’s Allowable Sync Hosts..................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940408 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">31<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400300038000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;">配置一个集群容许的同步主机</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">................................................................................. </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span></span><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+mso-fareast-language:ZH-CN;font-weight:normal;mso-bidi-font-weight:bold;
+mso-no-proof:yes'> PAGEREF _Toc307940409 \h </span><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">31</span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">7.3 Using
+the&nbsp;swift&nbsp;tool to set up synchronized containers......................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940410 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">32<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400310030000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;">使用</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">swift</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;">工具来设置同步容器</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">............................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span></span><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+mso-fareast-language:ZH-CN;font-weight:normal;mso-bidi-font-weight:bold;
+mso-no-proof:yes'> PAGEREF _Toc307940411 \h </span><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">32</span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">7.4 Using curl
+(or other tools) instead.......................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940412 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">35<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400310032000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">使用</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">curl(</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">或其他工具代替</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">)........................................................................................ </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940413 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">35<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400310033000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">7.5 What’s going
+on behind the scenes, in the cluster?............................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span> PAGEREF _Toc307940414 \h <span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">36<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054006F0063003300300037003900340030003400310034000000</w:data>
+</xml><![endif]--></span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<p class="MsoToc2"><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;">在集群中，后台正在运行着什么？</span><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">......................................................................... </span><!--[if supportFields]><span lang="EN-US" style='font-family:"Times New Roman","serif";mso-bidi-font-family:
+Calibri;font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-begin'></span></span><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+mso-fareast-language:ZH-CN;font-weight:normal;mso-bidi-font-weight:bold;
+mso-no-proof:yes'> PAGEREF _Toc307940415 \h </span><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-separator'></span></span><![endif]--><span style="font-family: &#39;Comic Sans MS&#39;; font-size: 12pt;" lang="EN-US">36</span><!--[if supportFields]><span lang="EN-US
+style='font-family:"Times" New Roman","serif";mso-bidi-font-family:Calibri;
+font-weight:normal;mso-bidi-font-weight:bold;mso-no-proof:yes'><span style='mso-element:field-end'></span></span><![endif]--></p>
+<!--[if supportFields]><span lang="EN-US" style='font-size:12.0pt;mso-bidi-font-size:
+10.0pt;line-height:115%;font-family:"Times New Roman","serif";mso-fareast-font-family:
+宋体;mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:EN-US'><span style='mso-element:field-end'></span></span><![endif]--></div>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div>
+<p>&nbsp;</p>
+<div style="border: none; border-top: solid #C0504D 1.5pt; padding: 1.0pt 0cm 0cm 0cm;">
+<p><span style="font-size: 14pt;">0.</span><span style="font-family: 宋体; font-size: 14pt;">术语约定</span></p>
+</div>
+<p style="margin-bottom: 2.0pt;">&nbsp;</p>
+<ul>
+<li><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">ring </span><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">环</span></li>
+<li><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">account </span><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">帐号</span></li>
+<li><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">container </span><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">容器</span></li>
+<li><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">object </span><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">对象</span></li>
+<li><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">zone </span><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">区域</span></li>
+<li><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">devcie </span><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">设备</span></li>
+<li><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">partition </span><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">虚节点</span></li>
+<li><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">replica </span><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">副本</span></li>
+<li><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">replication </span><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">复制</span></li>
+<li><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">Weight </span><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">权重</span></li>
+<li><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">Cluster </span><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">集群</span></li>
+<li><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">consistency window </span><span style="font-size: 12pt; font-family: &#39;Comic Sans MS&#39;;">一致性窗口</span></li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div style="border: none; border-top: solid #C0504D 1.5pt; padding: 1.0pt 0cm 0cm 0cm;">
+<p><span style="font-size: 14pt;">1. Swift Architectural Overview &nbsp; Swift</span><span style="font-family: 宋体; font-size: 14pt;">架构</span><span style="font-family: 宋体; font-size: 14pt;">概述</span></p>
+</div>
+<h1><span style="font-size: 14pt;">1.1 Proxy Server &nbsp;</span><span style="font-family: 宋体; font-size: 14pt;">代理服务器</span></h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">代理服务器负责</span>Swift<span style="font-family: 宋体;">架构的其余组件间的相互通信。对于每个客户端的请求，它将在环中查询帐号、容器或者对象的位置并且相应地转发请求。也可以使用公共</span>API<span style="font-family: 宋体;">向代理服务器发送请求。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">代理服务器也处理大量的失败请求。例如，如果对于某个对象</span>PUT<span style="font-family: 宋体;">请求时，某个存储节点不可用，它将会查询环可传送的服务器并转发请求。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">对象以流的形式到达（来自）</span> <span style="font-family: 宋体;">对象服务器，它们直接从代理服务器传送到（来自）用户</span>—<span style="font-family: 宋体;">代理服务器并不缓冲它们。</span></p>
+<h1><span style="font-size: 14pt;">1.2 The Ring &nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">环</span></h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">环表示存储在硬盘上的实体名称和物理位置间的映射。帐号、容器、对象都有相应的环。当</span>swift<span style="font-family: 宋体;">的其它组件</span>(<span style="font-family: 宋体;">比如复制</span>)<span style="font-family: 宋体;">要对帐号、容器或对象操作时，需要查询相应的环来确定它在集群上的位置。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">环使用区域、设备、虚节点和副本来维护这些映射信息。环中每个虚节点在集群中都</span>(<span style="font-family: 宋体;">默认</span>)<span style="font-family: 宋体;">有</span>3<span style="font-family: 宋体;">个副本。每个虚节点的位置由环来维护</span>,<span style="font-family: 宋体;">并存储在映射中。当代理服务器转发的客户端请求失败时，环也负责决定由哪一个设备来接手请求。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">环使用了区域的概念来保证数据的隔离。每个虚节点的副本都确保放在了不同的区域中。一个区域可以是一个磁盘，一个服务器，一个机架，一个交换机，甚至是一个数据中心。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">在</span>swift<span style="font-family: 宋体;">安装的时候，环的虚节点会均衡地划分到所有的设备中。当虚节点需要移动时</span>(<span style="font-family: 宋体;">例如新设备被加入到集群</span>)<span style="font-family: 宋体;">，环会确保一次移动最少数量的虚节点数，并且一次只移动一个虚节点的一个副本。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">权重可以用来平衡集群中虚节点在驱动器上的分布。例如，当不同大小的驱动器被用于集群中时就显得非常有用。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring<span style="font-family: 宋体;">被代理服务器和一些后台程序使用（如</span>replication<span style="font-family: 宋体;">）。</span></p>
+<h1><span style="font-size: 14pt;">1.3 Object Server &nbsp;</span><span style="font-family: 宋体; font-size: 14pt;">对象服务器</span></h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">对象服务器是一个简单的二进制大对象存储服务器，可以用来存储、检索和删除本地设备上的对象。在文件系统上，对象以二进制文件的形式存储，它的元数据存储在文件系统的扩展属性</span>(xattrs)<span style="font-family: 宋体;">中。这要求用于对象服务器的文件系统需要支持文件有扩展属性。一些文件系统，如</span>ext3<span style="font-family: 宋体;">，它的</span>xattrs<span style="font-family: 宋体;">属性默认是关闭的。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">每个对象使用对象名称的哈希值和操作的时间戳组成的路径来存储。最后一次写操作总可以成功，并确保最新一次的对象版本将会被处理。删除也被视为文件的一个版本（一个以</span>".ts"<span style="font-family: 宋体;">结尾的</span>0<span style="font-family: 宋体;">字节文件，</span>ts<span style="font-family: 宋体;">表示墓碑）。这确保了被删除的文件被正确地复制并且不会因为遭遇故障场景导致早些的版本神奇再现。</span></p>
+<h1><span style="font-size: 14pt;">1.4 Container Server </span><span style="font-family: 宋体; font-size: 14pt;">容器服务器</span></h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">容器服务器的首要工作是处理对象的列表。容器服务器并不知道对象存在哪，只知道指定容器里存的哪些对象。</span> <span style="font-family: 宋体;">这些对象信息以</span>sqlite<span style="font-family: 宋体;">数据库文件的形式存储，和对象一样在集群上做类似的备份。容器服务器也做一些跟踪统计，比如对象的总数，容器的使用情况。</span>&nbsp;</p>
+<h1><span style="font-size: 14pt;">1.5 Account Server &nbsp;</span><span style="font-family: 宋体; font-size: 14pt;">帐号服务器</span></h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">帐号服务器与容器服务器非常相似，除了它是负责处理容器的列表而不是对象。</span></p>
+<h1><span style="font-size: 14pt;">1.6 Replication &nbsp;</span><span style="font-family: 宋体; font-size: 14pt;">复制</span></h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">复制是设计在面临如网络中断或者驱动器故障等临时性故障情况时来保持系统的一致性。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">复制进程将本地数据与每个远程拷贝比较以确保它们都包含有最新的版本。对象复制使用一个哈希列表来快速地比较每个虚节点的子段，<span style="color: red;">容器和帐号的复制使用哈希值和共享的高水位线的组合进行版本比较</span>。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">复制更新基于推模式的。对于对象的复制，更新只是使用</span>rsync<span style="font-family: 宋体;">同步文件到对等节点。帐号和容器的复制通过</span>HTTP<span style="font-family: 宋体;">或</span>rsync<span style="font-family: 宋体;">来推送整个数据库文件上丢失的记录。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">复制器也确保数据已从系统中移除。当有一项（对象、容器、或者帐号）被删除，则一个墓碑文件被设置作为该项的最新版本。复制器将会检测到该墓碑文件并确保将它从整个系统中移除。</span></p>
+<h1><span style="font-size: 14pt;">1.7 Updaters &nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">更新器</span></h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">在一些情况下，容器或帐号中的数据不会被立即更新。</span><span style="font-family: 宋体;">这种情况经常发生在系统故障或者是高负荷的情况下。如果更新失败，该次更新在本地文件系统上会被加入队列，然后更新器会继续处理这些失败了的更新工作。</span><span style="font-family: 宋体;">最终，一致性窗口将会起作用。例如，假设一个容器服务器处于负荷之下，此时一个新的对象被加入到系统。当代理服务器成功地响应客户端的请求，这个对象将变为直接可用的。但是容器服务器并没有更新对象列表，因此此次更新将进入队列等待延后的更新。所以，容器列表不可能马上就包含这个新对象。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">在实际使用中，一致性窗口的大小和更新器的运行频度一致，因为代理服务器会转送列表请求给第一个响应的容器服务器，所以可能不会被注意到。当然，负载下的服务器不应该再去响应后续的列表请求，其他</span>2<span style="font-family: 宋体;">个副本中的一个应该处理这些列表请求。</span></p>
+<h1><span style="font-size: 14pt;">1.8 Auditors &nbsp;</span><span style="font-family: 宋体; font-size: 14pt;">审计器</span></h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">审计器会在本地服务器上反复地爬取来检测对象、容器、帐号的完整性。一旦发现不完整的数据</span>(<span style="font-family: 宋体;">例如，发生了</span>bit rot<span style="font-family: 宋体;">的情况：可能改变代码</span>)<span style="font-family: 宋体;">，该文件就会被隔离，然后复制器会从其他的副本那里把问题文件替换。如果其他错误出现</span>(<span style="font-family: 宋体;">比如在任何一个容器服务器中都找不到所需的对象列表</span>)<span style="font-family: 宋体;">，还会记录进日志。</span></p>
+<p>&nbsp;</p>
+<div style="border: none; border-top: solid #C0504D 1.5pt; padding: 1.0pt 0cm 0cm 0cm;">
+<p>2. The Rings &nbsp; <span style="font-family: 宋体;">环</span></p>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">环决定数据在集群中的位置。帐号数据库、容器数据库和单个对象的环都有独立的环管理，不过每个环均以相同的方式工作。这些环被外部工具管理，服务器进程并不修改环，而是由其他工具修改并传送新的环。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">环从路径的</span>MD5<span style="font-family: 宋体;">哈希值中使用可配置的比特数，该比特位作为一个虚节点的索引来指派设备。从该哈希值中保留的比特数称为虚节点的幂，并且</span>2<span style="font-family: 宋体;">的虚节点的幂次方表示虚节点的数量。<span style="color: red;">使用完全</span></span><span style="color: red;">MD5</span><span style="font-family: 宋体; times new roman&quot;4times new roman&quot;;color: red;">哈希值来划分，环允许集群的其他组件一次以分批的项来工作，这将更有效率地完成，或者至少比独立地处理每一个项或者整个集群同时工作的复杂度更低。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">另一个可配置的值是副本数量，表示有多少个虚节点</span>-&gt;<span style="font-family: 宋体;">设备分派来构成单个环。给定一个虚节点编号，每个副本的设备将不会与其它副本的设备在同一个区域内。区域可以基于物理位置、电力分隔、网络分隔或者其它可以减少多个副本在同个时间点上失效的属性用来聚合设备。</span></p>
+<h1><span style="font-size: 14pt;">2.1 Ring Builder &nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">环构造器</span></h1>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">使用工具</span>ring-builder<span style="font-family: 宋体;">来手动地构建和管理环。</span>ring-builder<span style="font-family: 宋体;">将虚节点分配到设备并且</span><span style="font-family: 宋体;">生成</span><span style="font-family: 宋体;">一个优化的</span>Python<span style="font-family: 宋体;">结构</span><span style="font-family: 宋体;">，之后打包</span>(gzipped)<span style="font-family: 宋体;">、</span><span style="font-family: 宋体;">序列化</span>(pickled)<span style="font-family: 宋体;">，</span><span style="font-family: 宋体;">保存到磁盘上，用</span><span style="font-family: 宋体;">以</span><span style="font-family: 宋体;">服务器</span><span style="font-family: 宋体;">的传送</span><span style="font-family: 宋体;">。</span><span style="font-family: 宋体;">服务器进程只是不定时地检测文件的修改时间，如果需要就重新加载环结构在内存中的拷贝。<span style="color: red;">因为</span></span><span style="color: red;">ring-builder</span><span style="font-family: 宋体; times new roman&quot;4times new roman&quot;;color: red;">管理环的变化的方式，使用一个稍旧的环仅意味对于的一小部分的虚节点，它的</span><span style="color: red;">3</span><span style="font-family: 宋体; times new roman&quot;4times new roman&quot;; color: red;">个副本中的一个不正确，这还是容易解决的。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-builder<span style="font-family: 宋体;">也存有它本身关于环信息的构造器文件和额外所需用来构建新环的数据。保存多份构建器文件的备份拷贝非常重要。一种选择是当复制这些环文件时，复制这些构造器文件到每个服务器上。另一种这是上传构造器文件到集群中。构造器文件的完整性受损将意味着要重新创建一些新的环，几乎所有的虚节点将最终分配到不同的设备，因此几乎所有的数据将不得不复制到新的位置上。<span style="color: red;">所以，从一个受损的构建器文件恢复是有可能的，但是会造成数据在一段时间内不可用。</span></span></p>
+<h1><span style="font-size: 14pt;">2.2 Ring Data Structure &nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">环数据结构</span></h1>
+<p><span style="font-family: 宋体;">环的数据结构由三个顶层域组成：在集群中<strong>设备的列表</strong>；<strong>设备</strong></span><strong>id</strong><strong><span style="font-family: 宋体;">列表的列表</span></strong><span style="font-family: 宋体;">，表示虚节点到设备的指派；以及表示</span><strong>MD5 hash</strong><strong><span style="font-family: 宋体;">值位移的位数</span></strong><span style="font-family: 宋体;">来计算该哈希值对应的虚节点。</span></p>
+<p>2.2.1 List of Devices &nbsp; <span style="font-family: 宋体;">设备列表</span></p>
+<p><span style="font-family: 宋体;">设备的列表在</span>Ring<span style="font-family: 宋体;">类内部被称为</span>devs<span style="font-family: 宋体;">。设备列表中的每一项为带有以下键的字典：</span></p>
+<table style="margin-left: -6.0pt; border-collapse: collapse; border: none;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="width: 41.6pt; border: inset 1.0pt; border-bottom: solid #AAAAAA 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="55">
+<p><strong>id</strong></p>
+</td>
+<td style="width: 42.55pt; border-top: inset 1.0pt; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="57">
+<p><strong>integer</strong></p>
+</td>
+<td style="width: 343.3pt; border-top: inset 1.0pt; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="458">
+<p>&nbsp;<span style="font-family: 宋体;">所列设备中的索引</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 41.6pt; border-top: none; border-left: inset 1.0pt; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="55">
+<p><strong>zone</strong></p>
+</td>
+<td style="width: 42.55pt; border-top: none; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="57">
+<p><strong>integer</strong></p>
+</td>
+<td style="width: 343.3pt; border-top: none; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="458">
+<p><span style="font-family: 宋体;">设备所在的区域</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 41.6pt; border-top: none; border-left: inset 1.0pt; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="55">
+<p><strong>weight</strong></p>
+</td>
+<td style="width: 42.55pt; border-top: none; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="57">
+<p><strong>float</strong></p>
+</td>
+<td style="width: 343.3pt; border-top: none; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="458">
+<p><span style="font-family: 宋体;">该设备与其他设备的相对权重。这常常直接与设备的磁盘空间数量和其它设备的磁盘空间数量的比有关。例如，一个</span>1T<span style="font-family: 宋体;">大小的设备有</span>100<span style="font-family: 宋体;">的权重而一个</span>2T<span style="font-family: 宋体;">大小的磁盘将有</span>200<span style="font-family: 宋体;">的权重。这个权重也可以被用于恢复一个超出或少于所需数据的磁盘。一个良好的平均权重</span>100<span style="font-family: 宋体;">考虑了灵活性，如果需要日后可以降低该权重。</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 41.6pt; border-top: none; border-left: inset 1.0pt; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="55">
+<p><strong>ip</strong></p>
+</td>
+<td style="width: 42.55pt; border-top: none; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="57">
+<p><strong>string</strong></p>
+</td>
+<td style="width: 343.3pt; border-top: none; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="458">
+<p><span style="font-family: 宋体;">包含该设备的服务器</span>IP<span style="font-family: 宋体;">地址</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 41.6pt; border-top: none; border-left: inset 1.0pt; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="55">
+<p><strong>port</strong></p>
+</td>
+<td style="width: 42.55pt; border-top: none; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="57">
+<p><strong>int</strong></p>
+</td>
+<td style="width: 343.3pt; border-top: none; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="458">
+<p><span style="font-family: 宋体;">服务器进程所使用的</span>TCP<span style="font-family: 宋体;">端口用来提供该设备的服务请求</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 41.6pt; border-top: none; border-left: inset 1.0pt; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="55">
+<p><strong>device</strong></p>
+</td>
+<td style="width: 42.55pt; border-top: none; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="57">
+<p><strong>string</strong></p>
+</td>
+<td style="width: 343.3pt; border-top: none; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="458">
+<p>sdb1 &nbsp; <span style="font-family: 宋体;">服务器上设备的磁盘名称。例如：</span>sdb1</p>
+</td>
+</tr>
+<tr>
+<td style="width: 41.6pt; border-top: none; border-left: inset 1.0pt; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="55">
+<p><strong>meta</strong></p>
+</td>
+<td style="width: 42.55pt; border-top: none; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="57">
+<p><strong>string</strong></p>
+</td>
+<td style="width: 343.3pt; border-top: none; border-left: none; border-bottom: solid #AAAAAA 1.0pt; border-right: inset 1.0pt; padding: .75pt 6.0pt .75pt 0cm;" width="458">
+<p><span style="font-family: 宋体;">存储设备额外信息的通用字段。该信息并不直接被服务器进程使用，但是在调试时会派上用场。例如，安装的日期和时间和硬件生产商可以存储在这。</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><span style="font-family: 宋体;">注意：设备的列表可能包含了</span>holes<span style="font-family: 宋体;">，或设为</span>None<span style="font-family: 宋体;">的索引，表示已经从集群移除的设备。一般地，设备的</span>id<span style="font-family: 宋体;">不会被重用。一些设备也可以通过设置权重为</span>0.0<span style="font-family: 宋体;">来暂时地被禁用。为了获得有效设备的列表（例如，用于运行时间轮询），</span>Python<span style="font-family: 宋体;">代码如下：</span>devices&nbsp;=&nbsp;[device&nbsp;for&nbsp;device&nbsp;in&nbsp;self.devs&nbsp;if&nbsp;device&nbsp;and&nbsp;device['weight']]</p>
+<p>2.2.2 Partition Assignment List &nbsp; <span style="font-family: 宋体;">虚节点</span><span style="font-family: 宋体;">分配</span><span style="font-family: 宋体;">列表</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">这是设备</span>id<span style="font-family: 宋体;">的</span>array('I')<span style="font-family: 宋体;">组成</span><span style="font-family: 宋体;">的列表。列表</span><span style="font-family: 宋体;">中</span><span style="font-family: 宋体;">包含了每个副本的</span><span style="font-family: 宋体;">数组</span>array('I')<span style="font-family: 宋体;">。</span><span style="font-family: 宋体;">每个</span>array('I')<span style="font-family: 宋体;">的长度等于环的虚节点数。</span><span style="font-family: 宋体;">在</span>array('I')<span style="font-family: 宋体;">中的每个整数是到上面设备列表的索引。虚节点列表在</span>Ring<span style="font-family: 宋体;">类内部被称为</span>_replica2part2dev_id<span style="font-family: 宋体;">。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">因此，创建</span><span style="font-family: 宋体;">指派到</span><span style="font-family: 宋体;">一个虚节点</span><span style="font-family: 宋体;">的</span><span style="font-family: 宋体;">设备字典的列表，</span>Python<span style="font-family: 宋体;">代码如下：</span>devices&nbsp;=[self.devs[part2dev_id[partition]]&nbsp;for&nbsp;part2dev_id&nbsp;in&nbsp;self._replica2part2dev_id]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; array('I')<span style="font-family: 宋体;">适合保存在内存中，因为可能有几百万个虚节点。</span></p>
+<p>2.2.3 Partition Shift Value &nbsp;<span style="font-family: 宋体;">虚节点</span><span style="font-family: 宋体;">位移</span><span style="font-family: 宋体;">值</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">虚节点的位移值在</span>Ring<span style="font-family: 宋体;">类内部称为</span>_part_shift<span style="font-family: 宋体;">。这个值用于转换一个</span>MD5<span style="font-family: 宋体;">的哈希值来计算虚节点，对于那个哈希值是哪个数据。仅哈希值的前</span>4<span style="font-family: 宋体;">个字节被用于这个过程。例如，为了计算路径</span>/account/container/object<span style="font-family: 宋体;">的虚节点，</span>Python<span style="font-family: 宋体;">代码如下：</span></p>
+<p>partition&nbsp;=&nbsp;unpack_from('&gt;I',md5('/account/container/object').digest())[0]&nbsp;&gt;&gt;&nbsp;self._part_shift</p>
+<h1><span style="font-size: 14pt;">2.3 Building the Ring &nbsp;</span><span style="font-family: 宋体; font-size: 14pt;">构建环</span></h1>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">环的初始化构建首先基于设备的权重来计算理想情况下分配给每个设备的虚节点数量。例如，如虚节点幂为</span>20<span style="font-family: 宋体;">，则环有</span>1,048,576<span style="font-family: 宋体;">个虚节点。如果有</span>1000<span style="font-family: 宋体;">个相同权重的设备，那么它们每个分到</span>1,048.576<span style="font-family: 宋体;">个虚节点。设备通过它们要求的虚节点数来排序，并在整个初始化过程中保持顺序。</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体; times new roman&quot;4times new roman&quot;; color: red;">然后，环构建器根据最适合的原则将每个虚节点的副本分配到设备</span><span style="font-family: 宋体;">，限制拥有相同虚节点的副本的设备不能在同一个区域中。每分配一次，设备要求的虚节点数减</span>1<span style="font-family: 宋体;">并且移动到在设备列表中新的已排序的位置，然后进程继续执行。</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">当基于旧环来构造新环时，每个设备所需的虚节点数量被重新计算。接下来，将需要被重新分配的虚节点收集起来。所有被移除的设备将它们已分配的虚节点取消分配并把这些虚节点添加到收集列表。任何一个拥有比目前所需的虚结点数多的设备随机地取消分配虚结点并添加到收集列表中。最后，收集列表中的虚节点使用与上述初始化分配类似的方法被重新分配。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">每当有虚节点的副本被重新分配，重分配的时间将被记录。我们考虑了当收集虚节点来重新分配时，没有虚节点在可配置的时间内被移动两次。这个可配置的时间数量在</span>RingBuilder<span style="font-family: 宋体;">类内称为</span>min_part_hours<span style="font-family: 宋体;">。这一限制对于已被移除的设备上的虚节点的副本被忽略，因为移除设备仅发生在设备故障并且此时别无择选只能进行重新分配。</span></p>
+<p><span style="font-family: 宋体;">&nbsp; &nbsp; 由于收集虚节点用来重新分配的随机本性，以上的进程并不总可以完美地重新平衡一个环。为了帮助达到一个更平衡的环，重平衡进程被重复执行直到接近完美</span>(<span style="font-family: 宋体;">小于</span>1%<span style="font-family: 宋体;">）或者当平衡的提升达不到最小值</span>1%<span style="font-family: 宋体;">（表明由于杂乱不平衡的区域或最近移动的虚节点数过多，我们可能不能获得完美的平衡）。</span></p>
+<h1><span style="font-size: 14pt;">2.4 History &nbsp;</span><span style="font-family: 宋体; font-size: 14pt;">发展史</span></h1>
+<p>&nbsp;</p>
+<p><span style="font-family: 宋体;">&nbsp; &nbsp; &nbsp;环的代码在到达当前版本并保持一段时间的稳定前发生了多次反复的修改，如果有新的想法产生，环的算法可能发生改变甚至从根本上发生变化。这一章节将会描述先前尝试过的想法并且解释为何它们被废弃了。</span></p>
+<p>A “live ring” option was considered where each server could maintain its own copy of the ring and the servers would use a gossip protocol to communicate the changes they made. This was discarded as too complex and error prone to code correctly in the project time span available. One bug could easily gossip bad data out to the entire cluster and be difficult to recover from. Having an externally managed ring simplifies the process, allows full validation of data before it’s shipped out to the servers, and guarantees each server is using a ring from the same timeline. It also means that the servers themselves aren’t spending a lot of resources maintaining rings.</p>
+<p><span style="font-family: 宋体;">曾考虑过</span>"live ring"<span style="font-family: 宋体;">选项，其中每个服务器自己可以维护环的副本并且服务器将使用</span>gossip<span style="font-family: 宋体;">协议进行通讯它们所作做的变化。该方法由于过于复杂并且在工程有效时间内正确编写代码容易产生错误而被废弃。一个</span>Bug<span style="font-family: 宋体;">是可以很容易把坏数据</span>gossip<span style="font-family: 宋体;">到整个集群而恢复很困难。通过外部管理环可以简化这一过程，允许数据在传输到服务器前进行数据的完整验证，并且保证每个服务器使用相同时间线的环。这也意味着服务器本身不用花费大量的资源来维护环。</span></p>
+<p>A couple of “ring server” options were considered. One was where all ring lookups would be done by calling a service on a separate server or set of servers, but this was discarded due to the latency involved. Another was much like the current process but where servers could submit change requests to the ring server to have a new ring built and shipped back out to the servers. This was discarded due to project time constraints and because ring changes are currently infrequent enough that manual control was sufficient. However, lack of quick automatic ring changes did mean that other parts of the system had to be coded to handle devices being unavailable for a period of hours until someone could manually update the ring.</p>
+<p><span style="font-family: 宋体;">有一对</span>"ring server"<span style="font-family: 宋体;">选项曾被考虑过。一个是所有的环查询可以由调用独立的服务器或服务器集上的服务器来完成，但是由于涉及到延迟被弃用了。另一个更类似于当前的过程，不过其中服务器可以提交改变的请求到环服务器来构建一个新的环，然后运回到服务器上。由于工程时间的约束以及就目前来说，环的改变的频繁足够低到人工控制就可以满足而被弃用。然后，缺乏快速自动的环改变意味着系统的其他部件不得不花上数个小时编码来处理失效的设备直到有人可以手动地升级环。</span></p>
+<p>The current ring process has each replica of a partition independently assigned to a device. A version of the ring that used a third of the memory was tried, where the first replica of a partition was directly assigned and the other two were determined by “walking” the ring until finding additional devices in other zones. This was discarded as control was lost as to how many replicas for a given partition moved at once. Keeping each replica independent allows for moving only one partition replica within a given time window (except due to device failures). Using the additional memory was deemed a good tradeoff for moving data around the cluster much less often.</p>
+<p><span style="font-family: 宋体;">当前的环程序将一个虚节点的每个副本独立地分配给一个设备。某个环程序版本中尝试使用</span>1/3<span style="font-family: 宋体;">的内存，其中虚节点的第一个副本被直接分配而另外两个则在环中</span>“<span style="font-family: 宋体;">行走</span>”<span style="font-family: 宋体;">直到在其它区域找到额外的设备。这个方法因为对于给定虚节点的多个副本立刻移动会使得控制失效而被废除。（不是很通顺啊）保持每个副本的独立性考虑在给定的时间窗口内仅移动一个虚节点副本（除了由于设备故障）。使用额外的内存看起来是一个不错的权衡，在集群中可以更低频率地移动数据。</span></p>
+<p>Another ring design was tried where the partition to device assignments weren’t stored in a big list in memory but instead each device was assigned a set of hashes, or anchors. The partition would be determined from the data item’s hash and the nearest device anchors would determine where the replicas should be stored. However, to get reasonable distribution of data each device had to have a lot of anchors and walking through those anchors to find replicas started to add up. In the end, the memory savings wasn’t that great and more processing power was used, so the idea was discarded.</p>
+<p><span style="font-family: 宋体;">另一个被尝试过的环设计是不把虚节点到设备的分配存储在内存中的大列表里而是为每个设备分配一个哈希集合或锚。虚节点将会来自数据项的哈希值来决定并且最近的设备锚将决定副本存储的位置。然而，为了获得更合理的数据分布，每个设备不得不用于大量的锚并且沿着这些锚来寻找副本开始合计。最后，由于内存存储没有那么大并且花费了更多的处理能力，这个想法被废弃了。</span></p>
+<p>A completely non-partitioned ring was also tried but discarded <span style="color: red;">as the partitioning helps many other parts of the system, especially replication</span>. Replication can be attempted and retried in a partition batch with the other replicas rather than each data item independently attempted and retried. Hashes of directory structures can be calculated and compared with other replicas to reduce directory walking and network traffic.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">一个完整的无虚节点的环也被尝试，但是由于虚节点有助于系统的许多其他部件，尤其是复制而被废弃。复制可以在虚节点与其它副本的批处理中被尝试和重试，而不是每个数据项独立地被尝试和重试。目录结构的哈希值可以被计算并用来与其它副本比较来减少目录的遍历和网络流量。</span></p>
+<p>Partitioning and independently assigning partition replicas also allowed for the best balanced cluster. The best of the other strategies tended to give +-10% variance on device balance with devices of equal weight and +-15% with devices of varying weights. The current strategy allows us to get +-3% and +-8% respectively.</p>
+<p><span style="font-family: 宋体;">虚节点和独立地分配虚节点的副本也考虑了最佳平衡的集群。</span><span style="font-family: 宋体;">其他策略的最佳平衡集群在设备平衡上倾向于对于平等权重的设备给出</span>+-10%<span style="font-family: 宋体;">的变化而对于变化权重的设备则给出</span>+-15%<span style="font-family: 宋体;">。当前的策略允许我们获得相应</span>+-3%<span style="font-family: 宋体;">和</span>+-8%<span style="font-family: 宋体;">的变化。</span></p>
+<p>Various hashing algorithms were tried. SHA offers better security, but the ring doesn’t need to be cryptographically secure and SHA is slower. Murmur was much faster, but MD5 was built-in and hash computation is a small percentage of the overall request handling time. In all, once it was decided the servers wouldn’t be maintaining the rings themselves anyway and only doing hash lookups, MD5 was chosen for its general availability, good distribution, and adequate speed.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">各种哈希的算法被尝试过。</span>SHA<span style="font-family: 宋体;">提供更好的安全，但是环并不需要安全可靠地加密而且</span>SHA<span style="font-family: 宋体;">比较慢。</span>Murmur<span style="font-family: 宋体;">更快，但是</span>MD5<span style="font-family: 宋体;">是</span>Python<span style="font-family: 宋体;">内建的库并且哈希计算只是整个请求处理时间中只是一小部分。总之，一旦环被确定，服务器不用自己来维护环而且仅作哈希查找，</span>MD5<span style="font-family: 宋体;">被选择是因为它的通用性，良好的分布以及足够快的速度。</span></p>
+<p>&nbsp;</p>
+<div style="border: none; border-top: solid #C0504D 1.5pt; padding: 1.0pt 0cm 0cm 0cm;">
+<p><span style="font-size: 14pt;">3. The Account Reaper &nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">账号收割器</span></p>
+</div>
+<p>The Account Reaper removes data from deleted accounts in the background.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">账号收割器运行在后台从要被删除账号中移除数据。</span></p>
+<p>An account is marked for deletion by a reseller through the services server’s remove_storage_account XMLRPC call. This simply puts the value DELETED into the status column of the account_stat table in the account database (and replicas), indicating the data for the account should be deleted later. There is no set retention time and no undelete; it is assumed the reseller will implement such features and only call remove_storage_account once it is truly desired the account’s data be removed.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">通过服务器的</span>remove_storage_account<span style="font-family: 宋体;">的</span>XMLRPC<span style="font-family: 宋体;">调用</span><span style="font-family: 宋体;">，账号被</span>reseller<span style="font-family: 宋体;">标记为删除。这一行为简单地将值</span>DELETED<span style="font-family: 宋体;">放入到账号数据库</span>(<span style="font-family: 宋体;">和副本</span>)<span style="font-family: 宋体;">的表</span>account_stat<span style="font-family: 宋体;">的</span>status<span style="font-family: 宋体;">列；表示账号数据未来将被删除。没有保留时间和取消删除的设置；它假设</span>reseller<span style="font-family: 宋体;">将会实现这样的特性并且一旦调用</span>remove_storage_account<span style="font-family: 宋体;">，该账号的数据就真地被移除。</span></p>
+<p>The account reaper runs on each account server and scans the server occasionally for account databases marked for deletion. It will only trigger on accounts that server is the primary node for, so that multiple account servers aren’t all trying to do the same work at the same time. Using multiple servers to delete one account might improve deletion speed, but requires coordination so they aren’t duplicating effort. Speed really isn’t as much of a concern with data deletion and large accounts aren’t deleted that often.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">账号收割器运行在每个账号服务器上，不定期地扫描服务器的账号数据库中标记为删除的数据。它仅会在当前服务器为主节点的账号上触发，因此多个账号服务器并不都尝试着在相同时间内做相同的工作。使用多个服务器来删除一个账号可能会提升删除的速度，但是需要协作以避免重复删除。实际上，在数据删除的速度上并没有给予过多的关注，因为大多数账号并没有那么频繁地被删除。</span></p>
+<p>The deletion process for an account itself is pretty straightforward. For each container in the account, each object is deleted and then the container is deleted. Any deletion requests that fail won’t stop the overall process, but will cause the overall process to fail eventually (for example, if an object delete times out, the container won’t be able to be deleted later and therefore the account won’t be deleted either). The overall process continues even on a failure so that it doesn’t get hung up reclaiming cluster space because of one troublesome spot. The account reaper will keep trying to delete an account until it eventually becomes empty, at which point the database reclaim process within the db_replicator will eventually remove the database files.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">删除账号的过程是相当直接的。对于每个账号中的容器，每个对象先被删除然后容器被删除。任何失败的删除请求将不会阻止整个过程，但是将会导致整个过程最终失败（例如，如果一个对象的删除超时，容器将不能被删除，因此账号也不能被删除）。整个处理过程即使遭遇失败也继续执行，这样它不会因为一个麻烦的问题而中止恢复集群空间。账号收割器将会继续不断地尝试删除账号直到它最终变为空，此时数据库在</span>db_replicator<span style="font-family: 宋体;">中回收处理，最终移除这个数据库文件。</span></p>
+<h1><span style="font-size: 14pt;">3.1 History </span><span style="font-family: 宋体; font-size: 14pt;">发展史</span></h1>
+<p>At first, a simple approach of deleting an account through completely external calls was considered as it required no changes to the system. All data would simply be deleted in the same way the actual user would, through the public ReST API. However, the downside was that it would use proxy resources and log everything when it didn’t really need to. Also, it would likely need a dedicated server or two, just for issuing the delete requests.</p>
+<p><span style="font-family: 宋体;">最初的时候，一个通过完全地外部调用来删除帐号的简单方法被考虑因为它不需要对系统改变。实际的用户可以通过公共的</span>ReST<span style="font-family: 宋体;">的</span>API<span style="font-family: 宋体;">以相同的方式来简易地删除所有的数据。然而，坏处是因为它将使用代理的资源并且记录任何信息即使是不需要的日志。此外，它可能需要一个或两个专用的服务器，仅分配给处理删除请求。</span></p>
+<p>A completely bottom-up approach was also considered, where the object and container servers would occasionally scan the data they held and check if the account was deleted, removing the data if so. The upside was the speed of reclamation with no impact on the proxies or logging, but the downside was that nearly 100% of the scanning would result in no action creating a lot of I/O load for no reason.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">一个完全地自底向下的方法也被考虑过，其中对象和容器服务器将不定期地扫面它们的数据并且检测是否该对象被删除了，如果是的话就删除它的数据。好处是回收的速度对于代理或日志没有影响，不过坏事是几乎</span>100%<span style="font-family: 宋体;">的扫描将会导致无端地没有活动地造成大量的</span>I/O<span style="font-family: 宋体;">负载。</span></p>
+<p>A more container server centric approach was also considered, where the account server would mark all the containers for deletion and the container servers would delete the objects in each container and then themselves. This has the benefit of still speedy reclamation for accounts with a lot of containers, but has the downside of a pretty big load spike. The process could be slowed down to alleviate the load spike possibility, but then the benefit of speedy reclamation is lost and what’s left is just a more complex process. Also, scanning all the containers for those marked for deletion when the majority wouldn’t be seemed wasteful. The db_replicator could do this work while performing its replication scan, but it would have to spawn and track deletion processes which seemed needlessly complex.</p>
+<p><span style="font-family: 宋体;">一个容器服务器中心的方法也曾被考虑，其中账号服务器将会标记所有的要被删除的容器，然后容器服务器将会删除每个容器中的对象接着删除容器。这对于带有大量容器的账号的快速回收大有裨益，但坏处是有相当大的负载峰值。该过程可以被放缓来减轻负载峰值的可能性，不过那样的话快速回收的优点就丧失了并且剩下的只是更复杂的过程。同样的，扫描所有的容器中标记来删除的当大多数的将不会视为浪费的。</span>db_replicator<span style="font-family: 宋体;">可以在执行复制扫面时完成这些工作，但是它将不得产生和记录删除过程这些看起来不必要的复杂性。</span></p>
+<p>In the end, an account server centric approach seemed best, as described above.</p>
+<p><span style="font-family: 宋体;">最后如上所述，账号服务器中心方法看起来是最佳的。</span></p>
+<p>&nbsp;</p>
+<div style="border: none; border-top: solid #C0504D 1.5pt; padding: 1.0pt 0cm 0cm 0cm;">
+<p><span style="font-size: 14pt;">4. The Auth System &nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">认证系统</span></p>
+</div>
+<h1><span style="font-size: 14pt;">4.1 TempAuth&nbsp;</span></h1>
+<p>The auth system for Swift is loosely based on the auth system from the existing Rackspace architecture – actually from a few existing auth systems – and is therefore a bit disjointed. The distilled points about it are:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Swift<span style="font-family: 宋体;">的认证系统松散地基于已存在的</span>Rackspace<span style="font-family: 宋体;">架构的认证系统</span>—<span style="font-family: 宋体;">实际上来自于一些已存在的认证系统</span>—<span style="font-family: 宋体;">所以有些不连贯。关于此认证系统的要点有以下</span>4<span style="font-family: 宋体;">点：</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.<span style="font-family: 宋体;">认证</span>/<span style="font-family: 宋体;">授权部分可以作为一个运行在</span>Swift<span style="font-family: 宋体;">中作为</span>WSGI<span style="font-family: 宋体;">中间件的外部系统或子系统</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.Swift<span style="font-family: 宋体;">用户在每个请求中会附加认证令牌。</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.Swift<span style="font-family: 宋体;">用外部的认证系统或者认证子系统来验证每个令牌并且缓存结果</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.<span style="font-family: 宋体;">令牌不是每次请求都会变化，但是存在有效期</span></p>
+<p>The token can be passed into Swift using the X-Auth-Token or the X-Storage-Token header. Both have the same format: just a simple string representing the token. Some auth systems use UUID tokens, some an MD5 hash of something unique, some use “something else” but the salient point is that the token is a string which can be sent as-is back to the auth system for validation.</p>
+<p><span style="font-family: 宋体;">令牌可以通过使用</span>X-Auth-Token<span style="font-family: 宋体;">或者</span>X-Storage-Token<span style="font-family: 宋体;">头部被传入</span>Swift<span style="font-family: 宋体;">。两者都有相同的格式：仅使用简单的字符串来表示令牌。一些认证系统使用</span>UUID<span style="font-family: 宋体;">令牌，一些使用唯一的</span>MD5<span style="font-family: 宋体;">哈希值，一些则使用其它的方法，不过共同点是令牌是可以发送回认证系统进行证实有效性的字符串。</span></p>
+<p>Swift will make calls to the auth system, giving the auth token to be validated. For a valid token, the auth system responds with an overall expiration in seconds from now. Swift will cache the token up to the expiration time.</p>
+<p>Swift<span style="font-family: 宋体;">将会调用认证系统，给出要验证的认证令牌。对于一个正确的令牌，认证系统回应一个从当前开始的总有效期秒数。</span>Swift<span style="font-family: 宋体;">将会缓存令牌直到有效期结束。</span></p>
+<p>The included TempAuth also has the concept of admin and non-admin users within an account. Admin users can do anything within the account. Non-admin users can only perform operations per container based on the container’s X-Container-Read and X-Container-Write ACLs. For more information on ACLs, see&nbsp;<a title="swift.common.middleware.acl" href="http://swift.openstack.org/misc.html#module-swift.common.middleware.acl">swift.common.middleware.acl</a>.</p>
+<p><span style="font-family: 宋体;">其包含的</span>TempAuth<span style="font-family: 宋体;">，对于</span>account<span style="font-family: 宋体;">而言，也有</span>admin<span style="font-family: 宋体;">和</span>non-admin<span style="font-family: 宋体;">用户的概念。</span>admin<span style="font-family: 宋体;">用户拥有账号的所有操作权限。</span>non-admin<span style="font-family: 宋体;">用户仅可以基于每个容器执行基于容器的</span>X-Container-Read and X-Container-Write<span style="font-family: 宋体;">的访问控制列表进行操作。对于更多关于</span>ACLs<span style="font-family: 宋体;">的信息，参见</span><a title="swift.common.middleware.acl" href="http://swift.openstack.org/misc.html#module-swift.common.middleware.acl">swift.common.middleware.acl</a></p>
+<p>Additionally, if the auth system sets the request environ’s swift_owner key to True, the proxy will return additional header information in some requests, such as the X-Container-Sync-Key for a container GET or HEAD.</p>
+<p><span style="font-family: 宋体;">此外，如果认证系统设置</span>request environ<span style="font-family: 宋体;">的</span>swift_owner<span style="font-family: 宋体;">键为</span>True<span style="font-family: 宋体;">，该代理服务器将在某些请求中返回额外的头部信息，诸如用于容器的</span>GET<span style="font-family: 宋体;">或</span>HEAD<span style="font-family: 宋体;">的</span>X-Container-Sync-Key<span style="font-family: 宋体;">。</span></p>
+<p>The user starts a session by sending a ReST request to the auth system to receive the auth token and a URL to the Swift system.</p>
+<p><span style="font-family: 宋体;">用户通过发送一个</span>ReST<span style="font-family: 宋体;">请求到认证系统来接受认证令牌和一个</span>URL<span style="font-family: 宋体;">到</span>Swift<span style="font-family: 宋体;">系统来开始会话。</span></p>
+<h1><span style="font-size: 14pt;">4.2 Extending Auth &nbsp;</span><span style="font-family: 宋体; font-size: 14pt;">扩展认证</span></h1>
+<p>TempAuth is written as wsgi middleware, so implementing your own auth is as easy as writing new wsgi middleware, and plugging it in to the proxy server. The KeyStone project and the Swauth project are examples of additional auth services.</p>
+<p>Also, see&nbsp;<a href="http://swift.openstack.org/development_auth.html">Auth Server and Middleware</a>.</p>
+<p>TempAuth<span style="font-family: 宋体;">被作为</span>wsgi<span style="font-family: 宋体;">中间件，因此实现你自己的认证系统就如同写一个新的</span>wsgi<span style="font-family: 宋体;">中间件一样容易，然后把它安装到代理服务器上。</span>KeyStone<span style="font-family: 宋体;">和</span>Swauth<span style="font-family: 宋体;">项目是认证服务器的另外例子。也可以参见</span>&nbsp;<a href="http://swift.openstack.org/development_auth.html">Auth Server and Middleware</a>.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div style="border: none; border-top: solid #C0504D 1.5pt; padding: 1.0pt 0cm 0cm 0cm;">
+<p><span style="font-size: 14pt;">5. Replication &nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">复制</span></p>
+</div>
+<p>Since each replica in swift functions independently, and clients generally require only a simple majority of nodes responding to consider an operation successful, transient failures like network partitions can quickly cause replicas to diverge. These differences are eventually reconciled by asynchronous, peer-to-peer replicator processes. The replicator processes traverse their local filesystems, concurrently performing operations in a manner that balances load across physical disks.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">由于每个副本在</span>Swift<span style="font-family: 宋体;">中独立地运行，并且客户端通常只需要一个简单的主节点响应就可以认为操作成功，如网络等瞬时故障虚节点会快速导致副本出现分歧。这些不同最终由异步、对等网络的</span>replicator<span style="font-family: 宋体;">进程来调解。</span>replicator<span style="font-family: 宋体;">进程遍历它们的本地文件，在物理磁盘上以平衡负载的方式并发地执行操作。</span></p>
+<p>Replication uses a push model, with records and files generally only being copied from local to remote replicas.<span style="color: red;"> This is important because data on the node may not belong there (as in the case of handoffs and ring changes), and a replicator can’t know what data exists elsewhere in the cluster that it should pull in</span>. It’s the duty of any node that contains data to ensure that data gets to where it belongs. Replica placement is handled by the ring.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">复制使用推模型（推模型的简单实现是通过循环的方式将任务发送到服务器上），记录和文件通常只是从本地拷贝到远程副本。这一点非常重要，因为节点上的数据可能不属于那儿（当在传送数据而环改变的情况下），并且</span>replicator<span style="font-family: 宋体;">不知道在集群的其它位置上它应该拉什么数据。这是任何一个含有数据的节点职责，确保数据到达它所应该到达的位置。副本的位置由环来处理。</span></p>
+<p>Every deleted record or file in the system is marked by a tombstone, so that deletions can be replicated alongside creations. These tombstones are cleaned up by the replication process after a period of time referred to as the consistency window, which is related to replication duration and how long transient failures can remove a node from the cluster. Tombstone cleanup must be tied to replication to reach replica convergence.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">文件系统中每个被删除的记录或文件被标记为墓碑，因此删除可以在创建的时候被复制。在一段称为一致性窗口的时间后，墓碑文件被</span>replication<span style="font-family: 宋体;">进程清除，与复制的持续时间和将节点从集群移除瞬时故障的持续时间有关。</span><span style="color: red;">tombstone</span><span style="font-family: 宋体; times new roman&quot;4times new roman&quot;;color: red;">的清除应该绑定</span><span style="color: red;">replication</span><span style="font-family: 宋体; times new roman&quot;4times new roman&quot;;color: red;">和对应的</span><span style="color: red;">replica</span><span style="font-family: 宋体; times new roman&quot;4times new roman&quot;;color: red;">，不应该出现有的</span><span style="color: red;">replica</span><span style="font-family: 宋体; times new roman&quot;4times new roman&quot;;color: red;">中的</span><span style="color: red;">tombstone</span><span style="font-family: 宋体; times new roman&quot;4times new roman&quot;;color: red;">删除掉了，而有的却没有删除掉。</span></p>
+<p>If a replicator detects that a remote drive is has failed, it will use the ring’s “get_more_nodes” interface to choose an alternate node to synchronize with. The replicator can generally maintain desired levels of replication in the face of hardware failures, though some replicas may not be in an immediately usable location.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">如果</span>replicator<span style="font-family: 宋体;">检测到远程驱动器发生故障，它将使用环的</span>get_more_nodes<span style="font-family: 宋体;">接口来选择一个替代节点进行同步。在面临硬件故障时，复制器通常可以维护所需的复制级别，即使有一些副本可能不在一个直接可用的位置。</span></p>
+<p>Replication is an area of active development, and likely rife with potential improvements to speed and correctness.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">复制是一个活跃的开发领域，在速度和正确性上具有提升的潜力。</span></p>
+<p>There are two major classes of replicator - the db replicator, which replicates accounts and containers, and the object replicator, which replicates object data.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">有两种主要的</span>replicator<span style="font-family: 宋体;">类型</span>——<span style="font-family: 宋体;">用来复制账号和容器的</span>db<span style="font-family: 宋体;">复制器，以及用来复制对象数据的对象复制器。</span></p>
+<h1><span style="font-size: 14pt;">5.1 DB Replication &nbsp;DB</span><span style="font-family: 宋体; font-size: 14pt;">复制</span></h1>
+<p>The first step performed by db replication is a low-cost hash comparison to find out whether or not two replicas already match. Under normal operation, this check is able to verify that most databases in the system are already synchronized very quickly. If the hashes differ, the replicator brings the databases in sync by sharing records added since the last sync point.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; db<span style="font-family: 宋体;">复制执行的第一步是一个低消耗的哈希比较来查明两个副本是否已匹配。在常规运行下，这一检测可以非常快速地验证系统中的大多数数据库已经同步。如果哈希值不一致，复制器通过共享最后一次同步点之后增加的记录对数据库进行同步。</span></p>
+<p>This sync point is a <span style="color: red;">high water mark noting</span> the last record at which two databases were known to be in sync, and is stored in each database as a tuple of the remote database id and record id. Database ids are unique amongst all replicas of the database, and record ids are monotonically increasing integers. After all new records have been pushed to the remote database, the entire sync table of the local database is pushed, so the remote database knows it’s now in sync with everyone the local database has previously synchronized with.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">所谓的同步点是一个高水印标记用来记录上一次记录在哪两个数据库间进行了同步，并且存储在每个数据库中作为一个由</span>remote database id<span style="font-family: 宋体;">和</span>record id<span style="font-family: 宋体;">组成的元组。在数据库的所有副本中，数据库的</span>id<span style="font-family: 宋体;">是唯一的，并且记录</span>id<span style="font-family: 宋体;">为单调递增的整数。当所有的新纪录推送到远程数据库后，本地数据库的整个同步表被推送出去，因此远程数据库知道现在已经和先前本地数据库与之同步的所有数据库同步了。</span></p>
+<p>If a replica is found to be missing entirely, the whole local database file is transmitted to the peer using rsync(1) and vested with a new unique id.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">如果某个副本完全丢失了，使用</span>rsync(1)<span style="font-family: 宋体;">传送整个数据库文件到对等节点的远程数据库，并且赋予一个新的唯一</span>id<span style="font-family: 宋体;">。</span></p>
+<p>In practice, DB replication can process hundreds of databases per concurrency setting per second (up to the number of available CPUs or disks) and is bound by the number of DB transactions that must be performed.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">实际运行中，</span>DB<span style="font-family: 宋体;">复制可以处理数百个数据库每并发设定值每秒（取决于可用的</span>CPU<span style="font-family: 宋体;">和磁盘的数量）并且受必须执行</span>DB<span style="font-family: 宋体;">事务的数量约束。</span></p>
+<h1><span style="font-size: 14pt;">5.2 Object Replication &nbsp;</span><span style="font-family: 宋体; font-size: 14pt;">对象复制</span></h1>
+<p>The initial implementation of object replication simply performed an rsync to push data from a local partition to all remote servers it was expected to exist on. While this performed adequately at small scale, replication times skyrocketed once directory structures could no longer be held in RAM. We now use a modification of this scheme in which a hash of the contents for each suffix directory is saved to a per-partition hashes file. The hash for a suffix directory is invalidated when the contents of that suffix directory are modified.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">对象复制的最初实现是简单地执行</span>rsync<span style="font-family: 宋体;">从本地虚节点推送数据到它预期存放的所有远程服务器上。虽然该方案在小规模上的表现出色，然而一旦目录结构不能保存在</span>RAM<span style="font-family: 宋体;">中时，复制的时间将会突飞猛涨。我们现在使用这一机制的改进版本，将每个后缀目录的内容的哈希值保存到每一虚节点的哈希文件中。当目录后缀的内容被修改时，它的哈希值将无效。</span></p>
+<p>The object replication process reads in these hash files, calculating any invalidated hashes. It then transmits the hashes to each remote server that should hold the partition, and only suffix directories with differing hashes on the remote server are rsynced. After pushing files to the remote server, the replication process notifies it to recalculate hashes for the rsynced suffix directories.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">对象复制进程读取这些哈希文件，计算出失效的哈希值。然后传输这些哈希值到每个有该</span>partition<span style="font-family: 宋体;">的远程服务器上，并且仅有不一致哈希的后缀目录在远程服务器上的被</span>rsync<span style="font-family: 宋体;">。在推送文件到远程服务器之后，复制进程通知服务器重新计算执行了</span>rsync<span style="font-family: 宋体;">的后缀目录的哈希值。</span></p>
+<p>Performance of object replication is generally bound by the number of uncached directories it has to traverse, usually as a result of invalidated suffix directory hashes. Using write volume and partition counts from our running systems, it was designed so that around 2% of the hash space on a normal node will be invalidated per day, which has experimentally given us acceptable replication speeds.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体; times new roman&quot;4times new roman&quot;; color: red;">对象复制的性能通常被它要遍历的未缓存目录的数量限制，常常作为是失效的<strong>后缀目录的哈希值的结果</strong>。</span><span style="font-family: 宋体;">从我们运行的系统上使用写卷和虚节点计数，它被设计因此在一个普通节点上有每天大约</span>2%<span style="font-family: 宋体;">的哈希空间会失效，已经通过试验，提供给我们可接受的复制速度。</span></p>
+<p>&nbsp;</p>
+<div style="border: none; border-top: solid #C0504D 1.5pt; padding: 1.0pt 0cm 0cm 0cm;">
+<p><span style="font-size: 14pt;">6. Rate Limiting&nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">速率限制</span></p>
+</div>
+<p>Rate limiting in swift is implemented as a pluggable middleware. Rate limiting is performed on requests that result in database writes to the account and container sqlite dbs. It uses memcached and is dependent on the proxy servers having highly synchronized time. The rate limits are limited by the accuracy of the proxy server clocks.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">速率限制在</span>swift<span style="font-family: 宋体;">中是作为一个可插的中间件。速率限制处理在数据库写操作到账号和容器</span>sqlite db<span style="font-family: 宋体;">的请求。<span style="color: red;">它使用</span></span><span style="color: red;">memcached</span><span style="font-family: 宋体; times new roman&quot;4times new roman&quot;;color: red;">并且依赖于高度同步时间的代理服务器</span><span style="font-family: 宋体;">。速率限制受限于代理服务器时钟的精度。</span></p>
+<h1><span style="font-size: 14pt;">6.1 Configuration&nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">配置</span></h1>
+<p>All configuration is optional. If no account or container limits are provided there will be no rate limiting. Configuration available:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-family: 宋体;">所有的配置是可选的。如果没有给出账号或容器的限制，那么就没有速率限制。可用配置参数如下：</span></p>
+<table border="1" cellpadding="0">
+<tbody>
+<tr>
+<td style="width: 124.15pt; padding: 0cm 0cm 0cm 0cm;" width="166">
+<p style="text-align: center;" align="center">Option</p>
+</td>
+<td style="width: 37.5pt; padding: 0cm 0cm 0cm 0cm;" width="50">
+<p style="text-align: center;" align="center">Default</p>
+</td>
+<td style="width: 252.15pt; padding: 0cm 0cm 0cm 0cm;" width="336">
+<p style="text-align: center;" align="center">Description</p>
+</td>
+</tr>
+<tr>
+<td style="width: 124.15pt; padding: 0cm 0cm 0cm 0cm;" width="166">
+<p>clock_accuracy</p>
+</td>
+<td style="width: 37.5pt; padding: 0cm 0cm 0cm 0cm;" width="50">
+<p>1000</p>
+</td>
+<td style="width: 252.15pt; padding: 0cm 0cm 0cm 0cm;" width="336">
+<p>Represents how accurate the proxy servers’ system clocks are with each other. 1000 means that all the proxies’ clock are accurate to each other within 1 millisecond. No ratelimit should be higher than the clock accuracy.</p>
+<p><span style="font-family: 宋体;">表示代理服务器的系统时钟相互之间的精度。</span>1000<span style="font-family: 宋体;">表示所有的代理相互之间的时钟精确到毫秒。没有速率限制应该比该时钟精度更高。</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 124.15pt; padding: 0cm 0cm 0cm 0cm;" width="166">
+<p>max_sleep_time_seconds</p>
+</td>
+<td style="width: 37.5pt; padding: 0cm 0cm 0cm 0cm;" width="50">
+<p>60</p>
+</td>
+<td style="width: 252.15pt; padding: 0cm 0cm 0cm 0cm;" width="336">
+<p>App will immediately return a 498 response if the necessary sleep time ever exceeds the given max_sleep_time_seconds.</p>
+<p><span style="font-family: 宋体;">如果</span><span style="font-family: 宋体;">必须</span><span style="font-family: 宋体;">的休眠时间超过了给定的</span>max_sleep_time_seconds<span style="font-family: 宋体;">，应用程序会立刻返回一个</span>498<span style="font-family: 宋体;">响应</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 124.15pt; padding: 0cm 0cm 0cm 0cm;" width="166">
+<p>log_sleep_time_seconds</p>
+</td>
+<td style="width: 37.5pt; padding: 0cm 0cm 0cm 0cm;" width="50">
+<p>0</p>
+</td>
+<td style="width: 252.15pt; padding: 0cm 0cm 0cm 0cm;" width="336">
+<p>To allow visibility into rate limiting set this value &gt; 0 and all sleeps greater than the number will be logged.</p>
+<p><span style="font-family: 宋体;">在速率限制中考虑可见性，设置这一值大于</span>0<span style="font-family: 宋体;">并且所有的休眠时间大于这个数值得将被记录。</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 124.15pt; padding: 0cm 0cm 0cm 0cm;" width="166">
+<p>rate_buffer_seconds</p>
+</td>
+<td style="width: 37.5pt; padding: 0cm 0cm 0cm 0cm;" width="50">
+<p>5</p>
+</td>
+<td style="width: 252.15pt; padding: 0cm 0cm 0cm 0cm;" width="336">
+<p>Number of seconds the rate counter can drop and be allowed to catch up (at a faster than listed rate). A larger number will result in larger spikes in rate but better average accuracy.</p>
+<p><span style="font-family: 宋体;">速度计数器终止并允许追赶的秒数（以一个比已登录更快的速度）。一个更大的数将会在速率上产生更大的峰值但是更好的平均精度。</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 124.15pt; padding: 0cm 0cm 0cm 0cm;" width="166">
+<p>account_ratelimit</p>
+</td>
+<td style="width: 37.5pt; padding: 0cm 0cm 0cm 0cm;" width="50">
+<p>0</p>
+</td>
+<td style="width: 252.15pt; padding: 0cm 0cm 0cm 0cm;" width="336">
+<p>If set, will limit PUT and DELETE requests to /account_name/container_name. Number is in requests per second.</p>
+<p><span style="font-family: 宋体;">如果设置，将会限制</span>PUT<span style="font-family: 宋体;">和</span>DELETE<span style="font-family: 宋体;">到</span>account_name/container_name<span style="font-family: 宋体;">请求。数值为每秒的请求数。</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 124.15pt; padding: 0cm 0cm 0cm 0cm;" width="166">
+<p>account_whitelist</p>
+</td>
+<td style="width: 37.5pt; padding: 0cm 0cm 0cm 0cm;" width="50">
+<p>‘’</p>
+</td>
+<td style="width: 252.15pt; padding: 0cm 0cm 0cm 0cm;" width="336">
+<p>Comma separated lists of account names that will not be rate limited.</p>
+<p><span style="font-family: 宋体;">由逗号分隔的不会被速度限制的账号名字列表。</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 124.15pt; padding: 0cm 0cm 0cm 0cm;" width="166">
+<p>account_blacklist</p>
+</td>
+<td style="width: 37.5pt; padding: 0cm 0cm 0cm 0cm;" width="50">
+<p>‘’</p>
+</td>
+<td style="width: 252.15pt; padding: 0cm 0cm 0cm 0cm;" width="336">
+<p>Comma separated lists of account names that will not be allowed. Returns a 497 response.</p>
+<p><span style="font-family: 宋体;">由逗号分隔的不被允许的账号名称列表。</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 124.15pt; padding: 0cm 0cm 0cm 0cm;" width="166">
+<p>container_ratelimit_size</p>
+</td>
+<td style="width: 37.5pt; padding: 0cm 0cm 0cm 0cm;" width="50">
+<p>‘’</p>
+</td>
+<td style="width: 252.15pt; padding: 0cm 0cm 0cm 0cm;" width="336">
+<p>When set with container_limit_x = r: for containers of size x, limit requests per second to r. Will limit PUT, DELETE, and POST requests to /a/c/o.</p>
+<p><span style="font-family: 宋体;">当设置为</span>container_limit_x = r :<span style="font-family: 宋体;">对于大小为</span>x<span style="font-family: 宋体;">的容器，限制的请求数为</span>r<span style="font-family: 宋体;">次每秒。使用</span>/a/c/o<span style="font-family: 宋体;">来限制</span>PUT,DELETE<span style="font-family: 宋体;">和</span>POST<span style="font-family: 宋体;">请求。</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The container rate limits are linearly interpolated from the values given. A sample container rate limiting could be:</p>
+<p><span style="font-family: 宋体;">容器的速率限制从给定值线性地插入。</span><span style="font-family: 宋体;">一个容器速率限制的样例如下：</span></p>
+<p>container_ratelimit_100 = 100</p>
+<p>container_ratelimit_200 = 50</p>
+<p>container_ratelimit_500 = 20</p>
+<p>This would result in&nbsp;&nbsp;</p>
+<p><span style="font-family: 宋体;">这将会产生</span></p>
+<table border="1" cellpadding="0">
+<tbody>
+<tr>
+<td style="width: 232.05pt; padding: 0cm 0cm 0cm 0cm;" width="309">
+<p>Container Size</p>
+</td>
+<td style="width: 183.25pt; padding: 0cm 0cm 0cm 0cm;" width="244">
+<p>Rate Limit</p>
+</td>
+</tr>
+<tr>
+<td style="width: 232.05pt; padding: 0cm 0cm 0cm 0cm;" width="309">
+<p>0-99</p>
+</td>
+<td style="width: 183.25pt; padding: 0cm 0cm 0cm 0cm;" width="244">
+<p>No limiting</p>
+</td>
+</tr>
+<tr>
+<td style="width: 232.05pt; padding: 0cm 0cm 0cm 0cm;" width="309">
+<p>100</p>
+</td>
+<td style="width: 183.25pt; padding: 0cm 0cm 0cm 0cm;" width="244">
+<p>100</p>
+</td>
+</tr>
+<tr>
+<td style="width: 232.05pt; padding: 0cm 0cm 0cm 0cm;" width="309">
+<p>150</p>
+</td>
+<td style="width: 183.25pt; padding: 0cm 0cm 0cm 0cm;" width="244">
+<p>75</p>
+</td>
+</tr>
+<tr>
+<td style="width: 232.05pt; padding: 0cm 0cm 0cm 0cm;" width="309">
+<p>500</p>
+</td>
+<td style="width: 183.25pt; padding: 0cm 0cm 0cm 0cm;" width="244">
+<p>20</p>
+</td>
+</tr>
+<tr>
+<td style="width: 232.05pt; padding: 0cm 0cm 0cm 0cm;" width="309">
+<p>1000</p>
+</td>
+<td style="width: 183.25pt; padding: 0cm 0cm 0cm 0cm;" width="244">
+<p>20</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<div style="border: none; border-top: solid #C0504D 1.5pt; padding: 1.0pt 0cm 0cm 0cm;">
+<p><span style="font-size: 14pt;">7. Large Object Support&nbsp;&nbsp;&nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">大对象支持</span></p>
+</div>
+<h1><span style="font-size: 14pt;">7.1 Overview&nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">概述</span></h1>
+<p>Swift has a limit on the size of a single uploaded object; by default this is 5GB. However, the download size of a single object is virtually unlimited with the concept of segmentation. Segments of the larger object are uploaded and a special manifest file is created that, when downloaded, sends all the segments concatenated as a single object. This also offers much greater upload speed with the possibility of parallel uploads of the segments.</p>
+<p>Siwft<span style="font-family: 宋体;">对于单个上传对象有体积的限制；默认是</span>5GB<span style="font-family: 宋体;">。不过由于使用了分割的概念，单个对象的下载大小几乎是没有限制的。对于更大的对象进行分割然后上传并且会创建一个特殊的描述文件，当下载该对象的时候，把所有的分割联接为一个单个对象来发送。这使得并行上传分割成为可能，因此也提供了更快的上传速度。</span></p>
+<h1><span style="font-size: 14pt;">6.2 Using&nbsp;swift&nbsp;for Segmented Objects&nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">使用</span><span style="font-size: 14pt;">swift</span><span style="font-family: 宋体; font-size: 14pt;">来分割对象</span></h1>
+<p>The quickest way to try out this feature is use the included&nbsp;swift&nbsp;Swift Tool. You can use the&nbsp;-S&nbsp;option to specify the segment size to use when splitting a large file. For example:</p>
+<p><span style="font-family: 宋体;">尝试这一特性的最快捷的方式是使用</span>swift<span style="font-family: 宋体;">自带的</span>Swift Tool<span style="font-family: 宋体;">。你可以使用</span>-S<span style="font-family: 宋体;">选项来描述在分割大文件的时候使用的分卷大小。例如：</span></p>
+<p>swift upload test_container -S 1073741824 large_file</p>
+<p>This would split the large_file into 1G segments and begin uploading those segments in parallel. Once all the segments have been uploaded,&nbsp;swift&nbsp;will then create the manifest file so the segments can be downloaded as one.</p>
+<p><span style="font-family: 宋体;">这个会把</span>large_file<span style="font-family: 宋体;">分割为</span>1G<span style="font-family: 宋体;">的分卷并且开始并行地上传这些分卷。一旦所有的分卷上传完毕，</span>swift<span style="font-family: 宋体;">将会创建描述文件，这样这些分卷可以作为一个对象来下载。</span></p>
+<p>So now, the following&nbsp;swift&nbsp;command would download the entire large object:</p>
+<p><span style="font-family: 宋体;">所以现在，使用以下</span>swift<span style="font-family: 宋体;">命令可以下载整个大对象：</span></p>
+<p>swift download test_container large_file</p>
+<p>swift&nbsp;uses a strict convention for its segmented object support. In the above example it will upload all the segments into a second container named test_container_segments. These segments will have names like large_file/1290206778.25/21474836480/00000000, large_file/1290206778.25/21474836480/00000001, etc.</p>
+<p>swift<span style="font-family: 宋体;">使用一个严格的约定对于它的分卷对象支持。在上面的例子中，它将会上传所有的分卷到一个名为</span>test_container_segments<span style="font-family: 宋体;">的附加容器。这些分卷的名称类似于</span> large_file/1290206778.25/21474836480/00000000, large_file/1290206778.25/21474836480/00000001<span style="font-family: 宋体;">等。</span></p>
+<p>The main benefit for using a separate container is that the main container listings will not be polluted with all the segment names. The reason for using the segment name format of &lt;name&gt;/&lt;timestamp&gt;/&lt;size&gt;/&lt;segment&gt; is so that an upload of a new file with the same name won’t overwrite the contents of the first until the last moment when the manifest file is updated.</p>
+<p><span style="font-family: 宋体;">使用一个独立的容器的主要好处是主容器列表将不会被所有的分卷名字污染。使用</span>&lt;name&gt;/&lt;timestamp&gt;/&lt;size&gt;/&lt;segment&gt;<span style="font-family: 宋体;">分卷名称格式的理由是当上传一个相同名称的新文件时将不会重写先前文件的内容直到最后描述文件被上传的时候。</span></p>
+<p>swift&nbsp;will manage these segment files for you, deleting old segments on deletes and overwrites, etc. You can override this behavior with the&nbsp;--leave-segments&nbsp;option if desired; this is useful if you want to have multiple versions of the same large object available.</p>
+<p>swift<span style="font-family: 宋体;">将会为你管理这些分卷文件，使用删除和重写等方法来删除旧的分卷。若需要，你可以用</span>--leave-segments<span style="font-family: 宋体;">选项重写这一行为；如果你想要同个大对象的多个版本可用这将非常有用。</span></p>
+<h1><span style="font-size: 14pt;">6.3 Direct API&nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">直接的</span><span style="font-size: 14pt;">API</span></h1>
+<p>You can also work with the segments and manifests directly with HTTP requests instead of having&nbsp;swift&nbsp;do that for you. You can just upload the segments like you would any other object and the manifest is just a zero-byte file with an extra&nbsp;X-Object-Manifest&nbsp;header.</p>
+<p><span style="font-family: 宋体;">你也可以直接用</span>HTTP<span style="font-family: 宋体;">请求代替</span>swift<span style="font-family: 宋体;">工具来使用分卷和描述文件。你可以只上传分卷，在带有一个额外的</span>X-Object-Manifest<span style="font-family: 宋体;">头部中指明任何其他的对象和描述文件只是一个</span>0<span style="font-family: 宋体;">字节的文件。</span></p>
+<p>All the object segments need to be in the same container, have a common object name prefix, and their names sort in the order they should be concatenated. They don’t have to be in the same container as the manifest file will be, which is useful to keep container listings clean as explained above with&nbsp;swift.</p>
+<p><span style="font-family: 宋体;">所有的对象分卷需要在同一个容器内，有一个相同的对象名称前缀，并且它们的名称按照连结的顺序排序。它们不用和描述文件在同一个容器下，这与上面解释</span>swift<span style="font-family: 宋体;">组件中一样有助于保持容器列表的干净。</span></p>
+<p>The manifest file is simply a zero-byte file with the extra&nbsp;X-Object-Manifest:&nbsp;&lt;container&gt;/&lt;prefix&gt;&nbsp;header, where&nbsp;&lt;container&gt;&nbsp;is the container the object segments are in and&nbsp;&lt;prefix&gt;&nbsp;is the common prefix for all the segments.</p>
+<p><span style="font-family: 宋体;">描述文件仅是一个带有额外</span>X-Objetc-Manifest<span style="font-family: 宋体;">的</span>0<span style="font-family: 宋体;">字节文件：</span>&nbsp;&lt;container&gt;/&lt;prefix&gt; <span style="font-family: 宋体;">头部，其中</span>&lt;container&gt;<span style="font-family: 宋体;">是指对象分卷所在的容器，</span>&lt;prefix&gt;<span style="font-family: 宋体;">是所有分卷的通用前缀。</span></p>
+<p>It is best to upload all the segments first and then create or update the manifest. In this way, the full object won’t be available for downloading until the upload is complete. Also, you can upload a new set of segments to a second location and then update the manifest to point to this new location. During the upload of the new segments, the original manifest will still be available to download the first set of segments.</p>
+<p><span style="font-family: 宋体;">最好先上传所有的分卷并且然后创建或升级描述文件。在这种方式下，完整的对象的下载直到上传完成才可用。此外，你可以上传一个新的分卷集到新的位置，然后上传描述文件来指出这一新位置。在上传这些新分卷的时候，原始的描述文件将仍然可用来下载第一个分卷集合。</span></p>
+<p>Here’s an example using&nbsp;curl&nbsp;with tiny 1-byte segments:</p>
+<p><span style="font-family: 宋体;">这里有一个使用</span>curl<span style="font-family: 宋体;">对</span>1<span style="font-family: 宋体;">字节的小分卷的例子：</span></p>
+</div>
+<blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;">
+<div>
+<p># First, upload the segments</p>
+</div>
+<div>
+<p>curl -X PUT -H 'X-Auth-Token: &lt;token&gt;' \</p>
+</div>
+<div>
+<p>&nbsp;&nbsp;&nbsp; http://&lt;storage_url&gt;/container/myobject/1 --data-binary '1'</p>
+</div>
+<div>
+<p>curl -X PUT -H 'X-Auth-Token: &lt;token&gt;' \</p>
+</div>
+<div>
+<p>&nbsp;&nbsp;&nbsp; http://&lt;storage_url&gt;/container/myobject/2 --data-binary '2'</p>
+</div>
+<div>
+<p>curl -X PUT -H 'X-Auth-Token: &lt;token&gt;' \</p>
+</div>
+<div>
+<p>&nbsp;&nbsp;&nbsp; http://&lt;storage_url&gt;/container/myobject/3 --data-binary '3'</p>
+</div>
+<div>
+<p>&nbsp;</p>
+</div>
+<div>
+<p># Next, create the manifest file</p>
+</div>
+<div>
+<p>curl -X PUT -H 'X-Auth-Token: &lt;token&gt;' \</p>
+</div>
+<div>
+<p>&nbsp;&nbsp;&nbsp; -H 'X-Object-Manifest: container/myobject/' \</p>
+</div>
+<div>
+<p>&nbsp;&nbsp;&nbsp; http://&lt;storage_url&gt;/container/myobject --data-binary ''</p>
+</div>
+<div>
+<p>&nbsp;</p>
+</div>
+<div>
+<p># And now we can download the segments as a single object</p>
+</div>
+<div>
+<p>curl -H 'X-Auth-Token: &lt;token&gt;' \</p>
+</div>
+<div>
+<p>&nbsp;&nbsp;&nbsp; http://&lt;storage_url&gt;/container/myobject</p>
+</div>
+</blockquote>
+<div>
+<h1><span style="font-size: 14pt;">6.4 Additional Notes&nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">其他注意事项</span></h1>
+<p>With a&nbsp;GET&nbsp;or&nbsp;HEAD&nbsp;of a manifest file, the&nbsp;X-Object-Manifest: &lt;container&gt;/&lt;prefix&gt;&nbsp;header will be returned with the concatenated object so you can tell where it’s getting its segments from.</p>
+<p><span style="font-family: 宋体;">带有</span>GET<span style="font-family: 宋体;">或者</span>HEAD<span style="font-family: 宋体;">的描述文件，</span>X-Object-Manifest:&nbsp;&lt;container&gt;/&lt;prefix&gt;<span style="font-family: 宋体;">头部将会返回被连结的对象，这样你可以辨别它从哪里获得它的分卷。</span></p>
+<p>The response’s&nbsp;Content-Length&nbsp;for a&nbsp;GET&nbsp;or&nbsp;HEAD&nbsp;on the manifest file will be the sum of all the segments in the&nbsp;&lt;container&gt;/&lt;prefix&gt;listing, dynamically. So, uploading additional segments after the manifest is created will cause the concatenated object to be that much larger; there’s no need to recreate the manifest file.</p>
+<p><span style="font-family: 宋体;">在描述文件上的</span>GET<span style="font-family: 宋体;">或</span>HEAD<span style="font-family: 宋体;">请求的</span>Content-Length<span style="font-family: 宋体;">是所有在</span>&nbsp;&lt;container&gt;/&lt;prefix&gt;<span style="font-family: 宋体;">列表中的分卷的动态总和。因此，在创建了描述文件之后上传额外的分卷将会导致连结对象变得更大；没有需要去重新创建描述文件。</span></p>
+<p>The response’s&nbsp;Content-Type&nbsp;for a&nbsp;GET&nbsp;or&nbsp;HEAD&nbsp;on the manifest will be the same as the&nbsp;Content-Type&nbsp;set during the&nbsp;PUT&nbsp;request that created the manifest. You can easily change the&nbsp;Content-Type&nbsp;by reissuing the&nbsp;PUT.</p>
+<p>GET<span style="font-family: 宋体;">或</span>HEAD<span style="font-family: 宋体;">描述文件的请求返回的</span>&nbsp;Content-Type<span style="font-family: 宋体;">和在创建描述文件的</span>PUT<span style="font-family: 宋体;">请求中的</span>Content-Type<span style="font-family: 宋体;">设置一样。你可以通过重新发出</span>PUT<span style="font-family: 宋体;">请求来轻松地修改</span>Content-Type</p>
+<p>The response’s&nbsp;ETag&nbsp;for a&nbsp;GET&nbsp;or&nbsp;HEAD&nbsp;on the manifest file will be the MD5 sum of the concatenated string of ETags for each of the segments in the&nbsp;&lt;container&gt;/&lt;prefix&gt;&nbsp;listing, dynamically. Usually in Swift the ETag is the MD5 sum of the contents of the object, and that holds true for each segment independently. But, it’s not feasible to generate such an ETag for the manifest itself, so this method was chosen to at least offer change detection.</p>
+<p>GET<span style="font-family: 宋体;">或</span>HEAD<span style="font-family: 宋体;">描述文件的请求的</span>ETag<span style="font-family: 宋体;">是</span>&lt;container&gt;/&lt;prefix&gt;<span style="font-family: 宋体;">所列的连结每个分卷的</span>ETags<span style="font-family: 宋体;">的字符串的</span>MD5<span style="font-family: 宋体;">值的动态总和。在</span>Swift<span style="font-family: 宋体;">中</span>Etag<span style="font-family: 宋体;">常常是对象内容的</span>MD5<span style="font-family: 宋体;">值总和，并且适用于每个分卷。</span><span style="font-family: 宋体;">但是，为描述文件本身来创建这样一个</span>Etag<span style="font-family: 宋体;">是不可行的，因此这个方法被选择来至少提供变更检测。</span></p>
+<p>Note <span style="font-family: 宋体;">注意</span></p>
+<p>If you are using the container sync feature you will need to ensure both your manifest file and your segment files are synced if they happen to be in different containers.</p>
+<p><span style="font-family: 宋体;">如果你选择了容器同步的特性，你将需要来确保你的描述文件和你的分卷文件被同步若它们在不同的容器中。</span></p>
+<h1><span style="font-size: 14pt;">6.5 History&nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">发展史</span></h1>
+<p>Large object support has gone through various iterations before settling on this implementation.</p>
+<p><span style="font-family: 宋体;">大对象的支持在设为现在这种实现方式前已经经历了各种反复修改。</span></p>
+<p>The primary factor driving the limitation of object size in swift is maintaining balance among the partitions of the ring. To maintain an even dispersion of disk usage throughout the cluster the obvious storage pattern was to simply split larger objects into smaller segments, which could then be glued together during a read.</p>
+<p><span style="font-family: 宋体;">在</span>swift<span style="font-family: 宋体;">中驱使限制对象大小的主要因素是维持</span>ring<span style="font-family: 宋体;">中的</span>partiton<span style="font-family: 宋体;">间的平衡。为了在集群中维持磁盘使用的平坦散布，一种显而易见的方式是简单地将较大的对象分割到更小的分卷，在读取时分卷可以被粘连在一起。</span></p>
+<p>Before the introduction of large object support some applications were already splitting their uploads into segments and re-assembling them on the client side after retrieving the individual pieces. This design allowed the client to support backup and archiving of large data sets, but was also frequently employed to improve performance or reduce errors due to network interruption. The major disadvantage of this method is that knowledge of the original partitioning scheme is required to properly reassemble the object, which is not practical for some use cases, such as CDN origination.</p>
+<p><span style="font-family: 宋体;">在介绍大型对象支持之前，一些应用已经将它们的上载对象分割为分卷并且在检索出这些独立块之后在客户端上重新装配它们。这一设计允许客户端支持备份和将大的数据集存档，但也频繁地使用来提升性能或减少由于网络中断引发的错误。这一方法的主要缺点是需要初始的分割组合的知识来合适地将对象重新装配，对于一些使用场景来说是不切实际的，诸如</span>CDN<span style="font-family: 宋体;">源。</span></p>
+<p>In order to eliminate any barrier to entry for clients wanting to store objects larger than 5GB, initially we also prototyped fully transparent support for large object uploads. A fully transparent implementation would support a larger max size by automatically splitting objects into segments during upload within the proxy without any changes to the client API. All segments were completely hidden from the client API.</p>
+<p><span style="font-family: 宋体;">为了解决客户想要存储大于</span>5GB<span style="font-family: 宋体;">的对象障碍，最初的我们原型化完全透明的对于上传大对象的支持。一个完全透明的实现可以在上传时通过自动地将对象分割为分卷在代理内对于客户端</span>API<span style="font-family: 宋体;">没有任何变化来支持更大的最大分卷大小。</span></p>
+<p>This solution introduced a number of challenging failure conditions into the cluster, wouldn’t provide the client with any option to do parallel uploads, and had no basis for a resume feature. The transparent implementation was deemed just too complex for the benefit.</p>
+<p><span style="font-family: 宋体;">这一解决方案引入了大量的有挑战性的失败条件到集群中，不会提供客户端任何选项来进行并行上传，而且没有把重新开始特性作为基础。这一透明实现被认为对于好处来说是太复杂了。</span></p>
+<p>The current “user manifest” design was chosen in order to provide a transparent download of large objects to the client and still provide the uploading client a clean API to support segmented uploads.</p>
+<p><span style="font-family: 宋体;">当前的</span>“<span style="font-family: 宋体;">用户描述</span>”<span style="font-family: 宋体;">设计被挑选出来为了提供大型对象到客户的透明下载并且仍然对上载客户端提供了干净的</span>API<span style="font-family: 宋体;">来支持分卷上载。</span></p>
+<p>Alternative “explicit” user manifest options were discussed which would have required a pre-defined format for listing the segments to “finalize” the segmented upload. While this may offer some potential advantages, it was decided that pushing an added burden onto the client which could potentially limit adoption should be avoided in favor of a simpler “API” (essentially just the format of the ‘X-Object-Manifest’ header).</p>
+<p><span style="font-family: 宋体;">一种替代的</span>“<span style="font-family: 宋体;">显式</span>”<span style="font-family: 宋体;">用户描述选项被讨论，需要一个预定义格式来列出分卷来</span>“<span style="font-family: 宋体;">完成</span>”<span style="font-family: 宋体;">分卷上周。尽管这可以提供一些潜在的优势，它决定推送一个增加的负载到客户端上，该行为可能潜在地限制了应该采用更简单的</span>“API”<span style="font-family: 宋体;">的支持（本质上就是</span>‘X-Object-Manifest’ <span style="font-family: 宋体;">头的格式）</span></p>
+<p>During development it was noted that this “implicit” user manifest approach which is based on the path prefix can be potentially affected by the eventual consistency window of the container listings, which could theoretically cause a GET on the manifest object to return an invalid whole object for that short term. In reality you’re unlikely to encounter this scenario unless you’re running very high concurrency uploads against a small testing environment which isn’t running the object-updaters or container-replicators.</p>
+<p><span style="font-family: 宋体;">在开发期间，我们注意到这种基于路径前缀的</span>“<span style="font-family: 宋体;">隐式</span>”<span style="font-family: 宋体;">的用户描述方法可以潜在地被容器列表的一致性窗口影响，理论上在短期内这会产生一个对描述对象的</span>GET<span style="font-family: 宋体;">返回一个无效的整体对象。实际上，你不可能遇到这种场景除非你运行着非常高的并发性上传针对一个小的没有运行着</span>object-updaters<span style="font-family: 宋体;">或者</span>container-replicator<span style="font-family: 宋体;">的测试环境。</span></p>
+<p>Like all of swift, Large Object Support is living feature which will continue to improve and may change over time.</p>
+<p><span style="font-family: 宋体;">像所有的</span>swift<span style="font-family: 宋体;">版本，大对象支持是一个活跃的特性，将会继续改进并且不断地改变。</span></p>
+<p>&nbsp;</p>
+<div style="border: none; border-top: solid #C0504D 1.5pt; padding: 1.0pt 0cm 0cm 0cm;">
+<p><span style="font-size: 14pt;">7. Container to Container Synchronization&nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">容器同步</span></p>
+</div>
+<h1><span style="font-size: 14pt;">7.1 Overview&nbsp; </span><span style="font-family: 宋体; font-size: 14pt;">概述</span></h1>
+<p>Swift has a feature where all the contents of a container can be mirrored to another container through background synchronization. Swift cluster operators configure their cluster to allow/accept sync requests to/from other clusters, and the user specifies where to sync their container to along with a secret synchronization key.</p>
+<p>swift<span style="font-family: 宋体;">有一个特性：容器的内容可以通过后端的同步镜像到其他的容器。</span>Swift<span style="font-family: 宋体;">集群操作员配置他们的集群来允许</span>/<span style="font-family: 宋体;">接受同步请求到</span>/<span style="font-family: 宋体;">来自其他的集群，用户使用同步密钥来指定要同步的容器。</span></p>
+<p>Note&nbsp; <span style="font-family: 宋体;">注意</span></p>
+<p>Container sync will sync object POSTs only if the proxy server is set to use “object_post_as_copy = true” which is the default. So-called fast object posts, “object_post_as_copy = false” do not update the container listings and therefore can’t be detected for synchronization.</p>
+<p><span style="font-family: 宋体;">只有代理服务器设置使用</span> “object_post_as_copy = true”<span style="font-family: 宋体;">默认值时，容器同步将会同步对象</span><span style="font-family: 宋体;">的</span>POSTs<span style="font-family: 宋体;">。所谓快速对象</span><span style="font-family: 宋体;">的</span>posts<span style="font-family: 宋体;">，</span><span style="font-family: 宋体;">使用</span>“object_post_as_copy = false”<span style="font-family: 宋体;">不升级容器列表并且因此不能被同步检测到。</span></p>
+<p>Note &nbsp;<span style="font-family: 宋体;">注意</span></p>
+<p>If you are using the large objects feature you will need to ensure both your manifest file and your segment files are synced if they happen to be in different containers.</p>
+<p><span style="font-family: 宋体;">如果你使用大对象特性你将需要确保你的描述文件和你的分卷文件被同步了，如果它们在不同的容器内。</span></p>
+<h1><span style="font-size: 14pt;">7.2 Configuring a Cluster’s Allowable Sync Hosts&nbsp;</span></h1>
+<h1><span style="font-family: 宋体; font-size: 14pt;">配置一个集群容许的同步主机</span></h1>
+<p>The Swift cluster operator must allow synchronization with a set of hosts before the user can enable container synchronization. First, the backend container server needs to be given this list of hosts in the container-server.conf file:</p>
+<p>Swift<span style="font-family: 宋体;">集群操作员必须在用户开启容器同步之前允许和一组主机同步。首先，后端的容器服务器需要在</span>container-server.conf<span style="font-family: 宋体;">文件中给定这些主机列表：</span></p>
+<p>[DEFAULT]</p>
+<p># This is a comma separated list of hosts allowed in the</p>
+<p># X-Container-Sync-To field for containers.</p>
+<p># allowed_sync_hosts = 127.0.0.1</p>
+<p>allowed_sync_hosts = host1,host2,etc.</p>
+<p>...</p>
+<p>&nbsp;</p>
+<p>[container-sync]</p>
+<p># You can override the default log routing for this app here (don't</p>
+<p># use set!):</p>
+<p># log_name = container-sync</p>
+<p># log_facility = LOG_LOCAL0</p>
+<p># log_level = INFO</p>
+<p># Will sync, at most, each container once per interval</p>
+<p># interval = 300</p>
+<p># Maximum amount of time to spend syncing each container</p>
+<p># container_time = 60</p>
+<p>Tracking sync progress, problems, and just general activity can only be achieved with log processing for this first release of container synchronization. In that light, you may wish to set the above&nbsp;log_&nbsp;options to direct the container-sync logs to a different file for easier monitoring. Additionally, it should be noted there is no way for an end user to detect sync progress or problems other than HEADing both containers and comparing the overall information.</p>
+<p><span style="font-family: 宋体;">跟踪同步的进度，问题，以及只是一般的活动可以只用日志处理来实现容器同步的第一次分布。基于此，你可能希望设置以上的</span>log<span style="font-family: 宋体;">选项将</span>contaniner-sync<span style="font-family: 宋体;">导向不同的文件方便监控。此外，需要主要的是对于终端用户来说他们除了使用</span>HEAD<span style="font-family: 宋体;">两个容器并且比较它们的整体信息以外没有方法来检测同步的进度或问题。</span></p>
+<p>The authentication system also needs to be configured to allow synchronization requests. Here is an example with TempAuth:</p>
+<p><span style="font-family: 宋体;">认真系统也需要进行配置来允许同步请求。这里有一个关于</span>TempAuth<span style="font-family: 宋体;">的例子：</span></p>
+<p>[filter:tempauth]</p>
+<p># This is a comma separated list of hosts allowed to send</p>
+<p># X-Container-Sync-Key requests.</p>
+<p># allowed_sync_hosts = 127.0.0.1</p>
+<p>allowed_sync_hosts = host1,host2,etc.</p>
+<p>The default of 127.0.0.1 is just so no configuration is required for SAIO setups – for testing.</p>
+<p><span style="font-family: 宋体;">默认值</span>127.0.0.1<span style="font-family: 宋体;">只是因为</span>SAIO<span style="font-family: 宋体;">设置不需要配置</span>-<span style="font-family: 宋体;">用于测试。</span></p>
+<h1><span style="font-size: 14pt;">7.3 Using the&nbsp;swift&nbsp;tool to set up synchronized containers&nbsp;</span></h1>
+<h1><span style="font-family: 宋体; font-size: 14pt;">使用</span><span style="font-size: 14pt;">swift</span><span style="font-family: 宋体; font-size: 14pt;">工具来设置同步容器</span></h1>
+<p><strong>Note </strong><strong><span style="font-family: 宋体;">注意</span></strong></p>
+<p>You must be the account admin on the account to set synchronization targets and keys.</p>
+<p><span style="font-family: 宋体;">你必须使用该帐号的帐号管理权限来设置同步目标和键。</span></p>
+<p>You simply tell each container where to sync to and give it a secret synchronization key. First, let’s get the account details for our two cluster accounts:</p>
+<p><span style="font-family: 宋体;">你只需告诉每个容器同步到何处并且给予一个同步的密钥。首先，让我们先获得我们的两个集群帐号的帐号细节：</span></p>
+<p>$ swift -A http://cluster1/auth/v1.0 -U test:tester -K testing stat -v</p>
+<p>StorageURL: http://cluster1/v1/AUTH_208d1854-e475-4500-b315-81de645d060e</p>
+<p>Auth Token: AUTH_tkd5359e46ff9e419fa193dbd367f3cd19</p>
+<p>&nbsp;&nbsp; Account: AUTH_208d1854-e475-4500-b315-81de645d060e</p>
+<p>Containers: 0</p>
+<p>&nbsp;&nbsp; Objects: 0</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Bytes: 0</p>
+<p>&nbsp;</p>
+<p>$ swift -A http://cluster2/auth/v1.0 -U test2:tester2 -K testing2 stat -v</p>
+<p>StorageURL: http://cluster2/v1/AUTH_33cdcad8-09fb-4940-90da-0f00cbf21c7c</p>
+<p>Auth Token: AUTH_tk816a1aaf403c49adb92ecfca2f88e430</p>
+<p>&nbsp;&nbsp; Account: AUTH_33cdcad8-09fb-4940-90da-0f00cbf21c7c</p>
+<p>Containers: 0</p>
+<p>&nbsp;&nbsp; Objects: 0</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Bytes: 0</p>
+<p>Now, let’s make our first container and tell it to synchronize to a second we’ll make next:</p>
+<p><span style="font-family: 宋体;">现在，让我们获取我们第一个容器并且告诉它我们下一步将会设置的第二个容器：</span></p>
+<p>$ swift -A http://cluster1/auth/v1.0 -U test:tester -K testing post \</p>
+<p>&nbsp; -t 'http://cluster2/v1/AUTH_33cdcad8-09fb-4940-90da-0f00cbf21c7c/container2' \</p>
+<p>&nbsp; -k 'secret' container1</p>
+<p>The&nbsp;-t&nbsp;indicates the URL to sync to, which is the&nbsp;StorageURL&nbsp;from cluster2 we retrieved above plus the container name. The&nbsp;-k&nbsp;specifies the secret key the two containers will share for synchronization. Now, we’ll do something similar for the second cluster’s container:</p>
+<p>-t<span style="font-family: 宋体;">表示同步到的</span>URL<span style="font-family: 宋体;">，就是我们上一步从</span>cluster2<span style="font-family: 宋体;">检索得到的</span>StorageURL<span style="font-family: 宋体;">再加上容器名称。</span>-k<span style="font-family: 宋体;">指定了两个容器共享用于同步的安全密钥。现在，我们对于第二个集群容器将会做一些类似的操作：</span></p>
+<p>$ swift -A http://cluster2/auth/v1.0 -U test2:tester2 -K testing2 post \</p>
+<p>&nbsp; -t 'http://cluster1/v1/AUTH_208d1854-e475-4500-b315-81de645d060e/container1' \</p>
+<p>&nbsp; -k 'secret' container2</p>
+<p>That’s it. Now we can upload a bunch of stuff to the first container and watch as it gets synchronized over to the second:</p>
+<p><span style="font-family: 宋体;">就是如此。现在我们可以上载一堆东西到第一个容器并且观察它与第二个容器进行同步：</span></p>
+<p>$ swift -A http://cluster1/auth/v1.0 -U test:tester -K testing \</p>
+<p>&nbsp; upload container1 .</p>
+<p>photo002.png</p>
+<p>photo004.png</p>
+<p>photo001.png</p>
+<p>photo003.png</p>
+<p>&nbsp;</p>
+<p>$ swift -A http://cluster2/auth/v1.0 -U test2:tester2 -K testing2 \</p>
+<p>&nbsp; list container2</p>
+<p>&nbsp;</p>
+<p>[Nothing there yet, so we wait a bit...]</p>
+<p>[If you're an operator running SAIO and just testing, you may need to</p>
+<p>&nbsp;run 'swift-init container-sync once' to perform a sync scan.]</p>
+<p>&nbsp;</p>
+<p>$ swift -A http://cluster2/auth/v1.0 -U test2:tester2 -K testing2 \</p>
+<p>&nbsp; list container2</p>
+<p>photo001.png</p>
+<p>photo002.png</p>
+<p>photo003.png</p>
+<p>photo004.png</p>
+<p>You can also set up a chain of synced containers if you want more than two. You’d point 1 -&gt; 2, then 2 -&gt; 3, and finally 3 -&gt; 1 for three containers. They’d all need to share the same secret synchronization key.</p>
+<p><span style="font-family: 宋体;">你也可以设置一个同步容器链如果你想要使用两个以上的容器。对于三个容器，你得将指向</span>1-&gt;2<span style="font-family: 宋体;">，然后</span>2-&gt;3<span style="font-family: 宋体;">，最后</span>3-&gt;1<span style="font-family: 宋体;">。它们须共享同一个同步密钥。</span></p>
+<h1><span style="font-size: 14pt;">7.4 Using curl (or other tools) instead&nbsp;</span></h1>
+<h1><span style="font-family: 宋体; font-size: 14pt;">使用</span><span style="font-size: 14pt;">curl(</span><span style="font-family: 宋体; font-size: 14pt;">或其他工具代替</span><span style="font-size: 14pt;">)</span></h1>
+<p>So what’s&nbsp;swift&nbsp;doing behind the scenes? Nothing overly complicated. It translates the&nbsp;-t&nbsp;&lt;value&gt;&nbsp;option into an&nbsp;X-Container-Sync-To:&lt;value&gt;&nbsp;header and the&nbsp;-k&nbsp;&lt;value&gt;&nbsp;option into an&nbsp;X-Container-Sync-Key:&nbsp;&lt;value&gt;&nbsp;header.</p>
+<p><span style="font-family: 宋体;">因此</span>swift<span style="font-family: 宋体;">在这个场景背后做了什么呢？其实没有什么很复杂的操作。它将</span>-t&lt;value&gt;<span style="font-family: 宋体;">选项转换为一个</span>&nbsp;X-Container-Sync-To:&nbsp;&lt;value&gt;&nbsp;<span style="font-family: 宋体;">头以及将</span>-k&nbsp;&lt;value&gt;<span style="font-family: 宋体;">选项转换为</span>&nbsp;X-Container-Sync-Key:&nbsp;&lt;value&gt;&nbsp;<span style="font-family: 宋体;">头。</span></p>
+<p>For instance, when we created the first container above and told it to synchronize to the second, we could have used this curl command:</p>
+<p><span style="font-family: 宋体;">例如，当我们创建以上第一个容器时并且告诉它与第二个容器同步，我们可以使用以下</span>curl<span style="font-family: 宋体;">命令：</span></p>
+<p>$ curl -i -X POST -H 'X-Auth-Token: AUTH_tkd5359e46ff9e419fa193dbd367f3cd19' \</p>
+<p>&nbsp; -H 'X-Container-Sync-To: http://cluster2/v1/AUTH_33cdcad8-09fb-4940-90da-0f00cbf21c7c/container2' \</p>
+<p>&nbsp; -H 'X-Container-Sync-Key: secret' \</p>
+<p>&nbsp; 'http://cluster1/v1/AUTH_208d1854-e475-4500-b315-81de645d060e/container1'</p>
+<p>HTTP/1.1 204 No Content</p>
+<p>Content-Length: 0</p>
+<p>Content-Type: text/plain; charset=UTF-8</p>
+<p>Date: Thu, 24 Feb 2011 22:39:14 GMT</p>
+<h1><span style="font-size: 14pt;">7.5 What’s going on behind the scenes, in the cluster?&nbsp;</span></h1>
+<h1><span style="font-family: 宋体; font-size: 14pt;">在集群中，后台正在运行着什么？</span></h1>
+<p>The swift-container-sync does the job of sending updates to the remote container.</p>
+<p>swift-container-sync<span style="font-family: 宋体;">执行发送</span>update<span style="font-family: 宋体;">到远程容器的工作。</span></p>
+<p>This is done by scanning the local devices for container databases and checking for x-container-sync-to and x-container-sync-key metadata values. If they exist, newer rows since the last sync will trigger PUTs or DELETEs to the other container.</p>
+<p><span style="font-family: 宋体;">通过扫描本地设备的容器数据库并且检测</span>x-container-sync-to<span style="font-family: 宋体;">和</span>x-container-sync-key<span style="font-family: 宋体;">元数据值来完成。如果它们存在，上一次更新的较新的行将会触发</span>PUTS<span style="font-family: 宋体;">和</span>DELETEs<span style="font-family: 宋体;">到其它的容器。</span></p>
+<p>Note <span style="font-family: 宋体;">注意</span></p>
+<p>Container sync will sync object POSTs only if the proxy server is set to use “object_post_as_copy = true” which is the default. So-called fast object posts, “object_post_as_copy = false” do not update the container listings and therefore can’t be detected for synchronization.</p>
+<p><span style="font-family: 宋体;">容器同步将会同步对象</span>POSTs<span style="font-family: 宋体;">仅当代理服务器设置使用了</span>“object_post_as_copy = true”<span style="font-family: 宋体;">的默认值。所谓的快速对象发送，</span>“object_post_as_copy = false”<span style="font-family: 宋体;">不升级容器列表，所以因此不能被同步检测。</span></p>
+<p>The actual syncing is slightly more complicated to make use of the three (or number-of-replicas) main nodes for a container without each trying to do the exact same work but also without missing work if one node happens to be down.</p>
+<p><span style="font-family: 宋体;">使用一个容器的三个（或者</span>replicas<span style="font-family: 宋体;">的数目</span>number-of-replicas<span style="font-family: 宋体;">）主节点实际的同步稍微更复杂些，没有每个尝试去做完全相同的工作而且如果一个节点发生故障不会丢失工作。</span></p>
+<p>Two sync points are kept per container database. All rows between the two sync points trigger updates. Any rows newer than both sync points cause updates depending on the node’s position for the container (primary nodes do one third, etc. depending on the replica count of course). After a sync run, the first sync point is set to the newest ROWID known and the second sync point is set to newest ROWID for which all updates have been sent.</p>
+<p><span style="font-family: 宋体;">两个同步点被保存在每个容器数据库中。在两个同步点之间的所有的行触发</span>update<span style="font-family: 宋体;">。两个同步节点间触发</span>updates<span style="font-family: 宋体;">的任何一个较新的行取决于节点对于容器的位置（主节点做</span>1/3<span style="font-family: 宋体;">，等等。当然取决于</span>replica<span style="font-family: 宋体;">的数量）。在同步运行之后，第一个同步点设置为最新已知的</span>ROWID<span style="font-family: 宋体;">并且第二个同步点被设置为最新的</span>ROWID<span style="font-family: 宋体;">表示所有的</span>updates<span style="font-family: 宋体;">已经被发送。</span></p>
+<p>An example may help. Assume replica count is 3 and perfectly matching ROWIDs starting at 1.</p>
+<p><span style="font-family: 宋体;">一个例子有助于理解。假设</span>replica<span style="font-family: 宋体;">数量是</span>3<span style="font-family: 宋体;">并且完全匹配在</span>1<span style="font-family: 宋体;">开始的</span>ROWID<span style="font-family: 宋体;">。</span></p>
+<p>First sync run, database has 6 rows:</p>
+<p>SyncPoint1 starts as -1.</p>
+<p>SyncPoint2 starts as -1.</p>
+<p>No rows between points, so no “all updates” rows.</p>
+<p>Six rows newer than SyncPoint1, so a third of the rows are sent by node 1, another third by node 2, remaining third by node 3.</p>
+<p>SyncPoint1 is set as 6 (the newest ROWID known).</p>
+<p>SyncPoint2 is left as -1 since no “all updates” rows were synced.</p>
+<p>Next sync run, database has 12 rows:</p>
+<p>SyncPoint1 starts as 6.</p>
+<p>SyncPoint2 starts as -1.</p>
+<p>The rows between -1 and 6 all trigger updates (most of which should short-circuit on the remote end as having already been done).</p>
+<p>Six more rows newer than SyncPoint1, so a third of the rows are sent by node 1, another third by node 2, remaining third by node 3.</p>
+<p>SyncPoint1 is set as 12 (the newest ROWID known).</p>
+<p>SyncPoint2 is set as 6 (the newest “all updates” ROWID).</p>
+<p>In this way, under normal circumstances each node sends its share of updates each run and just sends a batch of older updates to ensure nothing was missed.</p>
+<p><span style="font-family: 宋体;">用这种方式，在一般情况下每个节点发送它运行的共享的更新并且仅发送一批较老的更新来确保没有丢失信息。</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div></div><div id="MySignature"><br>
+<br>
+<p><span style="font-family: 幼圆; color: #000000; font-size: 14px;">---</span><span style="font-family: Comic Sans MS; color: #000000; font-size: 14px">我是低调的不显眼的简洁的不会被敌人发现的分割</span><span style="font-family: 幼圆; color: #000000; font-size: 14px">线---</span></p>
+<!-- JiaThis 代码 -->
+<div id="jiathis_style_32x32">
+<a class="jiathis_button_tsina" title="分享到新浪微博"><span class="jiathis_txt jtico jtico_tsina"></span></a>
+<a class="jiathis_button_tqq" title="分享到腾讯微博"><span class="jiathis_txt jtico jtico_tqq"></span></a>
+<a class="jiathis_button_renren" title="分享到人人网"><span class="jiathis_txt jtico jtico_renren"></span></a>
+<a class="jiathis_button_kaixin001" title="分享到开心网"><span class="jiathis_txt jtico jtico_kaixin001"></span></a>
+<a class="jiathis_button_douban" title="分享到豆瓣"><span class="jiathis_txt jtico jtico_douban"></span></a>
+<a class="jiathis_button_hi" title="分享到百度空间"><span class="jiathis_txt jtico jtico_hi"></span></a>
+<a class="jiathis_button_fanfou" title="分享到饭否"><span class="jiathis_txt jtico jtico_fanfou"></span></a>
+<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+<a class="jiathis_counter_style"><span class="jiathis_button_expanded jiathis_counter jiathis_bubble_style" id="jiathis_counter_24" title="累计分享8次">8</span></a>
+</div>
+<div style="position:absolute;width:0px;height:0px;"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="0" height="0" id="JIATHISSWF" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab"><param name="allowScriptAccess" value="always"><param name="swLiveConnect" value="true"><param name="movie" value="http://www.jiathis.com/code/swf/m.swf"><param name="FlashVars" value="z=a"><embed name="JIATHISSWF" src="http://www.jiathis.com/code/swf/m.swf" flashvars="z=a" width="0" height="0" allowscriptaccess="always" swliveconnect="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></object></div><!-- JiaThis Button END -->
+<br>
+<!-- 自定义代码 -->
+<br>
+<div style="background-color: #a2dcea;">
+<p><span style="font-family: Georgia; color: #000000; font-size: 12pt">&nbsp;&nbsp;&nbsp;&nbsp; This </span><span style="font-family: Georgia; color: #ff6600; font-size: 12pt">article</span><span style="font-family: Georgia; color: #ff0000; font-size: 12pt"> Powered </span><span style="font-family: Georgia; color: #008000; font-size: 12pt">by </span><strong><span style="font-family: Georgia; color: #0000ff; font-size: 12pt">努力</span><span style="font-family: Georgia; color: #0000ff; font-size: 12pt">的</span><span style="color: #808080; font-size: 12pt">牛皮</span><span style="color: #808080; font-size: 12pt">糖</span></strong><span></span></p>
+<div><strong><span style="color: #00ccff;"><span style="font-family: 宋体;"><span style="color: #0000ff;"><span style="widows: 2; text-transform: none; text-indent: 0px; border-collapse: separate; font: medium Simsun; white-space: normal; orphans: 2; letter-spacing: normal; color: #000000; word-spacing: 0px;"><span style="line-height: 21px; font-family: Comic Sans MS; color: #0000ff; font-size: 10pt">&nbsp;&nbsp; &nbsp; 新手上路，不恰之处，恳请指出，不胜感谢</span></span></span></span></span></strong></div>
+<p><strong><span style="color: #00ccff"><span style="font-family: 宋体"><span style="font-family: Comic Sans MS; color: #0000ff; font-size: 10pt">&nbsp;&nbsp; 转载请注明出处</span><span style="font-family: Comic Sans MS; color: #0000ff; font-size: 10pt">“</span><span style="color: #0000ff"><a href="http://www.cnblogs.com/yuxc/"><font color="#000000"><span style="font-family: Comic Sans MS; font-size: 10pt">一块努力的牛皮糖</span></font></a></span><span style="font-family: Comic Sans MS; color: #0000ff; font-size: 10pt">”：<a href="http://www.cnblogs.com/yuxc/"><font color="#000000"><span style="font-family: Comic Sans MS; font-size: 10pt">http://www.cnblogs.com/yuxc/</span></font></a></span></span></span></strong></p>
+<p><strong><span style="color: #00ccff;"><span style="font-family: 宋体;"><span style="color: #0000ff;"><span style="widows: 2; text-transform: none; text-indent: 0px; border-collapse: separate; font: medium Simsun; white-space: normal; orphans: 2; letter-spacing: normal; color: #000000; word-spacing: 0px;" class="Apple-style-span"><span style="line-height: 21px; font-family: Comic Sans MS; color: #0000ff; font-size: 10pt" class="Apple-style-span"></span></span></span></span></span></strong></p>
+</div>
+</div>
+<script type="text/javascript">
+var isLogined = false;
+var cb_blogId = 88100;
+var cb_entryId = 2278303;
+var cb_blogApp = currentBlogApp;
+var cb_blogUserGuid = "4e16972c-ba5d-e011-a53f-842b2b196315";
+var cb_entryCreatedDate = '2011/12/6 18:53:00';
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</script>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/yuxc/category/324510.html">Swift云存储</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/yuxc/tag/Swift/">Swift</a>, <a href="http://www.cnblogs.com/yuxc/tag/openstack/">openstack</a>, <a href="http://www.cnblogs.com/yuxc/tag/Object%20storage/">Object storage</a></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/%e7%89%9b%e7%9a%ae%e7%b3%96NewPtone" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/yuxc/" target="_blank"><img src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/u288756.jpg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/yuxc/">牛皮糖NewPtone</a><br>
+<a href="http://home.cnblogs.com/u/yuxc/followees">关注 - 50</a><br>
+<a href="http://home.cnblogs.com/u/yuxc/followers">粉丝 - 98</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,&#39;Digg&#39;)"> 
+		<span class="diggnum" id="digg_count">3</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/yuxc/archive/2011/11/12/2246203.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/yuxc/archive/2011/11/12/2246203.html" title="发布于2011-11-12 09:16">Python自然语言处理学习笔记(63)：7.4 语言结构中的递归</a><br><a href="http://www.cnblogs.com/yuxc/archive/2011/12/31/2309228.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/yuxc/archive/2011/12/31/2309228.html" title="发布于2011-12-31 23:50">2011年的最后一篇</a><br></div>
+</div>
+<script type="text/javascript">
+    //SyntaxHighlighter.config.strings.expandSource = '<span><img src="http://static.cnblogs.com/images/expand-code.gif" alt="" class="expand-code-icon"/>View Code</span>';
+    $(function () {  
+        loadViewCount(cb_entryId);
+        fixPostBodyFormat();
+        loadAdUnderPost();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);        
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);        
+    });
+</script>
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2011-12-06 18:53</span> <a href="http://www.cnblogs.com/yuxc/">牛皮糖NewPtone</a> 阅读(<span id="post_view_count">5464</span>) 评论(<span id="post_comment_count">7</span>)  <a href="http://www.cnblogs.com/yuxc/admin/EditPosts.aspx?postid=2278303" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#" onclick="AddToWz(2278303);return false;">收藏</a></div>
+	</div>
+	<script src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/2278303" type="text/javascript"></script>
+	
+</div><!--end: topics 文章、评论容器-->
+<div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#2295306" class="layer">#1楼</a><a name="2295306" id="comment_anchor_2295306"></a>  <span class="comment_date">2012-01-17 12:12</span> <a id="ctl00_CommentList_NameLink_0" target="_blank">junlun[未注册用户]</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2295306" class="blog_comment_body">博主好厉害，官方文档中很多汇总翻译过来了。我之前也做过其中一部分的翻译工作，可惜没有时间把余下的翻译。第一次接触分布式文件系统，感觉一知半解中。现在在读分布式计算的原理那本书，感觉和大学上的分布式的课程差别太大。看过几篇博主的swift（SAIO）的介绍，学了不少。有空会多来逛逛</div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#2297204" class="layer">#2楼</a><a name="2297204" id="comment_anchor_2297204"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2012-01-20 22:42</span> <a id="a_comment_author_2297204" href="http://www.cnblogs.com/yuxc/" target="_blank">一块努力的牛皮糖</a> <a href="http://space.cnblogs.com/msg/send/%e4%b8%80%e5%9d%97%e5%8a%aa%e5%8a%9b%e7%9a%84%e7%89%9b%e7%9a%ae%e7%b3%96" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2297204" class="blog_comment_body"><a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#2295306" title="查看所回复的评论">@</a>junlun<br>谢谢鼓励~有空多交流啊~~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2297204,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2297204,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2297204_avatar" style="display:none;">http://pic.cnitblog.com/face/u288756.jpg?id=05165748</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#2452978" class="layer">#3楼</a><a name="2452978" id="comment_anchor_2452978"></a>  <span class="comment_date">2012-08-21 15:57</span> <a id="a_comment_author_2452978" href="http://home.cnblogs.com/u/439206/" target="_blank">兵临城下ing</a> <a href="http://space.cnblogs.com/msg/send/%e5%85%b5%e4%b8%b4%e5%9f%8e%e4%b8%8bing" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2452978" class="blog_comment_body">1.3中：“这确保了被删除的文件被正确地复制并且不会因为遭遇故障场景导致早些版本神奇再现。”为什么删除的文件还要被正确复制？原文怎么说的啊？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2452978,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2452978,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#2453238" class="layer">#4楼</a><a name="2453238" id="comment_anchor_2453238"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2012-08-21 20:57</span> <a id="a_comment_author_2453238" href="http://www.cnblogs.com/yuxc/" target="_blank">牛皮糖NewPtone</a> <a href="http://space.cnblogs.com/msg/send/%e7%89%9b%e7%9a%ae%e7%b3%96NewPtone" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2453238" class="blog_comment_body"><a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#2452978" title="查看所回复的评论">@</a>兵临城下ing<br>文件不会被马上删除，会被标记为时间戳为文件名加以.ts为后缀的大小为0的文件，replication进程仍然会把它当做一次文件更新，使用rsync同步到其他节点上去。<br>原文去参阅官方文档~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2453238,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2453238,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2453238_avatar" style="display:none;">http://pic.cnitblog.com/face/u288756.jpg?id=05165748</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#2524541" class="layer">#5楼</a><a name="2524541" id="comment_anchor_2524541"></a>  <span class="comment_date">2012-11-05 16:02</span> <a id="a_comment_author_2524541" href="http://home.cnblogs.com/u/464667/" target="_blank">zous</a> <a href="http://space.cnblogs.com/msg/send/zous" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2524541" class="blog_comment_body">楼主 我爱死你了 你这太给力了 我还以为我要啃英文文档呢 真心感谢 特意申请了一个账号来感谢感谢 嘿嘿 楼主V5</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2524541,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2524541,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#2524844" class="layer">#6楼</a><a name="2524844" id="comment_anchor_2524844"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2012-11-05 21:32</span> <a id="a_comment_author_2524844" href="http://www.cnblogs.com/yuxc/" target="_blank">牛皮糖NewPtone</a> <a href="http://space.cnblogs.com/msg/send/%e7%89%9b%e7%9a%ae%e7%b3%96NewPtone" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2524844" class="blog_comment_body"><a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#2524541" title="查看所回复的评论">@</a>zous<br>呵呵，其实啃英文的更好，因为有些句子中文不好翻译，要仔细琢磨，看完我这个文档，再去看官方的文档吧，现在已经1.7.5了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2524844,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2524844,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2524844_avatar" style="display:none;">http://pic.cnitblog.com/face/u288756.jpg?id=05165748</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#2524881" class="layer">#7楼</a><a name="2524881" id="comment_anchor_2524881"></a><span id="comment-maxId" style="display:none;">2524881</span><span id="comment-maxDate" style="display:none;">2012/11/5 22:25:53</span>  <span class="comment_date">2012-11-05 22:25</span> <a id="a_comment_author_2524881" href="http://home.cnblogs.com/u/464667/" target="_blank">zous</a> <a href="http://space.cnblogs.com/msg/send/zous" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2524881" class="blog_comment_body"><a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#2524844" title="查看所回复的评论">@</a>牛皮糖NewPtone<br>嗯 呵呵 是啊 但是英语看着实在是脑袋疼 进展还慢  刚接触这个东西 灰常迷糊啊  楼主是这方面的专家啊 太了不起了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2524881,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2524881,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+
+<script type="text/javascript">
+    if (typeof commentManager === 'undefined') {
+        commentManager = new blogCommentManager();
+    }
+    commentManager.loadCommentForm();   
+</script>
+
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="ad_under_post_holder">
+<div id="google_ad_c1" class="c_ad_block">
+    <!-- cnblogs_blogpost_C1_sitehome -->
+    <div id="div-gpt-ad-1346480159711-0" style="width:300px; height:250px;">
+    
+    <iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;"></iframe></div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/182345/" target="_blank">果冻豆迅速普及难解决Android碎片化问题</a><br> ·  <a href="http://news.cnblogs.com/n/182344/" target="_blank">阿里技术嘉年华7月14日上午场内容</a><br> ·  <a href="http://news.cnblogs.com/n/182343/" target="_blank">德国电信开售阿卡手机 搭载Firefox OS</a><br> ·  <a href="http://news.cnblogs.com/n/182342/" target="_blank">世界级3D设计师拉斐尔•格拉萨蒂访谈录</a><br> ·  <a href="http://news.cnblogs.com/n/182341/" target="_blank">Gartner：三星苹果将继续上演“双雄争霸”</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/182265/" target="_blank">硅谷归来7点分享：创业者，做你自己</a><br> ·  <a href="http://kb.cnblogs.com/page/182200/" target="_blank">我为什么不能坚持？</a><br> ·  <a href="http://kb.cnblogs.com/page/168725/" target="_blank">成为高效程序员的7个重要习惯</a><br> ·  <a href="http://kb.cnblogs.com/page/182047/" target="_blank">谈谈对BPM的理解</a><br> ·  <a href="http://kb.cnblogs.com/page/175976/" target="_blank">编程从业五年的十四条经验，句句朴实</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="google_ad_c2" class="c_ad_block">
+    <!-- cnblogs_blogpost_C2_sitehome -->
+    <div id="div-gpt-ad-1346479110744-1" style="width:468px; height:60px;">
+    
+    <iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div>
+</div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+</div>
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">牛皮糖的Blog</h3>
+	<div id="blog-news"><div>
+<div><span style="font-family: Comic Sans MS; color: #800080">This is a newbie' Blog...</span><span style="color: #0000ff"><span style="color: #0000ff"><span style="color: #0000ff"><img alt="" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/224027861.gif"></span></span></span></div></div>
+<p><span style="font-family: Comic Sans MS; color: #ff6600">Welcome here,If you like...</span><span style="color: #0000ff"><span style="color: #0000ff"><img alt="" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/224026855.gif"></span></span></p><p>&nbsp;</p><p><span style="font-family: &#39;Comic Sans MS&#39;; color: #0000ff; ">You could do something as follows:&nbsp;</span></p><div><ul><li><a href="http://www.cnblogs.com/yuxc/rss" rel="nofollow" target="_blank"><img border="0" alt="订阅我的博客" align="absMiddle" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/feed-icon32x32.png" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; border-bottom-width: medium; border-bottom-color: initial; border-left-width: medium; border-left-color: initial; border-top-width: medium; border-top-color: initial; border-right-width: medium; border-right-color: initial; ">&nbsp;订阅我的博客</a>&nbsp;</li><li><a href="http://weibo.com/nupta" rel="nofollow" target="_blank"><img border="0" alt="" align="absMiddle" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/sina.jpg" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; ">&nbsp;我的新浪微博</a>&nbsp;</li><li><a href="http://www.douban.com/people/Nupta/" target="_blank"><img align="absMiddle" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/douban.jpg" width="32" height="32" border="0" alt="" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; ">&nbsp;我的豆瓣</a>&nbsp;</li><li><a href="http://blog.163.com/yuxcer@126/" target="_blank"><img alt="YuxcBlog" align="absMiddle" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/ava.s" width="32" height="32" border="0" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; ">&nbsp;我的网易博客</a>&nbsp;</li><li><a href="http://www.google.com/reader/view/feed/http://www.cnblogs.com/yuxc/rss" rel="nofollow" target="_blank"><img border="0" alt="通过Google订阅本站" align="absMiddle" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/icon_subshot01_google.gif" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; "></a></li><li><a href="http://www.xianguo.com/subscribe.php?url=http://www.cnblogs.com/yuxc/rss" rel="nofollow" target="_blank"><img border="0" alt="通过鲜果订阅本站" align="absMiddle" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/icon_subshot01_xianguo.gif" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; "></a></li><li><a href="http://www.zhuaxia.com/add_channel.php?url=http://www.cnblogs.com/yuxc/rss" target="_blank"><img border="0" alt="抓虾" vspace="2" align="absMiddle" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/icon_subshot01_zhuaxia.gif" style="border-top-style: none; border-right-style: none; border-bottom-style: none; border-left-style: none; border-width: initial; border-color: initial; margin-bottom: 3px; "></a></li></ul></div><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/yuxc/">牛皮糖NewPtone</a><br>园龄：<a href="http://home.cnblogs.com/u/yuxc/" title="入园时间：2011-04-03">2年3个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/yuxc/followers/">98</a><br>关注：<a href="http://home.cnblogs.com/u/yuxc/followees/">50</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger(&#39;4e16972c-ba5d-e011-a53f-842b2b196315&#39;)">+加关注</a></div></div></div>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="displya:none"></div></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn">
+
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+
+</div>
+
+
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(218)</span></h3>
+
+<ul>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/yuxc/category/416768.html">DevOps(6)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/yuxc/category/359533.html">Linux集市(24)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/yuxc/category/400759.html">Mac OS(1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/yuxc/category/416451.html">OpenStack云计算(7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/yuxc/category/296453.html">Project 1：Audio(5)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/yuxc/category/296463.html">Project 2：Grid(7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/yuxc/category/431506.html">Puppet(2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/yuxc/category/296461.html">PYMOTW(1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/yuxc/category/314865.html">Python美味食谱(9)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/yuxc/category/307122.html">Python自然语言处理(71)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/yuxc/category/410887.html">StackOps(3)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/yuxc/category/324510.html">Swift云存储(18)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/yuxc/category/296455.html">ThinkPython(7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/yuxc/category/493381.html">生活和思考(1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/yuxc/category/318339.html">数据库(2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/yuxc/category/313480.html">网络编程(4)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/yuxc/category/307123.html">我在看的书(7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/yuxc/category/296458.html">形式化技术(7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/yuxc/category/296450.html">有趣的Python(22)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/yuxc/category/296486.html">杂货铺(14)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(215)</span></h3>
+
+<ul>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/yuxc/archive/2013/06.html">2013年6月 (2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/yuxc/archive/2013/04.html">2013年4月 (2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/yuxc/archive/2013/03.html">2013年3月 (2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/yuxc/archive/2013/02.html">2013年2月 (4)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/yuxc/archive/2012/12.html">2012年12月 (1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/yuxc/archive/2012/11.html">2012年11月 (10)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/yuxc/archive/2012/10.html">2012年10月 (3)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/yuxc/archive/2012/09.html">2012年9月 (6)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/yuxc/archive/2012/08.html">2012年8月 (8)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/yuxc/archive/2012/07.html">2012年7月 (4)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/yuxc/archive/2012/06.html">2012年6月 (4)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/yuxc/archive/2012/05.html">2012年5月 (7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/yuxc/archive/2012/03.html">2012年3月 (4)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/yuxc/archive/2012/02.html">2012年2月 (5)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/yuxc/archive/2012/01.html">2012年1月 (1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/yuxc/archive/2011/12.html">2011年12月 (2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/yuxc/archive/2011/11.html">2011年11月 (1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/yuxc/archive/2011/10.html">2011年10月 (2)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/yuxc/archive/2011/09.html">2011年9月 (13)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/yuxc/archive/2011/08.html">2011年8月 (67)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/yuxc/archive/2011/07.html">2011年7月 (10)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/yuxc/archive/2011/06.html">2011年6月 (19)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/yuxc/archive/2011/05.html">2011年5月 (7)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/yuxc/archive/2011/04.html">2011年4月 (20)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/yuxc/archive/2011/03.html">2011年3月 (9)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/yuxc/archive/2009/07.html">2009年7月 (1)</a> </li>
+
+<li><a id="ctl01_CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/yuxc/archive/2008/10.html">2008年10月 (1)</a> </li>
+
+</ul>
+
+</div>
+
+
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	92647
+	</li>
+	<li class="liRank">
+		排名 -	1267
+	</li>
+</ul>
+</div>
+
+
+
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/yuxc/archive/2012/07/04/2575536.html#2726683">1. Re:深入云存储系统Swift存储节点：存储实现分析</a></li>
+    <li class="recent_comment_body">作者有没有研究过riak，和swift类似的云存储，用erlang编写，apache lisence。有兴趣可以一起讨论。<br><a href="http://basho.com/riak/" target="_blank">http://basho.com/riak/</a></li>
+    <li class="recent_comment_author">--IntoTheRain</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/yuxc/archive/2012/06/22/2558312.html#2720594">2. Re:深入云存储系统Swift核心组件：Ring实现原理剖析</a></li>
+    <li class="recent_comment_body">你好，首先谢谢作者能写这么好的博文让我们学习，我有一点不太明白博文中有这样一段， “所以在设置虚结点数的时候，需要对系统预期的规模做充分考虑，假如集群的规模不会超过6000个结点，那么可以将虚结点数设置为结点数的100倍。这样，变动任意一个结点的负载仅影响1%的数据项。此时有6百万个vnode数，使用2bytes来存储结点数(0~65535)。基本的内存占用是6*106*2bytes=12Mb，”...</li>
+    <li class="recent_comment_author">--SA高处不胜寒</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/yuxc/archive/2012/06/22/2558312.html#2696999">3. Re:深入云存储系统Swift核心组件：Ring实现原理剖析</a></li>
+    <li class="recent_comment_body"><a href="http://www.cnblogs.com/yuxc/archive/2011/12/06/2278303.html#2696938" title="查看所回复的评论">@</a>IntoTheRain<br>我在致谢里添加了详细说明，以杜绝抄袭之嫌。<br>另外感谢指出我的错误，关于虚拟节点的说明，已经更正。</li>
+    <li class="recent_comment_author">--牛皮糖NewPtone</li>
+</ul>
+</div>
+</div>
+</div>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2013 牛皮糖NewPtone
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<script type="text/javascript" src="./Swift 云存储技术详解 - 牛皮糖NewPtone - 博客园_files/google-analytics.js"></script>
+
+
+</body></html>
