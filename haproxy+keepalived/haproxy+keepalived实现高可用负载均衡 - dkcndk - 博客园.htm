@@ -1,0 +1,1524 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0061)http://www.cnblogs.com/dkblog/archive/2011/07/06/2098949.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/style.css">
+<link type="text/css" rel="stylesheet" href="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/common2.css">
+<link type="text/css" rel="stylesheet" href="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/shStyle.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/dkblog/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/dkblog/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/dkblog/wlwmanifest.xml">
+<script async="" type="text/javascript" src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/gpt.js"></script><script type="text/javascript" async="" src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/ga.js"></script><script src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">
+var currentBlogApp = 'dkblog';
+</script>
+<script src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/common.js" type="text/javascript"></script> 
+<script src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/json2.js" type="text/javascript"></script>
+<script type="text/javascript" src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/syntaxHighlighter.js"></script>
+<script async="" type="text/javascript" src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/google_ads_gpt.js"></script><script type="text/javascript" src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/osd.js"></script></head>
+<body>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/dkblog/">DK's Blog</a></div>
+<div class="subtitle">这是DK的博客. 认真做事.</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/dkblog/">首页</a></li>
+<li id="nav_q"><a class="menu" href="http://q.cnblogs.com/">博问</a></li>
+<li id="nav_ing"><a class="menu" href="http://home.cnblogs.com/ing/">闪存</a></li>
+<li id="nav_newpost"><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://www.cnblogs.com/dkblog/admin/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://space.cnblogs.com/msg/send/dkcndk">联系</a></li>
+<li id="nav_rss"><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/dkblog/rss">订阅</a>
+<!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/dkblog/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://www.cnblogs.com/dkblog/admin/EditPosts.aspx">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔-584&nbsp;
+文章-0&nbsp;
+评论-17&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+	
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园.htm">haproxy+keepalived实现高可用负载均衡</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>软件负载均衡一般通过两种方式来实现：基于操作系统的软负载实现和基于第三方应用的软负载实现。LVS就是基于Linux操作系统实现的一种软负载，HAProxy就是开源的并且基于第三应用实现的软负载。</p>
+<p>HAProxy相比LVS的使用要简单很多，功能方面也很丰富。当 前，HAProxy支持两种主要的代理模式:"tcp"也即4层（大多用于邮件服务器、内部协议通信服务器等），和7层（HTTP）。在4层模式 下，HAProxy仅在客户端和服务器之间转发双向流量。7层模式下，HAProxy会分析协议，并且能通过允许、拒绝、交换、增加、修改或者删除请求 (request)或者回应(response)里指定内容来控制协议，这种操作要基于特定规则。</p>
+<p>我现在用HAProxy主要在于它有以下优点，这里我总结下：</p>
+<p><strong>一、</strong>免费开源，稳定性也是非常好，这个可通过我做的一些小项目可以看出来，单Haproxy也跑得不错，稳定性可以与LVS相媲美；</p>
+<p><strong>二、</strong>根据官方文档，HAProxy可以跑满10Gbps-New benchmark of HAProxy at 10 Gbps using Myricom's 10GbE NICs (Myri-10G PCI-Express)，这个作为软件级负载均衡，也是比较惊人的；</p>
+<p><strong>三、</strong>HAProxy可以作为MySQL、邮件或其它的非web的负载均衡，我们常用于它作为MySQL(读)负载均衡；</p>
+<p>四<strong>、</strong>自带强大的监控服务器状态的页面，实际环境中我们结合Nagios进行邮件或短信报警，这个也是我非常喜欢它的原因之一；</p>
+<p>五<strong>、</strong>HAProxy支持虚拟主机。</p>
+<p>===================================================================================</p>
+<p>在做反向代理服务器的负载均衡时，我们通常会使用nginx的均衡配置。其实，haproxy的负载均衡也是属于这一类的。那么关于这方面的配置过程我们现在来进行一下讲解。首先，对haproxy进行一个简单的介绍，之后就是安装和配置环节了。</p>
+<p><strong>HAProxy介绍</strong></p>
+<p>反向代理服务器,支持双机热备支持虚拟主机,但其配置简单,拥有非常不错的服务器健康检查功能,当其代理的后端服务器出现故障, HAProxy会自动将该服务器摘除,故障恢复后再自动将该服务器加入｡新的1.3引入了frontend,backend；frontend根据任意 HTTP请求头内容做规则匹配,然后把请求定向到相关的backend.</p>
+<p><a href="http://blog.liuts.com/post/223/">http://blog.liuts.com/post/223/</a>&nbsp;（搭建四层负载均衡器）</p>
+<p><a href="http://rfyimcool.blog.51cto.com/1030776/413187">http://rfyimcool.blog.51cto.com/1030776/413187</a>&nbsp;（搭建七层负载均衡器）</p>
+<p>===================================================================================</p>
+<p><span class="headline">keepalived简介</span>　　</p>
+<p><a href="http://www.keepalived.org/">http://www.keepalived.org</a></p>
+<p>keepalived是一个类似于layer3, 4 &amp; 5交换机制的软件，也就是我们平时说的第3层、第4层和第5层交换。Keepalived的作用是检测web服务器的状态，如果有一台web服务器死机，或工作出现故障，Keepalived将检测到，并将有故障的web服务器从系统中剔除，当web服务器工作正常后Keepalived自动将web服务器加入到服务器群中，这些工作全部自动完成，不需要人工干涉，需要人工做的只是修复故障的web服务器。</p>
+<p>类似的HA工具还有heatbeat、drbd等，heatbeat、drbd配置都较为复杂。</p>
+<div class="bpctrl">&nbsp;</div>
+<h2 class="headline-1 bk-sidecatalog-title"><span class="headline">keepalived理论工作原理</span></h2>
+<p>keepalived可提供vrrp以及health-check功能，可以只用它提供双机浮动的vip（vrrp虚拟路由功能），这样可以简单实现一个双机热备高可用功能。</p>
+<p>keepalived是一个类似于layer3, 4 &amp; 5交换机制的软件，也就是我们平时说的第3层、第4层和第5层交换。Keepalived的作用是检测web&nbsp;服务器的状态。 Layer3,4&amp;5工作在IP/TCP协议栈的IP层，TCP层，及应用层,原理分别如下：</p>
+<div class="spctrl">&nbsp;</div>
+<p>　　Layer3：Keepalived使用Layer3的方式工作式时，Keepalived会定期向服务器群中的服务器</p>
+<div class="spctrl">&nbsp;</div>
+<p>　　发送一个ICMP的数据包（既我们平时用的Ping程序）,如果发现某台服务的IP地址没有激活，Keepalived便报告这台服务器失效，并将它从服务器群中剔除，这种情况的典型例子是某台服务器被非法关机。Layer3的方式是以服务器的IP地址是否有效作为服务器工作正常与否的标准。在本文中将采用这种方式。</p>
+<div class="spctrl">&nbsp;</div>
+<p>　　Layer4:如果您理解了Layer3的方式，Layer4就容易了。Layer4主要以TCP端口的状态来决定服务器工作正常与否。如web server的服务端口一般是80，如果Keepalived检测到80端口没有启动，则Keepalived将把这台服务器从服务器群中剔除。</p>
+<div class="spctrl">&nbsp;</div>
+<p>　　Layer5：Layer5就是工作在具体的应用层了，比Layer3,Layer4要复杂一点，在网络上占用的带宽也要大一些。Keepalived将根据用户的设定检查服务器程序的运行是否正常，如果与用户的设定不相符，则Keepalived将把服务器从服务器群中剔除。</p>
+<p>&nbsp;</p>
+<p>vip即虚拟ip，是附在主机网卡上的，即对主机网卡进行虚拟，此IP仍然是占用了此网段的某个IP。</p>
+<div class="bpctrl">&nbsp;</div>
+<h2 class="headline-1 bk-sidecatalog-title"><span class="headline">keepalived作用</span></h2>
+<p>　　随着你的网站业务量的增长你网站的服务器压力越来越大？需要负载均衡方案！商业的硬件如F5又太贵，你们又是创业型互联公司如何有效节约成本，节省不必要的浪费？同时实现商业硬件一样的高性能高可用的功能？有什么好的负载均衡可伸张可扩展的方案吗？答案是肯定的！有！我们利用 LVS+Keepalived基于完整开源软件的架构可以为你提供一个负载均衡及高可用的服务器。</p>
+<div class="spctrl">&nbsp;</div>
+<p>　　LVS+Keepalived 介绍</p>
+<div class="spctrl">&nbsp;</div>
+<p>　　LVS</p>
+<div class="spctrl">&nbsp;</div>
+<p>　　LVS是Linux Virtual Server的简写，意即Linux虚拟服务器，是一个虚拟的服务器集群系统。本项目在1998年5月由章文嵩博士成立，是中国国内最早出现的自由软件项目之一.目前有三种IP负载均衡技术（VS/NAT、VS/TUN和VS/DR）八种调度算法（rr,wrr,lc,wlc,lblc,lblcr,dh,sh）。</p>
+<div class="spctrl">&nbsp;</div>
+<p>　　Keepalvied</p>
+<div class="spctrl">&nbsp;</div>
+<p>　　Keepalived在这里主要用作RealServer的健康状态检查以及LoadBalance主机和BackUP主机之间failover的实现。<span class="headline-content">keepalived简介</span>　　keepalived是一个类似于layer3, 4 &amp; 5交换机制的软件，也就是我们平时说的第3层、第4层和第5层交换。Keepalived的作用是检测web服务器的状态，如果有一台web服务器死机，或工作出现故障，Keepalived将检测到，并将有故障的web服务器从系统中剔除，当web服务器工作正常后Keepalived自动将web服务器加入到服务器群中，这些工作全部自动完成，不需要人工干涉，需要人工做的只是修复故障的web服务器。</p>
+<p>===================================================================================</p>
+<p><strong></strong><strong><span style="font-size: 24px;">Keepalived</span><strong><span style="font-size: 24px; font-family: 宋体;">介绍</span></strong></strong></p>
+<p>Keepalived是一个基于VRRP协议来实现的WEB 服务高可用方案，可以利用其来避免单点故障。一个WEB服务至少会有2台服务器运行Keepalived，一台为主服务器（MASTER），一台为备份服务器（BACKUP），但是对外表现为一个虚拟IP，主服务器会发送特定的消息给备份服务器，当备份服务器收不到这个消息的时候，即主服务器宕机的时候，备份服务器就会接管虚拟IP，继续提供服务，从而保证了高可用性。</p>
+<div>
+<table>
+<tbody>
+<tr>
+<td>1</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+-------------VIP(192.168.0.7)------------------+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<table>
+<tbody>
+<tr>
+<td>2</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<table>
+<tbody>
+<tr>
+<td>3</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<table>
+<tbody>
+<tr>
+<td>4</td>
+<td>server(MASTER) &lt;----keepalived----&gt; server(BACKUP)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<table>
+<tbody>
+<tr>
+<td>5</td>
+<td>&nbsp;(192.168.0.1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (192.168.0.2)</td>
+</tr>
+</tbody>
+</table>
+<p><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;"><br></span></p>
+<p><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;">keepalived</span><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;">是<span>VRRP</span>的完美实现，因此在介绍<span>keepalived</span>之前，先介绍一下<span>VRRP</span>的原理。</span></p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size: 18pt; font-family: 宋体;">VRRP</span></strong><strong><span style="font-size: 18pt; font-family: 宋体;">协议简介</span></strong></p>
+<p><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;">在现实的网络环境中，两台需要通信的主机大多数情况下并没有直接的物理连接。对于这样的情况，它们之间路由怎样选择？主机如何选定到达目的主机的下一跳路由，这个问题通常的解决方法有二种：</span></p>
+<p><span style="font-size: 10pt; font-family: Symbol;"><span>·<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size: 12pt; font-family: 宋体;">在主机上使用动态路由协议<span>(RIP</span>、<span>OSPF</span>等<span>)</span></span></p>
+<p><span style="font-size: 10pt; font-family: Symbol;"><span>·<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span><span style="font-size: 12pt; font-family: 宋体;">在主机上配置静态路由</span></p>
+<p><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;">很明显，在主机上配置路态路由是非常不切实际的，因为管理、维护成本以及是否支持等诸多问题。配置静态路由就变得十分流行，但路由器<span>(</span>或者说默认网关<span>default gateway)</span>却经常成为单点。</span></p>
+<p><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;">VRRP</span><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;">的目的就是为了解决静态路由单点故障问题。</span></p>
+<p><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;">VRRP</span><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;">通过一竞选<span>(election)</span>协议来动态的将路由任务交给<span>LAN</span>中虚拟路由器中的某台<span>VRRP</span>路由器。</span></p>
+<p><strong><span style="font-size: 18pt; font-family: 宋体;">工作机制</span></strong></p>
+<p><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;">在一个<span>VRRP</span>虚拟路由器中，有多台物理的<span>VRRP</span>路由器，但是这多台的物理的机器并不能同时工作，而是由一台称为<span>MASTER</span>的负责路由工作，其它的都是<span>BACKUP</span>，<span>MASTER</span>并非一成不变，<span>VRRP</span>让每个<span>VRRP</span>路由器参与竞选，最终获胜的就是<span>MASTER</span>。<span>MASTER</span>拥有一些特权，比如 拥有虚拟路由器的<span>IP</span>地址，我们的主机就是用这个<span>IP</span>地址作为静态路由的。拥有特权的<span>MASTER</span>要负责转发发送给网关地址的包和响应<span>ARP</span>请求。</span></p>
+<p><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;">VRRP</span><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;">通过竞选协议来实现虚拟路由器的功能，所有的协议报文都是通过<span>IP</span>多播<span>(multicast)</span>包<span>(</span>多播地址<span> 224.0.0.18)</span>形式发送的。虚拟路由器由<span>VRID(</span>范围<span>0-255)</span>和一组<span>IP</span>地址组成，对外表现为一个周知的<span>MAC</span>地址。所以，在一个虚拟路由 器中，不管谁是<span>MASTER</span>，对外都是相同的<span>MAC</span>和<span>IP(</span>称之为<span>VIP)</span>。客户端主机并不需要因为<span>MASTER</span>的改变而修改自己的路由配置，对他们来 说，这种主从的切换是透明的。</span></p>
+<p><span style="font-size: 9.5pt; color: #383838; font-family: 宋体;">在一个虚拟路由器中，只有作为<span>MASTER</span>的<span>VRRP</span>路由器会一直发送<span>VRRP</span>广告包<span>(VRRPAdvertisement message)</span>，<span>BACKUP</span>不会抢占<span>MASTER</span>，除非它的优先级<span>(priority)</span>更高。当<span>MASTER</span>不可用时<span>(BACKUP</span>收不到广告包<span>)</span>， 多台<span>BACKUP</span>中优先级最高的这台会被抢占为<span>MASTER</span>。这种抢占是非常快速的<span>(&lt;1s)</span>，以保证服务的连续性。</span></p>
+<p><span style="font-size: 9.5pt; color: #383838; line-height: 125%; font-family: 宋体;">由于安全性考虑，<span>VRRP</span>包使用了加密协议进行加密。</span></p>
+<p><span style="font-size: 9.5pt; color: #383838; line-height: 125%; font-family: 宋体;">==========================================</span></p>
+<p><span style="font-size: 9.5pt; color: #383838; line-height: 125%; font-family: 宋体;"><strong>vrrp简介</strong><br>随着Internet的迅猛发展，基于网络的应用逐渐增多。这就对网络的可靠性提出了越来越高的要求。斥资对所有网络设备进行更新当然是一种很好的可靠性解决方案；但本着保护现有投资的角度考虑，可以采用廉价冗余的思路，在可靠性和经济性方面找到平衡点。 <br><br>&nbsp; 虚拟路由冗余协议就是一种很好的解决方案。在该协议中，对共享多存取访问介质（如以太网）上终端IP设备的默认网关(Default Gateway)进行冗余备份，从而在其中一台路由设备宕机时，备份路由设备及时接管转发工作，向用户提供透明的切换，提高了网络服务质量。&nbsp; <br><br>一、协议概述 <br><br>&nbsp; 在基于TCP/IP协议的网络中，为了保证不直接物理连接的设备之间的通信，必须指定路由。目前常用的指定路由的方法有两种：一种是通过路由协议（比如：内部路由协议RIP和OSPF）动态学习；另一种是静态配置。在每一个终端都运行动态路由协议是不现实的，大多客户端操作系统平台都不支持动态路由协议，即使支持也受到管理开销、收敛度、安全性等许多问题的限制。因此普遍采用对终端IP设备静态路由配置，一般是给终端设备指定一个或者多个默认网关(Default Gateway)。静态路由的方法简化了网络管理的复杂度和减轻了终端设备的通信开销，但是它仍然有一个缺点：如果作为默认网关的路由器损坏，所有使用该网关为下一跳主机的通信必然要中断。即便配置了多个默认网关，如不重新启动终端设备，也不能切换到新的网关。采用虚拟路由冗余协议 (Virtual Router Redundancy Protocol，简称VRRP)可以很好的避免静态指定网关的缺陷。 <br><br>&nbsp; 在VRRP协议中，有两组重要的概念：VRRP路由器和虚拟路由器，主控路由器和备份路由器。VRRP路由器是指运行VRRP的路由器，是物理实体，虚拟路由器是指VRRP协议创建的，是逻辑概念。一组VRRP路由器协同工作，共同构成一台虚拟路由器。该虚拟路由器对外表现为一个具有唯一固定IP地址和MAC地址的逻辑路由器。处于同一个VRRP组中的路由器具有两种互斥的角色：主控路由器和备份路由器，一个VRRP组中有且只有一台处于主控角色的路由器，可以有一个或者多个处于备份角色的路由器。VRRP协议使用选择策略从路由器组中选出一台作为主控，负责ARP相应和转发IP数据包，组中的其它路由器作为备份的角色处于待命状态。当由于某种原因主控路由器发生故障时，备份路由器能在几秒钟的时延后升级为主路由器。由于此切换非常迅速而且不用改变IP地址和MAC地址，故对终端使用者系统是透明的。&nbsp; <br><br>二、工作原理 <br><br>&nbsp; 一个VRRP路由器有唯一的标识：VRID，范围为0—255。该路由器对外表现为唯一的虚拟MAC地址，地址的格式为00-00-5E-00-01-[VRID]。主控路由器负责对ARP请求用该MAC地址做应答。这样，无论如何切换，保证给终端设备的是唯一一致的IP和MAC地址，减少了切换对终端设备的影响。 <br><br>&nbsp; VRRP控制报文只有一种：VRRP通告(advertisement)。它使用IP多播数据包进行封装，组地址为224.0.0.18，发布范围只限于同一局域网内。这保证了VRID在不同网络中可以重复使用。为了减少网络带宽消耗只有主控路由器才可以周期性的发送VRRP通告报文。备份路由器在连续三个通告间隔内收不到VRRP或收到优先级为0的通告后启动新的一轮VRRP选举。 <br><br>&nbsp; 在VRRP路由器组中，按优先级选举主控路由器，VRRP协议中优先级范围是0—255。若VRRP路由器的IP地址和虚拟路由器的接口IP地址相同，则称该虚拟路由器作VRRP组中的IP地址所有者；IP地址所有者自动具有最高优先级：255。优先级0一般用在IP地址所有者主动放弃主控者角色时使用。可配置的优先级范围为1—254。优先级的配置原则可以依据链路的速度和成本、路由器性能和可靠性以及其它管理策略设定。主控路由器的选举中，高优先级的虚拟路由器获胜，因此，如果在VRRP组中有IP地址所有者，则它总是作为主控路由的角色出现。对于相同优先级的候选路由器，按照IP地址大小顺序选举。VRRP还提供了优先级抢占策略，如果配置了该策略，高优先级的备份路由器便会剥夺当前低优先级的主控路由器而成为新的主控路由器。 <br><br>&nbsp; 为了保证VRRP协议的安全性，提供了两种安全认证措施：明文认证和IP头认证。明文认证方式要求：在加入一个VRRP路由器组时，必须同时提供相同的VRID和明文密码。适合于避免在局域网内的配置错误，但不能防止通过网络监听方式获得密码。IP头认证的方式提供了更高的安全性，能够防止报文重放和修改等攻击。 <br><br>三、 应用实例 <br><br>&nbsp; 最典型的VRRP应用：RTA、RTB组成一个VRRP路由器组，假设RTB的处理能力高于RTA，则将RTB配置成IP地址所有者，H1、H2、H3的默认网关设定为RTB。则RTB成为主控路由器，负责ICMP重定向、ARP应答和IP报文的转发；一旦RTB失败，RTA立即启动切换，成为主控，从而保证了对客户透明的安全切换。 <br><br>&nbsp; 在VRRP应用中，RTA在线时RTB只是作为后备，不参与转发工作，闲置了路由器RTA和链路L1。通过合理的网络设计，可以到达备份和负载分担双重效果。让RTA、RTB同时属于互为备份的两个VRRP组：在组1中RTA为IP地址所有者；组2中RTB为IP地址所有者。将H1的默认网关设定为RTA；H2、H3的默认网关设定为RTB。这样，既分担了设备负载和网络流量，又提高了网络可靠性。 <br><br>&nbsp; VRRP协议的工作机理与CISCO公司的HSRP（Hot Standby Routing Protocol）有许多相似之处。但二者主要的区别是在CISCO的HSRP中，需要单独配置一个IP地址作为虚拟路由器对外体现的地址，这个地址不能是组中任何一个成员的接口地址。 <br><br>&nbsp; 使用VRRP协议，不用改造目前的网络结构，最大限度保护了当前投资，只需最少的管理费用，却大大提升了网络性能，具有重大的应用价值。</span></p>
+<div class="bpctrl">===================================================================================</div>
+<div class="bpctrl">
+<div id="cnblogs_post_body">
+<h1 class="postTitle">keepalive的简单应用——管理VIP的飘动&nbsp;</h1>
+<p>from:http://www.cnblogs.com/killkill/archive/2010/12/31/1922360.html</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; VIP的飘动可以为我们解决很多问题，以前我试过使用ifup/ifdown的方式控制网卡的up/down来实现，这种方式有个小问题，就是每次VIP 飘动之后都要等上几十秒才能生效，感觉时间比较长，而且还要配合一些逻辑脚本才能很好地工作，有没有更好的方法呢？当然有，这就是本文的主角—— keepalived。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 安装很简单：</p>
+<div id="highlighter_784907" class="syntaxhighlighter  ">
+<div class="lines">
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>1</code></td>
+<td class="content"><code class="plain">tar zxvf keepalived-1.1.20.tar.gz&nbsp; </code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>2</code></td>
+<td class="content"><code class="plain">cd keepalived-1.1.20</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>3</code></td>
+<td class="content"><code class="plain">./configure --prefix=/</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>4</code></td>
+<td class="content"><code class="plain">make</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>5</code></td>
+<td class="content"><code class="plain">make install</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 修改一下 /etc/keepalived/keepalived.conf 这个配置文件就可以用了，以下是我的环境，192.168.10.141和192.168.10.142是两个VIP，可以在两台服务器之间飘动：</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><img src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/2011102413331611.png" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 主机的配置：</p>
+<div id="highlighter_266767" class="syntaxhighlighter  ">
+<div class="lines">
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>01</code></td>
+<td class="content"><code class="plain">global_defs {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>02</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;</code><code class="plain">notification_email {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>03</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">failover@firewall.loc</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>04</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>05</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;</code><code class="plain">notification_email_from Alexandre.Cassen@firewall.loc</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>06</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;</code><code class="plain">smtp_server 192.168.0.48</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>07</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;</code><code class="plain">smtp_connect_timeout 10</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>08</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;</code><code class="plain">router_id nginx</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>09</code></td>
+<td class="content"><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>10</code></td>
+<td class="content">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>11</code></td>
+<td class="content"><code class="plain">vrrp_instance VI_141 {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>12</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">state BACKUP</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>13</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">interface eth0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>14</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">virtual_router_id 141</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>15</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">priority 50</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>16</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">advert_int 1</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>17</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">authentication {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>18</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">auth_type PASS</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>19</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">auth_pass 141</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>20</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>21</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">virtual_ipaddress {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>22</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">192.168.10.141/26 dev eth0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>23</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>24</code></td>
+<td class="content"><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>25</code></td>
+<td class="content">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>26</code></td>
+<td class="content"><code class="plain">vrrp_instance VI_142 {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>27</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">state BACKUP</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>28</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">interface eth0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>29</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">virtual_router_id 142</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>30</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">priority 100</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>31</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">advert_int 1</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>32</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">authentication {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>33</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">auth_type PASS</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>34</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">auth_pass 142</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>35</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>36</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">virtual_ipaddress {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>37</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">192.168.10.142/26 dev eth0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>38</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>39</code></td>
+<td class="content"><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 备机的配置：</p>
+<div id="highlighter_331273" class="syntaxhighlighter  ">
+<div class="lines">
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>01</code></td>
+<td class="content"><code class="plain">global_defs {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>02</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;</code><code class="plain">notification_email {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>03</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">failover@firewall.loc</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>04</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>05</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;</code><code class="plain">notification_email_from Alexandre.Cassen@firewall.loc</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>06</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;</code><code class="plain">smtp_server 10.168.0.48</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>07</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;</code><code class="plain">smtp_connect_timeout 10</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>08</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;</code><code class="plain">router_id nginx</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>09</code></td>
+<td class="content"><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>10</code></td>
+<td class="content">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>11</code></td>
+<td class="content"><code class="plain">vrrp_instance VI_141 {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>12</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">state BACKUP</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>13</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">interface eth0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>14</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">virtual_router_id 141</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>15</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">priority 100</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>16</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">advert_int 1</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>17</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">authentication {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>18</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">auth_type PASS</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>19</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">auth_pass 141</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>20</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>21</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">virtual_ipaddress {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>22</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">192.168.10.141/26 dev eth0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>23</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>24</code></td>
+<td class="content"><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>25</code></td>
+<td class="content">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>26</code></td>
+<td class="content"><code class="plain">vrrp_instance VI_142 {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>27</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">state BACKUP</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>28</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">interface eth0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>29</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">virtual_router_id 142</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>30</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">priority 50</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>31</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">advert_int 1</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>32</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">authentication {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>33</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">auth_type PASS</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>34</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">auth_pass 142</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>35</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>36</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">virtual_ipaddress {</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>37</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">192.168.10.142/26 dev eth0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>38</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>39</code></td>
+<td class="content"><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 乍一看，主机和备机的配置文件是一样的，仔细看一下priority的值，使用以下命令即可将keepalived加入linux的服务中：</p>
+<div id="highlighter_474375" class="syntaxhighlighter  ">
+<div class="lines">
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>1</code></td>
+<td class="content"><code class="plain">chkconfig --add keepalived ;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 通过启、停keepalived这个服务即可观察到VIP的飘动，至于为什么VIP飘动后可以很快地生效，还有待研究。</p>
+</div>
+</div>
+<p>===================================================================================</p>
+<h2 id="t_6c2e6f1f0100ptka" class="titName SG_txta">haproxy+keepalived实现高可用负载均衡</h2>
+<div class="articalTitle"><span class="img2"><img class="SG_icon SG_icon18" title="此博文包含图片" src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/11207101_1.gif" alt="" width="15" height="15" align="absMiddle"> </span>我的环境：<br>haproxy keepalived 主：192.168.1.192<br>haproxy keepalived 备：192.168.1.193<br>vip：192.168.1.200<br>web：192.168.1.187:80 192.168.1.187:8000<br><img src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/2011070610102256.jpg" alt=""><br><br><br>一：安装过程，在192.168.1.192上：<br>keepalived的安装:<br>#tar -zxvf keepalived-1.1.17.tar.gz<br>#ln -s /usr/src/kernels/2.6.18-128.el5-i686/ /usr/src/linux<br>#cd keepalived-1.1.17<br>#./configure --prefix=/ --mandir=/usr/local/share/man/ --with-kernel-dir=/usr/src/kernels/2.6.18-128.el5-i686/<br>#make &amp;&amp; make install<br>#cd /etc/keepalived/<br>#mv keepalived.conf keepalived.conf.default<br>#vi keepalived.conf<br>! Configuration File for keepalived<br><br>vrrp_script chk_http_port {<br>script "/etc/keepalived/check_haproxy.sh"<br>interval 2<br>weight 2<br><br>global_defs {<br>router_id LVS_DEVEL<br>}<br>vrrp_instance VI_1 {<br>state MASTER #192.168.1.193上改为BACKUP<br>interface eth0<br>virtual_router_id 51 <br>priority 150 #192.168.1.193上改为120<br>advert_int 1<br>authentication {<br>auth_type PASS<br>auth_pass 1111<br>}<br><br>track_script {<br>chk_http_port<br>}<br><br>virtual_ipaddress {<br>192.168.1.200 <br>}<br>}<br>}<br><br>#vi /etc/keepalived/check_haproxy.sh<br>#!/bin/bash<br>A=`ps -C haproxy --no-header |wc -l`<br>if [ $A -eq 0 ];then<br>/usr/local/haproxy/sbin/haproxy -f /usr/local/haproxy/conf/haproxy.cfg<br>sleep 3<br>if [ `ps -C haproxy --no-header |wc -l` -eq 0 ];then<br>/etc/init.d/keepalived stop<br>fi<br>fi<br>#chmod 755 /etc/keepalived/check_haproxy.sh<br><br>haproxy的安装(主备都一样)：<br>#tar -zxvf haproxy-1.4.9.tar.gz<br>#cd haproxy-1.4.9<br>#make TARGET=linux26 PREFIX=/usr/local/haproxy install<br>#cd /usr/local/haproxy/<br>#mkdir conf logs<br>#cd conf<br>#vi haproxy.cfg<br>global<br>log 127.0.0.1 local3 info<br>maxconn 4096<br>user nobody<br>group nobody<br>daemon<br>nbproc 1<br>pidfile /usr/local/haproxy/logs/haproxy.pid<br><br>defaults<br>maxconn 2000<br>contimeout 5000<br>clitimeout 30000<br>srvtimeout 30000<br>mode http<br>log global<br>log 127.0.0.1 local3 info<br>stats uri /admin?stats<br>option forwardfor<br><br>frontend http_server<br>bind :80<br>log global<br>default_backend info_cache<br>acl test hdr_dom(host) -i test.domain.com<br>use_backend cache_test if test<br><br>backend info_cache<br>#balance roundrobin<br>balance source<br>option httpchk HEAD /haproxy.txt HTTP/1.1\r\nHost:192.168.1.187<br>server inst2 192.168.1.187:80 check inter 5000 fall 3<br><br><br>backend cache_test<br>balance roundrobin<br>#balance source<br>option httpchk HEAD /haproxy.txt HTTP/1.1\r\nHost:test.domain.com<br>server inst1 192.168.1.187:8000 check inter 5000 fall 3<br><br>二：再两台机器上都分别启动：<br>/etc/init.d/keepalived start （这条命令会自动把haproxy启动）<br><br>三：测试：<br>1.再两台机器上分别执行ip add<br>主: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast qlen 1000<br>link/ether 00:0c:29:98:cd:c0 brd ff:ff:ff:ff:ff:ff<br>inet 192.168.1.192/24 brd 192.168.1.255 scope global eth0<br><span style="font-weight: bold;">inet 192.168.1.200/32 scope global eth0</span><br>inet6 fe80::20c:29ff:fe98:cdc0/64 scope link<br>valid_lft forever preferred_lft forever<br><br>备: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast qlen 1000<br>link/ether 00:0c:29:a6:0c:7e brd ff:ff:ff:ff:ff:ff<br>inet 192.168.1.193/24 brd 255.255.255.254 scope global eth0<br>inet6 fe80::20c:29ff:fea6:c7e/64 scope link<br>valid_lft forever preferred_lft forever<br><br>2.停掉主上的haproxy，3秒后keepalived会自动将其再次启动<br>3.停掉主的keepalived，备机马上接管服务<br>备: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast qlen 1000<br>link/ether 00:0c:29:a6:0c:7e brd ff:ff:ff:ff:ff:ff<br>inet 192.168.1.193/24 brd 255.255.255.254 scope global eth0<br><span style="font-weight: bold;">inet 192.168.1.200/32 scope global eth0</span><br>inet6 fe80::20c:29ff:fea6:c7e/64 scope link<br>valid_lft forever preferred_lft forever<br><br>4.更改hosts<br>192.168.1.200 test.com<br>192.168.1.200 test.domain.com<br>通过IE测试，可以发现<br>test.com的请求发向了192.168.1.187:80<br>test.domain.com的请求发向了192.168.1.187:8000<br><img src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/2011070610105171.jpg" alt=""></div>
+<div class="articalTitle"><img src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/2011070610110494.jpg" alt=""><br>from:<a href="http://www.360doc.com/content/11/0425/11/2054285_112154067.shtml">http://www.360doc.com/content/11/0425/11/2054285_112154067.shtml</a></div></div><div id="MySignature"></div>
+<script type="text/javascript">
+var isLogined = false;
+var cb_blogId = 85095;
+var cb_entryId = 2098949;
+var cb_blogApp = currentBlogApp;
+var cb_blogUserGuid = "d6531c6d-ee4a-e011-ac81-842b2b196315";
+var cb_entryCreatedDate = '2011/7/6 10:25:00';
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</script>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/dkblog/category/287397.html">Cloud Compute &amp; Storage</a>, <a href="http://www.cnblogs.com/dkblog/category/287399.html">性能测试</a></div>
+<div id="EntryTag"></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/dkcndk" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/dkblog/">dkcndk</a><br>
+<a href="http://home.cnblogs.com/u/dkblog/followees">关注 - 0</a><br>
+<a href="http://home.cnblogs.com/u/dkblog/followers">粉丝 - 40</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,&#39;Digg&#39;)"> 
+		<span class="diggnum" id="digg_count">0</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/05/2098370.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/dkblog/archive/2011/07/05/2098370.html" title="发布于2011-07-05 16:00">CentOS5.4 tornado安装、部署</a><br><a href="http://www.cnblogs.com/dkblog/archive/2011/07/06/2099255.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/dkblog/archive/2011/07/06/2099255.html" title="发布于2011-07-06 15:21">tornado autoreload模块</a><br></div>
+</div>
+<script type="text/javascript">
+    //SyntaxHighlighter.config.strings.expandSource = '<span><img src="http://static.cnblogs.com/images/expand-code.gif" alt="" class="expand-code-icon"/>View Code</span>';
+    $(function () {  
+        loadViewCount(cb_entryId);
+        fixPostBodyFormat();
+        loadAdUnderPost();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);        
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);        
+    });
+</script>
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2011-07-06 10:25</span> <a href="http://www.cnblogs.com/dkblog/">dkcndk</a> 阅读(<span id="post_view_count">6440</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://www.cnblogs.com/dkblog/admin/EditPosts.aspx?postid=2098949" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/dkblog/archive/2011/07/06/2098949.html#" onclick="AddToWz(2098949);return false;">收藏</a></div>
+	</div>
+	<script src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/2098949" type="text/javascript"></script>
+	
+</div><!--end: topics 文章、评论容器-->
+<div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="http://www.cnblogs.com/dkblog/archive/2011/07/06/2098949.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/dkblog/archive/2011/07/06/2098949.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+
+<script type="text/javascript">
+    if (typeof commentManager === 'undefined') {
+        commentManager = new blogCommentManager();
+    }
+    commentManager.loadCommentForm();   
+</script>
+
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="ad_under_post_holder">
+<div id="google_ad_c1" class="c_ad_block">
+    <!-- cnblogs_blogpost_C1_sitehome -->
+    <div id="div-gpt-ad-1346480159711-0" style="width:300px; height:250px;">
+    
+    <iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;"></iframe></div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/182513/" target="_blank">做软件的可以从做硬件那学到什么</a><br> ·  <a href="http://news.cnblogs.com/n/182511/" target="_blank">8条简单粗暴的法则，火速提升会议效率</a><br> ·  <a href="http://news.cnblogs.com/n/182510/" target="_blank">传苹果公司2.8亿美元洽购Kinect技术供应商</a><br> ·  <a href="http://news.cnblogs.com/n/182509/" target="_blank">传阿里巴巴最快将于9月上市 融资或达160亿美元</a><br> ·  <a href="http://news.cnblogs.com/n/182506/" target="_blank">Google Play 商店网页版今更新，界面与客户端一致</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/182488/" target="_blank">分布式数据库概述</a><br> ·  <a href="http://kb.cnblogs.com/page/141892/" target="_blank">阿里巴巴集团去IOE运动的思考与总结</a><br> ·  <a href="http://kb.cnblogs.com/page/182265/" target="_blank">硅谷归来7点分享：创业者，做你自己</a><br> ·  <a href="http://kb.cnblogs.com/page/182200/" target="_blank">我为什么不能坚持？</a><br> ·  <a href="http://kb.cnblogs.com/page/168725/" target="_blank">成为高效程序员的7个重要习惯</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="google_ad_c2" class="c_ad_block">
+    <!-- cnblogs_blogpost_C2_sitehome -->
+    <div id="div-gpt-ad-1346479110744-1" style="width:468px; height:60px;">
+    
+    <iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div>
+</div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+</div>
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/dkblog/">dkcndk</a><br>园龄：<a href="http://home.cnblogs.com/u/dkblog/" title="入园时间：2011-03-10">2年4个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/dkblog/followers/">40</a><br>关注：<a href="http://home.cnblogs.com/u/dkblog/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger(&#39;d6531c6d-ee4a-e011-ac81-842b2b196315&#39;)">+加关注</a></div></div></div>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="displya:none"><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="日历">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2011/06/01&#39;);return false;">&lt;</a></td><td align="center">2011年7月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2011/08/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/01.html"><u>1</u></a></td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/04.html"><u>4</u></a></td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/05.html"><u>5</u></a></td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/06.html"><u>6</u></a></td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/07.html"><u>7</u></a></td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/10.html"><u>10</u></a></td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/11.html"><u>11</u></a></td><td align="center">12</td><td align="center">13</td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/14.html"><u>14</u></a></td><td align="center">15</td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/18.html"><u>18</u></a></td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/19.html"><u>19</u></a></td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/20.html"><u>20</u></a></td><td align="center">21</td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/22.html"><u>22</u></a></td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center">25</td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/26.html"><u>26</u></a></td><td align="center">27</td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/28.html"><u>28</u></a></td><td align="center"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/29.html"><u>29</u></a></td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalWeekendDay" align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</tbody></table></div></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn">
+
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+
+
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/dkblog/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_1" href="http://www.cnblogs.com/dkblog/MyComments.html">我的评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_2" title="我发表过评论的随笔" href="http://www.cnblogs.com/dkblog/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/dkblog/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_4" href="http://www.cnblogs.com/dkblog/tag/">我的标签</a></li>
+	
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div>
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/dkblog/tag/ssh/">ssh</a>(1)</li><li><a href="http://www.cnblogs.com/dkblog/tag/xrdp/">xrdp</a>(1)</li>
+</ul>
+</div>
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(230)</span></h3>
+
+<ul>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/dkblog/category/288322.html">C/C++(18)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/dkblog/category/287397.html">Cloud Compute &amp; Storage(34)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/dkblog/category/287391.html">DataBase(1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/dkblog/category/287401.html">DK's Gmail邀请</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/dkblog/category/287400.html">Finance</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/dkblog/category/287386.html">Java(5)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/dkblog/category/287389.html">JavaScript/AJAX(1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/dkblog/category/287388.html">Linux/Unix(64)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/dkblog/category/287387.html">php</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/dkblog/category/287392.html">Protocol(1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/dkblog/category/287362.html">Python(72)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/dkblog/category/287390.html">Semantic Web</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/dkblog/category/287398.html">架构及运营(4)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/dkblog/category/287458.html">乱弹(10)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/dkblog/category/287395.html">项目管理&amp;HR(8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/dkblog/category/287399.html">性能测试(12)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/dkblog/category/287402.html">在线手册</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(583)</span></h3>
+
+<ul>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/dkblog/archive/2013/07.html">2013年7月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/dkblog/archive/2013/06.html">2013年6月 (4)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/dkblog/archive/2013/05.html">2013年5月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/dkblog/archive/2013/03.html">2013年3月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/dkblog/archive/2013/01.html">2013年1月 (3)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/dkblog/archive/2012/12.html">2012年12月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/dkblog/archive/2012/10.html">2012年10月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/dkblog/archive/2012/09.html">2012年9月 (3)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/dkblog/archive/2012/08.html">2012年8月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/dkblog/archive/2012/07.html">2012年7月 (5)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/dkblog/archive/2012/06.html">2012年6月 (5)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/dkblog/archive/2012/05.html">2012年5月 (3)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/dkblog/archive/2012/04.html">2012年4月 (4)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/dkblog/archive/2012/03.html">2012年3月 (11)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/dkblog/archive/2012/02.html">2012年2月 (6)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/dkblog/archive/2011/12.html">2011年12月 (8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/dkblog/archive/2011/11.html">2011年11月 (4)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/dkblog/archive/2011/10.html">2011年10月 (6)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/dkblog/archive/2011/09.html">2011年9月 (17)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/dkblog/archive/2011/08.html">2011年8月 (11)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/dkblog/archive/2011/07.html">2011年7月 (24)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/dkblog/archive/2011/06.html">2011年6月 (5)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/dkblog/archive/2011/05.html">2011年5月 (9)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/dkblog/archive/2011/04.html">2011年4月 (15)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/dkblog/archive/2011/03.html">2011年3月 (29)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/dkblog/archive/2011/02.html">2011年2月 (18)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/dkblog/archive/2011/01.html">2011年1月 (10)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/dkblog/archive/2010/12.html">2010年12月 (11)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/dkblog/archive/2010/11.html">2010年11月 (6)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/dkblog/archive/2010/10.html">2010年10月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/dkblog/archive/2010/06.html">2010年6月 (4)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/dkblog/archive/2010/05.html">2010年5月 (3)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/dkblog/archive/2010/04.html">2010年4月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/dkblog/archive/2010/03.html">2010年3月 (3)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/dkblog/archive/2010/01.html">2010年1月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/dkblog/archive/2009/12.html">2009年12月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_36" href="http://www.cnblogs.com/dkblog/archive/2009/11.html">2009年11月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_37" href="http://www.cnblogs.com/dkblog/archive/2009/10.html">2009年10月 (4)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_38" href="http://www.cnblogs.com/dkblog/archive/2009/09.html">2009年9月 (7)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_39" href="http://www.cnblogs.com/dkblog/archive/2009/08.html">2009年8月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_40" href="http://www.cnblogs.com/dkblog/archive/2009/07.html">2009年7月 (10)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_41" href="http://www.cnblogs.com/dkblog/archive/2009/06.html">2009年6月 (19)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_42" href="http://www.cnblogs.com/dkblog/archive/2009/05.html">2009年5月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_43" href="http://www.cnblogs.com/dkblog/archive/2009/04.html">2009年4月 (8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_44" href="http://www.cnblogs.com/dkblog/archive/2009/03.html">2009年3月 (6)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_45" href="http://www.cnblogs.com/dkblog/archive/2008/12.html">2008年12月 (6)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_46" href="http://www.cnblogs.com/dkblog/archive/2008/10.html">2008年10月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_47" href="http://www.cnblogs.com/dkblog/archive/2008/09.html">2008年9月 (5)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_48" href="http://www.cnblogs.com/dkblog/archive/2008/08.html">2008年8月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_49" href="http://www.cnblogs.com/dkblog/archive/2008/07.html">2008年7月 (10)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_50" href="http://www.cnblogs.com/dkblog/archive/2008/06.html">2008年6月 (10)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_51" href="http://www.cnblogs.com/dkblog/archive/2008/05.html">2008年5月 (8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_52" href="http://www.cnblogs.com/dkblog/archive/2008/04.html">2008年4月 (11)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_53" href="http://www.cnblogs.com/dkblog/archive/2008/03.html">2008年3月 (24)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_54" href="http://www.cnblogs.com/dkblog/archive/2008/02.html">2008年2月 (6)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_55" href="http://www.cnblogs.com/dkblog/archive/2008/01.html">2008年1月 (6)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_56" href="http://www.cnblogs.com/dkblog/archive/2007/12.html">2007年12月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_57" href="http://www.cnblogs.com/dkblog/archive/2007/11.html">2007年11月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_58" href="http://www.cnblogs.com/dkblog/archive/2007/10.html">2007年10月 (4)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_59" href="http://www.cnblogs.com/dkblog/archive/2007/09.html">2007年9月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_60" href="http://www.cnblogs.com/dkblog/archive/2007/08.html">2007年8月 (9)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_61" href="http://www.cnblogs.com/dkblog/archive/2007/07.html">2007年7月 (10)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_62" href="http://www.cnblogs.com/dkblog/archive/2007/06.html">2007年6月 (7)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_63" href="http://www.cnblogs.com/dkblog/archive/2007/05.html">2007年5月 (13)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_64" href="http://www.cnblogs.com/dkblog/archive/2007/04.html">2007年4月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_65" href="http://www.cnblogs.com/dkblog/archive/2007/03.html">2007年3月 (7)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_66" href="http://www.cnblogs.com/dkblog/archive/2007/01.html">2007年1月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_67" href="http://www.cnblogs.com/dkblog/archive/2006/12.html">2006年12月 (8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_68" href="http://www.cnblogs.com/dkblog/archive/2006/11.html">2006年11月 (6)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_69" href="http://www.cnblogs.com/dkblog/archive/2006/10.html">2006年10月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_70" href="http://www.cnblogs.com/dkblog/archive/2006/09.html">2006年9月 (7)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_71" href="http://www.cnblogs.com/dkblog/archive/2006/08.html">2006年8月 (8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_72" href="http://www.cnblogs.com/dkblog/archive/2006/07.html">2006年7月 (6)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_73" href="http://www.cnblogs.com/dkblog/archive/2006/06.html">2006年6月 (9)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_74" href="http://www.cnblogs.com/dkblog/archive/2006/05.html">2006年5月 (3)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_75" href="http://www.cnblogs.com/dkblog/archive/2006/04.html">2006年4月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_76" href="http://www.cnblogs.com/dkblog/archive/2006/03.html">2006年3月 (15)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_77" href="http://www.cnblogs.com/dkblog/archive/2006/02.html">2006年2月 (5)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_78" href="http://www.cnblogs.com/dkblog/archive/2006/01.html">2006年1月 (3)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_79" href="http://www.cnblogs.com/dkblog/archive/2005/12.html">2005年12月 (5)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_80" href="http://www.cnblogs.com/dkblog/archive/2005/11.html">2005年11月 (7)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_81" href="http://www.cnblogs.com/dkblog/archive/2005/10.html">2005年10月 (4)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_82" href="http://www.cnblogs.com/dkblog/archive/2005/09.html">2005年9月 (3)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_83" href="http://www.cnblogs.com/dkblog/archive/2005/08.html">2005年8月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_84" href="http://www.cnblogs.com/dkblog/archive/2005/07.html">2005年7月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_85" href="http://www.cnblogs.com/dkblog/archive/2005/06.html">2005年6月 (12)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_86" href="http://www.cnblogs.com/dkblog/archive/2005/05.html">2005年5月 (9)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_87" href="http://www.cnblogs.com/dkblog/archive/2005/04.html">2005年4月 (11)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_88" href="http://www.cnblogs.com/dkblog/archive/2005/03.html">2005年3月 (8)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catList">
+<h3 class="catListTitle">博友</h3>
+
+<ul>
+
+<li><a id="ctl03_CatList_LinkList_2_Link_0" href="http://blog.csdn.net/21aspnet/article/category/285407">数据通信与网络</a> </li>
+<li class="c_b_p_link_desc">Linux内核
+Linux网络编程必看书籍推荐http://blog.csdn.net/21aspnet/article/details/6694485</li>
+</ul>
+
+</div>
+
+
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/04/2097622.html#2679619">1. Re:CentOS yum有时出现“Could not retrieve mirrorlist ”的解决办法——resolv.conf的配置</a></li>
+    <li class="recent_comment_body">发现修改这些都不起作用吖</li>
+    <li class="recent_comment_author">--xuanyoumeng</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dkblog/archive/2011/09/22/2185369.html#2662705">2. Re:TCP/IP协议和IP组播的视频传输</a></li>
+    <li class="recent_comment_body">没看懂，IP组播 到底能不能 用于互联网呢，没说清楚啊</li>
+    <li class="recent_comment_author">--石高飞</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dkblog/archive/2010/12/07/1980685.html#2643674">3. Re:SourceForge上发布dedup util 收藏</a></li>
+    <li class="recent_comment_body">您好。我在输入命令./gen.sh时提示错误。楼主这个怎么解决？谢谢您啦！</li>
+    <li class="recent_comment_author">--Icrt</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dkblog/archive/2011/07/26/2117383.html#2620695">4. Re:一个网卡绑定多个IP和多个网卡用一个ip的设置</a></li>
+    <li class="recent_comment_body">mark，Thanks！</li>
+    <li class="recent_comment_author">--甜海小站</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/dkblog/archive/2012/03/13/2393321.html#2614047">5. Re:Haproxy 配置项\配置实例</a></li>
+    <li class="recent_comment_body">ha能做到根据cookie中的标志,重写url请求吗?<br>不影响缓存</li>
+    <li class="recent_comment_author">--qdsang</li>
+</ul>
+</div>
+</div>
+
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/dkblog/archive/2011/08/19/2145939.html">1. 经典开源C/C++项目(15095)</a></li><li><a href="http://www.cnblogs.com/dkblog/archive/2011/02/24/1980651.html">2. python:open/文件操作(13921)</a></li><li><a href="http://www.cnblogs.com/dkblog/archive/2011/06/24/2089026.html">3. python异常处理(13749)</a></li><li><a href="http://www.cnblogs.com/dkblog/archive/2012/03/27/2419010.html">4. Protobuf语言指南(9135)</a></li><li><a href="http://www.cnblogs.com/dkblog/archive/2011/03/11/1980556.html">5. linux上进程状态查询(8345)</a></li></ul></div>
+</div>
+
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/dkblog/archive/2011/08/19/2145942.html">1. linux下gsoap的初次使用(3)</a></li><li><a href="http://www.cnblogs.com/dkblog/archive/2010/12/07/1980685.html">2. SourceForge上发布dedup util 收藏(2)</a></li><li><a href="http://www.cnblogs.com/dkblog/archive/2011/07/26/2117383.html">3. 一个网卡绑定多个IP和多个网卡用一个ip的设置(1)</a></li><li><a href="http://www.cnblogs.com/dkblog/archive/2011/07/19/2110672.html">4. iozone的介绍与使用(1)</a></li><li><a href="http://www.cnblogs.com/dkblog/archive/2011/02/24/1980651.html">5. python:open/文件操作(1)</a></li></ul></div>
+</div>
+
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/dkblog/archive/2011/04/02/2003714.html">1. EditPlus for python(1)</a></li><li><a href="http://www.cnblogs.com/dkblog/archive/2011/04/02/2003312.html">2. python REST讨论（收藏）(1)</a></li><li><a href="http://www.cnblogs.com/dkblog/archive/2010/12/07/1980685.html">3. SourceForge上发布dedup util 收藏(1)</a></li><li><a href="http://www.cnblogs.com/dkblog/archive/2010/06/04/1980695.html">4. 如何在CLI命令行下运行PHP脚本，同时向PHP脚本传递参数？(1)</a></li><li><a href="http://www.cnblogs.com/dkblog/archive/2009/09/18/1980715.html">5. Linux-dd命令详解(1)</a></li></ul></div>
+</div></div>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2013 dkcndk
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<script type="text/javascript" src="./haproxy+keepalived实现高可用负载均衡 - dkcndk - 博客园_files/google-analytics.js"></script>
+
+
+</body></html>
