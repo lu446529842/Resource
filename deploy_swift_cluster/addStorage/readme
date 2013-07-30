@@ -1,0 +1,24 @@
+date:2013-07-18
+comment: delopy new swift storage node to exist swift cluster
+
+usage:
+	before you run addSwiftStroage.sh to deploy a new swift storage node ,you should take a few steps to make sure the shell script work successfully!
+	1.move  addStorage to /root/scripts
+	mkdir /root/scripts
+	mv addStorage  /root/scripts
+
+	2.modify Variables according exists swift cluster 
+	proxy_IP  	specific  a proxy ip in order the new storage node can access proxy node correctly
+	password	the password which can be  used to ssh to proxy server by default user root
+	
+	3.set up ip range for each zone
+	if you have a bluemix for expend the exist swift cluster,you must have designed the ip range for swift cluster  zone,
+	by default ,we divide swift cluster into 4 zone,you should change the ip range of zone before you run the script.
+	
+	4.deploy  log 
+	when all step are  done above,you can run the script by ./xxxxx.sh  
+	after done,you can check log in /root/scripts/log
+	
+	5.verify deploy
+	after finshed deploy each storage node ,you can use cmmand swift-init proxy status to check whether the proxy server have finished reblance and scp ring file to each storage node. if proxy-server is running ,it mean proxy have finished reblance and scp ring file,if it is not running and cost too much after you deploy new storage (about 15 minutes),you can check log in /root/scripts/log/rebalance and find out what is wrong in the deploy process
+	

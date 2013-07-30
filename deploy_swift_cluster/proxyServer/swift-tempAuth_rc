@@ -1,0 +1,5 @@
+export ST_AUTH=http://bind_ip:8080/auth/v1.0
+
+export ST_USER=admin:admin
+
+export ST_KEY=admin
