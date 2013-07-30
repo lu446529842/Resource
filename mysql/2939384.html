@@ -1,0 +1,460 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Mysql常用命令详解 - Ruthless - 博客园</title>
+<link type="text/css" rel="stylesheet" href="2939384_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="2939384_files/style.css">
+<link type="text/css" rel="stylesheet" href="2939384_files/common2.css">
+<link type="text/css" rel="stylesheet" href="2939384_files/shStyle.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/linjiqin/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/linjiqin/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/linjiqin/wlwmanifest.xml">
+<script src="2939384_files/gpt.js" type="text/javascript" async=""></script><script src="2939384_files/ga.js" async="" type="text/javascript"></script><script src="2939384_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">
+var currentBlogApp = 'linjiqin';
+</script>
+<script src="2939384_files/common.js" type="text/javascript"></script> 
+<script src="2939384_files/json2.js" type="text/javascript"></script>
+<script type="text/javascript" src="2939384_files/syntaxHighlighter.js"></script>
+<script src="2939384_files/google_ads_gpt.js" type="text/javascript" async=""></script><script src="2939384_files/osd.js" type="text/javascript"></script></head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<div align="center"><a href="http://www.amazingcounter.com/"><img src="2939384_files/counter.png" alt="track website visits" border="0"></a><br><a href="http://www.allonlinecoupons.com/">MCM</a> <a href="http://www.allonlinecoupons.com/st/mcm-electronics/">Discount Promos</a></div>
+<!--PageBeginHtml Block End-->
+
+<!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/linjiqin/">Ruthless-Hadoop</a><br>
+		Hadoop交流群(250363249)、Linux+Oracle交流群(142463980)、软件聊天群(158560018)
+	</div>
+</div>
+
+</div>
+
+<div id="mytopmenu">
+	
+		<div id="mylinks">
+<!--done-->
+<a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a> &nbsp;
+<a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/linjiqin/">首页</a> &nbsp;
+<a href="http://q.cnblogs.com/" class="menu">博问</a> &nbsp;
+<a href="http://home.cnblogs.com/ing/" class="menu">闪存</a> &nbsp;
+<a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://www.cnblogs.com/linjiqin/admin/EditPosts.aspx?opt=1">新随笔</a> &nbsp;
+<a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://space.cnblogs.com/msg/send/Ruthless">联系</a> &nbsp;
+<a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/linjiqin/rss">订阅</a><a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/linjiqin/rss"><img src="2939384_files/xml.gif" alt="订阅"></a>&nbsp;
+<a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://www.cnblogs.com/linjiqin/admin/EditPosts.aspx">管理</a>
+</div>
+		<div id="mystats">
+<!--done-->
+随笔-434&nbsp;
+评论-177&nbsp;
+文章-0&nbsp;
+trackbacks-0
+</div>
+	
+</div>
+<div id="centercontent">
+	
+	
+<div class="post">
+	<h1 class="postTitle"><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/linjiqin/archive/2013/03/01/2939384.html">Mysql常用命令详解</a></h1>
+	<div id="cnblogs_post_body"><p><strong>Mysql安装目录</strong><br><span style="color: #0000ff;">数据库目录</span><br>/var/lib/mysql/<br><span style="color: #0000ff;">配置文件</span><br>/usr/share/mysql（mysql.server命令及配置文件）<br><span style="color: #0000ff;">相关命令</span><br>/usr/bin(mysqladmin mysqldump等命令)<br><span style="color: #0000ff;">启动脚本</span><br>/etc/init.d/mysql（启动脚本文件mysql的目录） </p>
+<p><strong>系统管理</strong><br><span style="color: #0000ff;">连接MySQL</span><br>格式: mysql -h 主机地址 -u用户名 -p用户密码<br>例 1:连接到本机上的 MySQL。<br>hadoop@ubuntu:~$ mysql -uroot -pmysql;<br><br>例 2:连接到远程主机上的 MYSQL。<br>hadoop@ubuntu:~$ mysql -h 127.0.0.1 -uroot -pmysql;<br><br><span style="color: #0000ff;">修改新密码</span><br>在终端输入：mysql -u用户名 -p密码，回车进入Mysql。<br>&gt; use mysql;<br>&gt; update user set password=PASSWORD('新密码') where user='用户名';<br>&gt; flush privileges; #更新权限<br>&gt; quit; #退出</p>
+<p><span style="color: #0000ff;">增加新用户</span><br>格式:grant select on 数据库.* to 用户名@登录主机 identified by '密码'<br>举例:<br>例 1:增加一个用户 test1 密码为 abc,让他可以在任何主机上登录,并对所有数据库有<br>查询、插入、修改、删除的权限。首先用以 root 用户连入 MySQL,然后键入以下命令:<br>mysql&gt;grant select,insert,update,delete on *.* to root@localhost identified by 'mysql';<br>或者<br>grant all privileges on *.* to root@localhost identified by 'mysql';<br>然后刷新权限设置。<br>flush privileges;<br><br>例 2:如果你不想 root 有密码操作数据库“mydb”里的数据表,可以再打一个命令将密码消掉。<br>grant select,insert,update,delete on mydb.* to root@localhost identified by '';<br><br><span style="color: #0000ff;">删除用户</span><br>hadoop@ubuntu:~$ mysql -u用户名 -p密码<br>mysql&gt;delete from user where user='用户名' and host='localhost';<br>mysql&gt;flush privileges;<br>//删除用户的数据库<br>mysql&gt;drop database dbname;<br><br><strong>数据库操作</strong><br><span style="color: #0000ff;">显示所有的数据库</span><br>mysql&gt; show databases;(注意:最后有个 s)<br><br><span style="color: #0000ff;">创建数据库</span><br>mysql&gt; create database test;<br><br><span style="color: #0000ff;">连接数据库</span><br>mysql&gt; use test;<br><br><span style="color: #0000ff;">查看当前使用的数据库</span><br>mysql&gt; select database();<br><br><span style="color: #0000ff;">当前数据库包含的表信息</span><br>mysql&gt; show tables; (注意:最后有个 s)<br><br><span style="color: #0000ff;">删除数据库</span><br>mysql&gt; drop database test;<br><br><strong>表操作</strong><br>备注:操作之前使用“use &lt;数据库名&gt;”应连接某个数据库。<br><span style="color: #0000ff;">建表</span><br>命令:create table &lt;表名&gt; (&lt;字段名 1&gt; &lt;类型 1&gt; [,..&lt;字段名 n&gt; &lt;类型 n&gt;]);<br>例子：<br>mysql&gt; create table MyClass(<br>&gt; id int(4) not null primary key auto_increment,<br>&gt; name char(20) not null,<br>&gt; sex int(4) not null default '0',<br>&gt; degree double(16,2));<br><br><span style="color: #0000ff;">获取表结构</span><br>命令: desc 表名，或者show columns from 表名<br>例子：<br>mysql&gt; describe MyClass<br>mysql&gt; desc MyClass;<br>mysql&gt; show columns from MyClass;<br><br><span style="color: #0000ff;">删除表</span><br>命令:drop table &lt;表名&gt;<br>例如:删除表名为 MyClass 的表<br>mysql&gt; drop table MyClass;<br><br><span style="color: #0000ff;">插入数据</span><br>命令:insert into &lt;表名&gt; [( &lt;字段名 1&gt;[,..&lt;字段名 n &gt; ])] values ( 值 1 )[, ( 值 n )]<br>例子：<br>mysql&gt; insert into MyClass values(1,'Tom',96.45),(2,'Joan',82.99), (2,'Wang', 96.59);<br><br><span style="color: #0000ff;">查询表中的数据</span><br>查询所有行<br>mysql&gt; select * from MyClass;<br><br>查询前几行数据<br>例如:查看表 MyClass 中前 2 行数据<br>mysql&gt; select * from MyClass order by id limit 0,2;<br>或者<br>mysql&gt; select * from MyClass limit 0,2;<br><br><span style="color: #0000ff;">删除表中数据</span><br>命令:delete from 表名 where 表达式<br>例如:删除表 MyClass 中编号为 1 的记录<br>mysql&gt; delete from MyClass where id=1;<br><br><span style="color: #0000ff;">修改表中数据</span><br>命令:update 表名 set 字段=新值,... where 条件<br>mysql&gt; update MyClass set name='Mary' where id=1;<br><br><span style="color: #0000ff;">在表中增加字段</span><br>命令:alter table 表名 add 字段 类型 其他;<br>例如:在表 MyClass 中添加了一个字段 passtest,类型为 int(4),默认值为 0<br>mysql&gt; alter table MyClass add passtest int(4) default '0'<br><br><span style="color: #0000ff;">更改表名</span><br>命令:rename table 原表名 to 新表名;<br>例如:在表 MyClass 名字更改为 YouClass<br>mysql&gt; rename table MyClass to YouClass;<br><br><span style="color: #0000ff;">更新字段内容</span><br>命令:update 表名 set 字段名 = 新内容<br>update 表名 set 字段名 = replace(字段名, '旧内容', '新内容');<br>例如:文章前面加入 4 个空格<br>update article set content=concat('&nbsp;&nbsp;&nbsp; ', content);<br><br><span style="color: #000000;"><strong>数据库导入导出</strong></span><br><span style="color: #0000ff;">从数据库导出数据库文件</span><br>使用“mysqldump”命令<br>首先进入 DOS 界面,然后进行下面操作。<br>1)导出所有数据库<br>格式:mysqldump -u [数据库用户名] -p -A&gt;[备份文件的保存路径]<br><br>2)导出数据和数据结构<br>格式:mysqldump -u [数据库用户名] -p [要备份的数据库名称]&gt;[备份文件的保存路径]<br>举例:<br>例 1:将数据库 mydb 导出到 e:\MySQL\mydb.sql 文件中。<br>打开开始-&gt;运行-&gt;输入“cmd”,进入命令行模式。<br>c:\&gt; mysqldump -h localhost -u root -p mydb &gt;e:\MySQL\mydb.sql<br>然后输入密码,等待一会导出就成功了,可以到目标文件中检查是否成功。<br><br>例 2:将数据库 mydb 中的 mytable 导出到 e:\MySQL\mytable.sql 文件中。<br>c:\&gt; mysqldump -h localhost -u root -p mydb mytable&gt;e:\MySQL\mytable.sql<br><br>例 3:将数据库 mydb 的结构导出到 e:\MySQL\mydb_stru.sql 文件中。<br>c:\&gt; mysqldump -h localhost -u root -p mydb --add-drop-table &gt;e:\MySQL\mydb_stru.sql<br>备注:-h localhost 可以省略,其一般在虚拟主机上用。<br><br>3)只导出数据不导出数据结构<br>格式:<br>mysqldump -u [数据库用户名] -p -t [要备份的数据库名称]&gt;[备份文件的保存路径]<br><br>4)导出数据库中的Events<br>格式:mysqldump -u [数据库用户名] -p -E [数据库用户名]&gt;[备份文件的保存路径]<br><br>5)导出数据库中的存储过程和函数<br>格式:mysqldump -u [数据库用户名] -p -R [数据库用户名]&gt;[备份文件的保存路径]<br><br><span style="color: #0000ff;">从外部文件导入数据库中</span><br>1)使用“source”命令<br>首先进入“mysql”命令控制台,然后创建数据库,然后使用该数据库。最后执行下面操作。<br>mysql&gt;source [备份文件的保存路径]<br><br>2)使用“&lt;”符号<br>首先进入“mysql”命令控制台,然后创建数据库,然后退出 MySQL,进入 DOS 界面。最后执行下面操作。<br>mysql -u root –p &lt; [备份文件的保存路径]</p></div><div id="MySignature"></div>
+<script type="text/javascript">
+var isLogined = false;
+var cb_blogId = 83240;
+var cb_entryId = 2939384;
+var cb_blogApp = currentBlogApp;
+var cb_blogUserGuid = "a6448c44-d92c-e011-ac81-842b2b196315";
+var cb_entryCreatedDate = '2013/3/1 20:19:00';
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</script>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/linjiqin/category/283837.html">Mysql</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/linjiqin/tag/Mysql%E5%91%BD%E5%90%8D%E7%94%A8%E6%B3%95/">Mysql命名用法</a>, <a href="http://www.cnblogs.com/linjiqin/tag/Mysql%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Mysql常用命令</a>, <a href="http://www.cnblogs.com/linjiqin/tag/Mysql%E8%AF%AD%E6%B3%95/">Mysql语法</a></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/Ruthless" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="2939384_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/linjiqin/" target="_blank"><img src="2939384_files/20130612001627.jpeg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/linjiqin/">Ruthless</a><br>
+<a href="http://home.cnblogs.com/u/linjiqin/followees">关注 - 20</a><br>
+<a href="http://home.cnblogs.com/u/linjiqin/followers">粉丝 - 225</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,'Digg')"> 
+		<span class="diggnum" id="digg_count">0</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/linjiqin/archive/2012/06/22/2558780.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/linjiqin/archive/2012/06/22/2558780.html" title="发布于2012-06-22 17:07">将Oracle数据库设置为归档模式及非归档模式</a><br><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/04/2942402.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/linjiqin/archive/2013/03/04/2942402.html" title="发布于2013-03-04 10:54">Hive安装</a><br></div>
+</div>
+<script type="text/javascript">
+    //SyntaxHighlighter.config.strings.expandSource = '<span><img src="http://static.cnblogs.com/images/expand-code.gif" alt="" class="expand-code-icon"/>View Code</span>';
+    $(function () {  
+        loadViewCount(cb_entryId);
+        fixPostBodyFormat();
+        loadAdUnderPost();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);        
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);        
+    });
+</script>
+	<div class="postDesc">posted on <span id="post-date">2013-03-01 20:19</span> <a href="http://www.cnblogs.com/linjiqin/">Ruthless</a> 阅读(<span id="post_view_count">146</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://www.cnblogs.com/linjiqin/admin/EditPosts.aspx?postid=2939384" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2939384);return false;">收藏</a></div>
+</div>
+<script src="2939384_files/2939384.js" type="text/javascript"></script>
+
+<div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+
+<script type="text/javascript">
+    if (typeof commentManager === 'undefined') {
+        commentManager = new blogCommentManager();
+    }
+    commentManager.loadCommentForm();   
+</script>
+
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="ad_under_post_holder">
+<div id="google_ad_c1" class="c_ad_block">
+    <!-- cnblogs_blogpost_C1_sitehome -->
+    <div id="div-gpt-ad-1346480159711-0" style="width: 300px; height: 250px;">
+    
+    <iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" frameborder="0" height="250" scrolling="no" width="300"></iframe><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom; visibility: hidden; display: none;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" frameborder="0" height="0" scrolling="no" width="0"></iframe></div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/183268/" target="_blank">京东上海亚洲一号一期完成封顶</a><br> ·  <a href="http://news.cnblogs.com/n/183266/" target="_blank">时代华纳有线宣布CEO年底退休 现任COO将接任</a><br> ·  <a href="http://news.cnblogs.com/n/183265/" target="_blank">八成以上“熊孩子”在社交网络上谎报年龄</a><br> ·  <a href="http://news.cnblogs.com/n/183263/" target="_blank">FB股价一夜涨三成 扎克伯格财富暴增38亿美元</a><br> ·  <a href="http://news.cnblogs.com/n/183262/" target="_blank">亚马逊扩大仓储业务投入致意外亏损 盘后跌2.11%</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/183222/" target="_blank">Buffer Latch Timeout的解析</a><br> ·  <a href="http://kb.cnblogs.com/page/183123/" target="_blank">你优化系统的目标是什么？</a><br> ·  <a href="http://kb.cnblogs.com/page/182686/" target="_blank">淘宝图片服务的学习</a><br> ·  <a href="http://kb.cnblogs.com/page/182951/" target="_blank">即便没有读者，你也要写博客</a><br> ·  <a href="http://kb.cnblogs.com/page/177886/" target="_blank">学习新技术的10个建议</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="google_ad_c2" class="c_ad_block">
+    <!-- cnblogs_blogpost_C2_sitehome -->
+    <div id="div-gpt-ad-1346479110744-1" style="width: 468px; height: 60px;">
+    
+    <iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" id="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" frameborder="0" height="60" scrolling="no" width="468"></iframe></div>
+</div></div>
+<div id="HistoryToday" class="c_ad_block"><b>历史上的今天:</b><br>2012-03-01 <a href="http://www.cnblogs.com/linjiqin/archive/2012/03/01/2375611.html">二十八、oracle 视图</a><br></div>
+</div>
+
+
+
+
+
+</div>
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			
+<!--done-->
+<div class="newsItem">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/linjiqin/">Ruthless</a><br>园龄：<a href="http://home.cnblogs.com/u/linjiqin/" title="入园时间：2011-01-31">2年5个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/linjiqin/followers/">225</a><br>关注：<a href="http://home.cnblogs.com/u/linjiqin/followees/">20</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger('a6448c44-d92c-e011-ac81-842b2b196315')">+加关注</a></div></div></div>
+</div>
+
+			<div id="blog-calendar-block" style=""><div id="blog-calendar"><table id="blogCalendar" class="Cal" title="日历" cellpadding="0" cellspacing="0">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar('2013/02/01');return false;">&lt;</a></td><td align="center">2013年3月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar('2013/04/01');return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" abbr="日" scope="col" align="center">日</th><th class="CalDayHeader" abbr="一" scope="col" align="center">一</th><th class="CalDayHeader" abbr="二" scope="col" align="center">二</th><th class="CalDayHeader" abbr="三" scope="col" align="center">三</th><th class="CalDayHeader" abbr="四" scope="col" align="center">四</th><th class="CalDayHeader" abbr="五" scope="col" align="center">五</th><th class="CalDayHeader" abbr="六" scope="col" align="center">六</th></tr><tr><td class="CalOtherMonthDay" align="center">24</td><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/01.html"><u>1</u></a></td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/04.html"><u>4</u></a></td><td align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/05.html"><u>5</u></a></td><td align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/06.html"><u>6</u></a></td><td align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/07.html"><u>7</u></a></td><td align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/08.html"><u>8</u></a></td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/11.html"><u>11</u></a></td><td align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/12.html"><u>12</u></a></td><td align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/13.html"><u>13</u></a></td><td align="center">14</td><td align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/15.html"><u>15</u></a></td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/16.html"><u>16</u></a></td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/21.html"><u>21</u></a></td><td align="center">22</td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/23.html"><u>23</u></a></td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/24.html"><u>24</u></a></td><td align="center"><a href="http://www.cnblogs.com/linjiqin/archive/2013/03/25.html"><u>25</u></a></td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalWeekendDay" align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</tbody></table></div>
+</div><br>
+			<div id="blog-sidecolumn">
+
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk" type="text">&nbsp;<input onclick="zzk_go()" value="找找看" id="btnZzk" class="btn_my_zzk" type="button"></div>
+<div id="widget_my_google" class="div_my_zzk"><input name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk" type="text">&nbsp;<input onclick="google_go()" value="谷歌搜索" class="btn_my_zzk" type="button"></div>
+</div>
+
+
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/linjiqin/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_1" href="http://www.cnblogs.com/linjiqin/MyComments.html">我的评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_2" title="我发表过评论的随笔" href="http://www.cnblogs.com/linjiqin/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/linjiqin/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_4" href="http://www.cnblogs.com/linjiqin/tag/">我的标签</a></li>
+	
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div>
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/linjiqin/tag/java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/">java 多线程</a>(18)</li><li><a href="http://www.cnblogs.com/linjiqin/tag/android/">android</a>(12)</li><li><a href="http://www.cnblogs.com/linjiqin/tag/JAVA/">JAVA</a>(10)</li><li><a href="http://www.cnblogs.com/linjiqin/tag/jpa/">jpa</a>(5)</li><li><a href="http://www.cnblogs.com/linjiqin/tag/oracle%E7%B3%BB%E7%BB%9F%E5%8C%85/">oracle系统包</a>(5)</li><li><a href="http://www.cnblogs.com/linjiqin/tag/redis/">redis</a>(5)</li><li><a href="http://www.cnblogs.com/linjiqin/tag/SQL%20Cookbook/">SQL Cookbook</a>(4)</li><li><a href="http://www.cnblogs.com/linjiqin/tag/oracle/">oracle</a>(4)</li><li><a href="http://www.cnblogs.com/linjiqin/tag/oracle%20%E5%87%BD%E6%95%B0/">oracle 函数</a>(4)</li><li><a href="http://www.cnblogs.com/linjiqin/tag/oracle%20%E7%89%A9%E5%8C%96%E8%A7%86%E5%9B%BE/">oracle 物化视图</a>(3)</li><li><a href="http://www.cnblogs.com/linjiqin/tag/">更多</a></li>
+</ul>
+</div>
+		<h3 class="catListTitle">随笔分类</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/linjiqin/category/284844.html">android菜单与对话框(8)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/linjiqin/category/284058.html">android常用控件(16)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/linjiqin/category/283833.html">android高级应用(51)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/linjiqin/category/282012.html">android基础知识(17)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/linjiqin/category/455969.html">Avro</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/linjiqin/category/455970.html">Chuwa</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/linjiqin/category/294976.html">css(1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_7" class="listitem" href="http://www.cnblogs.com/linjiqin/category/305982.html">ext(9)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_8" class="listitem" href="http://www.cnblogs.com/linjiqin/category/288914.html">ftp(1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_9" class="listitem" href="http://www.cnblogs.com/linjiqin/category/455961.html">Hadoop(7)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_10" class="listitem" href="http://www.cnblogs.com/linjiqin/category/494384.html">hadoop源码分析(1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_11" class="listitem" href="http://www.cnblogs.com/linjiqin/category/455962.html">Hbase(4)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_12" class="listitem" href="http://www.cnblogs.com/linjiqin/category/455965.html">HDFS(1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_13" class="listitem" href="http://www.cnblogs.com/linjiqin/category/283834.html">hibernate</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_14" class="listitem" href="http://www.cnblogs.com/linjiqin/category/455963.html">Hive(3)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_15" class="listitem" href="http://www.cnblogs.com/linjiqin/category/294295.html">html5(3)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_16" class="listitem" href="http://www.cnblogs.com/linjiqin/category/383867.html">ibatis(2)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_17" class="listitem" href="http://www.cnblogs.com/linjiqin/category/283832.html">j2ee案例(38)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_18" class="listitem" href="http://www.cnblogs.com/linjiqin/category/290928.html">javascript(5)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_19" class="listitem" href="http://www.cnblogs.com/linjiqin/category/499574.html">Java多线程编程(25)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_20" class="listitem" href="http://www.cnblogs.com/linjiqin/category/282013.html">java高级特性(31)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_21" class="listitem" href="http://www.cnblogs.com/linjiqin/category/499597.html">Java网络编程</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_22" class="listitem" href="http://www.cnblogs.com/linjiqin/category/282011.html">jpa(6)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_23" class="listitem" href="http://www.cnblogs.com/linjiqin/category/283835.html">jquery(34)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_24" class="listitem" href="http://www.cnblogs.com/linjiqin/category/310475.html">jQueryMobile(1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_25" class="listitem" href="http://www.cnblogs.com/linjiqin/category/492306.html">jsoup、xpath(1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_26" class="listitem" href="http://www.cnblogs.com/linjiqin/category/283839.html">linux(12)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_27" class="listitem" href="http://www.cnblogs.com/linjiqin/category/491263.html">linux shell(9)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_28" class="listitem" href="http://www.cnblogs.com/linjiqin/category/491254.html">linux安装(3)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_29" class="listitem" href="http://www.cnblogs.com/linjiqin/category/290952.html">Lucene(7)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_30" class="listitem" href="http://www.cnblogs.com/linjiqin/category/455967.html">Mahout(1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_31" class="listitem" href="http://www.cnblogs.com/linjiqin/category/455966.html">MapReduce</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_32" class="listitem" href="http://www.cnblogs.com/linjiqin/category/497964.html">mongodb(3)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_33" class="listitem" href="http://www.cnblogs.com/linjiqin/category/283837.html">Mysql(4)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_34" class="listitem" href="http://www.cnblogs.com/linjiqin/category/283838.html">oracle(21)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_35" class="listitem" href="http://www.cnblogs.com/linjiqin/category/349946.html">oracle案例(25)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_36" class="listitem" href="http://www.cnblogs.com/linjiqin/category/349944.html">oracle初级系列教程(29)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_37" class="listitem" href="http://www.cnblogs.com/linjiqin/category/369420.html">oracle分析函数(3)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_38" class="listitem" href="http://www.cnblogs.com/linjiqin/category/349945.html">oracle高级系列教程(1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_39" class="listitem" href="http://www.cnblogs.com/linjiqin/category/368566.html">oracle面试(1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_40" class="listitem" href="http://www.cnblogs.com/linjiqin/category/339133.html">oracle中级系列教程(11)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_41" class="listitem" href="http://www.cnblogs.com/linjiqin/category/455964.html">Pig(3)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_42" class="listitem" href="http://www.cnblogs.com/linjiqin/category/310160.html">powerderigner(5)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_43" class="listitem" href="http://www.cnblogs.com/linjiqin/category/483911.html">redis(8)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_44" class="listitem" href="http://www.cnblogs.com/linjiqin/category/282010.html">spring2.5(1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_45" class="listitem" href="http://www.cnblogs.com/linjiqin/category/499598.html">Spring源码解析</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_46" class="listitem" href="http://www.cnblogs.com/linjiqin/category/478422.html">SQL注入(3)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_47" class="listitem" href="http://www.cnblogs.com/linjiqin/category/484107.html">storm(4)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_48" class="listitem" href="http://www.cnblogs.com/linjiqin/category/282009.html">struts2(13)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_49" class="listitem" href="http://www.cnblogs.com/linjiqin/category/288252.html">weblogic(1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_50" class="listitem" href="http://www.cnblogs.com/linjiqin/category/373109.html">webservice(1)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_51" class="listitem" href="http://www.cnblogs.com/linjiqin/category/455968.html">Zookeeper(2)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_52" class="listitem" href="http://www.cnblogs.com/linjiqin/category/488767.html">管理与感悟(2)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_53" class="listitem" href="http://www.cnblogs.com/linjiqin/category/282729.html">其他(8)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_54" class="listitem" href="http://www.cnblogs.com/linjiqin/category/477998.html">网络安全(3)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_55" class="listitem" href="http://www.cnblogs.com/linjiqin/category/349403.html">小故事大智慧(3)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_56" class="listitem" href="http://www.cnblogs.com/linjiqin/category/304377.html">移动web开发(2)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_0_Link_57" class="listitem" href="http://www.cnblogs.com/linjiqin/category/486898.html">云计算案例(1)</a></li>
+			
+				</ul>
+			
+	
+		<h3 class="catListTitle">随笔档案</h3>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_0" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2013/07.html">2013年7月 (31)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_1" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2013/06.html">2013年6月 (85)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_2" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2013/05.html">2013年5月 (21)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_3" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2013/04.html">2013年4月 (2)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_4" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2013/03.html">2013年3月 (25)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_5" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2012/06.html">2012年6月 (4)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_6" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2012/05.html">2012年5月 (5)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_7" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2012/04.html">2012年4月 (8)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_8" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2012/03.html">2012年3月 (5)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_9" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2012/02.html">2012年2月 (26)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_10" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2012/01.html">2012年1月 (8)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_11" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2011/12.html">2011年12月 (14)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_12" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2011/11.html">2011年11月 (11)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_13" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2011/10.html">2011年10月 (4)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_14" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2011/09.html">2011年9月 (9)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_15" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2011/08.html">2011年8月 (12)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_16" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2011/07.html">2011年7月 (19)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_17" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2011/06.html">2011年6月 (24)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_18" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2011/05.html">2011年5月 (17)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_19" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2011/04.html">2011年4月 (24)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_20" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2011/03.html">2011年3月 (49)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_21" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2011/02.html">2011年2月 (45)</a></li>
+			
+				<li class="catListItem"> <a id="ctl03_CatList_LinkList_1_Link_22" class="listitem" href="http://www.cnblogs.com/linjiqin/archive/2011/01.html">2011年1月 (1)</a></li>
+			
+				</ul>
+			
+	
+
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		208786
+	</li><li>
+		排名 -
+		459
+	</li>
+</ul>
+
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/linjiqin/archive/2013/05/07/3064521.html#2731890">1. Re:第2课：关闭被黑客扫描的端口</a></li>
+    <li class="recent_comment_body">通过注册表的话会不会太麻烦</li>
+    <li class="recent_comment_author">--DM张朋飞</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/linjiqin/archive/2011/07/17/2108896.html#2730665">2. Re:jQuery Mobile入门</a></li>
+    <li class="recent_comment_body">不错</li>
+    <li class="recent_comment_author">--寒@鹏</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/linjiqin/archive/2011/07/15/2107474.html#2730190">3. Re:PowerDesigner导出表到word</a></li>
+    <li class="recent_comment_body">好文章 收藏了</li>
+    <li class="recent_comment_author">--寒@鹏</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/linjiqin/archive/2011/04/27/2030115.html#2728140">4. Re:java.lang.OutOfMemoryError: Java heap space解决方法</a></li>
+    <li class="recent_comment_body">看了好多个。。终于找到靠谱的了。。感谢博主</li>
+    <li class="recent_comment_author">--淡言人生</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/linjiqin/archive/2011/12/30/2307788.html#2721560">5. Re:开源框架Pushlet入门</a></li>
+    <li class="recent_comment_body">恩，我来实验一下，一会。</li>
+    <li class="recent_comment_author">--规格严格-功夫到家</li>
+</ul>
+</div>
+</div>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/03/21/1990674.html">1. struts2之单个文件上传(30904)</a></li><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/11/01/2231598.html">2. 二十七、Android之GPS定位详解(14758)</a></li><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/05/28/2061396.html">3. 十二、ContentProvider和Uri详解(13703)</a></li><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/11/09/2242579.html">4. 三十二、Android上传文件至服务器(13389)</a></li><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/08/31/2160360.html">5. java中Comparator的用法(13095)</a></li></ul></div>
+</div>
+
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/02/12/1952904.html">1. jpa+spring配置多数据源(13)</a></li><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/10/31/2230570.html">2. J2EE用监听器实现同一用户只能有一个在线(10)</a></li><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/11/09/2242579.html">3. 三十二、Android上传文件至服务器(7)</a></li><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/12/30/2307788.html">4. 开源框架Pushlet入门(6)</a></li><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/07/17/2108896.html">5. jQuery Mobile入门(6)</a></li></ul></div>
+</div>
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/linjiqin/archive/2012/04/01/2428695.html">1. 数据库设计三大范式(11)</a></li><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/07/17/2108896.html">2. jQuery Mobile入门(8)</a></li><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/05/28/2061396.html">3. 十二、ContentProvider和Uri详解(7)</a></li><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/03/21/1990674.html">4. struts2之单个文件上传(4)</a></li><li><a href="http://www.cnblogs.com/linjiqin/archive/2011/03/19/1989169.html">5. struts2+jquery+json集成(4)</a></li></ul></div>
+</div></div></div>
+	
+</div>
+
+<!--done-->
+<div class="footer">
+	Powered by: <a href="http://www.cnblogs.com/">博客园</a>	模板提供：<a href="http://blog.hjenglish.com/">沪江博客</a>
+	Copyright ©2013 Ruthless
+</div>
+
+
+
+<script type="text/javascript" src="2939384_files/google-analytics.js"></script>
+
+
+</body></html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>使用shell脚本实现自动SSH互信功能 - Vovolie - 博客园</title>
+<link type="text/css" rel="stylesheet" href="2688020_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="2688020_files/style.css">
+<link type="text/css" rel="stylesheet" href="2688020_files/common2.css">
+<link type="text/css" rel="stylesheet" href="2688020_files/shStyle.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/vovlie/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/vovlie/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/vovlie/wlwmanifest.xml">
+<script src="2688020_files/gpt.js" type="text/javascript" async=""></script><script src="2688020_files/ga.js" async="" type="text/javascript"></script><script src="2688020_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">
+var currentBlogApp = 'vovlie';
+</script>
+<script src="2688020_files/common.js" type="text/javascript"></script> 
+<script src="2688020_files/json2.js" type="text/javascript"></script>
+<script type="text/javascript" src="2688020_files/syntaxHighlighter.js"></script>
+<script src="2688020_files/google_ads_gpt.js" type="text/javascript" async=""></script><script src="2688020_files/osd.js" type="text/javascript"></script></head>
+<body>
+<a name="top"></a>
+
+<div id="header">
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/vovlie/">大数据时代</a></h1>
+<p id="tagline">I like python,linux。</p></div>
+<div id="main">
+	
+	
+	<div class="post">
+		<h2>
+			<a id="cb_post_title_url" href="http://www.cnblogs.com/vovlie/archive/2012/09/16/2688020.html">使用shell脚本实现自动SSH互信功能</a>
+		</h2>
+		<div class="postText"><div id="cnblogs_post_body"><p><span>&nbsp;说假设有一个1000台节点的Hadoop集群，要配置节点之间的SSH免密码登录，该如何用shell脚本实现？</span></p>
+<div class="cnblogs_Highlighter">
+<div><div id="highlighter_175347" class="syntaxhighlighter nogutter  Perl            "><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="Perl preprocessor">#!/bin/expect</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="Perl comments">#循环1000台机器的IP地址，生成密钥文件authorized_keys</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="Perl keyword">for</code> <code class="Perl plain">ip in {cat ip.list}</code></div><div class="line number6 index5 alt1"><code class="Perl keyword">do</code></div><div class="line number7 index6 alt2"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl plain">ssh user@</code><code class="Perl variable">$ip</code> <code class="Perl plain">ssh-keygen -t rsa&nbsp; &amp;&gt;/dev/null</code></div><div class="line number8 index7 alt1"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl plain">expect{</code></div><div class="line number9 index8 alt2"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl string">"yes/no"</code> <code class="Perl plain">{ </code><code class="Perl functions">send</code> <code class="Perl string">"yes\r"</code><code class="Perl plain">;exp_continue}</code></div><div class="line number10 index9 alt1"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl string">"password:"</code><code class="Perl plain">{</code><code class="Perl functions">send</code> <code class="Perl string">"$passwd\r"</code><code class="Perl plain">;exp_continue}</code></div><div class="line number11 index10 alt2"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl plain">}</code></div><div class="line number12 index11 alt1"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl plain">cat ~/.ssh/id_rsa.pub &gt; ~/.ssh/authorized_keys &amp;&gt; /dev/null&nbsp; </code></div><div class="line number13 index12 alt2"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl keyword">exit</code></div><div class="line number14 index13 alt1"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl keyword">if</code> <code class="Perl plain">[ !-f ~/.ssh/authorized_keys ];&lt;br&gt;&nbsp;&nbsp;&nbsp; then</code></div><div class="line number15 index14 alt2"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl plain">touch ~/.ssh/authorized_keys&lt;br&gt;&nbsp;&nbsp;&nbsp; fi</code></div><div class="line number16 index15 alt1"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl plain">ssh user@</code><code class="Perl variable">$ip</code> <code class="Perl plain">cat ~/.ssh/authorized_keys &gt;&gt; ~/.ssh/authorized_keys&nbsp; &amp;&gt; /dev/null</code></div><div class="line number17 index16 alt2"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl plain">expect{</code></div><div class="line number18 index17 alt1"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl string">"yes/no"</code> <code class="Perl plain">{ </code><code class="Perl functions">send</code> <code class="Perl string">"yes\r"</code><code class="Perl plain">;exp_continue}</code></div><div class="line number19 index18 alt2"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl string">"password:"</code><code class="Perl plain">{</code><code class="Perl functions">send</code> <code class="Perl string">"$passwd\r"</code><code class="Perl plain">;exp_continue}</code></div><div class="line number20 index19 alt1"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl plain">}&nbsp;&nbsp; </code></div><div class="line number21 index20 alt2"><code class="Perl plain">done</code></div><div class="line number22 index21 alt1">&nbsp;</div><div class="line number23 index22 alt2"><code class="Perl comments">#scp authorized_keys 文件到各台机器上面。</code></div><div class="line number24 index23 alt1"><code class="Perl keyword">for</code> <code class="Perl plain">ip in {cat ip.list}</code></div><div class="line number25 index24 alt2"><code class="Perl keyword">do</code></div><div class="line number26 index25 alt1"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;</code><code class="Perl plain">scp ~/.ssh/authorized_keys user@</code><code class="Perl variable">$ip</code><code class="Perl plain">:~/.ssh/ </code></div><div class="line number27 index26 alt2"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl plain">expect{</code></div><div class="line number28 index27 alt1"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl string">"yes/no"</code> <code class="Perl plain">{ </code><code class="Perl functions">send</code> <code class="Perl string">"yes\r"</code><code class="Perl plain">;exp_continue}</code></div><div class="line number29 index28 alt2"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl string">"password:"</code><code class="Perl plain">{</code><code class="Perl functions">send</code> <code class="Perl string">"$passwd\r"</code><code class="Perl plain">;exp_continue}</code></div><div class="line number30 index29 alt1"><code class="Perl spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="Perl plain">}&nbsp; </code></div><div class="line number31 index30 alt2"><code class="Perl plain">done</code></div></div></td></tr></tbody></table></div></div>
+</div>
+<p>　　</p>
+<p><span>&nbsp;</span></p></div><div id="MySignature"></div>
+<script type="text/javascript">
+var isLogined = false;
+var cb_blogId = 126284;
+var cb_entryId = 2688020;
+var cb_blogApp = currentBlogApp;
+var cb_blogUserGuid = "8780d45e-e1ed-e111-aa3f-842b2b196315";
+var cb_entryCreatedDate = '2012/9/16 23:06:00';
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</script>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/vovlie/category/407698.html">Linux</a></div>
+<div id="EntryTag"></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/Vovolie" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="2688020_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/vovlie/">Vovolie</a><br>
+<a href="http://home.cnblogs.com/u/vovlie/followees">关注 - 1</a><br>
+<a href="http://home.cnblogs.com/u/vovlie/followers">粉丝 - 1</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,'Digg')"> 
+		<span class="diggnum" id="digg_count">0</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/vovlie/archive/2012/09/11/2680867.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/vovlie/archive/2012/09/11/2680867.html" title="发布于2012-09-11 21:43">chrome 网站服务器探测插件</a><br><a href="http://www.cnblogs.com/vovlie/archive/2012/09/30/2709096.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/vovlie/archive/2012/09/30/2709096.html" title="发布于2012-09-30 10:10">Shell 脚本 测试服务正常</a><br></div>
+</div>
+<script type="text/javascript">
+    //SyntaxHighlighter.config.strings.expandSource = '<span><img src="http://static.cnblogs.com/images/expand-code.gif" alt="" class="expand-code-icon"/>View Code</span>';
+    $(function () {  
+        loadViewCount(cb_entryId);
+        fixPostBodyFormat();
+        loadAdUnderPost();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);        
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);        
+    });
+</script></div>
+		<p class="postfoot">
+			posted on <span id="post-date">2012-09-16 23:06</span> <a href="http://www.cnblogs.com/vovlie/">Vovolie</a> 阅读(<span id="post_view_count">459</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://www.cnblogs.com/vovlie/admin/EditPosts.aspx?postid=2688020" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2688020);return false;">收藏</a>
+		</p>
+	</div>
+	<script src="2688020_files/2688020.js" type="text/javascript"></script>
+	
+	<div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+
+<script type="text/javascript">
+    if (typeof commentManager === 'undefined') {
+        commentManager = new blogCommentManager();
+    }
+    commentManager.loadCommentForm();   
+</script>
+
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="ad_under_post_holder">
+<div id="google_ad_c1" class="c_ad_block">
+    <!-- cnblogs_blogpost_C1_sitehome -->
+    <div id="div-gpt-ad-1346480159711-0" style="width: 300px; height: 250px;">
+    
+    <iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" frameborder="0" height="250" scrolling="no" width="300"></iframe><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom; visibility: hidden; display: none;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" frameborder="0" height="0" scrolling="no" width="0"></iframe></div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/181563/" target="_blank">新蛋否认“资金断流”、“退出内地”</a><br> ·  <a href="http://news.cnblogs.com/n/181562/" target="_blank">重大漏洞！99%的Android手机都身患此症</a><br> ·  <a href="http://news.cnblogs.com/n/181558/" target="_blank">腾讯发布硬件产品：腾讯Q影 可让任意平面变成可触控的画面</a><br> ·  <a href="http://news.cnblogs.com/n/181557/" target="_blank">真正的世界末日：地球将在28亿年后寿终正寝</a><br> ·  <a href="http://news.cnblogs.com/n/181556/" target="_blank">电子垃圾回收：正规军不敌黑作坊</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/181532/" target="_blank">云计算服务模型，第 1 部分: 基础架构即服务(IaaS)</a><br> ·  <a href="http://kb.cnblogs.com/page/181453/" target="_blank">企业云</a><br> ·  <a href="http://kb.cnblogs.com/page/181381/" target="_blank">.Net程序员学习Linux最简单的方法</a><br> ·  <a href="http://kb.cnblogs.com/page/181365/" target="_blank">BPM与SOA的演进与展望</a><br> ·  <a href="http://kb.cnblogs.com/page/181281/" target="_blank">程序员自我学习自我培训指南</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="google_ad_c2" class="c_ad_block">
+    <!-- cnblogs_blogpost_C2_sitehome -->
+    <div id="div-gpt-ad-1346479110744-1" style="width: 468px; height: 60px;">
+    
+    <iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" id="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" frameborder="0" height="60" scrolling="no" width="468"></iframe></div>
+</div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+</div>
+
+
+
+
+
+</div>
+<div id="rightmenu">
+	
+		
+<h3>导航</h3>
+<ul>
+<li><a id="MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="MyLinks1_MyHomeLink" href="http://www.cnblogs.com/vovlie/">首页</a></li>
+<li><a id="MyLinks1_NewPostLink" rel="nofollow" href="http://www.cnblogs.com/vovlie/admin/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://space.cnblogs.com/msg/send/Vovolie">联系</a></li>
+<li><a id="MyLinks1_Syndication" href="http://www.cnblogs.com/vovlie/rss">订阅</a><a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/vovlie/rss"><img src="2688020_files/xml.gif" alt="订阅"></a></li>
+<li><a id="MyLinks1_Admin" rel="nofollow" href="http://www.cnblogs.com/vovlie/admin/EditPosts.aspx">管理</a></li>
+</ul>
+		
+<h3>公告</h3>
+<div class="newsItem">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/vovlie/">Vovolie</a><br>园龄：<a href="http://home.cnblogs.com/u/vovlie/" title="入园时间：2012-08-24">10个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/vovlie/followers/">1</a><br>关注：<a href="http://home.cnblogs.com/u/vovlie/followees/">1</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger('8780d45e-e1ed-e111-aa3f-842b2b196315')">+加关注</a></div></div></div>
+</div>					
+		<div id="blog-calendar-block" style=""><div id="blog-calendar"><table id="blogCalendar" class="Cal" title="日历" cellpadding="0" cellspacing="0">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar('2012/08/01');return false;">&lt;</a></td><td align="center">2012年9月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar('2012/10/01');return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" abbr="日" scope="col" align="center">日</th><th class="CalDayHeader" abbr="一" scope="col" align="center">一</th><th class="CalDayHeader" abbr="二" scope="col" align="center">二</th><th class="CalDayHeader" abbr="三" scope="col" align="center">三</th><th class="CalDayHeader" abbr="四" scope="col" align="center">四</th><th class="CalDayHeader" abbr="五" scope="col" align="center">五</th><th class="CalDayHeader" abbr="六" scope="col" align="center">六</th></tr><tr><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/vovlie/archive/2012/09/01.html"><u>1</u></a></td></tr><tr><td class="CalWeekendDay" align="center">2</td><td align="center">3</td><td align="center"><a href="http://www.cnblogs.com/vovlie/archive/2012/09/04.html"><u>4</u></a></td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td class="CalWeekendDay" align="center">8</td></tr><tr><td class="CalWeekendDay" align="center">9</td><td align="center">10</td><td align="center"><a href="http://www.cnblogs.com/vovlie/archive/2012/09/11.html"><u>11</u></a></td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td class="CalWeekendDay" align="center">15</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/vovlie/archive/2012/09/16.html"><u>16</u></a></td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td class="CalWeekendDay" align="center">22</td></tr><tr><td class="CalWeekendDay" align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalWeekendDay" align="center">29</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/vovlie/archive/2012/09/30.html"><u>30</u></a></td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</tbody></table></div>
+</div>
+		
+<h3>统计</h3>
+<ul>
+	<li>随笔 - 13</li>
+	<li>文章 - 0</li>
+	<li>评论 - 0</li>
+	<li>引用 - 0</li>
+ </ul>
+		<div id="blog-sidecolumn">
+
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk" type="text">&nbsp;<input onclick="zzk_go()" value="找找看" id="btnZzk" class="btn_my_zzk" type="button"></div>
+<div id="widget_my_google" class="div_my_zzk"><input name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk" type="text">&nbsp;<input onclick="google_go()" value="谷歌搜索" class="btn_my_zzk" type="button"></div>
+</div>
+
+
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/vovlie/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_1" href="http://www.cnblogs.com/vovlie/MyComments.html">我的评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_2" title="我发表过评论的随笔" href="http://www.cnblogs.com/vovlie/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/vovlie/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_4" href="http://www.cnblogs.com/vovlie/tag/">我的标签</a></li>
+	
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div>
+		<h3>随笔分类</h3>
+		
+				<ul>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/vovlie/category/407993.html">C#</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/vovlie/category/407992.html">Hadoop(2)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/vovlie/category/407698.html">Linux(4)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/vovlie/category/408835.html">Other(3)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/vovlie/category/407697.html">Python(4)</a> </li>
+			
+				</ul>
+			
+	
+		<h3>随笔档案</h3>
+		
+				<ul>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/vovlie/archive/2013/03.html">2013年3月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/vovlie/archive/2013/02.html">2013年2月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/vovlie/archive/2012/10.html">2012年10月 (2)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/vovlie/archive/2012/09.html">2012年9月 (5)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/vovlie/archive/2012/08.html">2012年8月 (4)</a> </li>
+			
+				</ul>
+			
+	
+		<h3>Dataguru</h3>
+		
+				<ul>
+			
+				</ul>
+			
+	
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+</ul>
+</div>
+</div>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/vovlie/archive/2013/03/19/2969017.html">1. Esxi 5.1 添加存储设备的问题(555)</a></li><li><a href="http://www.cnblogs.com/vovlie/archive/2012/09/16/2688020.html">2. 使用shell脚本实现自动SSH互信功能(459)</a></li><li><a href="http://www.cnblogs.com/vovlie/archive/2012/09/01/2666807.html">3. 详细 完整分布模式安装hadoop VirtualBox 3虚拟机(403)</a></li><li><a href="http://www.cnblogs.com/vovlie/archive/2012/10/17/2727029.html">4. python整数与IP地址转换 [转](341)</a></li><li><a href="http://www.cnblogs.com/vovlie/archive/2012/08/28/2659707.html">5. Mac Mini + DELL UltraSharp U2312HM 配置(284)</a></li></ul></div>
+</div>
+
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/vovlie/archive/2012/08/25/2655643.html">1. python 实现PageRank计算(0)</a></li><li><a href="http://www.cnblogs.com/vovlie/archive/2012/08/26/2657587.html">2. Hadoop 安装练习  简单版(0)</a></li><li><a href="http://www.cnblogs.com/vovlie/archive/2012/08/28/2659707.html">3. Mac Mini + DELL UltraSharp U2312HM 配置(0)</a></li><li><a href="http://www.cnblogs.com/vovlie/archive/2012/09/30/2709096.html">4. Shell 脚本 测试服务正常(0)</a></li><li><a href="http://www.cnblogs.com/vovlie/archive/2012/09/16/2688020.html">5. 使用shell脚本实现自动SSH互信功能(0)</a></li></ul></div>
+</div>
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"></div>
+</div></div>
+		
+<div id="footer">
+	Powered by: 
+	<br>
+	<a id="Footer1_Hyperlink3" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © Vovolie
+</div>
+	
+</div>			
+			
+	
+
+<script type="text/javascript" src="2688020_files/google-analytics.js"></script>
+
+
+</body></html>
