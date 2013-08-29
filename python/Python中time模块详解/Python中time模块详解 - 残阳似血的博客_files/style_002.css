@@ -1,0 +1,703 @@
+body {
+  position: static;
+}
+#pintex-container {
+  /* Default styles that will carry to the child style sheet for qfo */
+
+  /* global setting */
+
+  /* menubar style */
+
+  /* qpanel */
+
+  /* qfo-icon */
+
+  /* auth */
+
+  /* setting */
+
+  /* flap */
+
+  /* qlogin */
+
+  /* qubi css style */
+
+  /* qmark less style */
+
+  /* qpoint effect style */
+
+  /* user qpoint effect */
+
+}
+#pintex-container div,
+#pintex-container ul,
+#pintex-container li,
+#pintex-container h1,
+#pintex-container h2,
+#pintex-container h3,
+#pintex-container h4,
+#pintex-container h5,
+#pintex-container h6,
+#pintex-container img,
+#pintex-container p,
+#pintex-container form,
+#pintex-container input,
+#pintex-container button,
+#pintex-container label,
+#pintex-container span {
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  border-radius: 0;
+  min-width: 0;
+}
+#pintex-container label {
+  font-weight: normal;
+  float: none;
+}
+#pintex-container ul,
+#pintex-container li {
+  list-style: none!important;
+}
+#pintex-container img {
+  border: 0 !important;
+}
+#pintex-container .border {
+  border: 1px solid red;
+}
+#pintex-container .pintex-msgbox {
+  position: absolute;
+  display: none;
+  left: 50%;
+  width: 155px;
+  height: 120px;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-repeat: no-repeat !important;
+  z-index: 2147483699 !important;
+}
+#pintex-container .blueb {
+  border: 1px solid blue;
+}
+#pintex-container .redb {
+  border: 1px solid red !important;
+}
+#pintex-container #pintex-qpanel {
+  position: fixed !important;
+  display: block !important;
+  left: -2px !important;
+  width: 0px;
+  height: 0px;
+  text-align: center !important;
+  overflow: hidden !important;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: 0px -550px;
+  z-index: 2147483647 !important;
+}
+#pintex-container a.pintex-qfo-icon {
+  position: absolute !important;
+  left: 7px !important;
+  top: 10px !important;
+  display: block !important;
+  width: 18px !important;
+  height: 18px !important;
+  opacity: 0 !important;
+  filter: alpha(opacity=0) !important;
+  cursor: pointer !important;
+  z-index: 2147483647 !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+#pintex-container #pintex-auth {
+  position: absolute !important;
+  width: 128px;
+  height: 88px;
+  top: 2px !important;
+  left: 2px !important;
+  line-height: 88px !important;
+  font-size: 14px !important;
+  color: #494d4c !important;
+  z-index: 2147483620 !important;
+}
+#pintex-container a.pintex-auth-avatar {
+  position: relative;
+  display: block;
+  width: 60px;
+  height: 61px;
+  line-height: 61px !important;
+  margin: 17px auto !important;
+  behavior: url("http://api.qudian.so/static/css/PIE.htc");
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 48px 48px 48px 48px;
+  -moz-border-radius: 48px 48px 48px 48px;
+  border-radius: 48px 48px 48px 48px;
+  background-image: url("http://api.qudian.so/static/img/sprite.png") !important;
+  display: block;background-image: url('http://api.qudian.so/static/img/sprite-no.png')\9 !important;
+  /* refixed: for ie7,8 no background-image*/
+
+  background-position: -170px -550px;
+  overflow: hidden!important;
+  cursor: pointer!important;
+  padding: 0!important;
+  border: 0!important;
+  background-color: transparent !important;
+}
+#pintex-container .pintex-qavatar {
+  position: absolute !important;
+  left: 5px;
+  top: 5px;
+  width: 50px;
+  height: 50px;
+  behavior: url("http://api.qudian.so/static/css/PIE.htc");
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 45px 45px 45px 45px;
+  -moz-border-radius: 45px 45px 45px 45px;
+  border-radius: 45px 45px 45px 45px;
+  display: block !important;
+  overflow: hidden !important;
+}
+#pintex-container #pintex-setting {
+  position: absolute !important;
+  top: 88px !important;
+  width: 128px;
+  height: 114px;
+  left: 2px !important;
+  font-size: 12px !important;
+}
+#pintex-container #pintex-setting li {
+  padding: 0 3px !important;
+  font-size: 12px !important;
+  line-height: 25px !important;
+  height: 25px;
+  width: 128px !important;
+  display: block !important;
+  text-align: center !important;
+}
+#pintex-container #pintex-setting li label {
+  cursor: pointer !important;
+}
+#pintex-container #pintex-setting .pintex-sync-title {
+  font-size: 14px !important;
+  font-family: '黑体', serif !important;
+  color: #4e9870 !important;
+  text-decoration: bold !important;
+}
+#pintex-container #pintex-setting #pintex-add-sync-li #pintex-add-sync {
+  vertical-align: middle !important;
+  margin-right: 9px !important;
+}
+#pintex-container #pintex-setting #pintex-like-sync-li #pintex-like-sync {
+  vertical-align: middle !important;
+  margin-right: 9px !important;
+}
+#pintex-container #pintex-setting #pintex-add-sync-li label,
+#pintex-container #pintex-setting #pintex-like-sync-li label {
+  font-size: 12px !important;
+  font-family: '宋体', serif !important;
+  color: #494d4c !important;
+  display: inline !important;
+}
+#pintex-container #pintex-setting .pintex-logout {
+  display: inline-block !important;
+  margin: 0 auto !important;
+  margin-top: 8px !important;
+  width: 61px !important;
+  height: 22px !important;
+  overflow: hidden !important;
+  font-family: '宋体', serif !important;
+  font-size: 12px !important;
+  color: #494d4c !important;
+  border: 0 !important;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -230px -550px;
+  background-repeat: no-repeat !important;
+}
+#pintex-container #pintex-setting .pintex-logout:hover {
+  cursor: pointer !important;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -230px -572px;
+  background-repeat: no-repeat !important;
+}
+#pintex-container #pintex-flap {
+  position: fixed !important;
+  display: block;
+  top: 0;
+  left: -2px;
+  width: 36px;
+  height: 38px;
+  behavior: url("http://api.qudian.so/static/css/PIE.htc");
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 0 6px 6px 0;
+  -moz-border-radius: 0 6px 6px 0;
+  border-radius: 0 6px 6px 0;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -134px -550px;
+  background-repeat: no-repeat !important;
+  z-index: 2147483647 !important;
+}
+#pintex-container #pintex-qlogin {
+  display: none;
+  position: fixed;
+  z-index: 2147483647 !important;
+  width: 138px;
+  left: 134px;
+  font-size: 14px !important;
+  left: 36px;
+}
+#pintex-container #pintex-qlogin li {
+  list-style: none
+		height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+  display: block;
+}
+#pintex-container #pintex-qlogin li.pintex-sina-login {
+  width: 133px;
+  height: 38px !important;
+  line-height: 38px;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -134px -611px;
+}
+#pintex-container #pintex-mark {
+  position: absolute;
+  width: 104px;
+  height: 29px;
+  display: none;
+  opacity: 1.0 !important;
+  z-index: 2147483647 !important;
+  background: transparent;
+}
+#pintex-container #pintex-mark #pintex-mark-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 29px;
+  display: inline-block;
+  cursor: pointer;
+}
+#pintex-container #pintex-mark #pintex-mark-body {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  width: 84px;
+  height: 29px;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: 0px -69px;
+  background-repeat: no-repeat;
+  width: 0;
+}
+#pintex-container #pintex-mark #pintex-mark-body:active {
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: 0px -127px;
+  background-repeat: no-repeat;
+}
+#pintex-container #pintex-mark #pintex-mark-body:hover {
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: 0px -98px;
+  background-repeat: no-repeat;
+  cursor: pointer !important;
+}
+#pintex-container #pintex-mark #pintex-mark-about {
+  position: absolute;
+  display: none;
+  width: 5px;
+  height: 6px;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -28px -62px;
+  background-repeat: no-repeat;
+  z-index: 2147483637 !important;
+}
+#pintex-container #pintex-mark #pintex-mark-about:hover {
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -33px -62px;
+  background-repeat: no-repeat;
+}
+#pintex-container #pintex-mark a#pintex-mark-about-tip {
+  position: absolute;
+  display: none;
+  top: -30px;
+  right: -60px;
+  width: 75px;
+  height: 28px;
+  line-height: 23px !important;
+  text-align: center;
+  color: #fff !important;
+  font-size: 12px !important;
+  font-family: '宋体', serif !important;
+  text-decoration: none !important;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -84px -69px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  padding: 0!important;
+  border: 0!important;
+  background-color: transparent !important;
+}
+#pintex-container #pintex-syncul {
+  display: none;
+  position: absolute;
+  width: 117px;
+  height: 43px;
+  padding: 1px;
+  padding-left: 3px;
+  font-size: 12px !important;
+  font-family: '宋体', serif !important;
+  color: #494d4c !important;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -84px -97px;
+  background-repeat: no-repeat;
+  z-index: 2147483647 !important;
+}
+#pintex-container #pintex-syncul li {
+  margin-left: 10px;+margin-left:6px !important;
+  /* fixed: hack for ie7 */
+
+  height: 19px!important;
+  line-height: 19px!important;
+  display: block!important;
+}
+#pintex-container #pintex-syncul li #pintex-sync-check,
+#pintex-container #pintex-syncul li #pintex-sync-record {
+  cursor: pointer!important;
+  vertical-align: middle !important;
+  margin-right: 5px!important; +margin-right:2px!important;
+  /* fixed: hack for ie7; */
+
+}
+#pintex-container #pintex-syncul li label {
+  cursor: pointer!important;
+  margin: 0 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  display: inline-block !important;
+  font-size: 12px !important;
+  width: 80px !important;
+  text-align: left !important;
+}
+#pintex-container #pintex-qpoint-start {
+  position: absolute;
+  width: 17px;
+  height: 26px;
+  display: none;
+  opacity: 1.0 !important;
+  z-index: 2147483647 !important;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -33px 0;
+  background-repeat: no-repeat;
+}
+#pintex-container #pintex-qpoint-end {
+  position: absolute;
+  width: 17px;
+  height: 26px;
+  display: none;
+  opacity: 1.0 !important;
+  z-index: 2147483647 !important;
+  background: url("http://api.qudian.so/static/img/select_end.png") no-repeat;
+}
+#pintex-container .pintex-qpoint-effect {
+  display: inline!important;
+  position: static;
+  padding: 0.1em!important;
+  border-color: transparent !important;
+  background-color: #5ab787;
+  color: #fff !important;
+  -webkit-transition-property: color, background-color, -webkit-box-shadow;
+  -webkit-transition-duration: 0.5s, 0.5s, 0.5s;
+  -webkit-transition-timing-function: linear, linear, linear;
+  behavior: url("http://api.qudian.so/static/css/PIE.htc");
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 2px 2px 2px 2px;
+  -moz-border-radius: 2px 2px 2px 2px;
+  border-radius: 2px 2px 2px 2px;
+}
+#pintex-container .pintex-user-tag {
+  display: inline!important;
+  position: static;
+  padding: 0.1em!important;
+  border-color: transparent !important;
+  background-color: #5ab787;
+  color: #fff !important;
+  -webkit-transition-property: color, background-color, -webkit-box-shadow;
+  -webkit-transition-duration: 0.5s, 0.5s, 0.5s;
+  -webkit-transition-timing-function: linear, linear, linear;
+  behavior: url("http://api.qudian.so/static/css/PIE.htc");
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 2px 2px 2px 2px;
+  -moz-border-radius: 2px 2px 2px 2px;
+  border-radius: 2px 2px 2px 2px;
+  background: -webkit-gradient(top, from(#41a772), to(#309966));
+  background: -webkit-linear-gradient(top, #41a772, #309966);
+  background: -moz-linear-gradient(top, #41a772, #309966);
+  opacity: 0.98;
+  overflow: hidden;
+  margin: 0 !important;
+  font-size: inherit !important;
+}
+#pintex-container .pintex-qpoint-tip {
+  display: none;
+  position: absolute;
+  padding: 0 !important;
+  min-width: 100px;
+  height: 50px;
+  line-height: 50px;
+  behavior: url("http://api.qudian.so/static/css/PIE.htc");
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  border-bottom-left-radius: 15px;
+  vertical-align: middle;
+  background-color: #fff;
+  opacity: 1.0 !important;
+  background: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: 0 -459px;
+  background-repeat: no-repeat;
+  z-index: 2147483645 !important;
+}
+#pintex-container .pintex-qpoint-tip a.pintex-upage-link {
+  display: inline-block;
+  width: inherit;
+  height: inherit;
+  cursor: pointer;
+  padding: 0 !important;
+  border: 0 !important;
+  background-color: transparent !important;
+}
+#pintex-container .pintex-qpoint-tip .pintex-like-tip {
+  position: absolute!important;
+  display: none;
+  min-width: 50px!important;
+  background: #000!important;
+  opacity: 0.7!important;
+  height: 18px!important;
+  line-height: 18px!important;
+  padding: 1px 3px!important;
+  text-align: center!important;
+  behavior: url("http://api.qudian.so/static/css/PIE.htc");
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 4px 4px 4px 4px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
+  color: #fff!important;
+  bottom: -31px;
+  right: -19px;
+}
+#pintex-container .pintex-qpoint-tip .pintex-qmaker {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  left: -25px;
+  top: -7px;
+  border: 0 !important;
+  overflow: hidden;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  position: absolute;background-image: url('http://api.qudian.so/static/img/sprite-no.png')\9;
+  /* refixed: for ie7,8 border-radius*/
+
+  background-position: 0px -156px;
+  background-repeat: no-repeat;
+}
+#pintex-container .pintex-qpoint-tip .pintex-qmaker .pintex-qmaker-avatar {
+  width: 50px;
+  height: 50px;
+  margin: 6px;
+  margin-top: 7px !important;
+  margin-left: 7px !important;
+  behavior: url("http://api.qudian.so/static/css/PIE.htc");
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 50px 50px 50px 50px;
+  -moz-border-radius: 50px 50px 50px 50px;
+  border-radius: 50px 50px 50px 50px;
+}
+#pintex-container .pintex-qpoint-tip ul.pintex-follower-avatar-wrap {
+  float: left;
+  position: relative !important;
+  min-width: 0px !important;
+  height: 38px;
+  margin: 5px !important;
+  margin-left: 39px !important;
+  display: inline-block !important;
+  z-index: -1 !important;
+}
+#pintex-container .pintex-qpoint-tip ul.pintex-follower-avatar-wrap li {
+  float: left;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  margin-left: 5px !important;
+  margin-top: 1px !important;
+  display: inline-block;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -79px -156px;
+  background-repeat: no-repeat;
+}
+#pintex-container .pintex-qpoint-tip ul.pintex-follower-avatar-wrap li .pintex-follower-avatar {
+  width: 34px;
+  height: 34px;
+  margin: 2px!important;
+  behavior: url("http://api.qudian.so/static/css/PIE.htc");
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 6px 6px 6px 6px;
+  -moz-border-radius: 6px 6px 6px 6px;
+  border-radius: 6px 6px 6px 6px;
+  display: inline-block;
+}
+#pintex-container .pintex-qpoint-tip .pintex-nopeople {
+  float: left !important;
+  display: inline-block;
+  width: 55px;
+  height: 26px;
+  margin: 10px !important;
+  margin-left: 1px !important;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -79px -194px;
+  background-repeat: no-repeat;
+}
+#pintex-container .pintex-qpoint-tip .pintex-likeButton {
+  float: left !important;
+  position: relative !important;
+  width: 38px!important;
+  height: 38px!important;
+  line-height: 38px!important;
+  margin: 5px !important;
+  margin-left: 3px !important;
+  margin-left: 4px\9 !important;
+  /* fixed: hack for all ie; */
+
+  margin-top: 6px !important;
+  behavior: url("http://api.qudian.so/static/css/PIE.htc");
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 6px 6px 6px 6px;
+  -moz-border-radius: 6px 6px 6px 6px;
+  border-radius: 6px 6px 6px 6px;
+  display: inline-block;
+  cursor: pointer;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -155px -156px;
+  background-repeat: no-repeat;
+}
+#pintex-container .pintex-qpoint-tip .pintex-likeButton:hover {
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: -193px -156px;
+  background-repeat: no-repeat;
+}
+#pintex-container .pintex-qpoint-tip .pintex-qpoint-tip-text {
+  display: inline-block;
+  position: absolute;
+  min-width: 17px;
+  height: 17px;
+  line-height: 17px !important;
+  text-align: center !important;
+  top: -11px;
+  font-size: 12px !important;
+  font-family: 'Arial', serif !important;
+  font-weight: bold !important;
+  color: #fff;
+  -webkit-border-radius: 8.5px 8.5px 8.5px 8.5px;
+  -moz-border-radius: 8.5px 8.5px 8.5px 8.5px;
+  border-radius: 8.5px 8.5px 8.5px 8.5px;
+  overflow: hidden;
+  opacity: 1.0 !important;
+  min-width: 16px;
+  height: 16px;
+  behavior: url("http://api.qudian.so/static/css/PIE.htc");
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 8px 8px 8px 8px;
+  -moz-border-radius: 8px 8px 8px 8px;
+  border-radius: 8px 8px 8px 8px;
+  background: -webkit-gradient(left top, from(#e68638), to(#f0cb4c));
+  background: -webkit-linear-gradient(left top, #e68638, #f0cb4c);
+  background: -moz-linear-gradient(left top, #e68638, #f0cb4c);
+  background-color: #e68638\9;
+  /* fixed: hack for ie6-9 */
+
+  right: -2px; +right: -10px; !important;
+  /* fixed: hack for ie7; */
+
+}
+#pintex-container .pintex-avatar-tip {
+  position: absolute;
+  display: none;
+  min-width: 55px;
+  height: 23px !important;
+  line-height: 23px !important;
+  text-align: center !important;
+  padding: 0 5px !important;
+  font-family: '宋体', serif !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  opacity: 1.0 !important;
+  behavior: url("http://api.qudian.so/static/css/PIE.htc");
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  z-index: 2147483645 !important;
+  background-image: url("http://api.qudian.so/static/img/sprite.png");
+  background-position: 0 -527px;
+  background-repeat: no-repeat;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+#pintex-container .pintex-avatar-tip-arrow {
+  position: absolute;
+  bottom: -10px;
+  width: 12px;
+  height: 8px;
+}
+/* qpoint effect style */
+.pintex-qpoint-effect {
+  display: inline!important;
+  position: static;
+  padding: 0.1em!important;
+  border-color: transparent !important;
+  background-color: #5ab787;
+  color: #fff !important;
+  -webkit-transition-property: color, background-color, -webkit-box-shadow;
+  -webkit-transition-duration: 0.5s, 0.5s, 0.5s;
+  -webkit-transition-timing-function: linear, linear, linear;
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 2px 2px 2px 2px;
+  -moz-border-radius: 2px 2px 2px 2px;
+  border-radius: 2px 2px 2px 2px;
+}
+/* user qpoint effect */
+.pintex-user-tag {
+  display: inline!important;
+  position: static;
+  padding: 0.1em!important;
+  border-color: transparent !important;
+  background-color: #5ab787;
+  color: #fff !important;
+  -webkit-transition-property: color, background-color, -webkit-box-shadow;
+  -webkit-transition-duration: 0.5s, 0.5s, 0.5s;
+  -webkit-transition-timing-function: linear, linear, linear;
+  /* css3 effect cross-brwoser */
+
+  -webkit-border-radius: 2px 2px 2px 2px;
+  -moz-border-radius: 2px 2px 2px 2px;
+  border-radius: 2px 2px 2px 2px;
+  background: -webkit-gradient(top, from(#41a772), to(#309966));
+  background: -webkit-linear-gradient(top, #41a772, #309966);
+  background: -moz-linear-gradient(top, #41a772, #309966);
+  opacity: 0.98;
+  overflow: hidden;
+  margin: 0 !important;
+  font-size: inherit !important;
+}

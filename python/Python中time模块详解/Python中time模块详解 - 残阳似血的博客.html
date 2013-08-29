@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb"><head><meta name="viewport" content="width=1280">
+		<title>
+Python中time模块详解 - 
+残阳似血的博客</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta property="wb:webmaster" content="3caf5a5b94e6991e">
+		
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://qinxuye.me/article/details-about-time-module-in-python/">
+<meta property="og:title" content="Python中time模块详解">
+<meta property="og:description" content="在平常的代码中，我们常常需要与时间打交道。在Python中，与时间处理有关的模块就包括：time，datetime以及calendar。这篇...">
+
+		
+		<link rel="shortcut icon" href="http://qinxuye.me/static/blog/dopetrope/images/chine.ico">
+		<link href="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/css.css" rel="stylesheet">
+		<script async="" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/cbgapi.js"></script><script async="" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/cbgapi_002.js"></script><script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/ga.js" async="" type="text/javascript"></script><script gapi_processed="true" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/plusone.js" async="" type="text/javascript"></script><script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/jquery_003.js"></script>
+		<script>window.jQuery || document.write('<script src="/static/blog/dopetrope/js/jquery-1.8.3.min.js"><\/script>')</script>
+		<script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/init_002.js"></script><link rel="stylesheet" href="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/core.css"><link rel="stylesheet" href="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/style.css"><link rel="stylesheet" href="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/core-desktop.css"><link rel="stylesheet" href="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/style-desktop.css"><link rel="stylesheet" href="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/core-1200px.css">
+		<script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/jquery_004.js"></script>
+		<script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/init.js"></script>
+		<script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/scrollToTop.js"></script>
+		<script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/jquery_005.js"></script>
+		<script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/theme.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="/static/blog/dopetrope/css/5grid/core.css" />
+			<link rel="stylesheet" href="/static/blog/dopetrope/css/5grid/core-desktop.css" />
+			<link rel="stylesheet" href="/static/blog/dopetrope/css/5grid/core-1200px.css" />
+			<link rel="stylesheet" href="/static/blog/dopetrope/css/5grid/core-noscript.css" />
+			<link rel="stylesheet" href="/static/blog/dopetrope/css/style.css" />
+			<link rel="stylesheet" href="/static/blog/dopetrope/css/style-desktop.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="/static/blog/dopetrope/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="/static/blog/dopetrope/js/html5shiv.js" /><![endif]-->
+		
+		
+	<link type="text/css" rel="stylesheet" href="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/shCoreEclipse.css"><link>
+	<link type="text/css" rel="stylesheet" href="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/jquery.css"><link>
+
+		<link rel="stylesheet" type="text/css" media="screen" href="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/chine.css">
+		
+		
+	<script language="JavaScript" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/shCore.js"></script> 
+	<script language="JavaScript" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/shAutoloader.js"></script>
+	<script language="JavaScript" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/loadSyntaxHighlighter.js"></script> 
+	<script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/jquery_006.js"></script>
+	<script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/jquery.js"></script>
+	<script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/jquery_002.js"></script>
+	<script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/comment.js"></script>
+	<script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/wb.js" type="text/javascript" charset="utf-8"></script>
+	<script language="JavaScript">
+		ajaxUrl = "/comment/details-about-time-module-in-python/";
+		
+		var commentTips = {
+			success: "评论成功，正在更新评论列表！",
+			miss: "评论失败，请填写所有必填信息！",
+			fail: "评论失败，请确保全部信息填写正确！",
+			nochn: "评论失败，评论中必须包含中文！",
+			notrobot: "评论失败，请点击\"我不是机器人\"按钮！"
+		}
+		
+		var wzt = encodeURIComponent(document.title);
+		var wztb = escape(document.title);
+		var wzu = encodeURIComponent(location.href);
+		var wzub = escape(location.href);
+		var title = document.title;
+		var sc = location.href;
+		
+		function getSocialLink(s){
+			switch(s){
+				case "renren":
+					return "http://share.renren.com/share/buttonshare.do?link="+wzu+"&title="+wzt;
+				case "kaixin001":
+					return "http://www.kaixin001.com/repaste/share.php?rurl="+wzu+"&rcontent="+wzu+"&rtitle="+wzt;
+				case "qzone":
+				    return "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url="+wzu+"&title="+wzt;
+				case "douban":
+				    return "http://www.douban.com/recommend/?url="+wzu+"&title="+wzt;
+				case "sina-weibo":
+				    return "http://v.t.sina.com.cn/share/share.php?appkey=2233047537&ralateUid=1883113397&url="+wzu+"&title="+wzt;
+				case "qq-weibo":
+				    return "http://v.t.qq.com/share/share.php?appkey=a8eb5c5b39804bac8ef40d2babb55572&title="+wzt+'&url='+wzu;
+				case "sohu-weibo":
+				    return "http://t.sohu.com/third/post.jsp?&url="+wzu+"&title="+wztb;
+				case "delicious":
+					return "http://www.delicious.com/save?v=5&noui&jump=close&url="+wzu+'&title='+title;
+				case "digg":
+					return "http://digg.com/submit?url="+wzu+'&title='+title;
+				case "google+":
+				    return "https://plus.google.com/share?url="+wzu;
+			}
+		}
+		
+		$(function() {
+			$("article.is-post p img").each(function(i){
+				if($(this).parent("a").size() == 0){
+					var imgSrc = $(this).attr("src");
+					$(this).wrap("<a href='"+imgSrc+"' class='fancybox'></a>");
+				}
+			});
+			$('.fancybox').fancybox({
+				wrapCSS    : 'fancybox-custom',
+				closeClick : true,
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					overlay : {
+						css : {
+							'background-color' : '#eee'	
+						}
+					}
+				}
+			});
+		});
+	</script>
+
+	<script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/bundle.js" charset="UTF-8"></script><link href="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/style_002.css" type="text/css" rel="stylesheet"><script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/like.js" charset="UTF-8"></script><link rel="stylesheet" type="text/css" href="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/praiseButton.css"></head>
+	<body id="top" class="homepage is-desktop is-1200px"><iframe style="display: none;" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/login_Proxy.html" name="WEIBO_STK_LOGIN_IFRAME" id="WEIBO_STK_LOGIN_IFRAME"></iframe><iframe id="sina_anywhere_iframe" style="display: none;"></iframe>
+		
+			<!-- Header Wrapper -->
+<div id="header-wrapper">
+	<div class="5grid-layout 5grid">
+		<div class="row">
+			<div class="12u">
+			
+				<!-- Header -->
+					<section id="header">
+						
+						<!-- Logo -->
+							<h1 id="logo-text"><a href="http://qinxuye.me/">残阳似血的博客</a></h1>
+						
+						<!-- Nav -->
+							<nav id="nav" class="mobileUI-site-nav">
+								<ul>
+									
+									<li style="white-space: nowrap;" class="current_page_item"><a href="http://qinxuye.me/">首页</a></li>
+									
+									<li class="opener" style="-moz-user-select: none; cursor: pointer; white-space: nowrap;">
+										<a href="http://qinxuye.me/category/">分类</a>
+										
+									</li>
+									<li style="white-space: nowrap;"><a href="http://qinxuye.me/contact/">留言板</a></li>
+									<li style="white-space: nowrap;"><a href="http://qinxuye.me/about/">关于我</a></li>
+									<li style="white-space: nowrap;"><a href="http://qinxuye.me/rss/">RSS</a></li>
+								</ul>
+							</nav>
+
+					</section>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+		
+		
+		<!-- Main Wrapper -->
+		<div id="main-wrapper">
+			<div class="5grid-layout 5grid">
+				
+				<div class="row">
+					<div class="12u">
+						
+						<!-- Portfolio -->
+						<section>
+							<div class="5grid">
+								<div class="row">
+									
+									<div class="8u mobileUI-main-content">
+									
+
+<article class="box is-post">
+	<header>
+		<h2><a href="http://qinxuye.me/article/details-about-time-module-in-python/">Python中time模块详解</a></h2>
+		<span class="byline">发表于2011年5月5日 12:58 a.m.&nbsp; &nbsp; 
+			位于分类<a href="http://qinxuye.me/category/python/">我爱Python</a></span>
+	</header>
+	<section>
+		<p>在平常的代码中，我们常常需要与时间打交道。在Python中，与时间处理有关的模块就包括：time，datetime以及calendar。这篇文章，主要讲解time模块。</p>
+<p>在开始之前，首先要说明这几点：</p>
+<ol>
+<li>在Python中，通常有这几种方式来表示时间：1）时间戳 2）格式化的时间字符串 3）元组（struct_time）共九个元素。由于Python的time模块实现主要调用C库，所以各个平台可能有所不同。</li>
+<li>UTC（Coordinated Universal Time，世界协调时）亦即格林威治天文时间，世界标准时间。在中国为UTC+8。DST（Daylight Saving Time）即夏令时。</li>
+<li>时间戳（timestamp）的方式：通常来说，时间戳表示的是从<strong>1970年1月1日00:00:00</strong>开始按秒计算的偏移量。我们运行“type(time.time())”，返回的是float类型。返回时间戳方式的函数主要有time()，clock()等。</li>
+<li>元组（struct_time）方式：struct_time元组共有9个元素，返回struct_time的函数主要有gmtime()，localtime()，strptime()。下面列出这种方式元组中的几个元素：</li>
+</ol>
+<p><!-- pagebreak --></p>
+<table style="width: 500px;" border="0"><caption>&nbsp;</caption>
+<tbody>
+<tr><th>索引（Index）</th><th>属性（Attribute）</th><th>值（Values）</th></tr>
+<tr>
+<td>0</td>
+<td>&nbsp;tm_year（年）</td>
+<td>&nbsp;比如2011&nbsp;</td>
+</tr>
+<tr>
+<td>1</td>
+<td>&nbsp;tm_mon（月）</td>
+<td>&nbsp;1 - 12</td>
+</tr>
+<tr>
+<td>2</td>
+<td>&nbsp;tm_mday（日）</td>
+<td>&nbsp;1 - 31</td>
+</tr>
+<tr>
+<td>3</td>
+<td>&nbsp;tm_hour（时）</td>
+<td>&nbsp;0 - 23</td>
+</tr>
+<tr>
+<td>4</td>
+<td>&nbsp;tm_min（分）</td>
+<td>&nbsp;0 - 59</td>
+</tr>
+<tr>
+<td>5</td>
+<td>&nbsp;tm_sec（秒）</td>
+<td>&nbsp;0 - 61</td>
+</tr>
+<tr>
+<td>6</td>
+<td>&nbsp;tm_wday（weekday）</td>
+<td>&nbsp;0 - 6（0表示周日）</td>
+</tr>
+<tr>
+<td>7</td>
+<td>&nbsp;tm_yday（一年中的第几天）</td>
+<td>&nbsp;1 - 366</td>
+</tr>
+<tr>
+<td>8</td>
+<td>&nbsp;tm_isdst（是否是夏令时）</td>
+<td>&nbsp;默认为-1</td>
+</tr>
+</tbody>
+</table>
+<p>接着介绍time模块中常用的几个函数：</p>
+<p><strong>1）</strong>time.<strong>localtime([secs])</strong>：将一个时间戳转换为当前时区的struct_time。secs参数未提供，则以当前时间为准。</p>
+<p>&gt;&gt;&gt; time.localtime()<br> time.struct_time(tm_year=2011, tm_mon=5, tm_mday=5, tm_hour=14, tm_min=14, tm_sec=50, tm_wday=3, tm_yday=125, tm_isdst=0)<br> &gt;&gt;&gt; time.localtime(1304575584.1361799)<br> time.struct_time(tm_year=2011, tm_mon=5, tm_mday=5, tm_hour=14, tm_min=6, tm_sec=24, tm_wday=3, tm_yday=125, tm_isdst=0)</p>
+<p><strong>2）</strong>time.<strong>gmtime(</strong><strong>[<em>secs</em>]</strong><strong>)</strong>：和localtime()方法类似，gmtime()方法是将一个时间戳转换为UTC时区（0时区）的struct_time。</p>
+<p>&gt;&gt;&gt;time.gmtime()<br> time.struct_time(tm_year=2011, tm_mon=5, tm_mday=5, tm_hour=6, tm_min=19, tm_sec=48, tm_wday=3, tm_yday=125, tm_isdst=0)</p>
+<p><strong>3）</strong>time.<strong>time()</strong>：返回当前时间的时间戳。</p>
+<p>&gt;&gt;&gt; time.time() <br> 1304575584.1361799</p>
+<p><strong>4）</strong>time.<strong>mktime(<em>t</em>)</strong>：将一个struct_time转化为时间戳。</p>
+<p>&gt;&gt;&gt; time.mktime(time.localtime())<br> 1304576839.0</p>
+<p><strong>5）</strong>time.<strong>sleep(<em>secs</em>)</strong>：线程推迟指定的时间运行。单位为秒。</p>
+<p><strong>6）</strong>time.<strong>clock()</strong>：这个需要注意，在不同的系统上<strong>含义不同</strong>。
+在UNIX系统上，它返回的是“进程时间”，它是用秒表示的浮点数（时间戳）。而在WINDOWS中，第一次调用，返回的是进程运行的实际时间。而第二次
+之后的调用是自第一次调用以后到现在的运行时间。（实际上是以WIN32上QueryPerformanceCounter()为基础，它比毫秒表示更为
+精确）</p>
+<div><div id="highlighter_433955" class="syntaxhighlighter  python"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">import</code> <code class="python plain">time&nbsp; </code></div><div class="line number2 index1 alt1"><code class="python keyword">if</code> <code class="python plain">__name__ </code><code class="python keyword">=</code><code class="python keyword">=</code> <code class="python string">'__main__'</code><code class="python plain">:&nbsp; </code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">time.sleep(</code><code class="python value">1</code><code class="python plain">)&nbsp; </code></div><div class="line number4 index3 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">"clock1:%s"</code> <code class="python keyword">%</code> <code class="python plain">time.clock()&nbsp; </code></div><div class="line number5 index4 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">time.sleep(</code><code class="python value">1</code><code class="python plain">)&nbsp; </code></div><div class="line number6 index5 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">"clock2:%s"</code> <code class="python keyword">%</code> <code class="python plain">time.clock()&nbsp; </code></div><div class="line number7 index6 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">time.sleep(</code><code class="python value">1</code><code class="python plain">)&nbsp; </code></div><div class="line number8 index7 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python functions">print</code> <code class="python string">"clock3:%s"</code> <code class="python keyword">%</code> <code class="python plain">time.clock()</code></div></div></td></tr></tbody></table></div></div>
+<p>运行结果：</p>
+<p>clock1:3.35238137808e-006 <br>clock2:1.00004944763 <br>clock3:2.00012040636</p>
+<p>其中第一个clock()输出的是程序运行时间<br>第二、三个clock()输出的都是与第一个clock的时间间隔</p>
+<p><strong>7）</strong>time.<strong>asctime([<em>t</em>])</strong>：把一个表示时间的元组或者struct_time表示为这种形式：<strong>'Sun&nbsp;Jun&nbsp;20&nbsp;23:21:05&nbsp;1993'</strong>。如果没有参数，将会将time.localtime()作为参数传入。</p>
+<p>&gt;&gt;&gt; time.asctime()<br> 'Thu May 5 14:55:43 2011'</p>
+<p><strong>8）</strong>time.<strong>ctime([<em>secs</em>])</strong>：把一个时间戳（按秒计算的浮点数）转化为time.asctime()的形式。如果参数未给或者为None的时候，将会默认time.time()为参数。它的作用相当于time.asctime(time.localtime(secs))。</p>
+<p>&gt;&gt;&gt; time.ctime()<br> 'Thu May 5 14:58:09 2011'<br> &gt;&gt;&gt; time.ctime(time.time())<br> 'Thu May 5 14:58:39 2011'<br> &gt;&gt;&gt; time.ctime(1304579615)<br> 'Thu May 5 15:13:35 2011'</p>
+<p><strong>9）</strong>time.<strong>strftime(<em>format</em>[,&nbsp;<em>t</em>])</strong>：
+把一个代表时间的元组或者struct_time（如由time.localtime()和time.gmtime()返回）转化为格式化的时间字符串。
+如果t未指定，将传入time.localtime()。如果元组中任何一个元素越界，ValueError的错误将会被抛出。</p>
+<table style="width: 500px;" border="0">
+<tbody>
+<tr><th>格式</th><th>含义</th><th>备注</th></tr>
+<tr>
+<td>%a</td>
+<td>本地（locale）简化星期名称</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%A</td>
+<td>本地完整星期名称</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%b</td>
+<td>本地简化月份名称</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%B</td>
+<td>本地完整月份名称</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>本地相应的日期和时间表示</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>一个月中的第几天（01 - 31）</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%H</td>
+<td>一天中的第几个小时（24小时制，00 - 23）</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%I</td>
+<td>第几个小时（12小时制，01 - 12）</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%j</td>
+<td>一年中的第几天（001 - 366）</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%m</td>
+<td>月份（01 - 12）</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%M</td>
+<td>分钟数（00 - 59）</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%p</td>
+<td>本地am或者pm的相应符</td>
+<td>一</td>
+</tr>
+<tr>
+<td>%S</td>
+<td>秒（01 - 61）</td>
+<td>二</td>
+</tr>
+<tr>
+<td>%U</td>
+<td>一年中的星期数。（00 - 53星期天是一个星期的开始。）第一个星期天之前的所有天数都放在第0周。</td>
+<td>三</td>
+</tr>
+<tr>
+<td>%w</td>
+<td>一个星期中的第几天（0 - 6，0是星期天）</td>
+<td>三</td>
+</tr>
+<tr>
+<td>%W</td>
+<td>和%U基本相同，不同的是%W以星期一为一个星期的开始。</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>本地相应日期</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%X</td>
+<td>本地相应时间</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%y</td>
+<td>去掉世纪的年份（00 - 99）</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%Y</td>
+<td>完整的年份</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%Z</td>
+<td>时区的名字（如果不存在为空字符）</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>%%</td>
+<td>‘%’字符</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>备注</strong>：</p>
+<ol>
+<li>“%p”只有与“%I”配合使用才有效果。</li>
+<li>文档中强调确实是0 - 61，而不是59，闰年秒占两秒（汗一个）。</li>
+<li>当使用strptime()函数时，只有当在这年中的周数和天数被确定的时候%U和%W才会被计算。</li>
+</ol>
+<p>举个例子：</p>
+<p>&gt;&gt;&gt; time.strftime("%Y-%m-%d %X", time.localtime())<br> '2011-05-05 16:37:06'</p>
+<p><strong>10）</strong>time<strong>.strptime(s<em>tring</em>[, <em>format</em>])</strong>：把一个格式化时间字符串转化为struct_time。实际上它和strftime()是逆操作。</p>
+<p>&gt;&gt;&gt; time.strptime('2011-05-05 16:37:06', '%Y-%m-%d %X')<br> time.struct_time(tm_year=2011, tm_mon=5, tm_mday=5, tm_hour=16, tm_min=37, tm_sec=6, tm_wday=3, tm_yday=125, tm_isdst=-1)</p>
+<p>在这个函数中，format默认为：<strong>"%a&nbsp;%b&nbsp;%d&nbsp;%H:%M:%S&nbsp;%Y"</strong>。</p>
+<p>最后，我们来对time模块进行一个总结。根据之前描述，在Python中共有三种表达方式：1）timestamp 2）tuple或者struct_time 3）格式化字符串。</p>
+<p>它们之间的转化如图所示：</p>
+<p><a href="http://qinxuye.me/static/uploads/time.jpg" class="fancybox"><img src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/time.jpg" alt="time module" height="453" width="320"></a></p>
+<p>要了解更多，请参考<a href="http://docs.python.org/library/time.html" target="_blank">time模块的官方文档</a>。</p>
+<p>本文部分参考：<a href="http://qlj.sh.cn/python/20100402/python-time/">http://qlj.sh.cn/python/20100402/python-time/</a></p>
+	</section>
+</article>
+
+<section>
+	<div class="row">
+		<div class="6u">
+			<section class="box tagclouds">
+				<header>
+					<h3>标签</h3>
+				</header>
+				<ul>
+					
+					<li><a href="http://qinxuye.me/tag/python/">Python</a>
+					</li>
+				    
+				</ul>
+			</section>
+		</div>
+		<div class="6u">
+			<section class="box">
+				<header>
+					<h3>赞这篇文章</h3>
+				</header>
+				<section class="likes">
+					<span>
+						<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/fastbutton.html" name="I0_1376619669748" id="I0_1376619669748" vspace="0" tabindex="0" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" frameborder="0" scrolling="no" width="100%"></iframe></div>
+					</span>
+					<span>
+						<wb:like appkey="3BcMNP" type="number" skin="silver"><div class="WB_widget WB_praise" node-type="outer"><div class="praise_btn_line" node-type="inner"><a node-type="likeBtn" action-type="like" action-data="type=like" href="javascript:;" class="praise_btn status_origin version_silver"><cite class="praise_btn_inner"><u class="WB_ico_logo"></u><cite class="praise_text">赞</cite></cite></a><cite class="praise_data"><a class="data_link" href="javascript:;" node-type="count">2</a><cite class="data_arrow"></cite></cite></div></div></wb:like>
+					</span>
+				</section>
+				<div class="clear"></div>
+			</section>
+		</div>
+	</div>
+</section>
+
+<section class="box">
+	<header>
+		<h3>分享到</h3>
+	</header>
+	<section class="share-box">
+		<ul>
+          	<li><a title="分享到Google+" href="#" target="_blank" rel="nofollow" onclick="$(this).attr('href',getSocialLink('google+'));">
+				<img class="img-box" alt="分享到Google+" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/32-google-plus.png"></a>
+			</li>
+          	<li><a title="分享到Delicious" href="#" target="_blank" rel="nofollow" onclick="$(this).attr('href',getSocialLink('delicious'));">
+				<img class="img-box" alt="分享到Delicious" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/32-delicious.png"></a>
+			</li>
+			<li><a title="分享到Digg" href="#" target="_blank" rel="nofollow" onclick="$(this).attr('href',getSocialLink('digg'));">
+				<img class="img-box" alt="分享到Digg" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/32-digg.png"></a>
+			</li>
+			<li><a title="分享到新浪微博" href="#" target="_blank" rel="nofollow" onclick="$(this).attr('href',getSocialLink('sina-weibo'));">
+				<img class="img-box" alt="分享到新浪微博" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/32-weibo.png"></a>
+			</li>
+			<li><a title="分享到腾讯微博" href="#" target="_blank" rel="nofollow" onclick="$(this).attr('href',getSocialLink('qq-weibo'));">
+				<img class="img-box" alt="分享到腾讯微博" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/32-qqweibo.png"></a>
+			</li>
+            <li><a title="分享到人人网" href="#" target="_blank" rel="nofollow" onclick="$(this).attr('href',getSocialLink('renren'));">
+				<img class="img-box" alt="分享到人人网" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/32-renren.png"></a>
+			</li>
+			<li><a title="分享到豆瓣网" href="#" target="_blank" rel="nofollow" onclick="$(this).attr('href',getSocialLink('douban'));">
+				<img class="img-box" alt="分享到豆瓣网" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/32-douban.png"></a>
+			</li>
+			<li><a title="分享到开心网" href="#" target="_blank" rel="nofollow" onclick="$(this).attr('href',getSocialLink('kaixin001'));">
+				<img class="img-box" alt="分享到开心网" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/32-kaixin001.png"></a>
+			</li>
+            <li><a title="分享到QQ空间" href="#" target="_blank" rel="nofollow" onclick="$(this).attr('href',getSocialLink('qzone'));">
+				<img class="img-box" alt="分享到QQ空间" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/32-qzone.png"></a>
+			</li>
+            <li><a title="分享到搜狐微博" href="#" target="_blank" rel="nofollow" onclick="$(this).attr('href',getSocialLink('sohu-weibo'));">
+				<img class="img-box" alt="分享到搜狐微博" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/32-sohuweibo.png"></a>
+			</li>
+        </ul>
+		<div class="clear"></div>
+	</section>
+</section>
+
+
+
+<section class="box">
+	<header>
+    	<h3>给作者留言</h3>
+	</header>
+	<section>
+		<form action="/comment/add/" method="post" id="commentform">
+			<div style="display:none"><input name="csrfmiddlewaretoken" value="J9sZCb6t5bjIdcAQCAiKgSa40nvDZC8J" type="hidden"></div>
+    		<input name="avatar" id="id_avatar" type="hidden">
+			<input name="reply_to_comment" id="id_reply_to_comment" type="hidden">
+			<input name="content_type" value="14" id="id_content_type" type="hidden">
+			<input name="object_id" value="11" id="id_object_id" type="hidden">
+			<div class="row">
+				<fieldset class="6u">
+					<input name="username" maxlength="50" id="name" placeholder="昵称" tabindex="1" type="text">
+				</fieldset>
+				<fieldset class="6u">
+					<input name="email_address" maxlength="75" id="email" placeholder="邮箱" tabindex="2" type="text">
+				</fieldset>
+			</div>
+			<div class="row">
+				<fieldset class="12u">
+					<input name="site" maxlength="200" id="website" placeholder="网站（可选）" tabindex="3" type="text">
+				</fieldset>
+			</div>
+			<div class="row">
+				<fieldset class="12u">
+					<textarea tabindex="4" name="content" id="message"></textarea>
+				</fieldset>
+			</div>
+			<div class="row">
+				<div class="12u">
+					<input class="button" value="提交评论" type="submit">
+					<input id="not-robot" class="button button-alt" value="我不是机器人，评论前务必点击" type="button">
+					<input style="display: none;" class="button button-alt" value="取消" type="button">
+				</div>
+			</div>
+		</form>
+	</section>
+</section>
+
+
+									</div>
+									
+									<div class="4u">
+											
+	<!-- Sidebar -->
+		<section id="about-box" class="box about-box">
+			<header>
+				<h3>关于作者</h3>
+			</header>
+			<a href="http://qinxuye.me/about/"><img class="img-box" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/avatar_small_thumbnail.jpg"></a>
+			<p> 
+残阳似血（<a href="http://weibo.com/chinekingseu" target="_blank">@秦续业</a>），程序猿一枚，把梦想揣进口袋的挨踢工作者。现在上海交通大学软件学院ADC实验室。目前专注于分布式图并行计算，以及其上的数据挖据。
+</p>
+			<footer>
+				<a href="http://qinxuye.me/about/" class="button button-alt">了解更多</a>
+			</footer>
+			<div style="clear: both;"></div>
+		</section>
+		<section class="box">
+			<header>
+				<h3>博客分类</h3>
+			</header>
+			<ul class="divided">
+				
+				<li><a href="http://qinxuye.me/category/balabala/">胡言乱语</a></li>
+				
+				<li><a href="http://qinxuye.me/category/collections/">一箩筐</a></li>
+				
+				<li><a href="http://qinxuye.me/category/python/">我爱Python</a></li>
+				
+				<li><a href="http://qinxuye.me/category/program_language/">编程语言</a></li>
+				
+				<li><a href="http://qinxuye.me/category/distributed_computing/">分布式计算</a></li>
+				
+				<li><a href="http://qinxuye.me/category/graph_database_and_parallel_computation/">图数据库与图并行计算</a></li>
+				
+			</ul>
+		</section>
+		<section class="box is-search">
+			<header>
+				<h3>搜索</h3>
+			</header>
+			<form method="get" action="/search/">
+				<fieldset>
+					<input class="text" name="q" placeholder="search" type="text">
+				</fieldset>
+			</form>
+		</section>
+		<section class="box">
+			<header>
+				<h3>点击排行</h3>
+			</header>
+			<ul class="divided">
+				
+				<li><a href="http://qinxuye.me/article/details-about-time-module-in-python/">Python中time模块详解
+					<span>发表于2011年5月5日 12:58 a.m.</span></a></li>
+				
+				<li><a href="http://qinxuye.me/article/install-opencv-in-windows/">windows下安装opencv
+					<span>发表于2011年7月14日 5:41 p.m.</span></a></li>
+				
+				<li><a href="http://qinxuye.me/article/ways-to-continual-sync-browser-and-server/">Browser和Server持续同步的几种方式（jQuery+tornado演示）
+					<span>发表于2011年8月10日 8:06 p.m.</span></a></li>
+				
+				<li><a href="http://qinxuye.me/article/sina-weibo-api-in-developing-diango/">Django开发中整合新浪微博API
+					<span>发表于2011年4月19日 9:03 p.m.</span></a></li>
+				
+				<li><a href="http://qinxuye.me/article/twitter-timeline-in-django/">Django中模拟微博timeline
+					<span>发表于2011年6月3日 11:42 p.m.</span></a></li>
+				
+			</ul>
+		</section>
+		<section class="box tagclouds">
+			<header>
+				<h3>标签云</h3>
+			</header>
+			<ul>
+				
+					<li><a href="http://qinxuye.me/tag/google-api/">Google api</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/image-filter/">滤镜</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/re/">正则表达式</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/websocket/">WebSocket</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/sina-weibo-api/">新浪微博API</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/graph-theory/">图论</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/hadoop/">hadoop</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/python/">Python</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/bsp/">BSP</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/pregel/">Pregel</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/comet/">Comet</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/preorder-travesal/">前序遍历</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/dartlang/">Dartlang</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/logging/">logging</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/golang/">golang</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/mysql/">Mysql</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/deep-travesal/">深度遍历</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/opencv/">opencv</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/gem5/">gem5</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/django/">Django</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/crawler/">爬虫</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/makeju/">马克聚</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/graph-database/">Graph Database</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/c/">C</a>
+					</li>
+			    
+					<li><a href="http://qinxuye.me/tag/parallel-computation/">并行计算</a>
+					</li>
+			    
+			</ul>
+		</section>
+		<section class="box">
+			<header>
+				<h3>扫描访问</h3>
+			</header>
+			<img class="img-box" alt="" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/WZkcN.png">
+			<div style="clear: both;"></div>
+		</section>
+		<section class="box">
+			<header>
+				<h3>主题</h3>
+			</header>
+			<footer>
+				<a href="#" class="button button-alt" onclick="switchTheme('coolblue'); return false;">切换到旧主题</a>
+			</footer>
+		</section>
+		<section class="box">
+			<header>
+				<h3>残阳似血的微博</h3>
+			</header>
+			<iframe class="share_self" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/index.html" frameborder="0" height="550" scrolling="no" width="100%"></iframe>
+		</section>
+		<section class="box login">
+			<header>
+				<h3>登录</h3>
+			</header>
+				
+				<ul class="social">
+					
+					<li class="google"><a href="http://qinxuye.me/accounts/google/login/" class="icon48 icon48-7">Google</a></li>
+					
+					
+					<li class="weibo"><a href="http://qinxuye.me/accounts/weibo/login/" class="icon48 icon48-8">Weibo</a></li>
+					
+					
+					<li class="txweibo"><a href="http://qinxuye.me/accounts/qqweibo/login/" class="icon48 icon48-9">txweibo</a></li>
+					
+					
+					<li class="renren"><a href="http://qinxuye.me/accounts/renren/login/" class="icon48 icon48-10">renren</a></li>
+					
+				</ul>
+				
+		</section>
+
+</div>
+								</div>
+							</div>
+						</section>
+
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		
+			<!-- Footer Wrapper -->
+<div id="footer-wrapper">
+	
+	<!-- Footer -->
+	<section id="footer" class="5grid-layout 5grid">
+		<div class="row">
+			<div class="8u">
+
+				<section>
+					<header>
+						<h2>最新评论</h2>
+					</header>
+					<ul class="dates">
+						
+						<li>
+							<span class="date">八月 <strong>15</strong></span>
+							<h3>
+								<a href="http://qinxuye.me/article/a-distributed-weibo-crawler/#comment-636">
+								好人平安
+								在文章“一个简单的分布式新浪微博爬虫”下评论
+								
+								</a>
+							</h3>
+							<p> 楼主你好!<br>在单机模式下运行最近的代码,为什么会出现这个错误!<br> File "__init__.py", line 30, in &lt;module&gt;<br>    from parsers import MicroBlogParser, ForwardCommentLikeParser,\<br>  File "/home/zhengweiwei/cola/contrib/weibo/parsers.py", line 37, in &lt;module&gt;<br>    from storage import DoesNotExist, Q, WeiboUser, Friend,\<br>  File "/home/zhengweiwei/cola/contrib/weibo/storage.py", line 25, in &lt;module&gt;<br>    from conf import mongo_host, mongo_port, db_name, shard_key<br>  File "/home/zhengweiwei/cola/contrib/weibo/conf.py", line 39, in &lt;module&gt;<br>    shard_key = user_config.job.mongo.shard_key<br>AttributeError: 'PropertyObject' object has no attribute 'shard_key'</p>
+						</li>
+						
+						<li>
+							<span class="date">八月 <strong>14</strong></span>
+							<h3>
+								<a href="http://qinxuye.me/article/cola-a-distributed-crawler-framework/#comment-635">
+								秦续业
+								在文章“Cola：一个分布式爬虫框架”下评论
+								
+								</a>
+							</h3>
+							<p>先说2、3个问题吧，3是登录失败以后修改配置文件造成的吧？<br>登录失败的原因主要是：1、确保你的帐号和密码正确，2、要确保登录不需要验证码。这个你可以在电脑上尝试一下，如果需要，把当前所在地添加到安全登录地点去。<br><br>第一个问题，我觉得实现起来非常简单（但是说起来有点费劲），具体的话我会在将来增加限制深度的功能。<br>但是由于运行一段时间分布式版本后有不少问题，当前我的第一要务还是重构分布式cola，所以除非是bug，我不会在最近一段时间增加新功能。但是不远的将来，我会添加这个功能。<br><br>感谢！</p>
+						</li>
+						
+						<li>
+							<span class="date">八月 <strong>12</strong></span>
+							<h3>
+								<a href="http://qinxuye.me/article/is-grade-really-important/#comment-634">
+								jacksparrow
+								在文章“说说成绩”下评论
+								
+								</a>
+							</h3>
+							<p>挺好的，这些非学位课～</p>
+						</li>
+						
+						<li>
+							<span class="date">八月 <strong>11</strong></span>
+							<h3>
+								<a href="http://qinxuye.me/article/cola-a-distributed-crawler-framework/#comment-633">
+								zqqnancy
+								在文章“Cola：一个分布式爬虫框架”下评论
+								
+								</a>
+							</h3>
+							<p>大神，这个项目让我和我的小伙伴们都惊呆了！<br>我想问：<br>1.cola能抓取到起始用户关注和粉丝的关注和粉丝吗？怎么限定搜索深度？<br>2.单机模式运行weibo,最新版本错误提示：<br>C:\Python27\cola\cola\core\opener.py:74: UserWarning: gzip transfer encoding is<br>experimental!<br>  self.browser.set_handle_gzip(True)<br>login fail<br>login fail<br>3.单机模式运行weibo,之前一个版本错误提示：<br>Exception in thread Thread-3:<br>Traceback (most recent call last):<br>  File "C:\Python27\lib\threading.py", line 808, in __bootstrap_inner<br>    self.run()<br>  File "C:\Python27\lib\threading.py", line 761, in run<br>    self.__target(*self.__args, **self.__kwargs)<br>  File "C:\Python27\cola\contrib\weibo\cola\worker\loader.py", line 287, in _cal<br>l<br>    if not self._login(opener):<br>  File "C:\Python27\cola\contrib\weibo\cola\worker\loader.py", line 166, in _log<br>in<br>    not isinstance(self.ctx.job.login, list):<br>  File "C:\Python27\cola\contrib\weibo\cola\core\config.py", line 40, in __getat<br>tr__<br>    return [PropertyObject(itm) for itm in attr]<br>ValueError: dictionary update sequence element #0 has length 1; 2 is required<br></p>
+						</li>
+						
+						<li>
+							<span class="date">八月 <strong>7</strong></span>
+							<h3>
+								<a href="http://qinxuye.me/contact/#comment-632">
+								逆流的鱼
+								在留言板留言
+								
+								</a>
+							</h3>
+							<p>大哥，能不能告诉我这个模版的源文件在哪啊？</p>
+						</li>
+						
+					</ul>
+				</section>
+			
+			</div>
+			<div class="4u">
+			
+				<section>
+					<header>
+						<h2>关于作者</h2>
+					</header>
+					<a href="http://qinxuye.me/about/" class="image image-full"><img src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/avatar.jpg" alt=""></a>
+					<p>
+						
+残阳似血（<a href="http://weibo.com/chinekingseu" target="_blank">@秦续业</a>），程序猿一枚，把梦想揣进口袋的挨踢工作者。现在上海交通大学软件学院ADC实验室。目前专注于分布式图并行计算，以及其上的数据挖据。
+
+					</p>
+					<footer>
+						<a href="http://qinxuye.me/about/" class="button">了解更多</a>
+					</footer>
+				</section>
+			
+			</div>
+		</div>
+		<div class="row">
+			<div class="4u">
+
+				<section>
+					<header>
+						<h2>所有分类</h2>
+					</header>
+					<ul class="divided">
+						
+						<li><a href="http://qinxuye.me/category/balabala/">胡言乱语</a></li>
+						
+						<li><a href="http://qinxuye.me/category/collections/">一箩筐</a></li>
+						
+						<li><a href="http://qinxuye.me/category/python/">我爱Python</a></li>
+						
+						<li><a href="http://qinxuye.me/category/program_language/">编程语言</a></li>
+						
+						<li><a href="http://qinxuye.me/category/distributed_computing/">分布式计算</a></li>
+						
+						<li><a href="http://qinxuye.me/category/graph_database_and_parallel_computation/">图数据库与图并行计算</a></li>
+						
+					</ul>
+				</section>
+
+			</div>
+			<div class="4u">
+
+				<section>
+					<header>
+						<h2>友情链接</h2>
+					</header>
+					<ul class="divided">
+						
+						<li><a href="http://youngsterxyf.github.com/BlackWhite/">黑 * 白</a></li>
+						
+						<li><a href="http://www.balloonsys.com/blog/">Balloonsys Inc.</a></li>
+						
+						<li><a href="http://apassby.wordpress.com/">迷路的坤坤</a></li>
+						
+						<li><a href="http://simple-is-better.com/">Python.cn(news, jobs)</a></li>
+						
+						<li><a href="http://nmlabs.net/">新媒体实验室</a></li>
+						
+						<li><a href="http://www.literaturepan.com/">行畔博客</a></li>
+						
+						<li><a href="http://neteue.com/">neteue.com</a></li>
+						
+					</ul>
+				</section>
+
+			</div>
+			<div class="4u">
+			
+				<section>
+					<header>
+						<h2>联系信息</h2>
+					</header>
+					<ul class="social">
+						<li class="weibo"><a href="http://weibo.com/chinekingseu" class="icon48 icon48-8" target="_blank">Weibo</a></li>
+						<li class="renren"><a href="http://www.renren.com/722143160/profile" class="icon48 icon48-10" target="_blank">renren</a></li>
+						<li class="googleplus"><a href="https://plus.google.com/u/0/104329324960331213869/posts" class="icon48 icon48-6" target="_blank">Google+</a></li>
+						<li class="facebook"><a href="http://www.facebook.com/chine.king" class="icon48 icon48-1" target="_blank">Facebook</a></li>
+						<li class="twitter"><a href="https://twitter.com/chinekingseu" class="icon48 icon48-2" target="_blank">Twitter</a></li>
+						<li class="linkedin"><a href="http://www.linkedin.com/profile/view?id=135688541" class="icon48 icon48-4" target="_blank">LinkedIn</a></li>
+					</ul>
+					<ul class="contact">
+						<li>
+							<h3>地址</h3>
+							<p>
+								上海闵行区东川路800号<br>
+								上海交通大学<br>
+								200240
+							</p>
+						</li>
+						<li>
+							<h3>Mail</h3>
+							<p><a href="mailto:chinekingseu@gmail.com">chinekingseu@gmail.com</a></p>
+						</li>
+						<li>
+							<h3>QQ</h3>
+							<p>344861256</p>
+						</li>
+					</ul>
+				</section>
+			
+			</div>
+		</div>
+		<div class="row">
+			<div class="12u">
+			
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul class="links">
+							<li>© 2013  残阳似血的博客 powered by <a href="https://www.djangoproject.com/" target="_blank">Django</a></li>
+							<li><a href="http://qinxuye.me/sitemap.xml">Sitemap</a></li>
+							<li><a href="http://qinxuye.me/rss/">RSS</a></li>
+							<li><a href="#top" class="back-to-top">Back to Top</a></li>
+						</ul>
+					</div>
+
+			</div>
+		</div>
+	</section>
+	
+</div>
+		
+		
+		
+
+		<script type="text/javascript">
+		(function() {
+		  if (!window._pintex) {
+		    window._pintex = {auth: [ "1362799309", "44fc9ea58e1697c85506d305a20dbfea" ], auto: 1};
+		    document.body.appendChild(document.createElement("script")).src = "http://api.qudian.so/static/js/qlet.min.js";
+		  }
+		})();
+		</script><script src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/qlet.js"></script>
+		
+<script type="text/javascript">
+  window.___gcfg = {lang: 'zh-CN'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+		
+		
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+		    _gaq.push(['_setAccount', 'UA-22437438-1']);
+		    _gaq.push(['_trackPageview']);
+		
+		    (function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		
+		</script>  
+		
+	
+	
+<ul class="dropotron dropotron-level-0" style="-moz-user-select: none; display: none; position: absolute; z-index: 1000;">
+											
+											<li style="white-space: nowrap;"><a style="display: block;" href="http://qinxuye.me/category/balabala/">胡言乱语</a></li>
+											
+											<li style="white-space: nowrap;"><a style="display: block;" href="http://qinxuye.me/category/collections/">一箩筐</a></li>
+											
+											<li style="white-space: nowrap;"><a style="display: block;" href="http://qinxuye.me/category/python/">我爱Python</a></li>
+											
+											<li style="white-space: nowrap;"><a style="display: block;" href="http://qinxuye.me/category/program_language/">编程语言</a></li>
+											
+											<li style="white-space: nowrap;"><a style="display: block;" href="http://qinxuye.me/category/distributed_computing/">分布式计算</a></li>
+											
+											<li style="white-space: nowrap;"><a style="display: block;" href="http://qinxuye.me/category/graph_database_and_parallel_computation/">图数据库与图并行计算</a></li>
+											
+										</ul><script id="_pintex_id"></script><iframe style="width: 1px; height: 1px; position: absolute; left: -100px;" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/postmessageRelay.html" id="oauth2relay41714074" name="oauth2relay41714074"></iframe><script charset="utf-8" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/easyXDM.js" type="text/javascript"></script><script charset="utf-8" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/json2.js" type="text/javascript"></script><script charset="utf-8" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/qfo.js" type="text/javascript"></script><div id="pintex-container"><div class="pintex-msgbox"></div><span style="display: none; left: 128.95px; top: 399.883px;" id="pintex-qpoint-start"></span><span style="display: none; left: 503.883px; top: 464.9px;" id="pintex-qpoint-end"></span><div style="display: none; left: 524.883px; top: 474.9px;" id="pintex-mark"><div style="display: none;" id="pintex-mark-about"></div><a style="display: none;" id="pintex-mark-about-tip" target="_blank" href="http://qudian.so/">什么是趣点?</a><div style="width: 0px;" id="pintex-mark-body"></div><img id="pintex-mark-icon" src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/add_logo.png"></div><ul id="pintex-syncul"><li class="pintex-sync-check-li"><input id="pintex-sync-check" checked="checked" type="checkbox"><label for="pintex-sync-check" class="pintex-sync-tip">同步到微博</label></li><li class="pintex-sync-record-li"><input id="pintex-sync-record" checked="checked" type="checkbox"><label for="pintex-sync-record" class="pintex-record-tip">记住我的选择</label></li></ul><div style="top: 228.6px;" id="pintex-flap"></div><ul style="top: 228.6px; left: 39px;" id="pintex-qlogin"><li class="pintex-sina-login"></li></ul><div style="top: 228.6px;" id="pintex-qpanel"><a class="pintex-qfo-icon" href="http://e.weibo.com/qudianso" target="_blank"></a><div id="pintex-auth"><a class="pintex-auth-avatar" href="" target="_blank"><img class="pintex-qavatar" src=""></a></div><ul id="pintex-setting"><li class="pintex-sync-title">同步到微博</li><li id="pintex-add-sync-li"><input checked="checked" id="pintex-add-sync" type="checkbox"><label for="pintex-add-sync">我添加的趣点</label></li><li id="pintex-like-sync-li"><input checked="checked" id="pintex-like-sync" type="checkbox"><label for="pintex-like-sync">我签到的趣点</label></li><li><input class="pintex-logout" value="退出" type="button"></li></ul></div><div style="display: none;" class="pintex-qpoint-tip"></div></div><iframe src="Python%E4%B8%ADtime%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3%20-%20%E6%AE%8B%E9%98%B3%E4%BC%BC%E8%A1%80%E7%9A%84%E5%8D%9A%E5%AE%A2_files/cors.html" style="position: absolute; top: -2000px; left: 0px;" id="easyXDM_default5261_provider" name="easyXDM_default5261_provider" frameborder="0"></iframe></body></html>

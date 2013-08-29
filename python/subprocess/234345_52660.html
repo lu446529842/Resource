@@ -1,0 +1,1045 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="http://www.oschina.net/img/favicon.ico">
+  <title>Python模块subprocess小记 - 开源中国社区</title>
+      <link rel="stylesheet" href="234345_52660_files/style2013.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="234345_52660_files/channel.css" type="text/css" media="screen">
+  <link rel="stylesheet" type="text/css" href="234345_52660_files/jquery.css" media="screen">
+  <link rel="alternate" type="application/rss+xml" title="最新开源项目" href="http://www.oschina.net/project/rss">
+  <link rel="alternate" type="application/rss+xml" title="最新开源资讯" href="http://www.oschina.net/news/rss">
+  <link rel="alternate" type="application/rss+xml" title="最新问题列表" href="http://www.oschina.net/question/rss">
+  <link rel="alternate" type="application/rss+xml" title="最新翻译列表" href="http://www.oschina.net/translate/rss">
+  <link rel="alternate" type="application/rss+xml" title="最新博客列表" href="http://www.oschina.net/blog/rss">
+  <link rel="alternate" type="application/rss+xml" title="最新代码分享列表" href="http://www.oschina.net/code/rss">
+  <link rel="alternate" type="application/rss+xml" title="开源中国 - 源码列表" href="http://www.oschina.net/code/source_rss">
+  <script type="text/javascript" src="234345_52660_files/jquery-1.js"></script>
+  <script type="text/javascript" src="234345_52660_files/jquery_003.js"></script>
+  <script type="text/javascript" src="234345_52660_files/jquery.js"></script>
+    <link rel="stylesheet" href="234345_52660_files/tip-yellowsimple.css" type="text/css">
+  <script type="text/javascript" src="234345_52660_files/jquery_002.js"></script>
+  <script type="text/javascript">
+  	g_user = {
+	id:0,
+	name:'',
+	login:false};  </script>
+    <script type="text/javascript" src="234345_52660_files/oschina.js"></script>
+  <script type="text/javascript" src="234345_52660_files/utils.js"></script>
+  <script type="text/javascript" src="234345_52660_files/channel.js"></script>
+    <style id="poshytip-css-tip-yellowsimple" type="text/css">div.tip-yellowsimple{visibility:hidden;position:absolute;top:0;left:0;}div.tip-yellowsimple table, div.tip-yellowsimple td{margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;}div.tip-yellowsimple td.tip-bg-image span{display:block;font:1px/1px sans-serif;height:10px;width:10px;overflow:hidden;}div.tip-yellowsimple td.tip-right{background-position:100% 0;}div.tip-yellowsimple td.tip-bottom{background-position:100% 100%;}div.tip-yellowsimple td.tip-left{background-position:0 100%;}div.tip-yellowsimple div.tip-inner{background-position:-10px -10px;}div.tip-yellowsimple div.tip-arrow{visibility:hidden;position:absolute;overflow:hidden;font:1px/1px sans-serif;}</style><link rel="stylesheet" href="234345_52660_files/default.css"><link rel="stylesheet" href="234345_52660_files/oschina.css"></head>
+<body>
+<div id="OSC_NavTop">
+	<div class="wp998">
+        <div id="OSC_Channels">
+        	<ul>
+        	<li class="item"><a href="http://www.oschina.net/" class="home">首页</a></li>        	<li class="item control_select"><a href="http://www.oschina.net/project" class="project">开源项目</a>
+				<ul class="cs_content">					
+                	                	<li><a href="http://www.oschina.net/project/lang/19/java">Java 开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/194/csharp">C# 开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/22/php">PHP 开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/21/c">C/C++ 开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/26/ruby">Ruby 开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/25/python">Python 开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/358/go">Go开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/28/javascript">JS开源软件</a></li>
+				</ul>
+			</li>
+        	<li class="item control_select">
+				<a href="http://www.oschina.net/question" class="question hl">讨论区</a>				
+				<ul class="cs_content">					
+                	<li><a href="http://www.oschina.net/question?catalog=1"> 技术问答 » </a></li>
+                	<li><a href="http://www.oschina.net/question?catalog=2"> 技术分享 » </a></li>
+                	<li><a href="http://www.oschina.net/question?catalog=3"> IT大杂烩 » </a></li>
+                	<li><a href="http://www.oschina.net/question?catalog=100"> 职业生涯 » </a></li>
+                	<li><a href="http://www.oschina.net/question?catalog=4"> 站务/建议 » </a></li>
+                	<li><a href="http://www.oschina.net/alipay"> 支付宝专区 » </a></li>
+                	<li><a href="http://www.oschina.net/hardware"> 开源硬件专区 » </a></li>
+				</ul>
+			</li>
+        	<li class="item"><a href="http://www.oschina.net/code/list" class="code">代码</a></li>
+        	        	<li class="item"><a href="http://www.oschina.net/blog" class="blog">博客</a></li>
+        	<li class="item"><a href="http://www.oschina.net/translate" class="tran">翻译</a></li>
+            <li class="item"><a href="http://www.oschina.net/news" class="news">资讯</a></li>
+        	<li class="item control_select">
+				<a href="http://www.oschina.net/android" class="mobile">移动开发</a>
+				<ul class="cs_content cs_mobile">
+                	<li class="android_"><a href="http://www.oschina.net/android">Android开发专区</a></li>
+                	<li class="ios_"><a href="http://www.oschina.net/ios/home">iOS开发专区</a></li>
+                	<li class="ios_"><a href="http://www.oschina.net/ios/codingList">iOS代码库</a></li>
+                	<li class="wp7_"><a href="http://www.oschina.net/wp7">WP7开发专区</a></li>
+				</ul>
+			</li>
+        	<li class="item t_job"><a href="http://www.oschina.net/job" class="job">招聘</a></li>
+			            <li class="item control_select">
+                <a href="http://city.oschina.net/" id="MyCities" title="城市圈">城市圈</a>
+							</li>
+        	</ul>
+        </div>
+		<div id="OSC_Userbar">
+                		    		当前访客身份：游客 [ <a href="http://www.oschina.net/home/login?goto_page=http%3A%2F%2Fwww.oschina.net%2Fquestion%2F234345_52660">登录</a> | <a href="http://www.oschina.net/home/reg">加入开源中国</a> ]
+    				</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<div id="OSC_Banner"><div class="wp998"><a href="http://www.oschina.net/" class="Logo" title="OSChina 开源中国">开源中国</a>
+<h1><a href="http://www.oschina.net/question">讨论区</a></h1>
+<dl>
+	<dt>当前位置：</dt>
+	<dd>
+					        		<a href="http://www.oschina.net/question">讨论区</a>&nbsp;»
+        		<a href="http://www.oschina.net/question?catalog=2">技术分享</a>										</dd>
+</dl>
+<form action="http://www.oschina.net/search" class="search">
+	<input name="scope" value="bbs" type="hidden">
+	<input id="channel_q" name="q" placeholder="资讯、软件、分享、代码、博客" class="TXT" type="text">
+    <button type="submit" class="BTN">搜 索</button>
+</form>
+<div class="clear"></div></div></div>
+<div id="OSC_Screen">
+	<div id="OSC_Content" class="CenterDiv">
+<script type="text/javascript" src="234345_52660_files/scrolltopcontrol.js"></script>
+<script type="text/javascript">
+  	scrolltotop.offset(100,120);
+  	scrolltotop.init();
+	$(function(){
+		$('a.ShowUserOutline img.SmallPortrait').poshytip({
+			className: 'tip-yellowsimple',
+			alignTo: 'target',
+			alignX: 'right',
+			alignY: 'inner-top',
+			offsetX: 5,
+			offsetY: 0,
+			fade: false,
+			slide: false,
+			content: function(updateCallback) {
+				ajax_get("/action/ajax/get_user_outline?id="+$(this).attr('user'),false,function(html){
+					updateCallback(html);
+				});
+				return "<div style='height:100px;'>Loading...</div>";
+			}
+		});
+	});
+	function add_to_favorite(pid,concern_it){
+			alert("必须登录后才能收藏");
+		}
+</script>
+
+
+
+<div class="Question">
+	
+	<div class="Body">
+	<div class="Title">
+		<div class="Asker"><a href="http://my.oschina.net/chen106106" class="ShowUserOutline" target="_blank"><img src="234345_52660_files/234345_50.jpg" alt="晨曦之光" title="晨曦之光" class="SmallPortrait" user="234345" align="absmiddle"></a></div>
+		<div class="QTitle">
+			<h1><a href="http://www.oschina.net/question/234345_52660" hidefocus="true" name="top">Python模块subprocess小记</a></h1>
+			<div class="stat">
+				<a href="http://my.oschina.net/chen106106" target="_blank">晨曦之光</a>
+				发表于 2012-5-8 10:15 1年前,
+				<a href="#answers" class="answer_count">3</a>回/9702阅,
+				最后回答: 7个月前											</div>
+		</div>
+		
+		<div class="clear"></div>
+	</div>
+		    	    					
+				<div class="Content">
+			<p style="font-weight:bold;color:#A00;margin-bottom:10px;"><a href="http://www.oschina.net/news/43054/pcduino-mixtile" target="_blank" style="color:#A00;">想玩开源硬件吗？两款神器献上！</a></p>
+						<div class="detail"><span style=""></span> 
+<p class="line874">在熟悉了Qt的QProcess以后，再回头来看python的subprocess总算不觉得像以前那么恐怖了。<span class="anchor" id="line-2-6"></span><span class="anchor" id="line-3-3"></span></p> 
+<p class="line874">和QProcess一样，subprocess的目标是启动一个新的进程并与之进行通讯。<span class="anchor" id="line-4-3"></span><span class="anchor" id="line-5-3"></span></p> 
+<h2 id="subprocess.Popen" style="padding-top:0px; padding-right:0px; padding-bottom:0.3em; padding-left:0px; border-bottom-width:3px; border-bottom-style:solid; border-bottom-color:rgb(4,115,7)"> subprocess.Popen</h2> 
+<span class="anchor" id="line-6-3"></span> 
+<p class="line874">这个模块主要就提供一个类Popen：<span class="anchor" id="line-7-2"></span><span class="anchor" id="line-8-2"></span><span class="anchor" id="line-9-1"></span><span class="anchor" id="line-10-1"></span><span class="anchor" id="line-11-1"></span><span class="anchor" id="line-12-1"></span><span class="anchor" id="line-13-1"></span><span class="anchor" id="line-14-1"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span></p> 
+<pre style="padding-top:0.5em; padding-right:0.5em; padding-bottom:0.5em; padding-left:0.5em; font-family:courier,monospace; border-top-width:1pt; border-right-width:1pt; border-bottom-width:1pt; border-left-width:1pt; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); background-color:rgb(240,236,230); white-space:pre-wrap; word-wrap:break-word"><span class="anchor" id="line-1"></span>class subprocess.Popen( args, 
+<span class="anchor" id="line-2"></span>      bufsize=0, 
+<span class="anchor" id="line-3"></span>      executable=None,
+<span class="anchor" id="line-4"></span>      stdin=None,
+<span class="anchor" id="line-5"></span>      stdout=None, 
+<span class="anchor" id="line-6"></span>      stderr=None, 
+<span class="anchor" id="line-7"></span>      preexec_fn=None, 
+<span class="anchor" id="line-8"></span>      close_fds=False, 
+<span class="anchor" id="line-9"></span>      shell=False, 
+<span class="anchor" id="line-10"></span>      cwd=None, 
+<span class="anchor" id="line-11"></span>      env=None, 
+<span class="anchor" id="line-12"></span>      universal_newlines=False, 
+<span class="anchor" id="line-13"></span>      startupinfo=None, 
+<span class="anchor" id="line-14"></span>      creationflags=0)</pre> 
+<span class="anchor" id="line-23"></span> 
+<span class="anchor" id="line-24"></span> 
+<p class="line874">这堆东西真让人抓狂：<span class="anchor" id="line-25"></span></p> 
+<div> 
+ <table style="margin-top:0.5em; margin-right:0px; margin-bottom:0px; margin-left:0.5em; border-collapse:collapse"> 
+  <tbody> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> args</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 字符串或者列表</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-26"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> bufsize</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 0 无缓冲<br> 1 行缓冲<br> 其他正值 缓冲区大小<br> 负值 采用默认系统缓冲(一般是全缓冲)</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-27"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> executable</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 一般不用吧，args字符串或列表第一项表示程序名</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-28"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> stdin<br> stdout<br> stderr</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> None 没有任何重定向，继承父进程<br> PIPE 创建管道<br> 文件对象<br> 文件描述符(整数)<br> stderr 还可以设置为 STDOUT</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-29"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> preexec_fn</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 钩子函数， 在fork和exec之间执行。(unix)</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-30"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> close_fds</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> unix 下执行新进程前是否关闭0/1/2之外的文件<br> windows下不继承还是继承父进程的文件描述符</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-31"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> shell</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 为真的话<br> unix下相当于args前面添加了<span>&nbsp;</span><tt>"/bin/sh“&nbsp;”-c”</tt><br> window下，相当于添加<tt>"cmd.exe&nbsp;/c"</tt></p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-32"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> cwd</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 设置工作目录</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-33"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> env</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 设置环境变量</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-34"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> universal_newlines</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 各种换行符统一处理成 '\n'</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-35"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> startupinfo</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> window下传递给CreateProcess的结构体</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-36"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> creationflags</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> windows下，传递CREATE_NEW_CONSOLE创建自己的控制台窗口</p> </td> 
+   </tr> 
+  </tbody> 
+ </table> 
+</div> 
+<span class="anchor" id="line-37"></span> 
+<span class="anchor" id="line-38"></span> 
+<ul> 
+ <li>当初最感到困扰的就是 args 参数。可以是一个字符串，可以是一个列表。<span class="anchor" id="line-39"></span></li> 
+</ul> 
+<p class="line867"><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span></p> 
+<pre style="padding-top:0.5em; padding-right:0.5em; padding-bottom:0.5em; padding-left:0.5em; font-family:courier,monospace; border-top-width:1pt; border-right-width:1pt; border-bottom-width:1pt; border-left-width:1pt; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); background-color:rgb(240,236,230); white-space:pre-wrap; word-wrap:break-word"><span class="anchor" id="line-1-1"></span>subprocess.Popen(["gedit","abc.txt"])
+<span class="anchor" id="line-2-1"></span>subprocess.Popen("gedit abc.txt")</pre> 
+<span class="anchor" id="line-43"></span> 
+<p class="line874">这两个之中，后者将不会工作。因为如果是一个字符串的话，必须是程序的路径才可以。(考虑unix的api函数 exec，接受的是字符串列表)<span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span></p> 
+<ul> 
+ <li>但是下面的可以工作<span class="anchor" id="line-46"></span></li> 
+</ul> 
+<p class="line867"><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span></p> 
+<pre style="padding-top:0.5em; padding-right:0.5em; padding-bottom:0.5em; padding-left:0.5em; font-family:courier,monospace; border-top-width:1pt; border-right-width:1pt; border-bottom-width:1pt; border-left-width:1pt; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); background-color:rgb(240,236,230); white-space:pre-wrap; word-wrap:break-word"><span class="anchor" id="line-1-2"></span>subprocess.Popen("gedit abc.txt", shell=True)</pre> 
+<span class="anchor" id="line-49"></span> 
+<p class="line874">这是因为它相当于<span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span></p> 
+<pre style="padding-top:0.5em; padding-right:0.5em; padding-bottom:0.5em; padding-left:0.5em; font-family:courier,monospace; border-top-width:1pt; border-right-width:1pt; border-bottom-width:1pt; border-left-width:1pt; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); background-color:rgb(240,236,230); white-space:pre-wrap; word-wrap:break-word"><span class="anchor" id="line-1-3"></span>subprocess.Popen(["/bin/sh", "-c", "gedit abc.txt"])</pre> 
+<span class="anchor" id="line-53"></span> 
+<p class="line874">都成了sh的参数，就无所谓了<span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span></p> 
+<ul> 
+ <li>在Windows下，下面的却又是可以工作的<span class="anchor" id="line-56"></span></li> 
+</ul> 
+<p class="line867"><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span></p> 
+<pre style="padding-top:0.5em; padding-right:0.5em; padding-bottom:0.5em; padding-left:0.5em; font-family:courier,monospace; border-top-width:1pt; border-right-width:1pt; border-bottom-width:1pt; border-left-width:1pt; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); background-color:rgb(240,236,230); white-space:pre-wrap; word-wrap:break-word"><span class="anchor" id="line-1-4"></span>subprocess.Popen(["notepad.exe", "abc.txt"])
+<span class="anchor" id="line-2-2"></span>subprocess.Popen("notepad.exe abc.txt")</pre> 
+<span class="anchor" id="line-60"></span> 
+<p class="line862">这是由于windows下的api函数CreateProcess接受的是一个字符串。即使是列表形式的参数，也需要先合并成字符串再传递给api函数。<span class="anchor" id="line-61"></span></p> 
+<ul> 
+ <li>类似上面<span class="anchor" id="line-62"></span></li> 
+</ul> 
+<p class="line867"><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span></p> 
+<pre style="padding-top:0.5em; padding-right:0.5em; padding-bottom:0.5em; padding-left:0.5em; font-family:courier,monospace; border-top-width:1pt; border-right-width:1pt; border-bottom-width:1pt; border-left-width:1pt; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); background-color:rgb(240,236,230); white-space:pre-wrap; word-wrap:break-word"><span class="anchor" id="line-1-5"></span>subprocess.Popen("notepad.exe abc.txt" shell=True)</pre> 
+<span class="anchor" id="line-65"></span> 
+<p class="line874">等价于<span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span></p> 
+<pre style="padding-top:0.5em; padding-right:0.5em; padding-bottom:0.5em; padding-left:0.5em; font-family:courier,monospace; border-top-width:1pt; border-right-width:1pt; border-bottom-width:1pt; border-left-width:1pt; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); background-color:rgb(240,236,230); white-space:pre-wrap; word-wrap:break-word"><span class="anchor" id="line-1-6"></span>subprocess.Popen("cmd.exe /C "+"notepad.exe abc.txt" shell=True)</pre> 
+<span class="anchor" id="line-69"></span> 
+<span class="anchor" id="line-70"></span> 
+<h2 id="subprocess.call.2A" style="padding-top:0px; padding-right:0px; padding-bottom:0.3em; padding-left:0px; border-bottom-width:3px; border-bottom-style:solid; border-bottom-color:rgb(4,115,7)"> subprocess.call*</h2> 
+<span class="anchor" id="line-71"></span> 
+<p class="line874">模块还提供了几个便利函数（这本身也算是很好的Popen的使用例子了）<span class="anchor" id="line-72"></span></p> 
+<ul> 
+ <li>call() 执行程序，并等待它完成<span class="anchor" id="line-73"></span></li> 
+</ul> 
+<p class="line867"><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span></p> 
+<pre style="padding-top:0.5em; padding-right:0.5em; padding-bottom:0.5em; padding-left:0.5em; font-family:courier,monospace; border-top-width:1pt; border-right-width:1pt; border-bottom-width:1pt; border-left-width:1pt; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); background-color:rgb(240,236,230); white-space:pre-wrap; word-wrap:break-word"><span class="anchor" id="line-1-7"></span>def call(*popenargs, **kwargs):
+<span class="anchor" id="line-2-3"></span>    return Popen(*popenargs, **kwargs).wait()</pre> 
+<span class="anchor" id="line-77"></span> 
+<ul> 
+ <li>check_call() 调用前面的call，如果返回值非零，则抛出异常<span class="anchor" id="line-78"></span></li> 
+</ul> 
+<p class="line867"><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span></p> 
+<pre style="padding-top:0.5em; padding-right:0.5em; padding-bottom:0.5em; padding-left:0.5em; font-family:courier,monospace; border-top-width:1pt; border-right-width:1pt; border-bottom-width:1pt; border-left-width:1pt; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); background-color:rgb(240,236,230); white-space:pre-wrap; word-wrap:break-word"><span class="anchor" id="line-1-8"></span>def check_call(*popenargs, **kwargs):
+<span class="anchor" id="line-2-4"></span>    retcode = call(*popenargs, **kwargs)
+<span class="anchor" id="line-3-1"></span>    if retcode:
+<span class="anchor" id="line-4-1"></span>        cmd = kwargs.get("args")
+<span class="anchor" id="line-5-1"></span>        raise CalledProcessError(retcode, cmd)
+<span class="anchor" id="line-6-1"></span>    return 0</pre> 
+<span class="anchor" id="line-86"></span> 
+<ul> 
+ <li>check_output() 执行程序，并返回其标准输出<span class="anchor" id="line-87"></span></li> 
+</ul> 
+<p class="line867"><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span></p> 
+<pre style="padding-top:0.5em; padding-right:0.5em; padding-bottom:0.5em; padding-left:0.5em; font-family:courier,monospace; border-top-width:1pt; border-right-width:1pt; border-bottom-width:1pt; border-left-width:1pt; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); background-color:rgb(240,236,230); white-space:pre-wrap; word-wrap:break-word"><span class="anchor" id="line-1-9"></span>def check_output(*popenargs, **kwargs):
+<span class="anchor" id="line-2-5"></span>    process = Popen(*popenargs, stdout=PIPE, **kwargs)
+<span class="anchor" id="line-3-2"></span>    output, unused_err = process.communicate()
+<span class="anchor" id="line-4-2"></span>    retcode = process.poll()
+<span class="anchor" id="line-5-2"></span>    if retcode:
+<span class="anchor" id="line-6-2"></span>        cmd = kwargs.get("args")
+<span class="anchor" id="line-7-1"></span>        raise CalledProcessError(retcode, cmd, output=output)
+<span class="anchor" id="line-8-1"></span>    return output</pre> 
+<span class="anchor" id="line-97"></span> 
+<span class="anchor" id="line-98"></span> 
+<h2 id="Popen.2BW.2FmMYQ-" style="padding-top:0px; padding-right:0px; padding-bottom:0.3em; padding-left:0px; border-bottom-width:3px; border-bottom-style:solid; border-bottom-color:rgb(4,115,7)"> Popen对象</h2> 
+<span class="anchor" id="line-99"></span> 
+<p class="line874">该对象提供有不少方法函数可用。而且前面已经用到了wait()/poll()/communicate()<span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span></p> 
+<div> 
+ <table style="margin-top:0.5em; margin-right:0px; margin-bottom:0px; margin-left:0.5em; border-collapse:collapse"> 
+  <tbody> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> poll()</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 检查是否结束，设置返回值</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-102"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> wait()</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 等待结束，设置返回值</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-103"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> communicate()</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 参数是标准输入，返回标准输出和标准出错</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-104"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> send_signal()</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 发送信号 (主要在unix下有用)</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-105"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> terminate()</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 终止进程，unix对应的SIGTERM信号，windows下调用api函数TerminateProcess()</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-106"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> kill()</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 杀死进程(unix对应SIGKILL信号)，windows下同上</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-107"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> stdin<br> stdout<br> stderr</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 参数中指定PIPE时，有用</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-108"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> pid</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 进程id</p> </td> 
+   </tr> 
+   <tr> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <span class="anchor" id="line-109"></span> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> returncode</p> </td> 
+    <td style="padding-top:0.25em; padding-right:0.5em; padding-bottom:0.25em; padding-left:0.5em; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(4,115,7); border-right-color:rgb(4,115,7); border-bottom-color:rgb(4,115,7); border-left-color:rgb(4,115,7)"> <p class="line862" style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px"> 进程返回值</p> </td> 
+   </tr> 
+  </tbody> 
+ </table> 
+</div> 
+<span class="anchor" id="line-110"></span> 
+<span class="anchor" id="line-111"></span> 
+<h2 id="A.2BU8KAAw-" style="padding-top:0px; padding-right:0px; padding-bottom:0.3em; padding-left:0px; border-bottom-width:3px; border-bottom-style:solid; border-bottom-color:rgb(4,115,7)"> 参考</h2> 
+<span class="anchor" id="line-112"></span> 
+<ul> 
+ <li> <p class="line891" style="margin-top:0.25em; margin-right:0px; margin-bottom:0.25em; margin-left:0px"> <a class="http" href="http://docs.python.org/library/subprocess.htcml" style="color:rgb(4,115,7); border-top-width:0px; border-right-width:0px; border-bottom-width:0px; border-left-width:0px; border-style:initial; border-color:initial">http://docs.python.org/library/subprocess.htcml</a><span class="anchor" id="line-113"></span></p> </li> 
+ <li> <p class="line891" style="margin-top:0.25em; margin-right:0px; margin-bottom:0.25em; margin-left:0px"> <a class="http" href="http://www.python.org/dev/peps/pep-0324/" style="color:rgb(4,115,7); border-top-width:0px; border-right-width:0px; border-bottom-width:0px; border-left-width:0px; border-style:initial; border-color:initial">http://www.python.org/dev/peps/pep-0324/</a></p> </li> 
+</ul> 
+<br>
+<link rel="stylesheet" href="234345_52660_files/SyntaxHighlighter.css" type="text/css">
+<script src="234345_52660_files/shCore.js"></script>
+<script src="234345_52660_files/shSyntax.js"></script>
+<script>$(document).ready(function(){dp.SyntaxHighlighter.HighlightAll('code');});</script><br>原文链接：<a href="http://blog.csdn.net/dbzhang800/article/details/6879239" target="_blank">http://blog.csdn.net/dbzhang800/article/details/6879239</a><div class="clear"></div></div>
+						<div class="Tags">
+				<strong>标签：</strong>				
+												&lt;无&gt;
+											</div>
+						<div class="SameQuestions">
+			<span id="RQuestionAction">
+						<a href="javascript:make_question_more_detail(52660)">补充话题说明»</a>
+			</span></div>
+						<div class="EditLogs">
+	<ul></ul>
+</div>		</div>
+		<style type="text/css">
+		#TagsSwitcher{color:#A00;}
+        #RecTags,#MyTags{margin:5px 0;}
+        #RecTags a.tag{line-height:24px;}
+		#favor_form p:first-child{margin:5px 0;}
+		#favor_form{width:200px;}
+        #favor_form p {color:#666;}
+        #favor_form form{width:200px;}
+        #favor_form form ._favor_input{display:block;margin:2px 0;width:199px;}
+        #favor_form form ._favor_button{float:left;padding:2px 5px;}
+        .favor_ok {text-align:center;font-size:10.5pt;width:199px;height:60px;margin-top:10px;}
+        #TagsSwitcher{cursor:pointer;float:right;margin-top:10px;}
+        #MyTags{display:none;width:199px;}
+        #MyTags a.tag {float:left; background-color: #E0EAF1;border-bottom: 1px solid #3E6D8E;border-right: 1px solid #7F9FB6;color: #3E6D8E;font-size: 8pt;line-height: 16px;margin: 2px 2px 2px 0;padding: 2px 4px;text-decoration: none;white-space: nowrap;}
+		#MyTags a.tag:hover{background-color: #3E6D8E;color: #FFF;}
+		.osc_promotion{ position: relative; display: inline-block; padding: 10px; margin: 10px 0; border: 1px solid #ccc;}
+        .osc_promotion .c{ position: absolute; right: -1px; top: -1px;}
+		.ask_toolbar {float:right;list-style: none; font-size: 12px; color: #333; height: 28px;_padding-top: 5px; overflow: hidden;margin:20px 0 10px 0;}
+        .ask_toolbar div{ float: left; margin-left: 5px; background: url("/img/ask-icon.gif") no-repeat; padding: 6px 0 6px 15px; padding-left: 15px; height: 16px;}
+        .ask_toolbar a{ height: 16px; color: #333; text-decoration: none; display:inline-block; zoom:1; vertical-align: middle; }
+        .ask_share{width: 89px;vertical-align: bottom; line-height: 15px; _line-height: 14px;}
+        .ask_share a{background: url("/img/ask-icon.gif"); width: 16px; }
+        a.ask_share_sina{ background: url("/img/ask-icon.gif") 0 -40px no-repeat; margin-left: 5px;  }
+        a.ask_share_tencent{background-position: 0 -70px; margin-left: 5px; }
+        .ask_toolbar em{ height: 28px; line-height:28px; width: 14px; display: inline-block; float: left; background: url("/img/ask-icon.gif") top right;}
+        .ask_collect a,.ask_report a, .ask_vote a, .ask_collected a{padding-left: 20px; line-height: 15px; }
+        .ask_collect a{ background: url("/img/ask-icon.gif") 0 -131px no-repeat; }
+        .ask_collected a{ background: url("/img/ask-icon.gif") 0 -100px no-repeat; }
+        div.ask_collect_count{ background: url("/img/ask-icon.gif") 0 -309px no-repeat; font-weight: bold; font-size: 14px; margin-left: 0; height: 16px;line-height: 16px;}
+        .ask_report a{ background: url("/img/ask-icon.gif") 0 -160px no-repeat;}
+        em.ask_collect_count_r{background-position: 59px -309px;}
+        .ask_vote a{background: url("/img/ask-icon.gif");}
+        		a.ask_vote_up{background-position: 3px -190px;}
+        a.ask_vote_down{background-position: 0 -280px;}
+        a.ask_vote_uped {background-position: 3px -190px;}
+        		a.ask_vote_downed {background-position: 0 -280px;}
+        .ask_vote span{ display: inline-block; margin: 0 10px; font-weight: bold; font-size: 14px; vertical-align: middle; margin-bottom: 2px; line-height: 16px;}
+		span.vote-down-count{margin:0 3px;}
+		span.vote-up-count{margin:0 3px;}
+		</style>
+		<div class="clear"></div>
+        
+				<div class="ask_toolbar">
+			<div class="ask_share"><b>分享到</b> <a class="ask_share_sina" title="分享到新浪微博" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=858381728',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','Python%E6%A8%A1%E5%9D%97subprocess%E5%B0%8F%E8%AE%B0:%20%E5%9C%A8%E7%86%9F%E6%82%89%E4%BA%86Qt%E7%9A%84QProcess%E4%BB%A5%E5%90%8E%EF%BC%8C%E5%86%8D%E5%9B%9E%E5%A4%B4%E6%9D%A5%E7%9C%8Bpython%E7%9A%84subprocess%E6%80%BB%E7%AE%97%E4%B8%8D%E8%A7%89%E5%BE%97%E5%83%8F%E4%BB%A5%E5%89%8D%E9%82%A3%E4%B9%88%E6%81%90%E6%80%96%E4%BA%86%E3%80%82%20%E5%92%8CQProcess%E4%B8%80%E6%A0%B7%EF%BC%8Csubprocess%E7%9A%84%E7%9B%AE%E6%A0%87%E6%98%AF%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E8%BF%9B%E7%A8%8B%E5%B9%B6%E4%B8%8E%E4%B9%8B%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF%E3%80%82%20subpro...','','utf-8'));"></a><a class="ask_share_tencent" title="分享到腾讯微博" href="javascript:(function(){window.open('http://v.t.qq.com/share/share.php?url='+encodeURIComponent(document.location)+'&amp;appkey=96f54f97c4de46e393c4835a266207f4&amp;site=&amp;title='+encodeURIComponent(document.title)+encodeURIComponent(':%20%E5%9C%A8%E7%86%9F%E6%82%89%E4%BA%86Qt%E7%9A%84QProcess%E4%BB%A5%E5%90%8E%EF%BC%8C%E5%86%8D%E5%9B%9E%E5%A4%B4%E6%9D%A5%E7%9C%8Bpython%E7%9A%84subprocess%E6%80%BB%E7%AE%97%E4%B8%8D%E8%A7%89%E5%BE%97%E5%83%8F%E4%BB%A5%E5%89%8D%E9%82%A3%E4%B9%88%E6%81%90%E6%80%96%E4%BA%86%E3%80%82%20%E5%92%8CQProcess%E4%B8%80%E6%A0%B7%EF%BC%8Csubprocess%E7%9A%84%E7%9B%AE%E6%A0%87%E6%98%AF%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E8%BF%9B%E7%A8%8B%E5%B9%B6%E4%B8%8E%E4%B9%8B%E8%BF%9B%E8%A1%8C%E9%80%9A%E8%AE%AF%E3%80%82%20subpro...'),'',%20'width=450,%20height=400,%20top=0,%20left=0,%20toolbar=no,%20menubar=no,%20scrollbars=no,%20location=yes,%20resizable=no,%20status=no');}())"></a></div><em></em>
+			<div class="ask_collect"><a title="收藏此话题" id="favor_trigger" href="javascript:;">收藏</a></div><em></em>
+			<div class="ask_collect_count" id="p_favor_count">6</div><em class="ask_collect_count_r"></em>
+			<div class="ask_report"><a href="javascript:report('http://www.oschina.net/question/234345_52660',52660,2)">举报</a></div><em></em>
+			<div class="ask_vote" id="Vote">
+								        			<a id="vote_down" class="ask_vote_down" href="javascript:;" title="踩：这问题不知道在说什么，或者没什么用">踩</a>
+								<span class="vote-down-count">0</span>
+				|
+								        			<a id="vote_up" class="ask_vote_up" href="javascript:;" title="顶：这问题很有用或者很清晰明了">顶</a>
+								<span class="vote-up-count">0</span>
+			</div>
+			<em></em>
+		</div>
+		<div class="clear"></div>
+				        <div class="QuestionReplies">
+			
+        	<h2>			
+				<span class="sort">
+					<a href="http://www.oschina.net/question/234345_52660#answers" class="current">按默认排序</a>&nbsp;|
+					<a href="http://www.oschina.net/question/234345_52660?sort=time#answers">显示最新评论</a>&nbsp;|&nbsp;<a href="#top" style="padding-left:0;">回页面顶部</a>
+				</span>
+				<a name="answers"></a>共有<em class="answer_count">3</em>个评论 <a href="#answerform" class="answer">发表评论»</a>
+			</h2>
+			        	<ul class="list"><li class="Answer" id="answer_238669">
+	<div class="user"><a href="http://my.oschina.net/u/576393" class="ShowUserOutline" name="AnchorAnswer238669" target="_blank"><img src="234345_52660_files/portrait.gif" alt="sqloracle" title="sqloracle" class="SmallPortrait" user="576393" align="absmiddle"></a></div>
+	<div class="body">
+		<div class="time"><a href="http://my.oschina.net/u/576393" target="_blank">sqloracle</a> 回答于 2012-06-19 13:37 </div>		
+    	<div class="opts">
+			    		    		<a href="javascript:report('http://www.oschina.net/question/234345_52660#AnchorAnswer238669',238669,17)">举报</a>
+    	</div>
+		<div class="clear"></div>
+		<div class="detail">多谢分享 
+<br></div>
+	</div>
+	<div class="clear"></div>
+	<div class="replies" id="PostReplies_238669"></div>
+	<div class="votes">				<a id="a_post_voteup_238669" href="javascript:vote_answer(238669,true,true)" title="这是一个好评论，能解决问题">有帮助</a><em id="post_voteup_238669">(0)</em>&nbsp;|
+		<a id="a_post_votedown_238669" href="javascript:vote_answer(238669,false,true)" title="这评论无法解决问题，或者模糊不清">没帮助</a><em id="post_votedown_238669">(0)</em>&nbsp;|
+		<a href="javascript:reply_to_post(238669,%200)">评论</a><em>(0)</em>&nbsp;|
+    	<a href="http://www.oschina.net/question/answer?question=52660&amp;answer=238669">引用此评论</a>	</div>
+</li><li class="Answer" id="answer_360794">
+	<div class="user"><a href="http://my.oschina.net/GlassFish" class="ShowUserOutline" name="AnchorAnswer360794" target="_blank"><img src="234345_52660_files/93585_50.jpg" alt="glassfish" title="glassfish" class="SmallPortrait" user="93585" align="absmiddle"></a></div>
+	<div class="body">
+		<div class="time"><a href="http://my.oschina.net/GlassFish" target="_blank">glassfish</a> 回答于 2012-11-29 12:38 </div>		
+    	<div class="opts">
+			    		    		<a href="javascript:report('http://www.oschina.net/question/234345_52660#AnchorAnswer360794',360794,17)">举报</a>
+    	</div>
+		<div class="clear"></div>
+		<div class="detail">多谢，简单明了。。相对于那一大堆的英文。。</div>
+	</div>
+	<div class="clear"></div>
+	<div class="replies" id="PostReplies_360794"></div>
+	<div class="votes">				<a id="a_post_voteup_360794" href="javascript:vote_answer(360794,true,true)" title="这是一个好评论，能解决问题">有帮助</a><em id="post_voteup_360794">(0)</em>&nbsp;|
+		<a id="a_post_votedown_360794" href="javascript:vote_answer(360794,false,true)" title="这评论无法解决问题，或者模糊不清">没帮助</a><em id="post_votedown_360794">(0)</em>&nbsp;|
+		<a href="javascript:reply_to_post(360794,%200)">评论</a><em>(0)</em>&nbsp;|
+    	<a href="http://www.oschina.net/question/answer?question=52660&amp;answer=360794">引用此评论</a>	</div>
+</li><li class="Answer" id="answer_397873">
+	<div class="user"><a href="http://my.oschina.net/ellan" class="ShowUserOutline" name="AnchorAnswer397873" target="_blank"><img src="234345_52660_files/106668_50.jpg" alt="ellan" title="ellan" class="SmallPortrait" user="106668" align="absmiddle"></a></div>
+	<div class="body">
+		<div class="time"><a href="http://my.oschina.net/ellan" target="_blank">ellan</a> 回答于 2013-01-15 10:48 </div>		
+    	<div class="opts">
+			    		    		<a href="javascript:report('http://www.oschina.net/question/234345_52660#AnchorAnswer397873',397873,17)">举报</a>
+    	</div>
+		<div class="clear"></div>
+		<div class="detail">谢谢了！</div>
+	</div>
+	<div class="clear"></div>
+	<div class="replies" id="PostReplies_397873"></div>
+	<div class="votes">				<a id="a_post_voteup_397873" href="javascript:vote_answer(397873,true,true)" title="这是一个好评论，能解决问题">有帮助</a><em id="post_voteup_397873">(0)</em>&nbsp;|
+		<a id="a_post_votedown_397873" href="javascript:vote_answer(397873,false,true)" title="这评论无法解决问题，或者模糊不清">没帮助</a><em id="post_votedown_397873">(0)</em>&nbsp;|
+		<a href="javascript:reply_to_post(397873,%200)">评论</a><em>(0)</em>&nbsp;|
+    	<a href="http://www.oschina.net/question/answer?question=52660&amp;answer=397873">引用此评论</a>	</div>
+</li></ul>
+				        </div> 
+		<div class="AnswerForm">
+			<div class="user"><a href="" name="answerform"><img src="234345_52660_files/portrait.gif" alt="非会员用户" title="非会员用户" class="SmallPortrait" user="" align="absmiddle"></a></div>
+			<form id="form_answer" action="/action/question/answer?question=52660" method="post">
+				<input name="user" value="" type="hidden">
+				<div style="width: 560px;" class="ke-container ke-container-oschina"><div unselectable="on" class="ke-toolbar" style="display:block;"><span class="ke-outline" data-name="bold" title="粗体(Ctrl+B)" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-bold" unselectable="on"></span></span><span class="ke-outline" data-name="italic" title="斜体(Ctrl+I)" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-italic" unselectable="on"></span></span><span class="ke-outline" data-name="underline" title="下划线(Ctrl+U)" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-underline" unselectable="on"></span></span><span class="ke-outline" data-name="strikethrough" title="删除线" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-strikethrough" unselectable="on"></span></span><span class="ke-outline" data-name="removeformat" title="删除格式" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-removeformat" unselectable="on"></span></span><span class="ke-inline-block ke-separator"></span><span class="ke-outline" data-name="insertorderedlist" title="编号" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-insertorderedlist" unselectable="on"></span></span><span class="ke-outline" data-name="insertunorderedlist" title="项目符号" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-insertunorderedlist" unselectable="on"></span></span><span class="ke-outline" data-name="forecolor" title="文字颜色" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-forecolor" unselectable="on"></span></span><span class="ke-outline" data-name="hilitecolor" title="文字背景" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-hilitecolor" unselectable="on"></span></span><span class="ke-outline" data-name="fontname" title="字体" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-fontname" unselectable="on"></span></span><span class="ke-outline" data-name="fontsize" title="文字大小" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-fontsize" unselectable="on"></span></span><span class="ke-inline-block ke-separator"></span><span class="ke-outline" data-name="link" title="超级链接" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-link" unselectable="on"></span></span><span class="ke-outline" data-name="unlink" title="取消超级链接" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-unlink" unselectable="on"></span></span><span class="ke-outline" data-name="emoticons" title="插入表情" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-emoticons" unselectable="on"></span></span><span class="ke-outline" data-name="shcode" title="插入程序代码或脚本" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-shcode" unselectable="on"></span></span><span class="ke-outline" data-name="image" title="图片" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-image" unselectable="on"></span></span><span class="ke-outline" data-name="flash" title="Flash" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-flash" unselectable="on"></span></span><span class="ke-outline" data-name="quote" title="引用某段文字" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-quote" unselectable="on"></span></span><span class="ke-inline-block ke-separator"></span><span class="ke-outline" data-name="source" title="HTML代码" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-source" unselectable="on"></span></span><span class="ke-outline" data-name="about" title="关于" unselectable="on"><span class="ke-toolbar-icon ke-toolbar-icon-url ke-icon-about" unselectable="on"></span></span></div><div class="ke-edit" style="display: block; height: 121px;"><iframe style="width: 100%; height: 121px;" class="ke-edit-iframe" hidefocus="true" frameborder="0"></iframe><textarea style="width: 100%; height: 121px; display: none;" class="ke-edit-textarea" hidefocus="true"></textarea></div><div class="ke-statusbar"><span class="ke-inline-block ke-statusbar-center-icon"></span><span style="visibility: hidden;" class="ke-inline-block ke-statusbar-right-icon"></span></div></div><textarea id="txt_answner" name="body" style="width: 560px; height: 160px; display: none;"></textarea>
+				<input value=" 发表评论 " id="FormSubmitButton" class="rndbutton" type="submit">
+				<span id="form_msg" style="display:none;"></span>
+				<br><br>
+				<a href="#answers">回评论顶部</a>&nbsp;|&nbsp;<a href="#top">回页面顶部</a>
+			</form>
+			<div class="clear"></div>
+			<script>			
+            $('#form_answer').ajaxForm({
+            	dataType: 'json',
+        		beforeSerialize: function($form, options) { 
+        			editor.sync();           
+                },
+        		beforeSubmit: function(){
+        			$('#FormSubmitButton').attr('disabled','disabled');
+        			$('#form_msg').html("<span class='ajax_processing'>正在提交评论，请稍候...</span>");	
+        			$('#form_msg').show();	
+        		},
+                success: function(json) {
+        			$('#FormSubmitButton').removeAttr('disabled');
+            		if(json.msg){
+        				$('#form_msg').html("<span class='error_msg'>"+json.msg+"</span>");
+        				$('#form_msg').show();
+        			}
+            		else if(json.id){
+            			ajax_get("/question/show_answer?_answer_id="+json.id, true, function(data){
+        					            				$('.QuestionReplies ul.list').append(data);
+        					        					editor.html('');
+        					$('.answer_count').html(json.answer_count);
+            			}); 				
+        				$('#form_msg').hide();
+            		}
+                }
+            });
+			</script>
+		</div>
+	</div>	
+	<script type="text/javascript" src="234345_52660_files/brush.js"></script>
+<link type="text/css" rel="stylesheet" href="234345_52660_files/shCore.css">
+<link type="text/css" rel="stylesheet" href="234345_52660_files/shThemeDefault.css">
+<script type="text/javascript"><!--
+$(document).ready(function(){
+	SyntaxHighlighter.config.clipboardSwf = '/js/syntax-highlighter-2.1.382/scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+});
+//-->
+</script>
+	<div class="QuestionRelations">
+	
+		<div id="QuestionWizard">
+			有什么技术问题吗？
+			<a href="http://www.oschina.net/question/ask" class="rndbutton"><span>我要提问</span></a>
+			<div class="clear"></div>
+		</div>
+		
+						<div id="OtherQuestionsOfUser" class="Qlist">
+			<strong><a href="http://my.oschina.net/chen106106/?ft=bbs&amp;scope=2&amp;showme=1" class="more">全部(4827)...</a><em>晨曦之光</em>的其他问题</strong>
+			<ul>
+						<li><a href="http://www.oschina.net/question/234345_65965" title="解惑IEEE754 浮点数内存布局">解惑IEEE754 浮点数内存布局</a><span class="date">(1回/435阅,11个月前)</span></li>						<li><a href="http://www.oschina.net/question/234345_65964" title="MFC——Hierarchy Chart--顶层类是CObject">MFC——Hierarchy Chart--顶层类是CObject</a><span class="date">(0回/155阅,11个月前)</span></li>						<li><a href="http://www.oschina.net/question/234345_65963" title="莫邪内联汇编之C++成员函数__5">莫邪内联汇编之C++成员函数__5</a><span class="date">(0回/227阅,11个月前)</span></li>						<li><a href="http://www.oschina.net/question/234345_65962" title="关于全局变量的看法">关于全局变量的看法</a><span class="date">(0回/276阅,11个月前)</span></li>						<li><a href="http://www.oschina.net/question/234345_65961" title="C++静态成员函数 调用非静态成员函数">C++静态成员函数 调用非静态成员函数</a><span class="date">(0回/811阅,11个月前)</span></li>						</ul>
+		</div>
+				<div style="text-align:center;margin-top:20px;">
+		            <a href="https://www.oschina.net/action/visit/ad?id=1048" target="_blank" title="ReSharper 8.0"><img src="234345_52660_files/145224_uKeB_179699.jpg"></a>
+		</div>
+		
+		<div id="Similarity" class="Qlist">
+			<strong>类似的话题</strong>
+			<ul>
+        				<li><a href="http://www.oschina.net/question/64349_50991" title="Python peps是个好东西">Python peps是个好东西</a><span class="date">(4回/988阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/234345_51286" title="python下的MySQLdb使用">python下的MySQLdb使用</a><span class="date">(0回/363阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/52884_9241" title="给micolog博客添加了一个天气预报小插件">给micolog博客添加了一个天气预报小插件</a><span class="date">(2回/370阅,3年前)</span></li>						<li><a href="http://www.oschina.net/question/234345_40048" title="我常用的几个第三方 Python 库">我常用的几个第三方 Python 库</a><span class="date">(0回/745阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/89964_40265" title="两个 Python 的冷技巧">两个 Python 的冷技巧</a><span class="date">(0回/379阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/89964_40266" title="两个 Python 的冷技巧（2）">两个 Python 的冷技巧（2）</a><span class="date">(0回/218阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/89964_40268" title="用Python做图像处理">用Python做图像处理</a><span class="date">(0回/1864阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/89964_40271" title="Python 字符串方法详解">Python 字符串方法详解</a><span class="date">(1回/298阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/234345_40313" title="使用PDB调试Python程序">使用PDB调试Python程序</a><span class="date">(1回/111阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/234345_40336" title="Python学习——struct模块的pack、unpack示例">Python学习——struct模块的pack、unpack示例</a><span class="date">(0回/2232阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/234345_40339" title="Python类继承简单实现">Python类继承简单实现</a><span class="date">(0回/300阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/234345_40341" title="python实现socket通讯(TCP)">python实现socket通讯(TCP)</a><span class="date">(0回/389阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/234345_40342" title="Python自动单元测试框架">Python自动单元测试框架</a><span class="date">(0回/241阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/234345_40343" title="Python自动单元测试实例">Python自动单元测试实例</a><span class="date">(0回/143阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/234345_40348" title="python网络编程学习初步">python网络编程学习初步</a><span class="date">(0回/504阅,1年前)</span></li>						<li><a href="http://www.oschina.net/question/89296_40395" title="python atexit 不起作用问题">python atexit 不起作用问题</a><span class="date">(0回/245阅,1年前)</span></li>						</ul>
+		</div>		
+	</div>
+	<div class="clear"></div>   
+</div>
+<script type="text/javascript" src="234345_52660_files/kindeditor-min.js" charset="utf-8"></script>
+<script type="text/javascript">
+<!--
+var editor;
+KindEditor.ready(function(K) {
+    editor = K.create('#txt_answner', {
+		themeType : 'oschina',
+		resizeType : 1,
+		urlType: 'domain',
+		shadowMode : false,
+		allowPreviewEmoticons : false,
+		allowImageUpload : true,
+		allowFlashUpload : false,
+		cssPath : '/css/ke-oschina.css',
+		uploadJson : '/action/blog/upload_img',
+		afterCreate : function(){
+			/*
+			K.ctrl(this.edit.iframe.get(0).contentWindow.document, 13, function() {
+				$("#txt_answner").parent().submit();
+			});
+			*/
+			$(this.edit.iframe.get(0).contentWindow.document).keydown(function(e) {
+				if ((e.ctrlKey || e.metaKey) && e.which == 13 && !e.shiftKey && !e.altKey){
+					$("#txt_answner").parent().submit();
+				}
+			});
+		},
+		afterChange : function() {
+			this.sync();
+		},
+		items : ['bold', 'italic', 'underline', 'strikethrough', 'removeformat','|','insertorderedlist', 'insertunorderedlist', 
+				 'forecolor', 'hilitecolor', 'fontname', 'fontsize',  '|', 'link', 'unlink', 'emoticons', 
+				 'shcode', 'image', 'flash', 'quote', '|', 'source','about'],
+		htmlTags:
+		{
+			script : ['src'],
+            font : ['color', 'size', 'face', '.background-color'],
+            span : [
+                    '.color', '.background-color', '.font-size', '.font-family', '.background',
+                    '.font-weight', '.font-style', '.text-decoration', '.vertical-align', '.line-height'
+            ],
+            div : [
+                    'class', 'align', '.border', '.margin', '.padding', '.text-align', '.color',
+                    '.background-color', '.font-size', '.font-family', '.font-weight', '.background',
+                    '.font-style', '.text-decoration', '.vertical-align', '.margin-left'
+            ],
+            table: [
+                    'border', 'cellspacing', 'cellpadding', 'width', 'height', 'align', 'bordercolor',
+                    '.padding', '.margin', '.border', 'bgcolor', '.text-align', '.color', '.background-color',
+                    '.font-size', '.font-family', '.font-weight', '.font-style', '.text-decoration', '.background',
+                    '.width', '.height', '.border-collapse'
+            ],
+            'td,th': [
+                    'align', 'valign', 'width', 'height', 'colspan', 'rowspan', 'bgcolor',
+                    '.text-align', '.color', '.background-color', '.font-size', '.font-family', '.font-weight',
+                    '.font-style', '.text-decoration', '.vertical-align', '.background', '.border'
+            ],
+            a : ['href', 'target', 'name'],
+            embed : ['src', 'width', 'height', 'type', 'loop', 'autostart', 'quality', '.width', '.height', 'align', 'allowscriptaccess'],
+            img : ['src', 'width', 'height', 'border', 'alt', 'title', 'align', '.width', '.height', '.border'],
+            'p,ol,ul,li,blockquote,h1,h2,h3,h4,h5,h6' : [
+                    'align', '.text-align', '.color', '.background-color', '.font-size', '.font-family', '.background',
+                    '.font-weight', '.font-style', '.text-decoration', '.vertical-align', '.text-indent', '.margin-left'
+            ],
+            pre : ['class'],
+            hr : ['class', '.page-break-after'],
+            'br,tbody,tr,strong,b,sub,sup,em,i,u,strike,s,del' : []
+		}
+    });
+});
+//-->
+</script>
+<!--[if lt IE 7]>
+<script type="text/javascript" src="/js/minmax.js"></script>
+<![endif]-->
+<script type="text/javascript" src="234345_52660_files/question.js"></script>
+<script type="text/javascript">
+<!--
+$(document).ready(function() {
+	$('.Answer .replies li').hover(
+		function(){$(this).addClass('hover');},
+		function(){$(this).removeClass('hover');}
+	);	
+	
+    $('.detail img').css('cursor','pointer');
+    jQuery.each($('.detail img'),function(idx,v){
+        if(!$(v).parent().is("a")) {
+            $(v).wrap("<a href='"+$(this).attr('src')+"' target='_blank'></a>");
+        }
+    });
+	
+	$('#c').bind('mouseover mouseout',function(){
+		$('#c_on').toggle();
+		$('#c_off').toggle();
+	});
+	
+	$('#favor_trigger').click(function(){
+			add_to_favor(52660,2);
+		});
+});
+function ask_too(qid, ask){
+	ajax_post("/action/question/ask_too?id="+qid+"&ask="+ask,"",function(html){
+		json = eval('('+html+')');
+		if(json.asker_count >= 0){
+			$('#c_asker_count').html(json.asker_count);
+			if(json.ask_mode)
+				$('#RQuestionAction').html("<span class='rect'>已问同一问题 | <a href='javascript:ask_too(52660,false)'>取消？</a></span>");
+			else
+				$('#RQuestionAction').html("<a href='javascript:ask_too(52660,true)' class='rndbutton'><span>我想问同样的问题</span></a>");			
+		}
+		else{
+			$('#RQuestionAction').poshytip({
+				className: 'tip-yellowsimple',
+				content: json.msg,
+				showOn: 'none',
+				alignTo: 'target',
+				alignX: 'center',
+				alignY: 'top',
+				offsetY: 6
+			});
+			$('#RQuestionAction').poshytip('show');
+			var t = setTimeout(function(){
+				clearTimeout(t);
+				$('#RQuestionAction').poshytip('destroy');
+			},4000);
+		}
+	});
+}
+function delete_q(qid){
+	if(!confirm("您确认要删除此问题吗，删除的数据不可恢复？"))
+		return ;
+		ajax_post("/action/question/delete?id="+qid+"&hash=-297714931","",function(html){
+		if(html.length>0)
+			alert(html);
+		else{
+			location.href = "/question";
+		}
+	});
+}
+function edit_answer(aid){
+	location.href="/question/edit_answer?id="+aid;
+}
+function delete_answer(aid,hash){
+	if(!confirm("您确认要删除此答案吗，删除的数据不可恢复？"))
+		return ;
+	ajax_post("/action/question/delete_answer?id="+aid+"&hash="+hash,"",function(html){
+		if(html.length>0)
+			alert(html);
+		else{
+			$('#answer_'+aid).fadeOut();
+		}
+	});
+}
+function delete_post_reply(aid,hash){
+	if(!confirm("您确认要删除此评论吗，删除的数据不可恢复？"))
+		return ;
+	ajax_post("/action/question/delete_answer?id="+aid+"&hash="+hash,"",function(html){
+		if(html.length>0)
+			alert(html);
+		else{
+			$('#PostReply_'+aid).fadeOut();
+		}
+	});
+}
+function delete_q_rpl(qid, rid){
+	if(!confirm("删除补充说明会被扣威望值，是否继续？"))
+		return ;
+	ajax_post("/action/question/delete_detail?id="+rid,"",function(html){
+		if(html.length>0)
+			alert(html);
+		else
+			$("#q_reply_"+rid).fadeOut();
+	});
+}
+function close_tip(tid){$('#'+tid).poshytip('destroy');}
+//答案投票
+function vote_answer(qid, vote_up, need_confirm){
+	if(need_confirm && !vote_up){
+		if(!$('#a_post_votedown_' + qid).hasClass('bold')){
+			var vote_down_confirm_msg = "<p>此操作将会扣掉你1个积分，是否继续？</p><p style='margin-top:10px;'><a href='javascript:vote_answer("+qid+",false,false)' class='rbtn' style='margin:0 10px 0 50px;'><span>确定</span></a><a href=\"javascript:close_tip('a_post_votedown_" + qid +"')\" class='rbtn'><span>取消</span></a></p>";			
+			$('#a_post_votedown_' + qid).poshytip({
+				className: 'tip-yellowsimple',
+				content: vote_down_confirm_msg,
+				showOn: 'none',
+				slide: false,
+				fade: false,
+				alignTo: 'target',
+				alignX: 'center',
+				offsetY: 8
+			});
+			$('#a_post_votedown_' + qid).poshytip('show');
+			return;
+		}
+	}
+	if(!need_confirm){
+		$('#a_post_votedown_' + qid).poshytip('destroy');
+	}
+	ajax_post("/action/question/vote_answer?id="+qid+"&vote="+vote_up+"&user=","",function(data){
+		json = eval('('+data+')');
+		if(json.msg){
+			var aid = vote_up?"a_post_voteup_":"a_post_votedown_";
+			aid += qid;
+			$('#'+aid).poshytip({
+				className: 'tip-yellowsimple',
+				content: json.msg,
+				showOn: 'none',
+				alignTo: 'target',
+				alignX: 'center',
+				alignY: 'top',
+				offsetY: 6
+			});
+			$('#'+aid).poshytip('show');
+			var t = setTimeout(function(){
+				clearTimeout(t);
+				$('#'+aid).poshytip('destroy');
+			},2000);
+			//jQuery.fancybox("<div class='error_box'>"+json.msg+"</div>");
+		}
+		else{
+			if(vote_up){
+				$('#post_voteup_'+qid).html('('+json.vote+')');
+				$('#a_post_voteup_'+qid).toggleClass('bold');
+			}
+			else{
+				$('#post_votedown_'+qid).html('('+json.vote+')');
+				$('#a_post_votedown_'+qid).toggleClass('bold');
+			}
+		}
+	});
+}
+//问题投票 
+$('#vote_up').click(function(){
+	if(this.clickTimeout){
+        // 双击
+        clearTimeout(this.clickTimeout);
+        this.clickTimeout = null;
+		alert("不用那么费劲啦，点击一下就够了:)");
+    }
+    else{
+        // 单击
+        var elem = this;
+        this.clickTimeout = setTimeout(function(){
+            // 执行点击动作
+            elem.clickTimeout = null;
+			vote_question(52660,true, true);
+        }, 250);
+    }
+    //阻止链接onclick时的默认行为
+    return false;
+});
+$('#vote_down').click(function(){
+	vote_question(52660,false, true);
+	/*
+	if(this.clickTimeout){
+        // 双击
+        clearTimeout(this.clickTimeout);
+        this.clickTimeout = null;
+		alert("不用那么费劲啦，点击一下就够了:)");
+    }
+    else{
+        // 单击
+        var elem = this;
+        this.clickTimeout = setTimeout(function(){
+            // 执行点击动作
+            elem.clickTimeout = null;
+			vote_question(52660,false, true);
+        }, 250);
+    }
+    //阻止链接onclick时的默认行为
+	*/
+    return false;
+});
+function vote_question(qid, vote_up, need_confirm){
+	if(need_confirm && !vote_up){
+		if($('#Vote #vote_down').hasClass('ask_vote_down')){
+			var vote_down_confirm_msg = "<p>踩问题将会扣掉你1个积分，是否继续？</p><p style='margin-top:10px;'><a href='javascript:vote_question(52660,false,false)' class='rbtn' style='margin-right:10px;'><span>确定</span></a><a href=\"javascript:close_tip('vote_down')\" class='rbtn'><span>取消</span></a></p>";
+			$('#Vote #vote_down').poshytip({
+				className: 'tip-yellowsimple',
+				content: vote_down_confirm_msg,
+				slide: false,
+				fade: false,
+				showOn: 'none',
+				alignTo: 'target',
+				alignX: 'inner-right',
+				alignY: 'bottom',
+				offsetX: -30,
+				offsetY: 15
+			});
+			$('#Vote #vote_down').poshytip('show');
+			return;
+		}
+	}
+	if(!need_confirm){
+		$('#Vote #vote_down').poshytip('destroy');
+	}
+	ajax_post("/action/question/vote?user=&id="+qid+"&vote="+vote_up,"",function(data){
+		json = eval('('+data+')');
+		if(json.msg){
+			var aid = vote_up?"vote_up":"vote_down";
+			$('#'+aid).poshytip({
+				className: 'tip-yellowsimple',
+				content: json.msg,
+				showOn: 'none',
+				alignTo: 'target',
+				alignX: 'inner-right',
+				alignY: 'bottom',
+				offsetX: 5,
+				offsetX: -35
+			});
+			$('#'+aid).poshytip('show');
+			var t = setTimeout(function(){
+				clearTimeout(t);
+				$('#'+aid).poshytip('destroy');
+			},2000);
+		}
+		else{
+						if(vote_up){
+				$('#Vote .vote-up-count').html(json.vote_up);
+				$('#Vote #vote_up').toggleClass('ask_vote_up');
+				$('#Vote #vote_up').toggleClass('ask_vote_uped');
+			}
+			else{
+				$('#Vote .vote-down-count').html(json.vote_down);
+				$('#Vote #vote_down').toggleClass('ask_vote_down');
+				$('#Vote #vote_down').toggleClass('ask_vote_downed');
+			}
+		}
+	});
+}
+//评论答案
+function reply_to_post(postid,uid){
+	popup("/action/ajax/reply_to_post?id=" + postid + "&refer="+uid);
+	}
+
+function show_rp_next(postid,current,total){
+	if(current < total){
+		var next_page = current + 1;
+    	var url = "/question/post_replies?answer="+postid+"&rp="+next_page;
+    	ajax_post(url,"",function(html){
+    		$('#PostReplies_'+postid).html(html);
+				addRepliesHoverEvent();
+			});
+	}
+}
+
+function addRepliesHoverEvent(){
+	$("li [id ^= 'PostReply']").hover(function(){
+		$(this).addClass("hover");
+	},function(){
+		$(this).removeClass("hover");
+	});
+}
+
+function show_rp_prev(postid,current,total){
+	if(current > 1){
+		var next_page = current - 1;
+    	var url = "/question/post_replies?answer="+postid+"&rp="+next_page;
+    	ajax_post(url,"",function(html){
+    		$('#PostReplies_'+postid).html(html);
+			addRepliesHoverEvent();
+    	});
+	}
+}
+function mark_as_top(qid, as_top) {
+	var args = "id="+qid+"&top="+as_top;
+	ajax_post("/action/question/mark_as_top",args,function(html){
+		alert(html);
+	});
+}
+function mark_as_best(postid, is_best){
+	var args = "id="+postid+"&best="+(is_best?1:0);
+	ajax_post("/action/question/mark_as_best",args,function(html){
+    	if(html.length>0){
+    		$('#best_answer_'+postid).poshytip({
+    			className: 'tip-yellowsimple',
+    			content: html,
+    			showOn: 'none',
+    			alignTo: 'target',
+    			alignX: 'center',
+    			alignY: 'top',
+    			offsetY: 6
+    		});
+    		$('#best_answer_'+postid).poshytip('show');
+    		var t = setTimeout(function(){
+    			clearTimeout(t);
+    			$('#best_answer_'+postid).poshytip('destroy');
+    		},2000);
+    	}
+    	else{
+			if(is_best)
+				$('#answer_'+postid).addClass('Best');
+			else
+				$('#answer_'+postid).removeClass('Best');
+    	}
+	});
+}
+function edit_tags(qid){
+	popup("/question/edit_tags?question="+qid);
+}
+function edit_catalogs(qid){
+	popup("/admin/catalog/set-catalogs?parent=1&type=2&id="+qid);
+}
+function event_apply(event_id){	
+	popup("/action/ajax/event_apply","id="+event_id);
+}
+function cancel_apply(event_id){
+	if(confirm("您确认要取消参加此次活动吗？")){
+		ajax_post("/action/event/cancel","event="+event_id,function(html){
+			if(html.length>0)
+				alert(html);
+			else
+				alert('已取消参加此次活动，感谢您的支持:)');
+		});
+	}
+}
+
+var favor_ok = "<p class='favor_ok'>已成功添加到收藏夹<br/><br/> <a href='null/favorites?type=$DAISY_OBJ_TYPE'>我的收藏夹</a> | <a href='javascript:close_favor()'>关闭</a></p>";
+function delete_favor(obi_id, obj_type){
+	if(!confirm('确定取消收藏？')) return;
+	$.post("/action/favorite/cancel?type="+obj_type+"&id="+obi_id+"&user=",function(html){
+		$('#favor_trigger').parent('div').removeClass('ask_collected').addClass('ask_collect');
+		$('#favor_trigger').attr('title','添加到收藏');
+    	$('#p_favor_count').html(html);
+		$('#favor_trigger').unbind('click');
+		$('#favor_trigger').click(function(){add_to_favor(52660,2);});
+	});
+}
+function add_to_favor(obj_id, obj_type){
+	if(confirm('必须登录后才能收藏，是否现在登录？')){
+		location.href="http://www.oschina.net/home/login?goto_page="+location.href;
+	}
+}
+function close_favor(elem_id){
+    $('#favor_trigger').poshytip('destroy');
+}
+function setTag(tv){
+	var t = $("._favor_input");
+	var value = t.val();
+	var tags = value.replace(/，/ig,',').split(',');
+	var exist = false;
+	value = $.map(tags,function(v,i){
+		if($.trim(tv) == $.trim(v)){
+			exist = true;
+			return undefined;
+		}
+		return v;
+	}).join(',');
+	if(exist){
+		t.val(value);
+		return;
+	}
+	if(value!="")
+		t.val(value+","+tv);
+	else
+		t.val(tv)
+}
+//-->
+</script><div class="clear"></div></div>
+	<div id="OSC_Footer" class="CenterDiv"><style>
+.oscapp {text-align:left; width:220px;}
+.oscapp span {float:left;width:140px;}
+.oscapp a {float:left;text-indent:-9999em;width:16px;margin-left:8px;}
+.oscapp a.android {background:url('/img/android.gif') no-repeat left center;}
+.oscapp a.iphone {background:url('/img/iphone.gif') no-repeat left center;}
+.oscapp a.wp7 {background:url('/img/wp7.gif') no-repeat left center;}
+</style>
+<table width="100%"><tbody><tr>
+<td align="left">© 开源中国(OsChina.NET) | <a href="http://www.oschina.net/home/about">关于我们</a> | <a href="mailto:oschina.net@gmail.com">广告联系</a> | <a href="http://weibo.com/oschina2010" target="_blank">@新浪微博</a> | <a href="http://m.oschina.net/">开源中国手机版</a> | <a href="http://www.miitbeian.gov.cn/" target="_blank" style="color:#737573;text-decoration:none;">粤ICP备12009483号-3</a></td>
+<td class="oscapp">
+	<span>开源中国手机客户端：</span>
+	<a href="http://www.oschina.net/app" class="android" title="Android客户端">Android</a>
+	<a href="http://www.oschina.net/app" class="iphone" title="iPhone 客户端">iPhone</a>
+	<a href="http://www.oschina.net/app" class="wp7" title="Windows Phone 客户端">WP7</a>
+</td>
+</tr>
+</tbody></table>
+<script type="text/javascript">
+<!--
+if (top.location != self.location)top.location=self.location;
+//-->
+</script></div>
+</div>
+
+
+<div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div><div title="回到顶部" style="position: fixed; bottom: 120px; right: 100px; cursor: pointer; display: none;" id="topcontrol"><img src="234345_52660_files/gotop.gif" style="width:31px; height:31px;"></div></body></html>
+<!-- Generated by OsChina.NET (init:0[ms],page:58[ms],ip:202.108.130.138) -->

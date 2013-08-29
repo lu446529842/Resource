@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>一个简单的python socket编程 - Open Experience - ITeye技术网站</title>
+    <meta name="description" content="python 编写server的步骤：     第一步是创建socket对象。调用socket构造函数。如：     socket = socket.socket( family, type )     family参数代表地址家族，可为AF_INET或AF_UNIX。AF_INET家族包括Internet地址，AF_UNIX家族用于同一台机器上的进程间通信。     type参数代表套接字类型，可 ...">
+    <meta name="keywords" content="编程, Socket, Python, Unix, Go 一个简单的python socket编程">
+    <link rel="shortcut icon" href="http://openexperience.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://openexperience.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://openexperience.iteye.com/rss" rel="alternate" title="Open Experience" type="application/rss+xml">
+    <link href="145701_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="145701_files/purple.css" media="screen" rel="stylesheet" type="text/css">
+    <script src="145701_files/ga.js" async="" type="text/javascript"></script><script src="145701_files/application.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="145701_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="145701_files/shCoreCommon.js" type="text/javascript"></script>
+<script src="145701_files/hotkey.js" type="text/javascript"></script>
+  <script src="145701_files/code_favorites.js" type="text/javascript"></script>
+<script src="145701_files/weiboshare.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="http://openexperience.iteye.com/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://openexperience.iteye.com/login">登录</a>
+    <a href="http://openexperience.iteye.com/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://openexperience.iteye.com/">Open Experience</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://openexperience.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://openexperience.iteye.com/weibo">微博</a></li>
+            <li><a href="http://openexperience.iteye.com/album">相册</a></li>
+            <li><a href="http://openexperience.iteye.com/link">收藏</a></li>
+            <li><a href="http://openexperience.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://openexperience.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text">
+              <input class="submit_search" value="" type="submit">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="http://openexperience.iteye.com/blog/145701">一个简单的python socket编程</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://openexperience.iteye.com/category/23042">工作乐趣</a></li> </ul>
+        <div class="news_tag"><a href="http://www.iteye.com/blogs/tag/%E7%BC%96%E7%A8%8B">编程</a><a href="http://www.iteye.com/blogs/tag/Socket">Socket</a><a href="http://www.iteye.com/blogs/tag/Python">Python</a><a href="http://www.iteye.com/blogs/tag/Unix">Unix</a><a href="http://www.iteye.com/blogs/tag/Go">Go</a>&nbsp;</div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    python 编写server的步骤：<br>
+<ol>
+    <li>
+    <p>第一步是创建socket对象。调用socket构造函数。如：<br>
+    <br>
+    socket = socket.socket( family, type )<br>
+    <br>
+    family参数代表地址家族，可为AF_INET或AF_UNIX。AF_INET家族包括Internet地址，AF_UNIX家族用于同一台机器上的进程间通信。<br>
+    type参数代表套接字类型，可为SOCK_STREAM(流套接字)和SOCK_DGRAM(数据报套接字)。</p>
+    </li>
+    <li>
+    <p>第二步是将socket绑定到指定地址。这是通过socket对象的bind方法来实现的：<br>
+    <br>
+    socket.bind( address ) <br>
+    <br>
+    <br>
+    <br>
+    由AF_INET所创建的套接字，address地址必须是一个双元素元组，格式是(host,port)。host代表主机，port代表端口号。如果端口号正在使用、主机名不正确或端口已被保留，bind方法将引发socket.error异常。</p>
+    </li>
+    <li>
+    <p>第三步是使用socket套接字的listen方法接收连接请求。</p>
+    <p>socket.listen( backlog )</p>
+    <p>backlog指定最多允许多少个客户连接到服务器。它的值至少为1。收到连接请求后，这些请求需要排队，如果队列满，就拒绝请求。</p>
+    </li>
+    <li>
+    <p>第四步是服务器套接字通过socket的accept方法等待客户请求一个连接。<br>
+    <br>
+    connection, address = socket.accept()<br>
+    <br>
+    调 
+用accept方法时，socket会时入“waiting”状态。客户请求连接时，方法建立连接并返回服务器。accept方法返回一个含有两个元素的
+ 元组(connection,address)。第一个元素connection是新的socket对象，服务器必须通过它与客户通信；第二个元素 
+address是客户的Internet地址。</p>
+    </li>
+    <li>第五步是处理阶段，服务器和客户端通过send和recv方法通信(传输 
+数据)。服务器调用send，并采用字符串形式向客户发送信息。send方法返回已发送的字符个数。服务器使用recv方法从客户接收信息。调用recv
+ 
+时，服务器必须指定一个整数，它对应于可通过本次方法调用来接收的最大数据量。recv方法在接收数据时会进入“blocked”状态，最后返回一个字符
+ 
+串，用它表示收到的数据。如果发送的数据量超过了recv所允许的，数据会被截短。多余的数据将缓冲于接收端。以后调用recv时，多余的数据会从缓冲区
+ 删除(以及自上次调用recv以来，客户可能发送的其它任何数据)。</li>
+    <li>传输结束，服务器调用socket的close方法关闭连接。</li>
+</ol>
+python编写client的步骤：<br>
+<ol>
+    <li>创建一个socket以连接服务器：socket = socket.socket( family, type )</li>
+    <li>
+    <p>使用socket的connect方法连接服务器。对于AF_INET家族,连接格式如下：</p>
+    <p>socket.connect( (host,port) )</p>
+    <p>host代表服务器主机名或IP，port代表服务器进程所绑定的端口号。如连接成功，客户就可通过套接字与服务器通信，如果连接失败，会引发socket.error异常。</p>
+    </li>
+    <li>处理阶段，客户和服务器将通过send方法和recv方法通信。</li>
+    <li>传输结束，客户通过调用socket的close方法关闭连接。</li>
+</ol>
+下面给个简单的例子：<br>
+<br>
+server.py <br>
+<div class="code_title">python 代码</div>
+<div class="dp-highlighter">
+<div class="bar">&nbsp;</div>
+<ol class="dp-py">
+    <li class="alt"><span><span class="keyword">if</span><span>&nbsp;</span><span class="builtins">__name__</span><span>&nbsp;==&nbsp;'</span><span class="builtins">__main__</span><span>':&nbsp;&nbsp;</span></span></li>
+    <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">import</span><span>&nbsp;</span><span class="commonlibs">socket</span><span>&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;sock&nbsp;=&nbsp;<span class="commonlibs">socket</span><span>.</span><span class="commonlibs">socket</span><span>(</span><span class="commonlibs">socket</span><span>.AF_INET,&nbsp;</span><span class="commonlibs">socket</span><span>.SOCK_STREAM)&nbsp;&nbsp;</span></span></li>
+    <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;sock.bind(('localhost',&nbsp;8001))&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;sock.listen(5)&nbsp;&nbsp;</span></li>
+    <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">while</span><span>&nbsp;</span><span class="builtins">True</span><span>:&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection,address&nbsp;=&nbsp;sock.accept()&nbsp;&nbsp;</span></li>
+    <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><span>:&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.settimeout(5)&nbsp;&nbsp;</span></li>
+    <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buf&nbsp;=&nbsp;connection.recv(1024)&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;buf&nbsp;==&nbsp;'1':&nbsp;&nbsp;</span></span></li>
+    <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.send('welcome&nbsp;to&nbsp;server!')&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><span>:&nbsp;&nbsp;</span></span></li>
+    <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.send('please&nbsp;go&nbsp;out!')&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">except</span><span>&nbsp;</span><span class="commonlibs">socket</span><span>.timeout:&nbsp;&nbsp;</span></span></li>
+    <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">print</span><span>&nbsp;'</span><span class="commonlibs">time</span><span>&nbsp;out'&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.<span class="builtins">close</span><span>()&nbsp;&nbsp;</span></span></li>
+</ol>
+</div>
+<br>
+client.py<br>
+<div class="code_title">python 代码</div>
+<div class="dp-highlighter">
+<div class="bar">&nbsp;</div>
+<ol class="dp-py">
+    <li class="alt"><span><span class="keyword">if</span><span>&nbsp;</span><span class="builtins">__name__</span><span>&nbsp;==&nbsp;'</span><span class="builtins">__main__</span><span>':&nbsp;&nbsp;</span></span></li>
+    <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">import</span><span>&nbsp;</span><span class="commonlibs">socket</span><span>&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;sock&nbsp;=&nbsp;<span class="commonlibs">socket</span><span>.</span><span class="commonlibs">socket</span><span>(</span><span class="commonlibs">socket</span><span>.AF_INET,&nbsp;</span><span class="commonlibs">socket</span><span>.SOCK_STREAM)&nbsp;&nbsp;</span></span></li>
+    <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;sock.connect(('localhost',&nbsp;8001))&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">import</span><span>&nbsp;</span><span class="commonlibs">time</span><span>&nbsp;&nbsp;</span></span></li>
+    <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="commonlibs">time</span><span>.sleep(2)&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;sock.send('1')&nbsp;&nbsp;</span></li>
+    <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">print</span><span>&nbsp;sock.recv(1024)&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;sock.<span class="builtins">close</span><span>()&nbsp;&nbsp;</span></span></li>
+</ol>
+</div>
+<br>
+在终端运行server.py，然后运行clien.py，会在终端打印“welcome  to 
+server!"。如果更改client.py的sock.send('1')为其它值在终端会打印”please go 
+out!“，更改time.sleep(2)为大于5的数值， 服务器将会超时。
+  </div>
+
+  
+
+
+  <iframe src="145701_files/794.html" frameborder="0" height="60" scrolling="no" width="468"></iframe>
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="145701_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="145701_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://openexperience.iteye.com/blog/145970" class="next" title="统计python代码量">统计python代码量</a>
+      |
+      <a href="http://openexperience.iteye.com/blog/145622" class="pre" title="开机隐藏cmd运行程序">开机隐藏cmd运行程序</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2007-12-03 21:57</li>
+      <li>浏览 37765</li>
+      <li><a href="#comments">评论(0)</a></li>
+      
+      
+            
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/145701" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="http://openexperience.iteye.com/login" style="background-color:white;"> <img src="145701_files/login_icon.png" style="vertical-align:middle; margin-right: 10px;"></a><a href="http://openexperience.iteye.com/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 145701;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', '一个简单的python socket编程');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', '一个简单的python socket编程');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://openexperience.iteye.com/"><img alt="dongin的博客" class="logo" src="145701_files/3a65f254-ef00-3fac-a5fe-96884b5550c5.jpg" title="dongin的博客: Open Experience"></a></div>
+  <div id="blog_owner_name">dongin</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 60632 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="145701_files/icon_minigender_1.gif" title="男"></li>
+              <li>来自: 北京</li>
+              <li><img src="145701_files/offline.gif"></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://openexperience.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://yyjingcai.iteye.com/" target="_blank"><img alt="liu_87663663的博客" class="logo" src="145701_files/user-logo-thumb.gif" title="liu_87663663的博客: ①個λん精彩"></a></div>
+                <div class="left"><a href="http://yyjingcai.iteye.com/" target="_blank" title="liu_87663663">liu_87663663</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://dylinshi126.iteye.com/" target="_blank"><img alt="dylinshi126的博客" class="logo" src="145701_files/user-logo-thumb.gif" title="dylinshi126的博客: "></a></div>
+                <div class="left"><a href="http://dylinshi126.iteye.com/" target="_blank" title="dylinshi126">dylinshi126</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://081221097xr.iteye.com/" target="_blank"><img alt="081221097xr的博客" class="logo" src="145701_files/user-logo-thumb.gif" title="081221097xr的博客: "></a></div>
+                <div class="left"><a href="http://081221097xr.iteye.com/" target="_blank" title="081221097xr">081221097xr</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://iasc.iteye.com/" target="_blank"><img alt="iasc的博客" class="logo" src="145701_files/user-logo-thumb.gif" title="iasc的博客: "></a></div>
+                <div class="left"><a href="http://iasc.iteye.com/" target="_blank" title="iasc">iasc</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://openexperience.iteye.com/">全部博客 (14)</a></li>
+                
+                  <li><a href="http://openexperience.iteye.com/category/23042">工作乐趣 (12)</a></li>
+                
+                  <li><a href="http://openexperience.iteye.com/category/23041">生活乐趣 (1)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://openexperience.iteye.com/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="http://openexperience.iteye.com/blog/post">我的论坛</a> (1)
+                </li>
+                <li><a href="http://openexperience.iteye.com/blog/answered_problems">我的问答</a> (0)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://openexperience.iteye.com/blog/monthblog/2009-06">2009-06</a> (1)</li>
+                
+                  <li><a href="http://openexperience.iteye.com/blog/monthblog/2008-01">2008-01</a> (3)</li>
+                
+                  <li><a href="http://openexperience.iteye.com/blog/monthblog/2007-12">2007-12</a> (9)</li>
+                
+                <li><a href="http://openexperience.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://magicalboy.iteye.com/" target="_blank" title="magicalboy">magicalboy</a>： 
+                  代码没注释，材资不齐！<br>
+                  <a href="http://openexperience.iteye.com/blog/157549#bc1494886">django 验证码</a>
+                </li>
+                
+                <li>
+                  <a href="http://xiao80xiao.iteye.com/" target="_blank" title="xiao80xiao">xiao80xiao</a>： 
+                  请问验证码的值（四个数字）怎样传递呢？
+<br>
+                  <a href="http://openexperience.iteye.com/blog/157549#bc1260352">django 验证码</a>
+                </li>
+                
+                <li>
+                  <a href="http://slieer.iteye.com/" target="_blank" title="slieer">slieer</a>： 
+                  能更新一下吗？否则就失去了参考价值。<br>
+                  <a href="http://openexperience.iteye.com/blog/151558#bc1130437">初步接触pentaho</a>
+                </li>
+                
+                <li>
+                  <a href="http://jythoner.iteye.com/" target="_blank" title="jythoner">jythoner</a>： 
+                  兄弟好像是在用python工作的?好羡慕啊，有时间交流交流，我 ...<br>
+                  <a href="http://openexperience.iteye.com/blog/145562#bc1069325">django自定义model</a>
+                </li>
+                
+                <li>
+                  <a href="http://jasongreen.iteye.com/" target="_blank" title="jasongreen">jasongreen</a>： 
+                  luiqt 写道很有价值多谢分享很有价值多谢分享<br>
+                  <a href="http://openexperience.iteye.com/blog/157549#bc1007243">django 验证码</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2012 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script><img src="145701_files/a.gif" height="0" width="0">
+
+    
+    
+  
+
+</body></html>
