@@ -1,0 +1,55 @@
+
+var start = 1;
+
+var _html = '<div class="blogpopMain"><div class="l">'
+          + '<a href="http://blog.51cto.com/zt/531" target="_blank"><img src="http://blog.51cto.com/image/blog_top/upload/1377846351_index.jpg" width="105" height="105" /></a>'
+          + '<p><a href="http://blog.51cto.com/zt/531" target="_blank">Android窗口管理</a></p></div>'
+          + '<div class="r"><h4 style="text-align:left;"><a href="http://frankfan.blog.51cto.com/6402282/1282559" target="_blank">为什么我们永远疲于奔命？</a></h4>'
+          + '<ul>'
+          + '<li><a href="http://sunjibin.blog.51cto.com/918334/1281111" target="_blank">职场人的“存在主义”哲学</a></li>'
+          + '<li><a href="http://yisuowushinian.blog.51cto.com/4241271/1279839" target="_blank">实习第三周小记：生活在于经历</a></li>'
+          + '<li><a href="http://songknight.blog.51cto.com/2599480/1274689" target="_blank">Hadoop感想，是否需要追逐潮流</a></li>'
+          + '<li><a href="http://doctor.51cto.com/develop-293.html" target="_blank"style="color:red;">门诊：企业桌面标准化及桌面安全！</a></li>'
+          + '</ul>'
+          + '</div></div>'
+          + '';
+
+jQuery('#showMessagerDim').show();
+
+jQuery(function(){
+//window.onload=function(){
+   if(get_cookie('blog_top')==''&&start==1){
+//	 show_pop();
+	    jQuery.messager.showblogtop('', _html);
+        var date=new Date();
+	    var day = 1378137600000;//
+	    date.setTime(day);
+	    var test = date.getTime();
+	    document.cookie="blog_top=yes;domain=.blog.51cto.com;expires="+date.toGMTString()+";path=/;";
+    }
+	jQuery("#showMessagerDim").click(function(){
+		jQuery.messager.showblogtop('', _html);
+		//removeIframe();
+	});
+//}
+});
+
+
+function get_cookie(Name) {
+    var search = Name + "=";
+    var returnvalue = "";
+    if (document.cookie.length > 0) {
+        offset = document.cookie.indexOf(search);
+        if (offset != -1) {
+            offset += search.length;
+
+            end1 = document.cookie.indexOf(";", offset);
+
+            if (end1 == -1)
+            end1 = document.cookie.length;
+            returnvalue=unescape(document.cookie.substring(offset, end1));
+        }
+    }
+    return returnvalue;
+}
+

@@ -1,0 +1,1816 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>Kickstart/Anaconda实现自动化安装原理探究 - Mo - 51CTO技术博客</title>
+<meta name="description" content="内容概要：1.&nbsp;系统安装基本流程图示2.&nbsp;Anaconda简介3.&nbsp;Kickstart简介4.&nbsp;引导并指定安装方式5.&nbsp;kickstart文件中的主要项目及参数介绍6.&nbsp;kickstart配置文件示例7.&nbsp;RedHat安装光..">
+<meta name="keywords" content="休闲,职场,kickstart,anaconda,自动化安装 ">
+<meta http-equiv="Cache-Control" content="private">
+<!-- base href="http://molinux.blog.51cto.com/" -->
+<script src="548247_files/ga.js" async="" type="text/javascript"></script><script src="548247_files/def.js"></script>
+<script language="javascript" src="548247_files/message.js" type="text/javascript"></script>
+<script language="javascript" src="548247_files/user_comment.js" type="text/javascript"></script>
+<script language="javascript" src="548247_files/base2.js" type="text/javascript"></script>
+<script language="javascript" src="548247_files/dialog_utf8.js" type="text/javascript"></script>
+<link href="548247_files/41.css" rel="stylesheet" type="text/css">
+<link rel="alternate" href="http://molinux.blog.51cto.com/rss.php?uid=2536040" type="application/rss+xml" title="RSS 2.0">
+<link rel="edituri" type="application/rsd+xml" title="rsd" href="http://molinux.blog.51cto.com/xmlrpc.php?rsd=1">
+<link href="548247_files/header_master_top.css" rel="stylesheet" type="text/css">
+<link href="548247_files/base.css" rel="stylesheet" type="text/css">
+<script src="548247_files/poptop.js"></script>
+<style type="text/css">
+	.mainNav li a{display:inline-block}
+</style>
+<script>
+var myid = "";
+function add_flink(){
+	if(myid==""){
+
+        var refurlk = "http://molinux.blog.51cto.com/2536040/548247";
+
+				//commentSubmit("",refurlk);
+				location.href="http://home.51cto.com/index.php?reback="+encodeURIComponent(encodeURIComponent(refurlk));
+				return false;
+	}else{
+      		var url='/mod/edit_flink.php?type=addflink&uid=2536040&flink=http://molinux.blog.51cto.com';
+		var ajax = InitAjax1();
+		ajax.open("GET", url, true);
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				if(ajax.responseText==""){
+					alert("添加成功。");
+				}
+				if(ajax.responseText=="1"){
+				alert("链接指向自己。");
+				}
+				if(ajax.responseText=="2"){
+				alert("友情链接已存在。")
+				}
+			}
+		}
+		ajax.send(null);
+	}
+
+
+
+}
+function sendmessage(){
+
+	var refurlk = "http://molinux.blog.51cto.com/2536040/548247";
+
+	if(myid){
+		return true;
+	}else{
+		commentSubmit("",refurlk);
+		return false;
+	}
+}
+function copylink(ourl){
+	if(!ourl){
+		var clipBoardContent = "http://molinux.blog.51cto.com";
+	}else{
+		var clipBoardContent = ourl;
+	}
+	window.clipboardData.setData("Text",clipBoardContent);
+	alert("复制成功!");
+	return false;
+}
+function correctPNG() {
+if (document.getElementById('blog_touxian'))
+{
+var img = document.getElementById('blog_touxian');
+      var imgName = img.src.toUpperCase()
+      var imgID = (img.id) ? "id='" + img.id + "' " : ""
+      var imgClass = (img.className) ? "class='" + img.className + "' " : ""
+      var imgTitle = (img.title) ? "title='" + img.title + "' " : "title='" + img.alt + "' "
+      var imgStyle = "display:inline-block;" + img.style.cssText
+      if (img.align == "left") imgStyle = "float:left;" + imgStyle
+      if (img.align == "right") imgStyle = "float:right;" + imgStyle
+      if (img.parentElement.href) imgStyle = "cursor:hand;" + imgStyle
+      var strNewHTML = "<span " + imgID + imgClass + imgTitle
+         + " style=\"" + "width:" + img.width + "px; height:" + img.height + "px;" + imgStyle + ";"
+         + "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"
+         + "(src=\'" + img.src + "\', sizingMethod='scale');\"></span>" ;
+      img.outerHTML = strNewHTML;
+}
+}
+//window.attachEvent("onload", correctPNG);
+window.onload=correctPNG;
+
+function copy(){
+var text=document.getElementById("txtUser").value;
+if(copy2Clipboard(text)!=false){ 
+alert("复制成功了！ "); 
+} 
+}
+function copy2Clipboard(txt){ 
+if(window.clipboardData){ 
+window.clipboardData.clearData(); 
+window.clipboardData.setData("Text",txt); 
+}else if(navigator.userAgent.indexOf("Opera")!=-1){ 
+window.location=txt; 
+}else if(window.netscape){ 
+try{ 
+netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect"); 
+} 
+catch(e){ 
+alert("您使用的浏览器不支持此复制功能，请使用Ctrl+C或鼠标右键。"); 
+return false; 
+} 
+var clip=Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard); 
+if(!clip)return; 
+var trans=Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable); 
+if(!trans)return; 
+trans.addDataFlavor('text/unicode'); 
+var str=new Object(); 
+var len=new Object(); 
+var str=Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString); 
+var copytext=txt;str.data=copytext; 
+trans.setTransferData("text/unicode",str,copytext.length*2); 
+var clipid=Components.interfaces.nsIClipboard; 
+if(!clip)return false; 
+clip.setData(trans,null,clipid.kGlobalClipboard); 
+return true;
+} 
+}
+
+function mod_close(){
+  document.getElementById('mod_tg').style.display="none";
+}
+
+function match_invite(uid) {
+    var url='/mod/match_invite.php';
+	var ajax = InitAjax();
+    var re = 'uid=' + uid;
+	ajax.open("POST", url, true);
+    ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	ajax.send(re);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            if(ajax.responseText == 1){
+                alert("邀请信息已经发送成功。");
+            } else if(ajax.responseText=="-1"){
+                alert("邀请失败，请稍候再试。");
+            } else if(ajax.responseText=="2"){
+                alert("该用户已经报名了。")
+            }
+        }
+    }
+}
+
+</script>
+<style type="text/css">
+/*
+.artContent img {max-width:450px !important;}
+.showContent img{max-width:650px!important;}
+*/
+
+.artContent img{max-width: 450px; width:expression(this.width > 450 ? "450px" : this.width)}
+/*
+.showContent img{max-width: 450px; width:expression(this.width > 650 ? "650px" : this.width)}
+*/
+
+
+</style>
+<link type="text/css" rel="stylesheet" href="548247_files/bdsstyle.css"><style id="list">
+.showContent ol,.showContent ul{margin:0;pading:0;}.showContent .list-paddingleft-1{padding-left:0}
+.showContent .list-paddingleft-2{padding-left:20px}
+.showContent .list-paddingleft-3{padding-left:40px}
+.showContent ol,.showContent ul{margin:0;pading:0;}.showContent .list-paddingleft-1{padding-left:0}
+.showContent .list-paddingleft-2{padding-left:20px}
+.showContent .list-paddingleft-3{padding-left:40px}</style><link href="" type="text/css" rel="stylesheet" id="syntaxhighlighter_css"><script src="548247_files/logger.js"></script></head>
+
+<body><iframe style="display: none;" frameborder="0"></iframe><div style="display: block;" id="bdshare_s"><iframe id="bdsIfr" style="position:absolute;display:none;z-index:9999;" frameborder="0"></iframe><div style="display: none;" id="bdshare_l"><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="#" class="bds_mshare mshare">一键分享</a></li><li><a href="#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="#" class="bds_baidu bdsc">百度云收藏</a></li><li><a href="#" class="bds_renren rrw">人人网</a></li><li><a href="#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="#" class="bds_bdxc bdxc">百度相册</a></li><li><a href="#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="#" class="bds_douban db">豆瓣网</a></li><li><a href="#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="#" class="bds_bdhome bdhome">百度新首页</a></li><li><a href="#" class="bds_sqq sqq">QQ好友</a></li><li><a href="#" class="bds_thx thx">和讯微博</a></li><li><a href="#" class="bds_more">更多...</a></li></ul><p><a href="#" class="goWebsite">百度分享</a></p></div></div></div>
+
+<div id="home_top">
+<div class="top_nav" style="width:990px;">
+<div class="left" style="margin-top:10px; width:440px;"><a href="http://blog.51cto.com/" target="_blank"><img src="548247_files/head_blog_sibebar_logo.gif" style="margin-top:-4px;" align="absmiddle"></a><a target="_blank" href="http://www.51cto.com/">51CTO首页</a><img src="548247_files/top_bg_xian.gif" style="margin-top:-4px;" height="25" width="16" align="absmiddle"><a href="http://blog.51cto.com/" target="_blank">51CTO博客</a><img src="548247_files/top_bg_xian.gif" style="margin-top:-4px;" height="25" width="16" align="absmiddle"><a href="http://home.51cto.com/?reback=http%253A%252F%252Fmolinux.blog.51cto.com%252F2536040%252F548247">我的博客</a><img src="548247_files/top_bg_xian.gif" style="margin-top:-4px;" height="25" width="16" align="absmiddle">
+
+<a target="_blank" href="http://blog.51cto.com/search.php">搜索</a>
+<a href="javascript:void(0);" style="color: rgb(255, 0, 0); text-decoration: underline;" id="showMessagerDim">每日博报</a>
+</div>
+
+<div class="right" style="width:550px;">
+<div class="more"><img src="548247_files/top_shequ.gif" height="16" width="27" align="absmiddle"><a target="_blank" href="http://bbs.51cto.com/">论坛</a><a target="_blank" href="http://blog.51cto.com/">博客</a><a target="_blank" href="http://down.51cto.com/">下载</a><a target="_blank" href="http://edu.51cto.com/">视频课程</a><a href="javascript:viod(0);" onmouseout="popupClose()" onmouseover="show(3,this)">更多<img style="padding-left: 4px;" src="548247_files/nav_ico1.gif" align="absmiddle"></a>            </div>            <span id="login_status"><div class="login" style="padding-top:8px; text-align:right;"><a href="http://home.51cto.com/index.php?s=/Home/index" style="background:none"><img style="margin-top:-3px" id="dia" title="今天领无忧币了吗？" src="548247_files/dia.gif" width="20" align="absmiddle"></a><a href="http://home.51cto.com/?reback=http%253A%252F%252Fmolinux.blog.51cto.com%252F2536040%252F548247" target="_self">登录</a><a href="http://ucenter.51cto.com/reg_01.php?reback=http%253A%252F%252Fmolinux.blog.51cto.com%252F2536040%252F548247" target="_self">注册</a></div></span>                </div>    </div></div>
+
+
+
+<div class="subMenu3" id="s3" onmouseover="popupNoClose()" onmouseout="popupClose()">
+<ul>
+<li><a href="http://home.51cto.com/" target="_blank">家园</a></li>
+<li><a href="http://t.51cto.com/" target="_blank">微博</a></li>
+<li><a href="http://blog.51cto.com/" target="_blank">博客</a></li>
+<li><a href="http://bbs.51cto.com/" target="_blank">论坛</a></li>
+<li><a href="http://down.51cto.com/" target="_blank">下载</a></li>
+<li><a href="http://edu.51cto.com/" target="_blank">课程</a></li>
+<li><a href="http://selftest.51cto.com/" target="_blank">自测</a></li>
+<li><a href="http://doctor.51cto.com/" target="_blank">门诊</a></li>
+<li><a href="http://blog.51cto.com/newsletter/" target="_blank">周刊</a></li>
+<li><a href="http://book.51cto.com/" target="_blank">读书</a></li>
+<li><a href="http://g.51cto.com/" target="_blank">技术圈</a></li>
+</ul>
+</div>
+<!--简导航end-->
+
+
+
+<div class="headerBox">
+<div class="header">
+<div class="header_l">
+<div class="logo_blogname">
+
+
+
+<div class="blogName">
+<a href="http://molinux.blog.51cto.com/"><h1>Mo</h1></a>
+</div>
+</div><!--logo_blogname end-->
+<div class="blogLink">
+
+<a href="http://molinux.blog.51cto.com/">http://molinux.blog.51cto.com</a> <input id="txtUser" size="32" value="http://molinux.blog.51cto.com" type="hidden">   <a href="javascript:void(0);" onclick="copy();">【复制】</a> <a href="http://molinux.blog.51cto.com/rss.php?uid=2536040" target="_blank"></a><a href="http://molinux.blog.51cto.com/rss.php?uid=2536040" target="_blank">【订阅】</a>
+
+</div>
+
+
+
+</div><!--header_l end-->
+<div class="header_r">
+<div class="blogInfo"><span><a href="http://molinux.blog.51cto.com/2536040/o" title="察看慕小潮所有原创文章">原创</a>:18</span><span><a href="http://molinux.blog.51cto.com/2536040/t" title="察看慕小潮所有翻译文章">翻译</a>:1</span><span><a href="http://molinux.blog.51cto.com/2536040/c" title="察看慕小潮所有转载文章">转载</a>:1</span></div>
+<div class="blogNav"><a href="http://molinux.blog.51cto.com/">博 客</a>|<a href="http://molinux.blog.51cto.com/pic/">图库</a>|<a href="http://molinux.blog.51cto.com/addblog.php">写博文</a>|<a href="http://51ctoblog.blog.51cto.com/all/26414/4" target="_blank">帮 助</a></div>
+</div>
+</div>
+<!--header end-->
+</div><!--headerBox end-->
+<div class="mainNav">
+<span class="mainNavT"></span>
+<ul>
+<li><a href="#">首页</a></li>|<li><a href="http://molinux.blog.51cto.com/2536040/d-4">SHELL</a></li>|<li><a href="http://molinux.blog.51cto.com/2536040/d-7">WWW</a></li>|<li><a href="http://molinux.blog.51cto.com/2536040/d-8">PHP</a></li>|<li><a href="http://molinux.blog.51cto.com/2536040/d-9"> DB</a></li>|<li><a href="http://molinux.blog.51cto.com/2536040/d-10">网路</a></li>|<li><a href="http://molinux.blog.51cto.com/2536040/d-11">监控</a></li>|<li><a href="http://molinux.blog.51cto.com/2536040/d-12">自动化</a></li>|<li><a href="http://molinux.blog.51cto.com/2536040/d-13">杂项</a></li>
+</ul>
+<span class="mainNavB"></span>
+</div>
+<!--mainNav end-->
+
+<script type="text/javascript" src="548247_files/jquery-1.js"></script>
+<!--[if IE 6]>
+  <script type="text/javascript" src="http://images.watchstor.com/newhomes/png.js"></script>
+  <script>
+    DD_belatedPNG.fix('img,input,ul,li, .get-box, div, .add, .sub, .ui-slider-handle, .footer-chopper');
+  </script>
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="548247_files/fck_editorarea.css">
+<script type="text/javascript" charset="gbk" src="548247_files/shCores.js"></script>
+<link rel="stylesheet" type="text/css" href="548247_files/shCoreDefault.css">
+<script type="text/javascript" charset="gbk" src="548247_files/uparse.js"></script>
+<script type="text/javascript">
+	uParse('.showContent');
+	$(function(){
+		//SyntaxHighlighter.config.clipboardSwf = 'http://bbs.51cto.com/plugins/syntaxhighlighter/scripts/clipboard.swf'; 
+		//为了在编辑器之外能展示高亮代码
+		SyntaxHighlighter.highlight();
+	}); 
+</script>
+<script type="text/javascript">
+/**
+ * 回复评论需要用的js
+ * 2012-5-14
+ * by:chengtao
+ */
+ jQuery(function(){
+	blogpost.init();//初始化博客回复功能
+ })
+ /**
+  * 处理博文评论功能优化
+  */
+ blogpost={
+	abstruct_list:null,
+	init:function(){
+		blogpost.bind();//绑定一些时间
+		this.abstruct_list=new Array();//初始化保存评论信息的数组
+	},
+	/**
+	 * 博客回复需要绑定的一些事件
+	 */
+	bind:function(){
+		/**
+		 * 点击回复的事件
+		 */
+		jQuery('.repost').live('click',function(){
+			blogpost.repost(jQuery(this).attr('user_name'),jQuery(this).attr('parentid'));
+			return false;
+		});
+		/**
+		 * 点击楼层进行翻页且找到锚点
+		 */
+		jQuery('.anchor_page').live('click',function(){
+			var parentid = $(this).attr('parentid');
+			var tid=$(this).attr('tid');
+			$.get('/comments.php?tid='+tid+'&parentid='+parentid,function(data){
+				$('#artcomment').html(data);
+				window.location.hash=''+parentid;
+			})
+			return false;
+		}),
+		jQuery('.anchor_page').live('mouseover',function(){
+			var parentid = $(this).attr('parentid');
+			if(!blogpost.abstruct_list[parentid]){
+				var this_t = $(this);
+				$.get('/comments.php?cid='+parentid,function(data,textStatus){
+					blogpost.abstruct_list[parentid]=data;
+					this_t.attr('title',this_t.text()+':'+ blogpost.abstruct_list[parentid]);
+				});
+			}else{
+				$(this).attr('title',$(this).text()+':'+blogpost.abstruct_list[parentid]);
+			}
+		})
+	},
+	/**
+	 * @param user_name 用户名
+	 * @param parentid  父评论id
+	 */
+	repost:function(user_name,parentid){
+		window.location.hash='comment';
+		jQuery('#parentid').val(parentid);
+		jQuery('#commentcontent').val('回复 '+user_name+":\n").focus();
+		if(!$.browser.mozilla){
+			var elem = jQuery('#commentcontent')[0];		
+			var caretPos = elem.value.length;
+			if (elem.createTextRange) {
+				var range = elem.createTextRange();
+				range.move('character', caretPos);
+				range.select();
+			}else{
+				elem.setSelectionRange(caretPos, caretPos);	
+			}
+		}
+	},
+	/**
+	 * 发送完毕之后清理表单数据 不是ajax可能用不到
+	 */
+	clean:function(){
+		
+	}
+ }
+</script>
+<script type="text/javascript">
+jQuery(function(){
+	var anchor = document.location.hash;
+	var comment_id=anchor.split('#')[1];
+	if(!isNaN(parseInt(comment_id))){//是整形
+		jQuery.get('/comments.php?tid=548247&parentid='+comment_id,function(data){
+			jQuery('#artcomment').html(data);
+			window.location.hash=''+comment_id;
+		})
+	}
+});
+</script>
+
+
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#favourdiv').mouseover(function(){
+		if(jQuery(this).attr('className') == 'support01')
+		{
+			jQuery(this).attr('className', "support02");
+			jQuery(this).html('+1人');
+			jQuery(this).attr('title', "赞一个，我支持TA");
+		}
+		else if(jQuery(this).attr('className') == 'support03')
+		{
+			jQuery(this).attr('title', "你已经赞了这篇博文！");
+		}
+		
+	});
+	jQuery('#favourdiv').mouseout(function(){
+		if(jQuery(this).attr('className') == 'support02')
+		{
+			jQuery(this).attr('className', "support01");
+			jQuery(this).html("6人");
+		}
+	});
+	jQuery('.blog_match_yq').click(function(){
+		var wind_uid = '';
+		if(!wind_uid){
+			alert("请先登录！");
+			return false;
+		}
+		jQuery.ajax({
+			   type: "POST",
+			   url:"/contest2012/index.php?mod=sendmsg",
+			   dataType: "html",
+			   data: "vuid=" + 2536040,
+			   success: function(data) {
+					if(data == 0)
+					{
+						alert("查无此人！");
+						return false;
+					}else if(data == 1){
+						alert("请先登录！");
+						return false;
+					}else if(data == 2){
+						alert("不能邀请自己！");
+						return false;
+					}else if(data == 22){  
+						alert("邀请信息已发出！");
+						return false;
+					}
+			   }
+		  });
+	});
+	jQuery('#favourdiv').click(function(){
+			jQuery.ajax({
+			   type: "POST",
+			   url:"/mod/favour.php",
+			   dataType: "html",
+			   data: "tid=" + 548247,
+			   success: function(data) {
+					if(data == 0)
+					{
+						alert("您还未登录或者已过期，请重新登录");
+						location.href = "http://home.51cto.com/index.php?reback=http%253A%252F%252Fmolinux.blog.51cto.com%252F2536040%252F548247";
+						return false;
+					}
+					else if(data == '-1')
+					{
+						alert("参数传递错误！");
+						return false;
+					}
+					else if(data == '-2')
+					{
+						alert("该博文已被删除或者不存在！");
+						return false;
+					}
+					else if(data == '-3')
+					{
+						alert("您已经赞过了！");
+						return false;
+					}
+					else if(data == '-4')
+					{
+						alert("赞操作失败！");
+						return false;
+					}
+					else
+					{  
+						//alert("操作成功，你已经赞了这篇博文！");
+						jQuery('#favourdiv').attr('className', "support03");
+
+						var num = 6 + 1 + "人";
+						jQuery('#favourdiv').html(num);
+						jQuery('#favourer').html(data);
+						return false;
+					}
+			   }
+		  });
+	});
+	//Jaydar http://blog.51cto.com/js/header.php?uid=blogdb[uid]&tid=tid
+	jQuery.post('/js/header.php',{uid:2536040,tid:548247},function(data){
+		jQuery('#readNum').html(data[0]);
+		jQuery('#cmtNum').html(data[1]);
+	},'json');
+	
+
+})
+
+jQuery(function(){
+	jQuery('#darid').bind('click',function(){
+		if(confirm("你确定删除此篇文章？")){
+			jQuery.ajax({
+				'type':'post',
+				'url':'user_index.php?action=delarticle',
+				'data':{'job':'del', 'selid':'548247'},
+				'dataType':'html',
+				'success':function(res){
+					if('ok' == res){
+						location.href="http://.blog.51cto.com";
+					}
+				
+				}
+			});
+		}
+	});
+});
+</script>
+
+
+
+
+<style type="text/css">
+.m_sharelinks{ 
+	line-height:36px; 
+	text-align:left; 
+	padding-left:20px; 
+	background:url(http://img1.51cto.com/images/share/ico_lb.gif) no-repeat left center;
+	float:left; 
+	width:600px; 
+	height:36px;
+}
+.m_sharelinks a{ margin-left:10px;}
+.m_sharebtn{ height:50px; width:726px; margin:0 auto;}
+.m_sharebtn01{width:520px; float:left;}
+.weibo_51cto{ background:url(http://img1.51cto.com/images/share/ico_mweibo.gif) no-repeat center center; display:block; width:33px; height:33px; float:left; margin:3px 3px 0 0;cursor:pointer;}
+.shareMored {
+    line-height: 36px;
+	float:right; 
+	text-align:right; 
+	width:100px; 
+	height:36px;
+}
+
+.showContent {
+	margin:20px 15px 8px;
+}
+.userImage img {
+    text-align: center;
+	border:0;
+	padding:0;
+}
+.photo_links{ line-height:30px; padding-top:5px; font-size:13px;width:170px; margin:0 auto;}
+.photo_links_blue{ text-align:center;}
+.photo_links_blue a:link,.photo_links_blue a:visited,.photo_links_blue a:hover,.photo_links_blue a:active{ color:#015F91; text-decoration: underline;}
+.photo_links_red{ text-align:left;}
+.photo_links_red a:link,.photo_links_red a:visited,.photo_links_red a:hover,.photo_links_red a:active{ color:#fc4343; text-decoration:underline;}
+.photo_links_red02{ text-align:center;}
+</style>
+<script language="JavaScript" type="text/javascript" src="548247_files/group.js"></script>
+<div id="add_sys_type_div" style="width:600px;border:1px #58B0DD solid; background-color:#FFF; position:absolute;left:30%;top:300px;display:none;z-index:255"></div>
+<div id="add_sys_type_divs" style="width:550px;border:1px #58B0DD solid; background-color:#FFF; position:absolute;left:30%;top:300px;display:none;z-index:255"></div>
+
+
+
+<div class="blogMain">
+<div class="blogLeft">
+
+
+<div class="box moduleUser">
+<div class="title">
+<h2><strong>慕小潮</strong> 的BLOG  </h2>
+</div>
+<div class="modCon">
+
+<div class="userImage" style="margin: 10px auto 5px;text-align: center;width: 130px;border: 1px solid #D4D4D4;">
+	<table cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr>
+			<td height="130" valign="middle" align="center"><script src="548247_files/userface.html"></script><img src="548247_files/avatar_002.jpeg" id="userface"></td>
+		</tr>
+	</tbody></table>
+</div>
+<div class="photo_links">
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="crumbs">
+<a href="http://home.51cto.com/index.php?s=/space/2536040#message" class="writeMessage" target="_blank">写留言</a><a href="http://g.51cto.com/addgroup.php?uid=" class="inCircle" target="_blank">邀请进圈子</a><a href="http://home.51cto.com/index.php?s=/Notify/write/uid/2536040" class="message" target="_blank">发消息</a> <a href="http://molinux.blog.51cto.com/" onclick="add_flink(2536040);return false" class="joinLinks">加友情链接</a><a href="http://home.51cto.com/index.php?s=/space/2536040" class="joinFriends" target="_blank">进家园 加好友</a>
+</div>
+
+<div style="width:239px;height:64px;display:none;">
+
+
+<div style="float:left;"><p style="padding:15px 0 0 28px; line-height:20px;">2012年度IT博客大赛<br><a target="_blank" href="http://blog.51cto.com/contest2012/#top10000" style="color:#F00; text-decoration:underline;">十大杰出IT博客诞生</a></p></div>
+<div style="float:right;"><a target="_blank" href="http://blog.51cto.com/contest2012/"><img src="548247_files/blog_match_endlook.jpg" style="margin:23px 20px 0 0;" height="27" width="57"></a></div>
+<!-- <div style="float:left;"><p style="padding:15px 0 0 28px; line-height:20px;">星光评委正在评选<br><a target="_blank" href="http://blog.51cto.com/contest2012/index.php?mod=userlist_sec" style="color:#F00; text-decoration:underline;">2012年度IT博客大赛50强</a></p></div>
+<div style="float:right;"><img class="blog_match_yq" width="57" height="27" src="http://img1.51cto.com/images/blog_match_invite.jpg" style="margin:23px 20px 0 0;"></div> -->
+
+
+
+<div class="clear"></div>
+</div>
+
+
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="infoList box">
+<div class="title">
+<h2>博客统计信息</h2>
+</div>
+<div class="modCon">
+<p>
+<span class="infoListHead"></span>
+用户名：慕小潮<br>
+文章数：25<br>
+评论数：33<br>
+访问量：97571<br>
+<a href="http://home.51cto.com/index.php?s=/Account/credit" target="_blank">无忧币</a>：20<br>
+<a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank">博客积分</a>：152<br>
+<a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank">博客等级</a>：2<br>
+注册日期：2010-12-09<br>
+<script src="548247_files/blogno1countdown.html"></script> 
+</p>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="hotArt box">
+<div class="title">
+<h2>热门文章</h2>
+</div>
+<div class="modCon">
+<ul>
+<li><a href="http://molinux.blog.51cto.com/2536040/716010">make报错:"/usr/bin..</a></li>
+<li><a href="http://molinux.blog.51cto.com/2536040/516008">Linux阵列 RAID详解</a></li>
+<li><a href="http://molinux.blog.51cto.com/2536040/548247">Kickstart/Anaconda实现..</a></li>
+<li><a href="http://molinux.blog.51cto.com/2536040/466001">linux shell 图形界面之d..</a></li>
+<li><a href="http://molinux.blog.51cto.com/2536040/512081">修改initrd，创建一个微..</a></li>
+<li><a href="http://molinux.blog.51cto.com/2536040/478704">linux  启动过程分析</a></li>
+<li><a href="http://molinux.blog.51cto.com/2536040/518441">LVM 详解</a></li>
+<li><a href="http://molinux.blog.51cto.com/2536040/505485">ext2文件系统解构探析</a></li>
+
+</ul>
+</div>
+<span class="modBot"></span>
+</div>
+<div class="search box">
+<div class="title"><h2>搜索BLOG文章</h2></div>
+<div class="modCon">
+<form method="post" action="search.php?" tabindex="99">
+<input name="step" value="2" type="hidden">
+<input name="authorid" value="2536040" type="hidden">
+<input name="sch_area" value="S" type="hidden">
+<input name="keyword" class="searchInput" type="text">
+<input value="搜 索" class="searchBtn" type="submit">
+</form>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="myHome box">
+<div class="title"><h2 class="fl">我的技术圈(<a href="http://molinux.blog.51cto.com/mygroup.php" target="_blank"><b>0</b></a>)</h2>
+<a href="http://home.51cto.com/apps/group/index.php?s=/Index/index/" class="fr" target="_blank">更多&gt;&gt;</a></div>
+<div class="modCon">
+<ul>
+
+</ul>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="box recentGuests">
+<div class="title">
+<h2>最近访客</h2>
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://7240658.blog.51cto.com/"><img src="548247_files/avatar_006.gif"></a>
+<p><a href="http://7240658.blog.51cto.com/">kib0092</a></p>
+
+</li><li><a href="http://1246029.blog.51cto.com/"><img src="548247_files/avatar_007.gif"></a>
+<p><a href="http://1246029.blog.51cto.com/">qxhy123</a></p>
+
+</li><li><a href="http://7284884.blog.51cto.com/"><img src="548247_files/avatar_004.gif"></a>
+<p><a href="http://7284884.blog.51cto.com/">angus83</a></p>
+
+</li><li><a href="http://390622.blog.51cto.com/"><img src="548247_files/avatar_004.jpeg"></a>
+<p><a href="http://390622.blog.51cto.com/">diao2..</a></p>
+
+</li><li><a href="http://5182890.blog.51cto.com/"><img src="548247_files/avatar_009.gif"></a>
+<p><a href="http://5182890.blog.51cto.com/">xboch..</a></p>
+
+</li><li><a href="http://2001299.blog.51cto.com/"><img src="548247_files/avatar_002.gif"></a>
+<p><a href="http://2001299.blog.51cto.com/">lincy100</a></p>
+
+</li><li><a href="http://3789118.blog.51cto.com/"><img src="548247_files/avatar_003.jpeg"></a>
+<p><a href="http://3789118.blog.51cto.com/">clcl1..</a></p>
+
+</li><li><a href="http://7703878.blog.51cto.com/"><img src="548247_files/avatar_005.gif"></a>
+<p><a href="http://7703878.blog.51cto.com/">dsferfhj</a></p>
+
+</li><li><a href="http://7420680.blog.51cto.com/"><img src="548247_files/avatar_003.gif"></a>
+<p><a href="http://7420680.blog.51cto.com/">zhang..</a></p>
+
+</li><li><a href="http://1027210.blog.51cto.com/"><img src="548247_files/avatar_008.gif"></a>
+<p><a href="http://1027210.blog.51cto.com/">reami..</a></p>
+
+</li><li><a href="http://2567879.blog.51cto.com/"><img src="548247_files/avatar.gif"></a>
+<p><a href="http://2567879.blog.51cto.com/">asusibm</a></p>
+
+</li><li><a href="http://ouroboros.blog.51cto.com/"><img src="548247_files/avatar.jpeg"></a>
+<p><a href="http://ouroboros.blog.51cto.com/">白发缓歌</a></p>
+
+</li></ul>
+<span class="clear"></span>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="newComments box">
+<div class="title">
+<h2>最新评论 
+
+</h2>
+
+
+
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://qianxiao.blog.51cto.com/" class="operlink" target="_blank"><b>黑人大兵</b></a>：<a href="http://molinux.blog.51cto.com/2536040/716010" target="_blank">楼主大神，求问make 时候遇到cannot..</a></li>
+
+<li><a href="http://pangge.blog.51cto.com/" class="operlink" target="_blank"><b>z永</b></a>：<a href="http://molinux.blog.51cto.com/2536040/516008" target="_blank">学习了。。。</a></li>
+
+<li><a href="http://5283697.blog.51cto.com/" class="operlink" target="_blank"><b>truirui</b></a>：<a href="http://molinux.blog.51cto.com/2536040/716010" target="_blank">博主：您好。 我遇到的问题具体是..</a></li>
+
+<li>[匿名]风格和健康路科技和：<a href="http://molinux.blog.51cto.com/2536040/516008" target="_blank">stripe，不是stride</a></li>
+
+<li><a href="http://4552643.blog.51cto.com/" class="operlink" target="_blank"><b>lxshopping</b></a>：<a href="http://molinux.blog.51cto.com/2536040/548247" target="_blank">学习了</a></li>
+
+
+</ul>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="hotBlogArt box">
+<div class="title">
+  <h2 class="fl">51CTO推荐博文</h2>
+  <a href="http://blog.51cto.com/artcommend" class="fr">更多&gt;&gt;</a></div>
+<div class="modCon">
+<ul>
+<li><a href="http://cwtea.blog.51cto.com/4500217/1285744" title="又见日志-从日志中的思考" target="_blank">又见日志-从日志中的思考</a></li>
+<li><a href="http://lihuipeng.blog.51cto.com/3064864/1285389" title="Python批量绑定腾讯云平台CVM域名与端口" target="_blank">Python批量绑定腾讯云平台CVM域名..</a></li>
+<li><a href="http://manhaden.blog.51cto.com/1486559/1284764" title="实战  实用技巧【 WDS加密】MDT环境应用" target="_blank">实战  实用技巧【 WDS加密】MDT环..</a></li>
+<li><a href="http://devliangel.blog.51cto.com/469347/1284779" title="oracle安装三部曲使用dbca来创建数据库" target="_blank">oracle安装三部曲使用dbca来创建..</a></li>
+<li><a href="http://liushuo890.blog.51cto.com/5167996/1284780" title="第三讲 SCCM2012部署Endpoint Protect" target="_blank">第三讲 SCCM2012部署Endpoint Pro..</a></li>
+<li><a href="http://jackyan.blog.51cto.com/2589874/1284826" title="整合LAMP+loganalyzer+rsyslog搭建企业级集中式日志管理系统 " target="_blank">整合LAMP+loganalyzer+rsyslog搭..</a></li>
+<li><a href="http://7658423.blog.51cto.com/7648423/1285414" title="演示：配置安全的shell属性" target="_blank">演示：配置安全的shell属性</a></li>
+<li><a href="http://pjp5945.blog.51cto.com/7647561/1285485" title="广域网链路实现备份的几种方法" target="_blank">广域网链路实现备份的几种方法</a></li>
+<li><a href="http://vbigdata.blog.51cto.com/7526470/1254981" title="大数据虚拟化零起点-1开篇" target="_blank">大数据虚拟化零起点-1开篇</a></li>
+<li><a href="http://mos1989.blog.51cto.com/4226977/1284891" title="datanode单块盘故障导致节点失效之脚本解决" target="_blank">datanode单块盘故障导致节点失效..</a></li>
+<li><a href="http://zhangyongli.blog.51cto.com/6691702/1284609" title="rsync+inotify实时同步参考步骤" target="_blank">rsync+inotify实时同步参考步骤</a></li>
+
+</ul>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="friendLink box">
+<div class="title">
+  <h2>友情链接</h2>
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://foreveryan.blog.51cto.com/" title="For The Dream" target="_blank">For The Dream</a></li>
+
+<li><a href="http://oldboy.blog.51cto.com/" title="老男孩的linux博客" target="_blank">老男孩的linux博客</a> <img src="548247_files/tubiao2.gif" alt="三日内更新"></li>
+
+<li><a href="http://fighter.blog.51cto.com/" title="fighter" target="_blank">fighter</a></li>
+
+<li><a href="http://jimmyli.blog.51cto.com/" title="我站在巨人肩膀上Jimmy Li" target="_blank">我站在巨人肩膀上J..</a></li>
+
+<li><a href="http://coralzd.blog.51cto.com/" title="晓辉" target="_blank">晓辉</a></li>
+
+<li><a href="http://ixdba.blog.51cto.com/" title="技术成就梦想" target="_blank">技术成就梦想</a></li>
+
+<li><a href="http://andrewyu.blog.51cto.com/" title="抚琴煮酒之博" target="_blank">抚琴煮酒之博</a></li>
+
+<li><a href="http://patterson.blog.51cto.com/" title="卓越始于足下" target="_blank">卓越始于足下</a></li>
+
+<li><a href="http://freeze.blog.51cto.com/" title="夜的博客" target="_blank">夜的博客</a></li>
+
+<li><a href="http://sery.blog.51cto.com/" title="sery" target="_blank">sery</a></li>
+
+<li><a href="http://51ctoblog.blog.51cto.com/" title="51CTO博客开发" target="_blank">51CTO博客开发</a></li>
+
+</ul>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+
+</div>
+<!--left end-->
+
+<script type="text/javascript">
+    var favor_url = "http://molinux.blog.51cto.com/2536040/548247";
+    var favor_title = "Kickstart/Anaconda实现自动化安装原理探究";
+    var favor_fuid = "2536040";
+</script>
+<script type="text/javascript" src="548247_files/favorbox.js"></script>
+<div class="blogRight">
+	<div class="artShow box">
+   	  <div class="share" id="share">
+
+    <div class="shareItem">
+		<div class="m_sharelinks"><a target="_blank" href="http://edu.51cto.com/member/index.html" style="color:red;">李海园老师年度会员优惠购买中！</a><a target="_blank" href="http://blog.51cto.com/newsletter/216/" style="color:blue;">热点：做一个较真的技术人</a><a target="_blank" href="http://www.95px.com/courses/list176Index.shtml" style="color:red;">工信部－弱电项目经理技术资格认证</a></div>
+		<p class="shareMored"><a href="http://molinux.blog.51cto.com/all/2536040">博主的更多文章&gt;&gt;</a></p>
+	</div>
+      </div>
+       <div class="modCon">
+   	  <div class="showBox" style="margin:0 0 10px;">
+      <div class="line_hd_r"></div>
+      <div class="art_tj">
+
+      </div>
+
+ 
+    		<div class="showHead">
+    		  <div class="showTitleBOx" style="text-align:center">
+              <div class="showTitle">
+
+             <img src="548247_files/artType01.jpg">
+
+
+    		    Kickstart/Anaconda实现自动化安装原理探究
+                </div>
+  		    </div>
+   		    <span class="artTime">2011-04-18 23:44:40</span></div><!--showHead end-->
+    <div class="showTags">标签：<a href="http://blog.51cto.com/tag-%E4%BC%91%E9%97%B2.html" target="_blank" class="operlink">休闲</a> <a href="http://blog.51cto.com/tag-%E8%81%8C%E5%9C%BA.html" target="_blank" class="operlink">职场</a> <a href="http://blog.51cto.com/tag-kickstart.html" target="_blank" class="operlink">kickstart</a> <a href="http://blog.51cto.com/tag-anaconda.html" target="_blank" class="operlink">anaconda</a> <a href="http://blog.51cto.com/tag-%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%89%E8%A3%85%20.html" target="_blank" class="operlink">自动化安装 </a>
+
+	</div>
+
+	<a href="http://molinux.blog.51cto.com/2536040/548247#zhuanti" id="zti"><img src="548247_files/big.png" style="position:absolute;top:50px;left:530px;" height="100" width="100"></a>
+
+			<div class="CopyrightStatement lh22">
+            原创作品，允许转载，转载时请务必以超链接形式标明文章 <a href="http://molinux.blog.51cto.com/2536040/548247" target="_blank" style="text-decoration:underline">原始出处</a> 、作者信息和本声明。否则将追究法律责任。<a href="http://molinux.blog.51cto.com/2536040/548247">http://molinux.blog.51cto.com/2536040/548247</a>
+            </div>
+
+
+            <!--正文 begin-->
+    		<div class="showContent">
+    		  <p><span style="color: rgb(255, 0, 0);"><strong><span style="font-size: 18px;">内容概要：</span> </strong><strong> </strong></span><strong><span style="font-size: 16px;"><span style="color: rgb(255, 0, 0);"><br>
+</span></span></strong></p>
+<p><span style="color: rgb(51, 153, 102);">1.&nbsp; 系统安装基本流程图示<br>
+2.&nbsp; Anaconda简介<br>
+3.&nbsp; Kickstart简介<br>
+4.&nbsp; 引导并指定安装方式<br>
+5.&nbsp; kickstart文件中的主要项目及参数介绍<br>
+6.&nbsp; kickstart配置文件示例<br>
+7.&nbsp; RedHat 安装光盘安装树介绍<br>
+8.&nbsp; Anaconda/Kickstart系统安装过程简图<br>
+9.&nbsp; 安装树中boot.img及stage.img解构图析<br>
+10. 使用Kickstart进行安装的方式列举概述</span></p>
+<p>&nbsp;&nbsp;<span style="font-size: 16px;"> 本文仍为课程学习的总结笔记，书写过程参看了大量官方文档及网络上相关资料，在此谢过各位无私奉献的Linuxer们，也贴上自己的笔记供大家参考，本文重点关注原理性层面的东西，对试验</span><span style="font-size: 16px;">实际操作</span><span style="font-size: 16px;">过程不过多赘述；</span></p>
+<p><span style="font-size: 16px;">&nbsp; 水平有限，难免出现理解不透彻或是错误之处，望多指教；</span></p>
+<p><span style="font-size: 16px;">&nbsp;</span> 实验环境： <span style="color: rgb(255, 0, 0);"><span style="font-size: 16px;"><strong>RedHat5.5</strong></span></span></p>
+<p><strong><span style="font-size: 18px;"><span style="color: rgb(255, 0, 0);">一.&nbsp; 系统安装一般流程</span></span></strong></p>
+<p><span style="font-size: 16px;">&nbsp; 首先了解系统安装一般流程：</span></p>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201104/225300678.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="548247_files/225300678.jpg" border="0" width="650"></a></p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size: 18px;"><span style="color: rgb(255, 0, 0);">二.&nbsp; Anaconda简介</span></span></strong></p>
+<p><br>
+<span style="color: rgb(51, 153, 102);"><span style="font-size: 16px;"><strong>简介：</strong></span></span><span style="font-size: 16px;"><br>
+&nbsp;&nbsp;&nbsp; &nbsp;Anaconda是Red 
+Hat、CentOS、Fedora等Linux的安装管理程序。它可以提供文本、图形等安装管理方式，并支持Kickstart等脚本提供自动安装的功
+能。此外，其还支持许多启动参数，熟悉这些参数可为安装带来很多方便。该程序是把位于光盘或其他源上的数据包，根据设置安装到主机上的一个程序；为实现该
+定制安装，其提供一个定制界面，可以实现交互式界面供用户选择配置（如选择语言，键盘，时区等信息）；<br>
+<br>
+<span style="color: rgb(51, 153, 102);">Anaconda支持的管理模式：</span><br>
+&nbsp;&nbsp;&nbsp; Kickstart提供的自动化安装<br>
+&nbsp;&nbsp;&nbsp; 对一个RedHat实施upgrade<br>
+&nbsp;&nbsp;&nbsp; Rescuse模式对不能启动的系统进行故障排除；<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; 要进入安装步骤，需要先有一个引导程序引导启动一个特殊的Linux安装环境系统；<span style="color: rgb(51, 153, 102);">引导有多种方式：</span><br>
+&nbsp;&nbsp;&nbsp; 1.&nbsp; 基于网络方式的小型引导镜像，需要提供小型的引导镜像；<br>
+&nbsp;&nbsp;&nbsp; 2.&nbsp; U盘引导，通过可引导存储介质中的小型引导镜像启动安装过程；<br>
+&nbsp;&nbsp;&nbsp; 3.&nbsp; 基于PXE的网络安装方式，要提供PXE的完整安装环境；<br>
+&nbsp;&nbsp;&nbsp; 4.&nbsp; 其他bootloder引导（如GRUB）<br>
+<br>
+<span style="color: rgb(51, 153, 102);">可用的安装方式：</span><br>
+&nbsp;&nbsp;&nbsp; 本地CDROM<br>
+&nbsp;&nbsp;&nbsp; 磁盘驱动器<br>
+&nbsp;&nbsp;&nbsp; NFS映像<br>
+&nbsp;&nbsp;&nbsp; FTP<br>
+&nbsp;&nbsp;&nbsp; HTTP<br>
+<br>
+&nbsp;&nbsp;&nbsp; 通过网络方式安装时：<br>
+&nbsp;&nbsp;&nbsp; 
+不论通过FTP、HTTP还是NFS方式共享安装，可以将安装光盘先拷贝到网络服务器上保存为iso镜像，然后loop挂载到共享目录或网页目录（当然，
+拷贝镜像中的所有文件到指定位置或直接挂载到共享目录也可），而通过NFS方式时，可以直接将光盘的iso文件放到共享目录即可，安装程序挂载共享目录后
+可以自动识别镜像；<br>
+&nbsp;&nbsp; 注：复制安装光盘，并保存为一个 iso 映像文件的方法：<br>
+&nbsp;&nbsp; 对于 DVD/CD：<br>
+&nbsp;&nbsp; # dd if=/dev/cdrom&nbsp; of=/location/of/disk/space/RHEL.iso&nbsp; bs=32k<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 注意拷贝时bs块大小设置为32k，我实验时设为1M，虽然减小了文件体积，但是安装读镜像时会报错。</span></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18px;"><strong><span style="color: rgb(255, 0, 0);">三、 Kickstart简介：</span></strong></span></p>
+<p><span style="color: rgb(51, 153, 102);"><strong><span style="font-size: 16px;">简介</span></strong><span style="font-size: 16px;">：</span></span><span style="font-size: 16px;"><br>
+&nbsp;&nbsp;&nbsp;&nbsp; kickstart是一个利用Anconda工具实现服务器自动化安装的方法；通过生成的kickstart配置文件ks.cfg，服务器安装可以实现从裸机到全功能服务的的非交互式（无人值守式）安装配置；<br>
+ks.cfg是一个简单的文本文件，文件包含Anconda在安装系统及安装后配置服务时所需要获取的一些必要配置信息（如键盘设置，语言设置，分区设置
+等）；Anconda直接从该文件中读取必要的配置，只要该文件信息配置正确无误且满足所有系统需求，就不再需要同用户进行交互获取信息，从而实现安装的
+自动化；但是配置中如果忽略任何必需的项目，安装程序会提示用户输入相关的项目的选择，就象用户在典型的安装过程中所遇到的一样。一旦用户进行了选择，安
+装会以非交互的方式（unattended）继续。<br>
+<br>
+<span style="color: rgb(51, 153, 102);"><strong>使用kickstart优势：</strong></span><br>
+&nbsp;&nbsp;&nbsp; 1.&nbsp; 流线化自动化的安装；<br>
+&nbsp;&nbsp;&nbsp; 2.&nbsp; 快速大量的裸机部署；<br>
+&nbsp;&nbsp;&nbsp; 3.&nbsp; 强制建立的一致性（软件包，分区，配置，监控，安全性）<br>
+&nbsp;&nbsp;&nbsp; 4.&nbsp; 减少人为的部署失误<br>
+<br>
+<span style="color: rgb(51, 153, 102);"><strong>使用Kickstart方法安装的过程：</strong></span><br>
+&nbsp;&nbsp;&nbsp; 1.&nbsp; 创建一个kickstart文件<br>
+&nbsp;&nbsp;&nbsp; 2.&nbsp; 创建有kickstart文件的引导介质或者使这个文件在网络上可用；<br>
+&nbsp;&nbsp;&nbsp; 3.&nbsp; 筹备一个安装树<br>
+&nbsp;&nbsp;&nbsp; 4.&nbsp; 开始ks安装：anconda自身启动 --&gt;选取ks安装模式--&gt; 从ks文件读取配置 --&gt; 最后安装<br>
+<br>
+<span style="color: rgb(51, 153, 102);"><strong>创建kickstart配置文件的方式：</strong></span><br>
+&nbsp;&nbsp; 1.&nbsp; 文本编辑器编辑生成：vim<br>
+&nbsp;&nbsp; 2． 用图形化界面配置：system-config-kickstat（需要安装system-config-kickstart.noarch包）<br>
+&nbsp;&nbsp;&nbsp; <br>
+注：<span style="color: rgb(51, 153, 102);">图形化界面配置时，磁盘选项无法创建配置LVM（逻辑卷）；</span><br>
+&nbsp;&nbsp;&nbsp; &nbsp; 文件生成后，推荐使用ksvalidator命令检查配置文件语法及完整性错误；<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; [root@bogon ~]# ksvalidator ks.cfg <br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; not enough arguments for format string<br>
+<br>
+</span><span style="color: rgb(51, 153, 102);"><strong><span style="font-size: 16px;">图形化界面配置示例：</span></strong></span></p>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201104/230600125.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="548247_files/230600125.jpg" border="0" width="650"></a>   <a target="_blank" href="http://img1.51cto.com/attachment/201104/230601421.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="548247_files/230601421.jpg" border="0" width="650"></a></p>
+<p>&nbsp;</p>
+<p><strong><span style="font-size: 18px;"><span style="color: rgb(255, 0, 0);">四.&nbsp; 引导并指定安装方式：</span></span></strong></p>
+<p><span style="font-size: 16px;"><strong>&nbsp; 系统引导界面：</strong></span></p>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201104/230750626.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="548247_files/230750626.jpg" border="0"></a></p>
+<p><span style="font-size: 16px;">&nbsp; 系统引导后，会显示boot：命令提示符；如上，界面上会有各种模式操作提示；<br>
+&nbsp; 注：用户交互的文本安装方式中不能进行LVM的自定义配置，只能查看、接受默认设置；</span></p>
+<p><span style="font-size: 16px;"><br>
+<span style="color: rgb(51, 153, 102);"><strong>&nbsp; 在boot：命令行里有用的几个项：</strong></span><br>
+&nbsp; <strong><span style="color: rgb(51, 153, 102);">lowres</span></strong><br>
+&nbsp;&nbsp;&nbsp; ：强制GUI安装时分辨率调低为640*480<br>
+&nbsp; <strong><span style="color: rgb(51, 153, 102);">noipv6</span></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp; ：安装过程不支持ipv6网络<br>
+&nbsp; <strong><span style="color: rgb(51, 153, 102);">noprobe</span></strong><br>
+&nbsp;&nbsp;&nbsp; ：不去自动检测硬件，而是提示用户；<br>
+&nbsp; <strong><span style="color: rgb(51, 153, 102);">dd=</span></strong><br>
+&nbsp;&nbsp;&nbsp; ：通过网络加载设备驱动<br>
+&nbsp; <strong><span style="color: rgb(51, 153, 102);">ks=</span></strong><br>
+&nbsp;&nbsp;&nbsp;&nbsp; ：指定kickstart文件的放置位置；<br>
+另外还有<strong>ip、netmask、gateway、dns、vnc</strong>等选项；<br>
+<br>
+&nbsp;&nbsp; 用ks选项被指定时kickstart文件位置时，Anaconda进入Kickstart安装模式；<br>
+<strong><span style="color: rgb(51, 153, 102);">安装时获取kickstart文件的方式：</span></strong><br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">（1） boot：linux ks</span></strong></span></p>
+<p><span style="font-size: 16px;">&nbsp;&nbsp;&nbsp; ks命令单独使用时，系统会尝试通过dhcp服务器配置网卡，并且从DHCP会话中获取kickstart配置文件的位置；<br>
+&nbsp;&nbsp;&nbsp; 
+在dhcp服务器dhcp配置文件中有kickstart文件位置说明，next-server关键字指向共享文件的NFS主机，用filename关键
+字指向主机上的文件路径；如果没有filename关键字，则尝试在next-server关键字指向主机的/kickstart文件夹中找
+kickstart文件；<br>
+&nbsp;</span><strong><span style="font-size: 16px;">&nbsp;&nbsp;</span></strong><span style="font-size: 16px;"> 下面是dhcp.conf文件中kickstart配置字段示例：</span></p>
+<pre><ol class="dp-c"><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;The&nbsp;following&nbsp;lines&nbsp;are&nbsp;examples&nbsp;of&nbsp;kickstart&nbsp;directives.</span>&nbsp;</span></li><li><span style="font-size: 16px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;<span class="string">"/data/ks/ks.cfg"</span>;&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;next-server&nbsp;192.168.1.10;&nbsp;</span></li><li class="alt"><span style="color: rgb(51, 153, 102);"><span style="font-size: 16px;"># 注：上面部分需要写在subnet子段中；</span></span></li><li class="alt">&nbsp;</li></ol></pre>
+<p><strong><span style="color: rgb(51, 153, 102);"><span style="font-size: 16px;">（2） boot：linux ks=url</span></span></strong><span style="font-size: 16px;"><br>
+&nbsp; &nbsp;&nbsp; 基于网络的文件服务器（网络服务器），获取配置文件，支持HTTP、FTP、NFS方式获取文件；例：<br>
+&nbsp;&nbsp;&nbsp; ks=ftp://192.168.0.254/pub/kistart/ks.cfg<br>
+&nbsp;&nbsp;&nbsp; ks=http:// 192.168.0.254/pub/kistart/ks.cfg<br>
+&nbsp;&nbsp;&nbsp; ks=nfs:ip_addr:/path/to/ks.cfg<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">（3） boot：linux ks=hd:device/path/to/your/kickstart_file</span></strong><br>
+&nbsp;&nbsp; &nbsp; 基于本地的安装方式，需要依次指定设备名，路径，文件名等；例如：&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp; 文件在光盘中：ks=cdrom:/ks.cfg<br>
+&nbsp;&nbsp; 文件在软盘中：&nbsp;&nbsp;&nbsp; ks=floppy:/filedirectory/ks.cfg<br>
+&nbsp;&nbsp; 文件在硬盘中：ks=hd:/sdb1/myfile/ks.cfg<br>
+&nbsp;&nbsp; 文件也可被打包进initrd根文件系统中：ks=file:/ks.cfg<br>
+<br>
+<span style="color: rgb(51, 153, 102);"><strong>kickstart文件结构介绍：</strong></span><br>
+&nbsp; 1.&nbsp;<span style="color: rgb(51, 153, 102);"> 命令部分</span>：配置系统的属性及安装中的各种必要设置信息<br>
+&nbsp; 2.&nbsp;<span style="color: rgb(51, 153, 102);"> %packages部分</span>：设定需要安装的软件包及包组，Anaconda会自动解决依赖关系<br>
+&nbsp; 3.&nbsp;<span style="color: rgb(51, 153, 102);"> 脚本部分：</span>用于定制系统，分为%pre部分在安装前运行，%post在安装后运行<br>
+&nbsp; &nbsp; %pre 部分脚本作为一个bash shell脚本执行，在Kickstart文件解析后执行；<br>
+&nbsp; &nbsp; %post 解析器默认为bash，可以自定义，缺省为chroot状态，也可指定非chroot状态；<br>
+</span></p>
+<p><span style="color: rgb(255, 0, 0);"><span style="font-size: 18px;"><span><strong>五.&nbsp; Kickstart文件中的主要项目及参数介绍：</strong></span></span></span></p>
+<p><span style="font-size: 16px;"><br>
+&nbsp;&nbsp;&nbsp; 每个项目都由关键字来识别；关键字可跟一个或多个参数；如果某选项后面跟随了一个等号（=），它后面就必须指定一个值。<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">install &nbsp; (可选)</span></strong><br>
+&nbsp;&nbsp;&nbsp; 明确指定系统次次进行的是全新安装系统；是默认项；<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">cdrom&nbsp; （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 以本地CD-ROM为源安装系统；<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">harddrive&nbsp; (可选)</span></strong><br>
+&nbsp;&nbsp;&nbsp; 以硬盘分区中包含的镜像为源（安装树）安装新系统；当以该种方式安装系统时，即使指定clearpart --all项，源所在分区也不会被重新抹去；<br>
+&nbsp;&nbsp;&nbsp; --partition=&nbsp;&nbsp;&nbsp; 指定分区<br>
+&nbsp;&nbsp;&nbsp; --dir=&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 指定包含镜像的目录<br>
+&nbsp;&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp;&nbsp; harddrive&nbsp; --partition=/dev/sdb2&nbsp; --dir=/data/iso<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">nfs&nbsp;&nbsp; (可选)</span></strong><br>
+&nbsp;&nbsp;&nbsp; 指定从NFS服务器上获取安装树；<br>
+&nbsp;&nbsp;&nbsp; --server=&nbsp;&nbsp;&nbsp; 指定NFS服务器，主机名称或IP<br>
+&nbsp;&nbsp;&nbsp; --dir=&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 包含安装树的目录<br>
+&nbsp;&nbsp;&nbsp; --opts=&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 可以指定挂载NFS的目录时的挂载选项<br>
+&nbsp;&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp;&nbsp; nfs&nbsp; --server=192.168.1.254&nbsp; --dir=/data/iso<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">url &nbsp; (可选)</span></strong><br>
+&nbsp;&nbsp;&nbsp; 指定通过FTP或HTTP从网络获取安装树；<br>
+&nbsp;&nbsp;&nbsp; --url&nbsp;&nbsp;&nbsp; 指定资源位置<br>
+&nbsp;&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp;&nbsp; url&nbsp; --url&nbsp; ftp://&lt;username&gt;:&lt;password&gt;@install.example.com/iso<br>
+&nbsp;&nbsp;&nbsp; url&nbsp; --url&nbsp; http://install.example.com/iso<br>
+<strong><br>
+<span style="color: rgb(51, 153, 102);">bootloader （必需）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 设定boot loader安装选项；<br>
+&nbsp;&nbsp;&nbsp; --append=&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 可以指定内核参数<br>
+&nbsp;&nbsp;&nbsp; --driveorder=&nbsp;&nbsp;&nbsp; 设定设备BIOS中的开机设备启动顺序<br>
+&nbsp;&nbsp;&nbsp; --location=&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+设定引导记录的位置； mbr：默认值；partition：将boot loader安装于包含kernel的分区超级快中；none：不安装boot
+ loder。<br>
+&nbsp;&nbsp;&nbsp; 示例：<br>
+&nbsp;&nbsp;&nbsp; bootloader&nbsp; --location=mbr&nbsp; --append=“rhgb quiet” --driveorder=sda,sdb<br>
+&nbsp;&nbsp;&nbsp; <br>
+<strong><span style="color: rgb(51, 153, 102);">clearpart （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 在建立新分区前清空系统上原有的分区表，默认不删除分区；<br>
+&nbsp;&nbsp;&nbsp; --all&nbsp; &nbsp;&nbsp;&nbsp; 擦除系统上原有所有分区；<br>
+&nbsp;&nbsp;&nbsp; --drives&nbsp;&nbsp;&nbsp; 删除指定驱动器上的分区<br>
+&nbsp;&nbsp;&nbsp; --initlabel&nbsp;&nbsp;&nbsp; 初始化磁盘卷标为系统架构的默认卷标<br>
+&nbsp;&nbsp;&nbsp; --linux&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 擦除所有的linux分区<br>
+&nbsp;&nbsp;&nbsp; --none（default）不移除任何分区<br>
+&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp; clearpart&nbsp; --drives=hda,hdb --all&nbsp; --initlabel<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">zerombr&nbsp; （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 清除mbr信息，会同时清空系统用原有分区表<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">drivedisk （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 如果使用特殊存储方式时，需要指定驱动程序盘位置以便加载存储驱动；<br>
+&nbsp;&nbsp; 1.&nbsp; 将驱动盘拷贝到本地硬盘某分区根目录：<br>
+&nbsp;&nbsp;&nbsp;&nbsp; drivedisk &lt;partition&gt; [ --type=&lt;fstype&gt; ]<br>
+&nbsp;&nbsp; 2.&nbsp; 也可以指定一个网络位置加载驱动程序盘<br>
+&nbsp;&nbsp;&nbsp;&nbsp; drivedisk&nbsp; --source=ftp://path/to/drive.img<br>
+&nbsp;&nbsp;&nbsp;&nbsp; drivedisk&nbsp; --source=http://path/to/drive.img<br>
+&nbsp;&nbsp;&nbsp;&nbsp; drivedisk&nbsp; --source=nfs:host://path/to/drive.img<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">firewall （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 配置系统防火墙选项；<br>
+&nbsp;&nbsp;&nbsp; firewall –enable|--disable&nbsp; [ --trust ] &lt;device&gt; [ --port= ]<br>
+&nbsp;&nbsp;&nbsp; --enable&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 拒绝外部发起的任何主动连接；<br>
+&nbsp;&nbsp;&nbsp; --disable&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 不配置任何iptables防御规则；<br>
+&nbsp;&nbsp;&nbsp; --trust&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 指定完全信任网卡设备；<br>
+&nbsp;&nbsp;&nbsp; --port&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 使用port:protocol格式指定可以通过防火墙的服务；<br>
+&nbsp;&nbsp;&nbsp; 示例：<br>
+&nbsp;&nbsp;&nbsp; firewall --enable --trust eth0&nbsp; --trust eth1&nbsp; --port=80:tcp<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">selinux （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 设置系统selinux状态；默认为启用并处于enforcing模式；<br>
+&nbsp;&nbsp;&nbsp; selinux [ --disabled|–enforcing|--premissive ]<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">reboot （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 在系统成功安装完成后默认自动重启系统（kickstart方法时）；在收到你敢装系统完成后，会提示按任意键进行重启；<br>
+&nbsp;&nbsp;&nbsp; 在本文件中没有明确指明其他方法时就默认完成方式为reboot；<br>
+&nbsp;&nbsp;&nbsp; 使用 reboot 选项可能会导致安装的死循环，这依赖于安装介质和方法。需要特别注意；<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">halt&nbsp; （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 在系统成功安装完成后关机；默认为reboot；<br>
+&nbsp;&nbsp;&nbsp; 其他选项还有shutdown、poweroff，需要使用请自行参考官方文档。<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">graphical （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 默认值，在图形模式下进行kickstart方式安装；<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">text （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 以文本方式进行kickstart安装；默认为图形界面<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">key&nbsp; (可选)</span></strong><br>
+&nbsp;&nbsp;&nbsp; 设置一个安装码(installration number)，用于获取redhat官方的支持服务；<br>
+&nbsp;&nbsp;&nbsp; --skip&nbsp;&nbsp;&nbsp; 跳过key设置，不进行设置；如果不设置可能跳转到交互模式让用户选取动作；<br>
+<strong><br>
+<span style="color: rgb(51, 153, 102);">keyboard （必需）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 设置键盘类型；一般设置为us；<br>
+<strong><br>
+<span style="color: rgb(51, 153, 102);">lang （必需）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 设置安装过程使用的语言及系统的缺省语言；文本模式安装时可能不支持某些语言（中、韩...），所以可能仍以默认的英文方式安装；默认en_us，装中文时，需要后期%packages部分装上中文</span><span style="font-size: 16px;">支持</span><span style="font-size: 16px;">组件；<br>
+&nbsp;&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp;&nbsp; lang en_US<br>
+&nbsp;<br>
+<strong><span style="color: rgb(51, 153, 102);">timezone （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 设置系统的时区；<br>
+&nbsp;&nbsp;&nbsp; timezone&nbsp; [ --utc ]&nbsp; &lt;timezone&gt;<br>
+&nbsp;&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp;&nbsp; timezone&nbsp; --utc&nbsp; Asia/Shanghai<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">auth/authconfig&nbsp; (必需)</span></strong><br>
+&nbsp;&nbsp;&nbsp; 设置系统的认证方式；默认为加密但不隐藏(shadow)；<br>
+&nbsp;&nbsp;&nbsp; --enablemd5&nbsp;&nbsp;&nbsp; 使用MD5加密方式<br>
+&nbsp;&nbsp;&nbsp; --useshadow或—enableshadow&nbsp;&nbsp;&nbsp; 使用隐藏密码；<br>
+&nbsp;&nbsp;&nbsp; --enablenis=&nbsp;&nbsp;&nbsp;&nbsp; 使用NIS认证方式<br>
+&nbsp;&nbsp;&nbsp; --nisdomain=&nbsp;&nbsp;&nbsp; NIS域<br>
+&nbsp;&nbsp;&nbsp; --nisserver=&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; NIS服务器<br>
+&nbsp;&nbsp;&nbsp; 还可以设置LDAP、SMB及Kerberos 5认证方式，详细请参考官方文档；<br>
+&nbsp;&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp;&nbsp; authconfig&nbsp; --useshadow&nbsp; --enablemd5<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">rootpw （必需）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 设置系统root账号的密码；<br>
+&nbsp;&nbsp;&nbsp; rootpw [ --iscrypted ]&nbsp; &lt;passwd&gt;<br>
+&nbsp;&nbsp;&nbsp; --iscrypted&nbsp;&nbsp;&nbsp; 表示设置的密码为加密过的串；<br>
+&nbsp;&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp;&nbsp; rootpw&nbsp; pa4word<br>
+&nbsp;&nbsp;&nbsp; rootpw --iscrypted&nbsp; $1$RPYyxobb$/LtxMNLJC7euEARg2Vu2s1<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">network （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 配置网络信息；在网络安装（NFS/HTTP/FTP）时必须指定；<br>
+&nbsp;&nbsp;&nbsp; --bootproto=dhcp|bootp|static&nbsp;&nbsp;&nbsp; 指定ip获取方式，默认为dhcp/bootp;<br>
+&nbsp;&nbsp;&nbsp; --device=&nbsp;&nbsp;&nbsp; 
+设置安装时激活来进行系统安装的网卡设备；该参数只在kickstart文件为本地文件时有效；若kickstart配置文件在网络上，安装程序会先初始
+化网卡然后去寻找kickstart文件；<br>
+&nbsp;&nbsp;&nbsp; --ip=&nbsp;&nbsp;&nbsp; ip设置<br>
+&nbsp;&nbsp;&nbsp; --gateway=&nbsp;&nbsp; 网关<br>
+&nbsp;&nbsp;&nbsp; --nameserver=&nbsp; DNS设置<br>
+&nbsp;&nbsp;&nbsp; --nodns&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 不设置DNS<br>
+&nbsp;&nbsp;&nbsp; --netmask=&nbsp;&nbsp; 掩码<br>
+&nbsp;&nbsp;&nbsp; --hostname= 设置安装后主机名称<br>
+&nbsp;&nbsp;&nbsp; --onboot=&nbsp;&nbsp;&nbsp; 设置是否在系统启动时激活网卡<br>
+&nbsp;&nbsp;&nbsp; --class=&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 设置DHCP的class值<br>
+&nbsp;&nbsp;&nbsp; --noipv4&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 禁用该设备的ipv4功能<br>
+&nbsp;&nbsp;&nbsp; --noipv6&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 禁用该设备的ipv6功能<br>
+&nbsp;&nbsp;&nbsp; 如将网络模式设置为静态模式，则必须在一行内写上ip，netmask、dns、gateway等信息；<br>
+&nbsp;&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp;&nbsp; network –bootproto=static –ip=1.1.1.1 --metmask=255.0.0.0 --gateway=1.1.1.254 --nameserver=1.1.1.2<br>
+&nbsp;&nbsp;&nbsp; netmask --bootproto=dhcp&nbsp; --device=eth0<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">skipx （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 如果该项存在，就不对系统的X进行设置；<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">xconfig （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 配置X window ；如果不给出选项，在安装过程中需要手动调整设置；当然不安装X时不应该添加该项；<br>
+&nbsp;&nbsp; --driver&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 为显卡设置X驱动<br>
+&nbsp;&nbsp; --videoram=&nbsp;&nbsp;&nbsp; 设置显卡的RAM大小<br>
+&nbsp;&nbsp; --defaultdesktop=&nbsp;&nbsp;&nbsp; 设置GNOME/KDE作为默认桌面；假定这两个桌面环境在%packages例已经安装<br>
+&nbsp;&nbsp; --startxonboot&nbsp;&nbsp; 使用图形界面登录系统<br>
+&nbsp;&nbsp; --resolution=&nbsp;&nbsp;&nbsp;&nbsp; 设置图形界面的分辨率；可用值有640*480、800*600、1024*768等；确保设置指适合于显示卡及显示器；<br>
+&nbsp;&nbsp; --depth=&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 设置显示色深；可用值有8/16/24/32；确保设置值适合于显示设备；<br>
+&nbsp;&nbsp;&nbsp; 例:<br>
+&nbsp;&nbsp;&nbsp; xconfig&nbsp;&nbsp;&nbsp; --startxonboot&nbsp; --resolution=800*600 --depth=16<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">services （可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 设置禁用或允许列出的服务；<br>
+&nbsp;&nbsp;&nbsp; --disabled 设置服务为禁用<br>
+&nbsp;&nbsp;&nbsp; --enabled&nbsp; 启动服务<br>
+&nbsp;&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp;&nbsp; services --disabled autid,cups,smartd,nfslock&nbsp; 服务之间用逗号隔开，不能有空格<br>
+&nbsp;&nbsp;&nbsp; <br>
+<strong><span style="color: rgb(51, 153, 102);">iscsi（可选）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 指定额外的ISCSI设备；<br>
+&nbsp;&nbsp;&nbsp; issci --ipaddr= ipaddr&nbsp; [options].<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --target <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --port= <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --user= <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --password= <br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">part/partition&nbsp; （install模式必须）</span></strong><br>
+&nbsp;&nbsp;&nbsp; 建立新分区；<br>
+&nbsp;&nbsp;&nbsp; part&nbsp; &lt;mntpoint&gt;|swap|pv.id|rdid.id&nbsp; options<br>
+&nbsp;&nbsp;&nbsp; mntpoint:挂载点，是在创建普通分区时指定新分区挂载位置的项；挂载点需要格式正确<br>
+&nbsp;&nbsp;&nbsp; swap： 创建swap分区；<br>
+&nbsp;&nbsp;&nbsp; raid.id:&nbsp; 表示创建的分区类型为raid型；必须用id号进行唯一区别；<br>
+&nbsp;&nbsp;&nbsp; pv.id：&nbsp; 表示所创建的分区类型为LVM型；必须用唯一id号进行区别；<br>
+&nbsp;&nbsp;&nbsp; --size=&nbsp; 设置分区的最小值，默认单位为M，但是不能写单位；<br>
+&nbsp;&nbsp;&nbsp; --grow&nbsp; 让分区自动增长利用可用的磁盘空间，或是增长到设置的maxsize值；<br>
+&nbsp;&nbsp;&nbsp; --maxsize 设置分区自动增长(grow)时的最大容量值，以M为单位，但不能写单位；<br>
+&nbsp;&nbsp;&nbsp; --onpart=/--usepart=&nbsp;&nbsp;&nbsp; &nbsp;设置使用原有的分区；<br>
+&nbsp;&nbsp;&nbsp; --noformat&nbsp;&nbsp;&nbsp; 设置不格式化指定的分区，在跟—onpart一同使用时，可以避免删除原有分区上的数据，在新安装的系统中保留使用数据；<br>
+&nbsp;&nbsp;&nbsp; --asprimary&nbsp;&nbsp;&nbsp; 强制制定该分区为主分区；若指定失败，分区会失败，导致安装停止；<br>
+&nbsp;&nbsp;&nbsp; --fstype=&nbsp;&nbsp;&nbsp; 新增普通分区时指定分区的类型，可以为ext2、ext3、ext4、swap、vfat及hfs；<br>
+&nbsp;&nbsp;&nbsp; --ondisk=/--ondrive=&nbsp;&nbsp;&nbsp; &nbsp;设定该分区创建在一个具体的磁盘上；<br>
+&nbsp;&nbsp;&nbsp; --start&nbsp;&nbsp; 指定分区以磁盘上那个磁道开始；需要跟--ondisk参数一块使用；<br>
+&nbsp;&nbsp;&nbsp; --end&nbsp;&nbsp;&nbsp; 指定分区以磁盘上那个磁道结束；需要跟上述两个参数一起使用；<br>
+&nbsp;&nbsp;&nbsp; --recommended：让系统自行决定分区的大小；在创建swap分区时，若RAM&lt;2G，则分区大小为2*RAM；若RAM&gt;=2G时，分区大小为RAM+2G；<br>
+&nbsp;&nbsp;&nbsp; --bytes-pre-inode=&nbsp;&nbsp;&nbsp; 指定分区格式化时inode的大小；默认值为4096<br>
+&nbsp;&nbsp;&nbsp; --fsoptions=&nbsp;&nbsp;&nbsp; 指定创建fstab文件时该分区挂载参数项；<br>
+&nbsp;&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp;&nbsp; part&nbsp; /boot&nbsp; --fstype=“ext3” --size=100<br>
+&nbsp;&nbsp;&nbsp; part&nbsp; swap&nbsp; --fstype=“swap” –size=512&nbsp; <br>
+&nbsp;&nbsp;&nbsp; part&nbsp; /&nbsp; --bytes-pre-inode=4096&nbsp; --fstype=“ext4”--size=10000<br>
+&nbsp;&nbsp;&nbsp; part&nbsp; /data&nbsp;&nbsp;&nbsp; --onpart=/dev/sdb1&nbsp; --noformat<br>
+&nbsp;&nbsp;&nbsp; part&nbsp; raid.100&nbsp; --size=2000<br>
+&nbsp;&nbsp;&nbsp; part&nbsp; pv.100&nbsp;&nbsp;&nbsp;&nbsp; --size=1000<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">raid&nbsp; (可选)</span></strong><br>
+&nbsp;&nbsp;&nbsp; 设置RAID。<br>
+&nbsp;&nbsp;&nbsp; raid 挂载点&nbsp; --level=&lt;level&gt;&nbsp; --device=&lt;mddevices_name&gt;&nbsp; &lt;raid组成分区&gt;<br>
+&nbsp;&nbsp;&nbsp; 挂载点：&nbsp;&nbsp;&nbsp; 选取根/时，注意尽量避免/boot在RAID内，除非为RAID1；<br>
+&nbsp;&nbsp;&nbsp; --level=&nbsp;&nbsp;&nbsp;&nbsp; 设置RAID级别<br>
+&nbsp;&nbsp;&nbsp; --device=&nbsp; RAID设备名称，如md0，md1...<br>
+&nbsp;&nbsp;&nbsp; --byte-pre-inode=&nbsp;&nbsp;&nbsp; 设置该RAID分区上inode大小；若分区文件系统类型不支持该参数，会静默忽略参数；<br>
+&nbsp;&nbsp;&nbsp; --spares=&nbsp; 设置RAID的热备盘<br>
+&nbsp;&nbsp;&nbsp; --fstype=&nbsp; 设置文件系统类型<br>
+&nbsp;&nbsp;&nbsp; --fsoptions=&nbsp; 设置挂载该文件系统时自定义的一些参数，参数写入fstab文件；<br>
+&nbsp;&nbsp;&nbsp; --useexisting&nbsp; 使用现有的RAID设备并且重新格式化原设备<br>
+&nbsp;&nbsp;&nbsp; --noformat&nbsp;&nbsp;&nbsp;&nbsp; 在使用现有的RAID设备时不格式化原有RAID设备<br>
+&nbsp;&nbsp;&nbsp; 例：完整创建一个RAID1设备示例；<br>
+&nbsp;&nbsp;&nbsp; part&nbsp; raid.10&nbsp; --size=1000&nbsp; --ondisk=/dev/sdb<br>
+&nbsp;&nbsp;&nbsp; part&nbsp; raid.11&nbsp; --size=1000&nbsp; --ondisk=/dev/sdc<br>
+&nbsp;&nbsp;&nbsp; raid&nbsp; /data&nbsp; --level=1&nbsp; --device=md0&nbsp; raid.10&nbsp; raid.11 <br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">volgroup&nbsp; (可选)</span></strong><br>
+&nbsp;&nbsp;&nbsp; 创建一个LVM卷组VG；<br>
+&nbsp;&nbsp;&nbsp; volgroup&nbsp; vg_name&nbsp; partition&nbsp; [options]<br>
+&nbsp;&nbsp;&nbsp; --useexiting&nbsp;&nbsp; 使用现有的VG并且重新格式化<br>
+&nbsp;&nbsp;&nbsp; --noformat&nbsp;&nbsp;&nbsp; 使用现有的VG时不做格式化<br>
+&nbsp;&nbsp;&nbsp; --pesize&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 设置PE（physical extents）块大小<br>
+&nbsp;&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp;&nbsp; part pv.11&nbsp; --size=2000<br>
+&nbsp;&nbsp;&nbsp; volgroup&nbsp; myvg&nbsp; pv.11<br>
+<br>
+<strong><span style="color: rgb(51, 153, 102);">logvol&nbsp; (可选)</span></strong><br>
+&nbsp;&nbsp;&nbsp; 创建一个LVM逻辑卷LV；<br>
+&nbsp;&nbsp;&nbsp; logvel&nbsp; mnt_point&nbsp; --vgname=vg_name&nbsp; --size=lv_size&nbsp; --name=lv_name&nbsp; [options]<br>
+&nbsp;&nbsp;&nbsp; --useexiting&nbsp; 使用现有的LV并且重新格式化<br>
+&nbsp;&nbsp;&nbsp; --noformat&nbsp;&nbsp; 使用现有的LV时不做格式化<br>
+&nbsp;&nbsp;&nbsp; --fstype=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 指定RAID分区类型<br>
+&nbsp;&nbsp;&nbsp; --fsoptions=&nbsp; 设置挂载该文件系统时自定义的一些参数，参数写入fstab文件；<br>
+&nbsp;&nbsp;&nbsp; --byte-pre-inode=&nbsp;&nbsp;&nbsp; 设置该RAID分区上inode大小；<br>
+&nbsp;&nbsp;&nbsp; --precent=&nbsp;&nbsp;&nbsp; 设定LV大小为VG可用空间的比例；<br>
+&nbsp;&nbsp;&nbsp; 例：<br>
+&nbsp;&nbsp;&nbsp; part pv.20&nbsp; --size=5000<br>
+&nbsp;&nbsp;&nbsp; volgroup&nbsp; mvvg&nbsp; pv.20<br>
+&nbsp;&nbsp;&nbsp; logvol&nbsp;&nbsp;&nbsp; /data&nbsp; --vgname=myvg&nbsp; --size=3000&nbsp; --name=mydata</span></p>
+<p><strong><span style="font-size: 18px;"><span style="color: rgb(255, 0, 0);">六.&nbsp; kickstart配置文件示例</span></span></strong></p>
+<pre><ol class="dp-c"><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">##########################################################################</span>&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;kickstart&nbsp;install&nbsp;script&nbsp;</span>&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;RHEL&nbsp;version&nbsp;5</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Platform=x86,&nbsp;AMD64,&nbsp;or&nbsp;Intel&nbsp;EM64T</span>&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">##########################################################################</span>&nbsp;</span></li><li><span style="font-size: 16px;">&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Install&nbsp;OS&nbsp;instead&nbsp;of&nbsp;upgrade</span>&nbsp;</span></li><li><span style="font-size: 16px;">install&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Use&nbsp;text&nbsp;mode&nbsp;install</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">text&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Installation&nbsp;Number&nbsp;configuration</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">key&nbsp;--skip&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Local&nbsp;installation&nbsp;Use&nbsp;CDROM&nbsp;installation&nbsp;media&nbsp;</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">cdrom&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Network&nbsp;installation&nbsp;via&nbsp;FTP&nbsp;of&nbsp;HTTP</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#url&nbsp;--url&nbsp;ftp：//&lt;username&gt;:&lt;password&gt;@install.example.com/pub/RH</span>&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#url&nbsp;--url&nbsp;http://install.example.com/pub/RH</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Network&nbsp;installation&nbsp;via&nbsp;NFS</span>&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#nfs&nbsp;--server=nfsserver.example.com&nbsp;&nbsp;--dir=/pub/install-tree</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Local&nbsp;installation&nbsp;Use&nbsp;HD&nbsp;source</span>&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#harddrive&nbsp;--partition&nbsp;/dev/sda2&nbsp;--dir=/data/iso</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;If&nbsp;you&nbsp;use&nbsp;harddrive,&nbsp;you&nbsp;must&nbsp;use&nbsp;ISO&nbsp;images,&nbsp;not&nbsp;a&nbsp;tree</span>&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Note&nbsp;that&nbsp;even&nbsp;if&nbsp;though&nbsp;we&nbsp;clearpart&nbsp;--all,&nbsp;the&nbsp;install</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;partition&nbsp;will&nbsp;remain,&nbsp;which&nbsp;can&nbsp;be&nbsp;quite&nbsp;useful.</span>&nbsp;</span></li><li><span style="font-size: 16px;">&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;System&nbsp;authorization&nbsp;information</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">auth&nbsp;&nbsp;--useshadow&nbsp;&nbsp;--enablemd5&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#Root&nbsp;password</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">rootpw&nbsp;--iscrypted&nbsp;$1$1P72E10M$b47abC13/yUSzV9uvCoML0&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#rootpw&nbsp;&nbsp;redhat</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;System&nbsp;bootloader&nbsp;configuration</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">bootloader&nbsp;--append=<span class="string">"rhgb&nbsp;quiet"</span>&nbsp;--location=mbr&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Clear&nbsp;the&nbsp;Master&nbsp;Boot&nbsp;Record</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">zerombr&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Partition&nbsp;clearing&nbsp;information</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">clearpart&nbsp;--all&nbsp;--initlabel&nbsp;</span></li><li><span style="font-size: 16px;">&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Run&nbsp;the&nbsp;Setup&nbsp;Agent&nbsp;on&nbsp;first&nbsp;boot</span>&nbsp;</span></li><li><span style="font-size: 16px;">firstboot&nbsp;--disable&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;System&nbsp;keyboard</span>&nbsp;</span></li><li><span style="font-size: 16px;">keyboard&nbsp;us&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;System&nbsp;language</span>&nbsp;</span></li><li><span style="font-size: 16px;">lang&nbsp;en_US&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;System&nbsp;timezone</span>&nbsp;</span></li><li><span style="font-size: 16px;">timezone&nbsp;--isUtc&nbsp;Asia/Shanghai&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Installation&nbsp;logging&nbsp;level</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">logging&nbsp;--level=info&nbsp;</span></li><li><span style="font-size: 16px;">&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Network&nbsp;information</span>&nbsp;</span></li><li><span style="font-size: 16px;">network&nbsp;--bootproto=dhcp&nbsp;--device=eth0&nbsp;--onboot=on&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">&nbsp;</span></li><li><span style="font-size: 16px;">&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Firewall&nbsp;configuration</span>&nbsp;</span></li><li><span style="font-size: 16px;">firewall&nbsp;--enabled&nbsp;--ssh&nbsp;&nbsp;--trust=eth0&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;SELinux&nbsp;configuration</span>&nbsp;</span></li><li><span style="font-size: 16px;">selinux&nbsp;--enforcing&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;X&nbsp;Window&nbsp;System&nbsp;configuration&nbsp;information</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">xconfig&nbsp;&nbsp;--defaultdesktop=GNOME&nbsp;--depth=16&nbsp;--resolution=800x600&nbsp;--startxonboot&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Do&nbsp;not&nbsp;configure&nbsp;X</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#skipx</span>&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Reboot&nbsp;after&nbsp;installation</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">reboot&nbsp;</span></li><li><span style="font-size: 16px;">&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Disk&nbsp;partitioning&nbsp;information</span>&nbsp;</span></li><li><span style="font-size: 16px;">part&nbsp;/boot&nbsp;--bytes-per-inode=4096&nbsp;--fstype=<span class="string">"ext3"</span>&nbsp;--size=100&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">part&nbsp;/&nbsp;--asprimary&nbsp;--bytes-per-inode=4096&nbsp;--fstype=<span class="string">"ext3"</span>&nbsp;--size=10240&nbsp;</span></li><li><span style="font-size: 16px;">part&nbsp;pv.100&nbsp;--size=4096&nbsp;&nbsp;--grow&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">volgroup&nbsp;myvg&nbsp;--pesize=32768&nbsp;pv.100&nbsp;</span></li><li><span style="font-size: 16px;">logvol&nbsp;/data&nbsp;--fstype=<span class="string">"ext3"</span>&nbsp;--name=mydata&nbsp;--vgname=myvg&nbsp;--size=1024&nbsp;--grow&nbsp;--maxsize=2048&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;This&nbsp;packages&nbsp;is&nbsp;for&nbsp;RedHat5.5</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">%packages&nbsp;</span></li><li><span style="font-size: 16px;">@base&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">@gnome-desktop&nbsp;</span></li><li><span style="font-size: 16px;">@development-libs&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">@admin-tools&nbsp;</span></li><li><span style="font-size: 16px;">@base-x&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">@development-tools&nbsp;</span></li><li><span style="font-size: 16px;">@sound-and-video&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">@chinese-support&nbsp;</span></li><li><span style="font-size: 16px;">@gnome-software-development&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">@x-software-development&nbsp;</span></li><li><span style="font-size: 16px;">@openfabrics-enterprise-distribution&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">@printing&nbsp;</span></li><li><span style="font-size: 16px;">@server-cfg&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">@legacy-software-support&nbsp;</span></li><li><span style="font-size: 16px;">@mail-server&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">@system-tools&nbsp;</span></li><li><span style="font-size: 16px;">@graphical-internet&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">@editors&nbsp;</span></li><li><span style="font-size: 16px;">@text-internet&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">@graphics&nbsp;</span></li><li><span style="font-size: 16px;">@dialup&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">@java&nbsp;</span></li><li><span style="font-size: 16px;">@office&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">&nbsp;</span></li><li><span style="font-size: 16px;">%post&nbsp;--interpreter=/bin/bash&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Let's&nbsp;log&nbsp;post-install</span>&nbsp;</span></li><li><span style="font-size: 16px;">(&nbsp;</span></li><li class="alt"><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Create&nbsp;two&nbsp;user</span>&nbsp;</span></li><li><span style="font-size: 16px;">/usr/sbin/useradd&nbsp;florian&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">/usr/sbin/useradd&nbsp;douglas&nbsp;</span></li><li><span style="font-size: 16px;">/bin/echo&nbsp;<span class="string">"florian"</span>&nbsp;|&nbsp;/usr/bin/passwd&nbsp;--stdin&nbsp;florian&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">/bin/echo&nbsp;<span class="string">"douglas"</span>&nbsp;|&nbsp;/usr/bin/passwd&nbsp;--stdin&nbsp;douglas&nbsp;</span></li><li><span style="font-size: 16px;"><span class="preprocessor">#&nbsp;Print&nbsp;message&nbsp;onboot:&nbsp;We&nbsp;are&nbsp;the&nbsp;fighter...</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">/bin/echo&nbsp;<span class="string">"We&nbsp;are&nbsp;the&nbsp;fighter......Mr.Li"</span>&nbsp;&gt;&nbsp;/etc/issue&nbsp;</span></li><li><span style="font-size: 16px;">&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">)&nbsp;2&gt;&amp;1&nbsp;&gt;&gt;&nbsp;/root/post-install.log&nbsp;</span></li><li class="alt">&nbsp;</li></ol></pre>
+<p>&nbsp;</p>
+<p><strong><span style="font-size: 18px;"><span style="color: rgb(255, 0, 0);">七.&nbsp; RedHat 安装光盘安装树介绍：</span></span></strong></p>
+<p><br>
+&nbsp;&nbsp;&nbsp; <span style="font-size: 16px;">光盘中包含文件夹isolinux、images、Cluster、ClusterStorage、Server、VT六个文件夹；包含隐藏文件.discinfo及.treeinfo和一些普通文件如TRANS.TBL等；<br>
+&nbsp;&nbsp;&nbsp;<span style="color: rgb(51, 153, 102);"> </span><strong><span style="color: rgb(51, 153, 102);">isolinux</span></strong>文
+件夹中有开机引导系统的安装内核（vmlinuz）及RAM 
+镜像(initrd.img)，在引导力系统时会加载入内存，给系统的安装提供一个Linux安装引导平台；文件夹中还有在不同模式下显示信息的.msg
+文件；splash.lss是特殊格式的引导过程背景图片（640*320,16位色,ppm格式）；<br>
+&nbsp;&nbsp;&nbsp;<span style="color: rgb(51, 153, 102);"> </span><strong><span style="color: rgb(51, 153, 102);">images</span></strong>文件夹中包含有各种引导镜像；有用于制作微型启动光盘的boot.iso；有可放置于USB或其他大容量可引导介质的VFAT分区上，制作引导工具的镜像diskboot.img；<br>
+也有用于制作PXE安装方式引导介质的pxeboot文件夹；及XEN所需的xen文件夹；<br>
+&nbsp;&nbsp;&nbsp; <strong><span style="color: rgb(51, 153, 102);">Server、VT、Cluster、ClusterStorage</span></strong>四个文件夹包含安装所需的所有RPM包；Server文件夹中包含基础软件包，VT包含xen相关的软件包；Cluster、ClusterStorage是集群及集群存储相关的软件包；根据这四个包可以配置本地的yum源；<br>
+&nbsp;&nbsp;&nbsp;<strong> <span style="color: rgb(51, 153, 102);">TRANS.TBL</span></strong>文件记录当前目录的列表，用mkisofs的-T参数重新生成，主要是为了长文件名称<br>
+&nbsp;&nbsp;&nbsp;<span style="color: rgb(51, 153, 102);"> <strong>.discinfo</strong> </span>是安装介质的识别信息；<br>
+&nbsp;&nbsp;&nbsp;<strong><span style="color: rgb(51, 153, 102);"> .treeinfo</span> </strong>文件记录不同安装方式安装程序所在的目录结构，如：PXE方式时，内核kernel=images/pxeboot/vmlinuz；根文件系统initrd=images/pxeboot/initrd.img<br>
+&nbsp;&nbsp;&nbsp;<span style="color: rgb(51, 153, 102);"> </span><strong><span style="color: rgb(51, 153, 102);">stage2.img、minstg2.img</span></strong>是引导后第二阶段安装需要用到的镜像文件（这两个镜像文件功能及结构在后面描述），若定制LiveCD，则需要修改；<br>
+<strong>&nbsp;&nbsp;&nbsp;<span style="color: rgb(51, 153, 102);"> repodata</span></strong> 是精确描述一个RPM包的详细信息，如依赖关系，包含文件，校验码信息等；<br>
+&nbsp;&nbsp;&nbsp;<span style="color: rgb(51, 153, 102);"> </span><strong><span style="color: rgb(51, 153, 102);">comps.xml</span></strong>是一个xml格式的数据文件，将各个RPM包按照一定的原则组织成若干组，安装时可以按照信息直接安装一组软件包；<br>
+&nbsp;&nbsp;&nbsp; 
+（stage2.img映像文件中的主要部分是安装程序anaconda，它的主执行体是/usr/bin下的anaconda，由其调用的大量例程分布
+在/usr/lib/anaconda下，而安装过程中要用到的资源文件分布在/usr/share/anaconda下。<br>
+&nbsp;&nbsp;&nbsp; 
+当boot.img所代表的启动介质被系统引导之后，在内存中就建立了一个完整的Linux系统（包括Linux内核和一个内存虚拟文件系统），之后便执
+行文件系统中存在的loader命令，从适当的介质中执行安装程序(例：安装介质是CD-ROM,就解析CD-ROM上的stage2.img，并从中执
+行安装程序)，即执行anaconda，完成Linux系统的安装任务<br>
+&nbsp;&nbsp;&nbsp; 详细可参看：（Linux发行版制作指南）<!--[if gte mso 9]><xml>
+<w:WordDocument>
+<w:View>Normal</w:View>
+<w:Zoom>0</w:Zoom>
+<w:PunctuationKerning />
+<w:DrawingGridVerticalSpacing>7.8 磅</w:DrawingGridVerticalSpacing>
+<w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
+<w:DisplayVerticalDrawingGridEvery>2</w:DisplayVerticalDrawingGridEvery>
+<w:ValidateAgainstSchemas />
+<w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+<w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+<w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+<w:Compatibility>
+<w:SpaceForUL />
+<w:BalanceSingleByteDoubleByteWidth />
+<w:DoNotLeaveBackslashAlone />
+<w:ULTrailSpace />
+<w:DoNotExpandShiftReturn />
+<w:AdjustLineHeightInTable />
+<w:BreakWrappedTables />
+<w:SnapToGridInCell />
+<w:WrapTextWithPunct />
+<w:UseAsianBreakRules />
+<w:DontGrowAutofit />
+<w:UseFELayout />
+</w:Compatibility>
+<w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+</w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+</w:LatentStyles>
+</xml><![endif]--><!--[if gte mso 10]>
+
+/* Style Definitions */
+table.MsoNormalTable
+{mso-style-name:普通表格;
+mso-tstyle-rowband-size:0;
+mso-tstyle-colband-size:0;
+mso-style-noshow:yes;
+mso-style-parent:"";
+mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+mso-para-margin:0cm;
+mso-para-margin-bottom:.0001pt;
+mso-pagination:widow-orphan;
+font-size:10.0pt;
+font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";
+mso-ansi-language:#0400;
+mso-fareast-language:#0400;
+mso-bidi-language:#0400;}
+
+<![endif]--></span><span style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;;mso-fareast-font-family:宋体;mso-font-kerning:1.0pt;mso-ansi-language:
+EN-US;mso-fareast-language:ZH-CN;mso-bidi-language:AR-SA" lang="EN-US"><a href="http://leozhao.livejournal.com/3128.html"><span style="font-size: 16px;">http://leozhao.livejournal.com/3128.html</span></a></span><span style="font-size: 16px;"><br>
+）<br>
+&nbsp;</span></p>
+<p><span style="font-size: 18px;"><strong><span style="color: rgb(255, 0, 0);">八.&nbsp; Anaconda/Kickstart系统安装过程图示：</span></strong></span></p>
+<p>&nbsp;</p>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201104/232252151.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="548247_files/232252151.jpg" border="0" width="650"></a></p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18px;"><strong><span style="color: rgb(255, 0, 0);">九.&nbsp; boot.img、stage2.img结构示意：</span></strong></span></p>
+<p><span style="font-size: 16px;">&nbsp;注：现在新版本的两个镜像略有出入，依实际为准（图后附查看img方法）；</span></p>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201104/233356169.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="548247_files/233356169.jpg" border="0" width="650"></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201104/233553212.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="548247_files/233553212.jpg" border="0" width="650"></a></p>
+<p><span style="color: rgb(51, 153, 102);"><span style="font-size: 16px;"><strong>loop方式挂载特殊格式的img镜像方法：</strong></span></span></p>
+<pre><ol class="dp-c"><li class="alt"><span style="font-size: 16px;">[root@bogon&nbsp;images]#&nbsp;ls&nbsp;</span></li><li><span style="font-size: 16px;">boot.iso&nbsp;&nbsp;diskboot.img&nbsp;&nbsp;minstg2.img&nbsp;&nbsp;pxeboot&nbsp;&nbsp;README&nbsp;&nbsp;stage2.img&nbsp;&nbsp;TRANS.TBL&nbsp;&nbsp;xen&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">[root@bogon&nbsp;images]#&nbsp;file&nbsp;stage2.img&nbsp;&nbsp;</span></li><li><span style="font-size: 16px;">stage2.img:<span style="color: rgb(255, 0, 0);">&nbsp;Squashfs&nbsp;filesystem</span>,&nbsp;little&nbsp;endian,&nbsp;version&nbsp;3.0,&nbsp;0&nbsp;bytes,&nbsp;8969&nbsp;inodes,&nbsp;blocksize:&nbsp;65536&nbsp;bytes,&nbsp;created:&nbsp;Mon&nbsp;Mar&nbsp;22&nbsp;19:56:50&nbsp;2010&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">#从上面看出img文件格式为squashfs，所以在下面挂载时明确指定该格式，否则会报错；<br></span></li><li class="alt"><span style="font-size: 16px;">[root@bogon&nbsp;images]#&nbsp;mkdir&nbsp;../img&nbsp;</span></li><li><span style="font-size: 16px;">[root@bogon&nbsp;images]#&nbsp;mount&nbsp;-o&nbsp;loop&nbsp;-t&nbsp;squashfs&nbsp;stage2.img&nbsp;../img/&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">[root@bogon&nbsp;images]#&nbsp;ls&nbsp;../img&nbsp;</span></li><li><span style="font-size: 16px;">etc&nbsp;&nbsp;lib&nbsp;&nbsp;modules&nbsp;&nbsp;proc&nbsp;&nbsp;usr&nbsp;&nbsp;<span class="keyword">var</span>&nbsp;</span></li><li class="alt"><span style="font-size: 16px;">[root@bogon&nbsp;images]#&nbsp;</span></li><li class="alt">&nbsp;</li></ol></pre>
+<p>&nbsp;</p>
+<p><span style="color: rgb(255, 0, 0);"><span style="font-size: 18px;"><strong>十.&nbsp; 使用Kickstart进行安装的多种方式列举</strong></span></span></p>
+<p><span style="font-size: 16px;">（过程不再赘述，对于一些重要的实验在后期会附上HOW-TO）：</span></p>
+<p><span style="font-size: 16px;">&nbsp; 1.&nbsp;&nbsp; kickstart放置于镜像中，重新制作ISO并刻盘，从光盘实现引导，自动配置并提供安装树安装；<br>
+&nbsp; 2.&nbsp;&nbsp; kickstart可放置于网络上，用FTP/HTTP/NFS提供出来；用光盘引导及提供安装树；<br>
+&nbsp; 3.&nbsp;&nbsp; 用FTP/HTTP/NFS提供kickstart及安装树，用光盘或其他可引导的大象存储设备引导；<br>
+&nbsp; 4.&nbsp;&nbsp; 搭建PXE纯网络的架构，实现引导，kickstart，及安装树的提供完全自动化；</span></p>
+<p>&nbsp;</p>
+<p><span style="color: rgb(51, 153, 102);"><span style="font-size: 18px;"><strong>参考：</strong></span></span></p>
+<p>&nbsp; Red_Hat_Enterprise_Linux-5-Installation_Guide-en-US</p>
+<p>&nbsp; <!--[if gte mso 9]><xml>
+<w:WordDocument>
+<w:View>Normal</w:View>
+<w:Zoom>0</w:Zoom>
+<w:PunctuationKerning />
+<w:DrawingGridVerticalSpacing>7.8 磅</w:DrawingGridVerticalSpacing>
+<w:DisplayHorizontalDrawingGridEvery>0</w:DisplayHorizontalDrawingGridEvery>
+<w:DisplayVerticalDrawingGridEvery>2</w:DisplayVerticalDrawingGridEvery>
+<w:ValidateAgainstSchemas />
+<w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+<w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+<w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+<w:Compatibility>
+<w:SpaceForUL />
+<w:BalanceSingleByteDoubleByteWidth />
+<w:DoNotLeaveBackslashAlone />
+<w:ULTrailSpace />
+<w:DoNotExpandShiftReturn />
+<w:AdjustLineHeightInTable />
+<w:BreakWrappedTables />
+<w:SnapToGridInCell />
+<w:WrapTextWithPunct />
+<w:UseAsianBreakRules />
+<w:DontGrowAutofit />
+<w:UseFELayout />
+</w:Compatibility>
+<w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+</w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<w:LatentStyles DefLockedState="false" LatentStyleCount="156">
+</w:LatentStyles>
+</xml><![endif]--><!--[if gte mso 10]>
+
+/* Style Definitions */
+table.MsoNormalTable
+{mso-style-name:普通表格;
+mso-tstyle-rowband-size:0;
+mso-tstyle-colband-size:0;
+mso-style-noshow:yes;
+mso-style-parent:"";
+mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+mso-para-margin:0cm;
+mso-para-margin-bottom:.0001pt;
+mso-pagination:widow-orphan;
+font-size:10.0pt;
+font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";
+mso-ansi-language:#0400;
+mso-fareast-language:#0400;
+mso-bidi-language:#0400;}
+
+<![endif]--><span style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;;mso-fareast-font-family:宋体;mso-font-kerning:1.0pt;mso-ansi-language:
+EN-US;mso-fareast-language:ZH-CN;mso-bidi-language:AR-SA" lang="EN-US"><a href="http://leozhao.livejournal.com/3128.html">http://leozhao.livejournal.com/3128.html</a></span><br>
+&nbsp;</p>
+<p>&nbsp;</p><p>本文出自 “<a href="http://molinux.blog.51cto.com/">Mo</a>” 博客，请务必保留此出处<a href="http://molinux.blog.51cto.com/2536040/548247">http://molinux.blog.51cto.com/2536040/548247</a></p>
+    		</div><!--正文 end-->
+<script type="text/javascript">
+	var kevent = 'onabort|onblur|onchange|onclick|ondblclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload';
+	var aevent = kevent.split('|');
+
+	jQuery('.showContent img').each(function(){
+		var nimg = this;
+		jQuery.each(aevent, function(i, n){
+			if (n!='onload') {
+				jQuery(nimg).attr(n, '');
+			} else {
+				if (jQuery(nimg).attr(n) != 'if(this.width>650) this.width=650;') {
+					jQuery(nimg).attr(n, '');
+				}
+			}
+		});
+	});
+</script>
+<script type="text/javascript" charset="utf-8">
+var encodetitle = encodeURI('一篇很棒的博文分享给大家：《Kickstart/Anaconda实现自动化安装原理探究》');
+
+function show51share(){
+
+	window.open('http://t.51cto.com/index.php?m=share&url=http://molinux.blog.51cto.com/2536040/548247&type=l&count=&relateUid=&appkey=3843950324&title=' + encodetitle);
+}
+</script>		
+<div class="m_sharebtn clear">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	  <tbody><tr>
+		<td height="43" valign="middle" width="11%" align="center"><img src="548247_files/ssk.png" alt="分享至"></td>
+		<td valign="top" width="77%" align="left">
+			<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare" data="{'wbuid':1706976420}">
+				<a href="#" title="分享到新浪微博" class="bds_tsina"></a>
+				<a href="#" title="分享到QQ空间" class="bds_qzone"></a>
+				<a href="#" title="分享到腾讯微博" class="bds_tqq"></a>
+				<a href="#" title="分享到百度云收藏" class="bds_baidu"></a>
+				<a href="#" title="分享到人人网" class="bds_renren"></a>
+				<a href="#" title="分享到QQ收藏" class="bds_qq"></a>
+				<a href="#" title="分享到豆瓣网" class="bds_douban"></a>
+				<a href="#" title="分享到百度空间" class="bds_hi"></a>
+				<a href="#" title="分享到MSN" class="bds_msn"></a>
+				<em title="分享到51CTO微博" class="weibo_51cto" onmouseout="this.style.backgroundImage='url(http://img1.51cto.com/images/share/ico_mweibo.gif)'" onmouseover="this.style.backgroundImage='url(http://img1.51cto.com/images/share/ico_mweibob.gif)'" onclick="show51share();"></em>
+				<span class="bds_more">更多</span>
+				
+				<a title="累计分享4次" href="#" class="shareCount">4</a>
+			</div>
+	<script src="548247_files/bds_s_v2.js" type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=559183"></script>
+	
+	<script type="text/javascript">
+		var bds_config = {'wbUid':1706976420, 'bdPic':'http://blog.51cto.com/attachment/201305/173413310.jpg'};
+		document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
+	</script>
+	<!-- Baidu Button END --></td>
+		<td valign="middle" width="12%" align="right"><a href="javascript:favorBox('open');" title="一键收藏，随时查看，分享好友！"><img src="548247_files/favorite_add_small.gif" alt="一键收藏，随时查看，分享好友！" border="0"></a></td>
+	  </tr>
+	</tbody></table>
+
+</div>			
+    		<div class="showBottom">
+            <!--<div class="reviews"><span class="fl" style="cursor:pointer;"><a onclick="openFavoulist();" id="favourer">zhu833、it你好、shoringchow</a>
+
+            </span><div id="favourdiv" class="support01">6人</div>
+              <span class="fl">了这篇文章</span></div>-->
+              <table border="0" cellpadding="0" cellspacing="0" width="720">
+  <tbody><tr>
+    <td align="right"><img src="548247_files/icon01.png" height="16" width="15"> <span style="cursor:pointer;"><a onclick="openFavoulist();" id="favourer">zhu833、it你好、shoringchow</a></span></td>
+    <td width="70" align="left"><div style="line-height:28px;" id="favourdiv" class="support01">6人</div></td>
+    <td width="60" align="left">了这篇文章</td>
+  </tr>
+</tbody></table>
+
+
+
+
+            <div class="showType">类别：<a href="http://molinux.blog.51cto.com/2536040/d-12" class="operlink">自动化</a>┆<a class="operlink" onclick="javascript:joingroups(548247,'molinux');return false;">技术圈</a>(<script src="548247_files/joingroup.html"></script>0)┆阅读(<span id="readNum">5026</span>)┆评论(<span id="cmtNum">5</span>)
+
+
+┆
+
+	<a href="#" onclick="javascript:dfanologin('http://home.51cto.com/index.php?reback=http%253A%252F%252Fmolinux.blog.51cto.com%252F2536040%252F548247');return false;" class="operlink">
+
+推送到技术圈</a>┆<a href="http://molinux.blog.51cto.com/">返回首页</a></div>
+            <div class="prevNext">
+
+			上一篇 <a href="http://molinux.blog.51cto.com/2536040/535844" class="operlink" title="fedora 14安装pps">fedora 14安装pps</a>
+
+
+			下一篇 <a href="http://molinux.blog.51cto.com/2536040/550190" class="operlink" title="LVM条带化">LVM条带化</a>
+
+
+            </div>
+
+            </div>
+
+	  </div><!--showBottom end-->
+      </div><!--modCon-->
+    <span class="modBot"></span>
+    </div><!--artShow end-->
+    <span class="blank"></span>
+	
+	<div class="relatedArt box">
+<a href="http://edu.51cto.com/member/index.html" target="_blank"><img src="548247_files/095126341.jpg"></a>
+</div>
+	
+
+
+    <div class="relatedArt box">
+    <div class="title" name="zhuanti" id="zhuanti"><h2>相关文章</h2></div>
+    <div class="modCon">
+<ul>
+
+<li><a href="http://iminmin.blog.51cto.com/689308/204279" title="Kickstart无人职守安装RHEL5（详细图解版）" target="_blank">Kickstart无人职守安装RHEL5（详细图解版）</a></li>
+
+
+<li><a href="http://sulinux.blog.51cto.com/2557454/526081" title="红帽5无人值守安装" target="_blank">红帽5无人值守安装</a></li>
+
+
+<li><a href="http://hancj.blog.51cto.com/89070/487499" title="最简单的kickstart配置方法" target="_blank">最简单的kickstart配置方法</a></li>
+
+
+<li><a href="http://51like.blog.51cto.com/1917872/503779" title="kickstart安装" target="_blank">kickstart安装</a></li>
+
+
+<li><a href="http://chcearth.blog.51cto.com/2179839/454515" title="kickstart基本原理" target="_blank">kickstart基本原理</a></li>
+
+
+<li><a href="http://chenzhuo.blog.51cto.com/150592/534367" title="RHEL6 Kickstart无人值守安装" target="_blank">RHEL6 Kickstart无人值守安装</a></li>
+
+
+<li><a href="http://dreamsarefar.blog.51cto.com/1603485/493699" title="kickstart 选项" target="_blank">kickstart 选项</a></li>
+
+
+
+</ul>
+
+
+	<div style="float:left;">
+		<a href="http://blog.51cto.com/zt" target="_blank"><img src="548247_files/smail.png" style="padding:3px 0 0 13px;float:left;" height="32" width="58"></a>
+		<p class="textcolor" style="padding:12px 0 0 11px;float:left;font-weight:bold;">本文收录至博客专题：《<a href="http://blog.51cto.com/zt/98" target="_blank">Kickstart：实现RHEL的自动安装</a>》</p>
+		<div class="clear"></div>
+	</div>
+
+
+<span class="blank6"></span>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div><!--相关文章 end-->
+
+
+<div class="artComm box">
+    <div class="title"><a name="replay"></a><h2>文章评论</h2></div>
+    <div class="modCon" id="artcomment">
+		<div>  &nbsp;</div><a name="477992"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid0"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[1楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="548247_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://itnihao.blog.51cto.com/" class="operlink" ref="nofollow"><b>it你好</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="it你好" parentid="477992">回复</a></label></div></div><div align="right">2012-05-06 20:07:36</div><div class="commentcontent">博文写得很好，原理讲解的很清楚，博主好功力！</div></div><br><a name="491300"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid1"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[2楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="548247_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://shoring.blog.51cto.com/" class="operlink" ref="nofollow"><b>shoringchow</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="shoringchow" parentid="491300">回复</a></label></div></div><div align="right">2012-06-26 10:16:09</div><div class="commentcontent">写的不错，让人受益匪浅.......</div></div><br><a name="492339"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid2"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[3楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="548247_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://jiaxl.blog.51cto.com/" class="operlink" ref="nofollow"><b>jiaxl2011</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="jiaxl2011" parentid="492339">回复</a></label></div></div><div align="right">2012-06-30 13:54:47</div><div class="commentcontent">这么好的文章，必须赞一个</div></div><br><a name="512021"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid3"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[4楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="548247_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://lixiaotao.blog.51cto.com/" class="operlink" ref="nofollow"><b>aclitao2005</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="aclitao2005" parentid="512021">回复</a></label></div></div><div align="right">2012-09-26 14:22:06</div><div class="commentcontent">好文章，基础理论，实际操作都有，好文章</div></div><br><a name="528397"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid4"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[5楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="548247_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://4552643.blog.51cto.com/" class="operlink" ref="nofollow"><b>lxshopping</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="lxshopping" parentid="528397">回复</a></label></div></div><div align="right">2012-12-16 17:40:06</div><div class="commentcontent">学习了</div></div><br><div>  &nbsp;</div>
+    </div><!--modCon-->
+        <span class="modBot"></span>
+</div><!--commBox end-->
+<a href="" id="com_top_top"></a>
+<form action="/comment.php?" method="post" name="form1" id="form1" onsubmit='return commentSubmit(this,"");'>
+<span class="blank1"></span>
+<div class="box writeComm" style="min-height:30px;">
+<a name="comment"></a>
+<input name="action" value="comment" type="hidden">
+<input id="commenttid" name="tid" value="548247" type="hidden">
+<input name="com_count_ajax" id="com_count_ajax" value="1" type="hidden">
+
+ <div class="title">
+	<h2 class="fl">发表评论&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+	<span class="fl"><a class="mred" target="_blank" href="http://doctor.51cto.com/develop-293.html">【有奖门诊】谈企业桌面标准化及桌面安全管理，赢Technet专业版订阅！</a></span>
+	<style type="text/css">
+		a.mred:link{ color:#ff0000; text-decoration:underline;}
+		a.mred:visited{color:#ff0000;}
+		a.mred:hover{color:#ff0000;}
+		a.mred:active{color:#ff0000;}
+	</style>
+</div>
+ <div class="modCon">
+
+ <div class="commForm">
+<dl>
+<dt>昵&nbsp;&nbsp;称：</dt>
+<dd>
+
+<input id="commentusername" name="username" class="commInput fl" type="text"><span><a href="http://home.51cto.com/index.php?reback=http%253A%252F%252Fmolinux.blog.51cto.com%252F2536040%252F548247" style="text-decoration:underline">登录</a>&nbsp;&nbsp;<a href="http://ucenter.51cto.com/reg_01.php?reback=http://blog.51cto.com" target="_blank" style="text-decoration: underline;">快速注册</a></span>
+
+
+
+</dd>
+</dl>
+
+
+
+<dl id="commentyanzheng">
+
+
+<dt>验证码：</dt>
+<dd><input class="code" id="commentauthnum" name="authnum" onclick="displaysecunum();" type="text">
+
+  <img class="fl" id="secunum" onclick="refimg()" style="display:none;" height="29" width="78"><p class="fl"><span style="display:none;" id="spanfont">点击图片可刷新验证码</span><span style="display:inline;" id="clickfont">请点击后输入验证码</span><span class="pl5"><a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank" style="text-decoration: underline;">博客过2级，无需填写验证码</a></span></p></dd>
+</dl>
+<dl>
+<dt>内&nbsp;&nbsp;容：</dt>
+<dd>
+<textarea class="writeCommCon f12" id="commentcontent" name="content"></textarea>
+</dd>
+</dl>
+</div>
+<div class="writeCommBot">
+  <input name="parentid" value="" id="parentid" type="hidden">
+  <input class="commBtn fl" name="submit" id="commentsubmit" value="" onclick="commentSubmitend2()" type="button">
+
+ <p class="fl" style="display:none;"><input class="fl" name="favour" id="favour" checked="checked" value="1" type="checkbox"><span class="fl">同时赞一个</span></p>
+
+</div>
+<span class="blank"></span>
+
+</div><!--modCon-->
+<span class="modBot"></span>
+</div>
+</form>
+
+<iframe id="iframe1" name="iframe1" height="0" width="0"></iframe>
+<!--发表评论 end-->
+</div>
+</div>
+<script language="javascript">
+	function refimg(){
+		var randval = Math.random();
+		document.getElementById("secunum").src="/seccode.php?rnum="+randval;
+	}
+	function displaysecunum()
+	{
+		var displaystr = document.getElementById("secunum").style.display;
+		if(displaystr == 'none')
+		{
+			refimg();
+			document.getElementById("clickfont").style.display = 'none';
+			document.getElementById("secunum").style.display = 'inline';
+			document.getElementById("spanfont").style.display = 'inline';
+		}
+	}
+
+	function showMsn(){
+		document.getElementById("c02").style.display = "none";
+		document.getElementById("c01").style.display = "block";
+		document.getElementById("share").style.height = "83px";
+		document.getElementById("share").style.background = "none";
+	}
+	function showBBS(){
+		document.getElementById("c01").style.display = "none";
+		document.getElementById("c02").style.display = "block";
+		document.getElementById("share").style.height = "83px";
+		document.getElementById("share").style.background = "none";
+	}
+
+	//资源页面，分享按钮
+	function copyShareUrl(title){
+
+		if (window.clipboardData){
+
+			if(document.getElementById("c01").style.display == 'block')
+			{
+				copy = "推荐：" + title + "http://molinux.blog.51cto.com/2536040/548247";
+				var alertText = "复制成功，你可以粘贴到MSN或QQ中发给好友。";
+			}
+			else
+			{
+				copy = "[url=" + "http://molinux.blog.51cto.com/2536040/548247" + "][u]" + title + "[/u][/url]";
+				var alertText = "复制成功，你可以粘贴到论坛分享给坛友。";
+			}
+			window.clipboardData.clearData();
+			window.clipboardData.setData("Text", copy);
+			alert(alertText);
+		}
+		else if (window.netscape){
+			alert("您使用的浏览器不支持此复制功能，请使用Ctrl+C或鼠标右键。");
+			if(document.getElementById("c01").style.display == 'block')
+			{
+				document.getElementById("shareTextQM").value = "推荐：" + title + "http://molinux.blog.51cto.com/2536040/548247";
+				document.getElementById("shareTextQM").select();
+			}
+			else
+			{
+				document.getElementById("shareTextBBS").value = "[url=" + "http://molinux.blog.51cto.com/2536040/548247" + "][u]" + title + "[/u][/url]";
+                document.getElementById("shareTextBBS").select();
+			}
+		}
+		return false;
+	}
+	function select_login(){
+		document.getElementById('fixed').style.display='';
+	}
+	function commentcheck()
+	{
+		if(document.form1.content.value == "")
+		{
+			alert("评论内容为空!");
+			document.form1.content.focus();
+			return false;
+		}
+	}
+	function changename(){
+
+	var memberid=0;
+	memberid="";
+
+	if(document.getElementById('commentniming').checked){
+		document.getElementById('commentusername').disabled=false;
+		document.getElementById('commentusername').value='';
+		document.getElementById("indexhidden").style.display="none";
+		document.getElementById("commentindex").value='';
+		document.getElementById("commentyanzheng").style.display="";
+	}else{
+		document.getElementById('commentusername').disabled=true;
+		document.getElementById('commentusername').value="";
+		document.getElementById("indexhidden").style.display="";
+		document.getElementById("commentindex").value="http://.blog.51cto.com";
+		if(memberid>8)
+		{
+			document.getElementById("commentyanzheng").style.display="none";
+		}
+	}
+	}
+	function openFavoulist()
+	{
+		window.open ('http://blog.51cto.com/mod/favourlist.php?tid=548247','newwindow','height=300,width=500,top=400,left=400,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no,z-look=yes');
+	}
+
+	var e_zti = document.getElementById('zti');//有专题锚点
+	var maodian = window.location.href;//锚点
+	if (e_zti) {
+		e_zti.href= (/[#]+/.test(maodian)) ? maodian : maodian + "#zhuanti";
+	}
+</script>
+<script src="548247_files/jquery-1.js"></script>
+<script src="548247_files/jquery.js"></script>
+<script src="548247_files/jquery_002.js"></script>
+<link href="548247_files/blog_top.css" rel="stylesheet" type="text/css">
+<script src="548247_files/blog_top_list.html" type="text/javascript" language="javascript"></script>
+<style>
+.backToTop {
+    display: none;
+	WIDTH: 45px;
+	height:45px;
+	BOTTOM: 20px;
+     position: fixed;
+    _position: absolute;
+    right: 140px;
+    bottom: 10px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=60);
+	text-indent:-9999px;
+}
+.tops { background:url(/images/tops.jpg) no-repeat center center; }
+</style>
+<script type="text/javascript">
+(function() {
+    var backToTopTxt = "返回顶部", backToTopEle = $('<div class="backToTop tops"></div>').appendTo($("body"))
+        .text(backToTopTxt).attr("title", backToTopTxt).click(function() {
+            $("html, body").animate({ scrollTop: 0 }, 520);
+    }), backToTopFun = function() {
+        var st = $(document).scrollTop(), winh = $(window).height();
+        (st > 0)? backToTopEle.show(): backToTopEle.hide();    
+        //IE6下的定位
+        if (!window.XMLHttpRequest) {
+            backToTopEle.css("top", st + winh - 60);    
+        }
+    };
+    $(window).bind("scroll", backToTopFun);
+    $(function() { backToTopFun(); });
+})();
+</script><div style="display: block;" title="返回顶部" class="backToTop tops">返回顶部</div>
+
+
+
+
+
+
+<div class="clear"></div>
+<!-- <script>
+jQuery(function(){
+	var html= "<div id=\"sogou_se_tgbar\" style=\"text-align:center;margin:0px auto 2px auto;clear:both;background:url(http://home.51cto.com/public/images/notice/sogou_se_tgbar_bg_final1.gif) repeat-x;width:950px;color:#000;font-size:13px;height:36px;z-index:21474836471\"><div style=\"float:left;cursor:pointer;width:910px;text-align:center;border-left:solid #efbf00 1px;height:32px; line-height:32px;txt-align:center;\"><span style=\"\">	<a href=\"http://51ctoblog.blog.51cto.com/26414/1093282\">【新年祝福征集】51CTO社区年底嘉年华活动正在征集博主祝福语，祝福以红包的形式随机的赠送给访问51CTO的网友 点此送祝福>></a></span></div><div onclick=\"document.getElementById('sogou_se_tgbar').style.display = 'none';\" style=\"float:right;width:20px;cursor:pointer;height:28px;padding:4px 8px 0px 8px;border-right:solid #efbf00 1px\"><img style=\"border:none;margin:4px 0px 0px 0px;\" src=\"http://home.51cto.com/public/images/notice/sogou_se_tgbar_close_final1.gif\"></div></div>"
+	jQuery('body').prepend(html);
+})
+</script> -->
+
+<div id="footer">
+  <div id="innerFooter">
+	<center>
+		<small>
+			Copyright By 51CTO.COM 版权所有<br><br>
+			<a href="http://blog.51cto.com/" target="_blank"><img src="548247_files/copyright.jpg"></a>
+	  </small>
+	</center>
+  </div>
+</div>
+<script src="548247_files/index.html" charset="utf-8"></script>
+<div style="display:none">
+<script src="548247_files/count.js"></script><script src="548247_files/count.html"></script>
+
+<iframe src="548247_files/pageview.html" frameborder="0" height="0" scrolling="no" width="0"></iframe>
+</div>
+<div style="display:none;"><script src="548247_files/stat.php" language="JavaScript"></script><script src="548247_files/cnzz_core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=4274540" target="_blank" title="站长统计"><img src="548247_files/pic.gif" border="0" hspace="0" vspace="0"></a><div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-38670657-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</div></div></body></html>
