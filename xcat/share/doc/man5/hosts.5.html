@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;hosts&gt; - a table in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#hosts_attributes_">hosts Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>hosts</strong> - a table in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>hosts Attributes:</strong>  <em>node</em>, <em>ip</em>, <em>hostnames</em>, <em>otherinterfaces</em>, <em>comments</em>, <em>disable</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>IP addresses and hostnames of nodes.  This info is optional and is only used to populate /etc/hosts and DNS via makehosts and makedns.  Using regular expressions in this table can be a quick way to populate /etc/hosts.</p>
+<p>
+</p>
+<hr />
+<h1><a name="hosts_attributes_">hosts Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_node"><strong>node</strong></a></strong>
+
+<dd>
+<p>The node name or group name.</p>
+</dd>
+</li>
+<dt><strong><a name="item_ip"><strong>ip</strong></a></strong>
+
+<dd>
+<p>The IP address of the node. This is only used in makehosts.  The rest of xCAT uses system name resolution to resolve node names to IP addresses.</p>
+</dd>
+</li>
+<dt><strong><a name="item_hostnames"><strong>hostnames</strong></a></strong>
+
+<dd>
+<p>Hostname aliases added to /etc/hosts for this node. Comma or blank separated list.</p>
+</dd>
+</li>
+<dt><strong><a name="item_otherinterfaces"><strong>otherinterfaces</strong></a></strong>
+
+<dd>
+<p>Other IP addresses to add for this node.  Format: -&lt;ext&gt;:&lt;ip&gt;,&lt;intfhostname&gt;:&lt;ip&gt;,...</p>
+</dd>
+</li>
+<dt><strong><a name="item_comments"><strong>comments</strong></a></strong>
+
+<dd>
+<p>Any user-written notes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_disable"><strong>disable</strong></a></strong>
+
+<dd>
+<p>Set to 'yes' or '1' to comment out this row.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong></p>
+
+</body>
+
+</html>

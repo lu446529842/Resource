@@ -1,0 +1,188 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;getmacs&gt; - Collects node MAC address.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<ul>
+
+		<li><a href="#common_">Common:</a></li>
+		<li><a href="#ppc_specific_">PPC specific:</a></li>
+		<li><a href="#blade_specific_">blade specific:</a></li>
+	</ul>
+
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>getmacs</strong> - Collects node MAC address.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>
+</p>
+<h2><a name="common_">Common:</a></h2>
+<p><strong>getmacs</strong> [<strong>-h</strong>| <strong>--help</strong> | <strong>-v</strong>| <strong>--version</strong>]</p>
+<p>
+</p>
+<h2><a name="ppc_specific_">PPC specific:</a></h2>
+<p><strong>getmacs</strong> <em>noderange</em> [<strong>-F</strong> <em>filter</em>]</p>
+<p><strong>getmacs</strong> <em>noderange</em> [<strong>-M</strong>]</p>
+<p><strong>getmacs</strong> <em>noderange</em> [<strong>-V</strong>| <strong>--verbose</strong>] [<strong>-f</strong>] [<strong>-d</strong>] [<strong>--arp</strong>] | [<strong>-D</strong> [<strong>-S</strong> <em>server</em>] [<strong>-G</strong> <em>gateway</em>] [<strong>-C</strong> <em>client</em>] [<strong>-o</strong>]]</p>
+<p>
+</p>
+<h2><a name="blade_specific_">blade specific:</a></h2>
+<p><strong>getmacs</strong> <em>noderange</em> [<strong>-V</strong>| <strong>--verbose</strong>] [<strong>-d</strong>] [<strong>--arp</strong>] [<strong>-i</strong> <em>ethN</em>|<em>enN</em>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The getmacs command collects MAC address from a single or range of nodes.
+Note that on AIX systems, the returned MAC address is not colon-seperated (for example 8ee2245cf004), while on Linux systems the MAC address is colon-seperated (for example 8e:e2:24:5c:f0:04).
+If no ping test performed,  getmacs writes the first adapter MAC to the xCAT database.  If ping test performed, getmacs will write the first successfully pinged MAC to xCAT database.</p>
+<p>For PPC (without HMC, using Direct FSP Management) specific:</p>
+<p>Note: If network adapters are physically assigned to LPARs, getmacs cannot read the MAC addresses unless perform ping test, since there is no HMC command to read them and getmacs has to login to open formware. And if the LPARs has never been activated before, getmacs need to be performed with the option ``<strong>-D</strong>'' to get theirs MAC addresses.</p>
+<p>For IBM Flex Compute Node (Compute Node for short) specific:</p>
+<p>Note: If ``<strong>-d</strong>'' is specified, all the MAC of the blades will be displayed. If no option specified, the first MAC address of the blade will be written to mac table.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>--arp</strong></p>
+<p>Read MAC address with ARP protocal.</p>
+<p><strong>-C</strong></p>
+<p>Specify the IP address of the partition for ping test. The default is to read from xCAT database if no <strong>-C</strong> specified.</p>
+<p><strong>-d</strong></p>
+<p>Display MAC only. The default is to write the first valid adapter MAC to the xCAT database.</p>
+<p><strong>-D</strong></p>
+<p>Perform ping test.  Please be aware that in this way, the lpars will be reset.</p>
+<p><strong>-f</strong></p>
+<p>Force immediate shutdown of the partition.This flag must be used with -D flag.</p>
+<p><strong>-F</strong></p>
+<p>Specify filters to select the correct adapter.  Acceptable filters are Type, MAC_Address, Phys_Port_Loc, Adapter, Port_Group, Phys_Port, Logical_Port, VLan, VSwitch, Curr_Conn_Speed.</p>
+<p><strong>-G</strong></p>
+<p>Gateway IP address of the partition.  The default is to read from xCAT database if no <strong>-G</strong> specified.</p>
+<p><strong>-h</strong></p>
+<p>Display usage message.</p>
+<p><strong>-M</strong></p>
+<p>Return multiple MAC addresses for the same adapter or port, if available from the hardware.  For some network adapters (e.g. HFI) the MAC can change when there are some recoverable internal errors.  In this case, the hardware can return several MACs that the adapter can potentially have, so that xCAT can put all of them in DHCP.  This allows successful booting, even after a MAC change, but on Linux at this time, it can also cause duplicate IP addresses, so it is currently not recommended on Linux.  By default (without this flag), only a single MAC address is returned for each adapter.</p>
+<p><strong>-o</strong></p>
+<p>Read MAC address when the lpar is in openfirmware state.  This option mush be used with [<strong>-D</strong>] option to perform ping test. Before use <strong>-o</strong>, the lpar must be in openfirmware state.</p>
+<p><strong>-S</strong></p>
+<p>The IP address of the machine to ping.  The default is to read from xCAT databse if no <strong>-S</strong> specified.</p>
+<p><strong>-v</strong></p>
+<p>Command Version.</p>
+<p><strong>-V</strong></p>
+<p>Verbose output.</p>
+<p><strong>-i</strong></p>
+<p>Specify the interface whose mac address will be collected and written into mac table. If 4 mac addresses are returned by option '-d', they all are the mac addresses of the blade. The N can start from 0(map to the eth0 of the blade) to 3. If 5 mac addresses are returned, the 1st mac address must be the mac address of the blade's FSP, so the N will start from 1(map to the eth0 of the blade) to 4.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<pre>
+  0 The command completed successfully.</pre>
+<pre>
+  1 An error has occurred.</pre>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To retrieve the MAC address for the HMC-managed partition lpar4 and write the first valid adapter MAC to the xCAT database, enter:
+</p>
+<pre>
+
+ getmacs lpar4</pre>
+<p>Output is similar to:</p>
+<pre>
+ lpar4:
+ #Type  MAC_Address  Phys_Port_Loc  Adapter  Port_Group  Phys_Port  Logical_Port  VLan  VSwitch  Curr_Conn_Speed
+ hea  7607DFB07F02  N/A  N/A  N/A  N/A  N/A  1  ETHERNET0  N/A
+ ent U78A1.001.99203B5-P1-T6   00145eb55788 /lhea@23c00614/ethernet@23e00514 unsuccessful physical</pre>
+<p>2. To retrieve the MAC address with ARP protocal:</p>
+<pre>
+ getmacs lpar4 --arp</pre>
+<p>Output is similar to:</p>
+<pre>
+ lpar4:
+ #IP           MAC_Address
+ 192.168.0.10  00145eb55788</pre>
+<p>3. To retrieve the MAC address for the HMC-managed partition lpar4 and display the result only, enter:</p>
+<pre>
+ getmacs lpar4 -d</pre>
+<p>Output is similar to:</p>
+<pre>
+ lpar4:
+ #Type  MAC_Address  Phys_Port_Loc  Adapter  Port_Group  Phys_Port  Logical_Port  VLan  VSwitch  Curr_Conn_Speed
+ hea  7607DFB07F02  N/A  N/A  N/A  N/A  N/A  1  ETHERNET0  N/A
+ ent U78A1.001.99203B5-P1-T6   00145eb55788 /lhea@23c00614/ethernet@23e00514 unsuccessful physical</pre>
+<p>4. To retrieve the MAC address for the HMC-managed partition lpar4 with filter Type=hea,VSwitch=ETHERNET0.</p>
+<pre>
+ getmacs lpar4 -F Type=hea,VSwitch=ETHERNET0</pre>
+<p>Output is similar to:</p>
+<pre>
+ lpar4:
+ #Type  MAC_Address  Phys_Port_Loc  Adapter  Port_Group  Phys_Port  Logical_Port  VLan  VSwitch  Curr_Conn_Speed
+ hea  7607DFB07F02  N/A  N/A  N/A  N/A  N/A  1  ETHERNET0  N/A</pre>
+<p>5. To retrieve the MAC address while performing a ping test for the HMC-managed partition lpar4 and display the result only, enter:</p>
+<pre>
+ getmacs lpar4 -d -D -S 9.3.6.49 -G 9.3.6.1 -C 9.3.6.234</pre>
+<p>Output is similar to:</p>
+<pre>
+ lpar4:
+ #Type  Location Code   MAC Address      Full Path Name  Ping Result
+ ent U9133.55A.10B7D1G-V12-C4-T1 8e:e2:24:5c:f0:04 /vdevice/l-lan@30000004 successful virtual</pre>
+<p>6. To retrieve the MAC address for Power 775 LPAR using Direct FSP Management without ping test and display the result only, enter:</p>
+<pre>
+ getmacs lpar4 -d</pre>
+<p>Output is similar to:</p>
+<pre>
+ lpar4:
+ #Type  Phys_Port_Loc  MAC_Address  Adapter  Port_Group  Phys_Port  Logical_Port  VLan  VSwitch  Curr_Conn_Speed
+ HFI  N/A  02:00:02:00:00:04  N/A  N/A  N/A  N/A  N/A  N/A  N/A</pre>
+<p>7. To retrieve multiple MAC addresses from Power 775 HFI network adapter using Direct FSP Management, enter:</p>
+<pre>
+ getmacs lpar4 -M</pre>
+<p>Output is similar to:</p>
+<pre>
+ lpar4:
+ #Type  Phys_Port_Loc  MAC_Address  Adapter  Port_Group  Phys_Port  Logical_Port  VLan  VSwitch  Curr_Conn_Speed
+ HFI  N/A  02:00:02:00:00:04|02:00:02:00:00:05|02:00:02:00:00:06  N/A  N/A  N/A  N/A  N/A  N/A  N/A</pre>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/getmacs</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="../man8/makedhcp.8.html">makedhcp(8)</a>
+
+</p>
+
+</body>
+
+</html>

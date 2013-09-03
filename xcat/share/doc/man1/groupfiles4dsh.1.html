@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;groupfiles4dsh&gt; - Builds a directory of files for each defined nodegroup in xCAT.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>groupfiles4dsh</strong> - Builds a directory of files for each defined nodegroup in xCAT.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>groupfiles4dsh</strong> [{<strong>-p</strong>|<strong>--path</strong>} <em>path</em>]</p>
+<p><strong>groupfiles4dsh</strong> [<strong>-h</strong>|<strong>--help</strong>] [<strong>-v</strong>|<strong>--version</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This tool will build a directory of files, one for each defined
+nodegroup in xCAT.  The file will be named the nodegroup name and
+contain a list of nodes that belong to the nodegroup.
+The file can be used as input to the AIX dsh command.
+The purpose of this tool is to allow backward compatiblity with scripts
+that were created using the AIX or CSM dsh command</p>
+<p>Reference: man dsh.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-h</strong>          Display usage message.</p>
+<p><strong>-v</strong>          Command Version.</p>
+<p><strong>-p</strong>          Path to the directory to create the nodegroup files (must exist).</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To create the nodegroup files in directory /tmp/nodegroupfiles, enter:</p>
+<p><strong>groupfiles4dsh -p /tmp/nodegroupfiles</strong></p>
+<p>To use with dsh:</p>
+<pre>
+   export DSH_CONTEXT=DSH  ( default unless CSM is installed)
+   export DSH_NODE_RSH=/bin/ssh   (default is rsh)
+   export DSH_NODEGROUP_PATH= /tmp/nodegroupfiles</pre>
+<pre>
+   dsh  -N all  date   (where all is a group defined in xCAT)
+   dsh -a date  (will look in all nodegroupfiles and build a list of all nodes)</pre>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/share/xcat/tools/groupfiles4dsh</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="xdsh.1.html">xdsh(1)</a></p>
+
+</body>
+
+</html>

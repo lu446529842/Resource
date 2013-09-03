@@ -1,0 +1,167 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;xdshbak&gt; - Formats the output of the B&lt;xdsh&gt; command.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis"><strong>SYNOPSIS</strong></a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<ul>
+
+		<li><a href="#standard_error">Standard Error</a></li>
+	</ul>
+
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#examples"><strong>EXAMPLES</strong></a></li>
+	<li><a href="#see_also"><strong>SEE ALSO</strong></a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>xdshbak</strong> - Formats the output of the <strong>xdsh</strong> command.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis"><strong>SYNOPSIS</strong></a></h1>
+<p><strong>xdshbak</strong> [<strong>-c</strong> | <strong>-x</strong> | <strong>-h</strong> | <strong>-q</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The  <strong>xdshbak</strong>  command formats output from the <strong>xdsh</strong> command. The <strong>xdshbak</strong>
+command takes, as input, lines in the following format:</p>
+<pre>
+ host_name: line of output from remote command</pre>
+<p>The <strong>xdshbak</strong> command formats the lines as follows  and  writes  them  to
+standard  output. Assume that the output from node3 and node4
+is identical, and the <strong>-c</strong> (collapse) flag was specified:</p>
+<pre>
+ HOSTS --------------------------------------------------------
+ node1
+ --------------------------------------------------------------
+ .
+ .
+ lines from xdsh for node1 with hostnames stripped off
+ .
+ .
+ HOSTS --------------------------------------------------------
+ node2
+ --------------------------------------------------------------
+ .
+ .
+ lines from xdsh for node2 with hostnames stripped off
+ .
+ .
+ HOSTS --------------------------------------------------------
+ node3, node4
+ --------------------------------------------------------------
+ .
+ .
+ lines from xdsh for node 3 with hostnames stripped off
+ .
+ .</pre>
+<p>When output is displayed from more than one node in collapsed form, the
+host  names are displayed alphabetically. When output is not collapsed,
+output is displayed sorted alphabetically by host name.</p>
+<p>If the <strong>-q</strong> quiet flag is not set then  <strong>xdshbak</strong>
+command writes ``.'' for each 1000 lines of output processed (to show progress),
+since it won't display the output until it has processed all of it.</p>
+<p>If the <strong>-x</strong> flag is specified, the extra header lines that xdshbak normally
+displays for each node will be omitted, and the hostname at the beginning
+of each line is not stripped off, but <strong>xdshbak</strong>  still sorts
+the output by hostname for easier viewing:</p>
+<pre>
+ node1: lines from xdsh for node1
+ .
+ .
+ node2: lines from xdsh for node2
+ .
+ .</pre>
+<p>
+</p>
+<h2><a name="standard_error">Standard Error</a></h2>
+<p>When the <strong>xdshbak</strong> filter is used and standard error messages are generated,
+all error messages on standard error appear before all standard
+output messages. This is true with and without the <strong>-c</strong> flag.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dc"><strong>-c</strong></a></strong>
+
+<dd>
+<p>If the output from multiple nodes is identical it will be collapsed
+and displayed only once.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dx"><strong>-x</strong></a></strong>
+
+<dd>
+<p>Omit the extra header lines that xdshbak normally displays for
+each node.  This provides
+more  compact  output,  but  xdshbak still sorts the output by
+node name for easier viewing.
+This option should not be used with <strong>-c</strong>.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh"><strong>-h</strong></a></strong>
+
+<dd>
+<p>Displays usage information.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dq"><strong>-q</strong></a></strong>
+
+<dd>
+<p>Quiet mode, do not display ``.'' for each 1000 lines of output.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples"><strong>EXAMPLES</strong></a></h1>
+<ul>
+<li>
+<p>To  display the results of a command issued on several nodes, in
+the format used in the Description, enter:</p>
+<pre>
+ xdsh node1,node2,node3 cat /etc/passwd | xdshbak</pre>
+</li>
+<li>
+<p>To display the results of a command issued on several nodes with
+identical output displayed only once, enter:</p>
+<pre>
+ xdsh host1,host2,host3 pwd | xdshbak -c</pre>
+</li>
+<li>
+<p>To display the results of a command issued on several nodes with
+compact output and be sorted alphabetically by host name, enter:</p>
+<pre>
+ xdsh host1,host2,host3 date | xdshbak -x</pre>
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="see_also"><strong>SEE ALSO</strong></a></h1>
+<p><a href="xdsh.1.html">xdsh(1)</a>, <a href="xcoll.1.html">xcoll(1)</a></p>
+
+</body>
+
+</html>

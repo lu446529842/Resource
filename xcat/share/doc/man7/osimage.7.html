@@ -1,0 +1,429 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;osimage&gt; - a logical object definition in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#osimage_attributes_">osimage Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>osimage</strong> - a logical object definition in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>osimage Attributes:</strong>  <em>addkcmdline</em>, <em>boottarget</em>, <em>bosinst_data</em>, <em>cfmdir</em>, <em>configdump</em>, <em>crashkernelsize</em>, <em>description</em>, <em>driverupdatesrc</em>, <em>dump</em>, <em>exlist</em>, <em>fb_script</em>, <em>groups</em>, <em>home</em>, <em>image_data</em>, <em>imagename</em>, <em>imagetype</em>, <em>installp_bundle</em>, <em>isdeletable</em>, <em>kerneldir</em>, <em>kernelver</em>, <em>kitcomponents</em>, <em>krpmver</em>, <em>lpp_source</em>, <em>mksysb</em>, <em>netdrivers</em>, <em>nimmethod</em>, <em>nimtype</em>, <em>nodebootif</em>, <em>osarch</em>, <em>osdistroname</em>, <em>osname</em>, <em>osupdatename</em>, <em>osvers</em>, <em>otherifce</em>, <em>otherpkgdir</em>, <em>otherpkglist</em>, <em>otherpkgs</em>, <em>paging</em>, <em>partitionfile</em>, <em>permission</em>, <em>pkgdir</em>, <em>pkglist</em>, <em>postbootscripts</em>, <em>postinstall</em>, <em>postscripts</em>, <em>profile</em>, <em>provmethod</em>, <em>resolv_conf</em>, <em>root</em>, <em>rootfstype</em>, <em>rootimgdir</em>, <em>script</em>, <em>serverrole</em>, <em>shared_home</em>, <em>shared_root</em>, <em>spot</em>, <em>synclists</em>, <em>template</em>, <em>tmp</em>, <em>usercomment</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Logical objects of this type are stored in the xCAT database in one or more tables.  Use the following commands
+to manipulate the objects: <strong>mkdef</strong>, <strong>chdef</strong>, <strong>lsdef</strong>, and <strong>rmdef</strong>.  These commands will take care of
+knowing which tables the object attributes should be stored in.  The attribute list below shows, in
+parentheses, what tables each attribute is stored in.</p>
+<p>
+</p>
+<hr />
+<h1><a name="osimage_attributes_">osimage Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_addkcmdline"><strong>addkcmdline</strong> (linuximage.addkcmdline)</a></strong>
+
+<dd>
+<p>User specified arguments to be passed to the kernel.  The user arguments are appended to xCAT.s default kernel arguments.   This attribute is ignored if linuximage.boottarget is set.</p>
+</dd>
+</li>
+<dt><strong><a name="item_boottarget"><strong>boottarget</strong> (linuximage.boottarget)</a></strong>
+
+<dd>
+<p>The name of the boottarget definition.  When this attribute is set, xCAT will use the kernel, initrd and kernel params defined in the boottarget definition instead of the default.</p>
+</dd>
+</li>
+<dt><strong><a name="item_bosinst_data"><strong>bosinst_data</strong> (nimimage.bosinst_data)</a></strong>
+
+<dd>
+<p>The name of a NIM bosinst_data resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cfmdir"><strong>cfmdir</strong> (osimage.cfmdir)</a></strong>
+
+<dd>
+<p>CFM directory name for PCM. Set to /install/osimages/&lt;osimage name&gt;/cfmdir by PCM.</p>
+</dd>
+</li>
+<dt><strong><a name="item_configdump"><strong>configdump</strong> (nimimage.configdump)</a></strong>
+
+<dd>
+<p>Specifies the type of system dump to be collected. The values are selective, full, and none.  The default is selective.</p>
+</dd>
+</li>
+<dt><strong><a name="item_crashkernelsize"><strong>crashkernelsize</strong> (linuximage.crashkernelsize)</a></strong>
+
+<dd>
+<p>the size that assigned to the kdump kernel. If the kernel size is not set, 256M will be the default value.</p>
+</dd>
+</li>
+<dt><strong><a name="item_description"><strong>description</strong> (osimage.description)</a></strong>
+
+<dd>
+<p>OS Image Description</p>
+</dd>
+</li>
+<dt><strong><a name="item_driverupdatesrc"><strong>driverupdatesrc</strong> (linuximage.driverupdatesrc)</a></strong>
+
+<dd>
+<p>The source of the drivers which need to be loaded during the boot. Two types of driver update source are supported: Driver update disk and Driver rpm package. The value for this attribute should be comma separated sources. Each source should be the format tab:full_path_of_srouce_file. The tab keyword can be: dud (for Driver update disk) and rpm (for driver rpm). If missing the tab, the rpm format is the default. e.g. dud:/install/dud/dd.img,rpm:/install/rpm/d.rpm</p>
+</dd>
+</li>
+<dt><strong><a name="item_dump"><strong>dump</strong> (linuximage.dump, nimimage.dump)</a></strong>
+
+<dd>
+<p>The NFS directory to hold the Linux kernel dump file (vmcore) when the node with this image crashes, its format is ``nfs://&lt;nfs_server_ip&gt;/&lt;kdump_path&gt;''. If you want to use the node's ``xcatmaster'' (its SN or MN), &lt;nfs_server_ip&gt; can be left blank. For example, ``nfs:///&lt;kdump_path&gt;'' means the NFS directory to hold the kernel dump file is on the node's SN, or MN if there's no SN.</p>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<p>The name of the NIM dump resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_exlist"><strong>exlist</strong> (linuximage.exlist)</a></strong>
+
+<dd>
+<p>The fully qualified name of the file that stores the file names and directory names that will be excluded from the image during packimage command.  It is used for diskless image only.</p>
+</dd>
+</li>
+<dt><strong><a name="item_fb_script"><strong>fb_script</strong> (nimimage.fb_script)</a></strong>
+
+<dd>
+<p>The name of a NIM fb_script resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_groups"><strong>groups</strong> (osimage.groups)</a></strong>
+
+<dd>
+<p>A comma-delimited list of image groups of which this image is a member.  Image groups can be used in the litefile and litetree table instead of a single image name. Group names are arbitrary.</p>
+</dd>
+</li>
+<dt><strong><a name="item_home"><strong>home</strong> (nimimage.home)</a></strong>
+
+<dd>
+<p>The name of the NIM home resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_image_data"><strong>image_data</strong> (nimimage.image_data)</a></strong>
+
+<dd>
+<p>The name of a NIM image_data resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_imagename"><strong>imagename</strong> (osimage.imagename)</a></strong>
+
+<dd>
+<p>The name of this xCAT OS image definition.</p>
+</dd>
+</li>
+<dt><strong><a name="item_imagetype"><strong>imagetype</strong> (osimage.imagetype)</a></strong>
+
+<dd>
+<p>The type of operating system image this definition represents (linux,AIX).</p>
+</dd>
+</li>
+<dt><strong><a name="item_installp_bundle"><strong>installp_bundle</strong> (nimimage.installp_bundle)</a></strong>
+
+<dd>
+<p>One or more comma separated NIM installp_bundle resources.</p>
+</dd>
+</li>
+<dt><strong><a name="item_isdeletable"><strong>isdeletable</strong> (osimage.isdeletable)</a></strong>
+
+<dd>
+<p>A flag to indicate whether this image profile can be deleted.  This attribute is only used by PCM.</p>
+</dd>
+</li>
+<dt><strong><a name="item_kerneldir"><strong>kerneldir</strong> (linuximage.kerneldir)</a></strong>
+
+<dd>
+<p>The directory name where the 3rd-party kernel is stored. It is used for diskless image only.</p>
+</dd>
+</li>
+<dt><strong><a name="item_kernelver"><strong>kernelver</strong> (linuximage.kernelver)</a></strong>
+
+<dd>
+<p>The version of linux kernel used in the linux image. If the kernel version is not set, the default kernel in rootimgdir will be used</p>
+</dd>
+</li>
+<dt><strong><a name="item_kitcomponents"><strong>kitcomponents</strong> (osimage.kitcomponents)</a></strong>
+
+<dd>
+<p>List of Kit Component IDs assigned to this OS Image definition.</p>
+</dd>
+</li>
+<dt><strong><a name="item_krpmver"><strong>krpmver</strong> (linuximage.krpmver)</a></strong>
+
+<dd>
+<p>The rpm version of kernel packages (for SLES only). If it is not set, the default rpm version of kernel packages will be used.</p>
+</dd>
+</li>
+<dt><strong><a name="item_lpp_source"><strong>lpp_source</strong> (nimimage.lpp_source)</a></strong>
+
+<dd>
+<p>The name of the NIM lpp_source resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mksysb"><strong>mksysb</strong> (nimimage.mksysb)</a></strong>
+
+<dd>
+<p>The name of a NIM mksysb resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_netdrivers"><strong>netdrivers</strong> (linuximage.netdrivers)</a></strong>
+
+<dd>
+<p>The ethernet device drivers of the nodes which will use this linux image, at least the device driver for the nodes' installnic should be included</p>
+</dd>
+</li>
+<dt><strong><a name="item_nimmethod"><strong>nimmethod</strong> (nimimage.nimmethod)</a></strong>
+
+<dd>
+<p>The NIM install method to use, (ex. rte, mksysb).</p>
+</dd>
+</li>
+<dt><strong><a name="item_nimtype"><strong>nimtype</strong> (nimimage.nimtype)</a></strong>
+
+<dd>
+<p>The NIM client type- standalone, diskless, or dataless.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodebootif"><strong>nodebootif</strong> (linuximage.nodebootif)</a></strong>
+
+<dd>
+<p>The network interface the stateless/statelite node will boot over (e.g. eth0)</p>
+</dd>
+</li>
+<dt><strong><a name="item_osarch"><strong>osarch</strong> (osimage.osarch)</a></strong>
+
+<dd>
+<p>The hardware architecture of this node.  Valid values: x86_64, ppc64, x86, ia64.</p>
+</dd>
+</li>
+<dt><strong><a name="item_osdistroname"><strong>osdistroname</strong> (osimage.osdistroname)</a></strong>
+
+<dd>
+<p>The name of the OS distro definition.  This attribute can be used to specify which OS distro to use, instead of using the osname,osvers,and osarch attributes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_osname"><strong>osname</strong> (osimage.osname)</a></strong>
+
+<dd>
+<p>Operating system name- AIX or Linux.</p>
+</dd>
+</li>
+<dt><strong><a name="item_osupdatename"><strong>osupdatename</strong> (osimage.osupdatename)</a></strong>
+
+<dd>
+<p>A comma-separated list of OS distro updates to apply to this osimage.</p>
+</dd>
+</li>
+<dt><strong><a name="item_osvers"><strong>osvers</strong> (osimage.osvers)</a></strong>
+
+<dd>
+<p>The Linux operating system deployed on this node.  Valid values:  rhels*,rhelc*, rhas*,centos*,SL*, fedora*, sles* (where * is the version #).</p>
+</dd>
+</li>
+<dt><strong><a name="item_otherifce"><strong>otherifce</strong> (linuximage.otherifce)</a></strong>
+
+<dd>
+<p>Other network interfaces (e.g. eth1) in the image that should be configured via DHCP</p>
+</dd>
+</li>
+<dt><strong><a name="item_otherpkgdir"><strong>otherpkgdir</strong> (linuximage.otherpkgdir)</a></strong>
+
+<dd>
+<p>The base directory where the non-distro packages are stored.</p>
+</dd>
+</li>
+<dt><strong><a name="item_otherpkglist"><strong>otherpkglist</strong> (linuximage.otherpkglist)</a></strong>
+
+<dd>
+<p>The fully qualified name of the file that stores non-distro package lists that will be included in the image.</p>
+</dd>
+</li>
+<dt><strong><a name="item_otherpkgs"><strong>otherpkgs</strong> (nimimage.otherpkgs)</a></strong>
+
+<dd>
+<p>One or more comma separated installp or rpm packages.  The rpm packages must have a prefix of 'R:', (ex. R:foo.rpm)</p>
+</dd>
+</li>
+<dt><strong><a name="item_paging"><strong>paging</strong> (nimimage.paging)</a></strong>
+
+<dd>
+<p>The name of the NIM paging resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_partitionfile"><strong>partitionfile</strong> (linuximage.partitionfile)</a></strong>
+
+<dd>
+<p>The path of the configuration file which is used to part the disk for the node. For stateful: two types of value can be set for this attribute. One is ``&lt;partition file absolute path&gt;'', the content of the partition file must use the corresponding format with the OS type. The other one is ``s:&lt;partition file absolute path&gt;'', the content of the partition file should be a shell script which must write the partition definition into /tmp/partitionfile on the node. For statelite: the valid value is &lt;partition file absolute path&gt;, refer to the statelite doc for the xCAT defined format of the configuration file.</p>
+</dd>
+</li>
+<dt><strong><a name="item_permission"><strong>permission</strong> (linuximage.permission)</a></strong>
+
+<dd>
+<p>The mount permission of /.statelite directory is used, its default value is 755</p>
+</dd>
+</li>
+<dt><strong><a name="item_pkgdir"><strong>pkgdir</strong> (linuximage.pkgdir)</a></strong>
+
+<dd>
+<p>The name of the directory where the distro packages are stored. It could be set multiple paths.The multiple paths must be seperated by ``,''. The first path in the value of osimage.pkgdir must be the OS base pkg dir path, such as pkgdir=/install/rhels6.2/x86_64,/install/updates . In the os base pkg path, there are default repository data. And in the other pkg path(s), the users should make sure there are repository data. If not, use ``createrepo'' command to create them.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pkglist"><strong>pkglist</strong> (linuximage.pkglist)</a></strong>
+
+<dd>
+<p>The fully qualified name of the file that stores the distro  packages list that will be included in the image. Make sure that if the pkgs in the pkglist have dependency pkgs, the dependency pkgs should be found in one of the pkgdir</p>
+</dd>
+</li>
+<dt><strong><a name="item_postbootscripts"><strong>postbootscripts</strong> (osimage.postbootscripts)</a></strong>
+
+<dd>
+<p>Comma separated list of scripts that should be run on this after diskfull installation or diskless boot. On AIX these scripts are run during the processing of /etc/inittab.  On Linux they are run at the init.d time. xCAT automatically adds the scripts in the xcatdefaults.postbootscripts attribute to run first in the list. See the site table runbootscripts attribute.</p>
+</dd>
+</li>
+<dt><strong><a name="item_postinstall"><strong>postinstall</strong> (linuximage.postinstall)</a></strong>
+
+<dd>
+<p>The fully qualified name of the script file that will be run at the end of the genimage command. It is used for diskless image only.</p>
+</dd>
+</li>
+<dt><strong><a name="item_postscripts"><strong>postscripts</strong> (osimage.postscripts)</a></strong>
+
+<dd>
+<p>Comma separated list of scripts that should be run on this image after diskfull installation or diskless boot. For installation of RedHat, CentOS, Fedora, the scripts will be run before the reboot. For installation of SLES, the scripts will be run after the reboot but before the init.d process. For diskless deployment, the scripts will be run at the init.d time, and xCAT will automatically add the list of scripts from the postbootscripts attribute to run after postscripts list. For installation of AIX, the scripts will run after the reboot and acts the same as the postbootscripts attribute.  For AIX, use the postbootscripts attribute. See the site table runbootscripts attribute. Support will be added in the future for  the postscripts attribute to run the scripts before the reboot in AIX.</p>
+</dd>
+</li>
+<dt><strong><a name="item_profile"><strong>profile</strong> (osimage.profile)</a></strong>
+
+<dd>
+<p>The node usage category. For example compute, service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_provmethod"><strong>provmethod</strong> (osimage.provmethod)</a></strong>
+
+<dd>
+<p>The provisioning method for node deployment. The valid values are install, netboot,statelite,boottarget,dualboot,sysclone. If boottarget is set, you must set linuximage.boottarget to the name of the boottarget definition. It is not used by AIX.</p>
+</dd>
+</li>
+<dt><strong><a name="item_resolv_conf"><strong>resolv_conf</strong> (nimimage.resolv_conf)</a></strong>
+
+<dd>
+<p>The name of the NIM resolv_conf resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_root"><strong>root</strong> (nimimage.root)</a></strong>
+
+<dd>
+<p>The name of the NIM root resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rootfstype"><strong>rootfstype</strong> (osimage.rootfstype)</a></strong>
+
+<dd>
+<p>The filesystem type for the rootfs is used when the provmethod is statelite. The valid values are nfs or ramdisk. The default value is nfs</p>
+</dd>
+</li>
+<dt><strong><a name="item_rootimgdir"><strong>rootimgdir</strong> (linuximage.rootimgdir)</a></strong>
+
+<dd>
+<p>The directory name where the image is stored.  It is used for diskless image only.</p>
+</dd>
+</li>
+<dt><strong><a name="item_script"><strong>script</strong> (nimimage.script)</a></strong>
+
+<dd>
+<p>The name of a NIM script resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_serverrole"><strong>serverrole</strong> (osimage.serverrole)</a></strong>
+
+<dd>
+<p>The role of the server created by this osimage.  Default roles: mgtnode, servicenode, compute, login, storage, utility.</p>
+</dd>
+</li>
+<dt><strong><a name="item_shared_home"><strong>shared_home</strong> (nimimage.shared_home)</a></strong>
+
+<dd>
+<p>The name of the NIM shared_home resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_shared_root"><strong>shared_root</strong> (nimimage.shared_root)</a></strong>
+
+<dd>
+<p>A shared_root resource represents a directory that can be used as a / (root) directory by one or more diskless clients.</p>
+</dd>
+</li>
+<dt><strong><a name="item_spot"><strong>spot</strong> (nimimage.spot)</a></strong>
+
+<dd>
+<p>The name of the NIM SPOT resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_synclists"><strong>synclists</strong> (osimage.synclists)</a></strong>
+
+<dd>
+<p>The fully qualified name of a file containing a list of files to synchronize on the nodes. Can be a comma separated list of multiple synclist files. The synclist generated by PCM named /install/osimages/&lt;imagename&gt;/synclist.cfm is reserved for use only by PCM and should not be edited by the admin.</p>
+</dd>
+</li>
+<dt><strong><a name="item_template"><strong>template</strong> (linuximage.template)</a></strong>
+
+<dd>
+<p>The fully qualified name of the template file that is used to create the kick start file for diskful installation.</p>
+</dd>
+</li>
+<dt><strong><a name="item_tmp"><strong>tmp</strong> (nimimage.tmp)</a></strong>
+
+<dd>
+<p>The name of the NIM tmp resource.</p>
+</dd>
+</li>
+<dt><strong><a name="item_usercomment"><strong>usercomment</strong> (linuximage.comments, nimimage.comments)</a></strong>
+
+<dd>
+<p>Any user-written notes.</p>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<p>Any user-provided notes.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>mkdef(1)</strong>, <strong>chdef(1)</strong>, <strong>lsdef(1)</strong>, <strong>rmdef(1)</strong></p>
+
+</body>
+
+</html>

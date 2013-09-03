@@ -1,0 +1,180 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;nodediscoverls&gt; -  List the discovered nodes</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>nodediscoverls</strong> -  List the discovered nodes</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>nodediscoverls</strong> [<strong>-t seq</strong>|<strong>profile</strong>|<strong>switch</strong>|<strong>blade</strong>|<strong>manual</strong>|<strong>undef</strong>|<strong>all</strong>] [<strong>-l</strong>]</p>
+<p><strong>nodediscoverls</strong> [<strong>-u uuid</strong>] [<strong>-l</strong>]</p>
+<p><strong>nodediscoverls</strong> [<strong>-h</strong>|<strong>--help</strong>|<strong>-v</strong>|<strong>--version</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>nodediscoverls</strong> command lists nodes that have recently been discovered.  If discovery
+is currently in progress (i.e. <strong>nodediscoverstart</strong> has been run, but <strong>nodediscoverstop</strong> has not been),
+then <strong>nodediscoverls</strong> will list the nodes that have been discovered so far in this session.
+If discovery is not currently in progress, <strong>nodediscoverls</strong> will list all of the nodes that were
+discovered in the last discovery session.</p>
+<p>You can use the <strong>-t</strong> option to limit the output to just the nodes that were discovered in a
+particular method of discovery.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dt_seq_7cprofile_7cswitch_7cblade_7cmanual_7cund"><strong>-t seq|profile|switch|blade|manual|undef|all</strong></a></strong>
+
+<dd>
+<p>Display the nodes that have been discovered by the specified discovery method:</p>
+</dd>
+<ul>
+<li>
+<p><strong>seq</strong> - Sequential discovery (started via nodediscoverstart noderange=&lt;noderange&gt; ...).</p>
+</li>
+<li>
+<p><strong>profile</strong> - Profile discovery (started via nodediscoverstart networkprofile=&lt;network-profile&gt; ...).</p>
+</li>
+<li>
+<p><strong>switch</strong> - Switch-based discovery (used when the switch and switches tables are filled in).</p>
+</li>
+<li>
+<p><strong>blade</strong> - Blade discovery (used for IBM Flex blades).</p>
+</li>
+<li>
+<p><strong>manual</strong> - Manually discovery (used when defining node by nodediscoverdef command).</p>
+</li>
+<li>
+<p><strong>undef</strong> - Display the nodes that were in the discovery pool, but for which xCAT has not yet received a discovery request.</p>
+</li>
+<li>
+<p><strong>all</strong> - All discovered nodes.</p>
+</li>
+</ul>
+<dt><strong><a name="item__2dl"><strong>-l</strong></a></strong>
+
+<dd>
+<p>Display more detailed information about the discovered nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2du_uuid"><strong>-u uuid</strong></a></strong>
+
+<dd>
+<p>Display the discovered node that has this uuid.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command version.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0  The command completed successfully.</p>
+<p>1  An error has occured.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>Display the discovered nodes when sequential discovery is running:</p>
+<p><strong>nodediscoverls</strong></p>
+<pre>
+ UUID                                    NODE                METHOD         MTM       SERIAL
+ 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB2    distest1            sequential     786310X   1052EF2
+ 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB3    distest2            sequential     786310X   1052EF3</pre>
+</li>
+<li>
+<p>Display the nodes that were in the discovery pool, but for which xCAT has not yet received a discovery request:</p>
+<p><strong>nodediscoverls</strong> -t undef</p>
+<pre>
+ UUID                                    NODE                METHOD         MTM       SERIAL
+ 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB0    undef               undef          786310X   1052EF0
+ 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB1    undef               undef          786310X   1052EF1</pre>
+</li>
+<li>
+<p>Display all the discovered nodes:</p>
+<p><strong>nodediscoverls</strong> -t all</p>
+<pre>
+ UUID                                    NODE                METHOD         MTM       SERIAL
+ 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB0    undef               undef          786310X   1052EF0
+ 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB1    undef               undef          786310X   1052EF1
+ 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB2    distest1            sequential     786310X   1052EF2
+ 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB3    distest2            sequential     786310X   1052EF3</pre>
+</li>
+<li>
+<p>Display the discovered node whose uuid is <strong>51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB2</strong>, with detailed information:</p>
+<p><strong>nodediscoverls</strong> -u 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB2 -l</p>
+<pre>
+ Object uuid: 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB2
+    node=distest1
+    method=sequential
+    discoverytime=03-31-2013 17:05:12
+    arch=x86_64
+    cpucount=32
+    cputype=Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz
+    memory=198460852
+    mtm=786310X
+    serial=1052EF2
+    nicdriver=eth0!be2net,eth1!be2net
+    nicipv4=eth0!10.0.0.212/8
+    nichwaddr=eth0!34:40:B5:BE:DB:B0,eth1!34:40:B5:BE:DB:B4
+    nicpci=eth0!0000:0c:00.0,eth1!0000:0c:00.1
+    nicloc=eth0!Onboard Ethernet 1,eth1!Onboard Ethernet 2
+    niconboard=eth0!1,eth1!2
+    nicfirm=eth0!ServerEngines BE3 Controller,eth1!ServerEngines BE3 Controller
+    switchname=eth0!c909f06sw01
+    switchaddr=eth0!192.168.70.120
+    switchdesc=eth0!IBM Flex System Fabric EN4093 10Gb Scalable Switch, flash image: version 7.2.6, boot image: version 7.2.6
+    switchport=eth0!INTA2</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="nodediscoverstart.1.html">nodediscoverstart(1)</a>, <a href="nodediscoverstatus.1.html">nodediscoverstatus(1)</a>, <a href="nodediscoverstop.1.html">nodediscoverstop(1)</a>, <a href="nodediscoverdef.1.html">nodediscoverdef(1)</a></p>
+
+</body>
+
+</html>

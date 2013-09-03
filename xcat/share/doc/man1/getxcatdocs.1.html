@@ -1,0 +1,107 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;getxcatdocs&gt; - downloads the xCAT documentation and converts to HTML and PDF</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<ul>
+
+		<li><a href="#limitations_">Limitations:</a></li>
+	</ul>
+
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>getxcatdocs</strong> - downloads the xCAT documentation and converts to HTML and PDF</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>getxcatdocs</strong> [<strong>-?</strong> | <strong>-h</strong> | <strong>--help</strong> | <strong>-v</strong> | <strong>--version</strong>] [<em>destination-dir</em>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>getxcatdocs</strong> command downloads the xCAT documentation from the wiki and converts it to both HTML and PDF.
+This enables reading the documentation when you do not have internet access.  Note that this command does not
+download/convert the entire xCAT wiki - only the ``official'' xCAT documentation linked from <a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_Documentation">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_Documentation</a> .</p>
+<p>If <em>destination-dir</em> is specified, <strong>getxcatdocs</strong> will put the converted documentation in that directory, in 2 sub-directories: html, pdf.
+Otherwise, it will put it in the current directory (in the same two sub-directories).</p>
+<p><strong>getxcatdocs</strong> uses wget to do the download the documents and xhtml2pdf to convert them to PDF.  To install xhtml2pdf, see: 
+<a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Editing_xCAT_Documentation_Pages#Converting_Wiki_Pages_to_HTML_and_PDFs">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Editing_xCAT_Documentation_Pages#Converting_Wiki_Pages_to_HTML_and_PDFs</a> .</p>
+<p>
+</p>
+<h2><a name="limitations_">Limitations:</a></h2>
+<ul>
+<li>
+<p>This command does not run on AIX or Windows.</p>
+</li>
+<li>
+<p>The conversion to HTML does not yet honor the xCAT wiki style sheet.</p>
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command Version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_3f_7c_2dh_7c_2d_2dhelp"><strong>-?|-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0  The command completed successfully.</p>
+<p>1  An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>To download/convert the documentation and put it in ~/tmp:</p>
+<pre>
+ getxcatdocs ~/tmp</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/getxcatdocs</p>
+
+</body>
+
+</html>

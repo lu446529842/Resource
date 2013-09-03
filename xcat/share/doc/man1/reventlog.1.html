@@ -1,0 +1,114 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Name</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">Name</a></li>
+	<li><a href="#synopsis"><strong>Synopsis</strong></a></li>
+	<li><a href="#description"><strong>Description</strong></a></li>
+	<li><a href="#options"><strong>Options</strong></a></li>
+	<li><a href="#examples"><strong>Examples</strong></a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">Name</a></h1>
+<p><strong>reventlog</strong> - retrieve or clear remote hardware event logs</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis"><strong>Synopsis</strong></a></h1>
+<p><strong>reventlog</strong> <em>noderange</em> {<em>number-of-entries [-s]</em>|<strong>all [-s]</strong>|<strong>clear</strong>}</p>
+<p><strong>reventlog</strong> [<strong>-h</strong>|<strong>--help</strong>|<strong>-v</strong>|<strong>--version</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description"><strong>Description</strong></a></h1>
+<p><strong>reventlog</strong>  can  display any number of remote hardware event log entries
+or clear them for a range of nodes.  Hardware  event
+logs are stored on each servers service processor.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options"><strong>Options</strong></a></h1>
+<dl>
+<dt><strong><a name="item_number_2dof_2dentries"><em>number-of-entries</em></a></strong>
+
+<dd>
+<p>Retrieve the specified number of entries from the nodes' service processors.</p>
+</dd>
+</li>
+<dt><strong><a name="item_all"><strong>all</strong></a></strong>
+
+<dd>
+<p>Retrieve all entries.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds"><strong>-s</strong></a></strong>
+
+<dd>
+<p>To sort the entries from latest (always the last entry in event DB) to oldest (always the first entry in event DB). If <strong>number-of-entries</strong> specified, the latest <strong>number-of-entries</strong> events will be output in the order of latest to oldest.</p>
+</dd>
+</li>
+<dt><strong><a name="item_clear"><strong>clear</strong></a></strong>
+
+<dd>
+<p>Clear event logs.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h</strong>|<strong>--help</strong></a></strong>
+
+<dd>
+<p>Print help.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v</strong>|<strong>--version</strong></a></strong>
+
+<dd>
+<p>Print version.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples"><strong>Examples</strong></a></h1>
+<p><strong>reventlog</strong> <em>node4,node5</em> <em>5</em></p>
+<pre>
+ node4: SERVPROC  I 09/06/00 15:23:33 Remote Login Successful User ID = USERID[00]
+ node4: SERVPROC I 09/06/00 15:23:32 System spn1 started a RS485 connection with us[00]
+ node4: SERVPROC I 09/06/00 15:22:35 RS485 connection to system spn1 has ended[00]
+ node4: SERVPROC I 09/06/00 15:22:32 Remote Login Successful User  ID  = USERID[00]
+ node4: SERVPROC I 09/06/00 15:22:31 System spn1 started a RS485 connection with us[00]
+ node5: SERVPROC I 09/06/00 15:22:32 Remote Login Successful User  ID  = USERID[00]
+ node5: SERVPROC I 09/06/00 15:22:31 System spn1 started a RS485 connection with us[00]
+ node5: SERVPROC I 09/06/00 15:21:34 RS485 connection to system spn1 has ended[00]
+ node5:  SERVPROC  I 09/06/00 15:21:30 Remote Login Successful User ID = USERID[00]
+ node5: SERVPROC I 09/06/00 15:21:29 System spn1 started a RS485 connection with us[00]</pre>
+<p><strong>reventlog</strong> <em>node4,node5</em> <em>clear</em></p>
+<pre>
+ node4: clear
+ node5: clear</pre>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="rpower.1.html">rpower(1)</a>, <a href="monstart.1.html">monstart(1)</a></p>
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;gettab&gt; - select table rows, based on attribute criteria, and display specific attributes.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>gettab</strong> - select table rows, based on attribute criteria, and display specific attributes.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>gettab</strong> [<strong>-H</strong> | <strong>--with-fieldname</strong>] <em>key=value,...  table.attribute ...</em></p>
+<p><strong>gettab</strong> [<strong>-?</strong> | <strong>-h</strong> | <strong>--help</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>gettab</strong> command uses the specified key values to select a row in each of the tables requested.
+For each selected row, the specified attributes are displayed.  The <strong>gettab</strong> command can be used instead
+of <strong>nodels</strong> for tables that are not keyed by nodename (e.g. the <strong>site</strong> table), or to select rows based
+on an attribute value other than nodename.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dh_7c_2d_2dwith_2dfieldname"><strong>-H|--with-fieldname</strong></a></strong>
+
+<dd>
+<p>Always display table.attribute name next to result.  By default, this is done only if more than
+one table.attribute is requested.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_3f_7c_2dh_7c_2d_2dhelp"><strong>-?|-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<ol>
+<li>
+<p>The command completed successfully.</p>
+</li>
+<li>
+<p>An error has occurred.</p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ul>
+<li>
+<p>To display setting for <strong>master</strong> (management node) in the site table:</p>
+<p><strong>gettab -H</strong> <em>key=master site.value</em></p>
+<p>The output would be similar to:</p>
+<pre>
+     site.value: mgmtnode.cluster.com</pre>
+</li>
+<li>
+<p>To display the first node or group name that has <strong>mgt</strong> set to <strong>blade</strong> in the nodehm table:</p>
+<p><strong>gettab</strong> <em>mgt=blade nodehm.node</em></p>
+<p>The output would be similar to:</p>
+<pre>
+     blades</pre>
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/gettab</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="nodels.1.html">nodels(1)</a>, <a href="../man8/chtab.8.html">chtab(8)</a>, <a href="../man8/tabdump.8.html">tabdump(8)</a></p>
+
+</body>
+
+</html>

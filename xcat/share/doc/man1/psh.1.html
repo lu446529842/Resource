@@ -1,0 +1,143 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Name</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">Name</a></li>
+	<li><a href="#synopsis"><strong>Synopsis</strong></a></li>
+	<li><a href="#description"><strong>Description</strong></a></li>
+	<li><a href="#options"><strong>Options</strong></a></li>
+	<li><a href="#environment_variables"><strong>Environment</strong> <strong>Variables</strong></a></li>
+	<li><a href="#examples"><strong>Examples</strong></a></li>
+	<li><a href="#see_also"><strong>See</strong> <strong>Also</strong></a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">Name</a></h1>
+<p>psh - parallel remote shell</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis"><strong>Synopsis</strong></a></h1>
+<p><strong>psh</strong> [<strong>-i</strong> <em>interface</em>] [<strong>-f</strong> <em>fanout</em>] [<strong>-l</strong> <em>user</em>] <em>noderange</em> <em>command</em></p>
+<p><strong>psh</strong> {<strong>-h</strong>|<strong>--help</strong>|<strong>-v</strong>|<strong>--version</strong>}</p>
+<p>
+</p>
+<hr />
+<h1><a name="description"><strong>Description</strong></a></h1>
+<p><strong>psh</strong> is a utility used to run a command across a list of nodes in parallel.</p>
+<p><strong>ssh</strong> must be set up to allow no prompting for <strong>psh</strong> to work.</p>
+<p>Note:</p>
+<p>This command does not run through xcatd like most xCAT commands do.
+This means you must either run it on the management node, or have a network connection between
+your machine and the nodes. It does not support hierarchy, use xdsh to run remote command from the
+management node to the compute node via a service node.</p>
+<p><strong>psh</strong> arguments need to precede noderange, otherwise, you will get unexpected errors.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options"><strong>Options</strong></a></h1>
+<dl>
+<dt><strong><a name="item__2di_interface"><strong>-i</strong> <em>interface</em></a></strong>
+
+<dd>
+<p>The NIC on the node that psh should communicate with.  For example, if <em>interface</em> is <strong>eth1</strong>,
+then psh will concatenate <strong>-eth1</strong> to the end of every node name before ssh'ing to it.  This
+assumes those host names have been set up to resolve to the IP address of each of the eth1 NICs.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_fanout"><strong>-f</strong> <em>fanout</em></a></strong>
+
+<dd>
+<p>Specifies a fanout value for the maximum number of  concur-
+rently  executing  remote shell processes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dl_user"><strong>-l</strong> <em>user</em></a></strong>
+
+<dd>
+<p>Log into the nodes as the specified username.  The default is to use the same username as you
+are running the psh command as.</p>
+</dd>
+</li>
+<dt><strong><a name="item_noderange"><strong>noderange</strong></a></strong>
+
+<dd>
+<p>See <a href="../man3/noderange.3.html">noderange(3)</a>.</p>
+</dd>
+</li>
+<dt><strong><a name="item_command"><strong>command</strong></a></strong>
+
+<dd>
+<p>Command  to  be run in parallel.  If no command is give then <strong>psh</strong>
+enters interactive mode.  In interactive mode a  ``&gt;''  prompt  is
+displayed.   Any  command entered is executed in parallel to the
+nodes in the noderange. Use ``exit'' or ``Ctrl-D'' to end the interactive session.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h</strong>|<strong>--help</strong></a></strong>
+
+<dd>
+<p>Print help.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="environment_variables"><strong>Environment</strong> <strong>Variables</strong></a></h1>
+<dl>
+<dt><strong><a name="item_xcatpshfanout"><strong>XCATPSHFANOUT</strong></a></strong>
+
+<dd>
+<p>Specifies  the fanout value. This variable is overridden by
+the <strong>-f</strong> flag.  Default is 64.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples"><strong>Examples</strong></a></h1>
+<ul>
+<li>
+<p>Run uptime on 3 nodes:</p>
+<p><strong>psh</strong> <em>node4-node6</em> <em>uptime</em></p>
+<p>node4: Sun Aug  5 17:42:06 MDT 2001
+node5: Sun Aug  5 17:42:06 MDT 2001
+node6: Sun Aug  5 17:42:06 MDT 2001</p>
+</li>
+<li>
+<p>Run a command on some BladeCenter management modules:</p>
+<p><strong>psh</strong> <em>amm1-amm5</em> <em>'info -T mm[1]'</em></p>
+</li>
+<li>
+<p>Remove the tmp files on the nodes in the 1st frame:</p>
+<p><strong>psh</strong> <em>rack01</em> <em>'rm -f /tmp/*'</em></p>
+<p>Notice the use of '' to forward shell expansion.  This is not necessary
+in interactive mode.</p>
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="see_also"><strong>See</strong> <strong>Also</strong></a></h1>
+<p><a href="../man3/noderange.3.html">noderange(3)</a>, <a href="pscp.1.html">pscp(1)</a>, <a href="pping.1.html">pping(1)</a>, <a href="prsync.1.html">prsync(1)</a></p>
+
+</body>
+
+</html>

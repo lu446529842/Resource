@@ -1,0 +1,67 @@
+# Software needed for xCAT on AIX Service Nodes
+
+# installp packages
+I:expect.base
+I:expect.man.en_US
+I:tcl.base
+I:tcl.man.en_US
+I:tk.base
+I:tk.man.en_US
+I:openssl.base
+I:openssl.license
+I:openssh.base
+#I:openssh.license
+I:openssh.man.en_US
+I:openssh.msg.en_US
+I:bos.sysmgt.nim.master
+
+# RPMs
+# using Perl 5.8.2
+R:popt*
+R:rsync*
+R:bash*
+R:conserver*
+R:curl*
+R:expat*
+R:fping*
+R:libxml2*
+R:net-snmp-5.4.2.1-1*
+R:net-snmp-devel*
+R:net-snmp-perl*
+R:openslp-xcat*
+R:perl-Crypt-SSLeay*
+R:perl-DBD-SQLite*
+R:perl-DBI*
+R:perl-Digest-HMAC*
+R:perl-Digest-MD5*
+R:perl-Digest-SHA-5*
+R:perl-Digest-SHA1*
+R:perl-Expect*
+
+R:perl-IO-Stty*
+R:perl-IO-Tty*
+R:perl-Net-DNS*
+R:perl-Net-IP*
+R:perl-Net-Telnet*
+R:perl-Net_SSLeay.pm*
+R:perl-version-0.82-2*
+R:perl-Net_SSLeay.pm-1.30-3*
+R:perl-IO-Socket-SSL*
+R:unixODBC*
+
+R:perl-DBD-mysql*
+
+# optional - needed if using mysql ODBC support (e.g. with LoadLeveler)
+#I:X11.base.lib
+#R:mysql-connector-odbc*
+
+R:perl-xCAT*
+R:xCAT-client*
+R:xCAT-server*
+R:xCAT-rmc*
+R:xCATsn*
+
+# optional - needed if using Postgresql
+#R:xcat-postgresql-8.4-4.aix6.1.ppc.rpm
+#R:perl-DBD-Pg-2-17.2.aix6.1.ppc.rpm
+

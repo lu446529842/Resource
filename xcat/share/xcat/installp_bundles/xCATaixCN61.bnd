@@ -1,0 +1,19 @@
+# sample bundle file for xCAT on AIX compute nodes
+
+# installp filesets
+I:rpm.rte
+I:openssl.base
+I:openssl.license
+I:openssh.base
+I:openssh.man.en_US
+I:openssh.msg.en_US
+
+# RPMs
+R:popt*
+R:rsync*
+R:bash*
+
+# built using Perl 5.8.8
+R:perl-Net_SSLeay.pm-1.30-2*
+R:perl-IO-Socket-SSL*
+

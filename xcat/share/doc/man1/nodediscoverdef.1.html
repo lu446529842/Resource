@@ -1,0 +1,158 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;nodediscoverdef&gt; - Define the undefined discovery request to a predefined xCAT node, 
+or clean up the discovery entries from the discoverydata table</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>nodediscoverdef</strong> - Define the undefined discovery request to a predefined xCAT node, 
+or clean up the discovery entries from the discoverydata table 
+(which can be displayed by nodediscoverls command)</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>nodediscoverdef</strong> <strong>-u uuid</strong> <strong>-n node</strong></p>
+<p><strong>nodediscoverdef</strong> <strong>-r</strong> <strong>-u uuid</strong></p>
+<p><strong>nodediscoverdef</strong> <strong>-r</strong> <strong>-t</strong> {<strong>seq</strong>|<strong>profile</strong>|<strong>switch</strong>|<strong>blade</strong>|<strong>manual</strong>|<strong>undef</strong>|<strong>all</strong>}</p>
+<p><strong>nodediscoverdef</strong> [<strong>-h</strong>|<strong>--help</strong>|<strong>-v</strong>|<strong>--version</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>nodediscoverdef</strong> command defines the discovery entry from the discoverydata table to a predefined
+xCAT node. The discovery entry can be displayed by <strong>nodediscoverls</strong> command.</p>
+<p>The options <strong>-u</strong> and <strong>-n</strong> have to be used together to define a discovery request to a node.</p>
+<p>The <strong>nodediscoverdef</strong> command also can be used to clean up the discovery entries from the 
+discoverydata table.</p>
+<p>The option <strong>-r</strong> is used to remove discovery entries. If working with <strong>-u</strong>, the specific entry
+which uuid specified by <strong>-u</strong> will be removed.</p>
+<p>You also can use the <strong>-r</strong> <strong>-t</strong> option to limit that only remove the nodes that were discovered in a
+particular method of discovery.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dt_seq_7cprofile_7cswitch_7cblade_7cmanual_7cund"><strong>-t seq|profile|switch|blade|manual|undef|all</strong></a></strong>
+
+<dd>
+<p>Specify the nodes that have been discovered by the specified discovery method:</p>
+</dd>
+<ul>
+<li>
+<p><strong>seq</strong> - Sequential discovery (started via nodediscoverstart noderange=&lt;noderange&gt; ...).</p>
+</li>
+<li>
+<p><strong>profile</strong> - Profile discovery (started via nodediscoverstart networkprofile=&lt;network-profile&gt; ...).</p>
+</li>
+<li>
+<p><strong>switch</strong> - Switch-based discovery (used when the switch and switches tables are filled in).</p>
+</li>
+<li>
+<p><strong>blade</strong> - Blade discovery (used for IBM Flex blades).</p>
+</li>
+<li>
+<p><strong>manual</strong> - Manually discovery (used when defining node by nodediscoverdef command).</p>
+</li>
+<li>
+<p><strong>undef</strong> - Display the nodes that were in the discovery pool, but for which xCAT has not yet received a discovery request.</p>
+</li>
+<li>
+<p><strong>all</strong> - All discovered nodes.</p>
+</li>
+</ul>
+<dt><strong><a name="item__2dn_node"><strong>-n node</strong></a></strong>
+
+<dd>
+<p>The xCAT node that the discovery entry will be defined to.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dr"><strong>-r</strong></a></strong>
+
+<dd>
+<p>Remove the discovery entries from discoverydata table.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2du_uuid"><strong>-u uuid</strong></a></strong>
+
+<dd>
+<p>The uuid of the discovered entry.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command version.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0  The command completed successfully.</p>
+<p>1  An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>Define the discovery entry which uuid is 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB4 to node node1</p>
+<p><strong>nodediscoverdef</strong> -u 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB4 -n node1</p>
+<pre>
+ Defined [51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB4] to node node1.</pre>
+</li>
+<li>
+<p>Remove the discovery entry which uuid is 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB4 from the discoverydata table</p>
+<p><strong>nodediscoverdef</strong> -r -u 51E5F2D7-0D59-11E2-A7BC-3440B5BEDBB4</p>
+<pre>
+ Removing discovery entries finished.</pre>
+</li>
+<li>
+<p>Remove the discovery entries which discover type is <strong>seq</strong> from the discoverydata table</p>
+<p><strong>nodediscoverdef</strong> -r -t seq</p>
+<pre>
+ Removing discovery entries finished.</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="nodediscoverstart.1.html">nodediscoverstart(1)</a>, <a href="nodediscoverstatus.1.html">nodediscoverstatus(1)</a>, <a href="nodediscoverstop.1.html">nodediscoverstop(1)</a>, <a href="nodediscoverls.1.html">nodediscoverls(1)</a></p>
+
+</body>
+
+</html>

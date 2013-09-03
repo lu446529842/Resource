@@ -1,0 +1,155 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;rmnimimage&gt; - Use this xCAT command to remove NIM resources specified in an xCAT osimage definition.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#notes">NOTES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>rmnimimage</strong> - Use this xCAT command to remove NIM resources specified in an xCAT osimage definition.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>rmnimimage [-h|--help]</strong></p>
+<p><strong>rmnimimage [-V|--verbose] [-f|--force] [-d|--delete] [-x|--xcatdef] [-M|--managementnode] [-s servicenoderange] osimage_name</strong></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Use this xCAT command to remove the AIX resources specified in an xCAT osimage definition.</p>
+<p>To list the contents of the xCAT osimage definition use the xCAT <strong>lsdef</strong> command (``lsdef -t osimage -l -o &lt;osimage_name&gt;''). <strong>Before running the rmnimimage command you should be absolutely certain that you really want to remove the NIM resources specified in the xCAT osimage definition!</strong></p>
+<p>The default behavior of this command is to remove all the NIM resources, except the lpp_source, on the xCAT management node in addition to the resources that were replicated on any xCAT service nodes.</p>
+<p>This command may also be used to clean up individual xCAT service nodes and remove the xCAT osimage definitions.</p>
+<p>The ``nim -o remove'' operation is used to remove the NIM resource definitions.  If you wish to completely remove all the files and directories (left behind by the NIM command) you must specify the ``-d'' option when you run <strong>rmnimimage</strong>.  The ``-d'' option will also remove the lpp_source resource.</p>
+<p>If you wish to remove the NIM resource from one or more xCAT service nodes without removing the resources from the management node you can use the ``-s &lt;servicenoderange&gt;'' option.   In this case the NIM resources specified in the xCAT osimage definition will be removed from the service nodes ONLY.  The NIM resources on the management node will not be removed.</p>
+<p>If you wish to remove NIM resources on the management node only, you can specify the ``-M'' option.</p>
+<p>If you wish to also remove the xCAT osimage definition you must specify the ``-x'' option.</p>
+<p>This command will not remove NIM resources if they are currently being used in another xCAT osimage definition.  To see which resources are common between osimages you can specify the ``-V'' option.  You can override this check by specifying the ``-f'' option.</p>
+<p>This command will not remove NIM resources if they are currently allocated.  You must deallocate the resources before they can be removed.   See the <strong>xcat2nim</strong> and <strong>rmdsklsnode</strong> commands for information on how to deallocate and remove NIM machine definitions for standalone and diskless nodes.</p>
+<p>See the AIX NIM documentation for additional details on how to deallocate and remove unwanted NIM objects.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dh__7c_2d_2dhelp"><strong>-h |--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dd_7c_2d_2ddelete"><strong>-d|--delete</strong></a></strong>
+
+<dd>
+<p>Delete any files or directories that were left after the ``nim -o remove'' command was run. This option will also remove the lpp_source resouce and all files contained in the lpp_source directories. When this command completes all definitions and files will be completely erased so use with caution!</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_7c_2d_2dforce"><strong>-f|--force</strong></a></strong>
+
+<dd>
+<p>Override the check for shared resources when removing an xCAT osimage.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dm_7c_2d_2dmanagementnode"><strong>-M|--managementnode</strong></a></strong>
+
+<dd>
+<p>Remove NIM resources from the xCAT management node only.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_servicenoderange"><strong>-s servicenoderange</strong></a></strong>
+
+<dd>
+<p>Remove the NIM resources on these xCAT service nodes only.  Do not remove the NIM resources from the xCAT management node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_osimage_name"><strong>osimage_name</strong></a></strong>
+
+<dd>
+<p>The name of the xCAT osimage definition.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Verbose mode. This option will display the underlying NIM commands that are being called.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dx_7c_2d_2dxcatdef"><strong>-x|--xcatdef</strong></a></strong>
+
+<dd>
+<p>Remove the xCAT osimage definition.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<ol>
+<li>
+<p>The command completed successfully.</p>
+</li>
+<li>
+<p>An error has occurred.</p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1) Remove all NIM resources specified in the xCAT ``61image'' definition.</p>
+<p><strong>rmnimimage 61image</strong></p>
+<p>The ``nim -o remove'' operation will be used to remove the NIM resource definitions on the management node as well as any service nodes where the resource has been replicated.   This NIM operation does not completely remove all files and directories associated with the NIM resources.</p>
+<p>2) Remove all the NIM resources specified by the xCAT ``61rte'' osimage definition.  Delete ALL files and directories associated with the NIM resources. This will also remove the lpp_source resource.</p>
+<p><strong>rmnimimage -d 61rte</strong></p>
+<p>3) Remove all the NIM resources specified by the xCAT ``614img'' osimage definition and also remove the xCAT definition.</p>
+<p><strong>rmnimimage -x -d 614img</strong></p>
+<p>Note: When this command completes all definitions and files will be completely erased, so use with caution!</p>
+<p>4) Remove the NIM resources specified in the ``614dskls'' osimage definition on the xcatsn1 and xcatsn2 service nodes.  Delete all files or directories associated with the NIM resources.</p>
+<p><strong>rmnimimage -d -s xcatsn1,xcatsn2 614dskls</strong></p>
+<p>5) Remove the NIM resources specified in the ``614old'' osimage definition on the xCAT management node only.</p>
+<p><strong>rmnimimage -M -d 614old</strong></p>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/rmnimimage</p>
+<p>
+</p>
+<hr />
+<h1><a name="notes">NOTES</a></h1>
+<p>This command is part of the xCAT software product.</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="mknimimage.1.html">mknimimage(1)</a></p>
+
+</body>
+
+</html>

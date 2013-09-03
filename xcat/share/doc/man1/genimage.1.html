@@ -1,0 +1,268 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;genimage&gt; - Generates a stateless image to be used for a diskless install.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>genimage</strong> - Generates a stateless image to be used for a diskless install.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>genimage</strong></p>
+<p><strong>genimage</strong>  <strong>-o</strong> <em>osver</em> [<strong>-a</strong> <em>arch</em>] <strong>-p</strong> <em>profile</em> <strong>-i</strong> <em>nodebootif</em> <strong>-n</strong> <em>nodenetdrivers</em> [<strong>--onlyinitrd</strong>]  [<strong>-r</strong> <em>otherifaces</em>] [<strong>-k</strong> <em>kernelver</em>] [<strong>-g</strong> <em>krpmver</em>] [<strong>-m</strong> <em>statelite</em>] [<strong>-l</strong> <em>rootlimitsize</em>] [<strong>--permission</strong> <em>permission</em>] [<strong>--interactive</strong>] [<strong>--dryrun</strong>]</p>
+<p><strong>genimage</strong> [<strong>-o</strong> <em>osver</em>] [<strong>-a</strong> <em>arch</em>] [<strong>-p</strong> <em>profile</em>] [<strong>-i</strong> <em>nodebootif</em>] [<strong>-n</strong> <em>nodenetdrivers</em>] [<strong>--onlyinitrd</strong>] [<strong>-r</strong> <em>otherifaces</em>] [<strong>-k</strong> <em>kernelver</em>] [<strong>-g</strong> <em>krpmver</em>] [<strong>-m</strong> <em>statelite</em>] [<strong>-l</strong> <em>rootlimitsize</em>] [<strong>--permission</strong> <em>permission</em>] [<strong>--interactive</strong>] [<strong>--dryrun</strong>] <em>imagename</em></p>
+<p><strong>genimage</strong> [<strong>-h</strong> | <strong>--help</strong> | <strong>-v</strong> | <strong>--version</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Generates a stateless and a statelite image that can be used to boot xCAT nodes in a diskless mode.  
+If <em>imagename</em> is not specified, the default packages included
+(and excluded) in the image are specified by</p>
+<p>/opt/xcat/share/xcat/netboot/&lt;os&gt;/&lt;profile&gt;[.&lt;osver&gt;][.&lt;arch&gt;].pkglist and</p>
+<p>/opt/xcat/share/xcat/netboot/&lt;os&gt;/&lt;profile&gt;[.&lt;osver&gt;][.&lt;arch&gt;].exlist.</p>
+<p>Additional packages that are not from the os distro can be specified in a</p>
+<p>/opt/xcat/share/xcat/netboot/&lt;os&gt;/&lt;profile&gt;[.&lt;osver&gt;][.&lt;arch&gt;].otherpkgs.pkglist file.</p>
+<p>Customized package list files can be specified under /install/custom/netboot/&lt;os&gt; directory. The generated image will be put in /install/netboot/&lt;osver&gt;/&lt;arch&gt;/&lt;profile&gt; directory.</p>
+<p>The newly generated image names will have the following format:</p>
+<pre>
+ for stateless: &lt;osver&gt;-&lt;arch&gt;-netboot-&lt;profile&gt;</pre>
+<pre>
+ for statelite: &lt;osver&gt;-&lt;arch&gt;-statelite-&lt;profile&gt;</pre>
+<p><strong>genimage</strong> command will create them into <em>linuximage</em> and <em>osimage</em> tables.</p>
+<p>If <em>imagename</em> is specified, the package list file names are read from the <em>osimage</em> table and <em>linuximage</em> tables.</p>
+<p>If <strong>genimage</strong> runs on the management node, both the <em>osimage</em> table and <em>linuximage</em> table will be updated with the given values from the options.</p>
+<p>The <strong>genimage</strong> command will generate two initial ramdisks for <strong>stateless</strong> and <strong>statelite</strong>, one is <strong>initrd-stateless.gz</strong>, the other one is <strong>initrd-statelite.gz</strong>.</p>
+<p>After your image is created, you can chroot to the
+image, install any additional software you would like, or make modifications to files, and then run the following command to prepare the image for deployment.</p>
+<p>for stateless: <strong>packimage</strong></p>
+<p>for statelite: <strong>liteimg</strong></p>
+<p>Becides prompting for the input for some paramters, the <strong>genimage</strong> command takes default quesses for the parameters not specified or not defined in the <em>osimage</em> and <em>linuximage</em> tables. It also makes default answers for questions from yum/zypper command when installing rpms into the image. Please use --interactive flag if you want yum/zypper command to prompt you for the answers.</p>
+<p>If <strong>--onlyinitrd</strong> is specified, only regenerates the initrd for a stateless image to be used for a diskless install.</p>
+<p>The <strong>genimage</strong> command must be run on a system that is the same architecture and same distro with same major release version as the nodes it will be
+used on.  If the management node is not the same architecture or same distro level, copy the contents of
+/opt/xcat/share/xcat/netboot/&lt;os&gt; to a system that is the proper architecture, and mount /install from
+the management node to that system. Then change directory to /opt/xcat/share/xcat/netboot/&lt;os&gt; and run ./genimage.</p>
+<pre>
+ 
+=head1 Parameters</pre>
+<p><em>imagename</em> specifies the name of a os image definition to be used. The specification for the image is storted in the <em>osimage</em> table and <em>linuximage</em> table.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2da_arch"><strong>-a</strong> <em>arch</em></a></strong>
+
+<dd>
+<p>The hardware architecture of this node: x86_64, ppc64, x86, ia64, etc. If omitted, the current hardware architecture will be used.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2do_osver"><strong>-o</strong> <em>osver</em></a></strong>
+
+<dd>
+<p>The operating system for the image:  fedora8, rhel5, sles10, etc.  The OS packages must be in
+/install/&lt;osver&gt;/&lt;arch&gt; (use <a href="../man8/copycds.8.html">copycds(8)</a>).</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_profile"><strong>-p</strong> <em>profile</em></a></strong>
+
+<dd>
+<p>The profile (e.g. compute, service) to use to create the image.  This determines what package lists are
+used from /opt/xcat/share/xcat/netboot/&lt;os&gt; to create the image with.  When deploying nodes with this image,
+the nodes' nodetype.profile attribute must be set to this same value.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di_nodebootif"><strong>-i</strong> <em>nodebootif</em></a></strong>
+
+<dd>
+<p>The network interface the diskless node will boot over (e.g. eth0).</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dn_nodenetdrivers"><strong>-n</strong> <em>nodenetdrivers</em></a></strong>
+
+<dd>
+<p>This argument is now optional, and allows you to specify the driver
+modules needed for the network <code>interface(s)</code> on your stateless nodes.  If
+you do not specify this option, the default is to include all recent IBM
+xSeries network drivers.</p>
+</dd>
+<dd>
+<p>If specified, <em>nodenetdrivers</em> should be a comma separated list of
+network drivers to be used by the stateless nodes (Ie.: -n tg3,e1000).
+Note that the drivers will be loaded in the order that you list them,
+which may prove important in some cases.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dl_rootlimit"><strong>-l</strong> <em>rootlimit</em></a></strong>
+
+<dd>
+<p>The maximum size allowed for the root file system in the image.  Specify in bytes, or can append k, m, or g.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2donlyinitrd"><strong>--onlyinitrd</strong></a></strong>
+
+<dd>
+<p>Regenerates the initrd for a stateless image to be used for a diskless install.</p>
+</dd>
+<dd>
+<p>Regenerates the initrd that is part of a stateless/statelite image that is used to boot xCAT nodes in a stateless/stateli
+te mode.
+The generated initrd will be put in /install/netboot/&lt;OS&gt;/&lt;arch&gt;/&lt;profile&gt;.</p>
+</dd>
+<dd>
+<p>The <strong>genimage --onlyinitrd</strong> command will generate two initial ramdisks, one is <strong>initrd-statelite.gz</strong> for <strong>statelite</strong> mode, the other one is <strong>initrd-stateless.gz</strong> for <strong>stateless</strong> mode.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dpermission_permission"><strong>--permission</strong> <em>permission</em></a></strong>
+
+<dd>
+<p>The mount permission of <strong>/.statelite</strong> directory for <strong>statelite</strong> mode, which is only used for <strong>statelite</strong> mode, and the default permission is 755.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dr_otherifaces"><strong>-r</strong> <em>otherifaces</em></a></strong>
+
+<dd>
+<p>Other network interfaces (e.g. eth1) in the image that should be configured via DHCP.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dk_kernelver"><strong>-k</strong> <em>kernelver</em></a></strong>
+
+<dd>
+<p>Use this flag if you want to use a specific version of the kernel in the image.  Defaults to the first kernel found
+in the install image.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dg_krpmver"><strong>-g</strong> <em>krpmver</em></a></strong>
+
+<dd>
+<p>This flag is for SLES only. Use this flag to specify the rpm version for kernel packages in the image. It must be present if -k flag is specified in the command for SLES.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dm_statelite"><strong>-m</strong> statelite</a></strong>
+
+<dd>
+<p>This flag is for Ubuntu, Debian and Fedora12 only. Use this flag to specify if you want to generate statelite image. The default is to generate stateless image for these three operating systems. For others, this flag is invalid because both stateless and statelite images will be generated with this command.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dinteractive"><strong>--interactive</strong></a></strong>
+
+<dd>
+<p>This flag allows the user to answer questions from yum/zypper command when installing rpms into the image. If it is not specified, '-y' will be passed to the yum command and '--non-interactive --no-gpg-checks' will be passed to the zypper command as default answers.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2ddryrun"><strong>--dryrun</strong></a></strong>
+
+<dd>
+<p>This flag shows the underlying call to the os specific genimage function. The user can copy and the paste the output to run the command on another machine that does not have xCAT installed.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dt_tmplimit"><strong>-t</strong> <em>tmplimit</em></a></strong>
+
+<dd>
+<p>(Deprecated) This flag allows the user to setup the /tmp and the /var/tmp file system sizes. This flag is no longer supported. You can overwrite any file system size using the .postinstall script where you can create a new /etc/fstab file.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Display version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li><strong><a name="item_to_prompt_the_user_for_inputs_3a">To prompt the user for inputs:</a></strong>
+
+<pre>
+  genimage</pre>
+<li>
+<p>To generate a fedora8 image for a compute node architecture
+x86_64 and place it in the
+/install/netboot/fedora8/x86_64/compute/rootimg directory:</p>
+<pre>
+  genimage -i eth0 -o fedora8 -p compute</pre>
+</li>
+<li>
+<pre>
+  genimage -i eth0 -r eth1,eth2 -n tg3,bnx2 -o centos5.1 -p compute</pre>
+<li>
+<pre>
+  genimage -i eth0 -n tg3,bnx2 -o sles11 -p compute --interactive</pre>
+<li>
+<pre>
+  genimage -i eth0 -n igb,e1000e,e1000,bnx2,tg3 -o centos5.4 -p nfsroot --permission 777</pre>
+<li>
+<pre>
+  genimage -i eth0 -n tg3 myimagename</pre>
+<li>
+<pre>
+  genimage myimagename</pre>
+<li>
+<pre>
+  genimage myimagename --interactive</pre>
+<li>
+<p>To regenerate the initrd for a fedora8 image for a compute node architecture x86_64 and place it in the /install/netboot/fedora8/x86_64/compute/rootimg directory:  change directory to /opt/xcat/share/xcat/netboot/fedora and run:</p>
+<pre>
+  genimage --onlyinitrd -i eth0 -n tg3,bnx2 -o fedora8 -p compute</pre>
+</li>
+<li>
+<pre>
+  genimage --dryrun  myimagename</pre>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/genimage</p>
+<p>/opt/xcat/share/xcat/netboot/&lt;OS&gt;/genimage</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="packimage.1.html">packimage(1)</a>, <a href="liteimg.1.html">liteimg(1)</a></p>
+
+</body>
+
+</html>

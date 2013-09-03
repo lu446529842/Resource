@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Name</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">Name</a></li>
+	<li><a href="#synopsis"><strong>Synopsis</strong></a></li>
+	<ul>
+
+		<li><a href="#for_zvm_">For zVM:</a></li>
+	</ul>
+
+	<li><a href="#description"><strong>Description</strong></a></li>
+	<ul>
+
+		<li><a href="#for_zvm_">For zVM:</a></li>
+	</ul>
+
+	<li><a href="#options">OPTIONS</a></li>
+	<ul>
+
+		<li><a href="#zvm_specific_">zVM specific:</a></li>
+	</ul>
+
+	<li><a href="#files"><strong>Files</strong></a></li>
+	<li><a href="#examples"><strong>Examples</strong></a></li>
+	<ul>
+
+		<li><a href="#zvm_specific_">zVM specific:</a></li>
+	</ul>
+
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">Name</a></h1>
+<p><strong>rmigrate</strong> - Execute migration of a guest VM between hosts/hypervisors</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis"><strong>Synopsis</strong></a></h1>
+<p><strong>rmigrate</strong> <em>noderange</em> <em>target_host</em></p>
+<p>
+</p>
+<h2><a name="for_zvm_">For zVM:</a></h2>
+<p><strong>rmigrate</strong> <em>noderange</em> [<strong>destination=</strong><em>target_host</em>] [<strong>action=</strong><em>action</em>] [<strong>force=</strong><em>force</em>] [<strong>immediate=</strong><em>yes_no</em>] [<strong>max_total=</strong><em>total</em>] [<strong>max_quiesce=</strong><em>quiesce</em>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description"><strong>Description</strong></a></h1>
+<p><strong>rmigrate</strong> requests that a guest VM be moved from the current entity hosting it to another.  It requests a live migration be done, if possible.</p>
+<p>
+</p>
+<h2><a name="for_zvm_">For zVM:</a></h2>
+<p><strong>rmigrate</strong> migrates a VM from one z/VM member to another in an SSI cluster (only in z/VM 6.2).</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p>
+</p>
+<h2><a name="zvm_specific_">zVM specific:</a></h2>
+<dl>
+<dt><strong><a name="item_destination_3d_the_name_of_the_destination_z_2fvm_"><strong>destination=</strong>
+The name of the destination z/VM system to which the specified virtual machine will be relocated.</a></strong>
+
+<dt><strong><a name="item_or"><strong>action=</strong>
+It can be: (MOVE) initiate a VMRELOCATE MOVE of the VM, (TEST) determine if VM is eligible to be relocated, or (CANCEL) stop the relocation of VM.</a></strong>
+
+<dt><strong><strong>force=</strong>
+It can be: (ARCHITECTURE) attempt relocation even though hardware architecture facilities or CP features are not available on destination system, (DOMAIN) attempt relocation even though VM would be moved outside of its domain, or (STORAGE) relocation should proceed even if CP determines that there are insufficient storage resources on destination system.</strong>
+
+<dt><strong><strong>immediate=</strong>
+It can be: (YES) VMRELOCATE command will do one early pass through virtual machine storage and then go directly to the quiesce stage, or (NO) specifies immediate processing.</strong>
+
+<dt><strong><a name="item_max_total_3d_the_maximum_wait_time_for_relocation_"><strong>max_total=</strong>
+The maximum wait time for relocation to complete.</a></strong>
+
+<dt><strong><a name="item_max_quiesce_3d_the_maximum_quiesce_time_a_vm_may_b"><strong>max_quiesce=</strong>
+The maximum quiesce time a VM may be stopped during a relocation attempt.</a></strong>
+
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="files"><strong>Files</strong></a></h1>
+<p><strong>vm</strong> table -
+Table governing VM paramaters.  See <a href="../man5/vm.5.html">vm(5)</a> for further details.
+This is used to determine the current host to migrate from.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples"><strong>Examples</strong></a></h1>
+<p><strong>rmigrate</strong> <em>v1</em> <em>n2</em></p>
+<p>
+</p>
+<h2><a name="zvm_specific_">zVM specific:</a></h2>
+<p><strong>rmigrate</strong> <em>ihost123</em> destination=<em>pokdev62</em></p>
+
+</body>
+
+</html>

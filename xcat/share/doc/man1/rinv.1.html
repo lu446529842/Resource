@@ -1,0 +1,426 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Name</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">Name</a></li>
+	<li><a href="#synopsis"><strong>Synopsis</strong></a></li>
+	<ul>
+
+		<li><a href="#bmc_mpa_specific_">BMC/MPA specific:</a></li>
+		<li><a href="#ppc__with_hmc__specific_">PPC (with HMC) specific:</a></li>
+		<li><a href="#ppc__using_direct_fsp_management__specific_">PPC (using Direct FSP Management) specific:</a></li>
+		<li><a href="#blade_specific_">Blade specific:</a></li>
+		<li><a href="#vmware_specific_">VMware specific:</a></li>
+		<li><a href="#zvm_specific_">zVM specific:</a></li>
+	</ul>
+
+	<li><a href="#description"><strong>Description</strong></a></li>
+	<li><a href="#options"><strong>Options</strong></a></li>
+	<li><a href="#examples"><strong>Examples</strong></a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">Name</a></h1>
+<p><strong>rinv</strong> - Remote hardware inventory</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis"><strong>Synopsis</strong></a></h1>
+<p><strong>rinv</strong> [<strong>-h</strong>|<strong>--help</strong>|<strong>-v</strong>|<strong>--version</strong>]</p>
+<p>
+</p>
+<h2><a name="bmc_mpa_specific_">BMC/MPA specific:</a></h2>
+<p><strong>rinv</strong> <em>noderange</em> {<strong>pci</strong>|<strong>model</strong>|<strong>serial</strong>|<strong>asset</strong>|<strong>vpd</strong>|<strong>mprom</strong>|<strong>deviceid</strong>|<strong>guid</strong>|<strong>firm</strong>|<strong>diag</strong>|<strong>bios</strong>|<strong>mparom</strong>|<strong>mac</strong>|<strong>all</strong>}</p>
+<p>
+</p>
+<h2><a name="ppc__with_hmc__specific_">PPC (with HMC) specific:</a></h2>
+<p><strong>rinv</strong> <em>noderange</em> {<strong>bus</strong>|<strong>config</strong>|<strong>serial</strong>|<strong>model</strong>|<strong>firm</strong>|<strong>all</strong>}</p>
+<p>
+</p>
+<h2><a name="ppc__using_direct_fsp_management__specific_">PPC (using Direct FSP Management) specific:</a></h2>
+<p><strong>rinv</strong> <em>noderange</em> {<strong>firm</strong>}</p>
+<p><strong>rinv</strong> <em>noderange</em> {<strong>deconfig</strong> [<strong>-x</strong>]}</p>
+<p>
+</p>
+<h2><a name="blade_specific_">Blade specific:</a></h2>
+<p><strong>rinv</strong> <em>noderange</em> {<strong>mtm</strong>|<strong>serial</strong>|<strong>mac</strong>|<strong>bios</strong>|<strong>diag</strong>|<strong>mprom</strong>|<strong>mparom</strong>|<strong>firm</strong>|<strong>all</strong>}</p>
+<p>
+</p>
+<h2><a name="vmware_specific_">VMware specific:</a></h2>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>-t</strong>]</p>
+<p>
+</p>
+<h2><a name="zvm_specific_">zVM specific:</a></h2>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>config</strong>|<strong>all</strong>]</p>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>--diskpoolspace</strong>]</p>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>--diskpool</strong> <em>pool</em> <em>space</em>]</p>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>--fcpdevices</strong> <em>state</em> <em>details</em>]</p>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>--diskpoolnames</strong>]</p>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>--networknames</strong>]</p>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>--network</strong> <em>name</em>]</p>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>--ssi</strong>]</p>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>--smapilevel</strong>]</p>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>--wwpns</strong> <em>fcp_channel</em>]</p>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>--zfcppool</strong> <em>pool</em> <em>space</em>]</p>
+<p><strong>rinv</strong> <em>noderange</em> [<strong>--zfcppoolnames</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description"><strong>Description</strong></a></h1>
+<p><strong>rinv</strong>  retrieves  hardware  configuration  information from the on-board
+Service Processor for a single or range of nodes and groups.</p>
+<p>Calling <strong>rinv</strong> for VMware will display the UUID/GUID, nuumber of CPUs, amount of memory, the MAC address and a list of Hard disks.  The output for each Hard disk includes the label, size and backing file location.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options"><strong>Options</strong></a></h1>
+<dl>
+<dt><strong><a name="item_pci"><strong>pci</strong></a></strong>
+
+<dd>
+<p>Retrieves PCI bus information.</p>
+</dd>
+</li>
+<dt><strong><a name="item_bus"><strong>bus</strong></a></strong>
+
+<dd>
+<p>List all buses for each I/O slot.</p>
+</dd>
+</li>
+<dt><strong><a name="item_config"><strong>config</strong></a></strong>
+
+<dd>
+<p>Retrieves number of processors, speed, total  memory,  and  DIMM
+locations.</p>
+</dd>
+</li>
+<dt><strong><a name="item_model"><strong>model</strong></a></strong>
+
+<dd>
+<p>Retrieves model number.</p>
+</dd>
+</li>
+<dt><strong><a name="item_serial"><strong>serial</strong></a></strong>
+
+<dd>
+<p>Retrieves serial number.</p>
+</dd>
+</li>
+<dt><strong><a name="item_firm"><strong>firm</strong></a></strong>
+
+<dd>
+<p>Retrieves firmware versions.</p>
+</dd>
+</li>
+<dt><strong><a name="item_deconfig"><strong>deconfig</strong></a></strong>
+
+<dd>
+<p>Retrieves deconfigured resources. Deconfigured resources are hw components (cpus, memory, etc.) that have failed so the firmware has automatically turned those components off. This option is only capable of listing some of the deconfigured resources and should not be the only method used to check the hardware status.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dx"><strong>-x</strong></a></strong>
+
+<dd>
+<p>To output the information of deconfigured resources in XML format.</p>
+</dd>
+</li>
+<dt><strong><a name="item_asset"><strong>asset</strong></a></strong>
+
+<dd>
+<p>Retrieves asset tag.  Usually it's the MAC address of eth0.</p>
+</dd>
+</li>
+<dt><strong><a name="item_vpd"><strong>vpd</strong></a></strong>
+
+<dd>
+<p>Same as specifying model, serial, deviceid, and mprom.</p>
+</dd>
+</li>
+<dt><strong><a name="item_diag"><strong>diag</strong></a></strong>
+
+<dd>
+<p>Diagnostics information of firmware.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mprom"><strong>mprom</strong></a></strong>
+
+<dd>
+<p>?</p>
+</dd>
+</li>
+<dt><strong><a name="item_deviceid"><strong>deviceid</strong></a></strong>
+
+<dd>
+<p>?</p>
+</dd>
+</li>
+<dt><strong><a name="item_guid"><strong>guid</strong></a></strong>
+
+<dd>
+<p>?</p>
+</dd>
+</li>
+<dt><strong><a name="item_all"><strong>all</strong></a></strong>
+
+<dd>
+<p>All of the above.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h</strong>|<strong>--help</strong></a></strong>
+
+<dd>
+<p>Print help.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v</strong>|<strong>--version</strong></a></strong>
+
+<dd>
+<p>Print version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dt"><strong>-t</strong></a></strong>
+
+<dd>
+<p>Set the values in the vm table to what vCenter has for the indicated nodes.</p>
+</dd>
+<dd>
+<p><strong>zVM specific :</strong></p>
+</dd>
+<dl>
+<dt><strong><a name="item__2d_2ddiskpoolspace"><strong>--diskpoolspace</strong></a></strong>
+
+<dd>
+<p>Calculates the total size of every known storage pool.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2ddiskpool_pool_space"><strong>--diskpool</strong> <em>pool</em> <em>space</em></a></strong>
+
+<dd>
+<p>Lists the storage devices (ECKD and FBA) contained in a disk pool. Space can be: all, free, or used.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dfcpdevices_state_details"><strong>--fcpdevices</strong> <em>state</em> <em>details</em></a></strong>
+
+<dd>
+<p>Lists the FCP device channels that are active, free, or offline. State can be: active, free, or offline.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2ddiskpoolnames"><strong>--diskpoolnames</strong></a></strong>
+
+<dd>
+<p>Lists the known disk pool names.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dnetworknames"><strong>--networknames</strong></a></strong>
+
+<dd>
+<p>Lists the known network names.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dnetwork_name"><strong>--network</strong> <em>name</em></a></strong>
+
+<dd>
+<p>Shows the configuration of a given network device.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dssi"><strong>--ssi</strong></a></strong>
+
+<dd>
+<p>Obtain the SSI and system status.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dsmapilevel"><strong>--smapilevel</strong></a></strong>
+
+<dd>
+<p>Obtain the SMAPI level installed on the z/VM system.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dwwpns_fcp_channel"><strong>--wwpns</strong> <em>fcp_channel</em></a></strong>
+
+<dd>
+<p>Query a given FCP device channel on a z/VM system and return a list of WWPNs.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dzfcppool_pool_space"><strong>--zfcppool</strong> <em>pool</em> <em>space</em></a></strong>
+
+<dd>
+<p>List the SCSI/FCP devices contained in a zFCP pool. Space can be: free or used.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dzfcppoolnames"><strong>--zfcppoolnames</strong></a></strong>
+
+<dd>
+<p>List the known zFCP pool names.</p>
+</dd>
+</li>
+</dl>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples"><strong>Examples</strong></a></h1>
+<ul>
+<li>
+<p>To retrieve all information available from blade node4, enter:</p>
+<pre>
+ rinv node5 all</pre>
+<pre>
+ node5: Machine Type/Model 865431Z
+ node5: Serial Number 23C5030
+ node5: Asset Tag 00:06:29:1F:01:1A
+ node5: PCI Information
+ node5:  Bus  VendID  DevID    RevID  Description              Slot Pass/Fail
+ node5:  0    1166    0009     06     Host Bridge              0        PASS
+ node5:  0    1166    0009     06     Host Bridge              0        PASS
+ node5:  0    5333    8A22     04     VGA Compatible Controller0        PASS
+ node5:  0    8086    1229     08     Ethernet Controller      0        PASS
+ node5:  0    8086    1229     08     Ethernet Controller      0        PASS
+ node5:  0    1166    0200     50     ISA Bridge               0        PASS
+ node5:  0    1166    0211     00     IDE Controller           0        PASS
+ node5:  0    1166    0220     04     Universal Serial Bus     0        PASS
+ node5:  1    9005    008F     02     SCSI Bus Controller      0        PASS
+ node5:  1    14C1    8043     03     Unknown Device Type      2        PASS
+ node5: Machine Configuration Info
+ node5: Number of Processors:
+ node5: Processor Speed: 866 MHz
+ node5: Total Memory:     512 MB
+ node5: Memory DIMM locations:  Slot(s)  3  4</pre>
+</li>
+<li>
+<p>To output the information of deconfigured resources in XML format for CEC cec01, enter:</p>
+<pre>
+ rinv cec01 deconfig -x</pre>
+<pre>
+ cec01:
+ &lt;SYSTEM&gt;
+ &lt;System_type&gt;IH&lt;/System_type&gt;
+ &lt;NODE&gt;
+ &lt;Location_code&gt;U78A9.001.0123456-P1&lt;/Location_code&gt;
+ &lt;RID&gt;800&lt;/RID&gt;
+ &lt;/NODE&gt;
+ &lt;/SYSTEM&gt;</pre>
+</li>
+<li>
+<p>To retrieve 'config' information from the HMC-managed LPAR node3, enter:</p>
+<pre>
+ rinv node3 config</pre>
+<pre>
+ node5: Machine Configuration Info
+ node5: Number of Processors: 1
+ node5: Total Memory (MB): 1024</pre>
+</li>
+<li>
+<p>To retrieve information about a VMware node vm1, enter:</p>
+<pre>
+ rinv vm1
+ vm1: UUID/GUID: 42198f65-d579-fb26-8de7-3ae49e1790a7
+ vm1: CPUs: 1
+ vm1: Memory: 1536 MB
+ vm1: Network adapter 1: 36:1b:c2:6e:04:02
+ vm1: Hard disk 1 (d0): 9000 MB @ [nfs_192.168.68.21_vol_rc1storage_vmware] vm1_3/vm1.vmdk
+ vm1: Hard disk 2 (d4): 64000 MB @ [nfs_192.168.68.21_vol_rc1storage_vmware] vm1_3/vm1_5.vmdk</pre>
+<p><strong>zVM specific :</strong></p>
+</li>
+<li>
+<p>To list the defined network names available for a given node:</p>
+<pre>
+ rinv pokdev61 --getnetworknames</pre>
+<p>Output is similar to:</p>
+<pre>
+ pokdev61: LAN:QDIO SYSTEM GLAN1
+ pokdev61: LAN:HIPERS SYSTEM GLAN2
+ pokdev61: LAN:QDIO SYSTEM GLAN3
+ pokdev61: VSWITCH SYSTEM VLANTST1
+ pokdev61: VSWITCH SYSTEM VLANTST2
+ pokdev61: VSWITCH SYSTEM VSW1
+ pokdev61: VSWITCH SYSTEM VSW2
+ pokdev61: VSWITCH SYSTEM VSW3</pre>
+</li>
+<li>
+<p>To list the configuration for a given network:</p>
+<pre>
+ rinv pokdev61 --getnetwork GLAN1</pre>
+<p>Output is similar to:
+</p>
+<pre>
+
+ pokdev61: LAN SYSTEM GLAN1        Type: QDIO    Connected: 1    Maxconn: INFINITE
+ pokdev61:   PERSISTENT  UNRESTRICTED  IP                        Accounting: OFF
+ pokdev61:   IPTimeout: 5                 MAC Protection: Unspecified
+ pokdev61:   Isolation Status: OFF</pre>
+</li>
+<li>
+<p>To list the disk pool names available:</p>
+<pre>
+ rinv pokdev61 --diskpoolnames
+ 
+Output is similar to:</pre>
+<pre>
+ pokdev61: POOL1
+ pokdev61: POOL2
+ pokdev61: POOL3</pre>
+</li>
+<li>
+<p>List the configuration for a given disk pool:</p>
+<pre>
+ rinv pokdev61 --diskpool POOL1 free</pre>
+<p>Output is similar to:
+</p>
+<pre>
+
+ pokdev61: #VolID DevType StartAddr Size
+ pokdev61: EMC2C4 3390-09 0001 10016
+ pokdev61: EMC2C5 3390-09 0001 10016</pre>
+</li>
+<li>
+<p>List the known zFCP pool names.</p>
+<pre>
+ rinv pokdev61 --zfcppoolnames
+ 
+Output is similar to:</pre>
+<pre>
+ pokdev61: zfcp1
+ pokdev61: zfcp2
+ pokdev61: zfcp3</pre>
+</li>
+<li>
+<p>List the SCSI/FCP devices contained in a given zFCP pool:</p>
+<pre>
+ rinv pokdev61 --zfcppool zfcp1
+  
+Output is similar to:</pre>
+<pre>
+ pokdev61: #status,wwpn,lun,size,range,owner,channel,tag
+ pokdev61: used,500512345678c411,4014412100000000,2g,3B40-3B7F,ihost13,3b77,
+ pokdev61: used,500512345678c411,4014412200000000,8192M,3B40-3B7F,ihost13,3b77,replace_root_device
+ pokdev61: free,500512345678c411,4014412300000000,8g,3B40-3B7F,,,
+ pokdev61: free,5005123456789411,4014412400000000,2g,3B40-3B7F,,,
+ pokdev61: free,5005123456789411;5005123456789411,4014412600000000,2G,3B40-3B7F,,,</pre>
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="rpower.1.html">rpower(1)</a>
+</p>
+
+</body>
+
+</html>

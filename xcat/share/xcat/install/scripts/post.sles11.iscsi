@@ -1,0 +1,24 @@
+      <post-scripts config:type="list">
+        <script>
+          <filename>xcat.sh</filename>
+          <interpreter>shell</interpreter>
+          <source>
+
+<![CDATA[
+#!/bin/sh
+
+#INCLUDE:#ENV:XCATROOT#/share/xcat/install/scripts/post.sles.common#
+#INCLUDE:#ENV:XCATROOT#/share/xcat/install/scripts/post.xcat#
+
+# for servicenode, add /install to /etc/fstab
+echo "$MASTER:/install  /install    nfs timeo=14,intr   1 2" >>/etc/fstab
+
+# check the arch for nodetype
+NODE_ARCH=#TABLE:nodetype:$NODE:arch#
+
+]]>
+
+          </source>
+        </script>
+      </post-scripts>
+

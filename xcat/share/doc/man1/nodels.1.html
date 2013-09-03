@@ -1,0 +1,287 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;nodels&gt; - lists the nodes, and their attributes, from the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>nodels</strong> - lists the nodes, and their attributes, from the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>nodels</strong> [<em>noderange</em>] [<strong>-b</strong> | <strong>--blame</strong>] [<strong>-H</strong> | <strong>--with-fieldname</strong>] [<strong>-S</strong>] [<em>table.column</em> | <em>shortname</em>] [<em>...</em>]</p>
+<p><strong>nodels</strong> [<em>noderange</em>] [<strong>-H</strong> | <strong>--with-fieldname</strong>] [<em>table</em>]</p>
+<p><strong>nodels</strong> [<strong>-?</strong> | <strong>-h</strong> | <strong>--help</strong> | <strong>-v</strong> | <strong>--version</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>nodels</strong> command lists the nodes specified in the node range. If no noderange is provided, then all nodes are listed.</p>
+<p>Additional attributes of the nodes will also be displayed if the table names and attribute names
+are specified after the noderange in the form:  <em>table.column</em> .  A few shortcut names can
+also be used as aliases to common attributes:</p>
+<dl>
+<dt><strong><a name="item_groups"><strong>groups</strong></a></strong>
+
+<dd>
+<p>nodelist.groups</p>
+</dd>
+</li>
+<dt><strong><a name="item_tags"><strong>tags</strong></a></strong>
+
+<dd>
+<p>nodelist.groups</p>
+</dd>
+</li>
+<dt><strong><a name="item_mgt"><strong>mgt</strong></a></strong>
+
+<dd>
+<p>nodehm.mgt</p>
+</dd>
+</li>
+</dl>
+<p>nodels can also select based on table value criteria. The following operators are available:</p>
+<dl>
+<dt><strong><a name="item__3d_3d"><strong>==</strong></a></strong>
+
+<dd>
+<p>Select nodes where the table.column value is exactly a certain value.</p>
+</dd>
+</li>
+<dt><strong><a name="item__21_3d"><strong>!=</strong></a></strong>
+
+<dd>
+<p>Select nodes where the table.column value is not a given specific value.</p>
+</dd>
+</li>
+<dt><strong><a name="item__3d_7e"><strong>=~</strong></a></strong>
+
+<dd>
+<p>Select nodes where the table.column value matches a given regular expression.</p>
+</dd>
+</li>
+<dt><strong><a name="item__21_7e"><strong>!~</strong></a></strong>
+
+<dd>
+<p>Select nodes where the table.column value does not match a given regular expression.</p>
+</dd>
+</li>
+</dl>
+<p>The <strong>nodels</strong> command with a specific node and one or more table.attribute parameters is a good substitute
+for grep'ing through the tab files, as was typically done in xCAT 1.x.  This is because nodels will translate
+any regular expression rows in the tables into their meaning for the specified node.  The tab* commands
+will not do this, instead they will just display the regular expression row verbatim.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command Version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dwith_2dfieldname"><strong>-H|--with-fieldname</strong></a></strong>
+
+<dd>
+<p>Force display of table name and column name context for each result</p>
+</dd>
+</li>
+<dt><strong><a name="item__2db_7c_2d_2dblame"><strong>-b|--blame</strong></a></strong>
+
+<dd>
+<p>For values inherited from groups, display which groups provided the inheritence</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds"><strong>-S</strong></a></strong>
+
+<dd>
+<p>List all the hidden nodes (FSP/BPA nodes) with other ones.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_3f_7c_2dh_7c_2d_2dhelp"><strong>-?|-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0  The command completed successfully.</p>
+<p>1  An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>To list all defined nodes, enter:</p>
+<pre>
+ nodels</pre>
+<p>Output is similar to:</p>
+<pre>
+   node1
+   node2
+   node3</pre>
+</li>
+<li>
+<p>To list all defined attributes in a table for a node or noderange, enter:</p>
+<pre>
+ nodels rra001a noderes</pre>
+<p>Output is similar to:</p>
+<pre>
+   rra001a: noderes.primarynic: eth0
+   rra001a: noderes.xcatmaster: rra000
+   rra001a: noderes.installnic: eth0
+   rra001a: noderes.netboot: pxe
+   rra001a: noderes.servicenode: rra000
+   rra001a: noderes.node: rra001a</pre>
+</li>
+<li>
+<p>To list nodes in node group ppc, enter:</p>
+<pre>
+ nodels ppc</pre>
+<p>Output is similar to:</p>
+<pre>
+   ppcnode1
+   ppcnode2
+   ppcnode3</pre>
+</li>
+<li>
+<p>To list the groups each node is part of:</p>
+<pre>
+ nodels all groups</pre>
+<p>Output is similar to:</p>
+<pre>
+   node1: groups: all
+   node2: groups: all,storage
+   node3: groups: all,blade</pre>
+</li>
+<li>
+<p>To list the groups each node is part of:</p>
+<pre>
+ nodels all nodehm.power</pre>
+<p>Output is similar to:</p>
+<pre>
+   node1: nodehm.power: blade
+   node2: nodehm.power: ipmi
+   node3: nodehm.power: ipmi</pre>
+</li>
+<li>
+<p>To list the out-of-band mgt method for blade1:</p>
+<pre>
+ nodels blade1 nodehm.mgt</pre>
+<p>Output is similar to:</p>
+<pre>
+   blade1: blade</pre>
+</li>
+<li>
+<p>Listing blades managed through an AMM named 'amm1'</p>
+<pre>
+ nodels all mp.mpa==amm1</pre>
+<p>Output is similar to:</p>
+<pre>
+   blade1
+   blade10
+   blade11
+   blade12
+   blade13
+   blade2
+   blade3
+   blade4
+   blade5
+   blade6
+   blade7
+   blade8
+   blade9</pre>
+</li>
+<li>
+<p>Listing the switch.switch value for nodes in the second rack:</p>
+<pre>
+ nodels all nodepos.rack==2 switch.switch</pre>
+<p>Output is similar to:</p>
+<pre>
+   n41: switch.switch: switch2
+   n42: switch.switch: switch2
+   n43: switch.switch: switch2
+   n44: switch.switch: switch2
+   n45: switch.switch: switch2
+   n46: switch.switch: switch2
+   n47: switch.switch: switch2
+   n55: switch.switch: switch2
+   n56: switch.switch: switch2
+   n57: switch.switch: switch2
+   n58: switch.switch: switch2
+   n59: switch.switch: switch2
+   n60: switch.switch: switch2</pre>
+</li>
+<li>
+<p>Listing the blade slot number for anything managed through a device with a name beginning with amm:</p>
+<pre>
+ nodels all mp.mpa=~/^amm.*/ mp.id</pre>
+<p>Output looks like:</p>
+<pre>
+   blade1: mp.id: 1
+   blade10: mp.id: 10
+   blade11: mp.id: 11
+   blade12: mp.id: 12
+   blade13: mp.id: 13
+   blade2: mp.id: 2
+   blade3: mp.id: 3
+   blade4: mp.id: 4
+   blade5: mp.id: 5
+   blade6: mp.id: 6
+   blade7: mp.id: 7
+   blade8: mp.id: 8
+   blade9: mp.id: 9</pre>
+</li>
+<li>
+<p>To list the hidden nodes that can't be seen with other flags.
+The hidden nodes are FSP/BPAs.</p>
+<pre>
+ lsdef -S</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/nodels</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="../man3/noderange.3.html">noderange(3)</a>, <a href="../man8/tabdump.8.html">tabdump(8)</a>, <a href="lsdef.1.html">lsdef(1)</a></p>
+
+</body>
+
+</html>

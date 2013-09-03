@@ -1,0 +1,161 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;db2sqlsetup&gt; - Sets up the IBM DB2 for xCAT to use.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#environment_variables">ENVIRONMENT VARIABLES</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>db2sqlsetup</strong> - Sets up the IBM DB2 for xCAT to use.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>db2sqlsetup</strong> {<strong>-h</strong>|<strong>--help</strong>}</p>
+<p><strong>db2sqlsetup</strong> {<strong>-v</strong>|<strong>--version</strong>}</p>
+<p><strong>db2sqlsetup</strong> {<strong>-i</strong>|<strong>--init</strong>}{&lt;-S&gt; | &lt;-C&gt;} [-o|--setupODBC]  [<strong>-V</strong>|<strong>--verbose</strong>]</p>
+<p><strong>db2sqlsetup</strong> {<strong>-i</strong>|<strong>--init</strong>}{&lt;-S&gt;} [-N|--nostart]  [-o|--setupODBC]  [<strong>-V</strong>|<strong>--verbose</strong>]</p>
+<p><strong>db2sqlsetup</strong> {<strong>-o</strong>|<strong>--setupODBC</strong>} {&lt;-S&gt; | &lt;-C&gt;} [-V|--verbose]</p>
+<p><strong>db2sqlsetup</strong> {<strong>-p</strong>|<strong>--passwd</strong>} [&lt;-S&gt; | &lt;-C&gt;]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p><strong>db2sqlsetup</strong> - Sets up the IBM DB2 database for xCAT to use. The db2sqlsetup script is run on the Management Node, after the DB2 Server code has been installed, to setup the DB2 Server (-S).
+The xcatd daemon will be stopped during migration on the MN.  No xCAT commands should be run during the init process, because we will be migrating the xCAT database to DB2 and restarting the xcatd daemon.</p>
+<p>The db2sqlsetup script must be  run on each Service Node, after the DB2 Client code has been installed, to setup the DB2 Client (-C). There are two postscripts that are provided ( db2install and odbcsetup) that will automatically setup you Service Node  as a DB2 client.</p>
+<p>For full information on the setup of DB2,  see <a href="http://sourceforge.net/apps/mediawiki/xcat/index.php?title=Setting_Up_DB2_as_the_xCAT_DB.">http://sourceforge.net/apps/mediawiki/xcat/index.php?title=Setting_Up_DB2_as_the_xCAT_DB.</a></p>
+<p>When running of db2sqlsetup on the MN:
+One password must be supplied for the setup,  a password for the xcatdb unix id which will be used as the DB2 instance id and database name.  The password will be prompted for interactively or can be input with the XCATDB2PW  environment variable.
+The script will create the xcat database instance (xcatdb) in the /var/lib/db2 directory unless overriden by setting the site.databaseloc attribute.  This attribute should not be set to the directory that is defined in the installloc attribute and it is recommended that the databaseloc be a new filesystem dedicated to the DB2 database, especially in very large clusters.
+</p>
+<pre>
+
+When running db2sqlseutp on the SN: 
+Not only will the password for the DB2 instance Id be prompted for and must match the one on the Management Node;  but also the hostname or ip address of the Management Node as known by the Service Node must be supplied , unless the XCATDB2SERVER environment variable is set.  
+You can automatically install and setup of DB2 on the SN using the db2install and odbcsetup postscripts and not need to manually run the command.  See the full documentation.</pre>
+<p>Note: On AIX , root must be running ksh and on Linux,  bash shell.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Displays the usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Displays the release version of the code.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Displays verbose messages.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di_7c_2d_2dinit"><strong>-i|--init</strong></a></strong>
+
+<dd>
+<p>The init option is used to setup an installed DB2 database on AIX or Linux (p-Series) so that xCAT can use the database. This must be combined with either the -S or -C flag to indicate whether we are setting up the Server or the Client. With the -S flag, it involves creating the xcatdb database, the xcatdb instance id, allowing access to the xcatdb database by the Management Node. It also backs up the current xCAT database and restores it into the newly setup xcatdb DB2 database.  It creates the /etc/xcat/cfgloc file to point the xcatd daemon to the DB2 database and restarts the xcatd daemon using the database.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_7c_2d_2dpasswd"><strong>-p|--passwd</strong></a></strong>
+
+<dd>
+<p>The password change option is to change the database access password for the DB2 xcatdb database. If -S is input then it will only change the password on the DB2 Server (MN).  If -C is input it will only change on the DB2 clients (SN).  If neither -S or -C are input with this flag, then it will change both the DB2 Server and Clients. When changing the password the xcatd daemon will be stopped and restarted.  Any other tools accessing the database should also be stopped before changing and restarted after changing.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_7c_2dc"><strong>-S|-C</strong></a></strong>
+
+<dd>
+<p>This options says whether to setup the Server (-S) on the Management Node, or the Client (-C) on the Service Nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dn_7c_2d_2dnostart"><strong>-N|--nostart</strong></a></strong>
+
+<dd>
+<p>This option with the -S flag will create the database, but will not backup and restore xCAT tables into the database. It will create the cfgloc file such that the next start of xcatd will try and contact the database.  This can be used to setup the xCAT DB2 database during or before install.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2do_7c_2d_2dsetupodbc"><strong>-o|--setupODBC</strong></a></strong>
+
+<dd>
+<p>This option sets up the ODBC  /etc/../odbcinst.ini, /etc/../odbc.ini and the .odbc.ini file in roots home directory will be created and initialized to run off the xcatdb DB2 database.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="environment_variables">ENVIRONMENT VARIABLES</a></h1>
+<ul>
+<li>
+<p>XCATDB2INSPATH  overrides the default install path for DB2 which is /opt/ibm/db2/V9.7 for Linux and /opt/IBM/db2/V9.7 for AIX.</p>
+</li>
+<li>
+<p>DATABASELOC override the where to create the xcat DB2 database, which is /var/lib/db2 by default of taken from the site.databaseloc  attribute.</p>
+</li>
+<li>
+<p>XCATDB2PW can be set to the password for the xcatdb DB2 instance id so that there will be no prompting for a password when the script is run.</p>
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ul>
+<li>
+<p>To setup DB2 Server for  xCAT to run on the DB2 xcatdb database, on the MN:</p>
+<p><strong>db2sqlsetup</strong> <em>-i</em> <em>-S</em></p>
+</li>
+<li>
+<p>To setup DB2 Client for  xCAT to run on the DB2 xcatdb database, on the SN:</p>
+<p><strong>db2sqlsetup</strong> <em>-i</em> <em>-C</em></p>
+</li>
+<li>
+<p>To setup the ODBC for  DB2 xcatdb database access, on the MN :</p>
+<p><strong>db2sqlsetup</strong> <em>-o</em> <em>-S</em></p>
+</li>
+<li>
+<p>To setup the ODBC for  DB2 xcatdb database access, on the SN :</p>
+<p><strong>db2sqlsetup</strong> <em>-o</em> <em>-C</em></p>
+</li>
+<li>
+<p>To setup the DB2 database but not start xcat running with it:</p>
+<p><strong>db2sqlsetup</strong> <em>-i</em> <em>-S</em> <em>-N</em></p>
+</li>
+<li>
+<p>To change the DB2 xcatdb password on both the Management and Service Nodes:</p>
+<p><strong>db2sqlsetup</strong> <em>-p</em></p>
+</li>
+</ul>
+
+</body>
+
+</html>

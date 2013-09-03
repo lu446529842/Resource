@@ -1,0 +1,117 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;imgexport&gt; - Exports an xCAT image.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>imgexport</strong> - Exports an xCAT image.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>imgexport [-h| --help]</strong></p>
+<p><strong>imgexport image_name [destination] [[-e|--extra file:dir] ... ] [-p|--postscripts node_name] [-v|--verbose]</strong></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The imgexport command will export an image that is being used by xCAT.  To export images, you must have the images defined in the <em>osimage</em> table. All the columns in the <em>osimage</em> and <em>linuximage</em> tables will be exported. In addition, the following files will also be exported.</p>
+<p>For statefull:
+  x.pkglist
+  x.otherpkgs.pkglist
+  x.tmpl
+  x.synclist</p>
+<p>For stateless:
+  kernel
+  initrd.gz
+  rootimg.gz
+  x.pkglist
+  x.otherpkgs.pkglist
+  x.synclist
+  x.postinstall
+  x.exlist</p>
+<p>For statelite:
+  kernel
+  initrd.gz
+  root image tree
+  x.pkglist
+  x.synclist
+  x.otherpkgs.pkglist
+  x.postinstall
+  x.exlist</p>
+<p>where x is the name of the profile.</p>
+<p>Any files specified by the -e flag will also be exported. If -p flag is specified, the names of the postscripts and the postbootscripts for the given node will be exported. The postscripts themsleves need to be manualy exported using -e flag.</p>
+<p>For statelite, the litefile table settings for the image will also be exported. The litetree and statelite tables are not exported.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-e|--extra</strong> <em>srcfile:destdir</em>    Pack up extra files. If <em>destdir</em> is omitted, the destination directory will be the same as the source directory.</p>
+<p><strong>-h|--help</strong>                         Display usage message.
+</p>
+<pre>
+
+B&lt;-p|--postscripts&gt; I&lt;node_name&gt;  Get the names of the postscripts and postbootscripts for the given node and pack them into the image.</pre>
+<p><strong>-v|--verbose</strong>                      Verbose output.</p>
+<p><em>image_name</em>                        The name of the image. Use <em>lsdef -t</em> osimage to find out all the image names.</p>
+<p><em>destination</em>                       The output bundle file name.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. Simplest way to export an image.  If there is an image in the osimage table named 'foo', then run:</p>
+<p><strong>imgexport foo</strong></p>
+<p>foo.tgz will be built in the current working directory.  Make sure that you have enough space in the directory that you are in to run imgexport if you have a big image to tar up.</p>
+<p>2. To include extra files with your image:</p>
+<p><strong>imgexport Default_Stateless_1265981465 foo.tgz -e /install/postscripts/myscript1  -e /tmp/mydir:/usr/mydir</strong></p>
+<p>In addition to all the default files, this will export <em>/install/postscripts/myscript1</em> and the whole directory <em>/tmp/dir</em> into the file called foo.tgz.  And when imgimport is called  <em>/install/postscripts/myscript1</em> will be copied into the same directory and <em>/tmp/mydir</em> will be copied to <em>/usr/mydir</em>.</p>
+<p>3. To include postscript with your image:</p>
+<p><strong>imgexport Default_Stateless_1265981465 foo.tgz -p node1 -e /install/postscripts/myscript1</strong></p>
+<p>The <em>postscripts</em> and the <em>postbootscripts</em> names specified in the <em>postscripts</em> table for node1 will be exported into the image. The postscript <em>myscript1</em> will also be exported.</p>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/imgexport</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="imgimport.1.html">imgimport(1)</a>
+
+</p>
+
+</body>
+
+</html>

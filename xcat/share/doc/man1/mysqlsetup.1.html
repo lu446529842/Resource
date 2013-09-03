@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;mysqlsetup&gt; - Sets up the MySQL database for xCAT to use.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#environment_variables">ENVIRONMENT VARIABLES</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>mysqlsetup</strong> - Sets up the MySQL database for xCAT to use.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>mysqlsetup</strong> {<strong>-h</strong>|<strong>--help</strong>}</p>
+<p><strong>mysqlsetup</strong> {<strong>-v</strong>|<strong>--version</strong>}</p>
+<p><strong>mysqlsetup</strong> {<strong>-i</strong>|<strong>--init</strong>} [<strong>-f</strong>|<strong>--hostfile</strong>] [-o|--odbc] [-L|--LL] [<strong>-V</strong>|<strong>--verbose</strong>]</p>
+<p><strong>mysqlsetup</strong> {<strong>-u</strong>|<strong>--update</strong>} [<strong>-f</strong>|<strong>--hostfile</strong>] [-o|--odbc] [-L|--LL]          [<strong>-V</strong>|<strong>--verbose</strong>]</p>
+<p><strong>mysqlsetup</strong> {<strong>-o</strong>|<strong>--odbc</strong>} [-V|--verbose]</p>
+<p><strong>mysqlsetup</strong> {<strong>-L</strong>|<strong>--LL</strong>} [-V|--verbose]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p><strong>mysqlsetup</strong> - Sets up the MySQL database for xCAT to use. The mysqlsetup script is run on the Management Node as root after the MySQL code has been installed. Before running the init option, the MySQL server should be stopped.  The xCAT daemon, xcatd, must be running, do not stop it. No xCAT commands should be run during the init process, because we will be migrating the xCAT database to MySQL and restarting the xcatd daemon as well as the MySQL daemon. For full information on all the steps that will be done, read the ``Configure MySQL and Migrate xCAT Data to MySQL'' sections in 
+<a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Setting_Up_MySQL_as_the_xCAT_DB">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Setting_Up_MySQL_as_the_xCAT_DB</a>
+Two passwords must be supplied for the setup,  a password for the xcatadmin id and a password for the root id in the MySQL database.  These will be prompted for interactively, unless the environment variables XCATMYSQLADMIN_PW and  XCATMYSQLROOT_PW are set to the passwords for the xcatadmin id and root id in the database,resp.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Displays the usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Displays the release version of the code.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Displays verbose messages.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di_7c_2d_2dinit"><strong>-i|--init</strong></a></strong>
+
+<dd>
+<p>The init option is used to setup an installed MySQL database so that xCAT can use the database.  This involves creating the xcatdb database, the xcatadmin id, allowing access to the xcatdb database by the Management Node. It customizes the my.cnf configuration file for xcat and starts the MySQL server.  It also backs up the current xCAT database and restores it into the newly setup xcatdb MySQL database.  It creates the /etc/xcat/cfgloc file to point the xcatd daemon to the MySQL database and restarts the xcatd daemon using the database. 
+On AIX, it additionally setup the mysql id and group and corrects the permissions in the MySQL install directories. For AIX, you should be using the MySQL rpms available from the xCAT website. For Linux, you should use the MySQL rpms shipped with the OS. You can chose the -f and/or the -o option, to run after the init.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2du_7c_2d_2dupdate"><strong>-u|--update</strong></a></strong>
+
+<dd>
+<p>To run the update option,  you must first have run the -i option and have xcat successfully running on the MySQL database. You can chose the -f and/or the -o option, to update.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_7c_2d_2dhostfile"><strong>-f|--hostfile</strong></a></strong>
+
+<dd>
+<p>This option runs during update, it will take all the host from the input file (provide a full path) and give them database access to the xcatdb in  MySQL for the xcatadmin id. Wildcards and ipaddresses may be used. xCAT  must have been previously successfully setup to use MySQL. xcatadmin and MySQL root password are required.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2do_7c_2d_2dodbc"><strong>-o|--odbc</strong></a></strong>
+
+<dd>
+<p>This option sets up the ODBC  /etc/../odbcinst.ini, /etc/../odbc.ini and the .odbc.ini file in roots home directory will be created and initialized to run off the xcatdb MySQL database.
+See ``Add ODBC Support'' in
+<a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Setting_Up_MySQL_as_the_xCAT_DB">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Setting_Up_MySQL_as_the_xCAT_DB</a></p>
+</dd>
+</li>
+<dt><strong><a name="item__2dl_7c_2d_2dll"><strong>-L|--LL</strong></a></strong>
+
+<dd>
+<p>Additional database configuration specifically for the LoadLeveler product. 
+See ``Add ODBC Support'' in
+<a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Setting_Up_MySQL_as_the_xCAT_DB">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Setting_Up_MySQL_as_the_xCAT_DB</a></p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="environment_variables">ENVIRONMENT VARIABLES</a></h1>
+<ul>
+<li>
+<p><strong>XCATMYSQLADMIN_PW</strong> - the password for the xcatadmin id that will be assigned in the MySQL database.</p>
+</li>
+<li>
+<p><strong>XCATMYSQLROOT_PW</strong> - the password for the root id that will be assigned to the MySQL root id, if the script creates it.  The password to use to run MySQL command to the database as the MySQL root id.  This password may be different than the unix root password on the Management Node.</p>
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ul>
+<li>
+<p>To setup MySQL for xCAT to run on the MySQL xcatdb database :</p>
+<p><strong>mysqlsetup</strong> <em>-i</em></p>
+</li>
+<li>
+<p>Add hosts from /tmp/xcat/hostlist that can access the xcatdb database in MySQL:</p>
+<p><strong>mysqlsetup</strong> <em>-u</em> <em>-f /tmp/xcat/hostlist</em></p>
+<p>Where the file contains a host per line, for example:</p>
+<pre>
+         node1
+         1.115.85.2
+         10.%.%.%
+         nodex.cluster.net</pre>
+</li>
+<li>
+<p>To setup the ODBC for MySQL xcatdb database access :</p>
+<p><strong>mysqlsetup</strong> <em>-o</em></p>
+</li>
+<li>
+<p>To setup MySQL for xCAT and add hosts from /tmp/xcat/hostlist and setup the ODBC in Verbose mode:</p>
+<p><strong>mysqlsetup</strong> <em>-i</em> <em>-f /tmp/xcat/hostlist</em> <em>-o</em> <em>-V</em></p>
+</li>
+</ul>
+
+</body>
+
+</html>

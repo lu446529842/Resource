@@ -1,0 +1,153 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;rmdsklsnode&gt; - Use this xCAT command to remove AIX/NIM diskless machine definitions.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#notes">NOTES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>rmdsklsnode</strong> - Use this xCAT command to remove AIX/NIM diskless machine definitions.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>rmdsklsnode [-h | --help ]</strong></p>
+<p><strong>rmdsklsnode [-V|--verbose] [-f|--force] [-r|--remdef] [-i image_name] [-p|--primarySN] [-b|--backupSN] noderange</strong></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Use this command to remove all NIM client machine definitions that were created for the specified xCAT nodes.</p>
+<p>The xCAT node definitions will not be removed. Use the xCAT <strong>rmdef</strong> command to remove xCAT node definitions.</p>
+<p>If you are using xCAT service nodes the <strong>rmdsklsnode</strong> command will automatically determine the correct <code>server(s)</code> for the node and remove the NIM definitions on that server(s).</p>
+<p>If the node you are trying to remove is currently running the <strong>rmdsklsnode</strong> command will not remove the definitions.  You can use the ``-f'' option to shut down the node and remove the definition.</p>
+<p><strong>Removing alternate NIM client definitions</strong></p>
+<p>If you used the ``-n'' option when you created the NIM client definitions with the <strong>mkdsklsnode</strong> command then the NIM client machine names would be a combination of the xCAT node name and the osimage name used to initialize the NIM machine. To remove these definitions you must provide the name of the osimage that was used using the ``-i'' option.</p>
+<p>In most cases you would most likely want to remove the old client definitions without disturbing the nodes that you just booted with the new alternate client definition. The <strong>rmdsklsnode -r</strong> option can be used to remove the old alternate client defintions without stopping the running node.</p>
+<p>However, if you have NIM dump resources assign to your nodes be aware that when the old NIM alternate client definitions are removed it will leave the nodes unable to produce a system dump.  This is a current limitation in the NIM support for alternate client definitions.  For this reason it is recommended that you wait to do this cleanup until right before you do your next upgrade.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2df__7c_2d_2dforce"><strong>-f |--force</strong></a></strong>
+
+<dd>
+<p>Use the force option to stop and remove running nodes. This handles the situation where a NIM machine definition indicates that a node is still running even though it is not.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2db__7c_2d_2dbackupsn"><strong>-b |--backupSN</strong></a></strong>
+
+<dd>
+<p>When using backup service nodes only update the backup.  The default is to updat
+e both the primary and backup service nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh__7c_2d_2dhelp"><strong>-h |--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di_image_name"><strong>-i image_name</strong></a></strong>
+
+<dd>
+<p>The name of an xCAT image definition.</p>
+</dd>
+</li>
+<dt><strong><a name="item_noderange"><strong>noderange</strong></a></strong>
+
+<dd>
+<p>A set of comma delimited node names and/or group names. See the ``noderange'' man page for details on additional supported formats.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_7c_2d_2dprimarysn"><strong>-p|--primarySN</strong></a></strong>
+
+<dd>
+<p>When using backup service nodes only update the primary.  The default is to upda
+te both the primary and backup service nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dr_7c_2d_2dremdef"><strong>-r|--remdef</strong></a></strong>
+
+<dd>
+<p>Use this option to reset, deallocate, and remove NIM client definitions.  This option will not attempt to shut down running nodes. This option should be used when remove alternate NIM client definitions that were created using <strong>mkdsklsnode -n</strong>.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv__7c_2d_2dverbose"><strong>-V |--verbose</strong></a></strong>
+
+<dd>
+<p>Verbose mode.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<ol>
+<li>
+<p>The command completed successfully.</p>
+</li>
+<li>
+<p>An error has occurred.</p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1) Remove the NIM client definition for the xCAT node named ``node01''. Give verbose output.</p>
+<p><strong>rmdsklsnode -V node01</strong></p>
+<p>2) Remove the NIM client definitions for all the xCAT nodes in the group ``aixnod
+es''. Attempt to shut down the nodes if they are running.</p>
+<p><strong>rmdsklsnode -f aixnodes</strong></p>
+<p>3) Remove the NIM client machine definition for xCAT node ``node02'' that was created with the <strong>mkdsklsnode -n</strong> option and the image ``AIXdskls''. (i.e. NIM client machine name ``node02_AIXdskls''.)</p>
+<p><strong>rmdsklsnode -i AIXdskls node02</strong></p>
+<p>This assume that node02 is not currently running.</p>
+<p>4) Remove the old alternate client definition ``node27_olddskls''.</p>
+<p><strong>rmdsklsnode -r -i olddskls node27</strong></p>
+<p>Assuming the node was booted using an new alternate NIM client definition then this will leave the node running.</p>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/rmdsklsnode</p>
+<p>
+</p>
+<hr />
+<h1><a name="notes">NOTES</a></h1>
+<p>This command is part of the xCAT software product.</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="mkdsklsnode.1.html">mkdsklsnode(1)</a></p>
+
+</body>
+
+</html>

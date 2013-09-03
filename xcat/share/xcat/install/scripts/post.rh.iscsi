@@ -1,0 +1,8 @@
+#INCLUDE:#ENV:XCATROOT#/share/xcat/install/scripts/post.rh.common#
+#INCLUDE:#ENV:XCATROOT#/share/xcat/install/scripts/post.xcat#
+iscsiadm -m discovery -t st -p #TABLE:iscsi:$NODE:server#
+sed -i 's/^serial/#serial/' /boot/grub/menu.lst
+sed -i 's/^terminal/#terminal/' /boot/grub/menu.lst
+uploadboot
+exit 0
+

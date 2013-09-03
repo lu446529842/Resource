@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;rmkit&gt; - Remove Kits from xCAT</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>rmkit</strong> - Remove Kits from xCAT</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>rmkit</strong> [-h|--help]</p>
+<p><strong>rmkit</strong> [-V|--verbose] [-f|--force] &lt;kitlist&gt;</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>rmkit</strong> command removes kits on the xCAT management node from kit names.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-h|--help</strong></p>
+<p>Display usage message.</p>
+<p><strong>-V|--verbose</strong></p>
+<p>Verbose mode.</p>
+<p><strong>-f|--force</strong></p>
+<p>Remove this kit even there is any component in this kit is listed by osimage.kitcomponents.  If this option is not specified, this kit will not be removed if any kit components listed in an osimage.kitcomponents</p>
+<p><strong>kitlist</strong></p>
+<p>a comma delimited list of kits that are to be removed from the xCAT cluster.  Each entry can be a kitname or kit basename. For kit basename, rmkit command will remove all the kits that have that kit basename.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0  The command completed successfully.</p>
+<p>1  An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To remove two kits from tarball files.</p>
+<p>rmkit kit-test1,kit-test2</p>
+<p>Output is similar to:</p>
+<p>Kit kit-test1-1.0-Linux,kit-test2-1.0-Linux was successfully removed.</p>
+<p>2. To remove two kits from tarball files even the kit components in them are still being used by osimages.</p>
+<p>rmkit kit-test1,kit-test2 --force</p>
+<p>Output is similar to:</p>
+<p>Kit kit-test1-1.0-Linux,kit-test2-1.0-Linux was successfully removed.</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="lskit.1.html">lskit(1)</a>, <a href="addkit.1.html">addkit(1)</a>, <a href="addkitcomp.1.html">addkitcomp(1)</a>, <a href="rmkitcomp.1.html">rmkitcomp(1)</a>, <a href="chkkitcomp.1.html">chkkitcomp(1)</a></p>
+<p>~</p>
+
+</body>
+
+</html>

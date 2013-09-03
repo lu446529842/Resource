@@ -1,0 +1,23 @@
+      <post-scripts config:type="list">
+        <script>
+          <filename>xcat.sh</filename>
+          <interpreter>shell</interpreter>
+          <source>
+
+<![CDATA[
+#!/bin/sh
+#INCLUDE:#ENV:XCATROOT#/share/xcat/install/scripts/post.sles.common#
+#INCLUDE:#ENV:XCATROOT#/share/xcat/install/scripts/post.xcat#
+# Set the second disk to be bootable for RAID1 setup
+parted -s /dev/sdb mkfs 1 fat16
+parted /dev/sdb set 1 type 6
+parted /dev/sdb set 1 boot on
+dd if=/dev/sda1 of=/dev/sdb1
+bootlist -m normal sda sdb
+
+]]>
+
+          </source>
+        </script>
+      </post-scripts>
+

@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;xcatchroot&gt; - Use this xCAT command to modify an xCAT AIX diskless operating system image.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#notes">NOTES</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>xcatchroot</strong> - Use this xCAT command to modify an xCAT AIX diskless operating system image.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>xcatchroot -h </strong></p>
+<p><strong>xcatchroot [-V] -i osimage_name  cmd_string</strong></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>For AIX diskless images this command will modify the AIX SPOT resource using 
+the chroot command.  You must include the name of an xCAT osimage
+definition and the command that you wish to have run in the spot.</p>
+<p>WARNING:</p>
+<pre>
+        Be very careful when using this command!!!  Make sure you are
+        very clear about exactly what you are changing so that you do
+        not accidently corrupt the image.
+        
+        As a precaution it is advisable to make a copy of the original
+        spot in case your changes wind up corrupting the image.</pre>
+<p>When you are done updating a NIM spot resource you should always run the NIM
+check operation on the spot.</p>
+<pre>
+        nim -Fo check &lt;spot_name&gt;</pre>
+<p>The xcatchroot command will take care of any of the required setup so that 
+the command you provide will be able to run in the spot chroot environment.
+It will also mount the lpp_source resource listed in the osimage definition
+so that you can access additional software that you may wish to install.</p>
+<p>For example, assume that the location of the spot named in the xCAT osimage 
+definition is /install/nim/spot/614spot/usr. The associated root directory in
+this spot would be /install/nim/spot/614spot/usr/lpp/bos/inst_root.  The chroot
+is automatically done to this new root directory.  The spot location is 
+mounted on /.../inst_root/usr so that when your command is run in the chroot
+environment it is actually running commands from the spot usr location.</p>
+<p>Also, the location of the lpp_source resource specified in the osimage 
+definition will be mounted to a subdirectory of the spot /.../inst_root
+directory.  For example, if the lpp_source location is 
+/install/nim/lpp_source/614lpp_lpp_source then that would be mounted over
+/install/nim/spot/614spot/usr/lpp/bos/inst_root/lpp_source.</p>
+<p>When you provide a command string to run make sure you give the full paths
+of all commands and files assuming the /.../inst_root directory is you root
+directory.</p>
+<p>If you wish to install software from the lpp_source location you would
+provide a directory location of /lpp_source (or /lpp_source/installp/ppc 
+or /lpp_source/RPMS/ppc etc.) See the example below.</p>
+<p>Always run the NIM check operation after you are done updating your spot.
+(ex. ``nim -o check &lt;spot_name&gt;'')</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item_cmd_string"><strong>cmd_string</strong></a></strong>
+
+<dd>
+<p>The command you wish to have run in the chroot environment.  (Use a quoted 
+string.)</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh__7c_2d_2dhelp"><strong>-h |--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di_osimage_name"><strong>-i osimage_name</strong></a></strong>
+
+<dd>
+<p>The name of the xCAT osimage definition.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv__7c_2d_2dverbose"><strong>-V |--verbose</strong></a></strong>
+
+<dd>
+<p>Verbose mode.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<ol>
+<li>
+<p>The command completed successfully.</p>
+</li>
+<li>
+<p>An error has occurred.</p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1) Set the root password to ``cluster'' in the spot so that when the diskless 
+node boots it will have a root password set.</p>
+<p><strong>xcatchroot -i 614spot ``/usr/bin/echo root:cluster | /usr/bin/chpasswd -c''</strong></p>
+<p>2) Install the bash rpm package.</p>
+<p><strong>xcatchroot -i 614spot ``/usr/bin/rpm -Uvh /lpp_source/RPMS/ppc bash-3.2-1.aix5.2.ppc.rpm''</strong></p>
+<p>3) To enable system debug.</p>
+<p><strong>xcatchroot -i 614spot ``bosdebug -D -M''</strong></p>
+<p>4) To set the ``ipforwarding'' system tunable.</p>
+<p><strong>xcatchroot -i 614spot ``/usr/sbin/no -r -o ipforwarding=1''</strong></p>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/xcatchroot</p>
+<p>
+</p>
+<hr />
+<h1><a name="notes">NOTES</a></h1>
+<p>This command is part of the xCAT software product.</p>
+
+</body>
+
+</html>

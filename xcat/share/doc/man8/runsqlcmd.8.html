@@ -1,0 +1,128 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;runsqlcmd&gt; -Runs sql command files against the current xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>runsqlcmd</strong> -Runs sql command files against the current xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>runsqlcmd</strong></p>
+<p><strong>runsqlcmd</strong> {<strong>-h</strong>|<strong>--help</strong>}</p>
+<p><strong>runsqlcmd</strong> {<strong>-v</strong>|<strong>--version</strong>}</p>
+<p><strong>runsqlcmd</strong> {<strong>-d</strong>|<strong>--dir</strong> <em>directory_path</em>} {<strong>-V</strong>|<strong>--verbose</strong>}</p>
+<p><strong>runsqlcmd</strong> {<strong>-f</strong>|<strong>--files</strong> <em>list of files</em>} {<strong>-V</strong>|<strong>--verbose</strong>}</p>
+<p><strong>runsqlcmd</strong> {<strong>-V</strong>|<strong>--verbose</strong>} {<strong>sql statement</strong>}</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The runsqlcmd routine,  runs the sql statements contained in the *.sql files as input to the command against the current running xCAT database. Only DB2,MySQL and PostgreSQL databases are supported.  SQLite is not supported.  
+If no directory or filelist is provided,  the default /opt/xcat/lib/perl/xCAT_schema directory is used.
+If the directory is input with the -d flag,  that directory will be used.
+If a comma separated list of files is input with the -f flag, those files will be used.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Displays the usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Displays current code version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Displays extra debug information.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dd_7c_2d_2ddir"><strong>-d|--dir</strong></a></strong>
+
+<dd>
+<p>To use a directory other than the default directory,  enter the directory path here.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_7c_2d_2dfiles"><strong>-f|--files</strong></a></strong>
+
+<dd>
+<p>Comma separated list of files (full path), wildcard (*) can be used.</p>
+</dd>
+</li>
+<dt><strong><a name="item_file_format"><strong>File format</strong></a></strong>
+
+<dd>
+<p>The files must be of the form &lt;name&gt;.sql or &lt;name&gt;_&lt;database&gt;.sql  where</p>
+</dd>
+<dd>
+<p>&lt;database&gt;  is mysql,pgsql, or db2. Files must have permission 0755.</p>
+</dd>
+</li>
+<dt><strong><a name="item_sql_statement"><strong>sql statement</strong></a></strong>
+
+<dd>
+<p>Quoted sql statement syntax appropriate for the current database.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ul>
+<li>
+<p>To run the database appropriate *.sql files in /opt/xcat/lib/perl/xCAT_schema :</p>
+<p><strong>runsqlcmd</strong></p>
+</li>
+<li>
+<p>To run the database appropriate *.sql files in /tmp/mysql:</p>
+<p><strong>runsqlcmd</strong> <em>-d</em> <em>/tmp/mysql</em></p>
+</li>
+<li>
+<p>To run the database appropriate *.sql files in the input list:</p>
+<p><strong>runsqlcmd</strong> <em>-f</em> <em>``/tmp/mysql/test*,/tmp/mysql/test1*''</em></p>
+</li>
+<li>
+<p>To checkout one DB2 sql file:</p>
+<p><strong>runsqlcmd</strong> <em>-f</em> <em>/tmp/db2/test_db2.sql</em></p>
+</li>
+<li>
+<p>To run the following command to the database:</p>
+<p><strong>runsqlcmd</strong> <em>``Select * from site;''</em></p>
+</li>
+</ul>
+
+</body>
+
+</html>

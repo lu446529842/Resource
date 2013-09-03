@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;nics&gt; - a table in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#nics_attributes_">nics Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>nics</strong> - a table in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>nics Attributes:</strong>  <em>node</em>, <em>nicips</em>, <em>nichostnamesuffixes</em>, <em>nictypes</em>, <em>niccustomscripts</em>, <em>nicnetworks</em>, <em>nicaliases</em>, <em>comments</em>, <em>disable</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Stores NIC details.</p>
+<p>
+</p>
+<hr />
+<h1><a name="nics_attributes_">nics Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_node"><strong>node</strong></a></strong>
+
+<dd>
+<p>The node or group name.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nicips"><strong>nicips</strong></a></strong>
+
+<dd>
+<p>Comma-separated list of IP addresses per NIC. To specify one ip address per NIC:
+                    &lt;nic1&gt;!&lt;ip1&gt;,&lt;nic2&gt;!&lt;ip2&gt;,..., for example, eth0!10.0.0.100,ib0!11.0.0.100
+                To specify multiple ip addresses per NIC:
+                    &lt;nic1&gt;!&lt;ip1&gt;|&lt;ip2&gt;,&lt;nic2&gt;!&lt;ip1&gt;|&lt;ip2&gt;,..., for example, eth0!10.0.0.100|fd55::214:5eff:fe15:849b,ib0!11.0.0.100|2001::214:5eff:fe15:849a. The xCAT object definition commands support to use nicips.&lt;nicname&gt; as the sub attributes.
+                Note: The primary IP address must also be stored in the hosts.ip attribute. The nichostnamesuffixes should specify one hostname suffix for each ip address.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nichostnamesuffixes"><strong>nichostnamesuffixes</strong></a></strong>
+
+<dd>
+<p>Comma-separated list of hostname suffixes per NIC. 
+                        If only one ip address is associated with each NIC:
+                            &lt;nic1&gt;!&lt;ext1&gt;,&lt;nic2&gt;!&lt;ext2&gt;,..., for example, eth0!-eth0,ib0!-ib0
+                        If multiple ip addresses are associcated with each NIC:
+                            &lt;nic1&gt;!&lt;ext1&gt;|&lt;ext2&gt;,&lt;nic2&gt;!&lt;ext1&gt;|&lt;ext2&gt;,..., for example,  eth0!-eth0|-eth0-ipv6,ib0!-ib0|-ib0-ipv6. 
+                        The xCAT object definition commands support to use nichostnamesuffixes.&lt;nicname&gt; as the sub attributes. 
+                        Note:  According to DNS rules a hostname must be a text string up to 24 characters drawn from the alphabet (A-Z), digits (0-9), minus sign (-),and period (.). When you are specifying ``nichostnamesuffixes'' or ``nicaliases'' make sure the resulting hostnames will conform to this naming convention</p>
+</dd>
+</li>
+<dt><strong><a name="item_nictypes"><strong>nictypes</strong></a></strong>
+
+<dd>
+<p>Comma-separated list of NIC types per NIC. &lt;nic1&gt;!&lt;type1&gt;,&lt;nic2&gt;!&lt;type2&gt;, e.g. eth0!Ethernet,ib0!Infiniband. The xCAT object definition commands support to use nictypes.&lt;nicname&gt; as the sub attributes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_niccustomscripts"><strong>niccustomscripts</strong></a></strong>
+
+<dd>
+<p>Comma-separated list of custom scripts per NIC.  &lt;nic1&gt;!&lt;script1&gt;,&lt;nic2&gt;!&lt;script2&gt;, e.g. eth0!configeth eth0, ib0!configib ib0. The xCAT object definition commands support to use niccustomscripts.&lt;nicname&gt; as the sub attribute
+.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nicnetworks"><strong>nicnetworks</strong></a></strong>
+
+<dd>
+<p>Comma-separated list of networks connected to each NIC.
+                If only one ip address is associated with each NIC:
+                    &lt;nic1&gt;!&lt;network1&gt;,&lt;nic2&gt;!&lt;network2&gt;, for example, eth0!10_0_0_0-255_255_0_0, ib0!11_0_0_0-255_255_0_0
+                If multiple ip addresses are associated with each NIC:
+                    &lt;nic1&gt;!&lt;network1&gt;|&lt;network2&gt;,&lt;nic2&gt;!&lt;network1&gt;|&lt;network2&gt;, for example, eth0!10_0_0_0-255_255_0_0|fd55:faaf:e1ab:336::/64,ib0!11_0_0_0-255_255_0_0|2001:db8:1:0::/64. The xCAT object definition commands support to use nicnetworks.&lt;nicname&gt; as the sub attributes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nicaliases"><strong>nicaliases</strong></a></strong>
+
+<dd>
+<p>Comma-separated list of hostname aliases for each NIC.
+            Format: eth0!&lt;alias list&gt;,eth1!&lt;alias1 list&gt;|&lt;alias2 list&gt;
+			For multiple aliases per nic use a space-separated list.
+            For example: eth0!moe larry curly,eth1!tom|jerry</p>
+</dd>
+</li>
+<dt><strong><a name="item_comments"><strong>comments</strong></a></strong>
+
+<dd>
+<p>Any user-written notes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_disable"><strong>disable</strong></a></strong>
+
+<dd>
+<p>Set to 'yes' or '1' to comment out this row.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong></p>
+
+</body>
+
+</html>

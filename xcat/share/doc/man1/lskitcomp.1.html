@@ -1,0 +1,192 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;lskitcomp&gt; - list info for one or more kit components</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>lskitcomp</strong> - list info for one or more kit components</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>lskitcomp</strong> [<strong>-V</strong> | <strong>--verbose</strong>] 
+      [<strong>-x</strong> | <strong>--xml</strong> | <strong>--XML</strong>]
+      [<strong>-C</strong> | <strong>--compattr</strong> <em>compattr_names</em>]
+      [<strong>-O</strong> | <strong>--osdistro</strong> <em>os_distro</em>]
+      [<strong>-S</strong> | <strong>--serverrole</strong> <em>server_role</em>]
+      [kitcomp_names]</p>
+<p><strong>lskitcomp</strong> [<strong>-?</strong> | <strong>-h</strong> | <strong>--help</strong> | <strong>-v</strong> | <strong>--version</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>lskitcomp</strong> command is used to list info for one or more kit components. A kit is made up of one or more kit components. Each kit component is a meta package used to install a software product component on one or more nodes in an xCAT cluster.</p>
+<p>The <strong>lskitcomp</strong> command outputs the kit component info in two formats: human-readable format (default), and XML format. Use the -x option to view the info in XML format.</p>
+<p>Input to the command can specify any number or combination of the input options.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dc_7c_2d_2dcompattr_compattr_names"><strong>-C|--compattr</strong> <em>compattr_names</em></a></strong>
+
+<dd>
+<p>where <em>compattr_names</em> is a comma-delimited list of kit component attribute names. The names correspond to attribute names in the <strong>kitcomponent</strong> table.  The <strong>lskitcomp</strong> command will only display the specified kit component attributes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2do_7c_2d_2dosdistro_os_distro"><strong>-O|--osdistro</strong> <em>os_distro</em></a></strong>
+
+<dd>
+<p>where <em>os_distro</em> is the name of an osdistro in <strong>osdistro</strong> table. The <strong>lskitcomp</strong> command will only display the kit components matching the specified osdistro.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_7c_2d_2dserverrole_server_role"><strong>-S|--serverrole</strong> <em>server_role</em></a></strong>
+
+<dd>
+<p>where <em>server_role</em> is the name of a server role. The typical server roles are: mgtnode, servicenode, computenode, loginnode, storagennode. The <strong>lskitcomp</strong> command will only display the kit components matching the specified server role.</p>
+</dd>
+</li>
+<dt><strong><a name="item_kitcomp_names"><em>kitcomp_names</em></a></strong>
+
+<dd>
+<p>is a comma-delimited list of kit component names. The <strong>lskitcomp</strong> command will only display the kit components matching the specified names.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dx_7c_2d_2dxml_7c_2d_2dxml"><strong>-x|--xml|--XML</strong></a></strong>
+
+<dd>
+<p>Return the output with XML tags.  The data is returned as:
+  &lt;data&gt;
+    &lt;kitinfo&gt;
+       ...
+    &lt;/kitinfo&gt;
+  &lt;/data&gt;
+  ...
+  &lt;data&gt;
+    &lt;kitinfo&gt;
+       ...
+    &lt;/kitinfo&gt;
+  &lt;/data&gt;</p>
+</dd>
+<dd>
+<p>Each &lt;kitinfo&gt; tag contains info for a group of kit compoonents belonging to the same kit. The info inside &lt;kitinfo&gt; is structured as follows:
+  The &lt;kit&gt; sub-tag contains the kit's name.
+  The &lt;kitcomponent&gt; sub-tags store info about the kit's components.</p>
+</dd>
+<dd>
+<p>The data inside &lt;kitinfo&gt; is returned as:
+  &lt;kitinfo&gt;
+     &lt;kit&gt;
+       ...
+     &lt;/kit&gt;</p>
+</dd>
+<dd>
+<pre>
+     &lt;kitcomponent&gt;
+       ...
+     &lt;/kitcomponent&gt;
+     ...
+  &lt;/kitinfo&gt;</pre>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Display additional progress and error messages.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command Version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_3f_7c_2dh_7c_2d_2dhelp"><strong>-?|-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<ol>
+<li>
+<p>The command completed successfully.</p>
+</li>
+<li>
+<p>An error has occurred.</p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>To list all kit components, enter:</p>
+<pre>
+  lskitcomp</pre>
+</li>
+<li>
+<p>To list the kit component ``comp-server-1.0-1-rhels-6-x86_64'', enter:</p>
+<pre>
+  lskitcomp comp-server-1.0-1-rhels-6-x86_64</pre>
+</li>
+<li>
+<p>To list the kit component ``comp-server-1.0-1-rhels-6-x86_64'' for selected kit component attributes, enter:</p>
+<pre>
+  lskitcomp -C kitcompname,desc comp-server-1.0-1-rhels-6-x86_64</pre>
+</li>
+<li>
+<p>To list kit components compatible with ``rhels-6.2-x86_64'' osdistro, enter:</p>
+<pre>
+  lskitcomp -O rhels-6.2-x86_64</pre>
+</li>
+<li>
+<p>To list kit components compatible with ``rhels-6.2-x86_64'' osdistro and ``computenode'' server role, enter:</p>
+<pre>
+  lskitcomp -O rhels-6.2-x86_64 -S computenode</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/lskitcomp</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="lskit.1.html">lskit(1)</a>, <a href="lskitdeployparam.1.html">lskitdeployparam(1)</a>, <a href="addkit.1.html">addkit(1)</a>, <a href="rmkit.1.html">rmkit(1)</a>, <a href="addkitcomp.1.html">addkitcomp(1)</a>, <a href="rmkitcomp.1.html">rmkitcomp(1)</a></p>
+
+</body>
+
+</html>

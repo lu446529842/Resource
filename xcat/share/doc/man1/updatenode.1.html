@@ -1,0 +1,533 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;updatenode&gt; - Update nodes in an xCAT cluster environment.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<ul>
+
+		<li><a href="#to_distribute_and_synchronize_files">To distribute and synchronize files</a></li>
+		<ul>
+
+			<li><a href="#create_the_synclist_file">Create the synclist file</a></li>
+			<li><a href="#run_updatenode_to_synchronize_the_files">Run updatenode to synchronize the files</a></li>
+		</ul>
+
+		<li><a href="#to_install_or_update_software">To install or update software</a></li>
+		<li><a href="#to_run_postscripts">To run postscripts</a></li>
+		<li><a href="#update_security">Update security</a></li>
+	</ul>
+
+	<li><a href="#parameters">PARAMETERS</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>updatenode</strong> - Update nodes in an xCAT cluster environment.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>updatenode</strong> <strong>noderange</strong> [<strong>-V</strong>|<strong>--verbose</strong>] [<strong>-F</strong>|<strong>--sync</strong>] [<strong>-f</strong>|<strong>--snsync</strong>] [<strong>-S</strong>|<strong>--sw</strong>]  [<strong>-l</strong>  <em>userID</em>]  [<strong>-P</strong>|<strong>--scripts</strong> [<strong>script1,script2...</strong>]] [<strong>-s</strong>|<strong>--sn</strong>] [<strong>-A</strong>|<strong>--updateallsw</strong>] [<strong>-c</strong>|<strong>--cmdlineonly</strong>] [<strong>-d alt_source_dir</strong>] [<strong>--fanout</strong>]  [<strong>attr=val</strong> [<strong>attr=val...</strong>]]</p>
+<p><strong>updatenode</strong> <strong>noderange</strong> [<strong>-k</strong>|<strong>--security</strong>]</p>
+<p><strong>updatenode</strong> <strong>noderange</strong> [<strong>-V</strong>|<strong>--verbose</strong>] [<strong>script1,script2...</strong>]</p>
+<p><strong>updatenode</strong> <strong>noderange</strong> [<strong>-V</strong>|<strong>--verbose</strong>] [<strong>-f</strong>|<strong>--snsync</strong>]</p>
+<p><strong>updatenode</strong> [<strong>-h</strong>|<strong>--help</strong>] [<strong>-v</strong>|<strong>--version</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The updatenode command is run on the xCAT management node and can be used
+to perform the following node updates:</p>
+<ol>
+<li>
+<p>Distribute and synchronize files.</p>
+</li>
+<li>
+<p>Install or update software on diskfull nodes.</p>
+</li>
+<li>
+<p>Run postscripts.</p>
+</li>
+<li>
+<p>Update the ssh keys and host keys for the service nodes and compute nodes;
+Update the ca and credentials for the service nodes.</p>
+</li>
+</ol>
+<p>The default behavior of updatenode will be to attempt to perform the update 
+which doing by ``-S'', ``-P'' and ``-F'' flags.
+If you wish to limit updatenode to one or two specific 
+actions you can use combinations of the ``-S'', ``-P'', and ``-F'' flags.</p>
+<p>If more than one actions doing by ``-S'', ``-P'' and ``-F'' need to be performed,
+the execution sequence is ``-F'', ``-S'' and then ``-P''.</p>
+<p>For example, If you just want to synchronize configuration file you could
+specify the ``-F'' flag.   If you want to synchronize files and update 
+software you would specify the ``-F'' and ``-S'' flags. See the descriptions 
+of these flags and examples below.</p>
+<p>The flag ``-k'' (--security) can NOT be used together with ``-S'', ``-P'', and ``-F''
+flags.</p>
+<p>Note: In a large cluster environment the updating of nodes in an ad hoc 
+manner can quickly get out of hand, leaving the system administrator with 
+a very confusing environment to deal with. The updatenode command is 
+designed to encourage users to handle cluster updates in a manner that 
+is recorded and easily repeatable.</p>
+<p>
+</p>
+<h2><a name="to_distribute_and_synchronize_files">To distribute and synchronize files</a></h2>
+<p>The basic process for distributing and synchronizing nodes is:</p>
+<ul>
+<li>
+<p>Create a synclist file.</p>
+</li>
+<li>
+<p>Indicate the location of the synclist file.</p>
+</li>
+<li>
+<p>Run the updatenode command to update the nodes.</p>
+</li>
+</ul>
+<p>Files may be distributed and synchronized for both diskless and 
+diskfull nodes.  Syncing files to statelite nodes is not supported.</p>
+<p>More information on using the  synchronization file function is in  
+<a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Using_Updatenode.">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Using_Updatenode.</a></p>
+<p>
+</p>
+<h3><a name="create_the_synclist_file">Create the synclist file</a></h3>
+<p>The synclist file contains the configuration entries that specify 
+where the files should be synced to. In the synclist file, each 
+line is an entry which describes the location of the source files 
+and the destination location for the files on the target node.</p>
+<p>For more information on creating your synclist files and where to put them, read:</p>
+<p><a href="http://sourceforge.net/apps/mediawiki/xcat/index.php?title=Sync-ing_Config_Files_to_Nodes">http://sourceforge.net/apps/mediawiki/xcat/index.php?title=Sync-ing_Config_Files_to_Nodes</a></p>
+<p>
+</p>
+<h3><a name="run_updatenode_to_synchronize_the_files">Run updatenode to synchronize the files</a></h3>
+<pre>
+
+  updatenode &lt;noderange&gt; -F</pre>
+<p>
+</p>
+<h2><a name="to_install_or_update_software">To install or update software</a></h2>
+<p>updatenode can be use to install or update software on the nodes. See the following documentation for setting up otherpkgs:
+<a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Install_Additional_Packages">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Install_Additional_Packages</a></p>
+<p>To install/update the packages, run:</p>
+<pre>
+  updatenode &lt;noderange&gt; -S</pre>
+<p><strong>For AIX systems:</strong></p>
+<p>Note: The updatenode command is used to update AIX diskfull nodes only. For updating diskless AIX nodes refer to the xCAT for AIX update documentation and use the xCAT mknimimage command.
+For information on updating software on AIX cluster:
+For diskful installs, read:
+<a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_AIX_RTE_Diskfull_Nodes">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_AIX_RTE_Diskfull_Nodes</a>
+For diskless installs, read:
+<a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_AIX_Diskless_Nodes">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_AIX_Diskless_Nodes</a></p>
+<p><strong>For Linux systems:</strong></p>
+<p>It is equivalent to running the 
+folloiwng command:</p>
+<pre>
+ updatenode noderange -P ospkgs,otherpkgs</pre>
+<p>It will update all the rpms specified in the .pkglist file and .otherpkgs.pkglist 
+file. ospkgs postscript will normally remove all the existing rpm 
+repositories before adding server:/install/&lt;os&gt;/&lt;arch/ as the new repository. 
+To preserve the existing repositories, you can run the following command instead:</p>
+<p>updatenode noderange -P ``ospkgs --keeprepo,otherpkgs''</p>
+<p>
+</p>
+<h2><a name="to_run_postscripts">To run postscripts</a></h2>
+<p>The scripts must be copied to the /install/postscripts 
+directory on the xCAT management node. (Make sure they are 
+executable.)</p>
+<p>To run scripts on a node you must either specify them on the 
+command line or you must add them to the ``postscripts'' attribute 
+for the node.</p>
+<p>To set the postscripts attribute of the node (or group) 
+definition you can use the xCAT chdef command. Set the value to 
+be a comma separated list of the scripts that you want to be 
+executed on the nodes. The order of the scripts in the list 
+determines the order in which they will be run.  You could also set
+the postscripts value by directly editing the xCAT ``postscripts'' 
+database table using the xCAT tabedit command.</p>
+<p>Scripts can  be run on both diskless and diskfull nodes.</p>
+<p>To run all the customization scripts that have been designated 
+for the nodes, (in the ``postscripts and postbootscripts'' attributes), type:</p>
+<pre>
+  updatenode &lt;noderange&gt; -P</pre>
+<p>To run the ``syslog'' script for the nodes, type:</p>
+<pre>
+  updatenode &lt;noderange&gt; -P syslog</pre>
+<p>To run a list of scripts, type:</p>
+<pre>
+  updatenode &lt;noderange&gt; -P &quot;script1 p1 p2,script2&quot;</pre>
+<p>where p1 p2 are the parameters for script1.</p>
+<p>The flag '-P' can be omitted when only scripts names  are
+specified.</p>
+<p>Note: script1,script2 may or may not be designated as scripts to 
+automatically run on the node. However, if you want script1 and 
+script2 to get invoked next time the nodes are deployed then make sure 
+to add them to the ``postscripts/postbootscripts'' attribute in the database for the nodes.</p>
+<p>
+</p>
+<h2><a name="update_security">Update security</a></h2>
+<p>The basic functions of update security for nodes:</p>
+<ul>
+<li>
+<p>Setup the ssh keys for the target nodes. It makes the management
+node and service node access the target nodes without password.</p>
+</li>
+<li>
+<p>Redeliver the host keys to the target nodes.</p>
+</li>
+<li>
+<p>Redeliver the ca and certificates files to the service node.
+These files are used to authenticate the ssl connection between
+xcatd's of management node and service node.</p>
+</li>
+<li>
+<p>Remove the entries of target nodes from known_hosts file.</p>
+</li>
+</ul>
+<p><em>Set up the SSH keys</em></p>
+<p>A password for the user who is running this command is needed to setup
+the ssh keys. This user must have the same uid and gid as
+the userid on the target node where the keys will be setup.</p>
+<p>If the current user is root, roots public ssh keys will be put in the
+authorized_keys* files under roots .ssh directory on the node(s).
+If the current user is non-root, the user must be in the policy table
+and have credential to run the xdsh command.
+The non-root users public ssh keys and root's public ssh keys will be put in
+the authorized_keys* files under the non-root users .ssh directory on the node(s
+).</p>
+<p><em>Handle the hierarchical scenario</em></p>
+<p>When update security files for the node which is served by a service node,
+the service node will be updated automatically first, and then the target
+node.</p>
+<p>The certificates files are needed for a service node to authenticate
+the ssl connections between the xCAT client and xcatd on the service node,
+and the xcatd's between service node and management node. The files in the
+directories /etc/xcat/cert/ and ~/.xcat/ will be updated.</p>
+<p>Since the certificates have the validity time, the ntp service is recommended 
+to be set up between management node and service node.</p>
+<p><table cellspacing="0" cellpadding="0"><tr><td>Simply running following command to update the security keys:
+<tr><td><td> <strong>updatenode</strong> <em>noderange</em> -k</table></p>
+<p>
+</p>
+<hr />
+<h1><a name="parameters">PARAMETERS</a></h1>
+<dl>
+<dt><strong><a name="item_noderange"><strong>noderange</strong></a></strong>
+
+<dd>
+<p>A set of comma delimited xCAT node names
+and/or group names. See the xCAT ``noderange''
+man page for details on additional supported 
+formats.</p>
+</dd>
+</li>
+<dt><strong><a name="item_script1_2cscript2_2e_2e_2e"><strong>script1,script2...</strong></a></strong>
+
+<dd>
+<p>A comma-separated list of script names. 
+The scripts must be executable and copied 
+to the /install/postscripts directory.
+Each script can take zero or more parameters.
+If parameters are spcified, the whole list needs to be quoted by double quotes. 
+For example:</p>
+</dd>
+<dd>
+<p><strong>``script1 p1 p2,script2''</strong></p>
+</dd>
+</li>
+<dt><strong><a name="item__5battr_3dval__5battr_3dval_2e_2e_2e_5d_5d">[<strong>attr=val</strong> [<strong>attr=val...</strong>]]</a></strong>
+
+<dd>
+<p>Specifies one or more ``attribute equals value'' pairs, separated by spaces.
+Attr=val pairs must be specified last on the command line.  The currently
+supported attributes are: ``installp_bundle'', ``otherpkgs'', ``installp_flags'', 
+``emgr_flags'' and ``rpm_flags''.  These attribute are only valid for AIX software
+maintenance support.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2d_2dfanout_3dfanout_value"><strong>--fanout</strong>=<em>fanout_value</em></a></strong>
+
+<dd>
+<p>Specifies a fanout value for the maximum number of  concur-
+rently  executing  remote shell processes. Serial execution
+can be specified by indicating a fanout value of <strong>1</strong>.  If  <strong>--fanout</strong>
+is not specified, a default fanout value of <strong>64</strong> is used.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2da_7c_2d_2dupdateallsw"><strong>-A|--updateallsw</strong></a></strong>
+
+<dd>
+<p>Install or update all software contained in the source directory. (AIX only)</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dc_7ccmdlineonly"><strong>-c|cmdlineonly</strong></a></strong>
+
+<dd>
+<p>Specifies that the updatenode command should only use software maintenance
+information provided on the command line.  This flag is only valid when
+using AIX software maintenance support.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dd_alt_source_dir"><strong>-d alt_source_dir</strong></a></strong>
+
+<dd>
+<p>Used to specify a source directory other than the standard lpp_source directory specified in the xCAT osimage definition.  (AIX only)</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_7c_2d_2dsync"><strong>-F|--sync</strong></a></strong>
+
+<dd>
+<p>Specifies that file synchronization should be
+performed on the nodes.  rsync and ssh must
+be installed and configured on the nodes. 
+The function is not supported for statelite installations.
+For statelite installations to sync files, you should use the
+read-only option for files/directories listed in
+litefile table with source location specified in the litetree table.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_7c_2d_2dsnsync"><strong>-f|--snsync</strong></a></strong>
+
+<dd>
+<p>Specifies that file synchronization should be
+performed to the service nodes that service the
+nodes in the noderange. This updates the service
+nodes with the data to sync to the nodes. rsync and ssh must
+be installed and configured on the service nodes.
+For hierachy, this optionally can  be done before syncing the files
+to the nodes with the -F flag.  If the -f flag is not used, then
+the -F flag will sync the servicenodes before the nodes automatically.
+When installing nodes in a hierarchical cluster, this flag should be
+used to sync the service nodes before the install, since the files will
+be sync'd from the service node by the syncfiles postscript during the
+install.
+The function is not supported for statelite installations.
+For statelite installations to sync files, you should use the
+read-only option for files/directories listed in
+litefile table with source location specified in the litetree table.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dk_7c_2d_2dsecurity"><strong>-k|--security</strong></a></strong>
+
+<dd>
+<p>Update the ssh keys and host keys for the service nodes and compute nodes;
+Update the ca and credentials to the service nodes.  Never run this command to the Management Node, it will take down xcatd.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dl_7c_2d_2duser_user_id"><strong>-l</strong>|<strong>--user</strong> <em>user_ID</em></a></strong>
+
+<dd>
+<p>Specifies a non-root user name to use for remote command execution. This option is only available when running postscripts (-P) for 
+AIX and Linux and updating software (-S) for Linux only. 
+The non-root userid  must be previously defined as an xCAT user. 
+The userid sudo setup will have to be done by the admin on the node.
+This is not supported in a hiearchical cluster, that is the node is serviced by a service node. 
+See the document Granting_Users_xCAT_privileges for required xcat/sudo setup.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_7c_2d_2dscripts"><strong>-P|--scripts</strong></a></strong>
+
+<dd>
+<p>Specifies that postscripts and postbootscripts should be run on the nodes. 
+updatenode -P syncfiles is not supported.  The syncfiles postscript can only
+be run during install.  You should use updatenode &lt;noderange&gt; -F instead.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_7c_2d_2dsw"><strong>-S|--sw</strong></a></strong>
+
+<dd>
+<p>Specifies that node software should be updated.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_7c_2d_2dsn"><strong>-s|--sn</strong></a></strong>
+
+<dd>
+<p>Set the server information stored on the nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command Version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Verbose mode.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0  The command completed successfully.</p>
+<p>1  An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>To perform all updatenode features for the Linux nodes in the group
+``compute'':</p>
+<p><strong>updatenode compute</strong></p>
+<p>The command will: run any scripts listed in the nodes ``postscripts and postbootscripts'' 
+attribute, install or update any software indicated in the 
+/install/custom/install/&lt;ostype&gt;/profile.otherpkgs.pkglist (refer to the 
+<strong>To install or update software part</strong>), synchronize any files indicated by 
+the synclist files specified in the osimage ``synclists'' attribute.</p>
+</li>
+<li>
+<p>To run postscripts,postbootscripts and file synchronization only on the node
+``clstrn01'':</p>
+<p><strong>updatenode clstrn01 -F -P</strong></p>
+</li>
+<li>
+<p>Running updatenode -P with the syncfiles postscript is not supported. You should use updatenode -F instead.</p>
+<p>Do not run:</p>
+<p><strong>updatenode clstrno1 -P syncfiles</strong></p>
+<p>Run:</p>
+<p><strong>updatenode clstrn01 -F</strong></p>
+</li>
+<li>
+<p>To run the postscripts and postbootscripts  indicated in the postscripts and postbootscripts attributes on 
+the node ``clstrn01'':</p>
+<p><strong>updatenode clstrn01 -P</strong></p>
+</li>
+<li>
+<p>To run the postscripts script1 and script2 on the node ``clstrn01'':</p>
+<p><strong>cp script1,script2 /install/postscripts</strong></p>
+<p><strong>updatenode clstrn01 -P ``script1 p1 p2,script2''</strong></p>
+<p>Since flag '-P' can be omitted when only script names are specified, 
+the following command is equivalent:</p>
+<p><strong>updatenode clstrn01 ``script1 p1 p2,script2''</strong></p>
+<p>p1 p2 are parameters for script1.</p>
+</li>
+<li>
+<p>To synchronize the files on the node ``clstrn01'':  Prepare the synclist file. 
+For AIX, set the full path of synclist in the osimage table synclists 
+attribute. For Linux, put the synclist file into the location: 
+/install/custom/&lt;inst_type&gt;/&lt;distro&gt;/&lt;profile&gt;.&lt;os&gt;.&lt;arch&gt;.synclist
+Then:</p>
+<p><strong>updatenode clstrn01 -F</strong></p>
+</li>
+<li>
+<p>To perform the software update on the Linux node ``clstrn01'':  Copy the extra 
+rpm into the /install/post/otherpkgs/&lt;os&gt;/&lt;arch&gt;/* and add the rpm names into 
+the /install/custom/install/&lt;ostype&gt;/profile.otherpkgs.pkglist .  Then:</p>
+<p><strong>updatenode clstrn01 -S</strong></p>
+</li>
+<li>
+<p>To update the AIX node named ``xcatn11'' using the ``installp_bundle'' and/or
+``otherpkgs'' attribute values stored in the xCAT database.  Use the default installp, rpm and emgr flags.</p>
+<p><strong>updatenode xcatn11 -V -S</strong></p>
+<p>Note: The xCAT ``xcatn11'' node definition points to an xCAT osimage definition 
+which contains the ``installp_bundle'' and ``otherpkgs'' attributes as well as
+the name of the NIM lpp_source resource.</p>
+</li>
+<li>
+<p>To update the AIX node ``xcatn11'' by installing the ``bos.cpr'' fileset using 
+the ``-agQXY'' installp flags.  Also display the output of the installp command.</p>
+<p><strong>updatenode xcatn11 -V -S otherpkgs=``I:bos.cpr'' installp_flags=``-agQXY''</strong></p>
+<p>Note:  The 'I:' prefix is optional but recommended for installp packages.</p>
+</li>
+<li>
+<p>To uninstall the ``bos.cpr'' fileset that was installed in the previous example.</p>
+<p><strong>updatenode xcatn11 -V -S otherpkgs=``I:bos.cpr'' installp_flags=``-u''</strong></p>
+</li>
+<li>
+<p>To update the AIX nodes ``xcatn11'' and ``xcatn12'' with the ``gpfs.base'' fileset
+and the ``rsync'' rpm using the installp flags ``-agQXY'' and the rpm flags ``-i --nodeps''.</p>
+<p><strong>updatenode xcatn11,xcatn12 -V -S otherpkgs=``I:gpfs.base,R:rsync-2.6.2-1.aix5.1.ppc.rpm'' installp_flags=``-agQXY'' rpm_flags=``-i --nodeps''</strong></p>
+<p>Note: Using the ``-V'' flag with multiple nodes may result in a large amount of output.</p>
+</li>
+<li>
+<p>To uninstall the rsync rpm that was installed in the previous example.</p>
+<p><strong>updatenode xcatn11 -V -S otherpkgs=``R:rsync-2.6.2-1'' rpm_flags=``-e''</strong></p>
+</li>
+<li>
+<p>Update the AIX node ``node01'' using the software specified in the NIM ``sslbnd'' and ``sshbnd'' installp_bundle resources and the ``-agQXY'' installp flags.</p>
+<p><strong>updatenode node01 -V -S installp_bundle=``sslbnd,sshbnd'' installp_flags=``-agQXY''</strong></p>
+</li>
+<li>
+<p>To get a preview of what would happen if you tried to install the ``rsct.base'' fileset on AIX node ``node42''.  (You must use the ``-V'' option to get the full output from the installp command.)</p>
+<p><strong>updatenode node42 -V -S otherpkgs=``I:rsct.base'' installp_flags=``-apXY''</strong></p>
+</li>
+<li>
+<p>To check what rpm packages are installed on the AIX node ``node09''. (You must use the ``-c'' flag so updatenode does not get a list of packages from the database.)</p>
+<p><strong>updatenode node09 -V -c -S rpm_flags=``-qa''</strong></p>
+</li>
+<li>
+<p>To install all software updates contained in the /images directory.</p>
+<p><strong>updatenode node27 -V -S -A -d /images</strong></p>
+<p>Note:  Make sure the directory is exportable and that the permissions are set
+correctly for all the files.  (Including the .toc file in the case of
+installp filesets.)</p>
+</li>
+<li>
+<p>Install the interim fix package located in the /efixes directory.</p>
+<p><strong>updatenode node29 -V -S -d /efixes otherpkgs=E:IZ38930TL0.120304.epkg.Z</strong></p>
+</li>
+<li>
+<p>To uninstall the interim fix that was installed in the previous example.</p>
+<p><strong>updatenode xcatsn11 -V -S -c emgr_flags=``-r -L IZ38930TL0''</strong></p>
+</li>
+<li>
+<p>To update the security keys for the node ``node01''</p>
+<p><strong>updatenode node01 -k</strong></p>
+</li>
+<li>
+<p>To update the service nodes with the files to be synchronized to node group compute:</p>
+<p><strong>updatenode compute -f</strong></p>
+</li>
+<li>
+<p>To run updatenode with the non-root userid ``user1'' that has been setup as an xCAT userid  with sudo on node1  to run as root, do the following:
+See  Granting_Users_xCAT_privileges for required sudo setup.</p>
+<p><strong>updatenode node1 -l user1 -P syslog</strong></p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/updatenode
+</p>
+
+</body>
+
+</html>

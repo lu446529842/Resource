@@ -1,0 +1,282 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;mkvm&gt; - Creates HMC-, IVM-, and zVM-managed partitions or other virtual machines.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<ul>
+
+		<li><a href="#common_">Common:</a></li>
+		<li><a href="#for_ppc__with_hmc__">For PPC (with HMC):</a></li>
+		<li><a href="#for_kvm_">For KVM:</a></li>
+		<li><a href="#for_vmware_">For Vmware:</a></li>
+		<li><a href="#for_zvm_">For zVM:</a></li>
+	</ul>
+
+	<li><a href="#description">DESCRIPTION</a></li>
+	<ul>
+
+		<li><a href="#for_ppc_">For PPC:</a></li>
+		<li><a href="#for_kvm_and_vmware_">For KVM and Vmware:</a></li>
+	</ul>
+
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>mkvm</strong> - Creates HMC-, IVM-, and zVM-managed partitions or other virtual machines.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>
+</p>
+<h2><a name="common_">Common:</a></h2>
+<p><strong>mkvm</strong> [<strong>-h</strong>| <strong>--help</strong>]</p>
+<p><strong>mkvm</strong> [<strong>-v</strong>| <strong>--version</strong>]</p>
+<p>
+</p>
+<h2><a name="for_ppc__with_hmc__">For PPC (with HMC):</a></h2>
+<p><strong>mkvm</strong> [<strong>-V</strong>| <strong>--verbose</strong>] <em>noderange</em> <strong>-i</strong> <em>id</em> <strong>-l</strong> <em>singlenode</em></p>
+<p><strong>mkvm</strong> [<strong>-V</strong>| <strong>--verbose</strong>] <em>noderange</em> <strong>-c</strong> <em>destcec</em> <strong>-p</strong> <em>profile</em></p>
+<p><strong>mkvm</strong> [<strong>-V</strong>| <strong>--verbose</strong>] <em>noderange</em> <strong>--full</strong></p>
+<p>
+</p>
+<h2><a name="for_kvm_">For KVM:</a></h2>
+<p><strong>mkvm</strong> <em>noderange</em> [<strong>-m|--master</strong> <em>mastername</em>] [<strong>-s|--size</strong> <em>disksize</em>] [<strong>--mem</strong> <em>memsize</em>] [<strong>--cpus</strong> <em>cpucount</em>] [<strong>-f|--force</strong>]</p>
+<p>
+</p>
+<h2><a name="for_vmware_">For Vmware:</a></h2>
+<p><strong>mkvm</strong> <em>noderange</em> [<strong>-s</strong>|<strong>--size</strong> <em>disksize</em>] [<strong>--mem</strong> <em>memsize</em>] [<strong>--cpus</strong> <em>cpucount</em>]</p>
+<p>
+</p>
+<h2><a name="for_zvm_">For zVM:</a></h2>
+<p><strong>mkvm</strong> <em>noderange</em> [<em>directory_entry_file_path</em>]</p>
+<p><strong>mkvm</strong> <em>noderange</em> [<em>source_virtual_machine</em>] [<strong>pool=</strong> <em>disk_pool</em>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>
+</p>
+<h2><a name="for_ppc_">For PPC:</a></h2>
+<p>For PPC (with HMC) specific:</p>
+<p>The first form of mkvm command creates new <code>partition(s)</code> with the same profile/resources as the partition specified by <em>singlenode</em>. The -i and <em>noderange</em> specify the starting numeric partition number and the <em>noderange</em> for the newly created partitions, respectively. The LHEA port numbers and the HCA index numbers will be automatically increased if they are defined in the source partition.</p>
+<p>The second form of this command duplicates all the partitions from the source specified by <em>profile</em> to the destination specified by <em>destcec</em>. The source and destination CECs can be managed by different HMCs.</p>
+<p>Please make sure the nodes in the <em>noderange</em> is defined in the <em>nodelist</em> table and the <em>mgt</em> is set to 'hmc' in the <em>nodehm</em> table before running this command.</p>
+<p>Please note that the mkvm command currently only supports creating standard LPARs, not virtual LPARs working with VIOS server.</p>
+<p>
+</p>
+<h2><a name="for_kvm_and_vmware_">For KVM and Vmware:</a></h2>
+<p>The mkvm command creates new virtual <code>machine(s)</code> with the <em>disksize</em> size of hard disk, <em>memsize</em> size of memory and <em>cpucount</em> number of cpu.</p>
+<p>For KVM: If <strong>-f</strong>|<strong>--force</strong> is specified, the storage will be destroyed first if it existed.
+</p>
+<pre>
+
+=head2 For zVM:</pre>
+<p>The first form of mkvm creates a new virtual machine based on a directory entry.</p>
+<p>The second form of this creates a new virtual machine with the same profile/resources as the specified node (cloning).</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dc"><strong>-c</strong></a></strong>
+
+<dd>
+<p>The cec (fsp) name for the destination.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dcpus"><strong>--cpus</strong></a></strong>
+
+<dd>
+<p>The cpu count which will be created for the kvm/vmware virtual machine.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dfull"><strong>--full</strong></a></strong>
+
+<dd>
+<p>Request to create a new full system partition for each CEC.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_7c_2d_2dforce"><strong>-f|--force</strong></a></strong>
+
+<dd>
+<p>If <strong>-f|--force</strong> is specified, the storage will be destroyed first if it existed.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di"><strong>-i</strong></a></strong>
+
+<dd>
+<p>Starting numeric id of the newly created partitions.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dl"><strong>-l</strong></a></strong>
+
+<dd>
+<p>The partition name of the source.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dmem"><strong>--mem</strong></a></strong>
+
+<dd>
+<p>The memory size which will be used for the new created kvm/vmware virtual machine. Unit is Megabyte.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp"><strong>-p</strong></a></strong>
+
+<dd>
+<p>The file that contains the profiles for the source partitions.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_7c_2d_2dsize"><strong>-s|--size</strong></a></strong>
+
+<dd>
+<p>The size of storage which will be created for the kvm/vmware virtual machine.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command Version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Verbose output.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To create a new partition lpar5 based on the profile/resources of lpar4, enter:</p>
+<pre>
+ mkdef -t node -o lpar5 mgt=hmc groups=all</pre>
+<p>then:</p>
+<pre>
+ mkvm lpar5 -i 5 -l lpar4</pre>
+<p>Output is similar to:</p>
+<pre>
+ lpar5: Success</pre>
+<p>2. To create new partitions lpar5-lpar8 based on the profile/resources of lpar4, enter:</p>
+<pre>
+ mkdef -t node -o lpar5-lpar8 mgt=hmc groups=all</pre>
+<p>then:</p>
+<pre>
+ mkvm lpar5-lpar8 -i 5 -l lpar4</pre>
+<p>Output is similar to:</p>
+<pre>
+ lpar5: Success
+ lpar6: Success
+ lpar7: Success
+ lpar8: Success</pre>
+<p>3. To duplicate all the partitions associated with cec01 on cec02, first save the lpars from cec01 to a file:</p>
+<pre>
+ lsvm lpar01-lpar04 &gt; /tmp/myprofile</pre>
+<p>then create lpars on cec02:</p>
+<pre>
+ mkvm lpar05-lpar08 -c cec02 -p /tmp/myprofile</pre>
+<p>Output is similar to:</p>
+<pre>
+ lpar5: Success
+ lpar6: Success
+ lpar7: Success
+ lpar8: Success</pre>
+<p>4. To duplicate all the partitions associated with cec01 on cec02, one is for cec01, the other is for cec02:</p>
+<pre>
+ mkdef -t node -o lpar5,lpar6 mgt=hmc groups=all
+ chtab node=lpar5 ppc.parent=cec01
+ chtab node=lpar6 ppc.parent=cec02</pre>
+<p>then create lpars on cec01 and cec02:</p>
+<pre>
+ mkvm lpar5,lpar6 --full</pre>
+<p>Output is similar to:</p>
+<pre>
+ lpar5: Success
+ lpar6: Success</pre>
+<p>5. To create a new zVM virtual machine (gpok3) based on a directory entry:</p>
+<pre>
+ mkvm gpok3 /tmp/dirEntry.txt
+ 
+Output is similar to:</pre>
+<pre>
+ gpok3: Creating user directory entry for LNX3... Done</pre>
+<p>6. To clone a new zVM virtual machine with the same profile/resources as the specified node:</p>
+<pre>
+ mkvm gpok4 gpok3 pool=POOL1</pre>
+<p>Output is similar to:</p>
+<pre>
+ gpok4: Cloning gpok3
+ gpok4: Linking source disk (0100) as (1100)
+ gpok4: Linking source disk (0101) as (1101)
+ gpok4: Stopping LNX3... Done
+ gpok4: Creating user directory entry
+ gpok4: Granting VSwitch (VSW1) access for gpok3
+ gpok4: Granting VSwitch (VSW2) access for gpok3
+ gpok4: Adding minidisk (0100)
+ gpok4: Adding minidisk (0101)
+ gpok4: Disks added (2). Disks in user entry (2)
+ gpok4: Linking target disk (0100) as (2100)
+ gpok4: Copying source disk (1100) to target disk (2100) using FLASHCOPY
+ gpok4: Mounting /dev/dasdg1 to /mnt/LNX3
+ gpok4: Setting network configuration
+ gpok4: Linking target disk (0101) as (2101)
+ gpok4: Copying source disk (1101) to target disk (2101) using FLASHCOPY
+ gpok4: Powering on
+ gpok4: Detatching source disk (0101) at (1101)
+ gpok4: Detatching source disk (0100) at (1100)
+ gpok4: Starting LNX3... Done</pre>
+<p>7. To create a new kvm/vmware virtual machine with 10G storage, 2048M memory and 2 cpus.</p>
+<pre>
+ mkvm vm1 -s 10G --mem 2048 --cpus 2</pre>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/mkvm</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="chvm.1.html">chvm(1)</a>, <a href="lsvm.1.html">lsvm(1)</a>, <a href="rmvm.1.html">rmvm(1)</a>
+
+</p>
+
+</body>
+
+</html>

@@ -1,0 +1,595 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>NAME</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<ul>
+
+		<li><a href="#groups_and_regular_expressions_in_tables">GROUPS AND REGULAR EXPRESSIONS IN TABLES</a></li>
+	</ul>
+
+	<li><a href="#object_definitions">OBJECT DEFINITIONS</a></li>
+	<li><a href="#tables">TABLES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>An overview of the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The xCAT database contains user settings for the cluster and information gathered from the cluster.
+It consists of a series of tables, which are described below.  To get more information about a
+particular table, run man for that table name.  The tables can be manipulated directly using the
+<strong>tabedit</strong> or <strong>chtab</strong> commands.  They can be viewed using <strong>nodels</strong> or <strong>tabdump</strong>.</p>
+<p>Alternatively, the xCAT database can be viewed and edited as logical objects, instead of flat tables.
+In this mode, xCAT takes care of which table each attribute should go in.  To treat the database
+as logical object definitions, use the commands:  <strong>lsdef</strong>, <strong>mkdef</strong>, <strong>chdef</strong>, <strong>rmdef</strong>.  See Object Definitions
+below.</p>
+<p>xCAT allows the use of different database applications, depending on the needs of your cluster.
+The default database is SQLite, which is a daemonless, zero-config database.  But you could instead
+choose to use something like postgresql for greater scalability and remote access in the
+hierarchical/service node case.  To use a different database or a different location, create
+the file /etc/xcat/cfgloc.  See the appropriate xCAT docuementation for the format of the file for the database you choose. 
+The following example /etc/xcat/cfgloc file is for PostgreSQL:</p>
+<pre>
+ Pg:dbname=xcat;host=&lt;mgmtnode&gt;|&lt;pgadminuserid&gt;|&lt;pgadminpasswd&gt;</pre>
+<p>where mgmtnode is the hostname of the management node adapter on the cluster side, and the pgadminuserid and pgadminpasswd are the database admin and password.</p>
+<p>
+</p>
+<h2><a name="groups_and_regular_expressions_in_tables">GROUPS AND REGULAR EXPRESSIONS IN TABLES</a></h2>
+<p>The xCAT database has a number of tables, some with rows that are keyed by node name
+(such as noderes and nodehm) and others that are not keyed by node name (for example, the policy table).
+The tables that are keyed by node name have some extra features that enable a more
+template-based style to be used:</p>
+<p>Any group name can be used in lieu of a node name in the node field, and that row will then
+provide ``default'' attribute values for any node in that group.  A row with a specific node name
+can then override one or more attribute values for that specific node.  For example, if the nodehm table contains:</p>
+<pre>
+ #node,power,mgt,cons,termserver,termport,conserver,serialport,serialspeed,serialflow,getmac,cmdmapping,comments,disable
+ &quot;mygroup&quot;,,&quot;ipmi&quot;,,,,,,&quot;19200&quot;,,,,,
+ &quot;node1&quot;,,,,,,,,&quot;115200&quot;,,,,,</pre>
+<p>In the above example, the node group called mygroup sets mgt=ipmi and serialspeed=19200.  Any nodes that are in this group
+will have those attribute values, unless overridden.  For example, if node2 is a member of mygroup, it will automatically
+inherit these attribute values (even though it is not explicitly listed in this table).  In the case of node1 above, it
+inherits mgt=ipmi, but overrides the serialspeed to be 115200, instead of 19200.  A useful, typical way to use this
+capability is to create a node group for your nodes and for all the attribute values that are the same for every node,
+set them at the group level.  Then you only have to set attributes for each node that vary from node to node.</p>
+<p>xCAT extends the group capability so that it can also be used for attribute values that vary from node to node
+in a very regular pattern.  For example, if in the ipmi table you want the bmc attribute to be set to whatever the nodename is with
+``-bmc'' appended to the end of it, then use this in the ipmi table:</p>
+<pre>
+ #node,bmc,bmcport,taggedvlan,bmcid,username,password,comments,disable
+ &quot;compute&quot;,&quot;/\z/-bmc/&quot;,,,,,,,</pre>
+<p>In this example, ``compute'' is a node group that contains all of the compute nodes.  The 2nd attribute (bmc) is a regular
+expression that is similar to a substitution pattern.  The 1st part ``\z'' matches the end of the node name and substitutes ``-bmc'', effectively appending it to the node name.</p>
+<p>Another example is if node1 is to have IP address 10.0.0.1, node2 is to have IP address 10.0.0.2, etc.,
+then this could be represented in the hosts table with the single row:</p>
+<pre>
+ #node,ip,hostnames,otherinterfaces,comments,disable
+ &quot;compute&quot;,&quot;|node(\d+)|10.0.0.($1+0)|&quot;,,,,</pre>
+<p>In this example, the regular expression in the ip attribute uses ``|'' to separate the 1st and 2nd part.  This means that
+xCAT will allow arithmetic operations in the 2nd part.  In the 1st part, ``(\d+)'', will match the number part of the node
+name and put that in a variable called $1.  The 2nd part
+is what value to give the ip attribute.  In this case it will set it to the string ``10.0.0.'' and the number that is
+in $1.  (Zero is added to $1 just to remove any leading zeroes.)</p>
+<p>A more involved example is with the mp table.  If your blades have node names node01, node02, etc., and your chassis
+node names are cmm01, cmm02, etc., then you might have an mp table like:</p>
+<pre>
+ #node,mpa,id,nodetype,comments,disable
+ &quot;blade&quot;,&quot;|\D+(\d+)|cmm(sprintf('%02d',($1-1)/14+1))|&quot;,&quot;|\D+(\d+)|(($1-1)%14+1)|&quot;,,</pre>
+<p>Before you panic, let me explain each column:</p>
+<dl>
+<dt><strong><a name="item_blade"><strong>blade</strong></a></strong>
+
+<dd>
+<p>This is a group name.  In this example, we are assuming that all of your blades belong to this
+group.  Each time the xCAT software accesses the <strong>mp</strong> table to get the management module and slot number
+of a specific blade (e.g. <strong>node20</strong>), this row will match (because <strong>node20</strong> is in the <strong>blade</strong> group).
+Once this row is matched for <strong>node20</strong>, then the processing described in the following items will take
+place.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cmm"><strong>|\D+(\d+)|cmm(sprintf('%02d',($1-1)/14+1))|</strong></a></strong>
+
+<dd>
+<p>This is a perl substitution pattern that will produce the value for the second column of the table (the
+management module hostname).  The text <strong>\D+(\d+)</strong> between the 1st two vertical bars is
+a regular expression that matches the node
+name that was searched for in this table (in this example <strong>node20</strong>).  The text that matches
+within the 1st set of parentheses is set to $1.  (If there was a 2nd set of parentheses, it would
+be set to $2, and so on.)  In our case, the \D+ matches the non-numeric part of the name
+(<strong>node</strong>) and the <strong>\d+</strong> matches the numeric part (<strong>20</strong>).  So $1 is set to <strong>20</strong>.  The text <strong>cmm(sprintf('%02d',($1-1)/14+1))</strong> between the
+2nd and 3rd vertical bars produces the string that should be used as the value for the mpa attribute for node20.
+Since $1 is set to 20, the expression <strong>($1-1)/14+1</strong> equals
+19/14 + 1, which equals 2.  (The division is integer division,
+so 19/14 equals 1.  Fourteen is used as the divisor, because there are 14 blades in each chassis.)  The value of 2 is then passed into <code>sprintf()</code> with a format string to add a leading
+zero, if necessary, to always make the number two digits.  Lastly the string <strong>cmm</strong> is added to the beginning,
+making the resulting string <strong>cmm02</strong>, which will be used as the hostname
+of the management module.</p>
+</dd>
+</li>
+<dt><strong><a name="item__7c_5cd_2b_28_5cd_2b_29_7c_28_28_241_2d1_29_2514_2"><strong>|\D+(\d+)|(($1-1)%14+1)|</strong></a></strong>
+
+<dd>
+<p>This item is similar to the one above.  This substituion pattern will produce the value for
+the 3rd column (the chassis slot number for this blade).  Because this row was
+the match for <strong>node20</strong>, the parentheses
+within the 1st set of vertical bars will set $1 to 20.  Since % means modulo division, the
+expression <strong>($1-1)%14+1</strong> will evaluate to <strong>6</strong>.</p>
+</dd>
+</li>
+</dl>
+<p>See <a href="http://www.perl.com/doc/manual/html/pod/perlre.html">http://www.perl.com/doc/manual/html/pod/perlre.html</a> for information on perl regular expressions.</p>
+<p>
+</p>
+<hr />
+<h1><a name="object_definitions">OBJECT DEFINITIONS</a></h1>
+<p>Because it can get confusing what attributes need to go in what tables, the xCAT database can also
+be viewed and edited as logical objects, instead of flat tables.  Use <strong>mkdef</strong>, <strong>chdef</strong>, <strong>lsdef</strong>,
+and <strong>rmdef</strong> to create, change, list, and delete objects.
+When using these commands, the object attributes will be stored in the same tables, as if you edited
+the tables by hand.  The only difference is that the object commands take care of knowing which tables
+all of the information should go in.</p>
+<p>To run man for any of the object definitions below, use section 7.  For example:  <strong>man 7 node</strong></p>
+<p>The object types are:</p>
+<dl>
+<dt><strong><a name="item_auditlog"><a href="../man7/auditlog.7.html">auditlog(7)</a></a></strong>
+
+<dt><strong><a name="item_boottarget"><a href="../man7/boottarget.7.html">boottarget(7)</a></a></strong>
+
+<dt><strong><a name="item_eventlog"><a href="../man7/eventlog.7.html">eventlog(7)</a></a></strong>
+
+<dt><strong><a name="item_firmware"><a href="../man7/firmware.7.html">firmware(7)</a></a></strong>
+
+<dt><strong><a name="item_group"><a href="../man7/group.7.html">group(7)</a></a></strong>
+
+<dt><strong><a name="item_kit"><a href="../man7/kit.7.html">kit(7)</a></a></strong>
+
+<dt><strong><a name="item_kitcomponent"><a href="../man7/kitcomponent.7.html">kitcomponent(7)</a></a></strong>
+
+<dt><strong><a name="item_kitrepo"><a href="../man7/kitrepo.7.html">kitrepo(7)</a></a></strong>
+
+<dt><strong><a name="item_monitoring"><a href="../man7/monitoring.7.html">monitoring(7)</a></a></strong>
+
+<dt><strong><a name="item_network"><a href="../man7/network.7.html">network(7)</a></a></strong>
+
+<dt><strong><a name="item_node"><a href="../man7/node.7.html">node(7)</a></a></strong>
+
+<dt><strong><a name="item_notification"><a href="../man7/notification.7.html">notification(7)</a></a></strong>
+
+<dt><strong><a name="item_osdistro"><a href="../man7/osdistro.7.html">osdistro(7)</a></a></strong>
+
+<dt><strong><a name="item_osdistroupdate"><a href="../man7/osdistroupdate.7.html">osdistroupdate(7)</a></a></strong>
+
+<dt><strong><a name="item_osimage"><a href="../man7/osimage.7.html">osimage(7)</a></a></strong>
+
+<dt><strong><a name="item_policy"><a href="../man7/policy.7.html">policy(7)</a></a></strong>
+
+<dt><strong><a name="item_rack"><a href="../man7/rack.7.html">rack(7)</a></a></strong>
+
+<dt><strong><a name="item_route"><a href="../man7/route.7.html">route(7)</a></a></strong>
+
+<dt><strong><a name="item_site"><a href="../man7/site.7.html">site(7)</a></a></strong>
+
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="tables">TABLES</a></h1>
+<p>To manipulate the tables directly, use <strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong>,
+<strong>nodeadd(8)</strong>, <strong>nodech(1)</strong>.</p>
+<p>To run man for any of the table descriptions below, use section 5.  For example:  <strong>man 5 nodehm</strong></p>
+<p>The tables are:</p>
+<dl>
+<dt><strong><a href="auditlog.5.html">auditlog(5)</a></strong>
+
+<dd>
+<pre>
+ Audit Data log.</pre>
+</dd>
+<dt><strong><a name="item_bootparams"><a href="bootparams.5.html">bootparams(5)</a></a></strong>
+
+<dd>
+<p>Current boot settings to be sent to systems attempting network boot for deployment, stateless, or other reasons.  Mostly automatically manipulated by xCAT.</p>
+</dd>
+</li>
+<dt><strong><a href="boottarget.5.html">boottarget(5)</a></strong>
+
+<dd>
+<p>Specify non-standard initrd, kernel, and parameters that should be used for a given profile.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cfgmgt"><a href="cfgmgt.5.html">cfgmgt(5)</a></a></strong>
+
+<dd>
+<p>Configuration management data for nodes used by non-xCAT osimage management services to install and configure software on a node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_chain"><a href="chain.5.html">chain(5)</a></a></strong>
+
+<dd>
+<p>Controls what operations are done (and it what order) when a node is discovered and deployed.</p>
+</dd>
+</li>
+<dt><strong><a name="item_deps"><a href="deps.5.html">deps(5)</a></a></strong>
+
+<dd>
+<p>Describes dependencies some nodes have on others.  This can be used, e.g., by rpower -d to power nodes on or off in the correct order.</p>
+</dd>
+</li>
+<dt><strong><a name="item_discoverydata"><a href="discoverydata.5.html">discoverydata(5)</a></a></strong>
+
+<dd>
+<p>Discovery data which sent from genesis.</p>
+</dd>
+</li>
+<dt><strong><a name="item_domain"><a href="domain.5.html">domain(5)</a></a></strong>
+
+<dd>
+<p>Mapping of nodes to domain attributes</p>
+</dd>
+</li>
+<dt><strong><a href="eventlog.5.html">eventlog(5)</a></strong>
+
+<dd>
+<p>Stores the events occurred.</p>
+</dd>
+</li>
+<dt><strong><a href="firmware.5.html">firmware(5)</a></strong>
+
+<dd>
+<p>Maps node to firmware values to be used for setup at node discovery or later</p>
+</dd>
+</li>
+<dt><strong><a name="item_hosts"><a href="hosts.5.html">hosts(5)</a></a></strong>
+
+<dd>
+<p>IP addresses and hostnames of nodes.  This info is optional and is only used to populate /etc/hosts and DNS via makehosts and makedns.  Using regular expressions in this table can be a quick way to populate /etc/hosts.</p>
+</dd>
+</li>
+<dt><strong><a name="item_hypervisor"><a href="hypervisor.5.html">hypervisor(5)</a></a></strong>
+
+<dd>
+<p>Hypervisor parameters</p>
+</dd>
+</li>
+<dt><strong><a name="item_ipmi"><a href="ipmi.5.html">ipmi(5)</a></a></strong>
+
+<dd>
+<p>Settings for nodes that are controlled by an on-board BMC via IPMI.</p>
+</dd>
+</li>
+<dt><strong><a name="item_iscsi"><a href="iscsi.5.html">iscsi(5)</a></a></strong>
+
+<dd>
+<p>Contains settings that control how to boot a node from an iSCSI target</p>
+</dd>
+</li>
+<dt><strong><a href="kit.5.html">kit(5)</a></strong>
+
+<dd>
+<p>This table stores all kits added to the xCAT cluster.</p>
+</dd>
+</li>
+<dt><strong><a href="kitcomponent.5.html">kitcomponent(5)</a></strong>
+
+<dd>
+<p>This table stores all kit components added to the xCAT cluster.</p>
+</dd>
+</li>
+<dt><strong><a href="kitrepo.5.html">kitrepo(5)</a></strong>
+
+<dd>
+<p>This table stores all kits added to the xCAT cluster.</p>
+</dd>
+</li>
+<dt><strong><a name="item_kvm_masterdata"><a href="kvm_masterdata.5.html">kvm_masterdata(5)</a></a></strong>
+
+<dd>
+<p>Persistant store for KVM plugin for masters</p>
+</dd>
+</li>
+<dt><strong><a name="item_kvm_nodedata"><a href="kvm_nodedata.5.html">kvm_nodedata(5)</a></a></strong>
+
+<dd>
+<p>Persistant store for KVM plugin, not intended for manual modification.</p>
+</dd>
+</li>
+<dt><strong><a name="item_linuximage"><a href="linuximage.5.html">linuximage(5)</a></a></strong>
+
+<dd>
+<p>Information about a Linux operating system image that can be used to deploy cluster nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_litefile"><a href="litefile.5.html">litefile(5)</a></a></strong>
+
+<dd>
+<p>The litefile table specifies the directories and files on the statelite nodes that should be readwrite, persistent, or readonly overlay.  All other files in the statelite nodes come from the readonly statelite image.</p>
+</dd>
+</li>
+<dt><strong><a name="item_litetree"><a href="litetree.5.html">litetree(5)</a></a></strong>
+
+<dd>
+<p>Directory hierarchy to traverse to get the initial contents of node files.  The files that are specified in the litefile table are searched for in the directories specified in this table.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mac"><a href="mac.5.html">mac(5)</a></a></strong>
+
+<dd>
+<p>The MAC address of the node's install adapter.  Normally this table is populated by getmacs or node discovery, but you can also add entries to it manually.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mic"><a href="mic.5.html">mic(5)</a></a></strong>
+
+<dd>
+<p>The host, slot id and configuraton of the mic (Many Integrated Core).</p>
+</dd>
+</li>
+<dt><strong><a href="monitoring.5.html">monitoring(5)</a></strong>
+
+<dd>
+<p>Controls what external monitoring tools xCAT sets up and uses.  Entries should be added and removed from this table using the provided xCAT commands monstart and monstop.</p>
+</dd>
+</li>
+<dt><strong><a name="item_monsetting"><a href="monsetting.5.html">monsetting(5)</a></a></strong>
+
+<dd>
+<p>Specifies the monitoring plug-in specific settings. These settings will be used by the monitoring plug-in to customize the behavior such as event filter, sample interval, responses etc. Entries should be added, removed or modified by chtab command. Entries can also be added or modified by the monstart command when a monitoring plug-in is brought up.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mp"><a href="mp.5.html">mp(5)</a></a></strong>
+
+<dd>
+<p>Contains the hardware control info specific to blades.  This table also refers to the mpa table, which contains info about each Management Module.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mpa"><a href="mpa.5.html">mpa(5)</a></a></strong>
+
+<dd>
+<p>Contains info about each Management Module and how to access it.</p>
+</dd>
+</li>
+<dt><strong><a name="item_networks"><a href="networks.5.html">networks(5)</a></a></strong>
+
+<dd>
+<p>Describes the networks in the cluster and info necessary to set up nodes on that network.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nics"><a href="nics.5.html">nics(5)</a></a></strong>
+
+<dd>
+<p>Stores NIC details.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nimimage"><a href="nimimage.5.html">nimimage(5)</a></a></strong>
+
+<dd>
+<p>All the info that specifies a particular AIX operating system image that can be used to deploy AIX nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodegroup"><a href="nodegroup.5.html">nodegroup(5)</a></a></strong>
+
+<dd>
+<p>Contains group definitions, whose membership is dynamic depending on characteristics of the node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodehm"><a href="nodehm.5.html">nodehm(5)</a></a></strong>
+
+<dd>
+<p>Settings that control how each node's hardware is managed.  Typically, an additional table that is specific to the hardware type of the node contains additional info.  E.g. the ipmi, mp, and ppc tables.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodelist"><a href="nodelist.5.html">nodelist(5)</a></a></strong>
+
+<dd>
+<p>The list of all the nodes in the cluster, including each node's current status and what groups it is in.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodepos"><a href="nodepos.5.html">nodepos(5)</a></a></strong>
+
+<dd>
+<p>Contains info about the physical location of each node.  Currently, this info is not used by xCAT, and therefore can be in whatevery format you want.  It will likely be used in xCAT in the future.</p>
+</dd>
+</li>
+<dt><strong><a name="item_noderes"><a href="noderes.5.html">noderes(5)</a></a></strong>
+
+<dd>
+<p>Resources and settings to use when installing nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodetype"><a href="nodetype.5.html">nodetype(5)</a></a></strong>
+
+<dd>
+<p>A few hardware and software characteristics of the nodes.</p>
+</dd>
+</li>
+<dt><strong><a href="notification.5.html">notification(5)</a></strong>
+
+<dd>
+<p>Contains registrations to be notified when a table in the xCAT database changes.  Users can add entries to have additional software notified of changes.  Add and remove entries using the provided xCAT commands regnotif and unregnotif.</p>
+</dd>
+</li>
+<dt><strong><a href="osdistro.5.html">osdistro(5)</a></strong>
+
+<dd>
+<p>Information about all the OS distros in the xCAT cluster</p>
+</dd>
+</li>
+<dt><strong><a href="osdistroupdate.5.html">osdistroupdate(5)</a></strong>
+
+<dd>
+<p>Information about the OS distro updates in the xCAT cluster</p>
+</dd>
+</li>
+<dt><strong><a href="osimage.5.html">osimage(5)</a></strong>
+
+<dd>
+<p>Basic information about an operating system image that can be used to deploy cluster nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_passwd"><a href="passwd.5.html">passwd(5)</a></a></strong>
+
+<dd>
+<p>Contains default userids and passwords for xCAT to access cluster components.  In most cases, xCAT will also actually set the userid/password in the relevant component when it is being configured or installed.  Userids/passwords for specific cluster components can be overidden in other tables, e.g. mpa, ipmi, ppchcp, etc.</p>
+</dd>
+</li>
+<dt><strong><a name="item_performance"><a href="performance.5.html">performance(5)</a></a></strong>
+
+<dd>
+<p>Describes the system performance every interval unit of time.</p>
+</dd>
+</li>
+<dt><strong><a href="policy.5.html">policy(5)</a></strong>
+
+<dd>
+<p>The policy table in the xCAT database controls who has authority to run specific xCAT operations. It is basically the Access Control List (ACL) for xCAT.</p>
+</dd>
+</li>
+<dt><strong><a name="item_postscripts"><a href="postscripts.5.html">postscripts(5)</a></a></strong>
+
+<dd>
+<pre>
+ The scripts that should be run on each node after installation or diskless boot.</pre>
+</dd>
+<dt><strong><a name="item_ppc"><a href="ppc.5.html">ppc(5)</a></a></strong>
+
+<dd>
+<p>List of system p hardware: HMCs, IVMs, FSPs, BPCs, CECs, Frames.</p>
+</dd>
+</li>
+<dt><strong><a name="item_ppcdirect"><a href="ppcdirect.5.html">ppcdirect(5)</a></a></strong>
+
+<dd>
+<p>Info necessary to use FSPs/BPAs to control system p CECs/Frames.</p>
+</dd>
+</li>
+<dt><strong><a name="item_ppchcp"><a href="ppchcp.5.html">ppchcp(5)</a></a></strong>
+
+<dd>
+<p>Info necessary to use HMCs and IVMs as hardware control points for LPARs.</p>
+</dd>
+</li>
+<dt><strong><a name="item_prescripts"><a href="prescripts.5.html">prescripts(5)</a></a></strong>
+
+<dd>
+<p>The scripts that will be run at the beginning and the end of the nodeset(Linux), <code>nimnodeset(AIX)</code> or <code>mkdsklsnode(AIX)</code> command.</p>
+</dd>
+</li>
+<dt><strong><a name="item_prodkey"><a href="prodkey.5.html">prodkey(5)</a></a></strong>
+
+<dd>
+<p>Specify product keys for products that require them</p>
+</dd>
+</li>
+<dt><strong><a href="rack.5.html">rack(5)</a></strong>
+
+<dd>
+<p>Rack information.</p>
+</dd>
+</li>
+<dt><strong><a name="item_routes"><a href="routes.5.html">routes(5)</a></a></strong>
+
+<dd>
+<p>Describes the additional routes needed to be setup in the os routing table. These routes usually are used to connect the management node to the compute node using the servie node as gateway.</p>
+</dd>
+</li>
+<dt><strong><a name="item_servicenode"><a href="servicenode.5.html">servicenode(5)</a></a></strong>
+
+<dd>
+<p>List of all Service Nodes and services that will be set up on the Service Node.</p>
+</dd>
+</li>
+<dt><strong><a href="site.5.html">site(5)</a></strong>
+
+<dd>
+<p>Global settings for the whole cluster.  This table is different from the 
+other tables in that each attribute is just named in the key column, rather 
+than having a separate column for each attribute. The following is a list of 
+the attributes currently used by xCAT.</p>
+</dd>
+</li>
+<dt><strong><a name="item_statelite"><a href="statelite.5.html">statelite(5)</a></a></strong>
+
+<dd>
+<p>The location on an NFS server where a nodes persistent files are stored.  Any file marked persistent in the litefile table will be stored in the location specified in this table for that node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_storage"><a href="storage.5.html">storage(5)</a></a></strong>
+
+<dt><strong><a name="item_switch"><a href="switch.5.html">switch(5)</a></a></strong>
+
+<dd>
+<p>Contains what switch port numbers each node is connected to.</p>
+</dd>
+</li>
+<dt><strong><a name="item_switches"><a href="switches.5.html">switches(5)</a></a></strong>
+
+<dd>
+<p>Parameters to use when interrogating switches</p>
+</dd>
+</li>
+<dt><strong><a name="item_virtsd"><a href="virtsd.5.html">virtsd(5)</a></a></strong>
+
+<dd>
+<p>The parameters which used to create the Storage Domain</p>
+</dd>
+</li>
+<dt><strong><a name="item_vm"><a href="vm.5.html">vm(5)</a></a></strong>
+
+<dd>
+<p>Virtualization parameters</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmmaster"><a href="vmmaster.5.html">vmmaster(5)</a></a></strong>
+
+<dd>
+<p>Inventory of virtualization images for use with clonevm.  Manual intervention in this table is not intended.</p>
+</dd>
+</li>
+<dt><strong><a name="item_vpd"><a href="vpd.5.html">vpd(5)</a></a></strong>
+
+<dd>
+<p>The Machine type, Model, and Serial numbers of each node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_websrv"><a href="websrv.5.html">websrv(5)</a></a></strong>
+
+<dd>
+<p>Web service parameters</p>
+</dd>
+</li>
+<dt><strong><a name="item_zvm"><a href="zvm.5.html">zvm(5)</a></a></strong>
+
+<dd>
+<p>List of z/VM virtual servers.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong>, <strong>lsdef(1)</strong>, <strong>mkdef(1)</strong>, <strong>chdef(1)</strong>, <strong>rmdef(1)</strong></p>
+
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;rbootseq&gt; - Persistently sets the order of boot devices for BladeCenter blades or PPC LPARs using Direct FSP Management.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<ul>
+
+		<li><a href="#blade_specific_">Blade specific:</a></li>
+		<li><a href="#ppc__using_direct_fsp_management__specific_">PPC (using Direct FSP Management) specific:</a></li>
+	</ul>
+
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>rbootseq</strong> - Persistently sets the order of boot devices for BladeCenter blades or PPC LPARs using Direct FSP Management (DFM).</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>rbootseq</strong> [<strong>-h</strong>|<strong>--help</strong>|<strong>-v</strong>|<strong>--version</strong>]</p>
+<p>
+</p>
+<h2><a name="blade_specific_">Blade specific:</a></h2>
+<p><strong>rbootseq</strong> <em>noderange</em> {<strong>hd0</strong>|<strong>hd1</strong>|<strong>hd2</strong>|<strong>hd3</strong>|<strong>net</strong>|<strong>iscsi</strong>|<strong>iscsicrit</strong>|<strong>cdrom</strong>|<strong>usbflash</strong>|<strong>floppy</strong>|<strong>none</strong>|<strong>list</strong>|<strong>stat</strong>}<strong>,</strong><em>...</em></p>
+<p>
+</p>
+<h2><a name="ppc__using_direct_fsp_management__specific_">PPC (using Direct FSP Management) specific:</a></h2>
+<p><strong>rbootseq</strong> <em>noderange</em> <strong>[hfi|net]</strong></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>For Blade specific:</p>
+<p><strong>rbootseq</strong> sets the boot sequence (the order in which boot devices should be tried) for the specified blades.
+Up to four different medium/devices can be listed, separated by commas.  The boot sequence will remain
+in effect for these blades until set differently.</p>
+<p>For PPC (using Direct FSP Management) specific:</p>
+<p><strong>rbootseq</strong> sets the ethernet (net) or hfi device as the first boot device for the specified PPC LPARs.
+The <strong>rbootseq</strong> command requires that the ethernet or hfi mac address is stored in the mac table, and that the network information is correct in the networks table.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item_hd0_7charddisk0_7chd_7charddisk"><strong>hd0</strong>|<strong>harddisk0</strong>|<strong>hd</strong>|<strong>harddisk</strong></a></strong>
+
+<dd>
+<p>The first hard disk.</p>
+</dd>
+</li>
+<dt><strong><a name="item_hd1_7charddisk1"><strong>hd1</strong>|<strong>harddisk1</strong></a></strong>
+
+<dd>
+<p>The second hard disk.</p>
+</dd>
+</li>
+<dt><strong><a name="item_hd2_7charddisk2"><strong>hd2</strong>|<strong>harddisk2</strong></a></strong>
+
+<dd>
+<p>The third hard disk.</p>
+</dd>
+</li>
+<dt><strong><a name="item_hd3_7charddisk3"><strong>hd3</strong>|<strong>harddisk3</strong></a></strong>
+
+<dd>
+<p>The fourth hard disk.</p>
+</dd>
+</li>
+<dt><strong><a name="item_n_7cnet_7cnetwork"><strong>n</strong>|<strong>net</strong>|<strong>network</strong></a></strong>
+
+<dd>
+<p>Boot over the ethernet network, using a PXE or BOOTP broadcast.</p>
+</dd>
+</li>
+<dt><strong><a name="item_hfi"><strong>hfi</strong></a></strong>
+
+<dd>
+<p>Boot p775 nodes over the HFI network, using BOOTP broadcast.</p>
+</dd>
+</li>
+<dt><strong><a name="item_iscsi"><strong>iscsi</strong></a></strong>
+
+<dd>
+<p>Boot to an iSCSI disk over the network.</p>
+</dd>
+</li>
+<dt><strong><a name="item_iscsicrit"><strong>iscsicrit</strong></a></strong>
+
+<dd>
+<p>??</p>
+</dd>
+</li>
+<dt><strong><a name="item_cd_7ccdrom"><strong>cd</strong>|<strong>cdrom</strong></a></strong>
+
+<dd>
+<p>The CD or DVD drive.</p>
+</dd>
+</li>
+<dt><strong><a name="item_usbflas_7cusb_7cflash"><strong>usbflas</strong>|<strong>usb</strong>|<strong>flash</strong></a></strong>
+
+<dd>
+<p>A USB flash drive.</p>
+</dd>
+</li>
+<dt><strong><a name="item_floppy"><strong>floppy</strong></a></strong>
+
+<dd>
+<p>The floppy drive.</p>
+</dd>
+</li>
+<dt><strong><a name="item_none"><strong>none</strong></a></strong>
+
+<dd>
+<p>If it gets to this part of the sequence, do not boot.  Can not be specified 1st, or before any real boot devices.</p>
+</dd>
+</li>
+<dt><strong><a name="item_list_7cstat"><strong>list</strong>|<strong>stat</strong></a></strong>
+
+<dd>
+<p>Display the current boot sequence.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>Set blades 14-56 and 70-203 to try to boot first from the CD drive, then the floppy drive, then
+the network, and finally from the 1st hard disk:</p>
+<pre>
+ rbootseq blade[14-56],blade[70-203] c,f,n,hd0</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="rsetboot.1.html">rsetboot(1)</a></p>
+
+</body>
+
+</html>

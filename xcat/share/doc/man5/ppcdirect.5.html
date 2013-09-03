@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;ppcdirect&gt; - a table in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#ppcdirect_attributes_">ppcdirect Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>ppcdirect</strong> - a table in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>ppcdirect Attributes:</strong>  <em>hcp</em>, <em>username</em>, <em>password</em>, <em>comments</em>, <em>disable</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Info necessary to use FSPs/BPAs to control system p CECs/Frames.</p>
+<p>
+</p>
+<hr />
+<h1><a name="ppcdirect_attributes_">ppcdirect Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_hcp"><strong>hcp</strong></a></strong>
+
+<dd>
+<p>Hostname of the FSPs/BPAs(for ASMI) and CECs/Frames(for DFM).</p>
+</dd>
+</li>
+<dt><strong><a name="item_username"><strong>username</strong></a></strong>
+
+<dd>
+<p>Userid of the FSP/BPA(for ASMI) and CEC/Frame(for DFM).  If not filled in, xCAT will look in the passwd table for key=fsp.  If not in the passwd table, the default used is admin.</p>
+</dd>
+</li>
+<dt><strong><a name="item_password"><strong>password</strong></a></strong>
+
+<dd>
+<p>Password of the FSP/BPA(for ASMI) and CEC/Frame(for DFM).  If not filled in, xCAT will look in the passwd table for key=fsp.  If not in the passwd table, the default used is admin.</p>
+</dd>
+</li>
+<dt><strong><a name="item_comments"><strong>comments</strong></a></strong>
+
+<dd>
+<p>Any user-written notes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_disable"><strong>disable</strong></a></strong>
+
+<dd>
+<p>Set to 'yes' or '1' to comment out this row.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong></p>
+
+</body>
+
+</html>

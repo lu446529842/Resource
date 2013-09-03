@@ -1,0 +1,229 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;mkdef&gt; - Use this command to create xCAT data object definitions.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#notes">NOTES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>mkdef</strong> - Use this command to create xCAT data object definitions.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>mkdef</strong> [<strong>-h</strong>|<strong>--help</strong>] [<strong>-t</strong> <em>object-types</em>]</p>
+<p><strong>mkdef</strong> [<strong>-V</strong>|<strong>--verbose</strong>] [<strong>-t</strong> <em>object-types</em>] [<strong>-o</strong> <em>object-names</em>]
+[<strong>-z</strong>|<strong>--stanza</strong>] [<strong>-d</strong>|<strong>--dynamic</strong>] [<strong>-f</strong>|<strong>--force</strong>]
+[[<strong>-w</strong> <em>attr</em>==<em>val</em>] [<strong>-w</strong> <em>attr</em>=~<em>val</em>] ...] [<em>noderange</em>] [<em>attr</em>=<em>val</em> [<em>attr</em>=<em>val...</em>]]
+      [<strong>-u</strong> <strong>provmethod</strong>=&lt;<em>install</em>|<em>netboot</em>|<em>statelite</em>&gt; <strong>profile</strong>=&lt;xxx&gt; [<em>attr</em>=<em>value</em>]]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This command is used to create xCAT object definitions which are stored in the xCAT database. If the definition already exists it will return an error message. The force option may be used to re-create a definition.  In this case the old definition will be remove and the new definition will be created.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item_attr_3dval__5battr_3dval__2e_2e_2e_5d"><em>attr=val [attr=val ...]</em></a></strong>
+
+<dd>
+<p>Specifies one or more ``attribute equals value'' pairs, separated by spaces. Attr=val pairs must be specified last on the command line. Use the help option to get a list of valid attributes for each object type.</p>
+</dd>
+<dd>
+<p>Note: when creating node object definitions, the 'groups' attribute is required.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dd_7c_2d_2ddynamic"><strong>-d|--dynamic</strong></a></strong>
+
+<dd>
+<p>Use the dynamic option to create dynamic node groups. This option must be used with -w option.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_7c_2d_2dforce"><strong>-f|--force</strong></a></strong>
+
+<dd>
+<p>Use the force option to re-create object definitions. This option removes the old definition before creating the new one.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item_noderange"><em>noderange</em></a></strong>
+
+<dd>
+<p>A set of comma delimited node names and/or group names. (must be the first parameter) See the ``noderange'' man page for details on supported formats.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2do_object_2dnames"><strong>-o</strong> <em>object-names</em></a></strong>
+
+<dd>
+<p>A set of comma delimited object names.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dt_object_2dtypes"><strong>-t</strong> <em>object-types</em></a></strong>
+
+<dd>
+<p>A set of comma delimited object types.  Use the help option to get a list of valid object types.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Verbose mode.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dw_attr_3d_3dval__2dw_attr_3d_7eval__2e_2e_2e"><strong>-w</strong> <em>attr==val</em> <strong>-w</strong> <em>attr=~val</em> ...</a></strong>
+
+<dd>
+<p>Use one or multiple -w flags to specify the selection string that can be used to select objects. The operators ==, !=, =~ and !~ are available. For mkdef commmand, the -w flag only makes sense for creating dynamic node group. Use the help option to get a list of valid attributes for each object type.</p>
+</dd>
+<dd>
+<p>Operator descriptions:
+        ==        Select nodes where the attribute value is exactly this value.
+        !=        Select nodes where the attribute value is not this specific value.
+        =~        Select nodes where the attribute value matches this regular expression.
+        !~        Select nodes where the attribute value does not match this regular expression.</p>
+</dd>
+<dd>
+<p>Note: if the ``val'' fields includes spaces or any other characters that will be parsed by shell, the ``attr&lt;operator&gt;val'' needs to be quoted. If the operator is ``!~'', the ``attr&lt;operator&gt;val'' needs to be quoted using single quote.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dz_7c_2d_2dstanza"><strong>-z|--stanza</strong></a></strong>
+
+<dd>
+<p>Indicates that the file being piped to the command is in stanza format.  See the xcatstanzafile man page for details on using xCAT stanza files.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2du"><strong>-u</strong></a></strong>
+
+<dd>
+<p>This option only works for objtype <strong>osimage</strong>.</p>
+</dd>
+<dd>
+<p>Fill in the osimage attribute automatically when define osimage. The <em>provmethod</em> and <em>profile</em> must be specified. If osvers or osarch is not specified, the corresponding value of the management node will be used.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>To create a site definition.</p>
+<pre>
+ mkdef -t site -o clustersite  installdir=/xcatinstall</pre>
+</li>
+<li>
+<p>To create a basic node definition.</p>
+<pre>
+ mkdef -t node -o node01 groups=&quot;all,aix&quot;</pre>
+</li>
+<li>
+<p>To re-create the current definition of ``node01''.</p>
+<pre>
+ mkdef -f -t node -o node01  nodetype=osi groups=&quot;linux&quot;</pre>
+<p>(The group definitions are also created if they don't already exist.)</p>
+</li>
+<li>
+<p>To create a set of different types of definitions based on information contained in a stanza file.</p>
+<pre>
+ cat defstanzafile | mkdef -z</pre>
+</li>
+<li>
+<p>To create a group definition called LinuxNodes containing the nodes clstrn01 and clstrn02.</p>
+<pre>
+ mkdef -t group -o LinuxNodes members=&quot;clstrn01,clstrn02&quot;</pre>
+</li>
+<li>
+<p>To create a node definition for an FSP node using the attributes provided by the group fspnodes.</p>
+<pre>
+ mkdef -t node fspn1 groups=fspnodes nodetype=fsp</pre>
+</li>
+<li>
+<p>To create node definitions for a set of node host names contained in the node range ``node1,node2,node3''</p>
+<pre>
+ mkdef -t node node1,node2,node3 power=hmc groups=&quot;all,aix&quot;</pre>
+</li>
+<li>
+<p>To create a dynamic node group definition called HMCMgtNodes containing all the HMC managed nodes``</p>
+<pre>
+ mkdef -t group -o HMCMgtNodes -d -w mgt==hmc -w cons==hmc</pre>
+</li>
+<li>
+<p>To create a dynamic node group definition called SLESNodes containing all the SLES nodes</p>
+<pre>
+ mkdef -t group -o SLESNodes -d -w &quot;os=~^sles[0-9]+$&quot;</pre>
+</li>
+<li>
+<p>To create a entry (7.0) in the policy table for user admin1</p>
+<pre>
+ mkdef -t policy -o 7.0 name=admin1 rule=allow</pre>
+</li>
+<li>
+<p>To create a node definition with nic attributes</p>
+<pre>
+ mkdef -t node cn1 groups=all nicips.eth0=&quot;1.1.1.1|1.2.1.1&quot; nicnetworks.eth0=&quot;net1|net2&quot; nictypes.eth0=&quot;Ethernet&quot;</pre>
+</li>
+<li>
+<p>To create an osimage definition and fill in attributes automatically.</p>
+<pre>
+ mkdef redhat6img -u profile=compute provmethod=statelite</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>$XCATROOT/bin/mkdef</p>
+<p>(The XCATROOT environment variable is set when xCAT is installed. The
+default value is ``/opt/xcat''.)</p>
+<p>
+</p>
+<hr />
+<h1><a name="notes">NOTES</a></h1>
+<p>This command is part of the xCAT software product.</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="chdef.1.html">chdef(1)</a>, <a href="lsdef.1.html">lsdef(1)</a>, <a href="rmdef.1.html">rmdef(1)</a>, <a href="../man5/xcatstanzafile.5.html">xcatstanzafile(5)</a></p>
+
+</body>
+
+</html>

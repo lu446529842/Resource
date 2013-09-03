@@ -1,0 +1,237 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;lsflexnode&gt; - Display the information of flexible node</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#attributes">ATTRIBUTES</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>lsflexnode</strong> - Display the information of flexible node</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>lsflexnode</strong> [-h | --help]</p>
+<p><strong>lsflexnode</strong> [-v | --version]</p>
+<p><strong>lsflexnode</strong> <em>noderange</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>IBM BladeCenter HX5 offers flexibility ideal that the blades can be combined together for scalability.</p>
+<p>There are several concepts to support the HX5 multiple blades combination:</p>
+<p><strong>Complex</strong>: Multiple blades which combined by a scalability card is a complex.</p>
+<p><strong>Parition</strong>: A logic concept which containing part of the <strong>Blade slot node</strong> in a complex. Each partition can map to a system to install Operating System. Each partition could have 1HX5, 1HX5+1MD or 2HX5+2MD. (MD is the Memory Drawer)</p>
+<p><strong>Blade slot node</strong>: The physical blade which installed in the slot of a chassis. It can be a HX5 or MD.</p>
+<p>A <strong>Complex</strong> will be created automatically when a multiple blades combination is installed. In this <strong>Complex</strong>, every blade belongs to it is working as a <strong>Blade slot node</strong>.</p>
+<p>A <strong>Partition</strong> can be created base on the <strong>Complex</strong>, each <strong>Partition</strong> can have one or multiple <strong>Blade slot node</strong>.</p>
+<p>The <em>noderange</em> in the <strong>SYNOPSIS</strong> can be a AMM node or a blade node.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dh__7c__2d_2dhelp"><strong>-h | --help</strong></a></strong>
+
+<dd>
+<p>Display the usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv__7c__2d_2dversion"><strong>-v | --version</strong></a></strong>
+
+<dd>
+<p>Display the version information.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="attributes">ATTRIBUTES</a></h1>
+<p>The meaning of attributes which displayed by the <strong>lsflexnode</strong>. The word 'node' in this section means <strong>Blade slot node</strong>.</p>
+<dl>
+<dt><strong><a name="item_complex"><strong>Complex</strong></a></strong>
+
+<dd>
+<p>The unique numeric identifier for a complex installed in the chassis.</p>
+</dd>
+</li>
+<dt><strong><a name="item_partition_number"><strong>Partition number</strong></a></strong>
+
+<dd>
+<p>The number of partitions currently defined for this complex.</p>
+</dd>
+</li>
+<dt><strong><a name="item_complex_node_number"><strong>Complex node number</strong></a></strong>
+
+<dd>
+<p>The number of nodes existing in this complex, regardless of their assignment to any given partition.</p>
+</dd>
+</li>
+<dt><strong><a name="item_partition"><strong>Partition</strong></a></strong>
+
+<dd>
+<p>The unique numeric identifier for a partition defined within a complex installed in the chassis.</p>
+</dd>
+</li>
+<dt><strong><a name="item_partition_mode"><strong>Partition Mode</strong></a></strong>
+
+<dd>
+<p>The currently configured mode of this partition. It can be 'partition' or 'standalone'.</p>
+</dd>
+</li>
+<dt><strong><a name="item_partition_node_number"><strong>Partition node number</strong></a></strong>
+
+<dd>
+<p>The number of nodes currently defined for this partition.</p>
+</dd>
+</li>
+<dt><strong><a name="item_partition_status"><strong>Partition status</strong></a></strong>
+
+<dd>
+<p>The current power status of this partition when the partition has a valid partition configuration. It can be 'poweredoff', 'poweredon', 'resetting' or 'invalid'.</p>
+</dd>
+</li>
+<dt><strong><a name="item_node"><strong>Node</strong></a></strong>
+
+<dd>
+<p>The unique numeric identifier for this node, unique within the partition. If this node does not belong to a partition, the slot number will be displayed.</p>
+</dd>
+</li>
+<dt><strong><a name="item_node_state"><strong>Node state</strong></a></strong>
+
+<dd>
+<p>The physical power state of this node. It can be 'poweredoff', 'poweredon' or 'resetting'.</p>
+</dd>
+</li>
+<dt><strong><a name="item_node_slot"><strong>Node slot</strong></a></strong>
+
+<dd>
+<p>The base slot number where the node exists in the chassis.</p>
+</dd>
+</li>
+<dt><strong><a name="item_node_resource"><strong>Node resource</strong></a></strong>
+
+<dd>
+<p>A string providing a summary overview of the resources provided by this node. It includes the CPU number, CPU frequency and Memory size.</p>
+</dd>
+</li>
+<dt><strong><a name="item_node_type"><strong>Node type</strong></a></strong>
+
+<dd>
+<p>The general categorization of the node. It can be 'processor', 'memory' or 'io'.</p>
+</dd>
+</li>
+<dt><strong><a name="item_node_role"><strong>Node role</strong></a></strong>
+
+<dd>
+<p>Indicates if the node is assigned to a partition, and if so, provides an indication of whether the node is the primary node of the partition or not.</p>
+</dd>
+</li>
+<dt><strong><a name="item_flexnode_state"><strong>Flexnode state</strong></a></strong>
+
+<dd>
+<p>The state of a flexible node. It is the state of the partition which this node belongs to. If this node does NOT belong to a partition, the value should be 'invalid'.</p>
+</dd>
+<dd>
+<p>It can be 'poweredoff', 'poweredon', 'resetting' or 'invalid'.</p>
+</dd>
+</li>
+<dt><strong><a name="item_complex_id"><strong>Complex id</strong></a></strong>
+
+<dd>
+<p>The identifier of the complex this node belongs to.</p>
+</dd>
+</li>
+<dt><strong><a name="item_partition_id"><strong>Partition id</strong></a></strong>
+
+<dd>
+<p>The identifier of the partition this node belongs to.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>Display all the <strong>Complex</strong>, <strong>Partition</strong> and <strong>Blade slot node</strong> which managed by a AMM.</p>
+<pre>
+ lsflexnode amm1</pre>
+<p>The output:</p>
+<pre>
+    amm1: Complex - 24068
+    amm1: ..Partition number - 1
+    amm1: ..Complex node number - 2
+    amm1: ..Partition = 1
+    amm1: ....Partition Mode - partition
+    amm1: ....Partition node number - 1
+    amm1: ....Partition status - poweredoff
+    amm1: ....Node - 0 (logic id)
+    amm1: ......Node state - poweredoff
+    amm1: ......Node slot - 14
+    amm1: ......Node type - processor
+    amm1: ......Node resource - 2 (1866 MHz) / 8 (2 GB)
+    amm1: ......Node role - secondary
+    amm1: ..Partition = unassigned
+    amm1: ....Node - 13 (logic id)
+    amm1: ......Node state - poweredoff
+    amm1: ......Node slot - 13
+    amm1: ......Node type - processor
+    amm1: ......Node resource - 2 (1866 MHz) / 8 (2 GB)
+    amm1: ......Node role - unassigned</pre>
+</li>
+<li>
+<p>Display a flexible node.</p>
+<pre>
+ lsflexnode blade1</pre>
+<p>The output:</p>
+<pre>
+    blade1: Flexnode state - poweredoff
+    blade1: Complex id - 24068
+    blade1: Partition id - 1
+    blade1: Slot14: Node state - poweredoff
+    blade1: Slot14: Node slot - 14
+    blade1: Slot14: Node type - processor
+    blade1: Slot14: Node resource - 2 (1866 MHz) / 8 (2 GB)
+    blade1: Slot14: Node role - secondary</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/lsflexnode</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="mkflexnode.1.html">mkflexnode(1)</a>, <a href="rmflexnode.1.html">rmflexnode(1)</a></p>
+
+</body>
+
+</html>

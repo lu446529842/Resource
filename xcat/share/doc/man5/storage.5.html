@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;storage&gt; - a table in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#storage_attributes_">storage Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>storage</strong> - a table in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>storage Attributes:</strong>  <em>node</em>, <em>osvolume</em>, <em>size</em>, <em>state</em>, <em>storagepool</em>, <em>hypervisor</em>, <em>fcprange</em>, <em>volumetag</em>, <em>comments</em>, <em>disable</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="storage_attributes_">storage Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_node"><strong>node</strong></a></strong>
+
+<dd>
+<p>The node name</p>
+</dd>
+</li>
+<dt><strong><a name="item_osvolume"><strong>osvolume</strong></a></strong>
+
+<dd>
+<p>Specification of what storage to place the node OS image onto.  Examples include:
+                localdisk (Install to first non-FC attached disk)
+                usbdisk (Install to first USB mass storage device seen)
+                wwn=0x50000393c813840c (Install to storage device with given WWN)</p>
+</dd>
+</li>
+<dt><strong><a name="item_size"><strong>size</strong></a></strong>
+
+<dd>
+<p>Size of the volume. Examples include: 10G, 1024M.</p>
+</dd>
+</li>
+<dt><strong><a name="item_state"><strong>state</strong></a></strong>
+
+<dd>
+<p>State of the volume. The valid values are: free, used, and allocated</p>
+</dd>
+</li>
+<dt><strong><a name="item_storagepool"><strong>storagepool</strong></a></strong>
+
+<dd>
+<p>Name of storage pool where the volume is assigned.</p>
+</dd>
+</li>
+<dt><strong><a name="item_hypervisor"><strong>hypervisor</strong></a></strong>
+
+<dd>
+<p>Name of the hypervisor where the volume is configured.</p>
+</dd>
+</li>
+<dt><strong><a name="item_fcprange"><strong>fcprange</strong></a></strong>
+
+<dd>
+<p>A range of acceptable fibre channels that the volume can use. Examples include: 3B00-3C00;4B00-4C00.</p>
+</dd>
+</li>
+<dt><strong><a name="item_volumetag"><strong>volumetag</strong></a></strong>
+
+<dd>
+<p>A specific tag used to identify the volume in the autoyast or kickstart template.</p>
+</dd>
+</li>
+<dt><strong><a name="item_comments"><strong>comments</strong></a></strong>
+
+<dd>
+<p>Any user-written notes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_disable"><strong>disable</strong></a></strong>
+
+<dd>
+<p>Set to 'yes' or '1' to comment out this row.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong></p>
+
+</body>
+
+</html>

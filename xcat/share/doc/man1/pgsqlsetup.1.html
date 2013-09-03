@@ -1,0 +1,127 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;pgsqlsetup&gt; - Sets up the PostgreSQL database for xCAT to use.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#environment_variables">ENVIRONMENT VARIABLES</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>pgsqlsetup</strong> - Sets up the PostgreSQL database for xCAT to use.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>pgsqlsetup</strong> {<strong>-h</strong>|<strong>--help</strong>}</p>
+<p><strong>pgsqlsetup</strong> {<strong>-v</strong>|<strong>--version</strong>}</p>
+<p><strong>pgsqlsetup</strong> {<strong>-i</strong>|<strong>--init</strong>} [-N|nostart] [-P|--PCM] [-o|--setupODBC] [<strong>-V</strong>|<strong>--verbose</strong>]</p>
+<p><strong>pgsqlsetup</strong> {<strong>-o</strong>|<strong>--setupODBC</strong>} [-V|--verbose]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p><strong>pgsqlsetup</strong> - Sets up the PostgreSQL database for xCAT to use. The pgsqlsetup script is run on the Management Node as root after the PostgreSQL code has been installed. The xcatd daemon will be stopped during migration.  No xCAT commands should be run during the init process, because we will be migrating the xCAT database to PostgreSQL and restarting the xcatd daemon as well as the PostgreSQL daemon. For full information on all the steps that will be done reference 
+One password must be supplied for the setup,  a password for the xcatadm unix id and the same password for the xcatadm database id.  The password will be prompted for interactively or you can set the XCATPGPW environment variable to the password and then there will be no prompt.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Displays the usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Displays the release version of the code.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Displays verbose messages.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di_7c_2d_2dinit"><strong>-i|--init</strong></a></strong>
+
+<dd>
+<p>The init option is used to setup an installed PostgreSQL database so that xCAT can use the database.  This involves creating the xcat database, the xcat admin id, allowing access to the xcatdb database by the Management Node. It customizes the postgresql.conf configuration file, adds the management server to the pg_hba.conf and starts the PostgreSQL server.  It also backs up the current xCAT database and restores it into the newly setup xcatdb PostgreSQL database.  It creates the /etc/xcat/cfgloc file to point the xcatd daemon to the PostgreSQL database and restarts the xcatd daemon using the database. 
+On AIX, it additionally setup the xcatadm unix id and the postgres id and group. For AIX, you should be using the PostgreSQL rpms available from the xCAT website. For Linux, you should use the PostgreSQL rpms shipped with the OS. You can chose the -o option, to run after the init.
+To add additional nodes to access the PostgreSQL server, setup on the Management Node,  edit the pg_hba.conf file.</p>
+</dd>
+<dd>
+<p>For more documentation see:https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Setting_Up_PostgreSQL_as_the_xCAT_DB</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dn_7c_2d_2dnostart"><strong>-N|--nostart</strong></a></strong>
+
+<dd>
+<p>This option with the -i flag will create the database, but will not backup and restore xCAT tables into the database. It will create the cfgloc file such that the next start of xcatd will try and contact the database.  This can be used to setup the xCAT PostgreSQL database during or before install.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_7c_2d_2dpcm"><strong>-P|--PCM</strong></a></strong>
+
+<dd>
+<p>This option sets up PostgreSQL database to be used with xCAT running with PCM.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2do_7c_2d_2dodbc"><strong>-o|--odbc</strong></a></strong>
+
+<dd>
+<p>This option sets up the ODBC  /etc/../odbcinst.ini, /etc/../odbc.ini and the .odbc.ini file in roots home directory will be created and initialized to run off the xcatdb PostgreSQL database.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="environment_variables">ENVIRONMENT VARIABLES</a></h1>
+<dl>
+<dt><strong><a name="item_xcatpgpw"><strong>XCATPGPW</strong></a></strong>
+
+<dd>
+<p>The password to be used to setup the xCAT admin id for the database.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ul>
+<li>
+<p>To setup PostgreSQL for xCAT to run on the PostgreSQL xcatdb database :</p>
+<p><strong>pgsqlsetup</strong> <em>-i</em></p>
+</li>
+<li>
+<p>To setup the ODBC for PostgreSQL xcatdb database access :</p>
+<p><strong>pgsqlsetup</strong> <em>-o</em></p>
+</li>
+</ul>
+
+</body>
+
+</html>

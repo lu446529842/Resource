@@ -1,0 +1,21 @@
+#!/bin/sh
+#Default networking config supporting BOOTIF semantics
+#bring up one interface, if bonding, management software can do that 
+#after the fact
+MACADDR=`vsish -e get /system/bootCmdLine | grep MAC | sed 's/.*MAC=//'|sed 's/-/:/g'`
+if [ ! -z "$MACADDR" ]; then #if MAC= syntax detected, skip execution
+    return ${SUCCESS}
+fi
+MACADDR=`vsish -e get /system/bootCmdLine | grep BOOTIF | sed 's/.*BOOTIF=01-//'|sed 's/-/:/g'`
+if [ ! -z "$MACADDR" ]; then
+    NIC=`esxcfg-nics -l|grep ${MACADDR}|awk '{print $1}'`
+    esxcfg-vswitch -a vSwitch0:64
+    esxcfg-vswitch -A "Management Network" vSwitch0
+    esxcfg-vswitch -L $NIC vSwitch0
+    esxcfg-vmknic -a -i DHCP -P -p "Management Network"
+    esxcfg-init -R $MACADDR -K vmk0
+    esxcfg-vmknic -i DHCPV6 "Management Network"
+fi
+
+sed -ie 's/#ssh/ssh/' /etc/inetd.conf #ssh is too nice not to have
+return ${SUCCESS}

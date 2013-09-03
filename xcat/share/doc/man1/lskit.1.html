@@ -1,0 +1,190 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;lskit&gt; - list info for one or more kits</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>lskit</strong> - list info for one or more kits</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>lskit</strong> [<strong>-V</strong> | <strong>--verbose</strong>] 
+      [<strong>-x</strong> | <strong>--xml</strong> | <strong>--XML</strong>]
+      [<strong>-K</strong> | <strong>--kitattr</strong> <em>kitattr_names</em>]
+      [<strong>-R</strong> | <strong>--repoattr</strong> <em>repoattr_names</em>]
+      [<strong>-C</strong> | <strong>--compattr</strong> <em>compattr_names</em>]
+      [kit_names]</p>
+<p><strong>lskit</strong> [<strong>-?</strong> | <strong>-h</strong> | <strong>--help</strong> | <strong>-v</strong> | <strong>--version</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>lskit</strong> command is used to list info for one or more kits. A kit is a special kind of package that is used to install a software product on one or more nodes in an xCAT cluster.</p>
+<p>The <strong>lskit</strong> command outputs the following info for each kit: the kit's basic info, the kit's repositories, and the kit's components.  The command outputs the info in two formats: human-readable format (default), and XML format.  Use the -x option to view the info in XML format.</p>
+<p>Input to the command can specify any number or combination of the input options.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dk_7c_2d_2dkitattr_kitattr_names"><strong>-K|--kitattr</strong> <em>kitattr_names</em></a></strong>
+
+<dd>
+<p>where <em>kitattr_names</em> is a comma-delimited list of kit attribute names. The names correspond to attribute names in the <strong>kit</strong> table. The <strong>lskit</strong> command will only display the specified kit attributes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dr_7c_2d_2drepoattr_repoattr_names"><strong>-R|--repoattr</strong> <em>repoattr_names</em></a></strong>
+
+<dd>
+<p>where <em>repoattr_names</em> is a comma-delimited list of kit repository attribute names. The names correspond to attribute names in the <strong>kitrepo</strong> table. The <strong>lskit</strong> command will only display the specified kit repository attributes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dc_7c_2d_2dcompattr_compattr_names"><strong>-C|--compattr</strong> <em>compattr_names</em></a></strong>
+
+<dd>
+<p>where <em>compattr_names</em> is a comma-delimited list of kit component attribute names. The names correspond to attribute names in the <strong>kitcomponent</strong> table. The <strong>lskit</strong> command will only display the specified kit component attributes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_kit_names"><em>kit_names</em></a></strong>
+
+<dd>
+<p>is a comma-delimited list of kit names. The <strong>lskit</strong> command will only display the kits matching these names.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dx_7c_2d_2dxml_7c_2d_2dxml"><strong>-x|--xml|--XML</strong></a></strong>
+
+<dd>
+<p>Return the output with XML tags.  The data is returned as:
+  &lt;data&gt;
+    &lt;kitinfo&gt;
+       ...
+    &lt;/kitinfo&gt;
+  &lt;/data&gt;
+  ...
+  &lt;data&gt;
+    &lt;kitinfo&gt;
+       ...
+    &lt;/kitinfo&gt;
+  &lt;/data&gt;</p>
+</dd>
+<dd>
+<p>Each &lt;kitinfo&gt; tag contains info for one kit.  The info inside &lt;kitinfo&gt; is structured as follows:
+  The &lt;kit&gt; sub-tag contains the kit's basic info.
+  The &lt;kitrepo&gt; sub-tags store info about the kit's repositories.
+  The &lt;kitcomponent&gt; sub-tags store info about the kit's components.</p>
+</dd>
+<dd>
+<p>The data inside &lt;kitinfo&gt; is returned as:
+  &lt;kitinfo&gt;
+     &lt;kit&gt;
+       ...
+     &lt;/kit&gt;</p>
+</dd>
+<dd>
+<pre>
+     &lt;kitrepo&gt;
+       ...
+     &lt;/kitrepo&gt;
+     ...</pre>
+</dd>
+<dd>
+<pre>
+     &lt;kitcomponent&gt;
+       ...
+     &lt;/kitcomponent&gt;
+     ...
+  &lt;/kitinfo&gt;</pre>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Display additional progress and error messages.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command Version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_3f_7c_2dh_7c_2d_2dhelp"><strong>-?|-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<ol>
+<li>
+<p>The command completed successfully.</p>
+</li>
+<li>
+<p>An error has occurred.</p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>To list all kits, enter:</p>
+<pre>
+  lskit</pre>
+</li>
+<li>
+<p>To list the kit ``kit-test1-1.0-Linux'', enter:</p>
+<pre>
+  lskit kit-test1-1.0-Linux</pre>
+</li>
+<li>
+<p>To list the kit ``kit-test1-1.0-Linux'' for selected attributes, enter:</p>
+<pre>
+  lskit -K basename,description -R kitreponame -C kitcompname kit-test1-1.0-Linux</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/lskit</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="lskitcomp.1.html">lskitcomp(1)</a>, <a href="lskitdeployparam.1.html">lskitdeployparam(1)</a>, <a href="addkit.1.html">addkit(1)</a>, <a href="rmkit.1.html">rmkit(1)</a>, <a href="addkitcomp.1.html">addkitcomp(1)</a>, <a href="rmkitcomp.1.html">rmkitcomp(1)</a></p>
+
+</body>
+
+</html>

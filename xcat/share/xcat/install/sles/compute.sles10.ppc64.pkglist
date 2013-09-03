@@ -1,0 +1,6 @@
+@base-64bit
+@base
+@x11
+openssl
+ntp
+rsync

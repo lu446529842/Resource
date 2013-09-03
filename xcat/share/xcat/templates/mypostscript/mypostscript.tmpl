@@ -1,0 +1,140 @@
+
+## beginning of all attributes from the site table
+
+#SITE_TABLE_ALL_ATTRIBS_EXPORT#
+
+## end of all attributes from the site table
+
+
+ENABLESSHBETWEENNODES=$ENABLESSHBETWEENNODES
+export ENABLESSHBETWEENNODES
+
+## tabdump(<TABLENAME>) is used to get all the information 
+## in the <TABLENAME> table 
+## The <TABLENAME> should only be non-"node key" table
+## and two keys table, such as networks, passwd.
+## <TABLENAME> should not be site, auditlog or eventlog.
+## if the key in the table is a node,
+##  you should use #TABLE...# instead of tabdump(). See #TABLE below.
+## tabdump (networks)
+tabdump(networks)
+
+NODE=$NODE
+export NODE
+
+# get GROUP list
+GROUP=#TABLE:nodelist:$NODE:groups#
+export GROUP 
+
+## This is the syntax to get the value of one attribute from the
+## <tablename> and its key is $NODE.
+## It doesn't support the cases where the table has 2 keys.
+
+## nfsserver,installnic,primarynic,routenames from the noderes tab
+NFSSERVER=#TABLE:noderes:$NODE:nfsserver#
+export NFSSERVER
+INSTALLNIC=#TABLE:noderes:$NODE:installnic#
+export INSTALLNIC
+PRIMARYNIC=#TABLE:noderes:$NODE:primarynic#
+export PRIMARYNIC
+
+MASTER=#TABLE:noderes:$NODE:xcatmaster#
+export MASTER
+
+NODEROUTENAMES=#TABLE:noderes:$NODE:routenames#
+export NODEROUTENAMES
+#ROUTES_VARS_EXPORT#
+
+
+## osver, arch, profile export
+OSVER=#TABLE:nodetype:$NODE:os#
+export OSVER
+ARCH=#TABLE:nodetype:$NODE:arch#
+export ARCH
+PROFILE=#TABLE:nodetype:$NODE:profile#
+export PROFILE
+PROVMETHOD=#TABLE:nodetype:$NODE:provmethod#
+export PROVMETHOD
+
+## add current directory to the path
+
+PATH=`dirname $0`:$PATH
+export PATH
+
+## AIXX root password related items. AIX root password may not be configured.
+## There may be no information.
+#AIX_ROOT_PW_VARS_EXPORT#
+
+NODESETSTATE=$NSETSTATE
+export NODESETSTATE
+
+UPDATENODE=0
+export UPDATENODE
+
+NTYPE=$NTYPE
+export NTYPE
+
+MACADDRESS=#TABLE:mac:$NODE:mac#
+export MACADDRESS
+
+
+## vlan related items. vlan may not be configured. 
+#VLAN_VARS_EXPORT#
+
+
+## get monitoring server and other configuration data for monitoring setup on nodes. This may not be configured. 
+#MONITORING_VARS_EXPORT#
+
+
+## get the osimage related variables, such as ospkgdir, ospkgs ...
+#OSIMAGE_VARS_EXPORT#
+
+
+
+## get the diskless networks information. There may be no information.
+#NETWORK_FOR_DISKLESS_EXPORT#
+
+
+## NIC related attributes for the node for confignics postscript
+## There may be no information
+NICNODE=#TABLE:nics:$NODE:node#
+export NICNODE
+
+NICIPS=#TABLE:nics:$NODE:nicips#
+export NICIPS
+
+NICHOSTNAMESUFFIXES=#TABLE:nics:$NODE:nichostnamesuffixes#
+export NICHOSTNAMESUFFIXES
+
+NICTYPES=#TABLE:nics:$NODE:nictypes#
+export NICTYPES
+
+NICCUSTOMSCRIPTS=#TABLE:nics:$NODE:niccustomscripts#
+export NICCUSTOMSCRIPTS
+
+NICNETWORKS=#TABLE:nics:$NODE:nicnetworks#
+export NICNETWORKS
+
+CFGMGR=#TABLE:cfgmgt:$NODE:cfgmgr#
+export CFGMGR
+
+CFGSERVER=#TABLE:cfgmgt:$NODE:cfgserver#
+export CFGSERVER
+
+
+##
+##The line postscripts-start-here must not be deleted. 
+# postscripts-start-here
+
+#INCLUDE_POSTSCRIPTS_LIST#
+
+##The line postscripts-end-here must not be deleted. 
+# postscripts-end-here
+
+## The line postbootscripts-start-here must not be deleted. 
+# postbootscripts-start-here
+
+#INCLUDE_POSTBOOTSCRIPTS_LIST#
+
+## The line postbootscripts-end-here must not be deleted. 
+# postbootscripts-end-here

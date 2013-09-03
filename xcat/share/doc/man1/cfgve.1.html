@@ -1,0 +1,243 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;cfgve&gt; - Configure the elements for a virtual environment.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>cfgve</strong> - Configure the elements for a virtual environment.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>cfgve</strong> <strong>-t</strong> dc <strong>-m</strong> manager <strong>-o</strong> object [<strong>-c</strong> <strong>-k</strong> nfs|localfs | <strong>-r</strong>]</p>
+<p><strong>cfgve</strong> <strong>-t</strong> cl <strong>-m</strong> manager <strong>-o</strong> object [<strong>-c</strong> <strong>-p</strong> cpu type| <strong>-r</strong> <strong>-f</strong>]</p>
+<p><strong>cfgve</strong> <strong>-t</strong> sd <strong>-m</strong> manager <strong>-o</strong> object [<strong>-c</strong> | <strong>-g</strong> | <strong>-s</strong> 
+| <strong>-a</strong> | <strong>-b</strong> | <strong>-r</strong> <strong>-f</strong>]</p>
+<p><strong>cfgve</strong> <strong>-t</strong> nw <strong>-m</strong> manager <strong>-o</strong> object [<strong>-c</strong> <strong>-d</strong> data center <strong>-n</strong> 
+vlan ID | <strong>-a</strong> <strong>-l</strong> cluster | <strong>-b</strong> | <strong>-r</strong>]</p>
+<p><strong>cfgve</strong> <strong>-t</strong> tpl <strong>-m</strong> manager <strong>-o</strong> object [<strong>-r</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>cfgve</strong> command can be used to configure a virtual environment for 
+'Storage Domain', 'Network' and 'Template' objects.</p>
+<p>The mandatory parameter <strong>-m manager</strong> is used to specify the address of the 
+manager of virtual environment. xCAT needs it to access the RHEV manager.</p>
+<p>The mandatory parameter <strong>-t type</strong> is used to specify the type of the target 
+object.</p>
+<p>Basically, <strong>cfgve</strong> command supports five types of object: <strong>dc</strong>, <strong>cl</strong>, 
+<strong>sd</strong>, <strong>nw</strong> and <strong>tpl</strong>.</p>
+<p><strong>dc</strong> - The <strong>create</strong> and <strong>remove</strong> operations are supported.</p>
+<p><strong>cl</strong> - The <strong>create</strong> and <strong>remove</strong> operations are supported.</p>
+<p><strong>sd</strong>  - The <strong>create</strong>, <strong>attach</strong>, <strong>detach</strong>, <strong>activate</strong>, 
+<strong>deactivate</strong> and <strong>remove</strong> operations are supported.</p>
+<p><strong>nw</strong>  - The <strong>create</strong>, <strong>attach</strong>, <strong>detach</strong> and <strong>remove</strong> operations are supported.</p>
+<p><strong>tpl</strong> - The <strong>remove</strong> operation is supported.</p>
+<p>The mandatory parameter <strong>-o object</strong> is used to specify which object to configure.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2da_to_attach_the_target_object_2e"><strong>-a</strong>
+To attach the target object.</a></strong>
+
+<dt><strong><a name="item__2db_to_detach_the_target_object_2e"><strong>-b</strong>
+To detach the target object.</a></strong>
+
+<dt><strong><a name="item__2dc_to_create_the_target_object_2e"><strong>-c</strong>
+To create the target object.</a></strong>
+
+<dd>
+<p>For creating of <strong>Storage Domain</strong>, the target storage domain will be created 
+first, then attached to data center and activated.</p>
+</dd>
+<dd>
+<p>The parameters that used to create the storage domain are gotten 
+from 'virtsd' table. The detail parameters in the virtsd table:</p>
+</dd>
+<p><strong>virtsd.node</strong> - The name of the storage domain.</p>
+<p><strong>virtsd.sdtype</strong> - The type of storage domain. Valid value: data, iso, export. 
+Default value is 'data'.</p>
+<p><strong>virtsd.stype</strong> - The storage type. ``nfs'' or ``localfs''.</p>
+<p><strong>virtsd.location</strong> - The location of the storage. 
+<strong>nfs</strong>: Format: [nfsserver:nfspath]. 
+The NFS export directory must be configured for read write access and must 
+be owned by vdsm:kvm.
+<strong>localfs</strong>: ``/data/images/rhev'' is set by default.</p>
+<p><strong>virtsd.host</strong> - A host must be specified for a storage doamin as SPM 
+(Storage Pool Manager) when initialize the storage domain. The role of SPM 
+may be migrated to other host by rhev-m during the running of the datacenter 
+(For example, when the current SPM encountered issue or going to maintenance 
+status.</p>
+<p><strong>virtsd.datacenter</strong> - The storage will be attached to. 'Default' data center 
+is the default value.</p>
+<dt><strong><a name="item__2dd_data_center"><strong>-d</strong> <em>data center</em></a></strong>
+
+<dd>
+<p>The name of data center.</p>
+</dd>
+<dd>
+<p>Specify the 'Data Center' that will be used for the object to be attached to. 
+It is used by &lt;nw&gt; type.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_it_can_be_used_with_b_3c_2dr_3e_to_remove_the"><strong>-f</strong>
+It can be used with <strong>-r</strong> to remove the target object by force.</a></strong>
+
+<dd>
+<p>For removing of <strong>Storage Domain</strong>, if <strong>-f</strong> is specified, the storage domain will be deactivated and detached from data center before the removing.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dg_to_activate_the_target_object_2e"><strong>-g</strong>
+To activate the target object.</a></strong>
+
+<dt><strong><a name="item__2dh_display_usage_message_2e"><strong>-h</strong>
+Display usage message.</a></strong>
+
+<dt><strong><a name="item__2dk_storage_type"><strong>-k</strong> <em>storage type</em></a></strong>
+
+<dd>
+<p>To specify the type of the storage type when creating the data center.</p>
+</dd>
+<dd>
+<p>Supported type: nfs; localfs.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dl_cluster"><strong>-l</strong> <em>cluster</em></a></strong>
+
+<dd>
+<p>Specify the cluster for the network to attach to.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dm_manager"><strong>-m</strong> <em>manager</em></a></strong>
+
+<dd>
+<p>Specify the manager of the virtual environment.</p>
+</dd>
+<dd>
+<p>For RHEV, the FQDN (Fully Qualified Domain Name) of the rhev manager have 
+to be specified.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dn_vlan_id"><strong>-n</strong> <em>vlan ID</em></a></strong>
+
+<dd>
+<p>To specify the vlan number when creating a network.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2do_object"><strong>-o</strong> <em>object</em></a></strong>
+
+<dd>
+<p>The name of the target object.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_cpu_type"><strong>-p</strong> <em>cpu type</em></a></strong>
+
+<dd>
+<p>To specify the cpu type when creating the cluster.
+<strong>Intel Penryn Family</strong> is default type.</p>
+</dd>
+<dd>
+<p>Supported type: <strong>Intel Conroe Family</strong>, <strong>Intel Penryn Family</strong>,
+<strong>Intel Nehalem Family</strong>, <strong>Intel Westmere Family</strong>, <strong>AMD Opteron G1</strong>,
+<strong>AMD Opteron G2</strong>, <strong>AMD Opteron G3</strong></p>
+</dd>
+</li>
+<dt><strong><a name="item__2dr_to_remove_the_target_object_2e"><strong>-r</strong>
+To remove the target object.</a></strong>
+
+<dd>
+<p>For removing of <strong>Storage Domain</strong>, the storage space will be formatted after removing.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_to_deactivate_the_target_object_2e"><strong>-s</strong>
+To deactivate the target object.</a></strong>
+
+<dt><strong><a name="item__2dt_type"><strong>-t</strong> <em>type</em></a></strong>
+
+<dd>
+<p>Specify the <strong>type</strong> of the target object.</p>
+</dd>
+<dd>
+<p>Supported types:
+ <strong>dc</strong>  - Data Center
+ <strong>cl</strong>  - Cluster
+ <strong>sd</strong>  - Storage Domain
+ <strong>nw</strong>  - Network
+ <strong>tpl</strong> - Template</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0  The command completed successfully.</p>
+<p>1  An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li><strong><a name="item_to_create_the_storage_domain__27sd1_27_2c_enter_3a">To create the Storage Domain 'sd1', enter:</a></strong>
+
+<pre>
+ cfgve -t sd -m &lt;FQDN of rhev manager&gt; -o sd1 -c</pre>
+<li><strong><a name="item_to_deactivate_the_storage_domain__27sd1_27_from_da">To deactivate the Storage Domain 'sd1' from data center, enter:</a></strong>
+
+<pre>
+ cfgve -t sd -m &lt;FQDN of rhev manager&gt; -o sd1 -s</pre>
+<li><strong><a name="item_to_remove_the_storage_domain__27sd1_27_2c_enter_3a">To remove the Storage Domain 'sd1', enter:</a></strong>
+
+<pre>
+ cfgve -t sd -m &lt;FQDN of rhev manager&gt; -o sd1 -r</pre>
+<li><strong><a name="item_to_create_the_network__27nw1_27_2c_enter_3a">To create the network 'nw1', enter:</a></strong>
+
+<pre>
+ cfgve -t nw -m &lt;FQDN of rhev manager&gt; -o nw1 -c</pre>
+<li><strong><a name="item_to_remove_the_template__27tpl01_27_2c_enter_3a">To remove the template 'tpl01', enter:</a></strong>
+
+<pre>
+ cfgve -t tpl -m &lt;FQDN of rhev manager&gt; -o tpl01 -r</pre>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/cfgve</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="lsve.1.html">lsve(1)</a></p>
+
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;vmmaster&gt; - a table in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#vmmaster_attributes_">vmmaster Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>vmmaster</strong> - a table in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>vmmaster Attributes:</strong>  <em>name</em>, <em>os</em>, <em>arch</em>, <em>profile</em>, <em>storage</em>, <em>storagemodel</em>, <em>nics</em>, <em>vintage</em>, <em>originator</em>, <em>virttype</em>, <em>specializeparameters</em>, <em>comments</em>, <em>disable</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Inventory of virtualization images for use with clonevm.  Manual intervention in this table is not intended.</p>
+<p>
+</p>
+<hr />
+<h1><a name="vmmaster_attributes_">vmmaster Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_name"><strong>name</strong></a></strong>
+
+<dd>
+<p>The name of a master</p>
+</dd>
+</li>
+<dt><strong><a name="item_os"><strong>os</strong></a></strong>
+
+<dd>
+<p>The value of nodetype.os at the time the master was captured</p>
+</dd>
+</li>
+<dt><strong><a name="item_arch"><strong>arch</strong></a></strong>
+
+<dd>
+<p>The value of nodetype.arch at the time of capture</p>
+</dd>
+</li>
+<dt><strong><a name="item_profile"><strong>profile</strong></a></strong>
+
+<dd>
+<p>The value of nodetype.profile at time of capture</p>
+</dd>
+</li>
+<dt><strong><a name="item_storage"><strong>storage</strong></a></strong>
+
+<dd>
+<p>The storage location of bulk master information</p>
+</dd>
+</li>
+<dt><strong><a name="item_storagemodel"><strong>storagemodel</strong></a></strong>
+
+<dd>
+<p>The default storage style to use when modifying a vm cloned from this master</p>
+</dd>
+</li>
+<dt><strong><a name="item_nics"><strong>nics</strong></a></strong>
+
+<dd>
+<p>The nic configuration and relationship to vlans/bonds/etc</p>
+</dd>
+</li>
+<dt><strong><a name="item_vintage"><strong>vintage</strong></a></strong>
+
+<dd>
+<p>When this image was created</p>
+</dd>
+</li>
+<dt><strong><a name="item_originator"><strong>originator</strong></a></strong>
+
+<dd>
+<p>The user who created the image</p>
+</dd>
+</li>
+<dt><strong><a name="item_virttype"><strong>virttype</strong></a></strong>
+
+<dd>
+<p>The type of virtualization this image pertains to (e.g. vmware, kvm, etc)</p>
+</dd>
+</li>
+<dt><strong><a name="item_specializeparameters"><strong>specializeparameters</strong></a></strong>
+
+<dd>
+<p>Implementation specific arguments, currently only ``autoLogonCount=&lt;number'' for ESXi clonevme</p>
+</dd>
+</li>
+<dt><strong><a name="item_comments"><strong>comments</strong></a></strong>
+
+<dt><strong><a name="item_disable"><strong>disable</strong></a></strong>
+
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong></p>
+
+</body>
+
+</html>

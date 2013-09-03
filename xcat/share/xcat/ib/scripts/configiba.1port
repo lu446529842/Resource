@@ -1,0 +1,279 @@
+#!/bin/sh  
+# IBM(c) 2008 EPL license http://www.eclipse.org/legal/epl-v10.html
+
+# Sample xCAT post script for configuring secondary adatper based on eth0
+
+# settings and some conventions.  This scripts works for both diskfull installs # and diskless boots.
+
+# configiba.1port assume there is only port availabe per IB adapter.
+
+PLTFRM=`uname`
+
+if [[ $OSVER == rhels5*  || "$OSVER" == rhels6* ]]
+then
+    ib_driver="rdma"
+    /sbin/service $ib_driver status
+    if [ $? -eq 1 ]
+    then
+        ib_driver="openibd"
+        /sbin/service $ib_driver status
+        if [ $? -eq 1 ]
+        then
+            echo "Not found the driver dameon: rdma or openibd"
+            exit
+        fi
+    fi   
+
+else
+    ib_driver="openibd"
+fi
+
+# Bringup all the ib interfaces
+if [ $PLTFRM == "Linux" ]
+then
+    if [ -f "/etc/rdma/rdma.conf" ]
+    then
+        sed -i "s/SDP_LOAD=yes/SDP_LOAD=no/g" /etc/rdma/rdma.conf
+    elif [ -f "/etc/infiniband/openib.conf" ]
+    then
+        sed -i "s/SDP_LOAD=yes/SDP_LOAD=no/g" /etc/infiniband/openib.conf
+    fi
+
+    #if [ $OS_name == "suse" ]
+    if [ -f "/etc/modprobe.conf" ]
+    then
+        sed -i "/options ib_ehca nr_ports/d" /etc/modprobe.conf
+        sed -i "/options ib_ehca lock_hcalls/d" /etc/modprobe.conf
+        echo 'options ib_ehca nr_ports=1' >> /etc/modprobe.conf
+        echo 'options ib_ehca lock_hcalls=0' >> /etc/modprobe.conf 
+    fi
+    /sbin/chkconfig --level 2345 $ib_driver on  > /dev/null 2>&1
+    /sbin/service $ib_driver restart
+    sysctl -p
+
+fi
+
+
+if [ $PLTFRM == "Linux" ]
+then
+
+    ib_number=`lspci | grep -iE "(InfiniBand|Mellanox)" | wc -l` 
+    #loop_number=$[ $ib_number * 2 ] 
+    loop_number=$ib_number
+
+    if [ -f /etc/redhat-release ]
+    then
+        OS_name="redhat"
+    elif [ -f /etc/SuSE-release ]
+    then
+        OS_name="suse"
+    else
+        echo "Unsupported to config IB on this OS!"
+        exit
+     fi
+ 
+    if [ $OS_name == 'suse' ]
+    then
+         dir="/etc/sysconfig/network"
+    else
+         dir="/etc/sysconfig/network-scripts"
+    fi
+    `rm -f $dir/ifcfg-ib*`
+else
+
+    loop_number=`lsdev | grep "IP over Infiniband Network Interface" | wc -l`
+
+    num=0
+    #for (( num = 0; num < loop_number; num++ ))
+    while [ $num -lt $loop_number ]
+    do
+          `rmdev -d -l ib$num >/dev/null 2>&1`
+          `rmdev -d -l iba$num >/dev/null 2>&1`
+          n=`expr $num % 2`
+          if [ $n == 1 ]
+          then
+               mlnum=`expr $num / 2`
+              `rmdev -d -l ml$mlnum >/dev/null 2>&1`
+          fi
+          num=`expr $num + 1`
+    done
+    `rmdev -dl icm >/dev/null 2>&1`  
+    mkdev -c management -s infiniband -t icm
+    cfgmgr
+    loop_number=`lsdev -Cc adapter |grep iba |wc -l`
+
+fi
+
+
+
+HOST=`hostname -s`
+
+#for num in 0 1
+num=0
+while [ $num -lt $loop_number ]
+do
+    # Take primary node name, add -ib$num and then reverse resolve to get what ip should be
+    nic="ib$num"   
+    
+    # Get hostname from system in case postscript environment is not ready
+    if [ $NODE ]
+    then
+        hostname="$NODE-$nic"
+        shortname=$NODE
+    else
+        hostname="$HOST-$nic"
+        shortname=$HOST
+    fi
+    `ifconfig $nic up`
+    if [ $PLTFRM == "Linux" ]
+    then
+        ip=`ping -c 3 -I ib$num $hostname | grep "data" | sed 's/.* (\([0-9.]*\)).*/\1/' | uniq 2>&1`
+    else
+        ip=`ping -c 3 $hostname | grep "data" | sed 's/.* (\([0-9.]*\)).*/\1/' | uniq 2>&1`
+    fi
+
+    if [ $ip ]
+    then
+        netmask="255.255.255.0"
+        # in rhels6.1 , currently it supports PREFIX=24 instead of NETMASK=255.255.255.0 ,
+        # and NETWORK=.....
+        prefix=24
+        first=`echo $ip | awk -F. '{print $1}'`
+        second=`echo $ip | awk -F. '{print $2}'`
+        gateway="$first.$second.255.254"
+
+        if [ $PLTFRM == "Linux" ]
+        then
+            # Issue openibd for Linux at boot time
+           
+            if [ -f /etc/sysctl.conf ]
+            then
+                sed -i "/net.ipv4.conf.$nic.arp_filter=1/d" /etc/sysctl.conf
+                sed -i "/net.ipv4.conf.$nic.arp_ignore=1/d" /etc/sysctl.conf
+                echo "net.ipv4.conf.$nic.arp_filter=1" >> /etc/sysctl.conf
+                echo "net.ipv4.conf.$nic.arp_ignore=1" >> /etc/sysctl.conf
+            fi
+
+            # Write the info to the ifcfg file
+           echo "DEVICE=$nic
+BOOTPROTO=static
+IPADDR=$ip
+NETMASK=$netmask
+GATEWAY=$gateway" > $dir/ifcfg-$nic
+            if [[ "$OSVER" == rhels6* ]]
+            then 
+                echo "DEVICE=$nic
+BOOTPROTO=static
+IPADDR=$ip
+PREFIX=$prefix
+GATEWAY=$gateway" > $dir/ifcfg-$nic
+            fi
+
+            if [ $OS_name == 'redhat' ]
+            then
+                echo "ONBOOT=yes" >> $dir/ifcfg-$nic
+            else 
+                echo "STARTMODE=auto" >> $dir/ifcfg-$nic
+            fi
+        elif [ $PLTFRM == "AIX" ]
+        then
+            #lsdev -C | grep icm | grep Available
+            #if [ $? -ne 0 ]
+            #then
+            #    mkdev -c management -s infiniband -t icm
+            #    if [ $? -ne 0 ]
+            #    then
+            #        mkdev -l icm
+            #        if [ $? -ne 0 ]
+            #        then
+            #            exit $?
+            #        fi
+            #    fi
+            #fi
+
+            #Configure the IB interfaces.  Customize the port num.
+            iba_num=$num
+            ib_adapter="iba$iba_num"
+            port=1
+            chdev -l $ib_adapter -a hostname=$shortname
+            mkiba -a $ip -i $nic -A $ib_adapter -p $port -P -1 -S up -m $netmask
+        fi
+    fi
+         
+    num=`expr $num + 1`
+done
+
+# Bringup all the ib interfaces
+if [ $PLTFRM == "Linux" ]
+then
+#    if [ -f "/etc/rdma/rdma.conf" ]
+#    then
+#        sed -i "s/SDP_LOAD=yes/SDP_LOAD=no/g" /etc/rdma/rdma.conf
+#    elif [ -f "/etc/infiniband/openib.conf" ]
+#    then
+#        sed -i "s/SDP_LOAD=yes/SDP_LOAD=no/g" /etc/infiniband/openib.conf
+#    fi
+
+#    if [ $OS_name == "suse" ]
+#    then
+#        sed -i "/options ib_ehca nr_ports/d" /etc/modprobe.conf
+#        sed -i "/options ib_ehca lock_hcalls/d" /etc/modprobe.conf
+#        echo 'options ib_ehca nr_ports=1' >> /etc/modprobe.conf
+#        echo 'options ib_ehca lock_hcalls=0' >> /etc/modprobe.conf 
+#    fi
+#    /sbin/chkconfig --level 2345 $ib_driver on
+    /sbin/service $ib_driver restart
+#    sysctl -p
+
+    sleep 10
+
+    #for num in 0 1
+    while [ $num -lt $loop_number ]
+    do
+        sleep 5
+        #ifup ib$num
+        if [[ "$OSVER" == rhels6* ]]
+        then
+            ip link set dev ib$num up
+        else 
+            ifup ib$num      
+        fi
+
+        num=`expr $num + 1`
+    done
+fi
+
+#Configure the ml0 interface
+if [ $PLTFRM == "AIX" ]
+then
+    if [ $NODE ]
+    then
+        hostname="$NODE-ml0"
+    else
+        hostname="$HOST-ml0"
+    fi
+
+    #Check whether the mlt0 is available
+    lsdev -C | grep mlt0 | grep Available 2>&1 >/dev/null
+    if [ $? -ne 0 ]
+    then
+        exit
+    fi
+
+    #Check whether the ml0 is available
+    lsdev -C | grep ml0 2>&1 >/dev/null
+    if [ $? -ne 0 ]
+    then
+        cfgmgr 2>&1 >/dev/null
+    fi
+
+    ip=`ping -c 3 $hostname | grep "data" | sed 's/.* (\([0-9.]*\)).*/\1/' | uniq 2>&1`
+    netmask="255.255.255.0"
+
+    if [ $ip ]
+    then
+        chdev -l ml0 -a state=detach 2>&1
+
+        chdev -l ml0 -a netaddr=$ip -a netmask=$netmask -a state=up 2>&1
+    fi
+fi

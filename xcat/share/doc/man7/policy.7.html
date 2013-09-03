@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;policy&gt; - a logical object definition in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#policy_attributes_">policy Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>policy</strong> - a logical object definition in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>policy Attributes:</strong>  <em>commands</em>, <em>host</em>, <em>name</em>, <em>noderange</em>, <em>parameters</em>, <em>priority</em>, <em>rule</em>, <em>time</em>, <em>usercomment</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Logical objects of this type are stored in the xCAT database in one or more tables.  Use the following commands
+to manipulate the objects: <strong>mkdef</strong>, <strong>chdef</strong>, <strong>lsdef</strong>, and <strong>rmdef</strong>.  These commands will take care of
+knowing which tables the object attributes should be stored in.  The attribute list below shows, in
+parentheses, what tables each attribute is stored in.</p>
+<p>
+</p>
+<hr />
+<h1><a name="policy_attributes_">policy Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_commands"><strong>commands</strong> (policy.commands)</a></strong>
+
+<dd>
+<p>The list of commands that this rule applies to.  Default is ``*'' (all commands).</p>
+</dd>
+</li>
+<dt><strong><a name="item_host"><strong>host</strong> (policy.host)</a></strong>
+
+<dd>
+<p>The host from which users may issue the commands specified by this rule.  Default is ``*'' (all hosts). Only all or one host supported.</p>
+</dd>
+</li>
+<dt><strong><a name="item_name"><strong>name</strong> (policy.name)</a></strong>
+
+<dd>
+<p>The username that is allowed to perform the commands specified by this rule.  Default is ``*'' (all users).</p>
+</dd>
+</li>
+<dt><strong><a name="item_noderange"><strong>noderange</strong> (policy.noderange)</a></strong>
+
+<dd>
+<p>The Noderange that this rule applies to.  Default is ``*'' (all nodes). Not supported with the *def commands.</p>
+</dd>
+</li>
+<dt><strong><a name="item_parameters"><strong>parameters</strong> (policy.parameters)</a></strong>
+
+<dd>
+<p>A regular expression that matches the command parameters (everything except the noderange) that this rule applies to.  Default is ``*'' (all parameters). Not supported with the *def commands.</p>
+</dd>
+</li>
+<dt><strong><a name="item_priority"><strong>priority</strong> (policy.priority)</a></strong>
+
+<dd>
+<p>The priority value for this rule.  This value is used to identify this policy data object (i.e. this rule).</p>
+</dd>
+</li>
+<dt><strong><a name="item_rule"><strong>rule</strong> (policy.rule)</a></strong>
+
+<dd>
+<p>Specifies how this rule should be applied.  Valid values are: allow, accept, trusted. Allow or accept  will allow the user to run the commands. Any other value will deny the user access to the commands. Trusted means that once this client has been authenticated via the certificate, all other information that is sent (e.g. the username) is believed without question.  This authorization should only be given to the xcatd on the management node at this time.</p>
+</dd>
+</li>
+<dt><strong><a name="item_time"><strong>time</strong> (policy.time)</a></strong>
+
+<dd>
+<p>Time ranges that this command may be executed in.  This is not supported.</p>
+</dd>
+</li>
+<dt><strong><a name="item_usercomment"><strong>usercomment</strong> (policy.comments)</a></strong>
+
+<dd>
+<p>Any user-written notes.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>mkdef(1)</strong>, <strong>chdef(1)</strong>, <strong>lsdef(1)</strong>, <strong>rmdef(1)</strong></p>
+
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;packimage&gt; - Packs the stateless image from the chroot file system.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#parameters">Parameters</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#notes">NOTES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>packimage</strong> - Packs the stateless image from the chroot file system.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><em>packimage [-h| --help]</em></p>
+<p><em>packimage  [-v| --version]</em></p>
+<p><em>packimage [-o OS] [ -p profile] [-a architecture] [-m method]</em></p>
+<p><em>packimage imagename</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Packs the stateless image from the chroot file system into a file system to be
+sent to the node for a diskless install.
+The install dir is setup by using ``installdir'' attribute set in the site table.
+The nodetype table ``profile'' attribute for the node should reflect the profile of the install image.</p>
+<p>If no <em>imagename</em> is specified, this command uses the os image definition files from /install/custom/netboot/[os] directory first. If not found, it falls back to the default directory  /opt/xcat/share/xcat/netboot/[os]. 
+If a <em>imagename</em> is specified, this command will get all the necessary os image definition files from the <em>osimage</em> and <em>linuximage</em> tables.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameters">Parameters</a></h1>
+<p><em>imagename</em> specifies the name of a os image definition to be used. The specification for the image is stored in the <em>osimage</em> table and <em>linuximage</em> table.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-h</strong>          Display usage message.</p>
+<p><strong>-v</strong>          Command Version.</p>
+<p><strong>-o</strong>          Operating system (fedora8, rhel5, sles10,etc)</p>
+<p><strong>-p</strong>          Profile (compute,service)</p>
+<p><strong>-a</strong>          Architecture (ppc64,x86_64,etc)</p>
+<p><strong>-m</strong>          Method (default cpio)</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To pack a fedora8 image for a compute node architecture x86_64 and place it in the  /install/netboot/fedora8/x86_64/compute/rootimg.gz file enter:</p>
+<p><em>packimage  -o fedora8 -p compute -a x86_64</em></p>
+<p>This would use the package information from the /install/custom/netboot/fedora/compute* files first. If not found it uses /opt/xcat/share/xcat/netboot/fedora/compute* files.</p>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/sbin/packimage</p>
+<p>
+</p>
+<hr />
+<h1><a name="notes">NOTES</a></h1>
+<p>This command is part of the xCAT software product.</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="genimage.1.html">genimage(1)</a></p>
+
+</body>
+
+</html>

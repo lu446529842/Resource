@@ -1,0 +1,164 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;nimnodeset&gt; - Use this xCAT command to initialize AIX/NIM standalone machines.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#notes">NOTES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>nimnodeset</strong> - Use this xCAT command to initialize AIX/NIM standalone machines.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>nimnodeset [-h|--help ]</strong></p>
+<p><strong>nimnodeset [-V|--verbose] [-f|--force] [-i osimage_name] [-l location] [-p|--primarySN] [-b|--backupSN] noderange [attr=val [attr=val ...]]</strong></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This xCAT command can be used to initialize AIX/NIM standalone machines. Once this step is completed the either the xCAT <strong>rnetboot</strong> command or the <strong>rbootseq/rpower</strong> commands to initiate a network boot of the nodes.</p>
+<p>If you are using xCAT service nodes the <strong>nimnodeset</strong> command will automatically determine the correct <code>server(s)</code> for the node and do the initialization on that server(s).</p>
+<p>The osimage_name is the name of an xCAT osimage definition that contains the list of NIM resources to use when initializing the nodes.   If the osimage_name is not provided on the command line the code checks the node definition for the value of the ``provmethod'' attribute (which is the name of an osimage definition). If the osimage_image is provided on the command line then the code will also set the ``provmethod'' attribute of the node definiions.</p>
+<p>This command will also create a NIM resolv_conf resource to be used when installing the node.  If a resolv_conf resource is not already included in the xCAT osimage definition and if the ``domain'' and ``nameservers'' values are set then a new
+NIM resolv_conf resource will be created and allocated to the nodes.</p>
+<p>The ``domain'' and ``nameservers'' attributes can be set in either the xCAT ``network'' definition used by the nodes or in the xCAT cluster ``site'' definition. The setting in the ``network'' definition will take priority.</p>
+<p>The ``search'' field of the resolv.conf file will contain a list all the domains
+listed in the xCAT network definitions and the xCAT site definiton.</p>
+<p>The ``nameservers'' value can either be set to a specific IP address or the ``&lt;xcatmaster&gt;'' key word.  The ``&lt;xcatmaster&gt;'' key word means that the value of the ``xcatmaster'' attribute of the node definition will be used in the /etc/resolv.conf file.  (I.e.  The name of the install server as known by the node.)</p>
+<p>You can set the ``domain'' and ``nameservers'' attributes by using the <strong>chdef</strong> command.  For example:</p>
+<p>chdef -t network -o clstr_net domain=cluster.com nameservers=&lt;xcatmaster&gt;</p>
+<p>If the ``domain'' and ``nameservers'' attributes are not set in either the nodes ``network'' definition or the ``site'' definition then no new NIM resolv_conf resource
+will be created.</p>
+<p>You can specify additional attributes and values using the ``attr=val'' command line option.  This information will be passed on to the underlying call to the NIM ``nim -o bos_inst'' command.  See the NIM documentation for information on valid command line options for the nim command.  The ``attr'' must correspond to a NIM attribute supported for the NIM ``bos_inst'' operation.  Information provided by the ``attr=val'' option will take precedence over the information provided in the osimage definition.</p>
+<p>The force option can be used to reinitialize a node if it already has resources allocated or it is in the wrong NIM state. This option will reset the NIM node and deallocate resources before reinititializing.</p>
+<p>This command will also create a NIM script resource to enable the xCAT support for user-provided customization scripts.</p>
+<p>After the <strong>nimnodeset</strong> command completes you can use the <strong>lsnim</strong> command to check the NIM node definition to see if it is ready for booting the node. (``lsnim -l &lt;nim_node_name&gt;'').</p>
+<p>You can supply your own scripts to be run on the management node  or on the service node (if their is hierarchy) for a node during the <strong>nimnodeset</strong> command. Such scripts are called <strong>prescripts</strong>. They should be copied to /install/prescripts dirctory. A table called <em>prescripts</em> is used to specify the scripts and their associated actions. The scripts to be run at the beginning of the <strong>nimnodeset</strong> command are stored in the 'begin' column of <em>prescripts</em> table. The scripts to be run at the end of the <strong>nimnodeset</strong> command are stored in the 'end' column of <em>prescripts</em> table. Please run 'tabdump prescripts -d' command for details. An example for the 'begin' or the 'end' column is: <em>standalone:myscript1,myscript2</em>. The following two environment variables will be passed to each script: NODES contains all the names of the nodes that need to run the script for and ACTION contains the current nodeset action, in this case ``standalone''. If <em>#xCAT setting:MAX_INSTANCE=number</em> is specified in the script, the script will get invoked for each node in parallel, but no more than <em>number</em> of instances will be invoked at at a time. If it is not sepcified, the script will be invoked once for all the nodes.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item_attr_3dval__5battr_3dval__2e_2e_2e_5d"><strong>attr=val [attr=val ...]</strong></a></strong>
+
+<dd>
+<p>Specifies one or more ``attribute equals value'' pairs, separated by spaces. Attr=
+val pairs must be specified last on the command line. These are used to specify additional values that can be passed to the underlying NIM commands, (``nim -o bos_inst ...'').  See the NIM documentation for valid ``nim'' command line options. Note that you may specify multiple ``script'' and ``installp_bundle'' values by using a comma seperated list. (ex. ``script=ascript,bscript'').</p>
+</dd>
+</li>
+<dt><strong><a name="item__2db_7c_2d_2dbackupsn"><strong>-b|--backupSN</strong></a></strong>
+
+<dd>
+<p>When using backup service nodes only update the backup.  The default is to update both the primary and backup service nodes</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df__7c_2d_2dforce"><strong>-f |--force</strong></a></strong>
+
+<dd>
+<p>Use the force option to reinitialize the NIM machines.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh__7c_2d_2dhelp"><strong>-h |--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di_image_name"><strong>-i image_name</strong></a></strong>
+
+<dd>
+<p>The name of an existing xCAT osimage definition.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dl_7c_2d_2dlocation"><strong>-l|--location</strong></a></strong>
+
+<dd>
+<p>The directory location to use when creating new NIM resolv_conf resources. The d
+efault location is /install/nim.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_7c_2d_2dprimarysn"><strong>-p|--primarySN</strong></a></strong>
+
+<dd>
+<p>When using backup service nodes only update the primary.  The default is to update both the primary and backup service nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_noderange"><strong>noderange</strong></a></strong>
+
+<dd>
+<p>A set of comma delimited node names and/or group names. See the ``noderange'' man page for details on additional supported formats.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv__7c_2d_2dverbose"><strong>-V |--verbose</strong></a></strong>
+
+<dd>
+<p>Verbose mode.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<ol>
+<li>
+<p>The command completed successfully.</p>
+</li>
+<li>
+<p>An error has occurred.</p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1) Initialize an xCAT node named ``node01''.  Use the xCAT osimage named ``61gold'' to install the node.</p>
+<p><strong>nimnodeset -i 61gold node01</strong></p>
+<p>2) Initialize all AIX nodes contained in the xCAT node group called ``aixnodes'' using the image definitions pointed to by the ``provmethod'' attribute of the xCAT node definitions.</p>
+<p><strong>nimnodeset aixnodes</strong></p>
+<p>3) Initialize an xCAT node called ``node02''.  Include installp_bundle resources that are not included in the osimage definition. This assumes the NIM installp_bundle resources have already been created.</p>
+<p><strong>nimnodeset -i 611image node02 installp_bundle=sshbundle,addswbundle</strong></p>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/nimnodeset</p>
+<p>
+</p>
+<hr />
+<h1><a name="notes">NOTES</a></h1>
+<p>This command is part of the xCAT software product.</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="mknimimage.1.html">mknimimage(1)</a>, <a href="rnetboot.1.html">rnetboot(1)</a></p>
+
+</body>
+
+</html>

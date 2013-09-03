@@ -1,0 +1,25 @@
+#Please make sure there is a space between @ and group name
+@ Everything
+@ Network Servers
+@ System Tools
+@ X Window System
+@ Legacy Software Development
+autofs
+ntp
+rsh
+psacct
+nfs-utils
+net-snmp
+rsync
+yp-tools
+ypbind
+m4
+sendmail-cf
+gdb
+binutils
+openssh-server
+vsftpd
+unixODBC
+perl-DBD-MySQL
+mysql-connector-odbc
+perl-DBD-Pg

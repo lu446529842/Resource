@@ -1,0 +1,247 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;chdef&gt; - Change xCAT data object definitions.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#notes">NOTES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>chdef</strong> - Change xCAT data object definitions.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>chdef</strong> [<strong>-h</strong>|<strong>--help</strong>] [<strong>-t</strong> <em>object-types</em>]</p>
+<p><strong>chdef</strong> [<strong>-t</strong> <em>object-types</em>] [<strong>-o</strong> <em>object-names</em>] [<strong>-n</strong> <em>new-name</em>] [<em>node</em>]</p>
+<p><strong>chdef</strong> [<strong>-V</strong>|<strong>--verbose</strong>] [<strong>-t</strong> <em>object-types</em>] [<strong>-o</strong> <em>object-names</em>]
+[<strong>-d</strong>|<strong>--dynamic</strong>] [<strong>-p</strong>|<strong>--plus</strong>] [<strong>-m</strong>|<strong>--minus</strong>] [<strong>-z</strong>|<strong>--stanza</strong>]
+[[<strong>-w</strong> <em>attr</em>==<em>val</em>] [<strong>-w</strong> <em>attr</em>=~<em>val</em>] ...] [<em>noderange</em>] [<em>attr</em>=<em>val</em> [<em>attr</em>=<em>val...</em>]]
+      [<strong>-u</strong> <strong>provmethod</strong>=&lt;<em>install</em>|<em>netboot</em>|<em>statelite</em>&gt; <strong>profile</strong>=&lt;xxx&gt; [<em>attr</em>=<em>value</em>]]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This command is used to change xCAT object definitions which are stored in the xCAT database.  The default is to replace any existing attribute value with the one specified on the command line. The command will also create a new definition if one doesn't exist.</p>
+<p>This command also can be used to change the xCAT object name to a new name. Note: the site,monitoring types can NOT be supported.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item_attr_3dval__5battr_3dval__2e_2e_2e_5d"><em>attr=val [attr=val ...]</em></a></strong>
+
+<dd>
+<p>Specifies one or more ``attribute equals value'' pairs, separated by spaces. Attr=val pairs must be specified last on the command line. Use the help option to get a list of valid attributes for each object type.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dd_7c_2d_2ddynamic"><strong>-d|--dynamic</strong></a></strong>
+
+<dd>
+<p>Use the dynamic option to change dynamic node groups definition. This option must be used with -w option.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dm_7c_2d_2dminus"><strong>-m|--minus</strong></a></strong>
+
+<dd>
+<p>If the value of the attribute is a list then this option may be used to remove one or more items from the list.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dn_new_2dname"><strong>-n</strong> <em>new-name</em></a></strong>
+
+<dd>
+<p>Change the current object name to the new-name which is specified by the -n option.
+Objects of type site and monitoring cannot be renamed with the -n option.
+Note: For the <strong>-n</strong> option, only one node can be specified. For some special nodes such as fsp, bpa, frame, cec etc., their name is referenced in their own hcp attribute, or the hcp attribute of other nodes. If you use <strong>-n</strong> option, you must manually change all hcp attributes that refer to this name.</p>
+</dd>
+</li>
+<dt><strong><a name="item_noderange"><em>noderange</em></a></strong>
+
+<dd>
+<p>A set of comma delimited node names and/or group names. (must be the first parameter) See the ``noderange'' man page for details on supported formats.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2do_object_2dnames"><strong>-o</strong> <em>object-names</em></a></strong>
+
+<dd>
+<p>A set of comma delimited object names.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_7c_2d_2dplus"><strong>-p|--plus</strong></a></strong>
+
+<dd>
+<p>This option will add the specified values to the existing value of the attribute.  It will create a comma-separated list of values.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dt_object_2dtypes"><strong>-t</strong> <em>object-types</em></a></strong>
+
+<dd>
+<p>A set of comma delimited object types.  Use the help option to get a list of valid object types.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Verbose mode.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dw_attr_3d_3dval__2dw_attr_3d_7eval__2e_2e_2e"><strong>-w</strong> <em>attr==val</em> <strong>-w</strong> <em>attr=~val</em> ...</a></strong>
+
+<dd>
+<p>Use one or multiple -w flags to specify the selection string that can be used to select objects. The operators ==, !=, =~ and !~ are available. Use the help option to get a list of valid attributes for each object type.</p>
+</dd>
+<dd>
+<p>Operator descriptions:
+        ==        Select nodes where the attribute value is exactly this value.
+        !=        Select nodes where the attribute value is not this specific value.
+        =~        Select nodes where the attribute value matches this regular expression.
+        !~        Select nodes where the attribute value does not match this regular expression.</p>
+</dd>
+<dd>
+<p>Note: the operator !~ will be parsed by shell, if you want to use !~ in the selection string, use single quote instead. For example:-w 'mgt!~ipmi'.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dz_7c_2d_2dstanza"><strong>-z|--stanza</strong></a></strong>
+
+<dd>
+<p>Indicates that the file being piped to the command is in stanza format. See the xcatstanzafile man page for details on using xCAT stanza files.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2du"><strong>-u</strong></a></strong>
+
+<dd>
+<p>This option only works for objtype <strong>osimage</strong>.</p>
+</dd>
+<dd>
+<p>Updating the osimage attribute automatically. If osvers or osarch is not specified, the corresponding value of the management node will be used.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>To change a site definition.</p>
+<pre>
+ chdef -t site -o clustersite installdir=/xcatinstall</pre>
+</li>
+<li>
+<p>To change a basic node definition.</p>
+<pre>
+ chdef -t node -o node01 groups=&quot;all,aix&quot;</pre>
+<p>(The group definitions are also created if they don't already exist.)</p>
+</li>
+<li>
+<p>To add another group to the ``groups'' attribute in the previous example.</p>
+<pre>
+ chdef -p -t node -o node01 groups=&quot;compute&quot;</pre>
+</li>
+<li>
+<p>To remove the ``all'' group from the ``groups'' attribute in the previous example.</p>
+<pre>
+ chdef -m -t node -o node01 groups=&quot;all&quot;</pre>
+</li>
+<li>
+<p>To replace the current ``groups'' attribute value of ``node01''.</p>
+<pre>
+ chdef -t node -o node01 groups=&quot;linux&quot;</pre>
+</li>
+<li>
+<p>To add ``node01'' to the ``members'' attribute of a group definition called ``LinuxNodes''.</p>
+<pre>
+ chdef -p -t group -o LinuxNodes members=&quot;node01&quot;</pre>
+</li>
+<li>
+<p>To update a set of definitions based on information contained in the stanza file mystanzafile.</p>
+<pre>
+ cat mystanzafile | chdef -z</pre>
+</li>
+<li>
+<p>To update a dynamic node group definition to add the cons=hmc wherevals pair.</p>
+<pre>
+ chdef -t group -o dyngrp -d -p -w cons==hmc</pre>
+</li>
+<li>
+<p>To change the node object name from node1 to node2.</p>
+<pre>
+ chdef -t node -o node1 -n node2</pre>
+</li>
+<li>
+<p>To change the node hwtype, this command will change the value of ppc.nodetype.</p>
+<pre>
+ chdef -t node -o node1 hwtype=lpar</pre>
+</li>
+<li>
+<p>To change the policy table for policy number 7.0 for admin1</p>
+<pre>
+ chdef -t policy -o 7.0 name=admin1 rule=allow</pre>
+</li>
+<li>
+<p>To change the node nic attributes</p>
+<pre>
+ chdef -t node -o cn1 nicips.eth0=&quot;1.1.1.1|1.2.1.1&quot; nicnetworks.eth0=&quot;net1|net2&quot; nictypes.eth0=&quot;Ethernet&quot;</pre>
+</li>
+<li>
+<p>To update an osimage definition.</p>
+<pre>
+ chdef redhat6img -u provmethod=install</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>$XCATROOT/bin/chdef</p>
+<p>(The XCATROOT environment variable is set when xCAT is installed. The
+default value is ``/opt/xcat''.)</p>
+<p>
+</p>
+<hr />
+<h1><a name="notes">NOTES</a></h1>
+<p>This command is part of the xCAT software product.</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="mkdef.1.html">mkdef(1)</a>, <a href="lsdef.1.html">lsdef(1)</a>, <a href="rmdef.1.html">rmdef(1)</a>, <a href="../man5/xcatstanzafile.5.html">xcatstanzafile(5)</a></p>
+
+</body>
+
+</html>

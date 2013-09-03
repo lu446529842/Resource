@@ -1,0 +1,193 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Name</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">Name</a></li>
+	<li><a href="#synopsis"><strong>Synopsis</strong></a></li>
+	<ul>
+
+		<li><a href="#ppc__with_hmc__specific_">PPC (with HMC) specific:</a></li>
+		<li><a href="#ppc__without_hmc__using_direct_fsp_management__specific_">PPC (without HMC, using Direct FSP Management) specific:</a></li>
+	</ul>
+
+	<li><a href="#description"><strong>Description</strong></a></li>
+	<ul>
+
+		<li><a href="#ppc__with_hmc__specific_">PPC (with HMC) specific:</a></li>
+		<li><a href="#ppc__using_direct_fsp_management__specific_">PPC (using Direct FSP Management) specific:</a></li>
+	</ul>
+
+	<li><a href="#options"><strong>Options</strong></a></li>
+	<li><a href="#exit_status"><strong>Exit Status</strong></a></li>
+	<li><a href="#examples"><strong>Examples</strong></a></li>
+	<li><a href="#location"><strong>Location</strong></a></li>
+	<li><a href="#notes">NOTES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">Name</a></h1>
+<p><strong>rflash</strong> - Performs Licensed Internal Code (LIC) update support for HMC-attached POWER5 and POWER6 Systems, and POWER7 systems using Direct FSP management.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis"><strong>Synopsis</strong></a></h1>
+<p><strong>rflash</strong> [<strong>-h</strong>|<strong>--help</strong> | <strong>-v</strong>|<strong>--version</strong>]</p>
+<p>
+</p>
+<h2><a name="ppc__with_hmc__specific_">PPC (with HMC) specific:</a></h2>
+<p><strong>rflash</strong> <em>noderange</em> <strong>-p</strong> <em>directory</em> {<strong>--activate</strong> <strong>concurrent</strong>|<strong>disruptive</strong>} [<strong>-V</strong>|<strong>--verbose</strong>]</p>
+<p><strong>rflash</strong> <em>noderange</em> {<strong>--commit</strong>|<strong>--recover</strong>} [<strong>-V</strong>|<strong>--verbose</strong>]</p>
+<p>
+</p>
+<h2><a name="ppc__without_hmc__using_direct_fsp_management__specific_">PPC (without HMC, using Direct FSP Management) specific:</a></h2>
+<p><strong>rflash</strong> <em>noderange</em> <strong>-p</strong> <em>directory</em> <strong>--activate</strong> <strong>disruptive</strong>|<strong>deferred</strong> [<strong>-d</strong> <em>data_directory</em>]</p>
+<p><strong>rflash</strong> <em>noderange</em> {<strong>--commit</strong>|<strong>--recover</strong>}</p>
+<p>
+</p>
+<hr />
+<h1><a name="description"><strong>Description</strong></a></h1>
+<p><strong>rflash</strong> The <strong>rflash</strong> command initiates Firmware updates on supported xCAT nodes.  Licensed Internal Code (also known as microcode) updates are performed on supported HMC-attached  POWER5 and POWER6 pSeries nodes, and POWER7 systems using Direct FSP management.</p>
+<p>The command scans the specified directory structure for Firmware update package files applicable to the given nodes and components. And then it will <strong>automatically</strong> select the <strong>latest</strong> version for the upgrade. The firmware update files include the Microcode update package and associated XML file. They can be downloaded from the IBM Web site: <em><a href="http://www-933.ibm.com/support/fixcentral/">http://www-933.ibm.com/support/fixcentral/</a></em>.</p>
+<p>The POWER5  and POWER6 systems contain several components that use Licensed Internal Code.  The <strong>rflash</strong> command supports two of these components: the managed system (also known as the Central Electronics Complex, or CEC) and the power subsystem (also known as the Bulk Power Assembly (BPA) or Bulk Power Controller (BPC)).  Some POWER5 managed systems can be attached to a power subsystem.  These power subsystems can support multiple managed systems.  When the <strong>rflash</strong> command is invoked, xCAT will determine the managed system or power subsystem associated with that CEC and perform the update.</p>
+<p>The <strong>noderange</strong> can be an CEC or CEC list, a Lpar or Lpar list and a Frame or Frame list. But CEC (or Lpar) and Frame <strong>can't</strong> be used at the same time. When the <em>noderange</em> is an CEC or CEC list, <strong>rflash</strong> will upgrade the firmware of the CEC or CECs in the cec list. If <em>noderange</em> is a Lpar or Lpar list, <strong>rflash</strong> will update Licensed Internal Code (LIC) on  HMC-attached POWER5 and POWER6 pSeries nodes, and POWER7 systems using Direct FSP management.  If <em>noderange</em> is a Frame or Frame list, <strong>rflash</strong> will update Licensed Internal Code (LIC) of the power subsystem on  HMC-attached POWER5 and POWER6 pSeries nodes. The <em>noderange</em> can also be the specified node groups. You  can  specify a  comma or space-separated list of node group ranges. See the <em>noderange</em>  man  page  for  detailed usage information.</p>
+<p>
+</p>
+<h2><a name="ppc__with_hmc__specific_">PPC (with HMC) specific:</a></h2>
+<p>The <strong>rflash</strong> command uses the <strong>xdsh</strong> command to connect to the HMC controlling the given managed system and perform the updates. Before run <strong>rflash</strong>, please use <strong>rspconfig</strong> to check if the related HMC ssh is enabled. If enable a HMC ssh connection, please use <strong>rspconfig</strong> comamnd.</p>
+<p><strong>Warning!</strong>  This command may take considerable time to complete, depending on the number of systems being updated and the workload on the target HMC.  In particular, power subsystem updates may take an hour or more if there are many attached managed systems.</p>
+<p>Depending on the Licensed Internal Code update that is installed, the affected HMC-attached POWER5 and POWER6 systems may need to be recycled.  The <strong>--activate</strong> flag determines how the affected systems activate the new code.  The concurrent option activates code updates that do not require a system recycle (known as a ``concurrent update'').  If this option is given with an update that requires a system recycle (known as a ``disruptive update''), a message will be returned, and no activation will be performed.  The disruptive option will cause any affected systems that are powered on to be powered down before installing and activating the update.  Once the update is complete, the command will attempt to power on any affected systems that it powered down.  Those systems that were powered down when the command was issued will remain powered down when the update is complete.</p>
+<p>The flash chip of a POWER5 and POWER6 managed system or power subsystem stores firmware in two locations, referred to as the temporary side and the permanent side.  By default, most POWER5 and POWER6 systems boot from the temporary side of the flash.  When the <strong>rflash</strong> command updates code, the current contents of the temporary side are written to the permanent side, and the new code is written to the temporary side.  The new code is then activated.  Therefore, the two sides of the flash will contain different levels of code when the update has completed.</p>
+<p>The <strong>--commit</strong> flag is used to write the contents of the temporary side of the flash to the permanent side.  This flag should be used after updating code and verifying correct system operation.  The <strong>--recover</strong> flag is used to write the permanent side of the flash chip back to the temporary side.  This flag should be used to recover from a corrupt flash operation, so that the previously running code can be restored.</p>
+<p><strong>NOTE:</strong>When the <strong>--commit</strong> or <strong>--recover</strong> two flags is used, the noderange <strong>cannot</strong> be BPA. It only <strong>can</strong> be CEC or LPAR ,and  will take effect for <strong>both</strong> managed systems and power subsystems.</p>
+<p>xCAT recommends that you shutdown your Operating System images and power off your managed systems before applying disruptive updates to managed systems or power subsystems.</p>
+<p>Any previously activated code on the affected systems will be automatically accepted into permanent flash by this procedure.</p>
+<p><strong>IMPORTANT!</strong>  If the power subsystem is recycled, all of its attached managed systems will be recycled.</p>
+<p>If it outputs <strong>``Timeout waiting for prompt''</strong> during the upgrade, please set the <strong>``ppctimeout''</strong> larger in the <strong>site</strong> table. After the upgrade, remeber to change it back. If run the <strong>``rflash''</strong> command on an AIX management node, need to make sure the value of <strong>``useSSHonAIX''</strong> is <strong>``yes''</strong> in the site table.</p>
+<p>
+</p>
+<h2><a name="ppc__using_direct_fsp_management__specific_">PPC (using Direct FSP Management) specific:</a></h2>
+<p>In currently Direct FSP/BPA Management, our <strong>rflash</strong> doesn't support <strong>concurrent</strong> value of <strong>--activate</strong> flag, and supports <strong>disruptive</strong> and <strong>deferred</strong>. The <strong>disruptive</strong> option will cause any affected systems that are powered on to be powered down before installing and activating the update. So we require that the systems should be powered off before do the firmware update.</p>
+<p>The <strong>deferred</strong> option will load the new firmware into the T (temp) side, but will not activate it like the disruptive firmware. The customer will continue to run the Frames and CECs working with the P (perm) side and can wait for a maintenance window where they can activate and boot the Frame/CECs with new firmware levels. Refer to the link to get more details:
+  <a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_Power_775_Hardware_Management#Perform_Deferred_Firmware_upgrades_for_frame.2FCEC_on_Power_775">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_Power_775_Hardware_Management#Perform_Deferred_Firmware_upgrades_for_frame.2FCEC_on_Power_775</a></p>
+<p>In Direct FSP/BPA Management, there is -d &lt;data_directory&gt; option. The default value is /tmp. When do firmware update, rflash will put some related data from rpm packages in &lt;data_directory&gt; directory, so the execution of rflash will require available disk space in &lt;data_directory&gt; for the command to properly execute:</p>
+<p>For one GFW rpm package and one power code rpm package , if the GFW rpm package size is gfw_rpmsize, and the Power code rpm package size is power_rpmsize, it requires that the available disk space should be more than: 
+  1.5*gfw_rpmsize + 1.5*power_rpmsize</p>
+<p>For Power 775, the rflash command takes effect on the primary and secondary FSPs or BPAs almost in parallel.</p>
+<p>For more details about the Firmware Update using Direct FSP/BPA Management, refer to:
+  <a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_Power_775_Hardware_Management#Updating_the_BPA_and_FSP_firmware_using_xCAT_DFM">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_Power_775_Hardware_Management#Updating_the_BPA_and_FSP_firmware_using_xCAT_DFM</a></p>
+<p>
+</p>
+<hr />
+<h1><a name="options"><strong>Options</strong></a></h1>
+<dl>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Writes the command's usage statement to standard output.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_directory"><strong>-p directory</strong></a></strong>
+
+<dd>
+<p>Specifies the directory where the packages are located.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dd_data_directory"><strong>-d data_directory</strong></a></strong>
+
+<dd>
+<p>Specifies the directory where the raw data from rpm packages for each CEC/Frame are located. The default directory is /tmp. The option is only used in Direct FSP/BPA Management.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dactivate_concurrent__7c_disruptive"><strong>--activate</strong> <strong>concurrent</strong> | <strong>disruptive</strong></a></strong>
+
+<dd>
+<p>Must be specified to activate the new Licensed Internal Code.  The ``disruptive'' option will cause the target systems to be recycled.  Without this flag, LIC updates will be installed only, not activated.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dcommit"><strong>--commit</strong></a></strong>
+
+<dd>
+<p>Used to commit the flash image in the temporary side of the chip to the permanent side for both managed systems and power subsystems.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2drecover"><strong>--recover</strong></a></strong>
+
+<dd>
+<p>Used to recover the flash image in the permanent side of the chip to the temporary side for both managed systems and power subsystems.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Displays the command's version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Verbose output.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="exit_status"><strong>Exit Status</strong></a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples"><strong>Examples</strong></a></h1>
+<ol>
+<li>
+<p>To  update  only the  power subsystem attached to a single HMC-attached pSeries CEC(cec_name), and recycle the power  subsystem  and  all attached managed systems when the update is complete, and the Microcode update package and associated XML file are in /tmp/fw, enter:</p>
+<pre>
+ rflash cec_name -p /tmp/fw --activate disruptive</pre>
+</li>
+<li>
+<p>To  update  only the  power subsystem attached to a single HMC-attached pSeries node, and recycle the power  subsystem  and  all attached managed systems when the update is complete, and the Microcode update package and associated XML file are in /tmp/fw, enter:</p>
+<pre>
+ rflash bpa_name -p /tmp/fw --activate disruptive</pre>
+</li>
+<li>
+<p>To commit a firmware update to permanent flash for both managed system and the related power subsystems, enter:</p>
+<pre>
+ rflash cec_name --commit</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="location"><strong>Location</strong></a></h1>
+<p><strong>/opt/xcat/bin/rflash</strong></p>
+<p>
+</p>
+<hr />
+<h1><a name="notes">NOTES</a></h1>
+<p>This command is part of the xCAT software product.</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="rinv.1.html">rinv(1)</a>, <a href="rspconfig.1.html">rspconfig(1)</a></p>
+
+</body>
+
+</html>

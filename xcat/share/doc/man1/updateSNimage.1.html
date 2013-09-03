@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;updateSNimage&gt; - Adds the needed Service Node configuration files to the install image.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>updateSNimage</strong> - Adds the needed Service Node configuration files to the install image.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><em>updateSNimage [-h | --help ]</em></p>
+<p><em>updateSNimage [-v | --version]</em></p>
+<p><em>updateSNimage {-n} [-p]</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This command is used to add the Service Node configuration files to the install image. It will either copy them locally or scp them to a remote host.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-h |--help</strong>            Display usage message.</p>
+<p><strong>-v |--version</strong>         Display xCAT version.</p>
+<p><strong>-n | --node</strong>           A remote host name or ip address that contains the install image to be updated.</p>
+<p><strong>-p |--path</strong>            Path to the install image.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To update the image on the local host.</p>
+<p><em>updateSNimage -p /install/netboot/fedora8/x86_64/test/rootimg</em></p>
+<p>2. To update the image on a remote host.</p>
+<p><em>updateSNimage -n 9.112.45.6 -p /install/netboot/fedora8/x86_64/test/rootimg</em></p>
+
+</body>
+
+</html>

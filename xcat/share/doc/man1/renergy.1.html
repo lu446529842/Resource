@@ -1,0 +1,778 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;NAME&gt;</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name"><strong>NAME</strong></a></li>
+	<li><a href="#synopsis"><strong>SYNOPSIS</strong></a></li>
+	<li><a href="#description"><strong>DESCRIPTION</strong></a></li>
+	<li><a href="#prerequisites"><strong>PREREQUISITES</strong></a></li>
+	<li><a href="#options"><strong>OPTIONS</strong></a></li>
+	<li><a href="#return_value"><strong>RETURN VALUE</strong></a></li>
+	<li><a href="#examples"><strong>EXAMPLES</strong></a></li>
+	<li><a href="#references"><strong>REFERENCES</strong></a></li>
+	<li><a href="#files"><strong>FILES</strong></a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name"><strong>NAME</strong></a></h1>
+<p><strong>renergy</strong> - remote energy management tool</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis"><strong>SYNOPSIS</strong></a></h1>
+<p><strong>renergy</strong> [-h | --help]</p>
+<p><strong>renergy</strong> [-v | --version]</p>
+<p><strong>Power 6 server specific :</strong></p>
+<p><strong>renergy</strong> <em>noderange</em> [-V] { all | [savingstatus] [cappingstatus] 
+[cappingmaxmin] [cappingvalue] [cappingsoftmin] [averageAC] 
+[averageDC] [ambienttemp] [exhausttemp] [CPUspeed] }</p>
+<p><strong>renergy</strong> <em>noderange</em> [-V] { savingstatus={on | off} 
+| cappingstatus={on | off} | cappingwatt=watt 
+| cappingperc=percentage }</p>
+<p><strong>Power 7 server specific :</strong></p>
+<p><strong>renergy</strong> <em>noderange</em> [-V] { all | [savingstatus] [dsavingstatus] 
+[cappingstatus] [cappingmaxmin] [cappingvalue] [cappingsoftmin] 
+[averageAC] [averageDC] [ambienttemp] [exhausttemp] [CPUspeed] 
+[syssbpower] [sysIPLtime] [fsavingstatus] [ffoMin] [ffoVmin] 
+[ffoTurbo] [ffoNorm] [ffovalue]}</p>
+<p><strong>renergy</strong> <em>noderange</em> [-V] { savingstatus={on | off} 
+| dsavingstatus={on-norm | on-maxp | off}
+| fsavingstatus={on | off} | ffovalue=MHZ 
+| cappingstatus={on | off} | cappingwatt=watt 
+| cappingperc=percentage }</p>
+<p><strong>BladeCenter specific :</strong></p>
+<p><strong>For Management Modules:</strong></p>
+<p><strong>renergy</strong> <em>noderange</em> [-V] { all | pd1all | pd2all | [pd1status] 
+[pd2status] [pd1policy] [pd2policy] [pd1powermodule1] 
+[pd1powermodule2] [pd2powermodule1] [pd2powermodule2] 
+[pd1avaiablepower] [pd2avaiablepower] [pd1reservedpower] 
+[pd2reservedpower] [pd1remainpower] [pd2remainpower] 
+[pd1inusedpower] [pd2inusedpower] [availableDC] [averageAC] 
+[thermaloutput] [ambienttemp] [mmtemp] }</p>
+<p><strong>For a blade server nodes:</strong></p>
+<p><strong>renergy</strong> <em>noderange</em> [-V] { all | [averageDC]  
+[capability] [cappingvalue] [CPUspeed] [maxCPUspeed] 
+[savingstatus] [dsavingstatus] }</p>
+<p><strong>renergy</strong> <em>noderange</em> [-V] { savingstatus={on | off} 
+| dsavingstatus={on-norm | on-maxp | off} }</p>
+<p><strong>Flex specific :</strong></p>
+<p><strong>For Flex Management Modules:</strong></p>
+<p><strong>renergy</strong> <em>noderange</em> [-V] { all | [powerstatus]
+[powerpolicy] [powermodule] [avaiablepower] [reservedpower]
+[remainpower] [inusedpower] [availableDC] [averageAC]
+[thermaloutput] [ambienttemp] [mmtemp] }</p>
+<p><strong>For Flex node (power and x86):</strong></p>
+<p><strong>renergy</strong> <em>noderange</em> [-V] { all | [averageDC]
+[capability] [cappingvalue] [cappingmaxmin] [cappingmax] 
+[cappingmin] [cappingGmin] [CPUspeed] [maxCPUspeed]
+[savingstatus] [dsavingstatus] }</p>
+<p><strong>renergy</strong> <em>noderange</em> [-V] { cappingstatus={on | off}
+| cappingwatt=watt | cappingperc=percentage 
+| savingstatus={on | off} | dsavingstatus={on-norm | on-maxp | off} }</p>
+<p><strong>iDataPlex specific :</strong></p>
+<p><strong>renergy</strong> <em>noderange</em> [-V] [ { cappingmaxmin | cappingmax | cappingmin } ]
+[cappingstatus] [cappingvalue] [relhistogram]</p>
+<p><strong>renergy</strong> <em>noderange</em> [-V] { cappingstatus={on | enable | off | disable}
+| {cappingwatt|cappingvalue}=watt }</p>
+<p>
+</p>
+<hr />
+<h1><a name="description"><strong>DESCRIPTION</strong></a></h1>
+<p>This <strong>renergy</strong> command can be used to manage the energy consumption of
+IBM servers which support IBM EnergyScale technology. Through this command, 
+user can query and set the power saving and power capping status, and also can 
+query the average consumed energy, the ambient and exhaust temperature, 
+the processor frequency for a server.</p>
+<p><strong>renergy</strong> command supports IBM POWER6 and POWER7 rack-mounted servers,
+BladeCenter management modules, blade servers, and iDataPlex servers. 
+For system p rack-mounted servers, the following specific hardware types are supported:
+<em>8203-E4A</em>, <em>8204-E8A</em>, <em>9125-F2A</em>, <em>8233-E8B</em>, <em>8236-E8C</em>.</p>
+<p>The parameter <em>noderange</em> needs to be specified for the <strong>renergy</strong> command to 
+get the target servers. The <em>noderange</em> should be a list of CEC node names, blade 
+management module node names or blade server node names. Lpar name
+is not acceptable here.</p>
+<p><strong>renergy</strong> command can accept multiple of energy attributes to query or one of energy 
+attribute to set. If only the attribute name is specified, without the '=', <strong>renergy</strong> 
+gets and displays the current value. Otherwise, if specifying the attribute with '=' like 
+'savingstatus=on', <strong>renergy</strong> will set the attribute savingstatus to value 'on'.</p>
+<p>The attributes listed in the <strong>SYNOPSIS</strong> section are which ones can be handled by 
+<strong>renergy</strong> command. But for each specific type of server, there are some attributes that
+are not supported. If user specifies an attribute which is not supported by a specific
+server, the return value of this attribute will be 'na'.</p>
+<p>The supported attributes for each specific system p hardware type is listed as follows:</p>
+<p><strong>8203-E4A</strong>, <strong>8204-E8A</strong></p>
+<p>Supported attributes:</p>
+<p><strong>Query</strong>: savingstatus,cappingstatus,cappingmin,cappingmax,
+cappingvalue,cappingsoftmin,averageAC,averageDC,ambienttemp,
+exhausttemp,CPUspeed</p>
+<p><strong>Set</strong>:   savingstatus,cappingstatus,cappingwatt,cappingperc</p>
+<p><strong>9125-F2A</strong></p>
+<p>Supported attributes:</p>
+<p><strong>Query</strong>: savingstatus,averageAC,ambienttemp,exhausttemp,
+CPUspeed</p>
+<p><strong>Set</strong>:   savingstatus</p>
+<p><strong>8233-E8B</strong>, <strong>8236-E8C</strong></p>
+<p>Supported attributes:</p>
+<p><strong>Query</strong>: savingstatus,dsavingstatus,cappingstatus,cappingmin,
+cappingmax,cappingvalue,cappingsoftmin,averageAC,averageDC,
+ambienttemp,exhausttemp,CPUspeed,syssbpower,sysIPLtime</p>
+<p><strong>Set</strong>:   savingstatus,dsavingstatus,cappingstatus,cappingwatt,
+cappingperc</p>
+<p><strong>9125-F2C</strong></p>
+<p>Supported attributes:</p>
+<p><strong>Query</strong>: savingstatus,dsavingstatus,cappingstatus,cappingmin,
+cappingmax,cappingvalue,cappingsoftmin,averageAC,averageDC,
+ambienttemp,exhausttemp,CPUspeed,syssbpower,sysIPLtime,
+fsavingstatus,ffoMin,ffoVmin,ffoTurbo,ffoNorm,ffovalue</p>
+<p><strong>Set</strong>:   savingstatus,dsavingstatus,cappingstatus,cappingwatt,
+cappingperc,fsavingstatus,ffovalue</p>
+<p>Note:
+For system P CEC nodes, each query operation for attribute CPUspeed, averageAC 
+or averageDC needs about 30 seconds to complete. The query for others attributes
+will get response immediately.</p>
+<p>
+</p>
+<hr />
+<h1><a name="prerequisites"><strong>PREREQUISITES</strong></a></h1>
+<p>For the system p nodes, the <strong>renergy</strong> command depends 
+on the Energy Management Plugin <strong>xCAT-pEnergy</strong> to 
+communicate with server.  <strong>xCAT-pEnergy</strong> can be downloaded from the IBM web site: 
+<a href="http://www.ibm.com/support/fixcentral/.">http://www.ibm.com/support/fixcentral/.</a> (Other Software -&gt; EM)</p>
+<p>For iDataPlex nodes, the <strong>renergy</strong> command depends 
+on the Energy Management Plugin <strong>xCAT-xEnergy</strong> to 
+communicate with server.  This plugin must be requested from IBM.</p>
+<p>(The support for BladeCenter energy management is built into base xCAT,
+so no additional plugins are needed for BladeCenter.)</p>
+<p>
+</p>
+<hr />
+<h1><a name="options"><strong>OPTIONS</strong></a></h1>
+<dl>
+<dt><strong><a name="item__2dh__7c__2d_2dhelp"><strong>-h | --help</strong></a></strong>
+
+<dd>
+<p>Display the usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv__7c__2d_2dversion"><strong>-v | --version</strong></a></strong>
+
+<dd>
+<p>Display the version information.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv"><strong>-V</strong></a></strong>
+
+<dd>
+<p>Verbose output.</p>
+</dd>
+</li>
+<dt><strong><a name="item_all"><strong>all</strong></a></strong>
+
+<dd>
+<p>Query all energy attributes which supported by the specific 
+type of hardware.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd1all"><strong>pd1all</strong></a></strong>
+
+<dd>
+<p>Query all energy attributes of the power domain 1 for blade
+management module node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd2all"><strong>pd2all</strong></a></strong>
+
+<dd>
+<p>Query all energy attributes of the power domain 2 for blade
+management module node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_ambienttemp"><strong>ambienttemp</strong></a></strong>
+
+<dd>
+<p>Query the current ambient temperature. (Unit is centigrade)</p>
+</dd>
+</li>
+<dt><strong><a name="item_availabledc"><strong>availableDC</strong></a></strong>
+
+<dd>
+<p>Query the total DC power available for the entire blade center chassis.</p>
+</dd>
+</li>
+<dt><strong><a name="item_averageac"><strong>averageAC</strong></a></strong>
+
+<dd>
+<p>Query the average power consumed (Input). (Unit is watt)</p>
+</dd>
+<dd>
+<p>Note: For 9125-F2A,9125-F2C server, the value of attribute 
+averageAC is the aggregate for all of the servers in a rack.</p>
+</dd>
+<dd>
+<p>Note: For Blade Center, the value of attribute 
+averageAC is the total AC power being consumed by all modules
+ in the chassis. It also includes power consumed by the Chassis 
+Cooling Devices for BCH chassis.</p>
+</dd>
+</li>
+<dt><strong><a name="item_averagedc"><strong>averageDC</strong></a></strong>
+
+<dd>
+<p>Query the average power consumed (Output). (Unit is watt)</p>
+</dd>
+</li>
+<dt><strong><a name="item_capability"><strong>capability</strong></a></strong>
+
+<dd>
+<p>Query the Power Capabilities of the blade server.</p>
+</dd>
+<dd>
+<p>staticPowerManagement: the module with the static worst case power values.</p>
+</dd>
+<dd>
+<p>fixedPowermanagement: the module with the static power values but ability 
+to throttle.</p>
+</dd>
+<dd>
+<p>dynamicPowerManagement: the module with power meter capability, measurement 
+enabled, but capping disabled.</p>
+</dd>
+<dd>
+<p>dynamicPowerMeasurement1: the module with power meter capability, measurement 
+enabled, phase 1 only</p>
+</dd>
+<dd>
+<p>dynamicPowerMeasurement2: the module with power meter capability, measurement 
+enabled, phase 2 or higher</p>
+</dd>
+<dd>
+<p>dynamicPowerMeasurementWithPowerCapping: the module with power meter capability, 
+both measurement and capping enabled, phase 2 or higher</p>
+</dd>
+</li>
+<dt><strong><a name="item_cappinggmin"><strong>cappingGmin</strong></a></strong>
+
+<dd>
+<p>Query the Guaranteed Minimum power capping value in watts.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cappingmax"><strong>cappingmax</strong></a></strong>
+
+<dd>
+<p>Query the Maximum of power capping value in watts.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cappingmaxmin"><strong>cappingmaxmin</strong></a></strong>
+
+<dd>
+<p>Query the Maximum and Minimum of power capping value in watts.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cappingmin"><strong>cappingmin</strong></a></strong>
+
+<dd>
+<p>Query the Minimum of power capping value in watts.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cappingperc_3dpercentage"><strong>cappingperc</strong>=<strong>percentage</strong></a></strong>
+
+<dd>
+<p>Set the power capping value base on the percentage of 
+the max-min of capping value which getting from 
+<em>cappingmaxmim</em> attribute. The valid value must be 
+from 0 to 100.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cappingsoftmin"><strong>cappingsoftmin</strong></a></strong>
+
+<dd>
+<p>Query the minimum value that can be assigned to power 
+capping without guaranteed enforceability. (Unit is watt)</p>
+</dd>
+</li>
+<dt><strong><a name="item_cappingstatus"><strong>cappingstatus</strong></a></strong>
+
+<dd>
+<p>Query the power capping status. The result should be 'on' 
+or 'off'.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cappingstatus_3d_7bon__7c_off_7d"><strong>cappingstatus</strong>={<strong>on</strong> | <strong>off</strong>}</a></strong>
+
+<dd>
+<p>Set the power capping status. The value must be 'on' 
+or 'off'. This is the switch to turn on or turn off the 
+power capping function.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cappingvalue"><strong>cappingvalue</strong></a></strong>
+
+<dd>
+<p>Query the current power capping value. (Unit is watt)</p>
+</dd>
+</li>
+<dt><strong><a name="item_cappingwatt_3dwatt"><strong>cappingwatt</strong>=<strong>watt</strong></a></strong>
+
+<dd>
+<p>Set the power capping value base on the watt unit.</p>
+</dd>
+<dd>
+<p>If the 'watt' &gt;  maximum of <em>cappingmaxmin</em> or 'watt' 
+&lt; <em>cappingsoftmin</em>, the setting operation 
+will be failed. If the 'watt' &gt; <em>cappingsoftmin</em> and 
+'watt' &lt; minimum of <em>cappingmaxmin</em>, the value can NOT be 
+guaranteed.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cpuspeed"><strong>CPUspeed</strong></a></strong>
+
+<dd>
+<p>Query the effective processor frequency. (Unit is MHz)</p>
+</dd>
+</li>
+<dt><strong><a name="item_dsavingstatus"><strong>dsavingstatus</strong></a></strong>
+
+<dd>
+<p>Query the dynamic power saving status. The result should 
+be 'on-norm', 'on-maxp'  or 'off'.</p>
+</dd>
+<dd>
+<p>If turning on the dynamic power saving, the processor 
+frequency and voltage will be dropped dynamically based on 
+the core utilization. It supports two modes for turn on state:</p>
+</dd>
+<dd>
+<p><em>on-norm</em> - means normal, the processor frequency cannot 
+exceed the nominal value;</p>
+</dd>
+<dd>
+<p><em>on-maxp</em> - means maximum performance, the processor 
+frequency can exceed the nominal value.</p>
+</dd>
+</li>
+<dt><strong><a name="item_dsavingstatus_3d_7bon_2dnorm__7c_on_2dmaxp__7c_off"><strong>dsavingstatus</strong>={<strong>on-norm</strong> | <strong>on-maxp</strong> | <strong>off</strong>}</a></strong>
+
+<dd>
+<p>Set the dynamic power saving. The value must be 'on-norm', 
+'on-maxp' or 'off'.</p>
+</dd>
+<dd>
+<p>The dsavingstatus setting operation needs about 2 minutes 
+to take effect. (The used time depends on the hardware type)</p>
+</dd>
+<dd>
+<p>The <strong>dsavingstatus</strong> only can be turned on when the 
+<strong>savingstatus</strong> is in turn off status.</p>
+</dd>
+</li>
+<dt><strong><a name="item_exhausttemp"><strong>exhausttemp</strong></a></strong>
+
+<dd>
+<p>Query the current exhaust temperature. (Unit is centigrade)</p>
+</dd>
+</li>
+<dt><strong><a name="item_ffomin"><strong>ffoMin</strong></a></strong>
+
+<dd>
+<p>Query the minimum cpu frequency which can be set for FFO. (Fixed 
+Frequency Override)</p>
+</dd>
+</li>
+<dt><strong><a name="item_ffonorm"><strong>ffoNorm</strong></a></strong>
+
+<dd>
+<p>Query the maximum cpu frequency which can be set for FFO.</p>
+</dd>
+</li>
+<dt><strong><a name="item_ffoturbo"><strong>ffoTurbo</strong></a></strong>
+
+<dd>
+<p>Query the advertised maximum cpu frequency (selling point).</p>
+</dd>
+</li>
+<dt><strong><a name="item_ffovmin"><strong>ffoVmin</strong></a></strong>
+
+<dd>
+<p>Query the minimum cpu frequency which can be set for dropping down 
+the voltage to save power. That means when you drop the cpu 
+frequency from the ffoVmin to ffoVmin, the voltage won't change, 
+then there's no obvious power to be saved.</p>
+</dd>
+</li>
+<dt><strong><a name="item_ffovalue"><strong>ffovalue</strong></a></strong>
+
+<dd>
+<p>Query the current value of FFO.</p>
+</dd>
+</li>
+<dt><strong><a name="item_ffovalue_3dmhz"><strong>ffovalue</strong>=<strong>MHZ</strong></a></strong>
+
+<dd>
+<p>Set the current value of FFO. The valid value of ffovalue should 
+be between the ffoMin and ffoNorm.</p>
+</dd>
+<dd>
+<p>Note1: Due to the limitation of firmware, the frequency in the range 
+3501 MHz - 3807 MHz can NOT be set to ffovalue. This range may be 
+changed in future.</p>
+</dd>
+<dd>
+<p>Note2: The setting will take effect only when the fsavingstatus is in 
+'on' status. But you need to set the ffovalue to a valid value before 
+enabling the fsavingstatus. (It's a limitation of the initial firmware 
+and will be fixed in future.)</p>
+</dd>
+<dd>
+<p>The ffovalue setting operation needs about 1 minute to take effect.</p>
+</dd>
+</li>
+<dt><strong><a name="item_fsavingstatus"><strong>fsavingstatus</strong></a></strong>
+
+<dd>
+<p>Query the status of FFO. The result should be 'on' or 'off'. 
+'on' - enable; 'off' - disable.</p>
+</dd>
+</li>
+<dt><strong><a name="item_fsavingstatus_3d_7bon__e2_94_82_off_7d"><strong>fsavingstatus</strong>={<strong>on</strong> │ <strong>off</strong>}</a></strong>
+
+<dd>
+<p>Set the status of FFO. The value must be 'on' or 'off'.</p>
+</dd>
+<dd>
+<p>'on' - enable. It will take effect only when the <strong>ffovalue</strong> 
+has been set to a valid value.</p>
+</dd>
+<dd>
+<p>'off' -disable. It will take effect immediately.</p>
+</dd>
+<dd>
+<p>Note: See the Note2 of ffovalue=MHZ.</p>
+</dd>
+</li>
+<dt><strong><a name="item_maxcpuspeed"><strong>maxCPUspeed</strong></a></strong>
+
+<dd>
+<p>Query the maximum processor frequency. (Unit is MHz)</p>
+</dd>
+</li>
+<dt><strong><a name="item_mmtemp"><strong>mmtemp</strong></a></strong>
+
+<dd>
+<p>Query the current temperature of management module. 
+(Unit is centigrade)</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd1status__7c_powerstatus"><strong>pd1status | powerstatus</strong></a></strong>
+
+<dd>
+<p>Query the status of power domain 1 for blade management 
+module node.</p>
+</dd>
+<dd>
+<p>Note: for the attribute without the leading 'pd1' which 
+means there's only one power doamin in the chassis.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd1policy__7c_powerpolicy"><strong>pd1policy | powerpolicy</strong></a></strong>
+
+<dd>
+<p>Query the power management policy of power domain 1.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd1powermodule1__7c_powermodule"><strong>pd1powermodule1 | powermodule</strong></a></strong>
+
+<dd>
+<p>Query the First Power Module capacity in power domain 1.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd1powermodule2__7c_powermodule"><strong>pd1powermodule2 | powermodule</strong></a></strong>
+
+<dd>
+<p>Query the Second Power Module capacity in power domain 1.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd1avaiablepower__7c_avaiablepower"><strong>pd1avaiablepower | avaiablepower</strong></a></strong>
+
+<dd>
+<p>Query the total available power in power domain 1.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd1reservedpower__7c_reservedpower"><strong>pd1reservedpower | reservedpower</strong></a></strong>
+
+<dd>
+<p>Query the power that has been reserved for power domain 1.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd1remainpower__7c_remainpower"><strong>pd1remainpower | remainpower</strong></a></strong>
+
+<dd>
+<p>Query the remaining power available in power domain 1.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd1inusedpower__7c_inusedpower"><strong>pd1inusedpower | inusedpower</strong></a></strong>
+
+<dd>
+<p>Query the total power being used in power domain 1.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd2status"><strong>pd2status</strong></a></strong>
+
+<dd>
+<p>Query the status of power domain 2 for blade management 
+module node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd2policy"><strong>pd2policy</strong></a></strong>
+
+<dd>
+<p>Query the power management policy of power domain 2.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd2powermodule1"><strong>pd2powermodule1</strong></a></strong>
+
+<dd>
+<p>Query the First Power Module capacity in power domain 2.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd2powermodule2"><strong>pd2powermodule2</strong></a></strong>
+
+<dd>
+<p>Query the Second Power Module capacity in power domain 2.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd2avaiablepower"><strong>pd2avaiablepower</strong></a></strong>
+
+<dd>
+<p>Query the total available power in power domain 2.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd2reservedpower"><strong>pd2reservedpower</strong></a></strong>
+
+<dd>
+<p>Query the power that has been reserved for power domain 2.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd2remainpower"><strong>pd2remainpower</strong></a></strong>
+
+<dd>
+<p>Query the remaining power available in power domain 2.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pd2inusedpower"><strong>pd2inusedpower</strong></a></strong>
+
+<dd>
+<p>Query the total power being used in power domain 2.</p>
+</dd>
+</li>
+<dt><strong><a name="item_relhistogram"><strong>relhistogram</strong></a></strong>
+
+<dd>
+<p>Query histogram data for wattage information</p>
+</dd>
+</li>
+<dt><strong><a name="item_savingstatus"><strong>savingstatus</strong></a></strong>
+
+<dd>
+<p>Query the static power saving status. The result should be 
+'on' or 'off'. 'on' - enable; 'off' - disable.</p>
+</dd>
+</li>
+<dt><strong><a name="item_savingstatus_3d_7bon__7c_off_7d"><strong>savingstatus</strong>={<strong>on</strong> | <strong>off</strong>}</a></strong>
+
+<dd>
+<p>Set the static power saving. The value must be 'on' or 'off'.</p>
+</dd>
+<dd>
+<p>If turning on the static power saving, the processor frequency 
+and voltage will be dropped to a fixed value to save energy.</p>
+</dd>
+<dd>
+<p>The savingstatus setting operation needs about 2 minutes to 
+take effect. (The used time depends on the hardware type)</p>
+</dd>
+<dd>
+<p>The <strong>savingstatus</strong> only can be turned on when the 
+<strong>dsavingstatus</strong> is in turn off status.</p>
+</dd>
+</li>
+<dt><strong><a name="item_sysipltime"><strong>sysIPLtime</strong></a></strong>
+
+<dd>
+<p>Query the time used from FSP standby to OS standby. 
+(Unit is Second)</p>
+</dd>
+</li>
+<dt><strong><a name="item_syssbpower"><strong>syssbpower</strong></a></strong>
+
+<dd>
+<p>Query the system power consumed prior to power on. 
+(Unit is MHz)</p>
+</dd>
+</li>
+<dt><strong><a name="item_thermaloutput"><strong>thermaloutput</strong></a></strong>
+
+<dd>
+<p>Query the thermal output (load) in BTUs per hour for the blade 
+center chassis.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value"><strong>RETURN VALUE</strong></a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples"><strong>EXAMPLES</strong></a></h1>
+<ol>
+<li>
+<p>Query all the attributes which CEC1,CEC2 supported.</p>
+<p><strong>renergy</strong> CEC1,CEC2 all</p>
+<p>The output of the query operation:</p>
+<pre>
+    CEC1: savingstatus: off
+    CEC1: dsavingstatus: off
+    CEC1: cappingstatus: off
+    CEC1: cappingmin: 1953 W
+    CEC1: cappingmax: 2358 W
+    CEC1: cappingvalue: 2000 W
+    CEC1: cappingsoftmin: 304 W
+    CEC1: averageAC: na
+    CEC1: averageDC: na
+    CEC1: ambienttemp: na
+    CEC1: exhausttemp: na
+    CEC1: CPUspeed: na
+    CEC1: syssbpower: 40 W
+    CEC1: sysIPLtime: 900 S
+    CEC2: savingstatus: off
+    CEC2: cappingstatus: off
+    CEC2: cappingmin: 955 W
+    CEC2: cappingmax: 1093 W
+    CEC2: cappingvalue: 1000 W
+    CEC2: cappingsoftmin: 226 W
+    CEC2: averageAC: 627 W
+    CEC2: averageDC: 531 W
+    CEC2: ambienttemp: 25 C
+    CEC2: exhausttemp: 40 C
+    CEC2: CPUspeed: 4695 MHz</pre>
+</li>
+<li>
+<p>Query all the attirbutes for management module node MM1. (For chassis)</p>
+<p><strong>renergy</strong> MM1 all</p>
+<p>The output of the query operation:</p>
+<pre>
+    mm1: availableDC: 5880W
+    mm1: frontpaneltmp: 18.00 Centigrade
+    mm1: inusedAC: 2848W
+    mm1: mmtmp: 28.00 Centigrade
+    mm1: pd1avaiablepower: 2940W
+    mm1: pd1inusedpower: 848W
+    mm1: pd1policy: redundantWithoutPerformanceImpact
+    mm1: pd1powermodule1: Bay 1: 2940W
+    mm1: pd1powermodule2: Bay 2: 2940W
+    mm1: pd1remainpower: 1269W
+    mm1: pd1reservedpower: 1671W
+    mm1: pd1status: 1 - Power domain status is good.
+    mm1: pd2avaiablepower: 2940W
+    mm1: pd2inusedpower: 1490W
+    mm1: pd2policy: redundantWithoutPerformanceImpact
+    mm1: pd2powermodule1: Bay 3: 2940W
+    mm1: pd2powermodule2: Bay 4: 2940W
+    mm1: pd2remainpower: 51W
+    mm1: pd2reservedpower: 2889W
+    mm1: pd2status: 2 - Warning: Power redundancy does not exist 
+in this power domain.
+    mm1: thermaloutput: 9717.376000 BTU/hour</pre>
+</li>
+<li>
+<p>Query all the attirbutes for blade server node blade1.</p>
+<p><strong>renergy</strong> blade1 all</p>
+<p>The output of the query operation:</p>
+<pre>
+    blade1: CPUspeed: 4204MHZ
+    blade1: averageDC: 227W
+    blade1: capability: dynamicPowerMeasurement2
+    blade1: cappingvalue: 315W
+    blade1: dsavingstatus: off
+    blade1: maxCPUspeed: 4204MHZ
+    blade1: savingstatus: off</pre>
+</li>
+<li>
+<p>Query the attributes savingstatus, cappingstatus 
+and CPUspeed for server CEC1.</p>
+<p><strong>renergy</strong> CEC1 savingstatus cappingstatus CPUspeed</p>
+<p>The output of the query operation:</p>
+<pre>
+    CEC1: savingstatus: off
+    CEC1: cappingstatus: on
+    CEC1: CPUspeed: 3621 MHz</pre>
+</li>
+<li>
+<p>Turn on the power saving function of CEC1.</p>
+<p><strong>renergy</strong> CEC1 savingstatus=on</p>
+<p>The output of the setting operation:</p>
+<pre>
+    CEC1: Set savingstatus succeeded.         
+    CEC1: This setting may need some minutes to take effect.</pre>
+</li>
+<li>
+<p>Set the power capping value base on the percentage of the 
+max-min capping value. Here, set it to 50%.</p>
+<p><strong>renergy</strong> CEC1 cappingperc=50</p>
+<p>If the maximum capping value of the CEC1 is 850w, and the 
+minimum capping value of the CEC1 is 782w, the Power Capping 
+value will be set as ((850-782)*50% + 782) = 816w.</p>
+<p>The output of the setting operation:</p>
+<pre>
+    CEC1: Set cappingperc succeeded.
+    CEC1: cappingvalue: 816</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="references"><strong>REFERENCES</strong></a></h1>
+<ol>
+<li>
+<p>For more information on 'Power System Energy Management':</p>
+<pre>
+    <a href="http://www-03.ibm.com/systems/power/software/energy/index.html">http://www-03.ibm.com/systems/power/software/energy/index.html</a></pre>
+</li>
+<li>
+<p>EnergyScale white paper for Power6:</p>
+<pre>
+    <a href="http://www-03.ibm.com/systems/power/hardware/whitepapers/energyscale.html">http://www-03.ibm.com/systems/power/hardware/whitepapers/energyscale.html</a></pre>
+</li>
+<li>
+<p>EnergyScale white paper for Power7:</p>
+<pre>
+    <a href="http://www-03.ibm.com/systems/power/hardware/whitepapers/energyscale7.html">http://www-03.ibm.com/systems/power/hardware/whitepapers/energyscale7.html</a></pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files"><strong>FILES</strong></a></h1>
+<p>/opt/xcat/bin/renergy</p>
+
+</body>
+
+</html>

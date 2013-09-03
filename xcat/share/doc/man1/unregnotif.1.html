@@ -1,0 +1,87 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;unregnotif&gt; - unregister a Perl module or a command that was watching for the changes of  the desired xCAT database tables.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#parameters">Parameters</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>unregnotif</strong> - unregister a Perl module or a command that was watching for the changes of  the desired xCAT database tables.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><em>unregnotif [-h| --help]</em></p>
+<p><em>unregnotif  [-v| --version]</em></p>
+<p><em>unregnotif  <em>filename</em></em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This command is used to unregistered a Perl module or a command that was watching for the changes of the desired xCAT database tables.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameters">Parameters</a></h1>
+<p><em>filename</em> is the path name of the Perl module or command to be registered.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-h | -help</strong>          Display usage message.</p>
+<p><strong>-v | -version </strong>      Command Version.</p>
+<p><strong>-V | -verbose</strong>       Verbose output.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To unregistered a Perl module, enter:</p>
+<pre>
+  unregnotif /opt/xcat/lib/perl/xCAT_monitoring/mycode.pm</pre>
+<p>2. To register a command, enter:</p>
+<pre>
+  unregnotif /usr/bin/mycmd</pre>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/unregnotif</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="regnotif.1.html">regnotif(1)</a></p>
+
+</body>
+
+</html>

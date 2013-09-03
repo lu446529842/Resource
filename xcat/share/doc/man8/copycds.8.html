@@ -1,0 +1,134 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;copycds&gt; - Copies Linux distributions and service levels from DVDs/ISOs to the xCAT /install directory.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>copycds</strong> - Copies Linux distributions and service levels from DVDs/ISOs to the xCAT /install directory.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>copycds</strong> [{<strong>-n|--name|--osver</strong>}=<em>distroname</em>] [{<strong>-a|--arch</strong>}=<em>architecture</em>] [{<strong>-p|--path</strong>}=<em>ospkgpath</em>] [<strong>-o</strong>|<strong>--noosimage</strong>] [<strong>-w</strong>|<strong>--nonoverwrite</strong>] {<em>iso</em>|<em>device-path</em>} ...</p>
+<p><strong>copycds</strong> [<strong>-i</strong>|<strong>--inspection</strong>] {<em>iso</em>|<em>device-path</em>}</p>
+<p><strong>copycds</strong> [<strong>-h</strong>|<strong>--help</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>copycds</strong> command copies all contents of Distribution DVDs/ISOs or Service Pack DVDs/ISOs to a destination directory. The destination directory can be specified by the -p option. If no path is specified, the default destination directory will be formed from the <strong>installdir</strong> site attribute and the distro name and architecture, for example: /install/rhels6.3/x86_64. The <strong>copycds</strong> command can copy from one or more ISO files, or the CD/DVD device path.</p>
+<p>You can specify -i or --inspection option to check whether the DVDs/ISOs can be recognized by xCAT. If recognized, the distribution name, architecture and the disc no (the disc sequence number of DVDs/ISOs in multi-disk distribution) of the DVD/ISO is displayed. If xCAT doesn't recognize the DVD/ISO, you must manually specify the distro name and architecture using the -n and -a options. This is sometimes the case for distros that have very recently been released, and the xCAT code hasn't been updated for it yet.</p>
+<p>You can get xCAT to recognize new DVDs/ISOs by adding them to /opt/xcat/lib/perl/xCAT/data/discinfo.pm and reloading xcatd (service xcatd reload).</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__7b_2dn_7c_2d_2dname_7c_2d_2dosver_7d_3ddistroname">{<strong>-n|--name|--osver</strong>}=<em>distroname</em></a></strong>
+
+<dd>
+<p>The linux distro name and version that the ISO/DVD contains.  Examples:  rhels6.3, sles11.2, fedora9.  Note the 's' in rhels6.3 which denotes the Server version of RHEL, which is typically used.</p>
+</dd>
+</li>
+<dt><strong><a name="item__7b_2da_7c_2d_2darch_7d_3darchitecture">{<strong>-a|--arch</strong>}=<em>architecture</em></a></strong>
+
+<dd>
+<p>The architecture of the linux distro on the ISO/DVD.  Examples:  x86, x86_64, ppc64, s390x.</p>
+</dd>
+</li>
+<dt><strong><a name="item__7b_2dp_7c_2d_2dpath_7d_3dospkgpath">{<strong>-p|--path</strong>}=<em>ospkgpath</em></a></strong>
+
+<dd>
+<p>The destination directory to which the contents of ISO/DVD will be copied. When this option is not specified, the default destination directory will be formed from the <strong>installdir</strong> site attribute and the distro name and architecture, for example: /install/rhel6.3/x86_64. This option is only supported distributions of sles,redhat and windows.</p>
+</dd>
+</li>
+<dt><strong><a name="item__7b_2di_7c_2d_2dinspection_7d">{<strong>-i|--inspection</strong>}</a></strong>
+
+<dd>
+<p>Check whether xCAT can recognize the DVDs/ISOs in the argument list, but do not copy the disc. Displays the os distribution name, architecture and disc no of each recognized DVD/ISO. This option only supported for distributions of sles,redhat and windows.</p>
+</dd>
+</li>
+<dt><strong><a name="item__7b_2do_7c_2d_2dnoosimage_7d">{<strong>-o|--noosimage</strong>}</a></strong>
+
+<dd>
+<p>Do not create the default osimages based on the osdistro copied in. By default, copycds will create a set of osimages based on the osdistro.</p>
+</dd>
+</li>
+<dt><strong><a name="item__7b_2dw_7c_2d_2dnonoverwrite_7d">{<strong>-w|--nonoverwrite</strong>}</a></strong>
+
+<dd>
+<p>Complain and exit if the os disc has already been copied in. By default, copycds will overwrite the os disc already copied in.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0: The command completed successfully. For the --inspection option, the ISO/DVD have been recognized successfully</p>
+<p>Nonzero: An Error has occurred. For the --inspection option, the ISO/DVD cannot be recognized</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ul>
+<li>
+<p>To copy the RPMs from a set of ISOs that represent the DVDs of a distro:</p>
+<pre>
+ copycds dvd1.iso dvd2.iso</pre>
+</li>
+<li>
+<p>To copy the RPMs from a physical DVD to /depot/kits/3 directory:</p>
+<pre>
+ copycds -p /depot/kits/3 /dev/dvd</pre>
+</li>
+<li>
+<p>To copy the RPMs from a DVD ISO of a very recently released distro:</p>
+<pre>
+ copycds -n rhels6.4 -a x86_64 dvd.iso</pre>
+</li>
+<li>
+<p>To check whether a DVD ISO can be recognized by xCAT and display the recognized disc info:</p>
+<pre>
+ copycds -i /media/RHEL/6.2/RHEL6.2-20111117.0-Server-ppc64-DVD1.iso</pre>
+<p>Output will be similar to:</p>
+<pre>
+  OS Image:/media/RHEL/6.2/RHEL6.2-20111117.0-Server-ppc64-DVD1.iso
+  DISTNAME:rhels6.2
+  ARCH:ppc64
+  DISCNO:1</pre>
+<p>For the attributes that are not recognized, the value will be blank.</p>
+</li>
+</ul>
+<pre>
+
+=head1 SEE ALSO</pre>
+<p><a href="nodeset.8.html">nodeset(8)</a>, <a href="../man5/site.5.html">site(5)</a>, <a href="../man5/nodetype.5.html">nodetype(5)</a>
+</p>
+
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;imgimport&gt; - Imports an xCAT image or configuration file into the xCAT tables so that you can immediately begin deploying with it.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>imgimport</strong> - Imports an xCAT image or configuration file into the xCAT tables so that you can immediately begin deploying with it.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>imgimport [-h|--help]</strong></p>
+<p><strong>imgimport</strong> bundle_file_name [-p|--postscripts nodelist] [-f|--profile new_profile] [-v|--verbose]&gt;</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The imgimport command will import an image that has been exported by <em>imgexport</em> from xCAT.  This is the easiest way to transfer/backup/, change or share images created by xCAT whether they be stateless or stateful. The bundle file will be unpacked in the current working directory. The xCAT configuration such as <em>osimage</em> and <em>linuximage</em> tables will then be updated.</p>
+<p>For statefull, the following files will be copied to the appropriate directories.
+  x.pkglist
+  x.otherpkgs.pkglist
+  x.tmpl
+  x.synclist</p>
+<p>For stateless, the following files will be copied to the appropriate directories.
+  kernel
+  initrd.gz
+  rootimg.gz
+  x.pkglist
+  x.otherpkgs.pkglist
+  x.synclist
+  x.postinstall
+  x.exlist</p>
+<p>For statelite, the following files will be copied to the appropriate directories.
+  kernel
+  initrd.gz
+  root image tree
+  x.pkglist
+  x.synclist
+  x.otherpkgs.pkglist
+  x.postinstall
+  x.exlist</p>
+<p>where x is the profile name.</p>
+<p>Any extra files, included by --extra flag in the imgexport command, will also be copied to the appropriate directories.</p>
+<p>For statelite, the litefile table will be updated for the image. The litetree and statelite tables are not imported.</p>
+<p>If -p flag is specified, the <em>postscripts</em> table will be updated with the postscripts and the postbootscripts names from the image for the nodes given by this flag.</p>
+<p>If -f flag is not specified, all the files will be copied to the same directories as the source. If it is specified, the old profile name x will be changed to the new and the files will be copied to the appropriate directores for the new profiles. For example, <em>/opt/xcat/share/xcat/netboot/sles/x.pkglist</em> will be copied to <em>/install/custom/netboot/sles/compute_new.pkglist</em> and <em>/install/netboot/sles11/ppc64/x/kernel</em> will be copied to <em>/install/netboot/sles11/ppc64/compute_new/kernel</em>. This flag is commonly used when you want to copy the image on the same xCAT mn so you can make modification on the new one.</p>
+<p>After this command, you can run the <em>nodeset</em> command and then start deploying the nodes. You can also choose to modify the files and run the following commands before the node depolyment.</p>
+<p>For statefull:
+  nodeset</p>
+<p>For stateless: 
+  genimage
+  packimage
+  nodeset</p>
+<p>For statelite
+  genimage
+  liteimg
+  nodeset</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-f|--profile</strong> <em>new_prof</em>      Import the image with a new profile name.</p>
+<p><strong>-h|--help</strong>                     Display usage message.</p>
+<p><strong>-p|--postscripts</strong> <em>nodelist</em>  Import the postscripts. The postscripts contained in the image will be set in the postscripts table for <em>nodelist</em>.</p>
+<p><strong>-v|--verbose</strong>                  Verbose output.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. Simplest way to import an image.  If there is a bundle file named 'foo.gz', then run:</p>
+<p><em>imgimport foo.gz</em></p>
+<p>2. Import the image with postscript names.</p>
+<p><em>imgimport foo.gz -p node1,node2</em></p>
+<p>The <em>postscripts</em> table will be updated with the name of the <em>postscripts</em> and the <em>postbootscripts</em> for node1 and node2.</p>
+<p>3. Import the image with a new profile name</p>
+<p><em>imgimport foo.gz -f compute_test</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/imgimport</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="imgexport.1.html">imgexport(1)</a></p>
+
+</body>
+
+</html>

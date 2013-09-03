@@ -1,0 +1,4 @@
+[main]
+[xdsh]
+pre-command=cli
+post-command=NULL

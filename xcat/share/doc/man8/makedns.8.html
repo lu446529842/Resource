@@ -1,0 +1,113 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;makedns&gt; - sets up domain name services.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#examples">Examples</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>makedns</strong> - sets up domain name services (DNS).</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>makedns</strong> [<em>-h</em>|<em>--help</em>]</p>
+<p><strong>makedns</strong> [-e|--external] [<em>-n</em>|<em>--new</em>] [<em>noderange</em>]</p>
+<p><strong>makedns</strong> [-e|--external] [<em>-d</em>|<em>--delete</em> <em>noderange</em>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p><strong>makedns</strong> configures a DNS server on the system you run it on, which is typically the xCAT management node.</p>
+<p>The list of nodes to include comes from either the <strong>noderange</strong> provided on the command line or the entries in the local /etc/hosts files.</p>
+<p>There are several bits of information that must be included in the xCAT database before running this command.</p>
+<p>You must set the <strong>forwarders</strong> attributes in the xCAT <strong>site</strong> definition.</p>
+<p>The <strong>forwarders</strong> value should be set to the IP address of one or more nameservers at your site that can resolve names outside of your cluster.  With this set up, all nodes ask the local nameserver to resolve names, and if it is a name that the MN DNS does not know about, it will try the forwarder names.</p>
+<p>An xCAT <strong>network</strong> definition must be defined for each network used in the cluster.  The <strong>net</strong> and <strong>mask</strong> attributes will be used by the <strong>makedns</strong> command.</p>
+<p>A network <strong>domain</strong> and <strong>nameservers</strong> values must be provided either in the <strong>network</strong> definiton corresponding to the node or in the <strong>site</strong> definition.</p>
+<p>Only entries in /etc/hosts or the hosts specified by <strong>noderange</strong> that have a corresponding xCAT network definition will be added to DNS.</p>
+<p>By default, <strong>makedns</strong> sets up the <strong>named</strong> service and updates the DNS records on the local system (mamagement node). If the -e flag is specified, it will also update the DNS records on any external DNS server that is listed in the /etc/resolv.conf on the management node. (Assuming the external DNS server can recognize the xCAT key as authentication.)</p>
+<p>For more information on Cluster Name Resolution:
+<a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Cluster_Name_Resolution">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Cluster_Name_Resolution</a></p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dn_7c_2d_2dnew"><strong>-n</strong>|<strong>--new</strong></a></strong>
+
+<dd>
+<p>Use this flag to create new named configuration and db files.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dd_7c_2d_2ddelete"><strong>-d</strong>|<strong>--delete</strong></a></strong>
+
+<dd>
+<p>Remove the DNS records.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2de_7c_2d_2dexternal"><strong>-e</strong>|<strong>--external</strong></a></strong>
+
+<dd>
+<p>Update DNS records to the external DNS server listed in /etc/resolv.conf.</p>
+</dd>
+</li>
+<dt><strong><a name="item_noderange"><strong>noderange</strong></a></strong>
+
+<dd>
+<p>A set of comma delimited node names and/or group names. See the ``noderange'' man page for details on additional supported formats.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples">Examples</a></h1>
+<ol>
+<li>
+<p>To set up DNS for all the hosts in /etc/hosts file.</p>
+<p><strong>makedns</strong></p>
+</li>
+<li>
+<p>To set up DNS for <em>node1</em>.</p>
+<p><strong>makedns</strong> <em>node1</em></p>
+</li>
+<li>
+<p>To create a new named configuration and db files for all hosts in /etc/hosts.</p>
+<p><strong>makedns</strong> <strong>-n</strong></p>
+</li>
+<li>
+<p>To delete the DNS records for <em>node1</em>.</p>
+<p><strong>makedns</strong> <strong>-d</strong> <em>node1</em></p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="makehosts.8.html">makehosts(8)</a></p>
+
+</body>
+
+</html>

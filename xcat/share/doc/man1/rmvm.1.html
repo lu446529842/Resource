@@ -1,0 +1,114 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;rmvm&gt; - Removes HMC-, IVM-, KVM-, Vmware- and zVM-managed partitions or virtual machines.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<ul>
+
+		<li><a href="#for_kvm_and_vmware_">For KVM and Vmware:</a></li>
+	</ul>
+
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>rmvm</strong> - Removes HMC-, IVM-, KVM-, Vmware- and zVM-managed partitions or virtual machines.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><em>rmvm [-h| --help]</em></p>
+<p><em>rmvm [-v| --version]</em></p>
+<p><em>rmvm [-V| --verbose] noderange [-r] [--service]</em></p>
+<p>
+</p>
+<h2><a name="for_kvm_and_vmware_">For KVM and Vmware:</a></h2>
+<p><em>rmvm [-p] [-f]</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The rmvm command removes the partitions specified in noderange. If noderange is an CEC, all the partitions associated with that CEC will be removed. Note that removed partitions are automatically removed from the xCAT database. For IVM-managed systems, care must be taken to not remove the VIOS partition, or all the associated partitions will be removed as well.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-h</strong>          Display usage message.</p>
+<p><strong>-v</strong>          Command Version.</p>
+<p><strong>-V</strong>          Verbose output.</p>
+<p><strong>-r</strong>          Retain the data object definitions of the nodes.</p>
+<p><strong>--service</strong>   Remove the service partitions of the specified CECs.</p>
+<p><strong>-p</strong>          Purge the existence of the VM from persistant storage.  This will erase all storage related to the VM in addition to removing it from the active virtualization configuration.</p>
+<p><strong>-f</strong>          Force remove the VM, even if the VM appears to be online.  This will bring down a live VM if requested.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To remove the partition lpar3, enter:</p>
+<p><em>rmvm lpar3</em></p>
+<p>Output is similar to:</p>
+<p>lpar3: Success</p>
+<p>2. To remove all the partitions associated with CEC cec01, enter:</p>
+<p><em>rmvm cec01</em></p>
+<p>Output is similar to:</p>
+<pre>
+ lpar1: Success
+ lpar2: Success
+ lpar3: Success</pre>
+<p>3. To remove the service partitions of the specified CEC cec01 and cec02, enter:</p>
+<p><em>rmvm cec01,cec02 --service</em></p>
+<p>Output is similar to:</p>
+<pre>
+ cec01: Success
+ cec02: Success</pre>
+<p>4. To remove the partition lpar1, but retain its definition, enter:</p>
+<p><em>rmvm lpar1 -r</em></p>
+<p>Output is similar to:</p>
+<p>lpar1: Success</p>
+<p>5. To remove a zVM virtual machine:</p>
+<p><em>rmvm gpok4</em></p>
+<p>Output is similar to:</p>
+<pre>
+ gpok4: Deleting virtual server LNX4... Done</pre>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/rmvm</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="mkvm.1.html">mkvm(1)</a>, <a href="lsvm.1.html">lsvm(1)</a>, <a href="chvm.1.html">chvm(1)</a></p>
+
+</body>
+
+</html>

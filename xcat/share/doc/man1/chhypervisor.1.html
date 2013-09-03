@@ -1,0 +1,306 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;chhypervisor&gt; - Configure the virtualization hosts.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<ul>
+
+		<li><a href="#rhev_specific__">RHEV specific :</a></li>
+		<li><a href="#zvm_specific__">zVM specific :</a></li>
+	</ul>
+
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<ul>
+
+		<li><a href="#rhev_specific__">RHEV specific :</a></li>
+		<li><a href="#zvm_specific__">zVM specific :</a></li>
+	</ul>
+
+	<li><a href="#files">FILES</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>chhypervisor</strong> - Configure the virtualization hosts.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>RHEV specific :</strong></p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>-a</strong>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>-n</strong>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>-p</strong>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>-e</strong>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>-d</strong>]</p>
+<p><strong>zVM specific :</strong></p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>--adddisk2pool</strong> <em>function</em> <em>region</em> <em>volume</em> <em>group</em>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>--addscsi</strong> <em>device_number</em> <em>device_path</em> <em>option</em> <em>persist</em>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>--addvlan</strong> <em>name</em> <em>owner</em> <em>type</em> <em>transport</em>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>--addvswitch</strong> <em>name</em> <em>osa_dev_addr</em> <em>osa_exp_adapter</em> <em>controller</em> <em>connect (0, 1, or 2)</em> <em>memory_queue</em> <em>router</em> <em>transport</em> <em>vlan_id</em> <em>port_type</em> <em>update</em> <em>gvrp</em> <em>native_vlan</em>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>--addzfcp2pool</strong> <em>pool</em> <em>status</em> <em>wwpn</em> <em>lun</em> <em>size</em> <em>owner</em>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>--removediskfrompool</strong> <em>function</em> <em>region</em> <em>group</em>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>--removescsi</strong> <em>device_number</em> <em>persist (YES or NO)</em>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>--removevlan</strong> <em>name</em> <em>owner</em>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>--removevswitch</strong> <em>name</em>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>--removezfcpfrompool</strong> <em>pool</em> <em>lun</em> <em>wwpn</em>]</p>
+<p><strong>chhypervisor</strong> <em>noderange</em> [<strong>--smcli</strong> <em>function</em> <em>arguments</em>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>chhypervisor</strong> command can be used to configure the RHEV-h.</p>
+<p>The rhev-h host will register to the rhev-m automatically, but admin needs to 
+approve the host can be added to the 'cluster' with <strong>-a</strong> flag .</p>
+<p>After registering, the network interfaces of host need to be added to the 'network' of 
+RHEV. And the power management for the host should be configured so that
+rhev-m could make proper decision when certain host encountered error.</p>
+<p>The <strong>chhypervisor</strong> command can also be used to configure the zVM host.</p>
+<p>For each host, an entry should be added to the hypervisor table:</p>
+<p>The columns of hypervisor table:</p>
+<p><strong>hypervisor.node</strong> - rhev-h host name or zVM host name (lower-case).</p>
+<p><strong>hypervisor.type</strong> - Must be set to 'rhevh' or 'zvm'.</p>
+<p><strong>hypervisor.mgr</strong> - The rhev manager (The FQDN of rhev-m server) for the host.</p>
+<p><strong>hypervisor.interface</strong> - The configuration for the nics. Refer to <strong>-n</strong>.</p>
+<p><strong>hypervisor.cluster</strong> - The cluster that the host will be added to. The 
+default is 'Default' cluster if not specified.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p>
+</p>
+<h2><a name="rhev_specific__">RHEV specific :</a></h2>
+<dl>
+<dt><strong><a name="item__2da_approve_the_host_that_to_be_added_to_cluster_"><strong>-a</strong>
+Approve the host that to be added to cluster.</a></strong>
+
+<dd>
+<p>Before approve, the status of the host must be 'pending_approval'.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dn_configure_the_network_interfaces_for_the_host"><strong>-n</strong>
+Configure the network interfaces for the host.</a></strong>
+
+<dd>
+<p>Note: This operation only can be run when host is in 'maintenance mode'. 
+Use <strong>-d</strong> to switch the host to 'maintenance' mode.</p>
+</dd>
+<dd>
+<p>The interfaces which configured in hypervisor.interface will be added
+to the network of RHEV.</p>
+</dd>
+<dd>
+<p>The format of hypervisor.interface is multiple [network:interfacename:
+protocol:IP:netmask:gateway] sections separated with '|'. For example: 
+[rhevm2:eth0:static:10.1.0.236:255.255.255.0:0.0.0.0].</p>
+</dd>
+<p><strong>network</strong> - The logic network which has been created by 'cfgve -t nw' 
+or the default management network 'rhevm'.</p>
+<p><strong>interfacename</strong> - Physical network name: 'eth0','eth1'...</p>
+<p><strong>protocol</strong> - To identify which boot protocol to use for the interface: dhcp 
+or static.</p>
+<p><strong>IP</strong> - The IP address for the interface.</p>
+<p><strong>netmask</strong> - The network mask for the interface.</p>
+<p><strong>gateway</strong> - The gateay for the interface. This field only can be set when 
+the interface is added to 'rhevm' network.</p>
+<dt><strong><a name="item__2dp_configure_the_power_management_for_the_host_2"><strong>-p</strong>
+Configure the power management for the host.</a></strong>
+
+<dd>
+<p>The power management must be configured for the rhev-h host to make the 
+rhev-m to monitor the power status of the host, so that when certain host 
+failed to function, rhev-m will fail over certain role like SPM to other active host.</p>
+</dd>
+<dd>
+<p>For rack mounted server, the bmc IP and user:password need to be set for the 
+power management (These parameters are gotten from ipmi table). rhev-m uses the 
+ipmi protocol to get the power status of the host.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2de_to_activate_the_host_2e"><strong>-e</strong>
+To activate the host.</a></strong>
+
+<dt><strong><a name="item__2dd_to_deactivate_the_host_to_maintenance_mode_2e"><strong>-d</strong>
+To deactivate the host to maintenance mode.</a></strong>
+
+<dt><strong><a name="item__2dh_display_usage_message_2e"><strong>-h</strong>
+Display usage message.</a></strong>
+
+</dl>
+<p>
+</p>
+<h2><a name="zvm_specific__">zVM specific :</a></h2>
+<dl>
+<dt><strong><a name="item__2d_2dadddisk2pool_function_region_volume_group"><strong>--adddisk2pool</strong> <em>function</em> <em>region</em> <em>volume</em> <em>group</em></a></strong>
+
+<dd>
+<p>Add a disk to a disk pool defined in the EXTENT CONTROL. Function type can be 
+either: (4) Define region as full volume and add to group OR (5) Add existing 
+region to group. If the volume already exists in the EXTENT CONTROL, use 
+function 5. If the volume does not exist in the EXTENT CONTROL, but is attached
+to SYSTEM, use function 4.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2daddscsi_device_number_device_path_option_per"><strong>--addscsi</strong> <em>device_number</em> <em>device_path</em> <em>option</em> <em>persist</em></a></strong>
+
+<dd>
+<p>Dynamically add a SCSI disk to a running z/VM system.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2daddvlan_name_owner_type_transport"><strong>--addvlan</strong> <em>name</em> <em>owner</em> <em>type</em> <em>transport</em></a></strong>
+
+<dd>
+<p>Create a virtual network LAN.</p>
+</dd>
+</li>
+<dt><strong><a name="item_connect"><strong>--addvswitch</strong> <em>name</em> <em>osa_dev_addr</em> <em>osa_exp_adapter</em> <em>controller</em> <em>connect (0, 1, or 2)</em> <em>memory_queue</em> <em>router</em> <em>transport</em> <em>vlan_id</em> <em>port_type</em> <em>update</em> <em>gvrp</em> <em>native_vlan</em></a></strong>
+
+<dd>
+<p>Create a virtual switch.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2daddzfcp2pool_pool_status_wwpn_lun_size_owner"><strong>--addzfcp2pool</strong> <em>pool</em> <em>status</em> <em>wwpn</em> <em>lun</em> <em>size</em> <em>owner</em></a></strong>
+
+<dd>
+<p>Add a zFCP device to a device pool defined in xCAT. The device must have been 
+carved up in the storage controller and configured with a WWPN/LUN before it 
+can be added to the xCAT storage pool. z/VM does not have the ability to 
+communicate directly with the storage controller to carve up disks dynamically.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dremovediskfrompool_function_region_group"><strong>--removediskfrompool</strong> <em>function</em> <em>region</em> <em>group</em></a></strong>
+
+<dd>
+<p>Remove a disk from a disk pool defined in the EXTENT CONTROL. Function type can 
+be either: (1) Remove region, (2) Remove region from group, (3) Remove region 
+from all groups, OR (7) Remove entire group .</p>
+</dd>
+</li>
+<dt><strong><a name="item_persist"><strong>--removescsi</strong> <em>device_number</em> <em>persist (YES or NO)</em></a></strong>
+
+<dd>
+<p>Delete a real SCSI disk.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dremovevlan_name_owner"><strong>--removevlan</strong> <em>name</em> <em>owner</em></a></strong>
+
+<dd>
+<p>Delete a virtual network LAN.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dremovevswitch_name"><strong>--removevswitch</strong> <em>name</em></a></strong>
+
+<dd>
+<p>Delete a virtual switch.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dremovezfcpfrompool_pool_lun"><strong>--removezfcpfrompool</strong> <em>pool</em> <em>lun</em></a></strong>
+
+<dd>
+<p>Remove a zFCP device from a device pool defined in xCAT.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2dsmcli_function_arguments"><strong>--smcli</strong> <em>function</em> <em>arguments</em></a></strong>
+
+<dd>
+<p>Execute a SMAPI function. A list of APIs supported can be found by using the 
+help flag, e.g. chhypervisor pokdev61 --smcli -h. Specific arguments associated 
+with a SMAPI function can be found by using the help flag for the function, 
+e.g. chhypervisor pokdev61 --smcli Image_Query_DM -h. Only z/VM 6.2 and older 
+SMAPI functions are supported at this time. Additional SMAPI functions will be 
+added in subsequent zHCP versions.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0  The command completed successfully.</p>
+<p>1  An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>
+</p>
+<h2><a name="rhev_specific__">RHEV specific :</a></h2>
+<ol>
+<li><strong><a name="item_to_approve_the_host__27host1_27_2c_enter_3a">To approve the host 'host1', enter:</a></strong>
+
+<pre>
+ chhypervisor host1 -a</pre>
+<li><strong><a name="item_to_configure_the_network_interface_for_the_host__2">To configure the network interface for the host 'host1', enter:</a></strong>
+
+<pre>
+ chhypervisor host1 -n</pre>
+<li><strong><a name="item_to_configure_the_power_management_for_the_host__27">To configure the power management for the host 'host1', enter:</a></strong>
+
+<pre>
+ chhypervisor host1 -p</pre>
+<li><strong><a name="item_to_activate_the_host__27host1_27_2c_enter_3a">To activate the host 'host1', enter:</a></strong>
+
+<pre>
+ chhypervisor host1 -e</pre>
+<li><strong><a name="item_to_deactivate_the_host__27host1_27_2c_enter_3a">To deactivate the host 'host1', enter:</a></strong>
+
+<pre>
+ chhypervisor host1 -d</pre>
+</ol>
+<p>
+</p>
+<h2><a name="zvm_specific__">zVM specific :</a></h2>
+<ol>
+<li><strong><a name="item_to_add_a_disk_to_a_disk_pool_defined_in_the_extent">To add a disk to a disk pool defined in the EXTENT CONTROL, enter:</a></strong>
+
+<pre>
+ chhypervisor pokdev61 --adddisk2pool 4 DM1234 DM1234 POOL1
+ 
+=item 2.
+To add a zFCP device to a device pool defined in xCAT, enter:</pre>
+<pre>
+ chhypervisor pokdev61 --addzfcp2pool zfcp1 free 500501234567C890 4012345600000000 8G
+ 
+=item 3.
+To remove a region from a group in the EXTENT CONTROL, enter:</pre>
+<pre>
+ chhypervisor pokdev61 --removediskfrompool 2 DM1234 POOL1
+  
+=item 4.
+To remove a zFCP device from a device pool defined in xCAT, enter:</pre>
+<pre>
+ chhypervisor pokdev61 --removezfcpfrompool zfcp1 4012345600000000 500501234567C890
+  
+=item 5.
+To execute a SMAPI function (Image_Query_DM), enter:</pre>
+<pre>
+ chhypervisor pokdev61 --smcli Image_Query_DM -T LNX3</pre>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/chhypervisor</p>
+
+</body>
+
+</html>

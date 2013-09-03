@@ -1,0 +1,1252 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;node&gt; - a logical object definition in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#node_attributes_">node Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>node</strong> - a logical object definition in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>node Attributes:</strong>  <em>addkcmdline</em>, <em>appstatus</em>, <em>appstatustime</em>, <em>arch</em>, <em>authdomain</em>, <em>bmc</em>, <em>bmcpassword</em>, <em>bmcport</em>, <em>bmcusername</em>, <em>cfgmgr</em>, <em>cfgmgtroles</em>, <em>cfgserver</em>, <em>chain</em>, <em>chassis</em>, <em>cmdmapping</em>, <em>cons</em>, <em>conserver</em>, <em>currchain</em>, <em>currstate</em>, <em>dhcpinterfaces</em>, <em>displayname</em>, <em>domainadminpassword</em>, <em>domainadminuser</em>, <em>domaintype</em>, <em>getmac</em>, <em>groups</em>, <em>hcp</em>, <em>height</em>, <em>hidden</em>, <em>hostcluster</em>, <em>hostinterface</em>, <em>hostmanager</em>, <em>hostnames</em>, <em>hosttype</em>, <em>hwtype</em>, <em>id</em>, <em>initrd</em>, <em>installnic</em>, <em>interface</em>, <em>ip</em>, <em>iscsipassword</em>, <em>iscsiserver</em>, <em>iscsitarget</em>, <em>iscsiuserid</em>, <em>kcmdline</em>, <em>kernel</em>, <em>mac</em>, <em>mgt</em>, <em>micbridge</em>, <em>michost</em>, <em>micid</em>, <em>miconboot</em>, <em>micvlog</em>, <em>migrationdest</em>, <em>monserver</em>, <em>mpa</em>, <em>mtm</em>, <em>nameservers</em>, <em>netboot</em>, <em>nfsdir</em>, <em>nfsserver</em>, <em>nicaliases</em>, <em>niccustomscripts</em>, <em>nichostnamesuffixes</em>, <em>nicips</em>, <em>nicnetworks</em>, <em>nictypes</em>, <em>nimserver</em>, <em>node</em>, <em>nodetype</em>, <em>ondiscover</em>, <em>os</em>, <em>osvolume</em>, <em>otherinterfaces</em>, <em>ou</em>, <em>parent</em>, <em>passwd.HMC</em>, <em>passwd.admin</em>, <em>passwd.celogin</em>, <em>passwd.general</em>, <em>passwd.hscroot</em>, <em>password</em>, <em>postbootscripts</em>, <em>postscripts</em>, <em>power</em>, <em>pprofile</em>, <em>prescripts-begin</em>, <em>prescripts-end</em>, <em>primarynic</em>, <em>primarysn</em>, <em>productkey</em>, <em>profile</em>, <em>provmethod</em>, <em>rack</em>, <em>room</em>, <em>routenames</em>, <em>serial</em>, <em>serialflow</em>, <em>serialport</em>, <em>serialspeed</em>, <em>servicenode</em>, <em>setupconserver</em>, <em>setupdhcp</em>, <em>setupftp</em>, <em>setupipforward</em>, <em>setupldap</em>, <em>setupnameserver</em>, <em>setupnfs</em>, <em>setupnim</em>, <em>setupntp</em>, <em>setuptftp</em>, <em>sfp</em>, <em>side</em>, <em>slot</em>, <em>slotid</em>, <em>slots</em>, <em>status</em>, <em>statustime</em>, <em>supernode</em>, <em>supportedarchs</em>, <em>switch</em>, <em>switchinterface</em>, <em>switchport</em>, <em>switchvlan</em>, <em>termport</em>, <em>termserver</em>, <em>tftpdir</em>, <em>tftpserver</em>, <em>unit</em>, <em>updatestatus</em>, <em>updatestatustime</em>, <em>urlpath</em>, <em>usercomment</em>, <em>userid</em>, <em>username</em>, <em>vmbeacon</em>, <em>vmbootorder</em>, <em>vmcfgstore</em>, <em>vmcluster</em>, <em>vmcpus</em>, <em>vmhost</em>, <em>vmmanager</em>, <em>vmmaster</em>, <em>vmmemory</em>, <em>vmnicnicmodel</em>, <em>vmnics</em>, <em>vmstorage</em>, <em>vmstoragemodel</em>, <em>vmtextconsole</em>, <em>vmvirtflags</em>, <em>vmvncport</em>, <em>webport</em>, <em>xcatmaster</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Logical objects of this type are stored in the xCAT database in one or more tables.  Use the following commands
+to manipulate the objects: <strong>mkdef</strong>, <strong>chdef</strong>, <strong>lsdef</strong>, and <strong>rmdef</strong>.  These commands will take care of
+knowing which tables the object attributes should be stored in.  The attribute list below shows, in
+parentheses, what tables each attribute is stored in.</p>
+<p>
+</p>
+<hr />
+<h1><a name="node_attributes_">node Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_addkcmdline"><strong>addkcmdline</strong> (bootparams.addkcmdline)</a></strong>
+
+<dd>
+<p>User specified one or more parameters to be passed to the kernel</p>
+</dd>
+</li>
+<dt><strong><a name="item_appstatus"><strong>appstatus</strong> (nodelist.appstatus)</a></strong>
+
+<dd>
+<p>A comma-delimited list of application status. For example: 'sshd=up,ftp=down,ll=down'</p>
+</dd>
+</li>
+<dt><strong><a name="item_appstatustime"><strong>appstatustime</strong> (nodelist.appstatustime)</a></strong>
+
+<dd>
+<p>The date and time when appstatus was updated.</p>
+</dd>
+</li>
+<dt><strong><a name="item_arch"><strong>arch</strong> (nodetype.arch)</a></strong>
+
+<dd>
+<p>The hardware architecture of this node.  Valid values: x86_64, ppc64, x86, ia64.</p>
+</dd>
+</li>
+<dt><strong><a name="item_authdomain"><strong>authdomain</strong> (domain.authdomain)</a></strong>
+
+<dd>
+<p>If a node should participate in an AD domain or Kerberos realm distinct from domain indicated in site, this field can be used to specify that</p>
+</dd>
+</li>
+<dt><strong><a name="item_bmc"><strong>bmc</strong> (ipmi.bmc)</a></strong>
+
+<dd>
+<p>The hostname of the BMC adapater.</p>
+</dd>
+</li>
+<dt><strong><a name="item_bmcpassword"><strong>bmcpassword</strong> (ipmi.password)</a></strong>
+
+<dd>
+<p>The BMC password.  If not specified, the key=ipmi row in the passwd table is used as the default.</p>
+</dd>
+</li>
+<dt><strong><a name="item_bmcport"><strong>bmcport</strong> (ipmi.bmcport)</a></strong>
+
+<dd>
+<p>In systems with selectable shared/dedicated ethernet ports, this parameter can be used to specify the preferred port.  0 means use the shared port, 1 means dedicated, blank is to not assign</p>
+</dd>
+</li>
+<dt><strong><a name="item_bmcusername"><strong>bmcusername</strong> (ipmi.username)</a></strong>
+
+<dd>
+<p>The BMC userid.  If not specified, the key=ipmi row in the passwd table is used as the default.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cfgmgr"><strong>cfgmgr</strong> (cfgmgt.cfgmgr)</a></strong>
+
+<dd>
+<p>The name of the configuration manager service.  Currently 'chef' and 'puppet' are supported services.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cfgmgtroles"><strong>cfgmgtroles</strong> (cfgmgt.roles)</a></strong>
+
+<dd>
+<p>The roles associated with this node as recognized by the cfgmgr for the software that is to be installed and configured.  These role names map to chef recipes or puppet manifest classes that should be used for this node.  For example, chef OpenStack cookbooks have roles such as mysql-master,keystone, glance, nova-controller, nova-conductor, cinder-all.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cfgserver"><strong>cfgserver</strong> (cfgmgt.cfgserver)</a></strong>
+
+<dd>
+<p>The xCAT node name of the chef server or puppet master</p>
+</dd>
+</li>
+<dt><strong><a name="item_chain"><strong>chain</strong> (chain.chain)</a></strong>
+
+<dd>
+<p>A comma-delimited chain of actions to be performed automatically when this node is discovered. (``Discovered'' means a node booted, but xCAT and DHCP did not recognize the MAC of this node. In this situation, xCAT initiates the discovery process, the last step of which is to run the operations listed in this chain attribute, one by one.) Valid values:  boot or reboot, install or netboot, runcmd=&lt;cmd&gt;, runimage=&lt;URL&gt;, shell, standby. (Default - same as no chain - it will do only the discovery.).  Example, for BMC machines use: runcmd=bmcsetup,shell.</p>
+</dd>
+</li>
+<dt><strong><a name="item_chassis"><strong>chassis</strong> (nodepos.chassis)</a></strong>
+
+<dd>
+<p>The BladeCenter chassis the blade is in.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cmdmapping"><strong>cmdmapping</strong> (nodehm.cmdmapping)</a></strong>
+
+<dd>
+<p>The fully qualified name of the file that stores the mapping between PCM hardware management commands and xCAT/third-party hardware management commands for a particular type of hardware device.  Only used by PCM.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cons"><strong>cons</strong> (nodehm.cons)</a></strong>
+
+<dd>
+<p>The console method. If nodehm.serialport is set, this will default to the nodehm.mgt setting, otherwise it defaults to unused.  Valid values: cyclades, mrv, or the values valid for the mgt attribute.</p>
+</dd>
+</li>
+<dt><strong><a name="item_conserver"><strong>conserver</strong> (nodehm.conserver)</a></strong>
+
+<dd>
+<p>The hostname of the machine where the conserver daemon is running.  If not set, the default is the xCAT management node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_currchain"><strong>currchain</strong> (chain.currchain)</a></strong>
+
+<dd>
+<p>The chain steps still left to do for this node.  This attribute will be automatically adjusted by xCAT while xCAT-genesis is running on the node (either during node discovery or a special operation like firmware update).  During node discovery, this attribute is initialized from the chain attribute and updated as the chain steps are executed.</p>
+</dd>
+</li>
+<dt><strong><a name="item_currstate"><strong>currstate</strong> (chain.currstate)</a></strong>
+
+<dd>
+<p>The current or next chain step to be executed on this node by xCAT-genesis.  Set by xCAT during node discovery or as a result of nodeset.</p>
+</dd>
+</li>
+<dt><strong><a name="item_dhcpinterfaces"><strong>dhcpinterfaces</strong> (servicenode.dhcpinterfaces)</a></strong>
+
+<dd>
+<p>The network interfaces DHCP server should listen on for the target node. This attribute can be used for management node and service nodes.  If defined, it will override the values defined in site.dhcpinterfaces. This is a comma separated list of device names. !remote! indicates a non-local network for relay DHCP. For example: !remote!,eth0,eth1</p>
+</dd>
+</li>
+<dt><strong><a name="item_displayname"><strong>displayname</strong> (mpa.displayname)</a></strong>
+
+<dd>
+<p>Alternative name for BladeCenter chassis. Only used by PCM.</p>
+</dd>
+</li>
+<dt><strong><a name="item_domainadminpassword"><strong>domainadminpassword</strong> (domain.adminpassword)</a></strong>
+
+<dd>
+<p>Allow a node specific indication of Administrative user password for the domain.  Most will want to ignore this in favor of passwd table.</p>
+</dd>
+</li>
+<dt><strong><a name="item_domainadminuser"><strong>domainadminuser</strong> (domain.adminuser)</a></strong>
+
+<dd>
+<p>Allow a node specific indication of Administrative user.  Most will want to just use passwd table to indicate this once rather than by node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_domaintype"><strong>domaintype</strong> (domain.type)</a></strong>
+
+<dd>
+<p>Type, if any, of authentication domain to manipulate.  The only recognized value at the moment is activedirectory.</p>
+</dd>
+</li>
+<dt><strong><a name="item_getmac"><strong>getmac</strong> (nodehm.getmac)</a></strong>
+
+<dd>
+<p>The method to use to get MAC address of the node with the getmac command. If not set, the mgt attribute will be used.  Valid values: same as values for mgmt attribute.</p>
+</dd>
+</li>
+<dt><strong><a name="item_groups"><strong>groups</strong> (nodelist.groups)</a></strong>
+
+<dd>
+<p>A comma-delimited list of groups this node is a member of.  Group names are arbitrary, except all nodes should be part of the 'all' group. Internal group names are designated by using __&lt;groupname&gt;.  For example, __Unmanaged, could be the internal name for a group of nodes that is not managed by xCAT. Admins should avoid using the __ characters when defining their groups.</p>
+</dd>
+</li>
+<dt><strong><a name="item_hcp"><strong>hcp</strong> (ppc.hcp, zvm.hcp)</a></strong>
+
+<dd>
+<p>The hardware control point for this node (HMC, IVM, Frame or CEC).  Do not need to set for BPAs and FSPs.</p>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<p>The hardware control point for this node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_height"><strong>height</strong> (nodepos.height)</a></strong>
+
+<dd>
+<p>The server height in U(s).</p>
+</dd>
+</li>
+<dt><strong><a name="item_hidden"><strong>hidden</strong> (nodelist.hidden)</a></strong>
+
+<dd>
+<p>Used to hide fsp and bpa definitions, 1 means not show them when running lsdef and nodels</p>
+</dd>
+</li>
+<dt><strong><a name="item_hostcluster"><strong>hostcluster</strong> (hypervisor.cluster)</a></strong>
+
+<dd>
+<p>Specify to the underlying virtualization infrastructure a cluster membership for the hypervisor.</p>
+</dd>
+</li>
+<dt><strong><a name="item_hostinterface"><strong>hostinterface</strong> (hypervisor.interface)</a></strong>
+
+<dd>
+<p>The definition of interfaces for the hypervisor. The format is [networkname:interfacename:bootprotocol:IP:netmask:gateway] that split with | for each interface</p>
+</dd>
+</li>
+<dt><strong><a name="item_hostmanager"><strong>hostmanager</strong> (hypervisor.mgr)</a></strong>
+
+<dd>
+<p>The virtualization specific manager of this hypervisor when applicable</p>
+</dd>
+</li>
+<dt><strong><a name="item_hostnames"><strong>hostnames</strong> (hosts.hostnames)</a></strong>
+
+<dd>
+<p>Hostname aliases added to /etc/hosts for this node. Comma or blank separated list.</p>
+</dd>
+</li>
+<dt><strong><a name="item_hosttype"><strong>hosttype</strong> (hypervisor.type)</a></strong>
+
+<dd>
+<p>The plugin associated with hypervisor specific commands such as revacuate</p>
+</dd>
+</li>
+<dt><strong><a name="item_hwtype"><strong>hwtype</strong> (ppc.nodetype, zvm.nodetype, mp.nodetype, mic.nodetype)</a></strong>
+
+<dd>
+<p>The hardware type of the node. Only can be one of fsp, bpa, cec, frame, ivm, hmc and lpar</p>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<p>The node type. Valid values: cec (Central Electronic Complex), lpar (logical partition), zvm (z/VM host operating system), and vm (virtual machine).</p>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<p>The hardware type for mp node. Valid values: mm,cmm, blade.</p>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<p>The hardware type of the mic node. Generally, it is mic.</p>
+</dd>
+</li>
+<dt><strong><a name="item_id"><strong>id</strong> (ppc.id, mp.id)</a></strong>
+
+<dd>
+<p>For LPARs: the LPAR numeric id; for CECs: the cage number; for Frames: the frame number.</p>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<p>The slot number of this blade in the BladeCenter chassis.</p>
+</dd>
+</li>
+<dt><strong><a name="item_initrd"><strong>initrd</strong> (bootparams.initrd)</a></strong>
+
+<dd>
+<p>The initial ramdisk image that network boot actions should use (could be a DOS floppy or hard drive image if using memdisk as kernel)</p>
+</dd>
+</li>
+<dt><strong><a name="item_installnic"><strong>installnic</strong> (noderes.installnic)</a></strong>
+
+<dd>
+<p>The network adapter on the node that will be used for OS deployment, the installnic can be set to the network adapter name or the mac address or the keyword ``mac'' which means that the network interface specified by the mac address in the mac table will be used.  If not set, primarynic will be used.</p>
+</dd>
+</li>
+<dt><strong><a name="item_interface"><strong>interface</strong> (mac.interface)</a></strong>
+
+<dd>
+<p>The adapter interface name that will be used to install and manage the node. E.g. eth0 (for linux) or en0 (for AIX).)</p>
+</dd>
+</li>
+<dt><strong><a name="item_ip"><strong>ip</strong> (hosts.ip)</a></strong>
+
+<dd>
+<p>The IP address of the node. This is only used in makehosts.  The rest of xCAT uses system name resolution to resolve node names to IP addresses.</p>
+</dd>
+</li>
+<dt><strong><a name="item_iscsipassword"><strong>iscsipassword</strong> (iscsi.passwd)</a></strong>
+
+<dd>
+<p>The password for the iscsi server containing the boot device for this node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_iscsiserver"><strong>iscsiserver</strong> (iscsi.server)</a></strong>
+
+<dd>
+<p>The server containing the iscsi boot device for this node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_iscsitarget"><strong>iscsitarget</strong> (iscsi.target)</a></strong>
+
+<dd>
+<p>The iscsi disk used for the boot device for this node.  Filled in by xCAT.</p>
+</dd>
+</li>
+<dt><strong><a name="item_iscsiuserid"><strong>iscsiuserid</strong> (iscsi.userid)</a></strong>
+
+<dd>
+<p>The userid of the iscsi server containing the boot device for this node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_kcmdline"><strong>kcmdline</strong> (bootparams.kcmdline)</a></strong>
+
+<dd>
+<p>Arguments to be passed to the kernel</p>
+</dd>
+</li>
+<dt><strong><a name="item_kernel"><strong>kernel</strong> (bootparams.kernel)</a></strong>
+
+<dd>
+<p>The kernel that network boot actions should currently acquire and use.  Note this could be a chained boot loader such as memdisk or a non-linux boot loader</p>
+</dd>
+</li>
+<dt><strong><a name="item_mac"><strong>mac</strong> (mac.mac)</a></strong>
+
+<dd>
+<p>The mac address or addresses for which xCAT will manage static bindings for this node.  This may be simply a mac address, which would be bound to the node name (such as ``01:02:03:04:05:0E'').  This may also be a ``|'' delimited string of ``mac address!hostname'' format (such as ``01:02:03:04:05:0E!node5|01:02:03:05:0F!node6-eth1'').</p>
+</dd>
+</li>
+<dt><strong><a name="item_mgt"><strong>mgt</strong> (nodehm.mgt)</a></strong>
+
+<dd>
+<p>The method to use to do general hardware management of the node.  This attribute is used as the default if power or getmac is not set.  Valid values: ipmi, blade, hmc, ivm, fsp, bpa.  See the power attribute for more details.</p>
+</dd>
+</li>
+<dt><strong><a name="item_micbridge"><strong>micbridge</strong> (mic.bridge)</a></strong>
+
+<dd>
+<p>The virtual bridge on the host node which the mic connected to.</p>
+</dd>
+</li>
+<dt><strong><a name="item_michost"><strong>michost</strong> (mic.host)</a></strong>
+
+<dd>
+<p>The host node which the mic card installed on.</p>
+</dd>
+</li>
+<dt><strong><a name="item_micid"><strong>micid</strong> (mic.id)</a></strong>
+
+<dd>
+<p>The device id of the mic node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_miconboot"><strong>miconboot</strong> (mic.onboot)</a></strong>
+
+<dd>
+<p>Set mic to autoboot when mpss start. Valid values: yes|no. Default is yes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_micvlog"><strong>micvlog</strong> (mic.vlog)</a></strong>
+
+<dd>
+<p>Set the Verbose Log to console. Valid values: yes|no. Default is no.</p>
+</dd>
+</li>
+<dt><strong><a name="item_migrationdest"><strong>migrationdest</strong> (vm.migrationdest)</a></strong>
+
+<dd>
+<p>A noderange representing candidate destinations for migration (i.e. similar systems, same SAN, or other criteria that xCAT can use</p>
+</dd>
+</li>
+<dt><strong><a name="item_monserver"><strong>monserver</strong> (noderes.monserver)</a></strong>
+
+<dd>
+<p>The monitoring aggregation point for this node. The format is ``x,y'' where x is the ip address as known by the management node and y is the ip address as known by the node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mpa"><strong>mpa</strong> (mp.mpa)</a></strong>
+
+<dd>
+<p>The managment module used to control this blade.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mtm"><strong>mtm</strong> (vpd.mtm)</a></strong>
+
+<dd>
+<p>The machine type and model number of the node.  E.g. 7984-6BU</p>
+</dd>
+</li>
+<dt><strong><a name="item_nameservers"><strong>nameservers</strong> (noderes.nameservers)</a></strong>
+
+<dd>
+<p>An optional node/group specific override for name server list.  Most people want to stick to site or network defined nameserver configuration.</p>
+</dd>
+</li>
+<dt><strong><a name="item_netboot"><strong>netboot</strong> (noderes.netboot)</a></strong>
+
+<dd>
+<p>The type of network booting to use for this node.  Valid values:  pxe or xnba for x86* architecture, yaboot for POWER architecture.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nfsdir"><strong>nfsdir</strong> (noderes.nfsdir)</a></strong>
+
+<dd>
+<p>The path that should be mounted from the NFS server.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nfsserver"><strong>nfsserver</strong> (noderes.nfsserver)</a></strong>
+
+<dd>
+<p>The NFS or HTTP server for this node (as known by this node).</p>
+</dd>
+</li>
+<dt><strong><a name="item_nicaliases"><strong>nicaliases</strong> (nics.nicaliases)</a></strong>
+
+<dd>
+<p>Comma-separated list of hostname aliases for each NIC.</p>
+</dd>
+<dd>
+<pre>
+            Format: eth0!&lt;alias list&gt;,eth1!&lt;alias1 list&gt;|&lt;alias2 list&gt;</pre>
+</dd>
+<dd>
+<pre>
+                        For multiple aliases per nic use a space-separated list.</pre>
+</dd>
+<dd>
+<pre>
+            For example: eth0!moe larry curly,eth1!tom|jerry</pre>
+</dd>
+</li>
+<dt><strong><a name="item_niccustomscripts"><strong>niccustomscripts</strong> (nics.niccustomscripts)</a></strong>
+
+<dd>
+<p>Comma-separated list of custom scripts per NIC.  &lt;nic1&gt;!&lt;script1&gt;,&lt;nic2&gt;!&lt;script2&gt;, e.g. eth0!configeth eth0, ib0!configib ib0. The xCAT object definition commands support to use niccustomscripts.&lt;nicname&gt; as the sub attribute</p>
+</dd>
+<dd>
+<p>.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nichostnamesuffixes"><strong>nichostnamesuffixes</strong> (nics.nichostnamesuffixes)</a></strong>
+
+<dd>
+<p>Comma-separated list of hostname suffixes per NIC.</p>
+</dd>
+<dd>
+<pre>
+                        If only one ip address is associated with each NIC:</pre>
+</dd>
+<dd>
+<pre>
+                            &lt;nic1&gt;!&lt;ext1&gt;,&lt;nic2&gt;!&lt;ext2&gt;,..., for example, eth0!-eth0,ib0!-ib0</pre>
+</dd>
+<dd>
+<pre>
+                        If multiple ip addresses are associcated with each NIC:</pre>
+</dd>
+<dd>
+<pre>
+                            &lt;nic1&gt;!&lt;ext1&gt;|&lt;ext2&gt;,&lt;nic2&gt;!&lt;ext1&gt;|&lt;ext2&gt;,..., for example,  eth0!-eth0|-eth0-ipv6,ib0!-ib0|-ib0-ipv6.</pre>
+</dd>
+<dd>
+<pre>
+                        The xCAT object definition commands support to use nichostnamesuffixes.&lt;nicname&gt; as the sub attributes.</pre>
+</dd>
+<dd>
+<pre>
+                        Note:  According to DNS rules a hostname must be a text string up to 24 characters drawn from the alphabet (A-Z), digits (0-9), minus sign (-),and period (.). When you are specifying &quot;nichostnamesuffixes&quot; or &quot;nicaliases&quot; make sure the resulting hostnames will conform to this naming convention</pre>
+</dd>
+</li>
+<dt><strong><a name="item_nicips"><strong>nicips</strong> (nics.nicips)</a></strong>
+
+<dd>
+<p>Comma-separated list of IP addresses per NIC. To specify one ip address per NIC:</p>
+</dd>
+<dd>
+<pre>
+                    &lt;nic1&gt;!&lt;ip1&gt;,&lt;nic2&gt;!&lt;ip2&gt;,..., for example, eth0!10.0.0.100,ib0!11.0.0.100</pre>
+</dd>
+<dd>
+<pre>
+                To specify multiple ip addresses per NIC:</pre>
+</dd>
+<dd>
+<pre>
+                    &lt;nic1&gt;!&lt;ip1&gt;|&lt;ip2&gt;,&lt;nic2&gt;!&lt;ip1&gt;|&lt;ip2&gt;,..., for example, eth0!10.0.0.100|fd55::214:5eff:fe15:849b,ib0!11.0.0.100|2001::214:5eff:fe15:849a. The xCAT object definition commands support to use nicips.&lt;nicname&gt; as the sub attributes.</pre>
+</dd>
+<dd>
+<pre>
+                Note: The primary IP address must also be stored in the hosts.ip attribute. The nichostnamesuffixes should specify one hostname suffix for each ip address.</pre>
+</dd>
+</li>
+<dt><strong><a name="item_nicnetworks"><strong>nicnetworks</strong> (nics.nicnetworks)</a></strong>
+
+<dd>
+<p>Comma-separated list of networks connected to each NIC.</p>
+</dd>
+<dd>
+<pre>
+                If only one ip address is associated with each NIC:</pre>
+</dd>
+<dd>
+<pre>
+                    &lt;nic1&gt;!&lt;network1&gt;,&lt;nic2&gt;!&lt;network2&gt;, for example, eth0!10_0_0_0-255_255_0_0, ib0!11_0_0_0-255_255_0_0</pre>
+</dd>
+<dd>
+<pre>
+                If multiple ip addresses are associated with each NIC:</pre>
+</dd>
+<dd>
+<pre>
+                    &lt;nic1&gt;!&lt;network1&gt;|&lt;network2&gt;,&lt;nic2&gt;!&lt;network1&gt;|&lt;network2&gt;, for example, eth0!10_0_0_0-255_255_0_0|fd55:faaf:e1ab:336::/64,ib0!11_0_0_0-255_255_0_0|2001:db8:1:0::/64. The xCAT object definition commands support to use nicnetworks.&lt;nicname&gt; as the sub attributes.</pre>
+</dd>
+</li>
+<dt><strong><a name="item_nictypes"><strong>nictypes</strong> (nics.nictypes)</a></strong>
+
+<dd>
+<p>Comma-separated list of NIC types per NIC. &lt;nic1&gt;!&lt;type1&gt;,&lt;nic2&gt;!&lt;type2&gt;, e.g. eth0!Ethernet,ib0!Infiniband. The xCAT object definition commands support to use nictypes.&lt;nicname&gt; as the sub attributes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nimserver"><strong>nimserver</strong> (noderes.nimserver)</a></strong>
+
+<dd>
+<p>Not used for now. The NIM server for this node (as known by this node).</p>
+</dd>
+</li>
+<dt><strong><a name="item_node"><strong>node</strong> (nodelist.node)</a></strong>
+
+<dd>
+<p>The hostname of a node in the cluster.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodetype"><strong>nodetype</strong> (nodetype.nodetype)</a></strong>
+
+<dd>
+<p>A comma-delimited list of characteristics of this node.  Valid values: ppc, blade, vm (virtual machine), osi (OS image), mm, mn, rsa, switch.</p>
+</dd>
+</li>
+<dt><strong><a name="item_ondiscover"><strong>ondiscover</strong> (chain.ondiscover)</a></strong>
+
+<dd>
+<p>This attribute is currently not used by xCAT.  The ``nodediscover'' operation is always done during node discovery.</p>
+</dd>
+</li>
+<dt><strong><a name="item_os"><strong>os</strong> (nodetype.os)</a></strong>
+
+<dd>
+<p>The operating system deployed on this node.  Valid values: AIX, rhels*,rhelc*, rhas*,centos*,SL*, fedora*, sles* (where * is the version #). As a special case, if this is set to ``boottarget'', then it will use the initrd/kernel/parameters specified in the row in the boottarget table in which boottarget.bprofile equals nodetype.profile.</p>
+</dd>
+</li>
+<dt><strong><a name="item_osvolume"><strong>osvolume</strong> (storage.osvolume)</a></strong>
+
+<dd>
+<p>Specification of what storage to place the node OS image onto.  Examples include:</p>
+</dd>
+<dd>
+<pre>
+                localdisk (Install to first non-FC attached disk)</pre>
+</dd>
+<dd>
+<pre>
+                usbdisk (Install to first USB mass storage device seen)</pre>
+</dd>
+<dd>
+<pre>
+                wwn=0x50000393c813840c (Install to storage device with given WWN)</pre>
+</dd>
+</li>
+<dt><strong><a name="item_otherinterfaces"><strong>otherinterfaces</strong> (hosts.otherinterfaces)</a></strong>
+
+<dd>
+<p>Other IP addresses to add for this node.  Format: -&lt;ext&gt;:&lt;ip&gt;,&lt;intfhostname&gt;:&lt;ip&gt;,...</p>
+</dd>
+</li>
+<dt><strong><a name="item_ou"><strong>ou</strong> (domain.ou)</a></strong>
+
+<dd>
+<p>For an LDAP described machine account (i.e. Active Directory), the orginaztional unit to place the system.  If not set, defaults to cn=Computers,dc=your,dc=domain</p>
+</dd>
+</li>
+<dt><strong><a name="item_parent"><strong>parent</strong> (ppc.parent)</a></strong>
+
+<dd>
+<p>For LPARs: the CEC; for FSPs: the CEC; for CEC: the frame (if one exists); for BPA: the frame; for frame: the building block number (which consists 1 or more service nodes and compute/storage nodes that are serviced by them - optional).</p>
+</dd>
+</li>
+<dt><strong><a name="item_hmc"><strong>passwd.HMC</strong> (ppcdirect.password)</a></strong>
+
+<dd>
+<p>Password of the FSP/BPA(for ASMI) and CEC/Frame(for DFM).  If not filled in, xCAT will look in the passwd table for key=fsp.  If not in the passwd table, the default used is admin.</p>
+</dd>
+</li>
+<dt><strong><a name="item_admin"><strong>passwd.admin</strong> (ppcdirect.password)</a></strong>
+
+<dd>
+<p>Password of the FSP/BPA(for ASMI) and CEC/Frame(for DFM).  If not filled in, xCAT will look in the passwd table for key=fsp.  If not in the passwd table, the default used is admin.</p>
+</dd>
+</li>
+<dt><strong><a name="item_celogin"><strong>passwd.celogin</strong> (ppcdirect.password)</a></strong>
+
+<dd>
+<p>Password of the FSP/BPA(for ASMI) and CEC/Frame(for DFM).  If not filled in, xCAT will look in the passwd table for key=fsp.  If not in the passwd table, the default used is admin.</p>
+</dd>
+</li>
+<dt><strong><a name="item_general"><strong>passwd.general</strong> (ppcdirect.password)</a></strong>
+
+<dd>
+<p>Password of the FSP/BPA(for ASMI) and CEC/Frame(for DFM).  If not filled in, xCAT will look in the passwd table for key=fsp.  If not in the passwd table, the default used is admin.</p>
+</dd>
+</li>
+<dt><strong><a name="item_hscroot"><strong>passwd.hscroot</strong> (ppcdirect.password)</a></strong>
+
+<dd>
+<p>Password of the FSP/BPA(for ASMI) and CEC/Frame(for DFM).  If not filled in, xCAT will look in the passwd table for key=fsp.  If not in the passwd table, the default used is admin.</p>
+</dd>
+</li>
+<dt><strong><a name="item_password"><strong>password</strong> (ppchcp.password, mpa.password, websrv.password)</a></strong>
+
+<dd>
+<p>Password of the HMC or IVM.  If not filled in, xCAT will look in the passwd table for key=hmc or key=ivm.  If not in the passwd table, the default used is abc123 for HMCs and padmin for IVMs.</p>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<p>Password to use to access the management module.  If not specified, the key=blade row in the passwd table is used as the default.</p>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<p>Password to use to access the web service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_postbootscripts"><strong>postbootscripts</strong> (postscripts.postbootscripts)</a></strong>
+
+<dd>
+<p>Comma separated list of scripts that should be run on thisnode after diskfull installation or diskless boot. Each script can take zero or more parameters. For example: ``script1 p1 p2,script2,...''. On AIX these scripts are run during the processing of /etc/inittab.  On Linux they are run at the init.d time. xCAT automatically adds the scripts in the xcatdefaults.postbootscripts attri bute to run first in the list.</p>
+</dd>
+</li>
+<dt><strong><a name="item_postscripts"><strong>postscripts</strong> (postscripts.postscripts)</a></strong>
+
+<dd>
+<p>Comma separated list of scripts that should be run on this node after diskfull installation or diskless boot. Each script can take zero or more parameters. For example: ``script1 p1 p2,script2,...''. xCAT automatically adds the postscripts from  the xcatdefaults.postscripts attribute of the table to run first on the nodes after install or diskless boot. For installation of RedHat, CentOS, Fedora, the scripts will be run before the reboot. For installation of SLES, the scripts will be run after the reboot but before the init.d process. For diskless deployment, the scripts will be run at the init.d time, and xCAT will automatically add the list of scripts from the postbootscripts attribute to run after postscripts list. For installation of AIX, the scripts will run after the reboot and acts the same as the postbootscripts attribute.  For AIX, use the postbootscripts attribute. Support will be added in the future for  the postscripts attribute to run the scripts before the reboot in AIX.</p>
+</dd>
+</li>
+<dt><strong><a name="item_power"><strong>power</strong> (nodehm.power)</a></strong>
+
+<dd>
+<p>The method to use to control the power of the node. If not set, the mgt attribute will be used.  Valid values: ipmi, blade, hmc, ivm, fsp.  If ``ipmi'', xCAT will search for this node in the ipmi table for more info.  If ``blade'', xCAT will search for this node in the mp table.  If ``hmc'', ``ivm'', or ``fsp'', xCAT will search for this node in the ppc table.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pprofile"><strong>pprofile</strong> (ppc.pprofile)</a></strong>
+
+<dd>
+<p>The LPAR profile that will be used the next time the LPAR is powered on with rpower. For DFM, the pprofile attribute should be set to blank</p>
+</dd>
+</li>
+<dt><strong><a name="item_begin"><strong>prescripts-begin</strong> (prescripts.begin)</a></strong>
+
+<dd>
+<p>The scripts to be run at the beginning of the nodeset(Linux),</p>
+</dd>
+<dd>
+<pre>
+ nimnodeset(AIX) or mkdsklsnode(AIX) command.</pre>
+</dd>
+<dd>
+<pre>
+ The format is:</pre>
+</dd>
+<dd>
+<pre>
+   [action1:]s1,s2...[|action2:s3,s4,s5...]</pre>
+</dd>
+<dd>
+<pre>
+ where:</pre>
+</dd>
+<dd>
+<pre>
+  - action1 and action2 for Linux are the nodeset actions specified in the command.</pre>
+</dd>
+<dd>
+<pre>
+    For AIX, action1 and action1 can be 'diskless' for mkdsklsnode command'</pre>
+</dd>
+<dd>
+<pre>
+    and 'standalone for nimnodeset command.</pre>
+</dd>
+<dd>
+<pre>
+  - s1 and s2 are the scripts to run for action1 in order.</pre>
+</dd>
+<dd>
+<pre>
+  - s3, s4, and s5 are the scripts to run for actions2.</pre>
+</dd>
+<dd>
+<pre>
+ If actions are omitted, the scripts apply to all actions.</pre>
+</dd>
+<dd>
+<pre>
+ Examples:</pre>
+</dd>
+<dd>
+<pre>
+   myscript1,myscript2  (all actions)</pre>
+</dd>
+<dd>
+<pre>
+   diskless:myscript1,myscript2   (AIX)</pre>
+</dd>
+<dd>
+<pre>
+   install:myscript1,myscript2|netboot:myscript3   (Linux)</pre>
+</dd>
+<dd>
+<pre>
+ All the scripts should be copied to /install/prescripts directory.</pre>
+</dd>
+<dd>
+<pre>
+ The following two environment variables will be passed to each script:</pre>
+</dd>
+<dd>
+<pre>
+   NODES a coma separated list of node names that need to run the script for</pre>
+</dd>
+<dd>
+<pre>
+   ACTION current nodeset action.</pre>
+</dd>
+<dd>
+<pre>
+ If '#xCAT setting:MAX_INSTANCE=number' is specified in the script, the script</pre>
+</dd>
+<dd>
+<pre>
+ will get invoked for each node in parallel, but no more than number of instances</pre>
+</dd>
+<dd>
+<pre>
+ will be invoked at at a time. If it is not specified, the script will be invoked</pre>
+</dd>
+<dd>
+<pre>
+ once for all the nodes.</pre>
+</dd>
+</li>
+<dt><strong><a name="item_end"><strong>prescripts-end</strong> (prescripts.end)</a></strong>
+
+<dd>
+<p>The scripts to be run at the end of the nodeset(Linux),</p>
+</dd>
+<dd>
+<pre>
+ nimnodeset(AIX),or mkdsklsnode(AIX) command.</pre>
+</dd>
+<dd>
+<pre>
+ The format is the same as the 'begin' column.</pre>
+</dd>
+</li>
+<dt><strong><a name="item_primarynic"><strong>primarynic</strong> (noderes.primarynic)</a></strong>
+
+<dd>
+<p>The network adapter on the node that will be used for xCAT management, the primarynic can be set to the network adapter name or the mac address or the keyword ``mac'' which means that the network interface specified by the mac address in the mac table  will be used.  Default is eth0.</p>
+</dd>
+</li>
+<dt><strong><a name="item_primarysn"><strong>primarysn</strong> (nodelist.primarysn)</a></strong>
+
+<dd>
+<p>Not used currently. The primary servicenode, used by this node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_productkey"><strong>productkey</strong> (prodkey.key)</a></strong>
+
+<dd>
+<p>The product key relevant to the aforementioned node/group and product combination</p>
+</dd>
+</li>
+<dt><strong><a name="item_profile"><strong>profile</strong> (nodetype.profile)</a></strong>
+
+<dd>
+<p>The string to use to locate a kickstart or autoyast template to use for OS deployment of this node.  If the provmethod attribute is set to an osimage name, that takes precedence, and profile need not be defined.  Otherwise, the os, profile, and arch are used to search for the files in /install/custom first, and then in /opt/xcat/share/xcat.</p>
+</dd>
+</li>
+<dt><strong><a name="item_provmethod"><strong>provmethod</strong> (nodetype.provmethod)</a></strong>
+
+<dd>
+<p>The provisioning method for node deployment. The valid values are install, netboot, statelite or an os image name from the osimage table. If an image name is specified, the osimage definition stored in the osimage table and the linuximage table (for Linux) or nimimage table (for AIX) are used to locate the files for templates, pkglists, syncfiles, etc. On Linux, if install, netboot or statelite is specified, the os, profile, and arch are used to search for the files in /install/custom first, and then in /opt/xcat/share/xcat.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rack"><strong>rack</strong> (nodepos.rack)</a></strong>
+
+<dd>
+<p>The frame the node is in.</p>
+</dd>
+</li>
+<dt><strong><a name="item_room"><strong>room</strong> (nodepos.room)</a></strong>
+
+<dd>
+<p>The room where the node is located.</p>
+</dd>
+</li>
+<dt><strong><a name="item_routenames"><strong>routenames</strong> (noderes.routenames)</a></strong>
+
+<dd>
+<p>A comma separated list of route names that refer to rows in the routes table. These are the routes that should be defined on this node when it is deployed.</p>
+</dd>
+</li>
+<dt><strong><a name="item_serial"><strong>serial</strong> (vpd.serial)</a></strong>
+
+<dd>
+<p>The serial number of the node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_serialflow"><strong>serialflow</strong> (nodehm.serialflow)</a></strong>
+
+<dd>
+<p>The flow control value of the serial port for this node.  For SOL this is typically 'hard'.</p>
+</dd>
+</li>
+<dt><strong><a name="item_serialport"><strong>serialport</strong> (nodehm.serialport)</a></strong>
+
+<dd>
+<p>The serial port for this node, in the linux numbering style (0=COM1/ttyS0, 1=COM2/ttyS1).  For SOL on IBM blades, this is typically 1.  For rackmount IBM servers, this is typically 0.</p>
+</dd>
+</li>
+<dt><strong><a name="item_serialspeed"><strong>serialspeed</strong> (nodehm.serialspeed)</a></strong>
+
+<dd>
+<p>The speed of the serial port for this node.  For SOL this is typically 19200.</p>
+</dd>
+</li>
+<dt><strong><a name="item_servicenode"><strong>servicenode</strong> (noderes.servicenode)</a></strong>
+
+<dd>
+<p>A comma separated list of node names (as known by the management node) that provides most services for this node. The first service node on the list that is accessible will be used.  The 2nd node on the list is generally considered to be the backup service node for this node when running commands like snmove.</p>
+</dd>
+</li>
+<dt><strong><a name="item_setupconserver"><strong>setupconserver</strong> (servicenode.conserver)</a></strong>
+
+<dd>
+<p>Do we set up Conserver on this service node?  Valid values:yes or 1, no or 0. If yes, configures and starts conserver daemon. If no or 0, it does not change the current state of the service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_setupdhcp"><strong>setupdhcp</strong> (servicenode.dhcpserver)</a></strong>
+
+<dd>
+<p>Do we set up DHCP on this service node? Not supported on AIX. Valid values:yes or 1, no or 0. If yes, runs makedhcp -n. If no or 0, it does not change the current state of the service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_setupftp"><strong>setupftp</strong> (servicenode.ftpserver)</a></strong>
+
+<dd>
+<p>Do we set up a ftp server on this service node? Not supported on AIX Valid values:yes or 1, no or 0. If yes, configure and start vsftpd.  (You must manually install vsftpd on the service nodes before this.) If no or 0, it does not change the current state of the service. xCAT is not using ftp for compute nodes provisioning or any other xCAT features, so this attribute can be set to 0 if the ftp service will not be used for other purposes</p>
+</dd>
+</li>
+<dt><strong><a name="item_setupipforward"><strong>setupipforward</strong> (servicenode.ipforward)</a></strong>
+
+<dd>
+<p>Do we set up ip forwarding on this service node? Valid values:yes or 1, no or 0. If no or 0, it does not change the current state of the service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_setupldap"><strong>setupldap</strong> (servicenode.ldapserver)</a></strong>
+
+<dd>
+<p>Do we set up ldap caching proxy on this service node? Not supported on AIX.  Valid values:yes or 1, no or 0. If no or 0, it does not change the current state of the service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_setupnameserver"><strong>setupnameserver</strong> (servicenode.nameserver)</a></strong>
+
+<dd>
+<p>Do we set up DNS on this service node? Valid values:yes or 1, no or 0. If yes, creates named.conf file with forwarding to the management node and starts named. If no or 0, it does not change the current state of the service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_setupnfs"><strong>setupnfs</strong> (servicenode.nfsserver)</a></strong>
+
+<dd>
+<p>Do we set up file services (HTTP,FTP,or NFS) on this service node? For AIX will only setup NFS, not HTTP or FTP. Valid values:yes or 1, no or 0.If no or 0, it does not change the current state of the service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_setupnim"><strong>setupnim</strong> (servicenode.nimserver)</a></strong>
+
+<dd>
+<p>Not used. Do we set up a NIM server on this service node? Valid values:yes or 1, no or 0. If no or 0, it does not change the current state of the service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_setupntp"><strong>setupntp</strong> (servicenode.ntpserver)</a></strong>
+
+<dd>
+<p>Not used. Use setupntp postscript to setup a ntp server on this service node? Valid values:yes or 1, no or 0. If no or 0, it does not change the current state of the service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_setuptftp"><strong>setuptftp</strong> (servicenode.tftpserver)</a></strong>
+
+<dd>
+<p>Do we set up TFTP on this service node? Not supported on AIX. Valid values:yes or 1, no or 0. If yes, configures and starts atftp. If no or 0, it does not change the current state of the service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_sfp"><strong>sfp</strong> (ppc.sfp)</a></strong>
+
+<dd>
+<p>The Service Focal Point of this Frame. This is the name of the HMC that is responsible for collecting hardware service events for this frame and all of the CECs within this frame.</p>
+</dd>
+</li>
+<dt><strong><a name="item_side"><strong>side</strong> (vpd.side)</a></strong>
+
+<dd>
+<p>&lt;BPA&gt;-&lt;port&gt; or &lt;FSP&gt;-&lt;port&gt;. The side information for the BPA/FSP. The side attribute refers to which BPA/FSP, A or B, which is determined by the slot value returned from lsslp command. It also lists the physical port within each BPA/FSP which is determined by the IP address order from the lsslp response. This information is used internally when communicating with the BPAs/FSPs</p>
+</dd>
+</li>
+<dt><strong><a name="item_slot"><strong>slot</strong> (nodepos.slot)</a></strong>
+
+<dd>
+<p>The slot number of the blade in the chassis. For PCM, a comma-separated list of slot numbers is stored</p>
+</dd>
+</li>
+<dt><strong><a name="item_slotid"><strong>slotid</strong> (mp.id)</a></strong>
+
+<dd>
+<p>The slot number of this blade in the BladeCenter chassis.</p>
+</dd>
+</li>
+<dt><strong><a name="item_slots"><strong>slots</strong> (mpa.slots)</a></strong>
+
+<dd>
+<p>The number of available slots in the chassis. For PCM, this attribute is used to store the number of slots in the following format:  &lt;slot rows&gt;,&lt;slot columns&gt;,&lt;slot orientation&gt;  Where:</p>
+</dd>
+<dd>
+<pre>
+   &lt;slot rows&gt;  = number of rows of slots in chassis</pre>
+</dd>
+<dd>
+<pre>
+   &lt;slot columns&gt; = number of columns of slots in chassis</pre>
+</dd>
+<dd>
+<pre>
+   &lt;slot orientation&gt; = set to 0 if slots are vertical, and set to 1 if slots of horizontal</pre>
+</dd>
+</li>
+<dt><strong><a name="item_status"><strong>status</strong> (nodelist.status)</a></strong>
+
+<dd>
+<p>The current status of this node.  This attribute will be set by xCAT software.  Valid values: defined, booting, netbooting, booted, discovering, configuring, installing, alive, standingby, powering-off, unreachable. If blank, defined is assumed. The possible status change sequenses are: For installaton: defined-&gt;[discovering]-&gt;[configuring]-&gt;[standingby]-&gt;installing-&gt;booting-&gt;booted-&gt;[alive],  For diskless deployment: defined-&gt;[discovering]-&gt;[configuring]-&gt;[standingby]-&gt;netbooting-&gt;booted-&gt;[alive],  For booting: [alive/unreachable]-&gt;booting-&gt;[alive],  For powering off: [alive]-&gt;powering-off-&gt;[unreachable], For monitoring: alive-&gt;unreachable. Discovering and configuring are for x Series dicovery process. Alive and unreachable are set only when there is a monitoring plug-in start monitor the node status for xCAT. Please note that the status values will not reflect the real node status if you change the state of the node from outside of xCAT (i.e. power off the node using HMC GUI).</p>
+</dd>
+</li>
+<dt><strong><a name="item_statustime"><strong>statustime</strong> (nodelist.statustime)</a></strong>
+
+<dd>
+<p>The data and time when the status was updated.</p>
+</dd>
+</li>
+<dt><strong><a name="item_supernode"><strong>supernode</strong> (ppc.supernode)</a></strong>
+
+<dd>
+<p>Indicates the connectivity of this CEC in the HFI network. A comma separated list of 2 ids. The first one is the supernode number the CEC is part of. The second one is the logical location number (0-3) of this CEC within the supernode.</p>
+</dd>
+</li>
+<dt><strong><a name="item_supportedarchs"><strong>supportedarchs</strong> (nodetype.supportedarchs)</a></strong>
+
+<dd>
+<p>Comma delimited list of architectures this node can execute.</p>
+</dd>
+</li>
+<dt><strong><a name="item_switch"><strong>switch</strong> (switch.switch)</a></strong>
+
+<dd>
+<p>The switch hostname.</p>
+</dd>
+</li>
+<dt><strong><a name="item_switchinterface"><strong>switchinterface</strong> (switch.interface)</a></strong>
+
+<dd>
+<p>The interface name from the node perspective. For example, eth0. For the primary nic, it can be empty, the word ``primary'' or ``primary:ethx'' where ethx is the interface name.</p>
+</dd>
+</li>
+<dt><strong><a name="item_switchport"><strong>switchport</strong> (switch.port)</a></strong>
+
+<dd>
+<p>The port number in the switch that this node is connected to. On a simple 1U switch, an administrator can generally enter the number as printed next to the ports, and xCAT will understand switch representation differences.  On stacked switches or switches with line cards, administrators should usually use the CLI representation (i.e. 2/0/1 or 5/8).  One notable exception is stacked SMC 8848M switches, in which you must add 56 for the proceeding switch, then the port number.  For example, port 3 on the second switch in an SMC8848M stack would be 59</p>
+</dd>
+</li>
+<dt><strong><a name="item_switchvlan"><strong>switchvlan</strong> (switch.vlan)</a></strong>
+
+<dd>
+<p>The ID for the tagged vlan that is created on this port using mkvlan and chvlan commands.</p>
+</dd>
+</li>
+<dt><strong><a name="item_termport"><strong>termport</strong> (nodehm.termport)</a></strong>
+
+<dd>
+<p>The port number on the terminal server that this node is connected to.</p>
+</dd>
+</li>
+<dt><strong><a name="item_termserver"><strong>termserver</strong> (nodehm.termserver)</a></strong>
+
+<dd>
+<p>The hostname of the terminal server.</p>
+</dd>
+</li>
+<dt><strong><a name="item_tftpdir"><strong>tftpdir</strong> (noderes.tftpdir)</a></strong>
+
+<dd>
+<p>The directory that roots this nodes contents from a tftp and related perspective.  Used for NAS offload by using different mountpoints.</p>
+</dd>
+</li>
+<dt><strong><a name="item_tftpserver"><strong>tftpserver</strong> (noderes.tftpserver)</a></strong>
+
+<dd>
+<p>The TFTP server for this node (as known by this node). If not set, it defaults to networks.tftpserver.</p>
+</dd>
+</li>
+<dt><strong><a name="item_unit"><strong>unit</strong> (nodepos.u)</a></strong>
+
+<dd>
+<p>The vertical position of the node in the frame</p>
+</dd>
+</li>
+<dt><strong><a name="item_updatestatus"><strong>updatestatus</strong> (nodelist.updatestatus)</a></strong>
+
+<dd>
+<p>The current node update status. Valid states are synced out-of-sync,syncing,failed.</p>
+</dd>
+</li>
+<dt><strong><a name="item_updatestatustime"><strong>updatestatustime</strong> (nodelist.updatestatustime)</a></strong>
+
+<dd>
+<p>The date and time when the updatestatus was updated.</p>
+</dd>
+</li>
+<dt><strong><a name="item_urlpath"><strong>urlpath</strong> (mpa.urlpath)</a></strong>
+
+<dd>
+<p>URL path for the Chassis web interface. The full URL is built as follows: &lt;hostname&gt;/&lt;urlpath&gt;</p>
+</dd>
+</li>
+<dt><strong><a name="item_usercomment"><strong>usercomment</strong> (nodelist.comments)</a></strong>
+
+<dd>
+<p>Any user-written notes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_userid"><strong>userid</strong> (zvm.userid)</a></strong>
+
+<dd>
+<p>The z/VM userID of this node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_username"><strong>username</strong> (ppchcp.username, mpa.username, websrv.username)</a></strong>
+
+<dd>
+<p>Userid of the HMC or IVM.  If not filled in, xCAT will look in the passwd table for key=hmc or key=ivm.  If not in the passwd table, the default used is hscroot for HMCs and padmin for IVMs.</p>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<p>Userid to use to access the management module.</p>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<p>Userid to use to access the web service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmbeacon"><strong>vmbeacon</strong> (vm.beacon)</a></strong>
+
+<dd>
+<p>This flag is used by xCAT to track the state of the identify LED with respect to the VM.</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmbootorder"><strong>vmbootorder</strong> (vm.bootorder)</a></strong>
+
+<dd>
+<p>Boot sequence (i.e. net,hd)</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmcfgstore"><strong>vmcfgstore</strong> (vm.cfgstore)</a></strong>
+
+<dd>
+<p>Optional location for persistant storage separate of emulated hard drives for virtualization solutions that require persistant store to place configuration data</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmcluster"><strong>vmcluster</strong> (vm.cluster)</a></strong>
+
+<dd>
+<p>Specify to the underlying virtualization infrastructure a cluster membership for the hypervisor.</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmcpus"><strong>vmcpus</strong> (vm.cpus)</a></strong>
+
+<dd>
+<p>Number of CPUs the node should see.</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmhost"><strong>vmhost</strong> (vm.host)</a></strong>
+
+<dd>
+<p>The system that currently hosts the VM</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmmanager"><strong>vmmanager</strong> (vm.mgr)</a></strong>
+
+<dd>
+<p>The function manager for the virtual machine</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmmaster"><strong>vmmaster</strong> (vm.master)</a></strong>
+
+<dd>
+<p>The name of a master image, if any, this virtual machine is linked to.  This is generally set by clonevm and indicates the deletion of a master that would invalidate the storage of this virtual machine</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmmemory"><strong>vmmemory</strong> (vm.memory)</a></strong>
+
+<dd>
+<p>Megabytes of memory the VM currently should be set to.</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmnicnicmodel"><strong>vmnicnicmodel</strong> (vm.nicmodel)</a></strong>
+
+<dd>
+<p>Model of NICs that will be provided to VMs (i.e. e1000, rtl8139, virtio, etc)</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmnics"><strong>vmnics</strong> (vm.nics)</a></strong>
+
+<dd>
+<p>Network configuration parameters.  Of the general form [physnet:]interface,.. Generally, interface describes the vlan entity (default for native, tagged for tagged, vl[number] for a specific vlan.  physnet is a virtual switch name or port description that is used for some virtualization technologies to construct virtual switches.  hypervisor.netmap can map names to hypervisor specific layouts, or the descriptions described there may be used directly here where possible.</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmstorage"><strong>vmstorage</strong> (vm.storage)</a></strong>
+
+<dd>
+<p>A list of storage files or devices to be used.  i.e. /cluster/vm/&lt;nodename&gt; or nfs://&lt;server&gt;/path/to/folder/</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmstoragemodel"><strong>vmstoragemodel</strong> (vm.storagemodel)</a></strong>
+
+<dd>
+<p>Model of storage devices to provide to guest</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmtextconsole"><strong>vmtextconsole</strong> (vm.textconsole)</a></strong>
+
+<dd>
+<p>Tracks the Psuedo-TTY that maps to the serial port or console of a VM</p>
+</dd>
+</li>
+<dt><strong><a name="item_vmvirtflags"><strong>vmvirtflags</strong> (vm.virtflags)</a></strong>
+
+<dd>
+<p>General flags used by the virtualization method.  For example, in Xen it could, among other things, specify paravirtualized setup, or direct kernel boot.  For a hypervisor/dom0 entry, it is the virtualization method (i.e. ``xen'').  For KVM, the following flag=value pairs are recognized:</p>
+</dd>
+<dd>
+<pre>
+            imageformat=[raw|fullraw|qcow2]</pre>
+</dd>
+<dd>
+<pre>
+                raw is a generic sparse file that allocates storage on demand</pre>
+</dd>
+<dd>
+<pre>
+                fullraw is a generic, non-sparse file that preallocates all space</pre>
+</dd>
+<dd>
+<pre>
+                qcow2 is a sparse, copy-on-write capable format implemented at the virtualization layer rather than the filesystem level</pre>
+</dd>
+<dd>
+<pre>
+            clonemethod=[qemu-img|reflink]</pre>
+</dd>
+<dd>
+<pre>
+                qemu-img allows use of qcow2 to generate virtualization layer copy-on-write</pre>
+</dd>
+<dd>
+<pre>
+                reflink uses a generic filesystem facility to clone the files on your behalf, but requires filesystem support such as btrfs</pre>
+</dd>
+<dd>
+<pre>
+            placement_affinity=[migratable|user_migratable|pinned]</pre>
+</dd>
+</li>
+<dt><strong><a name="item_vmvncport"><strong>vmvncport</strong> (vm.vncport)</a></strong>
+
+<dd>
+<p>Tracks the current VNC display port (currently not meant to be set</p>
+</dd>
+</li>
+<dt><strong><a name="item_webport"><strong>webport</strong> (websrv.port)</a></strong>
+
+<dd>
+<p>The port of the web service.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcatmaster"><strong>xcatmaster</strong> (noderes.xcatmaster)</a></strong>
+
+<dd>
+<p>The hostname of the xCAT service node (as known by this node).  This acts as the default value for nfsserver and tftpserver, if they are not set.  If xcatmaster is not set, the node will use whoever responds to its boot request as its master.  For the directed bootp case for POWER, it will use the management node if xcatmaster is not set.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>mkdef(1)</strong>, <strong>chdef(1)</strong>, <strong>lsdef(1)</strong>, <strong>rmdef(1)</strong></p>
+
+</body>
+
+</html>

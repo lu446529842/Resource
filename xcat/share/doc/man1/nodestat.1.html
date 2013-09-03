@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Name</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">Name</a></li>
+	<li><a href="#synopsis"><strong>Synopsis</strong></a></li>
+	<li><a href="#description"><strong>Description</strong></a></li>
+	<li><a href="#options"><strong>Options</strong></a></li>
+	<li><a href="#examples"><strong>Examples</strong></a></li>
+	<li><a href="#see_also"><strong>See</strong> <strong>Also</strong></a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">Name</a></h1>
+<p><strong>nodestat</strong> - display the running status of each node in a noderange</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis"><strong>Synopsis</strong></a></h1>
+<p><strong>nodestat</strong> [<em>noderange</em>] [<em>-m</em>|<em>--usemon</em>] [<em>-p</em>|<em>--powerstat</em>] [<em>-f</em>] [<em>-u</em>|<em>--updatedb</em>]</p>
+<p><strong>nodestat</strong> [<em>-h</em>|<em>--help</em>|<em>-v</em>|<em>--version</em>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description"><strong>Description</strong></a></h1>
+<p><strong>nodestat</strong>  displays and optionally updates the database the running status of a
+single or range of nodes or groups.  See <a href="../man3/noderange.3.html">noderange(3)</a>.</p>
+<p>By default, it works as following:
+    1. gets the sshd,pbs_mom,xend port status;
+    2. if none of them are open, it gets the fping status;
+    3. for pingable nodes that are in the middle of deployment, it gets the deployment status;
+    4. for non-pingable nodes, it shows 'noping'.</p>
+<p>When -m is specified and there are settings in the monsetting table, it displays the status of the applications specified in the monsetting table. When -p is specified it shows the power status for the nodes that are not pingable. When -u is specified it saves the status info into the xCAT database. Node's pingable status and deployment status is saved in the nodelist.status column. Node's application status is saved in the nodelist.appstatus column.</p>
+<p>To specify settings in the <strong>monsetting</strong> table, use 'xcatmon' as the name, 'apps' as the key and the value will be a list of comma separated list of application names. For each application, you can specify the port number that can be queried on the nodes to get the running status. Or you can specify a command that can be called to get the node status from. The command can be a command that can be run locally at the management node or the service node for hierarchical cluster, or a command that can be run remotely on the nodes.</p>
+<p>The following is an example of the settings in the <strong>monsetting</strong> table:</p>
+<pre>
+    name key value
+    xcatmon apps ssh,ll,gpfs,someapp
+    xcatmon gpfs cmd=/tmp/mycmd,group=compute,group=service
+    xcarmon ll port=9616,group=compute
+    xcatmon someapp dcmd=/tmp/somecmd</pre>
+<p>Keywords to use:</p>
+<pre>
+    apps -- a list of comma separated application names whose status will be queried. For how to get the status of each app, look for app name in the key filed in a different row.
+    port -- the application daemon port number, if not specified, use internal list, then /etc/services. 
+    group -- the name of a node group that needs to get the application status from. If not specified, assume all the nodes in the nodelist table. To specify more than one groups, use group=a,group=b format.
+    cmd -- the command that will be run locally on mn or sn.
+    lcmd -- the command that will be run the the mn only. 
+    dcmd -- the command that will be run distributed on the nodes using xdsh &lt;nodes&gt; ....</pre>
+<p>For commands specified by 'cmd' and 'lcmd', the input of is a list of comma separated node names, the output must be in the following format:</p>
+<pre>
+  node1:string1
+  node2:string2
+  ...</pre>
+<p>For the command specified by 'dcmd', no input is needed, the output can be a string.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options"><strong>Options</strong></a></h1>
+<dl>
+<dt><strong><a name="item__2df"><strong>-f</strong></a></strong>
+
+<dd>
+<p>Uses fping instead of nmap even if nmap is available.  If you seem to be having a problem with false negatives, fping can be more forgiving, but slower.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dm_7c_2d_2dusemon"><strong>-m</strong>|<strong>--usemon</strong></a></strong>
+
+<dd>
+<p>Uses the settings from the <strong>monsetting</strong> talbe to determine a list of applications that need to get status for.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_7c_2d_2dpowerstat"><strong>-p</strong>|<strong>--powerstat</strong></a></strong>
+
+<dd>
+<p>Gets the power status for the nodes that are 'noping'.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2du_7c_2d_2dupdatedb"><strong>-u</strong>|<strong>--updatedb</strong></a></strong>
+
+<dd>
+<p>Updates the status and appstatus columns of the nodelist table with the returned running status from the given nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v</strong>|<strong>--version</strong></a></strong>
+
+<dd>
+<p>Print version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h</strong>|<strong>--help</strong></a></strong>
+
+<dd>
+<p>Print help.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples"><strong>Examples</strong></a></h1>
+<p>1.  nodestat compute</p>
+<pre>
+ node1   sshd
+ node2   sshd
+ node3   ping
+ node4   pbs
+ node5   noping</pre>
+<p>2.  nodestat compute -p</p>
+<pre>
+ node1   sshd
+ node2   sshd
+ node3   ping
+ node4   pbs
+ node5   noping(Shutting down)</pre>
+<p>3. nodestat compute -u
+ node1   sshd
+ node2   sshd
+ node3   ping
+ node4   netboot
+ node5   noping</p>
+<p>4. nodestat compute -m
+ node1   ping,sshd,ll,gpfs=ok
+ node2   ping,sshd,ll,gpfs=not ok,someapp=something is wrong
+ node3   netboot
+ node4   noping</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also"><strong>See</strong> <strong>Also</strong></a></h1>
+<p><a href="../man3/noderange.3.html">noderange(3)</a>, <a href="nodels.1.html">nodels(1)</a>, <a href="../man8/nodeset.8.html">nodeset(8)</a></p>
+
+</body>
+
+</html>

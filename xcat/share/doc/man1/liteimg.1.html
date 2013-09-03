@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;liteimg&gt; - Modify statelite image by creating a series of links.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#parameters">Parameters</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#notes">NOTES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>liteimg</strong> - Modify statelite image by creating a series of links.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><em>liteimg [-h| --help]</em></p>
+<p><em>liteimg  [-v| --version]</em></p>
+<p><em>liteimg [-o OS] [ -p profile] [-a architecture] [-t rootfstype]</em></p>
+<p><em>liteimg imagename</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This command modifies the statelite image by creating a series of links. 
+It creates 2 levels of indirection so that files can be modified while in
+their image state as well as during runtime. For example, a file like
+&lt;$imgroot&gt;/etc/ntp.conf will have the following operations done to it:</p>
+<p><em>    mkdir -p $imgroot/.default/etc</em></p>
+<p><em>    mkdir -p $imgroot/.statelite/tmpfs/etc</em></p>
+<p><em>    mv $imgroot/etc/ntp.conf $imgroot/.default/etc</em></p>
+<p><em>    cd $imgroot/.statelite/tmpfs/etc</em></p>
+<p><em>    ln -sf ../../../.default/etc/ntp.conf .</em></p>
+<p><em>    cd $imgroot/etc</em></p>
+<p><em>    ln -sf ../.statelite/tmpfs/etc/ntp.conf .</em></p>
+<p>When finished, the original file will reside in
+<em>$imgroot/.default/etc/ntp.conf</em>. <em>$imgroot/etc/ntp.conf</em> will link to
+<em>$imgroot/.statelite/tmpfs/etc/ntp.conf</em> which will in turn link to
+<em>$imgroot/.default/etc/ntp.conf</em></p>
+<p>Note: If you make any changes to your litefile table after running liteimg then you will need to rerun liteimg again.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameters">Parameters</a></h1>
+<p><em>imagename</em> specifies the name of a os image definition to be used. The specification for the image is storted in the <em>osimage</em> table and <em>linuximage</em> table.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-h</strong>          Display usage message.</p>
+<p><strong>-v</strong>          Command Version.</p>
+<p><strong>-o</strong>          Operating system (fedora8, rhel5, sles10,etc)</p>
+<p><strong>-p</strong>          Profile (compute,service)</p>
+<p><strong>-a</strong>          Architecture (ppc64,x86_64,etc)</p>
+<p><strong>-t</strong>          The type of rootfs for the image (nfs, ramdisk). It is optional, nfs is used to be the rootfs type when <strong>-t</strong> is not specified.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To lite a fedora8 image for a compute node architecture x86_64 enter:</p>
+<p><em>liteimg -o fedora8 -p compute -a x86_64</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/</p>
+<p>
+</p>
+<hr />
+<h1><a name="notes">NOTES</a></h1>
+<p>This command is part of the xCAT software product.</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="genimage.1.html">genimage(1)</a></p>
+
+</body>
+
+</html>

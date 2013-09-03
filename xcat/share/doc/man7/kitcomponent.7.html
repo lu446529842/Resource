@@ -1,0 +1,131 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;kitcomponent&gt; - a logical object definition in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#kitcomponent_attributes_">kitcomponent Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>kitcomponent</strong> - a logical object definition in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>kitcomponent Attributes:</strong>  <em>basename</em>, <em>description</em>, <em>driverpacks</em>, <em>exlist</em>, <em>kitcompdeps</em>, <em>kitcompname</em>, <em>kitname</em>, <em>kitpkgdeps</em>, <em>kitreponame</em>, <em>postbootscripts</em>, <em>release</em>, <em>serverroles</em>, <em>version</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Logical objects of this type are stored in the xCAT database in one or more tables.  Use the following commands
+to manipulate the objects: <strong>mkdef</strong>, <strong>chdef</strong>, <strong>lsdef</strong>, and <strong>rmdef</strong>.  These commands will take care of
+knowing which tables the object attributes should be stored in.  The attribute list below shows, in
+parentheses, what tables each attribute is stored in.</p>
+<p>
+</p>
+<hr />
+<h1><a name="kitcomponent_attributes_">kitcomponent Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_basename"><strong>basename</strong> (kitcomponent.basename)</a></strong>
+
+<dd>
+<p>Kit Component basename.</p>
+</dd>
+</li>
+<dt><strong><a name="item_description"><strong>description</strong> (kitcomponent.description)</a></strong>
+
+<dd>
+<p>The Kit component description.</p>
+</dd>
+</li>
+<dt><strong><a name="item_driverpacks"><strong>driverpacks</strong> (kitcomponent.driverpacks)</a></strong>
+
+<dd>
+<p>Comma-separated List of driver package names. These must be full names like: pkg1-1.0-1.x86_64.rpm.</p>
+</dd>
+</li>
+<dt><strong><a name="item_exlist"><strong>exlist</strong> (kitcomponent.exlist)</a></strong>
+
+<dd>
+<p>Exclude list file containing the files/directories to exclude when building a diskless image.</p>
+</dd>
+</li>
+<dt><strong><a name="item_kitcompdeps"><strong>kitcompdeps</strong> (kitcomponent.kitcompdeps)</a></strong>
+
+<dd>
+<p>Comma-separated list of kit components that this kit component depends on.</p>
+</dd>
+</li>
+<dt><strong><a name="item_kitcompname"><strong>kitcompname</strong> (kitcomponent.kitcompname)</a></strong>
+
+<dd>
+<p>The unique Kit Component name. It is auto-generated when the parent Kit is added to the cluster.</p>
+</dd>
+</li>
+<dt><strong><a name="item_kitname"><strong>kitname</strong> (kitcomponent.kitname)</a></strong>
+
+<dd>
+<p>The Kit name which this Kit Component belongs to.</p>
+</dd>
+</li>
+<dt><strong><a name="item_kitpkgdeps"><strong>kitpkgdeps</strong> (kitcomponent.kitpkgdeps)</a></strong>
+
+<dd>
+<p>Comma-separated list of packages that this kit component depends on.</p>
+</dd>
+</li>
+<dt><strong><a name="item_kitreponame"><strong>kitreponame</strong> (kitcomponent.kitrepoid)</a></strong>
+
+<dt><strong><a name="item_postbootscripts"><strong>postbootscripts</strong> (kitcomponent.postbootscripts)</a></strong>
+
+<dd>
+<p>Comma-separated list of postbootscripts that will run during the node boot.</p>
+</dd>
+</li>
+<dt><strong><a name="item_release"><strong>release</strong> (kitcomponent.release)</a></strong>
+
+<dd>
+<p>Kit Component release.</p>
+</dd>
+</li>
+<dt><strong><a name="item_serverroles"><strong>serverroles</strong> (kitcomponent.serverroles)</a></strong>
+
+<dd>
+<p>The types of servers that this Kit Component can install on.  Valid types are: mgtnode, servicenode, compute</p>
+</dd>
+</li>
+<dt><strong><a name="item_version"><strong>version</strong> (kitcomponent.version)</a></strong>
+
+<dd>
+<p>Kit Component version.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>mkdef(1)</strong>, <strong>chdef(1)</strong>, <strong>lsdef(1)</strong>, <strong>rmdef(1)</strong></p>
+
+</body>
+
+</html>

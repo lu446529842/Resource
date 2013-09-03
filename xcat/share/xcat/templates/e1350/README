@@ -1,0 +1,63 @@
+README for: /usr/share/xcat/templates/e1350 directory
+-----------------------------------------------------
+
+The set of *.csv files in this directory are sample xCAT table values that
+you may wish to use as templates for defining your xCAT cluster.
+The data is based on defining a cluster using the address scheme given in:
+http://download.boulder.ibm.com/ibmdl/pub/systems/support/system_x_pdf/intelligent_cluster_factory_settings_05.24.12b.pdf.
+Additional information on using xCAT 2.0 can be found at 
+http://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_iDataPlex_Cluster_Quick_Start.
+
+Check the 1350 default templates to see if they apply to your environment.
+If you decide to use some of these templates, modify them, or create your own,
+you can first edit the files and then load them into the database, or load the
+files first and then edit the database once they are loaded.
+
+To load a file, use the tabrestore command on each template to load the tables 
+in the database.
+
+To load the database tables:
+   for i in *.csv; do tabrestore $i; done
+
+To verify that a table has been correctly loaded, run "tabdump <tablename>".   
+For example: 
+   tabdump nodetype 
+
+
+You can add nodes to the database by using the nodeadd command. 
+See the example below and details in http://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_iDataPlex_Cluster_Quick_Start.  
+
+For example, to add 2048 IPMI rackmount nodes which happen to start 
+at the first U of the first rack, with each rack having a 1U switch
+and 41 servers plugged into that switch, numbered 1-41 in order,
+with the nodes named node1-node2048, and members of groups named
+41nodeperrack,41perswitch,ipmi,compute,all, run the following:
+
+  nodeadd node1-node2048 groups=41nodeperrack,41perswitch,ipmi,compute,all
+
+After that, other tables will setup according to that scheme:
+nodels node1235 nodepos.u nodepos.rack switch.switch switch.port ipmi.bmc hosts.ip
+node1235: hosts.ip: 172.20.131.5
+node1235: nodepos.u: 5
+node1235: nodepos.rack: 31
+node1235: switch.switch: switch31
+node1235: switch.port: 5
+node1235: ipmi.bmc: bmc1235
+
+Note: the hosts table is only used if you use the makehosts command to setup /etc/hosts.
+
+An example with blades, 56 to a rack and padding out to four digits:
+nodeadd node0001-node2048 groups=blade,compute,all,56nodeperrack
+
+
+If wanting to use makehosts for non-server equipment, nodeadd can help for that as well with these templates:
+(Supplementing the previous rackmount example)
+
+nodeadd switch1-switch50 groups=switch
+nodeadd bmc1-bmc2048 groups=41bmcperrack
+makehosts switch,41bmcperrack
+
+(And to make hosts file entries for 147 AMMs for the 2048 blades above)
+nodeadd amm1-amm147 groups=amm
+makehosts amm
+

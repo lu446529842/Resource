@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;mic&gt; - a table in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#mic_attributes_">mic Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>mic</strong> - a table in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>mic Attributes:</strong>  <em>node</em>, <em>host</em>, <em>id</em>, <em>nodetype</em>, <em>bridge</em>, <em>onboot</em>, <em>vlog</em>, <em>comments</em>, <em>disable</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The host, slot id and configuraton of the mic (Many Integrated Core).</p>
+<p>
+</p>
+<hr />
+<h1><a name="mic_attributes_">mic Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_node"><strong>node</strong></a></strong>
+
+<dd>
+<p>The node name or group name.</p>
+</dd>
+</li>
+<dt><strong><a name="item_host"><strong>host</strong></a></strong>
+
+<dd>
+<p>The host node which the mic card installed on.</p>
+</dd>
+</li>
+<dt><strong><a name="item_id"><strong>id</strong></a></strong>
+
+<dd>
+<p>The device id of the mic node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodetype"><strong>nodetype</strong></a></strong>
+
+<dd>
+<p>The hardware type of the mic node. Generally, it is mic.</p>
+</dd>
+</li>
+<dt><strong><a name="item_bridge"><strong>bridge</strong></a></strong>
+
+<dd>
+<p>The virtual bridge on the host node which the mic connected to.</p>
+</dd>
+</li>
+<dt><strong><a name="item_onboot"><strong>onboot</strong></a></strong>
+
+<dd>
+<p>Set mic to autoboot when mpss start. Valid values: yes|no. Default is yes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_vlog"><strong>vlog</strong></a></strong>
+
+<dd>
+<p>Set the Verbose Log to console. Valid values: yes|no. Default is no.</p>
+</dd>
+</li>
+<dt><strong><a name="item_comments"><strong>comments</strong></a></strong>
+
+<dd>
+<p>Any user-provided notes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_disable"><strong>disable</strong></a></strong>
+
+<dd>
+<p>Do not use.  tabprune will not work if set to yes or 1</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong></p>
+
+</body>
+
+</html>

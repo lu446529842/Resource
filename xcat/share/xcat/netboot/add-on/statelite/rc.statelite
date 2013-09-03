@@ -1,0 +1,586 @@
+#!/bin/bash
+# rc.statelite will grab all the mount points we need to check 
+# for keeping an image together.  This will have to do until unionfs
+# is ready.
+# don't do chkconfig: 345 00 99
+# this file runs in a chroot environment.
+# description: statelite initialization script
+
+# get all the database files.
+#set -x
+SL=".statelite"
+MNTDIR="/sysroot"
+SYNCTREE="${MNTDIR}/$SL/litetree" 	# the list of directories to sync from
+SYNCLIST="${MNTDIR}/$SL/litefile" 	# the list of files to sync
+TREEMOUNT="${MNTDIR}/$SL/mnt"  	# where I mount all the trees.
+TMPFS="${MNTDIR}/$SL/tmpfs"
+DEFAULT="${MNTDIR}/.default"
+LOCAL="${MNTDIR}/.sllocal/localmnt"
+LOG="${MNTDIR}/${SL}/statelite.log"
+ELIST=[]    # entry list, each entry will contain the type and the path
+declare -a CLIST 
+declare -a PLIST 
+
+ME=`hostname -s`
+MAX=30
+TRIES=1
+while [ x$ME = x ];do
+    TRIES=$[ $TRIES+1 ]
+    if [ $TRIES -eq $MAX ]; then
+        echo "Can NOT get the hostname of the node. System will fail to enable the persistent files.">/dev/console
+        break
+    fi
+    sleep 1
+    ME=`hostname -s`
+done
+
+PERSISTENT="${MNTDIR}/$SL/persistent/$ME"
+
+if [ ! -d $MNTDIR ]; then
+	echo "statelite is only to be run in initrdfs"
+	exit 1
+fi
+
+
+
+GetSyncInfo () {
+
+	# who is our xCAT server?  He's most likely our dhcp identifier.
+	
+	if [ ! -x ${MNTDIR}/usr/bin/openssl ]; then
+		echo "Image does not include openssl!"  
+		exit 1
+	fi
+	
+	# wish we had bash!
+	#for x in `cat /proc/cmdline`; do
+	#	[[ "$x" = "XCAT=*" ]] || continue
+	#	XCATSERVER="${x#XCAT=}"
+	#done
+
+	for i in `cat /proc/cmdline`; do
+		KEY=`echo $i | awk -F= '{print $1}'`
+		if [ "$KEY" == 	"XCAT" ]; then
+			XCATSERVER=`echo $i | awk -F= '{print $2}'`
+			break
+		fi
+	done
+
+    hn=`hostname -s`
+
+	if [ -z $XCATSERVER ]; then
+		echo "Cannot find the xCAT server for node $hn"
+		exit 1
+	fi
+
+	# request the list of files from xCAT:
+	xCATCmd $XCATSERVER litefile  \
+		| sed  -e 's/<[^>]*>//g' \
+		| egrep -v '^ *$' 	\
+		| sed -e 's/^ *//' \
+		| awk -F: '{print $2}' \
+		| sed -e 's/^ *//' \
+		>  $SYNCLIST
+
+    MAX_RETRIES=15
+    RETRY=0
+    while [ ! -s $SYNCLIST ]; do
+        # the file is empty, we should retry several times
+        RETRY=$(( $RETRY+1 ))
+        if [ $RETRY -eq $MAX_RETRIES ]; then
+            echo "FATAL error: could not get the entries from litefile table..."
+            /bin/bash
+        fi
+
+        SLI=$(( $RANDOM%50 ))
+        sleep $SLI
+
+    	xCATCmd $XCATSERVER litefile  \
+		| sed  -e 's/<[^>]*>//g' \
+		| egrep -v '^ *$' 	\
+		| sed -e 's/^ *//' \
+		| awk -F: '{print $2}' \
+		| sed -e 's/^ *//' \
+		>  $SYNCLIST
+    done
+
+	# files will now be inside /.snapshot/tmpfs/synclist in the form:
+	# options path
+    
+	xCATCmd $XCATSERVER litetree  \
+		| sed  -e 's/<[^>]*>//g' \
+		| egrep -v '^ *$' \
+		| sed -e 's/^ *//' \
+		| awk '{print $2}' \
+		> $SYNCTREE
+
+    RETCODE=$?
+
+    RETRY=0
+    while [ ! -s $SYNCTREE ] && [ "$RETCODE" -ne "0" ] ; do
+        # the file is empty, we should retry several times
+        RETRY=$(( $RETRY + 1 ))
+        if [ $RETRY -eq $MAX_RETRIES ]; then
+            echo "FATAL error: could not get the entries from litetree table..."
+            /bin/bash
+        fi
+
+        SLI=$(( $RANDOM % 50 ))
+        sleep $SLI
+    	xCATCmd $XCATSERVER litetree  \
+		| sed  -e 's/<[^>]*>//g' \
+		| egrep -v '^ *$' \
+		| sed -e 's/^ *//' \
+		| awk '{print $2}' \
+		> $SYNCTREE
+
+        RETCODE=$?
+    done
+}
+
+xCATCmd () {
+# $1 is the xCAT server
+# $2 is the command
+	echo "<xcatrequest>\n<command>${2}</command>\n</xcatrequest>" | LD_LIBRARY_PATH=${MNTDIR}/lib64:${MNTDIR}/usr/lib64 ${MNTDIR}/usr/bin/openssl s_client -quiet -connect ${1} -rand /bin/nice 2>/dev/null
+
+}
+
+
+
+MountTrees () {
+	mkdir -p $TREEMOUNT
+	if [ -z $SYNCTREE ]; then
+		echo "Can't read $SYNCTREE.  Something is wrong with this image..." >/dev/console
+		exit 1
+	fi
+	for i in `cat $SYNCTREE | grep -v '^#' | grep ':'`;
+	do
+		SERV=`echo $i | awk -F: '{print $1}'`  # SERV is (SERV):/blah/blah/blah
+		MNT=`echo $i | awk -F: '{print $2}'`   # MNT is server:(/blah/blah/blah)
+		mkdir -p ${TREEMOUNT}/${SERV}/${MNT}
+		MAX=15
+		TRIES=1
+		while ! mount $SERV:$MNT ${TREEMOUNT}/${SERV}/${MNT} -r -n -o nolock,tcp,nfsvers=3
+		do
+			if [ "$TRIES" = "$MAX" ]; then
+				echo "Can't mount $i.  I give up.. ">/dev/console
+				break
+				#exit 1
+			fi
+			TRIES=$[ $TRIES+1 ]
+			S=$[ $RANDOM%20 ]
+			echo "Can't mount $SERV:$MNT... Sleeping $S seconds then trying again" >/dev/console
+			sleep $S
+		done
+	done
+}
+
+ResolveLinks () {
+    exec <$SYNCLIST
+    i=0 
+    while read type path 
+    do
+        ELIST[$i]="$type $path";
+        i=$[ $i+1 ];
+    done
+
+    num=${#ELIST[@]}
+    for ((i=0;i<$num;i++)); do
+        set -- ${ELIST[$i]}
+        type=$1
+        path=$2
+    
+        parent="`/usr/bin/dirname $path`/"
+        efound=0
+        while [ "$parent" != "//" ]; do
+            for ((j=0;j<$num;j++)); do
+                set -- ${ELIST[$j]}
+                jtype=$1
+                jpath=$2
+                if [ "$parent" = "$jpath" ]; then
+                    efound=1
+                    break 2
+                fi  
+            done
+            parent="`/usr/bin/dirname $parent`/"
+        done
+    
+        if [ "$efound" = "1" ]; then
+            # put it into CLIST
+            CLIST[$[ ${#CLIST[@]} ]]=${ELIST[$i]}
+        else
+            pfound=0
+            pnum=${#PLIST[@]}
+            for ((k=0;k<$pnum;k++)); do
+                if [ "${PLIST[$k]}" = "${path}" ]; then
+                    pfound=1
+                fi
+            done
+            if [ "$pfound" = "0" ]; then
+                # put it into PLIST
+                PLIST[$[ ${#PLIST[@]} ]]=${ELIST[$i]}
+            fi
+        fi  
+    done
+
+    num=${#PLIST[@]}
+    for ((i=0;i<$num;i++)); do
+        set -- ${PLIST[$i]}
+        FindFile ${2} ${1} 0
+    done
+
+    num=${#CLIST[@]}
+    for ((i=0;i<$num;i++)); do
+        set -- ${CLIST[$i]}
+        FindFile ${2} ${1} 1
+    done
+}
+
+
+
+
+ProcessType () {
+	#MOUNT=$1  	# mount point where this is.
+	#PATH=$2	  	# file
+	#TYPE=$3		# type of file
+    #isChild=$4     # child = 1, parent = 0
+
+    PPATH=`/usr/bin/dirname ${2}`
+	
+	# every type has to have a base dir in tmpfs
+	if [ ! -d ${TMPFS}${PPATH} ] && [ ! -L ${TMPFS}${PPATH} ]; then
+		/bin/mkdir -p ${TMPFS}${PPATH}
+		echo "mkdir -p ${TMPFS}${PPATH}" >>$LOG
+	fi	
+	
+	case "${3}" in 
+        link)       # the previous name is tmpfs,rw
+            if [ -d ${TMPFS}${2} ]; then
+                /bin/cp -r -a ${1}* ${TMPFS}${2}
+                echo "cp -r -a ${1}* ${TMPFS}${2}" >>$LOG
+            else
+                /bin/cp -r -a ${1} ${TMPFS}${2}
+                echo "cp -r -a ${1} ${TMPFS}${2}" >>$LOG
+            fi
+            # the link has already be in place on the image, so nothing else to do!
+            ;;
+        tmpfs,rw)       # which has the same meaning of "link", it exists for compatible reason
+            if [ -d ${TMPFS}${2} ]; then
+                /bin/cp -r -a ${1}* ${TMPFS}${2}
+                echo "cp -r -a ${1}* ${TMPFS}${2}" >>$LOG
+            else
+                /bin/cp -r -a ${1} ${TMPFS}${2}
+                echo "cp -r -a ${1} ${TMPFS}${2}" >>$LOG
+            fi
+            # the link has already be in place on the image, so nothing else to do!
+            ;;
+        link,ro)
+ 			# need to make sure its parent directory exists:
+			if [ ! -d ${TMPFS}${PPATH} ]; then
+				/bin/mkdir -p ${TMPFS}${PPATH} >>$LOG 2>&1
+			fi
+
+            if [ "${4}" = "0" ]; then
+			    TARGET=`echo ${TMPFS}${2} |  /bin/sed -e 's/\/$//'`
+			    LINK=`echo ${1} | /bin/sed -e "s|^${MNTDIR}||"`
+			    
+			    echo "ln -sf ${LINK} ${TARGET}" >>$LOG 2>&1
+			    /bin/ln -sf ${LINK} ${TARGET} >>$LOG 2>&1
+            fi
+            ;;
+        link,persistent)
+            # everything from root image points to tmpfs
+            # so have tmpfs point to persistent
+
+            # make tree in persistent and tmpfs
+            # need to check whether the option of its parent direcotry is persistent or not
+
+            PATH=${2}
+            MOUNT=${1}
+            # if target is a directory, then remove it first,
+            # otherwise, the link will be created under this dir instead of replacing it.
+            # whack of trailing / for persistent directories:
+
+            PATH=`echo ${PATH} | /bin/sed -e 's/\/$//'`
+
+            TARGET=${TMPFS}${PATH}
+
+            if [ ! -d ${PERSISTENT}${PPATH} ]; then
+                /bin/mkdir -p ${PERSISTENT}${PPATH} 2>&1 >>$LOG
+                echo "mkdir -p ${PERSISTENT}${PPATH}" >>$LOG
+            fi
+
+            # if the file/directory doesn't exist, copy it  over to persistent
+            if [ ! -e ${PERSISTENT}${PATH} ]; then
+                echo "cp -r -a ${MOUNT} ${PERSISTENT}${PATH}" >>$LOG 2>&1
+                /bin/cp -r -a ${MOUNT} ${PERSISTENT}${PATH}
+            fi
+
+            if [ "$isChild" = "1" ]; then
+                pnum=${#PLIST[@]}
+                echo "${PPATH}: "
+                parent="$PPATH/"
+                while [ "$parent" != "//" ]; do
+                  for ((p=0;p<$pnum; p++)); do
+                    set -- ${PLIST[$p]}
+                    itype=$1
+                    ipath=$2
+                    if [ "$parent" = "$ipath" ]; then
+                        echo "${itype}"
+                        #if [ "$itype" = "link,persistent" ]; then
+                        if [ "$itype" = "link" -o "$itype" = "tmpfs,rw" ]; then
+                            # mount it to ${TARGET}
+                            echo "mount --bind ${PERSISTENT}${PATH} ${TARGET}" >>$LOG 2>&1
+                            /bin/mount --bind ${PERSISTENT}${PATH} ${TARGET}
+                        fi
+                    fi
+                  done
+                  parent="`/usr/bin/dirname $parent`/"
+                done
+            else
+                if [ -d ${TARGET} ]; then
+                    echo "rm -Rf ${TARGET}" >>$LOG 2>&1
+                    /bin/rm -Rf ${TARGET} 2>&1 >>$LOG
+                fi
+                # finally make the tmpfs link point to the persistent file
+                # you have to get rid of the ${MNTDIR} directory in the beginning
+                # so that when the chroot happens the link is valid.
+                LINK=`echo ${PERSISTENT}${PATH} | /bin/sed -e "s|^${MNTDIR}||"`
+                echo "ln -sf ${LINK} ${TARGET}" >>$LOG
+                /bin/ln -sf ${LINK} ${TARGET}        >>$LOG 2>&1
+            fi
+            ;;
+        link,con)
+            echo "cat ${1} >>${TMPFS}${2}" >>$LOG 2>&1
+            /bin/cat ${1} >>${TMPFS}${2} 2>&1
+            ;;
+		con)
+            # there's one more option to indicate the con is at the end
+            if [ "${5}" = "1" ]; then
+                # mount the file with "--bind" option
+                echo "mount --bind ${TMPFS}${2} ${MNTDIR}${2}" >>$LOG
+                /bin/mount --bind ${TMPFS}${2} ${MNTDIR}${2} >> $LOG 2>&1
+            else
+			    echo "cat ${1} >>${TMPFS}${2}" >>$LOG 2>&1
+			    /bin/cat ${1} >>${TMPFS}${2} 2>&1
+            fi
+			;;	
+        tempfs)         # "tempfs" is kept here for compatibility, "tmpfs" has replaced it
+            ORIG=`echo ${2} |  /bin/sed -e 's/\/$//'`
+            TARGET=`echo ${1}`
+            
+            if [ -d ${TMPFS}${2} ]; then
+                /bin/cp -r -a ${1}* ${TMPFS}${2}
+                echo "cp -r -a ${1}* ${TMPFS}${2}" >>$LOG
+            else
+                /bin/cp -r -a ${1} ${TMPFS}${2}
+                echo "cp -r -a ${1} ${TMPFS}${2}" >>$LOG
+            fi
+            
+            if [ "$isChild" = "0" ]; then
+                echo "mount --bind ${TMPFS}${2} ${MNTDIR}${ORIG}" >>$LOG
+                /bin/mount --bind ${TMPFS}${2} ${MNTDIR}${ORIG}>>$LOG 2>&1           
+            fi
+            ;;
+         tmpfs)         # the default option, same as "rw" and "NULL"
+            ORIG=`echo ${2} |  /bin/sed -e 's/\/$//'`
+            TARGET=`echo ${1}`
+            
+            if [ -d ${TMPFS}${2} ]; then
+                /bin/cp -r -a ${1}* ${TMPFS}${2}
+                echo "cp -r -a ${1}* ${TMPFS}${2}" >>$LOG
+            else
+                /bin/cp -r -a ${1} ${TMPFS}${2}
+                echo "cp -r -a ${1} ${TMPFS}${2}" >>$LOG
+            fi
+            
+            if [ "$isChild" = "0" ]; then
+                echo "mount --bind ${TMPFS}${2} ${MNTDIR}${ORIG}" >>$LOG
+                /bin/mount --bind ${TMPFS}${2} ${MNTDIR}${ORIG}>>$LOG 2>&1           
+            fi
+            ;;
+       localdisk)
+            ORIG=`echo ${2} |  /bin/sed -e 's/\/$//'`
+            TARGET=`echo ${1}`
+
+            if [ ! -d ${LOCAL}${PPATH} ] && [ ! -L ${LOCAL}${PPATH} ]; then
+                /bin/mkdir -p ${LOCAL}${PPATH}
+                echo "mkdir -p ${LOCAL}${PPATH}" >>$LOG
+            fi
+
+            # check it is a dir or file
+            if [ -d ${1} ]; then
+                if [ ! -d ${LOCAL}${2} ]; then
+                    /bin/cp -r -a ${1} ${LOCAL}${PPATH}
+                    echo "cp -r -a ${1} ${LOCAL}${PPATH}" >>$LOG
+                fi
+            else
+                if [ ! -f ${LOCAL}${2} ]; then
+                    /bin/cp -r -a ${1} ${LOCAL}${2}
+                    echo "cp -r -a ${1} ${LOCAL}${2}" >>$LOG
+                fi
+            fi
+
+            if [ "$isChild" = "0" ]; then
+                echo "mount --bind ${LOCAL}${2} ${MNTDIR}${ORIG}" >>$LOG
+                /bin/mount --bind ${LOCAL}${2} ${MNTDIR}${ORIG}>>$LOG 2>&1
+            fi
+            ;;
+       rw)         # the default option, same as "tmpfs" and "NULL"
+            ORIG=`echo ${2} |  /bin/sed -e 's/\/$//'`
+            TARGET=`echo ${1}`
+            
+            if [ -d ${TMPFS}${2} ]; then
+                /bin/cp -r -a ${1}* ${TMPFS}${2}
+                echo "cp -r -a ${1}* ${TMPFS}${2}" >>$LOG
+            else
+                /bin/cp -r -a ${1} ${TMPFS}${2}
+                echo "cp -r -a ${1} ${TMPFS}${2}" >>$LOG
+            fi
+            
+            if [ "$isChild" = "0" ]; then
+                echo "mount --bind ${TMPFS}${2} ${MNTDIR}${ORIG}" >>$LOG
+                /bin/mount --bind ${TMPFS}${2} ${MNTDIR}${ORIG}>>$LOG 2>&1           
+            fi
+            ;;
+        persistent)
+            if [ ! -d ${PERSISTENT}${PPATH} ]; then
+                /bin/mkdir -p ${PERSISTENT}${PPATH}
+                echo "mkdir -p ${PERSISTENT}${PPATH}" >>$LOG
+            fi
+
+            # if the file doesn't exist, then copy it over to persistent
+            if [ ! -e ${PERSISTENT}${2} ]; then
+                echo "cp -r -a ${1} ${PERSISTENT}${2}" >>$LOG
+                /bin/cp -r -a ${1} ${PERSISTENT}${2} 2>&1 >>$LOG
+            fi
+
+            ORIG=`echo ${2} |  /bin/sed -e 's/\/$//'`
+            TARGET=`echo ${PERSISTENT}${2}`
+
+            echo "mount --bind ${TARGET} ${MNTDIR}/${ORIG}" >>$LOG
+            /bin/mount --bind ${TARGET} ${MNTDIR}/${ORIG}>>$LOG 2>&1
+            ;;
+		ro)  
+			# need to make sure directory exists:
+			if [ ! -d ${TMPFS}${PPATH} ]; then
+				/bin/mkdir -p ${TMPFS}${PPATH} >>$LOG 2>&1
+			fi
+
+            # before mount, need to check whether it exists or not
+            STRPATH="${TMPFS}${2}"
+            STRLEN=${#STRPATH}
+            CHAREND=`echo ${STRPATH} | /bin/cut -c${STRLEN}`            
+
+            if [ "${CHAREND}" = "/" ]; then # it is one directory
+                if [ ! -d ${STRPATH} ]; then
+                    /bin/rm -rf ${STRPATH}
+                    /bin/mkdir ${STRPATH}
+                fi
+            else
+                if [ ! -f ${STRPATH} ]; then
+                    /bin/rm -rf ${STRPATH}
+                    /bin/touch ${STRPATH}
+                fi
+            fi
+
+            echo "mout --bind -o ro ${1} ${MNTDIR}${2}" >>$LOG 2>&1
+            /bin/mount --bind -o ro ${1} ${MNTDIR}${2} >>$LOG 2>&1
+			;;
+		*)
+			;;
+	esac
+}
+
+
+FindFile () {
+    # $1 = Pathname to locate
+    # $2 = Type of file
+    # $3 = 0 or 1: 0 means parent, 1 means child
+    path=$1
+    type=$2
+    isChild=$3
+    FOUND=0
+
+    cnum=${#CLIST[@]}
+
+    for DIR in `/bin/cat ${SYNCTREE}` ;do
+        DIR=${DIR/:/}
+        if [ -e ${TREEMOUNT}/${DIR}${path} ]; then
+            FOUND=1
+            if [ -d ${TREEMOUNT}/${DIR}${path} ] && [ "${isChild}" = "0" ]; then # the parent with children
+                for ((j=0;j<$cnum;j++)); do
+                    set -- ${CLIST[$j]}
+                    item=${2}
+                    itemDir="`/usr/bin/dirname ${item}`/"
+                    if [ "${itemDir}" = "${path}" ]; then
+                        if [ -e ${TREEMOUNT}/${DIR}${item} ]; then
+                            FOUND=0 # this nfs directory contains the children, so skip it when handling parent
+                            continue 2
+                        fi
+                    fi
+                done
+                if [ "0" -eq `/bin/ls -A ${TREEMOUNT}/${DIR}${path} |/usr/bin/wc -l` ]; then
+                    FOUND=0
+                else
+                    ProcessType ${TREEMOUNT}/${DIR}${path} ${path} ${type} ${isChild}
+                fi
+            else  # the children and the parents without any children
+                if [ -d ${TREEMOUNT}/${DIR}${path} ] && [ "0" -eq `/bin/ls -A ${TREEMOUNT}/${DIR}${path} |/usr/bin/wc -l` ]; then
+                    FOUND=0
+                else
+                    ProcessType ${TREEMOUNT}/${DIR}${path} ${path} ${type} ${isChild}
+                    if [ "${2}" != "link,con" ] && [ "${2}" != "con" ]; then
+                        break
+                    fi
+                fi
+            fi
+        fi	
+    done
+
+    ## for "con" option
+    if [ "$FOUND" = "1" ] && [ "$type" = "con" ]; then
+        ProcessType ${TREEMOUNT}/${DIR}${path} ${path} ${type} ${isChild} 1
+    fi
+
+
+    ## Default behavior is to get from the image
+    if [ "$FOUND" = "0"  ]; then
+        if [ -e "${DEFAULT}${path}" ]; then
+            ProcessType ${DEFAULT}${path} ${path} ${type} ${isChild}
+        else
+            echo "Could not find ${path} in defaults or any other place" >/dev/console
+        fi
+        # if it wasn't found, mount rw in tmpfs
+    fi
+}
+
+
+########################################################################################
+# Start / MAIN / main
+########################################################################################
+
+# load up our files from xCAT
+GetSyncInfo
+
+# mount all the tree roots.  Usually there's probably only one.
+MountTrees
+
+# find the file and then see if its the one we need.
+ResolveLinks
+
+# make sure mtab points to the right place:
+/bin/ln -sf /proc/mounts ${TMPFS}/etc/mtab
+
+# catch all hack for debugging:
+#cp -r -a ${DEFAULT}/* /.snapshot/tmpfs/
+# foo
+# If the resolv.conf is not setup in rootimg, copy the dhcp generated one into rootimg
+if grep --quiet --no-messages "Dummy resolv.conf" "$MNTDIR/etc/resolv.conf"; then
+/bin/cat /etc/resolv.conf > $MNTDIR/etc/resolv.conf
+fi
+
+# Copy the fake network interface configuration file to /etc/sysconfig/network to handle
+# the issue of reboot nfs-based statelite
+/bin/cp /tmp/ifcfg-* $MNTDIR/etc/sysconfig/network
+

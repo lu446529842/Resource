@@ -1,0 +1,136 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;ppping&gt; - parallel ping from nodes to other nodes in the cluster.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>ppping</strong> - parallel ping from nodes to other nodes in the cluster.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>ppping</strong> [<strong>-i</strong>|<strong>--interface</strong> <em>interfaces</em>] [<strong>-d</strong>|<strong>--debug</strong>] [<strong>-V</strong>|<strong>--verbose</strong>] [<strong>-q</strong>|<strong>--quiet</strong>] [<strong>-s</strong>|<strong>--serial</strong>] <em>noderange</em></p>
+<p><strong>ppping</strong> [<strong>-h</strong>|<strong>--help</strong>]</p>
+<p><strong>pping</strong> {<strong>-v</strong>|<strong>--version</strong>}</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p><strong>ppping</strong> is a utility used to test the connectivity between nodes in the noderange using ping.
+By default, <strong>ppping</strong> will return an unsorted list of the node pairs that are not able to ping each other, or a message that all nodes are pingable.
+More or less output can be controlled by the -V and -q options.
+<strong>ppping</strong> front-ends <strong>pping</strong> and <strong>xdsh</strong>.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2ds"><strong>-s</strong></a></strong>
+
+<dd>
+<p>Ping serially instead of in parallel.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di_7c_2d_2dinterface_interfaces"><strong>-i</strong>|<strong>--interface</strong> <em>interfaces</em></a></strong>
+
+<dd>
+<p>A comma separated list of network interface names that should be pinged instead of the interface represented by the nodename/hostname.
+The following name resolution convention is assumed:  an interface is reachable by the hostname &lt;nodename&gt;-&lt;interface&gt;.  For example,
+the ib2 interface on node3 has a hostname of node3-ib2.</p>
+</dd>
+<dd>
+<p>If more than one interface is specified, each interface will be combined with the nodenames as described above and will be pinged in turn.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V</strong>|<strong>--verbose</strong></a></strong>
+
+<dd>
+<p>Display verbose output.  The result of every ping attempt from every node will be displayed.  Without this option, just a summary
+of the successful pings are displayed, along with all of the unsuccessful pings.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dq_7c_2d_2dquiet"><strong>-q</strong>|<strong>--quiet</strong></a></strong>
+
+<dd>
+<p>Display minimum output:  just the unsuccessful pings.  This option has the effect that if all pings are successful, nothing is displayed.
+But it also has the performance benefit that each node does not have to send successful ping info back to the management node.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dd_7c_2d_2ddebug"><strong>-d</strong>|<strong>--debug</strong></a></strong>
+
+<dd>
+<p>Print debug information.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h</strong>|<strong>--help</strong></a></strong>
+
+<dd>
+<p>Show usage information.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v</strong>|<strong>--version</strong></a></strong>
+
+<dd>
+<p>Display the installed version of xCAT.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>ppping all -q</p>
+<pre>
+ blade7: node2: noping
+ blade8: node2: noping
+ blade9: node2: noping
+ devmaster: node2: noping
+ node2: noping</pre>
+</li>
+<li>
+<p>ppping node1,node2 -i ib0,ib1,ib2,ib3</p>
+<pre>
+ node1: pinged all nodes successfully on interface ib0
+ node1: pinged all nodes successfully on interface ib1
+ node1: pinged all nodes successfully on interface ib2
+ node1: pinged all nodes successfully on interface ib3
+ node2: pinged all nodes successfully on interface ib0
+ node2: pinged all nodes successfully on interface ib1
+ node2: pinged all nodes successfully on interface ib2
+ node2: pinged all nodes successfully on interface ib3</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="psh.1.html">psh(1)</a>, <a href="pping.1.html">pping(1)</a></p>
+
+</body>
+
+</html>

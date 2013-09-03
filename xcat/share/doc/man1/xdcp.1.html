@@ -1,0 +1,599 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;NAME&gt;</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name"><strong>NAME</strong></a></li>
+	<li><a href="#synopsis"><strong>SYNOPSIS</strong></a></li>
+	<li><a href="#description"><strong>DESCRIPTION</strong></a></li>
+	<li><a href="#options"><strong>OPTIONS</strong></a></li>
+	<li><a href="#environment_variables"><strong>Environment</strong> <strong>Variables</strong></a></li>
+	<li><a href="#exit_status"><strong>Exit Status</strong></a></li>
+	<li><a href="#security"><strong>Security</strong></a></li>
+	<li><a href="#examples"><strong>Examples</strong></a></li>
+	<li><a href="#files"><strong>Files</strong></a></li>
+	<li><a href="#see_also"><strong>SEE ALSO</strong></a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name"><strong>NAME</strong></a></h1>
+<p><strong>xdcp</strong> - Concurrently copies files to or from multiple nodes. In addition, provides an option to use rsync to update the files on the nodes, or to an installation image on the local node.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis"><strong>SYNOPSIS</strong></a></h1>
+<p><strong>xdcp</strong> <em>noderange</em>  [[<strong>-f</strong> <em>fanout</em>]
+[<strong>-L</strong>]  [<strong>-l</strong>  <em>userID</em>] [<strong>-o</strong> <em>node_options</em>] [<strong>-p</strong>]
+[<strong>-P</strong>] [<strong>-r</strong> <em>node_remote_shell</em>] [<strong>-R</strong>] [<strong>-t</strong> <em>timeout</em>]
+[<strong>-T</strong>] [<strong>-v</strong>] [<strong>-q</strong>] [<strong>-X</strong> <em>env_list</em>] sourcefile.... targetpath</p>
+<p><strong>xdcp</strong> <em>noderange</em>  [<strong>-F</strong> <em>rsync input file</em>]</p>
+<p><strong>xdcp</strong> <em>computenoderange</em>  [<strong>-s</strong> <strong>-F</strong> <em>rsync input file</em>]</p>
+<p><strong>xdcp</strong> [<strong>-i</strong> <em>path to install image</em>] [<strong>-F</strong> <em>rsync input file</em>]</p>
+<p><strong>xdcp</strong> [<strong>-h</strong> | <strong>-V</strong> | <strong>-q</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description"><strong>DESCRIPTION</strong></a></h1>
+<p>The <strong>xdcp</strong> command concurrently copies files  to  or  from  remote  target
+nodes. The command issues a remote copy com-
+mand for each node or device specified. When files are  pulled  from  a
+target,  they  are  placed  into  the  target_path with the name of the
+remote node or device appended to  the  copied  source_file  name.  The
+/usr/bin/rcp command is the model for syntax and security. 
+If using hierarchy, then xdcp runs on the service node that is servicing the compute node. The file will first be copied to the path defined in the site table, SNsyncfiledir attribute, or the default path /var/xcat/syncfiles on the service node, if the attribute is not defined. The -P flag will not automatically copy
+the files from the compute node to the Management node, hierarchically.  There
+is a two step process, see -P flag.  
+If the Management Node is target node, it must be defined in the xCAT database with nodetype=mn. When the <strong>xdcp</strong> command runs the Management Node as the target, it does not use remote commands but uses the local OS copy (cp) command.</p>
+<p><strong>REMOTE</strong> <strong>USER</strong>:</p>
+<p>A  user_ID  can  be specified for the remote copy command.  Remote user
+specification is identical for the xdcp and xdsh commands.  See  the  xdsh
+command for more information.</p>
+<p><strong>REMOTE</strong> <strong>COMMAND</strong> <strong>COPY</strong>:
+The  <strong>xdcp</strong>  command  uses  a  configurable remote copy command to execute
+remote copies on remote targets. Support is explicitly  provided  for
+Remote  Shell  rcp  command,  the  OpenSSH  scp  command  and  the
+/usr/bin/rsync command.</p>
+<p>For node targets, the remote copy command is determined by the  follow-
+ing order of precedence:</p>
+<p>1. The <strong>-r</strong> flag.</p>
+<p>2. The <strong>/usr/bin/scp</strong> command.</p>
+<p><strong>COMMAND</strong> <strong>EXECUTIONS</strong>
+The  maximum  number  of  concurrent remote copy command processes (the
+fanout) can be specified with the -f flag or the DSH_FANOUT environment
+variable.  The  fanout is only restricted by the number of remote shell
+commands that can be run in  parallel.  You  can  experiment  with  the
+DSH_FANOUT  value on your management server to see if higher values are
+appropriate.</p>
+<p>A timeout value for remote copy command execution can be specified with
+the  -t  flag or DSH_TIMEOUT environment variable. If any remote target
+does not respond within the timeout value, the xdcp command displays  an
+error message and exits.</p>
+<p>The  -T flag provides diagnostic trace information for dcp command exe-
+cution. Default settings and the actual remote copy commands  that  are
+executed to the remote targets are displayed.</p>
+<p>The  xdcp  command can be executed silently using the -Q flag; no target
+standard output or standard error is displayed.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options"><strong>OPTIONS</strong></a></h1>
+<dl>
+<dt><strong><a name="item_sourcefile_2e_2e_2e"><strong>sourcefile...</strong></a></strong>
+
+<dd>
+<p>Specifies the complete path for the file to be  copied  to  or
+from  the  target.  Multiple files can be specified. When used
+with the -R flag, only a single directory  can  be  specified.
+When  used  with the -P flag, only a single file can be specified.</p>
+</dd>
+</li>
+<dt><strong><a name="item_targetpath"><strong>targetpath</strong></a></strong>
+
+<dd>
+<p>If one source_file file, then it specifies the file to copy the source_file
+file to on the target. If multiple source_file files, it specifies
+the directory to copy the source_file files to on the target.
+If the -P flag is specified, the target_path is the local host location
+for the copied files.  The remote file directory structure is recreated
+under target_path and  the  remote  target  name  is  appended 
+to  the   copied source_file name in the target_path directory.
+Note: the targetpath directory must exist.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_7c_2d_2dfanout_fanout_value"><strong>-f</strong>|<strong>--fanout</strong> <em>fanout_value</em></a></strong>
+
+<dd>
+<p>Specifies a fanout value for the maximum number of  concur-
+rently  executing  remote shell processes. Serial execution
+can be specified by indicating a fanout value of <strong>1</strong>.  If  <strong>-f</strong>
+is not specified, a default fanout value of <strong>64</strong> is used.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_7c_2d_2dfile_rsync_input_file"><strong>-F</strong>|<strong>--File</strong> <em>rsync input file</em></a></strong>
+
+<dd>
+<p>Specifies the path to the file that will be used to  
+build the rsync command.
+The format of the input file is as follows, each line contains:</p>
+</dd>
+<dd>
+<pre>
+ &lt;path to source file1&gt; &lt;path to source file2&gt; ... -&gt;  &lt; path to destination file/directory&gt;</pre>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<pre>
+ &lt;path to source file&gt; -&gt; &lt;path to destination file&gt;</pre>
+</dd>
+<dd>
+<p>or</p>
+</dd>
+<dd>
+<pre>
+ &lt;path to source file&gt; -&gt; &lt;path to destination directory ( must end in /)&gt;</pre>
+</dd>
+<dd>
+<p>For example:
+  /etc/password /etc/hosts -&gt; /etc</p>
+</dd>
+<dd>
+<pre>
+  /tmp/file2  -&gt;  /tmp/file2</pre>
+</dd>
+<dd>
+<pre>
+  /tmp/file2  -&gt;  /tmp/</pre>
+</dd>
+<dd>
+<pre>
+  /tmp/filex  -&gt;  /tmp/source/filey</pre>
+</dd>
+<dd>
+<pre>
+  /etc/*  -&gt;  /etc/</pre>
+</dd>
+<dd>
+<p><strong>Running postscripts after files are sync'd to the nodes</strong>:</p>
+</dd>
+<dd>
+<p>After you define the files to rsync, you can add an <strong>EXECUTE:</strong> clause in the synclist file. The <strong>EXECUTE:</strong> clause will list all the postscripts that you would like to run after the files are sync'd to the node. 
+The postscript file must be of the form <strong>filename.post</strong>, where the &lt;filename&gt;
+is the &lt;filename&gt; is the from &lt;filename&gt;, reside in the same
+directory as <strong>filename</strong>, and be executable.
+If the file <strong>filename</strong> is rsync'd to the node, then the <strong>filename.post</strong>
+will automatically be run on the node.
+If the file <strong>filename</strong> is not updated on the node,  the <strong>filename.post</strong> will not be run.</p>
+</dd>
+<dd>
+<p>Putting the <strong>filename.post</strong> in the file list to rsync to the node is required
+for hierarchical clusters.  It is optional for non-hierarchical clusters.</p>
+</dd>
+<dd>
+<p>Another option is the <strong>EXECUTEALWAYS:</strong> clause in the synclist file.  The <strong>EXECUTEALWAYS:</strong> will list all the postscripts that you would like to run after the files are sync'd to the nodes.   These scripts will run whether or not any files are sync'd to the nodes.  The scripts have no special format, but must contain the fully qualified path.</p>
+</dd>
+<dd>
+<p>The scripts must be also added to the file list to rsync to the node for hierarchical clusters.  It is optional for non-hierarchical clusters.</p>
+</dd>
+<dd>
+<p>For example, your rsynclist file may look like this:
+ /tmp/share/file2  -&gt;  /tmp/file2
+ /tmp/share/file2.post -&gt; /tmp/file2.post
+ /tmp/share/file3  -&gt;  /tmp/filex
+ /tmp/share/file3.post -&gt; /tmp/file3.post
+ /tmp/myscript -&gt; /tmp/myscript
+ # the below are postscripts
+ EXECUTE:
+ /tmp/share/file2.post
+ /tmp/share/file3.post
+ EXECUTEALWAYS:
+ /tmp/myscript</p>
+</dd>
+<dd>
+<p>If /tmp/file2 and /tmp/file3  update /tmp/file2 and /tmp/filex on the node, then the postscripts /tmp/file2.post and /tmp/file3.post are automatically run on 
+the node. /tmp/myscript will always be run on the node.</p>
+</dd>
+<dd>
+<p>Another option is the <strong>APPEND:</strong> clause in the synclist file. The <strong>APPEND:</strong> clause is used to append the contents of the input file to an existing file on the node.  The file to append <strong>must</strong> already exist on the node and not be part of the synclist that contains the <strong>APPEND:</strong> clause.</p>
+</dd>
+<dd>
+<p>For example, your rsynclist file may look like this:
+ /tmp/share/file2  -&gt;  /tmp/file2
+ /tmp/share/file2.post -&gt; /tmp/file2.post
+ /tmp/share/file3  -&gt;  /tmp/filex
+ /tmp/share/file3.post -&gt; /tmp/file3.post
+ /tmp/myscript -&gt; /tmp/myscript
+ # the below are postscripts
+ EXECUTE:
+ /tmp/share/file2.post
+ /tmp/share/file3.post
+ EXECUTEALWAYS:
+ /tmp/myscript
+ APPEND:
+ /etc/myappenddir/appendfile -&gt; /etc/mysetup/setup
+ /etc/myappenddir/appendfile2 -&gt; /etc/mysetup/setup2</p>
+</dd>
+<dd>
+<p>When you use the append script,  the file  (left) of the arrow is appended to the file right of the arrow.  In this example, /etc/myappenddir/appendfile is appended to /etc/mysetup/setup file, which must already exist on the node. The /opt/xcat/share/xcat/scripts/xdcpappend.sh is used to accomplish this.</p>
+</dd>
+<dd>
+<p>Another option is the <strong>MERGE:</strong> clause in the synclist file. The <strong>MERGE:</strong> clause is used to append the contents of the input file to /etc/passwd, /etc/group, or /etc/shadow on a Linux node.  It is only supported for those files and only on Linux. You must not use both the APPEND and MERGE funcion for these three files. The processing could end up not creating the file you desire. The MERGE function is the preferred method, becuase APPEND only adds to the file.  MERGE will add to the file but also insure there are no duplicate entries.</p>
+</dd>
+<dd>
+<p>For example, your rsynclist file may look like this:
+ /tmp/share/file2  -&gt;  /tmp/file2
+ /tmp/share/file2.post -&gt; /tmp/file2.post
+ /tmp/share/file3  -&gt;  /tmp/filex
+ /tmp/share/file3.post -&gt; /tmp/file3.post
+ /tmp/myscript -&gt; /tmp/myscript
+ # the below are postscripts
+ EXECUTE:
+ /tmp/share/file2.post
+ /tmp/share/file3.post
+ EXECUTEALWAYS:
+ /tmp/myscript
+ APPEND:
+/custom/mypasswd -&gt; /etc/passwd
+/custom/mygroups -&gt; /etc/group
+/custom/myshadow -&gt; /etc/shadow</p>
+</dd>
+<dd>
+<p>Note: no order can be assumed by the order that the EXECUTE,EXECUTEALWAYS and APPEND clause fall in the synclist file.</p>
+</dd>
+<dd>
+<p>For more information on syncing files to node, read <a href="https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Sync-ing_Config_Files_to_Nodes">https://sourceforge.net/apps/mediawiki/xcat/index.php?title=Sync-ing_Config_Files_to_Nodes</a></p>
+</dd>
+<dd>
+<p>On Linux rsync always uses ssh remoteshell. On AIX, ssh or rsh is used depending on the site.useSSHonAIX attribute.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h</strong>|<strong>--help</strong></a></strong>
+
+<dd>
+<p>Displays usage information.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di_7c_2d_2drootimg_install_image"><strong>-i</strong>|<strong>--rootimg</strong> <em>install image</em></a></strong>
+
+<dd>
+<p>Specifies  the path to the install image on the local Linux node.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2do_7c_2d_2dnode_2doptions_node_options"><strong>-o</strong>|<strong>--node-options</strong> <em>node_options</em></a></strong>
+
+<dd>
+<p>Specifies options to pass to the remote shell  command  for
+node  targets.  The options must be specified within double
+quotation marks (``'') to distinguish them from <strong>xdsh</strong> options.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_7c_2d_2dpreserve"><strong>-p</strong>|<strong>--preserve</strong></a></strong>
+
+<dd>
+<p>Preserves  the  source  file characteristics as implemented by
+the configured remote copy command.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_7c_2d_2dpull"><strong>-P</strong>|<strong>--pull</strong></a></strong>
+
+<dd>
+<p>Pulls (copies) the files from the targets and places  them  in
+the  target_path  directory on the local host. The target_path
+must be a directory. Files pulled from  remote  machines  have
+._target  appended  to  the  file  name to distinguish between
+them. When the -P flag is used with the -R flag,  ._target  is
+appended to the directory. Only one file per invocation of the
+xdcp pull command can be pulled from the specified  targets.
+Hierarchy is not automatically support yet.   You must first pull
+the file to the Service Node and then pull the file to the Management 
+node.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dq_7c_2d_2dshow_2dconfig"><strong>-q</strong>|<strong>--show-config</strong></a></strong>
+
+<dd>
+<p>Displays the current environment settings for all DSH
+Utilities commands. This includes the values of all environment
+variables  and  settings  for  all  currently installed and
+valid contexts. Each setting is prefixed with  <em>context</em>:  to
+identify the source context of the setting.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dr_7c_2d_2dnode_2drcp_node_remote_copy"><strong>-r</strong>|<strong>--node-rcp</strong> <em>node_remote_copy</em></a></strong>
+
+<dd>
+<p>Specifies  the  full  path of the remote copy command used
+for remote command execution on node targets.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dr_7c_2d_2drecursive_recursive"><strong>-R</strong>|<strong>--recursive</strong> <em>recursive</em></a></strong>
+
+<dd>
+<p>Recursively  copies files from a local directory to the remote
+targets, or when specified with the -P flag, recursively pulls
+(copies)  files  from  a remote directory to the local host. A
+single source directory can be specified using the source_file
+parameter.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_synch_service_nodes"><strong>-s</strong> <em>synch service nodes</em></a></strong>
+
+<dd>
+<p>Will only sync the files listed in the synclist (-F), to the service
+nodes for the input compute node list. The files will be placed in the
+directory defined by the site.SNsyncfiledir attribute, or the default
+/var/xcat/syncfiles directory.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dt_7c_2d_2dtimeout_timeout"><strong>-t</strong>|<strong>--timeout</strong> <em>timeout</em></a></strong>
+
+<dd>
+<p>Specifies the time, in seconds, to wait for output from any
+currently executing remote targets. If no output is
+available  from  any  target in the specified <em>timeout</em>, <strong>xdsh</strong>
+displays an error and terminates execution for the remote
+targets  that  failed to respond. If <em>timeout</em> is not specified,
+<strong>xdsh</strong> waits indefinitely to continue processing output  from
+all  remote  targets.  When specified with the <strong>-i</strong> flag, the
+user is prompted for an additional timeout interval to wait
+for output.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dt_7c_2d_2dtrace"><strong>-T</strong>|<strong>--trace</strong></a></strong>
+
+<dd>
+<p>Enables trace mode. The <strong>xdcp</strong> command prints diagnostic
+messages to standard output during execution to each target.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverify"><strong>-v</strong>|<strong>--verify</strong></a></strong>
+
+<dd>
+<p>Verifies each target before executing any  remote  commands
+on  the target. If a target is not responding, execution of
+remote commands for the target is canceled.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-V</strong>|<strong>--version</strong></a></strong>
+
+<dd>
+<p>Displays the <strong>xdcp</strong> command version information.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="environment_variables"><strong>Environment</strong> <strong>Variables</strong></a></h1>
+<dl>
+<dt><strong><a name="item_dsh_environment"><strong>DSH_ENVIRONMENT</strong></a></strong>
+
+<dd>
+<p>Specifies a file that contains environment variable
+definitions to export to the target before executing  the  remote
+command. This variable is overridden by the <strong>-E</strong> flag.</p>
+</dd>
+</li>
+<dt><strong><a name="item_dsh_fanout"><strong>DSH_FANOUT</strong></a></strong>
+
+<dd>
+<p>Specifies  the fanout value. This variable is overridden by
+the <strong>-f</strong> flag.</p>
+</dd>
+</li>
+<dt><strong><a name="item_dsh_node_opts"><strong>DSH_NODE_OPTS</strong></a></strong>
+
+<dd>
+<p>Specifies the options to use for the remote  shell  command
+with  node targets only. This variable is overridden by the
+<strong>-o</strong> flag.</p>
+</dd>
+</li>
+<dt><strong><a name="item_dsh_node_rcp"><strong>DSH_NODE_RCP</strong></a></strong>
+
+<dd>
+<p>Specifies the full path of the remote copy command  to  use
+to  copy  local scripts and local environment configuration
+files to node targets.</p>
+</dd>
+</li>
+<dt><strong><a name="item_dsh_node_rsh"><strong>DSH_NODE_RSH</strong></a></strong>
+
+<dd>
+<p>Specifies the full path of the  remote  shell  to  use  for
+remote  command execution on node targets. This variable is
+overridden by the <strong>-r</strong> flag.</p>
+</dd>
+</li>
+<dt><strong><a name="item_dsh_nodegroup_path"><strong>DSH_NODEGROUP_PATH</strong></a></strong>
+
+<dd>
+<p>Specifies a colon-separated list of directories  that
+contain node group files for the <strong>DSH</strong> context. When the <strong>-a</strong> flag
+is specified in the <strong>DSH</strong> context,  a  list  of  unique  node
+names is collected from all node group files in the path.</p>
+</dd>
+</li>
+<dt><strong><a name="item_dsh_path"><strong>DSH_PATH</strong></a></strong>
+
+<dd>
+<p>Sets the command path to use on the targets. If <strong>DSH_PATH</strong> is
+not set, the default path defined in  the  profile  of  the
+remote <em>user_ID</em> is used.</p>
+</dd>
+</li>
+<dt><strong><a name="item_dsh_syntax"><strong>DSH_SYNTAX</strong></a></strong>
+
+<dd>
+<p>Specifies the shell syntax to use on remote targets; <strong>ksh</strong> or
+<strong>csh</strong>. If not specified, the  <strong>ksh</strong>  syntax  is  assumed.  This
+variable is overridden by the <strong>-S</strong> flag.</p>
+</dd>
+</li>
+<dt><strong><a name="item_dsh_timeout"><strong>DSH_TIMEOUT</strong></a></strong>
+
+<dd>
+<p>Specifies  the  time,  in  seconds, to wait for output from
+each remote target. This variable is overridden by  the  <strong>-t</strong>
+flag.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="exit_status"><strong>Exit Status</strong></a></h1>
+<p>Exit  values  for  each  remote copy command execution are displayed in
+messages from the xdcp command, if the remote copy command exit value is
+non-zero.  A  non-zero return code from a remote copy command indicates
+that an error was encountered during the remote copy. If a remote  copy
+command  encounters an error, execution of the remote copy on that tar-
+get is bypassed.</p>
+<p>The xdcp command exit code is 0, if  the  xdcp  command  executed  without
+errors  and  all remote copy commands finished with exit codes of 0. If
+internal xdcp errors occur or the remote copy commands do  not  complete
+successfully,  the xdcp  command exit value is greater than 0.</p>
+<p>
+</p>
+<hr />
+<h1><a name="security"><strong>Security</strong></a></h1>
+<p>The  <strong>xdcp</strong>  command  has no security configuration requirements.  All
+remote command security requirements  -  configuration,
+authentication,  and authorization - are imposed by the underlying remote
+command configured for <strong>xdsh</strong>. The command  assumes  that  authentication
+and  authorization  is  configured  between  the  local host and the
+remote targets. Interactive password prompting is not supported;  an
+error  is displayed and execution is bypassed for a remote target if
+password prompting occurs, or if either authorization or
+authentication  to  the  remote  target fails. Security configurations as they
+pertain to the remote environment and remote shell command are
+userdefined.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples"><strong>Examples</strong></a></h1>
+<ul>
+<li>
+<p>To copy the /etc/hosts file from all  nodes in the cluster
+to the /tmp/hosts.dir directory on the local host, enter:</p>
+<p><strong>xdcp</strong> <em>all -P /etc/hosts /tmp/hosts.dir</em></p>
+<p>A suffix specifying the name of the target is  appended  to  each
+file name. The contents of the /tmp/hosts.dir directory are similar to:</p>
+<pre>
+ hosts._node1   hosts._node4   hosts._node7
+ hosts._node2   hosts._node5   hosts._node8
+ hosts._node3   hosts._node6</pre>
+</li>
+<li>
+<p>To copy the directory /var/log/testlogdir  from  all  targets  in
+NodeGroup1 with a fanout of 12, and save each directory on  the  local
+host as /var/log._target, enter:</p>
+<p><strong>xdcp</strong> <em>NodeGroup1 -f 12 -RP /var/log/testlogdir /var/log</em></p>
+</li>
+<li>
+<p>To copy  /localnode/smallfile and /tmp/bigfile to /tmp on node1
+using rsync and input -t flag to rsync, enter:</p>
+<p><em>xdcp node1 -r /usr/bin/rsync -o ``-t''  /localnode/smallfile /tmp/bigfile /tmp</em></p>
+</li>
+<li>
+<p>To copy the /etc/hosts file from the local host to all the nodes
+in the cluster, enter:</p>
+<p><strong>xdcp</strong> <em>all /etc/hosts /etc/hosts</em></p>
+</li>
+<li>
+<p>To copy all the files in /tmp/testdir from the local host to all the nodes
+in the cluster, enter:</p>
+<p><strong>xdcp</strong> <em>all /tmp/testdir/* /tmp/testdir</em></p>
+</li>
+<li>
+<p>To copy all the files in /tmp/testdir and it's subdirectories 
+from the local host to node1 in the cluster, enter:</p>
+<p><strong>xdcp</strong> <em>node1 -R /tmp/testdir /tmp/testdir</em></p>
+</li>
+<li>
+<p>To copy the /etc/hosts  file  from  node1  and  node2  to the
+/tmp/hosts.dir directory on the local host, enter:</p>
+<p><strong>xdcp</strong> <em>node1,node2 -P /etc/hosts /tmp/hosts.dir</em></p>
+</li>
+<li>
+<p>To rsync the /etc/hosts file to your compute nodes:</p>
+<p>Create a rsync file /tmp/myrsync, with this line:</p>
+<p>/etc/hosts -&gt; /etc/hosts</p>
+<p>or</p>
+<p>/etc/hosts -&gt; /etc/    (last / is required)</p>
+<p>Run:</p>
+<p><strong>xdcp</strong> <em>compute -F /tmp/myrsync</em></p>
+</li>
+<li>
+<p>To rsync all the files in /home/mikev to the  compute nodes:</p>
+<p>Create a rsync file /tmp/myrsync, with this line:</p>
+<p>/home/mikev/* -&gt; /home/mikev/      (last / is required)</p>
+<p>Run:</p>
+<p><strong>xdcp</strong> <em>compute -F /tmp/myrsync</em></p>
+</li>
+<li>
+<p>To rsync to the compute nodes, using service nodes, the command will first
+rsync the files to the  /var/xcat/syncfiles directory on the service nodes and then rsync the files from that directory to the compute nodes. The /var/xcat/syncfiles default directory on the service nodes, can be changed by putting a directory value in the site table SNsyncfiledir attribute.</p>
+<p>Create a rsync file /tmp/myrsync, with this line:</p>
+<p>/etc/hosts /etc/passwd -&gt; /etc</p>
+<p>or</p>
+<p>/etc/hosts /etc/passwd -&gt; /etc/</p>
+<p>Run:</p>
+<p><strong>xdcp</strong> <em>compute  -F /tmp/myrsync</em>    to update the Compute Nodes</p>
+</li>
+<li>
+<p>To rsync to the service nodes in preparation for rsyncing the compute nodes
+during an install from the service node.</p>
+<p>Create a rsync file /tmp/myrsync, with this line:</p>
+<p>/etc/hosts /etc/passwd -&gt; /etc</p>
+<p>Run:</p>
+<p><strong>xdcp</strong> <em>compute -s  -F /tmp/myrsync</em> to sync the service node for compute</p>
+</li>
+<li>
+<p>To rsync the /etc/file1 and file2 to your compute nodes and rename to  filex and filey:</p>
+<p>Create a rsync file /tmp/myrsync, with these line:</p>
+<p>/etc/file1 -&gt; /etc/filex</p>
+<p>/etc/file2 -&gt; /etc/filey</p>
+<p>Run:</p>
+<p><strong>xdcp</strong> <em>compute  -F /tmp/myrsync</em>    to update the Compute Nodes</p>
+</li>
+<li>
+<p>To rsync files in the Linux image at /install/netboot/fedora9/x86_64/compute/rootimg on the MN:</p>
+<p>Create a rsync file /tmp/myrsync, with this line:</p>
+<p>/etc/hosts /etc/passwd -&gt; /etc</p>
+<p>Run:</p>
+<p><strong>xdcp</strong> <em>-i /install/netboot/fedora9/x86_64/compute/rootimg -F /tmp/myrsync</em></p>
+</li>
+<li>
+<p>To define the Management Node  in the database so you can use xdcp,run</p>
+<p><strong>xcatconfig -m</strong></p>
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="files"><strong>Files</strong></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="see_also"><strong>SEE ALSO</strong></a></h1>
+<p><a href="xdsh.1.html">xdsh(1)</a>, <a href="../man3/noderange.3.html">noderange(3)</a></p>
+
+</body>
+
+</html>

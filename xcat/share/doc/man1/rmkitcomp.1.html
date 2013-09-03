@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;rmkitcomp&gt; - Remove kit components from osimage.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>rmkitcomp</strong> - Remove kit components from osimage.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>rmkitcomp</strong> [-h|--help]</p>
+<p><strong>rmkitcomp</strong> [-u|--uninstall] [-f|--force] [-V|--verbose] -i &lt;osimage&gt; &lt;kitcompname_list&gt;</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>rmkitcomp</strong> command removes kit components from osimage.  All the kit component attributes that attached to the osimage will be removed from osimage attributes, and the kit comoponent meta rpm and package rpm could be uninstalled by &lt;-u|--uninstall&gt; option.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-u|--uninstall</strong></p>
+<p>all the kit component meta rpm and package rpm in otherpkglist will be uninstalled during genimage for stateless image and updatenode for statefull nodes.</p>
+<p><strong>-h|--help</strong></p>
+<p>Display usage message.</p>
+<p><strong>-V|--verbose</strong></p>
+<p>Verbose mode.</p>
+<p><strong>-f|--force</strong></p>
+<p>Remove this kit component from osimage no matter it is a dependency of other kit components.</p>
+<p><strong>-i &lt;osimage</strong>&gt;</p>
+<p>osimage name that include this kit component.</p>
+<p><strong>kitcompname_list</strong></p>
+<p>A comma-delimited list of valid full kit component names or kit component basenames that are to be removed from the osimage.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0  The command completed successfully.</p>
+<p>1  An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To remove a kit component from osimage</p>
+<p>rmkitcomp -i rhels6.2-ppc64-netboot-compute comp-test1-1.0-1-rhels-6.2-ppc64</p>
+<p>Output is similar to:</p>
+<p>kitcomponents comp-test1-1.0-1-rhels-6.2-ppc64 were removed from osimage rhels6.2-ppc64-netboot-compute successfully</p>
+<p>2. To remove a kit component even it is still used as a dependency of other kit component.</p>
+<p>rmkitcomp -f -i rhels6.2-ppc64-netboot-compute comp-test1-1.0-1-rhels-6.2-ppc64</p>
+<p>Output is similar to:</p>
+<p>kitcomponents comp-test1-1.0-1-rhels-6.2-ppc64 were removed from osimage rhels6.2-ppc64-netboot-compute successfully</p>
+<p>3. To remove a kit component from osimage and also remove the kit component meta RPM and package RPM.  So in next genimage for statelss image and updatenode for statefull nodes, the kit component meta RPM and package RPM will be uninstalled.</p>
+<p>rmkitcomp -u -i rhels6.2-ppc64-netboot-compute comp-test1-1.0-1-rhels-6.2-ppc64</p>
+<p>Output is similar to:</p>
+<p>kitcomponents comp-test1-1.0-1-rhels-6.2-ppc64 were removed from osimage rhels6.2-ppc64-netboot-compute successfully</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="lskit.1.html">lskit(1)</a>, <a href="addkit.1.html">addkit(1)</a>, <a href="rmkit.1.html">rmkit(1)</a>, <a href="addkitcomp.1.html">addkitcomp(1)</a>, <a href="chkkitcomp.1.html">chkkitcomp(1)</a></p>
+
+</body>
+
+</html>

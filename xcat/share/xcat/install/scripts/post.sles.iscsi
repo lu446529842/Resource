@@ -1,0 +1,16 @@
+      <post-scripts config:type="list">
+        <script>
+          <filename>xcat.sh</filename>
+          <interpreter>shell</interpreter>
+          <source>
+
+<![CDATA[
+#!/bin/sh
+INCLUDE:#ENV:XCATROOT#/share/xcat/install/scripts/post.rh.common#
+#INCLUDE:#ENV:XCATROOT#/share/xcat/install/scripts/post.xcat#
+]]>
+
+          </source>
+        </script>
+      </post-scripts>
+

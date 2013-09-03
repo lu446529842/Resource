@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# Sample job command template file used to generate cluster rolling update
+# jobs that will be submitted to LoadLeveler.
+# Use this template with the Rolling Update "update_all" feature
+#   It only uses a node count and not a specific hostlist
+# xCAT will substitute the following when creating the LL job command files:
+#  [[NODESET]]   -  the update group name for the nodes in this reservation
+#  [[JOBDIR]]    -  the directory specified in the rollupdate input stanza
+#                   jobdir entry
+#  [[LLCOUNT]] - REQUIRED - used by xCAT to set the number of machines to 
+#                   reserve
+#  [[UPDATEALLFEATURE]] - REQUIRED - used by xCAT to control the rolling update
+#  [[MUTEXRESOURCES]] - the resources xCAT created for max_updates
+#
+# @ job_name = rollupdate_[[NODESET]]
+# @ job_type = parallel
+# @ node_usage = not_shared
+# @ restart = no
+# @ error   = [[JOBDIR]]/rollupdate_[[NODESET]].$(Host).$(Cluster).$(Process).err
+# @ output  = [[JOBDIR]]/rollupdate_[[NODESET]].$(Host).$(Cluster).$(Process).out
+# @ node = [[LLCOUNT]] 
+# @ requirements = (Feature == "[[UPDATEALLFEATURE]]")
+# @ step_resources = [[MUTEXRESOURCES]]
+# @ queue
+

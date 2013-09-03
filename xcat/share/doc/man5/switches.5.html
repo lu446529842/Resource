@@ -1,0 +1,124 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;switches&gt; - a table in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#switches_attributes_">switches Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>switches</strong> - a table in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>switches Attributes:</strong>  <em>switch</em>, <em>snmpversion</em>, <em>username</em>, <em>password</em>, <em>privacy</em>, <em>auth</em>, <em>linkports</em>, <em>sshusername</em>, <em>sshpassword</em>, <em>protocol</em>, <em>switchtype</em>, <em>comments</em>, <em>disable</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Parameters to use when interrogating switches</p>
+<p>
+</p>
+<hr />
+<h1><a name="switches_attributes_">switches Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_switch"><strong>switch</strong></a></strong>
+
+<dd>
+<p>The hostname/address of the switch to which the settings apply</p>
+</dd>
+</li>
+<dt><strong><a name="item_snmpversion"><strong>snmpversion</strong></a></strong>
+
+<dd>
+<p>The version to use to communicate with switch.  SNMPv1 is assumed by default.</p>
+</dd>
+</li>
+<dt><strong><a name="item_username"><strong>username</strong></a></strong>
+
+<dd>
+<p>The username to use for SNMPv3 communication, ignored for SNMPv1</p>
+</dd>
+</li>
+<dt><strong><a name="item_password"><strong>password</strong></a></strong>
+
+<dd>
+<p>The password or community string to use for SNMPv3 or SNMPv1 respectively.  Falls back to passwd table, and site snmpc value if using SNMPv1</p>
+</dd>
+</li>
+<dt><strong><a name="item_privacy"><strong>privacy</strong></a></strong>
+
+<dd>
+<p>The privacy protocol to use for v3.  DES is assumed if v3 enabled, as it is the most readily available.</p>
+</dd>
+</li>
+<dt><strong><a name="item_auth"><strong>auth</strong></a></strong>
+
+<dd>
+<p>The authentication protocol to use for SNMPv3.  SHA is assumed if v3 enabled and this is unspecified</p>
+</dd>
+</li>
+<dt><strong><a name="item_linkports"><strong>linkports</strong></a></strong>
+
+<dd>
+<p>The ports that connect to other switches. Currently, this column is only used by vlan configuration. The format is: ``port_number:switch,port_number:switch...''. Please refer to the switch table for details on how to specify the port numbers.</p>
+</dd>
+</li>
+<dt><strong><a name="item_sshusername"><strong>sshusername</strong></a></strong>
+
+<dd>
+<p>The remote login user name. It can be for ssh or telnet. If it is for telnet, please set protocol to ``telnet''.</p>
+</dd>
+</li>
+<dt><strong><a name="item_sshpassword"><strong>sshpassword</strong></a></strong>
+
+<dd>
+<p>The remote login password. It can be for ssh or telnet. If it is for telnet, please set protocol to ``telnet''.</p>
+</dd>
+</li>
+<dt><strong><a name="item_protocol"><strong>protocol</strong></a></strong>
+
+<dd>
+<p>Prorocol for running remote commands for the switch. The valid values are: ssh, telnet. ssh is the default. Leave it blank or set to ``ssh'' for Mellanox IB switch.</p>
+</dd>
+</li>
+<dt><strong><a name="item_switchtype"><strong>switchtype</strong></a></strong>
+
+<dd>
+<p>The type of switch. It is used to identify the file name that implements the functions for this swithc. The valid values are: MellanoxIB etc.</p>
+</dd>
+</li>
+<dt><strong><a name="item_comments"><strong>comments</strong></a></strong>
+
+<dt><strong><a name="item_disable"><strong>disable</strong></a></strong>
+
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong></p>
+
+</body>
+
+</html>

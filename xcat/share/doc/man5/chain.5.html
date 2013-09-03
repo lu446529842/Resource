@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;chain&gt; - a table in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#chain_attributes_">chain Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>chain</strong> - a table in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>chain Attributes:</strong>  <em>node</em>, <em>currstate</em>, <em>currchain</em>, <em>chain</em>, <em>ondiscover</em>, <em>comments</em>, <em>disable</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Controls what operations are done (and it what order) when a node is discovered and deployed.</p>
+<p>
+</p>
+<hr />
+<h1><a name="chain_attributes_">chain Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_node"><strong>node</strong></a></strong>
+
+<dd>
+<p>The node name or group name.</p>
+</dd>
+</li>
+<dt><strong><a name="item_currstate"><strong>currstate</strong></a></strong>
+
+<dd>
+<p>The current or next chain step to be executed on this node by xCAT-genesis.  Set by xCAT during node discovery or as a result of nodeset.</p>
+</dd>
+</li>
+<dt><strong><a name="item_currchain"><strong>currchain</strong></a></strong>
+
+<dd>
+<p>The chain steps still left to do for this node.  This attribute will be automatically adjusted by xCAT while xCAT-genesis is running on the node (either during node discovery or a special operation like firmware update).  During node discovery, this attribute is initialized from the chain attribute and updated as the chain steps are executed.</p>
+</dd>
+</li>
+<dt><strong><a name="item_chain"><strong>chain</strong></a></strong>
+
+<dd>
+<p>A comma-delimited chain of actions to be performed automatically when this node is discovered. (``Discovered'' means a node booted, but xCAT and DHCP did not recognize the MAC of this node. In this situation, xCAT initiates the discovery process, the last step of which is to run the operations listed in this chain attribute, one by one.) Valid values:  boot or reboot, install or netboot, runcmd=&lt;cmd&gt;, runimage=&lt;URL&gt;, shell, standby. (Default - same as no chain - it will do only the discovery.).  Example, for BMC machines use: runcmd=bmcsetup,shell.</p>
+</dd>
+</li>
+<dt><strong><a name="item_ondiscover"><strong>ondiscover</strong></a></strong>
+
+<dd>
+<p>This attribute is currently not used by xCAT.  The ``nodediscover'' operation is always done during node discovery.</p>
+</dd>
+</li>
+<dt><strong><a name="item_comments"><strong>comments</strong></a></strong>
+
+<dd>
+<p>Any user-written notes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_disable"><strong>disable</strong></a></strong>
+
+<dd>
+<p>Set to 'yes' or '1' to comment out this row.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong></p>
+
+</body>
+
+</html>

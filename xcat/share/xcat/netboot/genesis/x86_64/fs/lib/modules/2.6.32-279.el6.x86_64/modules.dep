@@ -1,0 +1,86 @@
+kernel/net/bridge/bridge.ko: kernel/net/802/stp.ko kernel/net/llc/llc.ko
+kernel/net/sunrpc/auth_gss/auth_rpcgss.ko: kernel/net/sunrpc/sunrpc.ko
+kernel/net/sunrpc/sunrpc.ko:
+kernel/net/llc/llc.ko:
+kernel/net/ipv6/ipv6.ko:
+kernel/net/802/garp.ko: kernel/net/802/stp.ko kernel/net/llc/llc.ko
+kernel/net/802/stp.ko: kernel/net/llc/llc.ko
+kernel/net/8021q/8021q.ko: kernel/net/802/garp.ko kernel/net/802/stp.ko kernel/net/llc/llc.ko
+kernel/arch/x86/kernel/cpu/cpufreq/mperf.ko:
+kernel/arch/x86/kernel/cpu/cpufreq/powernow-k8.ko: kernel/drivers/cpufreq/freq_table.ko kernel/arch/x86/kernel/cpu/cpufreq/mperf.ko
+kernel/arch/x86/kernel/cpu/cpufreq/acpi-cpufreq.ko: kernel/drivers/cpufreq/freq_table.ko kernel/arch/x86/kernel/cpu/cpufreq/mperf.ko
+kernel/arch/x86/kvm/kvm-amd.ko: kernel/arch/x86/kvm/kvm.ko
+kernel/arch/x86/kvm/kvm.ko:
+kernel/arch/x86/kvm/kvm-intel.ko: kernel/arch/x86/kvm/kvm.ko
+kernel/drivers/message/fusion/mptctl.ko: kernel/drivers/message/fusion/mptbase.ko
+kernel/drivers/message/fusion/mptscsih.ko: kernel/drivers/message/fusion/mptbase.ko
+kernel/drivers/message/fusion/mptbase.ko:
+kernel/drivers/message/fusion/mptsas.ko: kernel/drivers/message/fusion/mptscsih.ko kernel/drivers/message/fusion/mptbase.ko kernel/drivers/scsi/scsi_transport_sas.ko
+kernel/drivers/i2c/i2c-core.ko:
+kernel/drivers/i2c/algos/i2c-algo-bit.ko: kernel/drivers/i2c/i2c-core.ko
+kernel/drivers/char/ipmi/ipmi_devintf.ko: kernel/drivers/char/ipmi/ipmi_msghandler.ko
+kernel/drivers/char/ipmi/ipmi_msghandler.ko:
+kernel/drivers/char/ipmi/ipmi_si.ko: kernel/drivers/char/ipmi/ipmi_msghandler.ko
+kernel/drivers/virtio/virtio.ko:
+kernel/drivers/virtio/virtio_ring.ko:
+kernel/drivers/ata/ahci.ko:
+kernel/drivers/ata/ata_piix.ko:
+kernel/drivers/usb/storage/usb-storage.ko:
+kernel/drivers/usb/host/xhci-hcd.ko:
+kernel/drivers/block/virtio_blk.ko: kernel/drivers/virtio/virtio.ko kernel/drivers/virtio/virtio_ring.ko
+kernel/drivers/net/cxgb4/cxgb4.ko:
+kernel/drivers/net/bonding/bonding.ko: kernel/net/ipv6/ipv6.ko kernel/net/8021q/8021q.ko kernel/net/802/garp.ko kernel/net/802/stp.ko kernel/net/llc/llc.ko
+kernel/drivers/net/mdio.ko:
+kernel/drivers/net/tg3.ko:
+kernel/drivers/net/ixgb/ixgb.ko:
+kernel/drivers/net/bna/bna.ko:
+kernel/drivers/net/virtio_net.ko: kernel/drivers/virtio/virtio.ko kernel/drivers/virtio/virtio_ring.ko
+kernel/drivers/net/usb/usbnet.ko: kernel/drivers/net/mii.ko
+kernel/drivers/net/usb/cdc_ether.ko: kernel/drivers/net/usb/usbnet.ko kernel/drivers/net/mii.ko
+kernel/drivers/net/cxgb3/cxgb3.ko: kernel/drivers/net/mdio.ko
+kernel/drivers/net/e1000/e1000.ko:
+kernel/drivers/net/bnx2.ko:
+kernel/drivers/net/sfc/sfc.ko: kernel/drivers/i2c/algos/i2c-algo-bit.ko kernel/drivers/i2c/i2c-core.ko kernel/drivers/net/mdio.ko
+kernel/drivers/net/igb/igb.ko: kernel/drivers/dca/dca.ko
+kernel/drivers/net/macvtap.ko: kernel/drivers/net/macvlan.ko
+kernel/drivers/net/mlx4/mlx4_core.ko:
+kernel/drivers/net/mlx4/mlx4_en.ko: kernel/drivers/net/mlx4/mlx4_core.ko
+kernel/drivers/net/vmxnet3/vmxnet3.ko:
+kernel/drivers/net/benet/be2net.ko:
+kernel/drivers/net/e1000e/e1000e.ko:
+kernel/drivers/net/macvlan.ko:
+kernel/drivers/net/qlge/qlge.ko:
+kernel/drivers/net/bnx2x/bnx2x.ko: kernel/lib/libcrc32c.ko kernel/drivers/net/mdio.ko
+kernel/drivers/net/mii.ko:
+kernel/drivers/infiniband/core/ib_mad.ko: kernel/drivers/infiniband/core/ib_core.ko
+kernel/drivers/infiniband/core/ib_core.ko:
+kernel/drivers/infiniband/core/ib_umad.ko: kernel/drivers/infiniband/core/ib_mad.ko kernel/drivers/infiniband/core/ib_core.ko
+kernel/drivers/infiniband/hw/mlx4/mlx4_ib.ko: kernel/drivers/net/mlx4/mlx4_core.ko kernel/drivers/infiniband/core/ib_mad.ko kernel/drivers/infiniband/core/ib_core.ko
+kernel/drivers/scsi/scsi_wait_scan.ko:
+kernel/drivers/scsi/mpt2sas/mpt2sas.ko: kernel/drivers/scsi/scsi_transport_sas.ko kernel/drivers/scsi/raid_class.ko
+kernel/drivers/scsi/megaraid/megaraid_sas.ko:
+kernel/drivers/scsi/pmcraid.ko:
+kernel/drivers/scsi/raid_class.ko:
+kernel/drivers/scsi/sd_mod.ko: kernel/lib/crc-t10dif.ko
+kernel/drivers/scsi/scsi_transport_sas.ko:
+kernel/drivers/hwmon/ibmaem.ko: kernel/drivers/char/ipmi/ipmi_msghandler.ko
+kernel/drivers/cpufreq/freq_table.ko:
+kernel/drivers/cpufreq/cpufreq_ondemand.ko: kernel/drivers/cpufreq/freq_table.ko
+kernel/drivers/dca/dca.ko:
+kernel/fs/mbcache.ko:
+kernel/fs/nfs_common/nfs_acl.ko: kernel/net/sunrpc/sunrpc.ko
+kernel/fs/fat/fat.ko:
+kernel/fs/fat/vfat.ko: kernel/fs/fat/fat.ko
+kernel/fs/nfs/nfs.ko: kernel/fs/lockd/lockd.ko kernel/fs/fscache/fscache.ko kernel/fs/nfs_common/nfs_acl.ko kernel/net/sunrpc/auth_gss/auth_rpcgss.ko kernel/net/sunrpc/sunrpc.ko
+kernel/fs/btrfs/btrfs.ko: kernel/lib/zlib_deflate/zlib_deflate.ko kernel/lib/lzo/lzo_decompress.ko kernel/lib/lzo/lzo_compress.ko kernel/lib/libcrc32c.ko
+kernel/fs/ext3/ext3.ko: kernel/fs/jbd/jbd.ko kernel/fs/mbcache.ko
+kernel/fs/jbd2/jbd2.ko:
+kernel/fs/ext4/ext4.ko: kernel/fs/mbcache.ko kernel/fs/jbd2/jbd2.ko
+kernel/fs/lockd/lockd.ko: kernel/net/sunrpc/sunrpc.ko
+kernel/fs/jbd/jbd.ko:
+kernel/fs/fscache/fscache.ko:
+kernel/lib/crc-t10dif.ko:
+kernel/lib/libcrc32c.ko:
+kernel/lib/lzo/lzo_decompress.ko:
+kernel/lib/lzo/lzo_compress.ko:
+kernel/lib/zlib_deflate/zlib_deflate.ko:

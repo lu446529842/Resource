@@ -1,0 +1,330 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;NAME&gt;</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name"><strong>NAME</strong></a></li>
+	<li><a href="#synopsis"><strong>SYNOPSIS</strong></a></li>
+	<li><a href="#description"><strong>DESCRIPTION</strong></a></li>
+	<li><a href="#options"><strong>OPTIONS</strong></a></li>
+	<li><a href="#examples"><strong>Examples</strong></a></li>
+	<li><a href="#see_also"><strong>SEE ALSO</strong></a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name"><strong>NAME</strong></a></h1>
+<p><strong>sinv</strong> - Checks the software configuration of the nodes in the cluster.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis"><strong>SYNOPSIS</strong></a></h1>
+<p><strong>sinv</strong>  [<strong>-o</strong> <em>output</em>] [<strong>-p</strong> <em>template path</em>] [<strong>-t</strong> <em>template count</em>] [<strong>-s</strong> <em>seed node</em>] [<strong>-i</strong>] [<strong>-e</strong>] [<strong>-r</strong>] [<strong>-V</strong>] [<strong>--devicetype</strong> <em>type_of_device</em>]  [<strong>-l</strong>  <em>userID</em>] [[<strong>-f</strong> <em>command file</em>] | [<strong>-c</strong> <em>command</em>]]</p>
+<p><strong>sinv</strong> [<strong>-h</strong> | <strong>-v</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description"><strong>DESCRIPTION</strong></a></h1>
+<p>The <strong>sinv</strong> command is designed to check the configuration of the nodes in a cluster.
+The command takes as input command line flags, and one or more templates which will be compared against the output of the xdsh command, designated to be run by the -c or -f flag, on the nodes in the noderange.</p>
+<p>The nodes will then be grouped according to the template they match and a report returned to the administrator in the output file designated by the -o flag, or to stdout.</p>
+<p><strong>sinv</strong> supports checking the output from the  <strong>rinv</strong> or <strong>xdsh</strong> command. 
+</p>
+<pre>
+
+The B&lt;sinv&gt; command is an xCAT Distributed Shell Utility.</pre>
+<p><strong>COMMAND</strong> <strong>SPECIFICATION</strong>:</p>
+<p>The xdsh or rinv command to execute on the remote targets is specified by the
+ <strong>-c</strong> flag, or by the <strong>-f</strong> flag
+which is followed by the fully qualified path to a file containing the command.</p>
+<p>Note: do not add | xdshcoll to the command on the command line or in the
+command file, it is automatically added by sinv.</p>
+<p>The syntax for the <strong>-c</strong>  <strong>sinv</strong> parameter is as follows:</p>
+<p>``<em>command</em>[; <em>command</em>]...''</p>
+<p>where <em>command</em> is the command to run on the remote
+target. Quotation marks are required to ensure that all commands in the
+list are executed remotely, and that any special characters are interpreted
+correctly on the remote target.</p>
+<p>The <strong>sinv</strong> command does not work with any interactive commands, including
+those that read from standard input.</p>
+<p><strong>REMOTE</strong> <strong>SHELL</strong> <strong>COMMAND</strong>:</p>
+<p>For xdsh, support is  explicitly  provided
+for  AIX  Remote  Shell and OpenSSH, but any secure remote command that
+conforms to the IETF (Internet Engineering Task  Force)  Secure  Remote
+Command Protocol can be used. See man <strong>xdsh</strong> for more details.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options"><strong>OPTIONS</strong></a></h1>
+<dl>
+<dt><strong><a name="item__2do_7c_2d_2doutput_report_output_file"><strong>-o</strong>|<strong>--output</strong> <em>report output file</em></a></strong>
+
+<dd>
+<p>Optional output file. This is the location of the file that will contain the report of the nodes that match, and do not match, the input templates.
+If the flag is not used, the output will go to stdout.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_7c_2d_2dtp_template_path"><strong>-p</strong>|<strong>--tp</strong> <em>template path</em></a></strong>
+
+<dd>
+<p>This is the path to the template file. The template contains the output
+of xdsh command, that has been run against a ``seed'' node, a node 
+that contains the configuration that you would like  
+all nodes in your noderange to match.</p>
+</dd>
+<dd>
+<p>The admin can create the template by running the xdsh command on
+the seed node, pipe to xdshcoll ( required) and store the output
+in the template path. See examples.</p>
+</dd>
+<dd>
+<p><strong>Note:</strong> The admin can also edit the
+template to remove any lines that they do not want checked.</p>
+</dd>
+<dd>
+<p>An alternative method is to use the [<strong>-s</strong> <em>seed node</em>] parameter, 
+which will automatically build the template for you from the 
+seed node named.</p>
+</dd>
+<dd>
+<p>If a template path file does not exist, and a seed node is not input,
+then sinv will automatically use the one node in the noderange as
+the seed node and build the template.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dt_7c_2d_2dtc_template_count"><strong>-t</strong>|<strong>--tc</strong> <em>template count</em></a></strong>
+
+<dd>
+<p>This count is the number of templates that the command will use
+to check for nodes matches.  If the template in the template path does not
+match a node, the <strong>sinv</strong> will check additional templates  up 
+to the template count.
+</p>
+</dd>
+<dd>
+<pre>
+
+For each node, it will compare the node against each template to see if 
+there is a match.  
+If there is no match, and we are not over the template count,
+then a new template will be created from the node output. 
+This will result in having all nodes that match a given template reported in
+their group at the end of the run in the output file. 
+If no template count is specified,  0 is the default, and all nodes will
+be compared against the first template.</pre>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_7c_2d_2dseed_seed_node"><strong>-s</strong>|<strong>--seed</strong> <em>seed node</em></a></strong>
+
+<dd>
+<p>This is the node that will be used to build the first template
+that is stored in template path.  You can use this parameter instead of running
+the command yourself to build the template.</p>
+</dd>
+<dd>
+<p><strong>Note:</strong> If the template path file does not exists, and no seed node is 
+supplied, the seed node automatically is one node in the
+noderange.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di_7c_2d_2dignorefirst"><strong>-i</strong>|<strong>--ignorefirst</strong></a></strong>
+
+<dd>
+<p>This flag suppresses the reporting of the nodes matching the first
+template. In very large systems, you may not want to show the nodes that
+have the correct configuration, since the list could contain thousands of nodes.
+This allows you to only report the nodes that do not match the required 
+configuration.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2de_7c_2d_2dexactmatch"><strong>-e</strong>|<strong>--exactmatch</strong></a></strong>
+
+<dd>
+<p>This requires the check of node output against template to be an exact match.
+If this flag is not set, <strong>sinv</strong> checks to see if the return from the 
+xdsh command to the nodes contain a match for each line in the input 
+template (except for xdshcoll header and comments). If not in exactmatch mode,
+there can exist more lines in the xdsh return from the nodes.</p>
+</dd>
+<dd>
+<p>For example, if running a ``rpm -qa | grep xCAT'' command, without exactmatch 
+set, if the node containes more xCAT rpms that listed in the template,
+it would be considered a match, as long as all rpms listed in the template
+were on the node. With exactmatch set, the output must be identical 
+to the template.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_2ddevicetype_type_of_device"><strong>--devicetype</strong> <em>type_of_device</em></a></strong>
+
+<dd>
+<p>Specify a user-defined device type that references the location
+of relevant device configuration file. The devicetype value must
+correspond to a valid device configuration file.
+xCAT ships some default configuration files
+for Ethernet switches and and IB switches under
+<em>/opt/xcat/share/xcat/devicetype</em> directory. If you want to overwrite
+any of the configuration files, please copy it to <em>/var/opt/xcat/</em>
+directory and cutomize it.
+For example, <em>base/IBSwitch/Qlogic/config</em> is the configuration
+file location if devicetype is specified as IBSwitch::Qlogic.
+xCAT will first search config file using <em>/var/opt/xcat/</em> as the base.
+If not found, it will search for it using
+<em>/opt/xcat/share/xcat/devicetype/</em> as the base.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dl_7c_2d_2duser_user_id"><strong>-l</strong>|<strong>--user</strong> <em>user_ID</em></a></strong>
+
+<dd>
+<p>Specifies a remote user name to use for remote command execution.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dc_7c_2d_2dcommand"><strong>-c</strong>|<strong>--command</strong></a></strong>
+
+<dd>
+<p>The xdsh or rinv command that will be run. The command should be enclosed in 
+double quotes to insure correct shell interpretation. This parameter must only contain, the node range or the image path (Linux) or spot name for AIX. It cannot be used to set additional input flags to xdsh or rinv (for example -s,-T,-e).  See examples below.</p>
+</dd>
+<dd>
+<p><strong>Note:</strong> do not add the | xdshcoll to the command,
+it is automatically added by sinv.  sinv also automatically sets the -v flag for xdsh.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_7c_2d_2dfile"><strong>-f</strong>|<strong>--file</strong></a></strong>
+
+<dd>
+<p>The file containing the xdsh or rinv command that will be run. 
+This should be the fully qualified name of the file.</p>
+</dd>
+<dd>
+<p><strong>Note:</strong> do not add the | xdshcoll to the command in the file,
+it is automatically added by sinv.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dr_7c_2d_2dremove"><strong>-r</strong>|<strong>--remove</strong></a></strong>
+
+<dd>
+<p>This flag indicates that generated templates should be removed at the
+at the end of the <strong>sinv</strong> command execution.</p>
+</dd>
+<dd>
+<p>If the flag is input, then all templates that are generated by the <strong>sinv</strong>
+command, will be removed. If the first template is created by the admin,
+it will not be removed.</p>
+</dd>
+<dd>
+<p>If the flag is not input, no
+templates will be removed. It is up to the admin to cleanup templates.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h</strong>|<strong>--help</strong></a></strong>
+
+<dd>
+<p>Displays usage information.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v</strong>|<strong>--version</strong></a></strong>
+
+<dd>
+<p>Displays xCAT release version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V</strong>|<strong>--Verbose</strong></a></strong>
+
+<dd>
+<p>Verbose mode.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples"><strong>Examples</strong></a></h1>
+<ul>
+<li>
+<p>To setup sinv.template (name optional) for input to the <strong>sinv</strong> command , enter:</p>
+<p><strong>xdsh</strong> <em>node1,node2 ``rpm -qa | grep ssh '' | xdshcoll  &gt; /tmp/sinv.template</em></p>
+<p><table cellspacing="0" cellpadding="0"><tr><td>Note: when setting up the template the output of xdsh must be piped
+<tr><td><td>  to xdshcoll, sinv processing depends on it.</table></p>
+</li>
+<li>
+<p>To setup rinv.template for input to the <strong>sinv</strong> command , enter:</p>
+<p><strong>rinv</strong> <em>node1-node2 serial | xdshcoll  &gt; /tmp/rinv.template</em></p>
+<p><table cellspacing="0" cellpadding="0"><tr><td>Note: when setting up the template the output of rinv must be piped
+<tr><td><td>  to xdshcoll, sinv processing depends on it.</table></p>
+</li>
+<li>
+<p>To execute <strong>sinv</strong> using the sinv.template generated above
+on the nodegroup, <strong>testnodes</strong> ,possibly generating up to two
+new templates, and removing all generated templates in the end, and writing
+output report to /tmp/sinv.output, enter:</p>
+<p><strong>sinv</strong> <em> -c ``xdsh testnodes rpm -qa | grep ssh'' -p /tmp/sinv.template -t 2 -r -o /tmp/sinv.output</em></p>
+<p>Note: do not add the pipe to xdshcoll on the -c flag, it is automatically
+added by the sinv routine.</p>
+</li>
+<li>
+<p>To execute <strong>sinv</strong> on noderange, node1-node4, using the seed node, node8,
+to generate the first template, using the xdsh command (-c),
+possibly generating up to two additional
+templates and not removing any templates at the end, enter:</p>
+<p><strong>sinv</strong> <em>-c ``xdsh node1-node4 lslpp -l | grep bos.adt'' -s node8 -p /tmp/sinv.template -t 2 -o /tmp/sinv.output</em></p>
+</li>
+<li>
+<p>To execute <strong>sinv</strong> on noderange, node1-node4, using the seed node, node8,
+to generate the first template, using the rinv command (-c),
+possibly generating up to two additional
+templates and removing any generated templates at the end, enter:</p>
+<p><strong>sinv</strong> <em>-c ``rinv node1-node4 serial'' -s node8 -p /tmp/sinv.template -t 2 -r -o /tmp/rinv.output</em>
+</p>
+<pre>
+
+=item *</pre>
+<p>To execute <strong>sinv</strong> on noderange, node1-node4, using node1 as
+the seed node, to generate the sinv.template from the xdsh command (-c),
+using the exact match option, generating no additional templates, enter:</p>
+<p><strong>sinv</strong> <em>-c ``xdsh node1-node4 lslpp -l | grep bos.adt''  -s node1 -e -p /tmp/sinv.template  -o /tmp/sinv.output</em></p>
+<p>Note: the /tmp/sinv.template file must be empty, otherwise it will be used
+as an admin generated template.</p>
+</li>
+<li>
+<p>To execute <strong>sinv</strong> on the Linux osimage defined for cn1.  First build a template from the /etc/hosts on the node. Then run sinv to compare. 
+<strong>xdsh</strong> <em>cn1 ``cat /etc/hosts'' | xdshcoll </em> /tmp/sinv2/template``</p>
+<p><strong>sinv</strong> <em>-c ``xdsh -i /install/netboot/rhels6/ppc64/test_ramdisk_statelite/rootimg cat /etc/hosts''  -e -t1 -p /tmp/sinv.template  -o /tmp/sinv.output</em></p>
+</li>
+<li>
+<p>To execute <strong>sinv</strong> on the AIX NIM 611dskls spot and compare /etc/hosts to compute1 node, run the following:</p>
+<p><strong>xdsh</strong> <em>compute1 ``cat /etc/hosts'' | xdshcoll </em> /tmp/sinv2/template``</p>
+<p><strong>sinv</strong> <em>-c ``xdsh -i 611dskls  cat /etc/hosts'' -e -t1 -p /tmp/sinv.template  -o /tmp/sinv.output</em></p>
+</li>
+<li>
+<p>To execute <strong>sinv</strong> on the device mswitch2 and compare to mswitch1</p>
+<p><strong>sinv</strong> <em>-c ``xdsh mswitch  enable;show version''  -s mswitch1 -p /tmp/sinv/template --devicetype IBSwitch::Mellanox -l admin -t 2</em></p>
+</li>
+</ul>
+<p><strong>Files</strong></p>
+<p><strong>/opt/xcat/bin/sinv/</strong></p>
+<p>Location of the sinv command.
+
+</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also"><strong>SEE ALSO</strong></a></h1>
+<p>L &lt;xdsh(1)|xdsh.1&gt;, <a href="../man3/noderange.3.html">noderange(3)</a>
+</p>
+
+</body>
+
+</html>

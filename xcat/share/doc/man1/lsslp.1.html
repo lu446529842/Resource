@@ -1,0 +1,273 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;lsslp&gt; - Discovers selected networked services information within the same subnet.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>lsslp</strong> - Discovers selected networked services information within the same subnet.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><em>lsslp [-h| --help]</em></p>
+<p><em>lsslp [-v| --version]</em></p>
+<p><em>lsslp [noderange] [-V] [-i ip[,ip..]][-w][-r|-x|-z][-n][-s CEC|FRAME|MM|IVM|RSA|HMC|CMM|IMM2|FSP][-t tries][-I][-C counts][-T timeout][--vpdtable]</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The lsslp command discovers selected service types using the -s flag. All service types are returned if the -s flag is not specified. If a specific IP address is not specified using the -i flag, the request is sent out all available network adapters. The optional -r, -x, -z and --vpdtable flags format the output. If you can't receive all the hardware, please use -T to increase the waiting time. <strong>NOTE</strong> lsslp on AIX has restriction. According to AIX design, you need to use these steps to discover nodes for each vlan: 1.Add multicast route, for example: route add 239.255.255.253 40.0.0.96. 2. Use lsslp -i to do discovery, for example, lsslp -i 40.0.0.96. 3. Delete the route: route delete 239.255.255.253 40.0.0.96. If you have several vlans and need to do discovery through several network interfaces, you need to repeat the steps above.</p>
+<p>NOTE: SLP broadcast requests will propagate only within the subnet of the network adapter broadcast IPs specified by the -i flag.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>noderange</strong>   The nodes which the user want to discover.
+            If the user specify the noderange, lsslp will just return the nodes in 
+            the node range. Which means it will help to add the new nodes to the xCAT
+            database without modifying the existed definitions. But the nodes' name 
+            specified in noderange should be defined in database in advance. The specified
+            nodes' type can be frame/cec/hmc/fsp/bpa. If the it is frame or cec, lsslp
+            will list the bpa or fsp nodes within the nodes(bap for frame, fsp for cec).
+            Please do not use noderange with the flag -s.</p>
+<p><strong>-i</strong>          <code>IP(s)</code> the command will send out (defaults to all available adapters).</p>
+<p><strong>-h</strong>          Display usage message.</p>
+<p><strong>-n</strong>          Only display and write the newly discovered hardwares.</p>
+<p><strong>-r</strong>          Display Raw SLP response.</p>
+<p><strong>-C</strong>          The number of the expected responses specified by the user. 
+            When using this flag, lsslp will not return until the it has found all the nodes or time out.
+            The default max time is 3 secondes. The user can use -T flag the specify the time they want to use.
+            A short time will limite the time costing, while a long time will help to find all the nodes.</p>
+<p><strong>-T</strong>          The number in seconds to limite the time costing of lsslp.</p>
+<p><strong>-s</strong>          Service type interested in discovering.</p>
+<p><strong>-t</strong>          Number or service-request attempts.</p>
+<p><strong>--vpdtable</strong>  Output the SLP response in vpdtable formatting. Easy for writting data to vpd table.</p>
+<p><strong>-v</strong>          Command Version.</p>
+<p><strong>-V</strong>          Verbose output.</p>
+<p><strong>-w</strong>          Writes output to xCAT database.</p>
+<p><strong>-x</strong>          XML format.</p>
+<p><strong>-z</strong>          Stanza formated output.</p>
+<p><strong>-I</strong>          Give the warning message for the nodes in database which have no SLP responses.
+            Please note that this flag noly can be used after the database migration finished successfully.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To list all discovered HMC service types in tabular format, enter:</p>
+<pre>
+ lsslp -s HMC</pre>
+<p>Output is similar to:</p>
+<pre>
+ device type-model serial-number ip-addresses   hostname
+ HMC    7310CR2    103F55A        1.1.1.115      hmc01
+ HMC    7310CR2    105369A        3.3.3.103      hmc02
+ HMC    7310CR3    KPHHK24        3.3.3.154      hmc03</pre>
+<p>2. list all discovered FSP service types in raw response format on subnet 30.0.0.255, enter:</p>
+<pre>
+ lsslp -i 3.0.0.255 -s CEC -r</pre>
+<p>Output is similar to:</p>
+<pre>
+ (type=cec-service-processor),(serial-number=10A3AEB),(machinetype-model=9117-570),(fru-serial-number=YL11C5338102),(hostname=),(frame-number=0),(cage-number=0),(ip-address=3.0.0.94,1.1.1.147),(web-url=https://3.0.0.94:473 ), (slot=1),(bpc-machinetype-model=0),(bpc-serial-number=0),(Image=fips240/b0630a_0623.240)
+ (type=cec-service-processor),(serial-number=10A3E2B),(machinetype-model=9117-570),(fru-serial- number=YL11C5338250),(hostname=),(frame-number=0),(cage-number=0),(ip-address=3.0.0.95,1.1.1.147), (web-url=https://3.0.0.95:473 ),(slot=1),(bpc-machinetype-model=0),(bpc-serial-number=0),(Image=fips240/b0630a_0623.240)</pre>
+<p>3. To list all discovered MM service types in XML format and write the output to the xCAT database, enter:</p>
+<pre>
+ lsslp -s MM -x -w</pre>
+<p>Output is similar to:</p>
+<pre>
+  &lt;Node&gt;
+    &lt;groups&gt;mm,all&lt;/groups&gt;
+    &lt;id&gt;00:14:5E:E0:CB:1E&lt;/id&gt;
+    &lt;mgt&gt;blade&lt;/mgt&gt;
+    &lt;mtm&gt;029310C&lt;/mtm&gt;
+    &lt;node&gt;Server-029310C-SN100485A-A&lt;/node&gt;
+    &lt;nodetype&gt;mm&lt;/nodetype&gt;
+    &lt;otherinterfaces&gt;9.114.47.229&lt;/otherinterfaces&gt;
+    &lt;serial&gt;100485A&lt;/serial&gt;
+  &lt;/Node&gt;</pre>
+<p>4. To list all discovered service types in stanza format and write the output to the xCAT database, enter:</p>
+<pre>
+ lsslp -z -w</pre>
+<p>Output is similar to:</p>
+<p>c76v1hmc02:
+        objtype=node
+        hcp=c76v1hmc02
+        nodetype=hmc
+        mtm=7315CR2
+        serial=10407DA
+        ip=192.168.200.125
+        groups=hmc,all
+        mgt=hmc
+        mac=00:1a:64:fb:7d:50        
+        hidden=0
+192.168.200.244:
+        objtype=node
+        hcp=192.168.200.244
+        nodetype=fsp
+        mtm=9125-F2A
+        serial=0262662
+        side=A-0
+        otherinterfaces=192.168.200.244
+        groups=fsp,all
+        mgt=fsp
+        id=4
+        parent=Server-9125-F2A-SN0262662
+        mac=00:1a:64:fa:01:fe
+        hidden=1
+Server-8205-E6B-SN1074CDP:
+        objtype=node
+        hcp=Server-8205-E6B-SN1074CDP
+        nodetype=cec
+        mtm=8205-E6B
+        serial=1074CDP
+        groups=cec,all
+        mgt=fsp
+        id=0
+        hidden=0
+192.168.200.33:
+        objtype=node
+        hcp=192.168.200.33
+        nodetype=bpa
+        mtm=9458-100
+        serial=99201WM
+        side=B-0
+        otherinterfaces=192.168.200.33
+        groups=bpa,all
+        mgt=bpa
+        id=0
+        mac=00:09:6b:ad:19:90
+        hidden=1
+Server-9125-F2A-SN0262652:
+        objtype=node
+        hcp=Server-9125-F2A-SN0262652
+        nodetype=frame
+        mtm=9125-F2A
+        serial=0262652
+        groups=frame,all
+        mgt=fsp
+        id=5
+        hidden=0</p>
+<p>5. To list all discovered service types in stanza format and display the IP address, enter:</p>
+<pre>
+ lsslp -w</pre>
+<p>Output is similar to:</p>
+<pre>
+ mm01:
+    objtype=node
+    nodetype=fsp
+    mtm=8233-E8B
+    serial=1000ECP
+    side=A-0
+    groups=fsp,all
+    mgt=fsp
+    id=0
+    mac=00:14:5E:F0:5C:FD
+    otherinterfaces=50.0.0.5</pre>
+<pre>
+ bpa01:
+    objtype=node
+    nodetype=bpa
+    mtm=9A01-100
+    serial=0P1N746
+    side=A-1
+    groups=bpa,all
+    mgt=bpa
+    id=0
+    mac=00:1A:64:54:8C:A5
+    otherinterfaces=50.0.0.1</pre>
+<p>6. To list all the CECs, enter:</p>
+<pre>
+ lsslp -s CEC 
+ 
+device  type-model  serial-number  side  ip-addresses  hostname
+FSP     9117-MMB    105EBEP        A-1   20.0.0.138    20.0.0.138
+FSP     9117-MMB    105EBEP        B-1   20.0.0.139    20.0.0.139
+CEC     9117-MMB    105EBEP                            Server-9117-MMB-SN105EBEP</pre>
+<pre>
+ 
+7. To list all the nodes defined in database which have no SLP response.</pre>
+<pre>
+  lsslp -I</pre>
+<p>Output is similar to:</p>
+<p>These nodes defined in database but can't be discovered: f17c00bpcb_b,f17c01bpcb_a,f17c01bpcb_b,f17c02bpcb_a,</p>
+<p>device  type-model  serial-number  side  ip-addresses  hostname
+bpa     9458-100    BPCF017        A-0   40.17.0.1     f17c00bpca_a
+bpa     9458-100    BPCF017        B-0   40.17.0.2     f17c00bpcb_a</p>
+<p>8. To find the nodes within the user specified. Please make sure the noderange input have been defined in xCAT database.</p>
+<pre>
+   lsslp CEC1-CEC3
+or lsslp CEC1,CEC2,CEC3</pre>
+<pre>
+  device  type-model  serial-number  side  ip-addresses     hostname
+  FSP     9A01-100    0P1P336        A-0   192.168.200.34  192.168.200.34
+  FSP     9A01-100    0P1P336        B-0   192.168.200.35  192.168.200.35
+  FSP     9A01-100    0P1P336        A-1   50.0.0.27       50.0.0.27
+  FSP     9A01-100    0P1P336        B-1   50.0.0.28       50.0.0.28
+  CEC     9A01-100    0P1P336                              CEC1
+  FSP     8233-E8B    1040C7P        A-0   192.168.200.36  192.168.200.36
+  FSP     8233-E8B    1040C7P        B-0   192.168.200.37  192.168.200.37
+  FSP     8233-E8B    1040C7P        A-1   50.0.0.29       50.0.0.29
+  FSP     8233-E8B    1040C7P        B-1   50.0.0.30       50.0.0.30
+  CEC     8233-E8B    1040C7P                              CEC2
+  FSP     8205-E6B    1000ECP        A-0   192.168.200.38  192.168.200.38
+  FSP     8205-E6B    1000ECP        B-0   192.168.200.39  192.168.200.39
+  FSP     8205-E6B    1000ECP        A-1   50.0.0.31       50.0.0.27
+  FSP     8205-E6B    1000ECP        B-1   50.0.0.32       50.0.0.28
+  CEC     8205-E6B    1000ECP                              CEC3</pre>
+<p>9. To list all discovered CMM in stanza format, enter:
+   lsslp -s CMM -m -z</p>
+<p>e114ngmm1:
+        objtype=node
+        mpa=e114ngmm1
+        nodetype=cmm
+        mtm=98939AX
+        serial=102537A
+        groups=cmm,all
+        mgt=blade
+        hidden=0
+        otherinterfaces=70.0.0.30
+        hwtype=cmm</p>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/lsslp</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="rscan.1.html">rscan(1)</a></p>
+
+</body>
+
+</html>

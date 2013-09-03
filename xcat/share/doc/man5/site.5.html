@@ -1,0 +1,488 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;site&gt; - a table in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#site_attributes_">site Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>site</strong> - a table in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>site Attributes:</strong>  <em>key</em>, <em>value</em>, <em>comments</em>, <em>disable</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Global settings for the whole cluster.  This table is different from the 
+other tables in that each attribute is just named in the key column, rather 
+than having a separate column for each attribute. The following is a list of 
+the attributes currently used by xCAT.</p>
+<p>
+</p>
+<hr />
+<h1><a name="site_attributes_">site Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_key"><strong>key</strong></a></strong>
+
+<dd>
+<p>Attribute Name:  Description</p>
+</dd>
+<dd>
+<pre>
+ auditskipcmds: List of commands and/or client types that will not be written to the auditlog table.
+                'ALL' means all cmds will be skipped. If attribute is null, all
+                commands will be written.
+                clienttype:web would skip all commands from the web client
+                For example: tabdump,nodels,clienttype:web 
+                will not log tabdump,nodels and any web client commands.</pre>
+</dd>
+<dd>
+<pre>
+ blademaxp:  The maximum number of concurrent processes for blade hardware control.</pre>
+</dd>
+<dd>
+<pre>
+ cleanupxcatpost:  (yes/1 or no/0). Set to 'yes' or '1' to clean up the /xcatpost
+                   directory on the stateless and statelite nodes after the
+                   postscripts are run. Default is no.</pre>
+</dd>
+<dd>
+<pre>
+ consoleondemand:  When set to 'yes', conserver connects and creates the console
+                   output only when the user opens the console. Default is no on
+                   Linux, yes on AIX.</pre>
+</dd>
+<dd>
+<pre>
+ databaseloc:    Directory where we create the db instance directory.
+                 Default is /var/lib. Only DB2 is currently supported.
+                 Do not use the directory in the site.installloc or
+                 installdir attribute. This attribute must not be changed
+                 once db2sqlsetup script has been run and DB2 has been setup.</pre>
+</dd>
+<dd>
+<pre>
+ db2installloc:  The location which the service nodes should mount for
+                 the db2 code to install. Format is hostname:/path.  If hostname is
+                 omitted, it defaults to the management node. Default is /mntdb2.</pre>
+</dd>
+<dd>
+<pre>
+ defserialflow:  The default serial flow - currently only used by the mknb command.</pre>
+</dd>
+<dd>
+<pre>
+ defserialport:  The default serial port - currently only used by mknb.</pre>
+</dd>
+<dd>
+<pre>
+ defserialspeed:  The default serial speed - currently only used by mknb.</pre>
+</dd>
+<dd>
+<pre>
+ dhcpinterfaces:  The network interfaces DHCP should listen on.  If it is the same
+                  for all nodes, use a simple comma-separated list of NICs.  To
+                  specify different NICs for different nodes:
+                       xcatmn|eth1,eth2;service|bond0.
+                  In this example xcatmn is the name of the xCAT MN, and DHCP there
+                  should listen on eth1 and eth2.  On all of the nodes in group
+                  'service' DHCP should listen on the bond0 nic.</pre>
+</dd>
+<dd>
+<pre>
+ dhcpsetup:  If set to 'n', it will skip the dhcp setup process in the nodeset cmd.</pre>
+</dd>
+<dd>
+<pre>
+ dhcplease:  The lease time for the dhcp client. The default value is 43200.</pre>
+</dd>
+<dd>
+<pre>
+ disjointdhcps:  If set to '1', the .leases file on a service node only contains
+                 the nodes it manages. The default value is '0'.
+                 '0' value means include all the nodes in the subnet.</pre>
+</dd>
+<dd>
+<pre>
+ dnshandler:  Name of plugin that handles DNS setup for makedns.
+ domain:  The DNS domain name used for the cluster.</pre>
+</dd>
+<dd>
+<pre>
+ ea_primary_hmc:  The hostname of the HMC that the Integrated Switch Network
+                  Management Event Analysis should send hardware serviceable
+                  events to for processing and potentially sending to IBM.</pre>
+</dd>
+<dd>
+<pre>
+ ea_backup_hmc:  The hostname of the HMC that the Integrated Switch Network
+                  Management Event Analysis should send hardware serviceable
+                  events to if the primary HMC is down.</pre>
+</dd>
+<dd>
+<pre>
+ enableASMI:  (yes/1 or no/0). If yes, ASMI method will be used after fsp-api. If no,
+               when fsp-api is used, ASMI method will not be used. Default is no.</pre>
+</dd>
+<dd>
+<pre>
+ excludenodes:  A set of comma separated nodes and/or groups that would automatically
+                be subtracted from any noderange, it can be used for excluding some
+                failed nodes for any xCAT commands. See the 'noderange' manpage for
+                details on supported formats.</pre>
+</dd>
+<dd>
+<pre>
+ forwarders:  The DNS servers at your site that can provide names outside of the
+              cluster. The makedns command will configure the DNS on the management
+              node to forward requests it does not know to these servers.
+              Note that the DNS servers on the service nodes will ignore this value
+              and always be configured to forward requests to the management node.</pre>
+</dd>
+<dd>
+<pre>
+ fsptimeout:  The timeout, in milliseconds, to use when communicating with FSPs.</pre>
+</dd>
+<dd>
+<pre>
+ genmacprefix:  When generating mac addresses automatically, use this manufacturing
+                prefix (e.g. 00:11:aa)</pre>
+</dd>
+<dd>
+<pre>
+ genpasswords:  Automatically generate random passwords for BMCs when configuring
+                them.</pre>
+</dd>
+<dd>
+<pre>
+ httpport:    The port number that the booting/installing nodes should contact the
+              http server on the MN/SN on. It is your responsibility to configure
+              the http server to listen on that port - xCAT will not do that.</pre>
+</dd>
+<dd>
+<pre>
+ installdir:  The local directory name used to hold the node deployment packages.</pre>
+</dd>
+<dd>
+<pre>
+ installloc:  The location from which the service nodes should mount the 
+              deployment packages in the format hostname:/path.  If hostname is
+              omitted, it defaults to the management node. The path must
+              match the path in the installdir attribute.</pre>
+</dd>
+<dd>
+<pre>
+ ipmidispatch:  Whether or not to send ipmi hw control operations to the service
+                node of the target compute nodes. Default is 'y'.</pre>
+</dd>
+<dd>
+<pre>
+ hwctrldispatch:  Whether or not to send hw control operations to the service
+                  node of the target nodes. Default is 'y'.(At present, this attribute
+                  is only used for IBM Flex System)</pre>
+</dd>
+<dd>
+<pre>
+ ipmimaxp:  The max # of processes for ipmi hw ctrl. The default is 64. Currently,
+            this is only used for HP hw control.</pre>
+</dd>
+<dd>
+<pre>
+ ipmiretries:  The # of retries to use when communicating with BMCs. Default is 3.</pre>
+</dd>
+<dd>
+<pre>
+ ipmisdrcache:  If set to 'no', then the xCAT IPMI support will not cache locally
+                the target node's SDR cache to improve performance.</pre>
+</dd>
+<dd>
+<pre>
+ ipmitimeout:  The timeout to use when communicating with BMCs. Default is 2.
+               This attribute is currently not used.</pre>
+</dd>
+<dd>
+<pre>
+ iscsidir:  The path to put the iscsi disks in on the mgmt node.</pre>
+</dd>
+<dd>
+<pre>
+ master:  The hostname of the xCAT management node, as known by the nodes.</pre>
+</dd>
+<dd>
+<pre>
+ maxssh:  The max # of SSH connections at any one time to the hw ctrl point for PPC
+          This parameter doesn't take effect on the rpower command.
+          It takes effects on other PPC hardware control command
+          getmacs/rnetboot/rbootseq and so on. Default is 8.</pre>
+</dd>
+<dd>
+<pre>
+ mnroutenames:  The name of the routes to be setup on the management node.
+                It is a comma separated list of route names that are defined in the
+                routes table.</pre>
+</dd>
+<dd>
+<pre>
+ nameservers:  A comma delimited list of DNS servers that each node in the cluster
+               should use. This value will end up in the nameserver settings of the
+               /etc/resolv.conf on each node. It is common (but not required) to set
+               this attribute value to the IP addr of the xCAT management node, if
+               you have set up the DNS on the management node by running makedns.
+               In a hierarchical cluster, you can also set this attribute to
+               &quot;&lt;xcatmaster&gt;&quot; to mean the DNS server for each node should be the
+               node that is managing it (either its service node or the management
+               node).</pre>
+</dd>
+<dd>
+<pre>
+ nimprime :   The name of NIM server, if not set default is the AIX MN.
+              If Linux MN, then must be set for support of mixed cluster (TBD).</pre>
+</dd>
+<dd>
+<pre>
+ nodestatus:  If set to 'n', the nodelist.status column will not be updated during
+              the node deployment, node discovery and power operations. The default is to update.</pre>
+</dd>
+<dd>
+<pre>
+ ntpservers:  A comma delimited list of NTP servers for the cluster - often the
+              xCAT management node.</pre>
+</dd>
+<dd>
+<pre>
+ runbootscripts:  If set to 'yes' the scripts listed in the postbootscripts
+                  attribute in the osimage and postscripts tables will be run during
+                  each reboot of stateful (diskful) nodes. This attribute has no
+                  effect on stateless and statelite nodes. Please run the following
+                  command after you change the value of this attribute: 
+                  'updatenode &lt;nodes&gt; -P setuppostbootscripts'</pre>
+</dd>
+<dd>
+<pre>
+ syspowerinterval:  For system p CECs, this is the number of seconds the rpower
+                 command will wait between performing the action for each CEC.
+                 For system x IPMI servers, this is the number of seconds the
+                 rpower command will wait between powering on &lt;syspowermaxnodes&gt;
+                 nodes at a time.  This value is used to control the power on speed
+                 in large clusters. Default is 0.</pre>
+</dd>
+<dd>
+<pre>
+ syspowermaxnodes:  The number of servers to power on at one time before waiting
+                    'syspowerinterval' seconds to continue on to the next set of
+                    nodes.  If the noderange given to rpower includes nodes served
+                    by different service nodes, it will try to spread each set of
+                    nodes across the service nodes evenly. Currently only used for
+                    IPMI servers and must be set if 'syspowerinterval' is set.</pre>
+</dd>
+<dd>
+<pre>
+ powerinterval:  The number of seconds the rpower command to LPARs will wait between
+                 performing the action for each LPAR. LPARs of different HCPs
+                 (HMCs or FSPs) are done in parallel. This is used to limit the
+                 cluster boot up speed in large clusters. Default is 0.  This is
+                 currently only used for system p hardware.</pre>
+</dd>
+<dd>
+<pre>
+ ppcmaxp:  The max # of processes for PPC hw ctrl. If there are more than ppcmaxp
+           hcps, this parameter will take effect. It will control the max number of
+           processes for PPC hardware control commands. Default is 64.</pre>
+</dd>
+<dd>
+<pre>
+ ppcretry:  The max # of PPC hw connection attempts to HMC before failing.
+           It only takes effect on the hardware control commands through HMC. 
+           Default is 3.</pre>
+</dd>
+<dd>
+<pre>
+ ppctimeout:  The timeout, in milliseconds, to use when communicating with PPC hw
+              through HMC. It only takes effect on the hardware control commands
+              through HMC. Default is 0.</pre>
+</dd>
+<dd>
+<pre>
+ precreatemypostscripts: (yes/1 or no/0). Default is no. If yes, it will  
+              instruct xCAT at nodeset and updatenode time to query the db once for
+              all of the nodes passed into the cmd and create the mypostscript file
+              for each node, and put them in a directory of tftpdir(such as: /tftpboot)
+              If no, it will not generate the mypostscript file in the tftpdir.</pre>
+</dd>
+<dd>
+<pre>
+ pruneservices:  Whether to enable service pruning when noderm is run (i.e.
+                 removing DHCP entries when noderm is executed)</pre>
+</dd>
+<dd>
+<pre>
+ rsh:  This is no longer used. path to remote shell command for xdsh.</pre>
+</dd>
+<dd>
+<pre>
+ rcp:  This is no longer used. path to remote copy command for xdcp.</pre>
+</dd>
+<dd>
+<pre>
+ sharedtftp:  Set to 0 or no, xCAT should not assume the directory
+              in tftpdir is mounted on all on Service Nodes. Default is 1/yes.
+              If value is set to a hostname, the directory in tftpdir
+              will be mounted from that hostname on the SN</pre>
+</dd>
+<dd>
+<pre>
+ sharedinstall: Indicates if a shared file system will be used for installation
+               resources. Possible values are: 'no', 'sns', or 'all'.  'no' 
+               means a shared file system is not being used.  'sns' means a
+               shared filesystem is being used across all service nodes.
+               'all' means that the management as well as the service nodes
+               are all using a common shared filesystem. The default is 'no'.
+ skiptables:  Comma separated list of tables to be skipped by dumpxCATdb
+ SNsyncfiledir:  The directory on the Service Node, where xdcp will rsync the files
+                 from the MN that will eventually be rsync'd to the compute nodes.</pre>
+</dd>
+<dd>
+<pre>
+ nodesyncfiledir:  The directory on the node, where xdcp will rsync the files
+ snmpc:  The snmp community string that xcat should use when communicating with the
+         switches.</pre>
+</dd>
+<dd>
+<pre>
+ sshbetweennodes:  Comma separated list of groups to enable passwordless root 
+                   ssh during install, or xdsh -K. Default is ALLGROUPS.
+                   Set to NOGROUPS,if you do not wish to enabled any groups.
+                   Service Nodes are not affected by this attribute
+                   they are always setup with
+                   passwordless root access to nodes and other SN.</pre>
+</dd>
+<dd>
+<pre>
+ svloglocal:  if set to 1, syslog on the service node will not get forwarded to the
+              mgmt node.</pre>
+</dd>
+<dd>
+<pre>
+ timezone:  (e.g. America/New_York)</pre>
+</dd>
+<dd>
+<pre>
+ tftpdir:  tftp directory path. Default is /tftpboot</pre>
+</dd>
+<dd>
+<pre>
+ tftpflags:  The flags that used to start tftpd. Default is '-v -l -s /tftpboot 
+               -m /etc/tftpmapfile4xcat.conf' if tftplfags is not set</pre>
+</dd>
+<dd>
+<pre>
+ useNmapfromMN:  When set to yes, nodestat command should obtain the node status
+                 using nmap (if available) from the management node instead of the
+                 service node. This will improve the performance in a flat network.</pre>
+</dd>
+<dd>
+<pre>
+ useSSHonAIX:  (yes/1 or no/0). If yes, ssh/scp will be setup and used. If no, rsh/rcp.  The support for rsh/rcp is deprecated.
+ usexhrm:  Have xCAT run its xHRM script when booting up KVM guests to set the
+           virtual network bridge up correctly. See
+           https://sourceforge.net/apps/mediawiki/xcat/index.php?title=XCAT_Virtualization_with_KVM#Setting_up_a_network_bridge</pre>
+</dd>
+<dd>
+<pre>
+               rsh/rcp will be setup and used on AIX. Default is yes.</pre>
+</dd>
+<dd>
+<pre>
+ useNFSv4onAIX:  (yes/1 or no/0). If yes, NFSv4 will be used with NIM. If no,
+               NFSv3 will be used with NIM. Default is no.</pre>
+</dd>
+<dd>
+<pre>
+ vcenterautojoin:  When set to no, the VMWare plugin will not attempt to auto remove
+                   and add hypervisors while trying to perform operations.  If users
+                   or tasks outside of xCAT perform the joining this assures xCAT
+                   will not interfere.</pre>
+</dd>
+<dd>
+<pre>
+ vmwarereconfigonpower:  When set to no, the VMWare plugin will make no effort to
+                         push vm.cpus/vm.memory updates from xCAT to VMWare.</pre>
+</dd>
+<dd>
+<pre>
+ vsftp:       Default is 'n'. If set to 'y', the xcatd on the mn will automatically
+              bring up vsftpd.  (You must manually install vsftpd before this.
+              This setting does not apply to the service node. For sn
+              you need to set servicenode.ftpserver=1 if you want xcatd to
+              bring up vsftpd.</pre>
+</dd>
+<dd>
+<pre>
+ xcatconfdir:  Where xCAT config data is (default /etc/xcat).</pre>
+</dd>
+<dd>
+<pre>
+ xcatmaxconnections:  Number of concurrent xCAT protocol requests before requests
+                      begin queueing. This applies to both client command requests
+                      and node requests, e.g. to get postscripts. Default is 64.</pre>
+</dd>
+<dd>
+<pre>
+ xcatdport:  The port used by the xcatd daemon for client/server communication.</pre>
+</dd>
+<dd>
+<pre>
+ xcatiport:  The port used by xcatd to receive install status updates from nodes.</pre>
+</dd>
+</li>
+<dt><strong><a name="item_value"><strong>value</strong></a></strong>
+
+<dd>
+<p>The value of the attribute specified in the ``key'' column.</p>
+</dd>
+</li>
+<dt><strong><a name="item_comments"><strong>comments</strong></a></strong>
+
+<dd>
+<p>Any user-written notes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_disable"><strong>disable</strong></a></strong>
+
+<dd>
+<p>Set to 'yes' or '1' to comment out this row.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong></p>
+
+</body>
+
+</html>

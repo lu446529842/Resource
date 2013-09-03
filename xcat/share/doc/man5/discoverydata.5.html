@@ -1,0 +1,198 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;discoverydata&gt; - a table in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#discoverydata_attributes_">discoverydata Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>discoverydata</strong> - a table in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>discoverydata Attributes:</strong>  <em>uuid</em>, <em>node</em>, <em>method</em>, <em>discoverytime</em>, <em>arch</em>, <em>cpucount</em>, <em>cputype</em>, <em>memory</em>, <em>mtm</em>, <em>serial</em>, <em>nicdriver</em>, <em>nicipv4</em>, <em>nichwaddr</em>, <em>nicpci</em>, <em>nicloc</em>, <em>niconboard</em>, <em>nicfirm</em>, <em>switchname</em>, <em>switchaddr</em>, <em>switchdesc</em>, <em>switchport</em>, <em>otherdata</em>, <em>comments</em>, <em>disable</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Discovery data which sent from genesis.</p>
+<p>
+</p>
+<hr />
+<h1><a name="discoverydata_attributes_">discoverydata Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_uuid"><strong>uuid</strong></a></strong>
+
+<dd>
+<p>The uuid of the node which send out the discovery request.</p>
+</dd>
+</li>
+<dt><strong><a name="item_node"><strong>node</strong></a></strong>
+
+<dd>
+<p>The node name which assigned to the discovered node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_method"><strong>method</strong></a></strong>
+
+<dd>
+<p>The method which handled the discovery request. The method could be one of: switch, blade, profile, sequential.</p>
+</dd>
+</li>
+<dt><strong><a name="item_discoverytime"><strong>discoverytime</strong></a></strong>
+
+<dd>
+<p>The last time that xCAT received the discovery message.</p>
+</dd>
+</li>
+<dt><strong><a name="item_arch"><strong>arch</strong></a></strong>
+
+<dd>
+<p>The architecture of the discovered node. e.g. x86_64.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cpucount"><strong>cpucount</strong></a></strong>
+
+<dd>
+<p>The cpu number of the discovered node. e.g. 32.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cputype"><strong>cputype</strong></a></strong>
+
+<dd>
+<p>The cpu type of the discovered node. e.g. <code>Intel(R)</code> <code>Xeon(R)</code> CPU E5-2690 0 @ 2.90GHz</p>
+</dd>
+</li>
+<dt><strong><a name="item_memory"><strong>memory</strong></a></strong>
+
+<dd>
+<p>The memory size of the discovered node. e.g. 198460852</p>
+</dd>
+</li>
+<dt><strong><a name="item_mtm"><strong>mtm</strong></a></strong>
+
+<dd>
+<p>The machine type model of the discovered node. e.g. 786310X</p>
+</dd>
+</li>
+<dt><strong><a name="item_serial"><strong>serial</strong></a></strong>
+
+<dd>
+<p>The serial number of the discovered node. e.g. 1052EFB</p>
+</dd>
+</li>
+<dt><strong><a name="item_nicdriver"><strong>nicdriver</strong></a></strong>
+
+<dd>
+<p>The driver of the nic. The value should be comma separated &lt;nic name!driver name&gt;. e.g. eth0!be2net,eth1!be2net</p>
+</dd>
+</li>
+<dt><strong><a name="item_nicipv4"><strong>nicipv4</strong></a></strong>
+
+<dd>
+<p>The ipv4 address of the nic. The value should be comma separated &lt;nic name!ipv4 address&gt;. e.g. eth0!10.0.0.212/8</p>
+</dd>
+</li>
+<dt><strong><a name="item_nichwaddr"><strong>nichwaddr</strong></a></strong>
+
+<dd>
+<p>The hardware address of the nic. The should will be comma separated &lt;nic name!hardware address&gt;. e.g. eth0!34:40:B5:BE:DB:B0,eth1!34:40:B5:BE:DB:B4</p>
+</dd>
+</li>
+<dt><strong><a name="item_nicpci"><strong>nicpci</strong></a></strong>
+
+<dd>
+<p>The pic device of the nic. The value should be comma separated &lt;nic name!pci device&gt;. e.g. eth0!0000:0c:00.0,eth1!0000:0c:00.1</p>
+</dd>
+</li>
+<dt><strong><a name="item_nicloc"><strong>nicloc</strong></a></strong>
+
+<dd>
+<p>The location of the nic. The value should be comma separated &lt;nic name!nic location&gt;. e.g. eth0!Onboard Ethernet 1,eth1!Onboard Ethernet 2</p>
+</dd>
+</li>
+<dt><strong><a name="item_niconboard"><strong>niconboard</strong></a></strong>
+
+<dd>
+<p>The onboard info of the nic. The value should be comma separated &lt;nic name!onboard info&gt;. e.g. eth0!1,eth1!2</p>
+</dd>
+</li>
+<dt><strong><a name="item_nicfirm"><strong>nicfirm</strong></a></strong>
+
+<dd>
+<p>The firmware description of the nic. The value should be comma separated &lt;nic name!fimware description&gt;. e.g. eth0!ServerEngines BE3 Controller,eth1!ServerEngines BE3 Controller</p>
+</dd>
+</li>
+<dt><strong><a name="item_switchname"><strong>switchname</strong></a></strong>
+
+<dd>
+<p>The switch name which the nic connected to. The value should be comma separated &lt;nic name!switch name&gt;. e.g. eth0!c909f06sw01</p>
+</dd>
+</li>
+<dt><strong><a name="item_switchaddr"><strong>switchaddr</strong></a></strong>
+
+<dd>
+<p>The address of the switch which the nic connected to. The value should be comma separated &lt;nic name!switch address&gt;. e.g. eth0!192.168.70.120</p>
+</dd>
+</li>
+<dt><strong><a name="item_switchdesc"><strong>switchdesc</strong></a></strong>
+
+<dd>
+<p>The description of the switch which the nic connected to. The value should be comma separated &lt;nic name!switch description&gt;. e.g. eth0!IBM Flex System Fabric EN4093 10Gb Scalable Switch, flash image: version 7.2.6, boot image: version 7.2.6</p>
+</dd>
+</li>
+<dt><strong><a name="item_switchport"><strong>switchport</strong></a></strong>
+
+<dd>
+<p>The port of the switch that the nic connected to. The value should be comma separated &lt;nic name!switch port&gt;. e.g. eth0!INTA2</p>
+</dd>
+</li>
+<dt><strong><a name="item_otherdata"><strong>otherdata</strong></a></strong>
+
+<dd>
+<p>The left data which is not parsed to specific attributes (The complete message comes from genesis)</p>
+</dd>
+</li>
+<dt><strong><a name="item_comments"><strong>comments</strong></a></strong>
+
+<dd>
+<p>Any user-written notes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_disable"><strong>disable</strong></a></strong>
+
+<dd>
+<p>Set to 'yes' or '1' to comment out this row.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong></p>
+
+</body>
+
+</html>

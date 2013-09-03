@@ -1,0 +1,197 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;snmove&gt; - Move xCAT compute nodes to a different xCAT service node.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>snmove</strong> - Move xCAT compute nodes to a different xCAT service node.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>snmove</strong> <em>noderange</em> [<strong>-V</strong>] [<strong>-l</strong>|<strong>--liteonly</strong>] [<strong>-d</strong>|<strong>--dest</strong> <em>sn2</em>] [<strong>-D</strong>|<strong>--destn</strong> <em>sn2n</em>] [<strong>-i</strong>|<strong>--ignorenodes</strong>] [<strong>-P</strong>|<strong>--postscripts</strong> <em>script1,script2...</em>|<em>all</em>]</p>
+<p><strong>snmove</strong> [<strong>-V</strong>] [<strong>-l</strong>|<strong>--liteonly</strong>] <strong>-s</strong>|<strong>--source</strong> <em>sn1</em> [<strong>-S</strong>|<strong>--sourcen</strong> <em>sn1n</em>] [<strong>-d</strong>|<strong>--dest</strong> <em>sn2</em>] [<strong>-D</strong>|<strong>--destn</strong> <em>sn2n</em>] [<strong>-i</strong>|<strong>--ignorenodes</strong>] [<strong>-P</strong>|<strong>--postscripts</strong> <em>script1,script2...</em>|<em>all</em>]</p>
+<p><strong>snmove</strong> [<strong>-h</strong>|<strong>--help</strong>|<strong>-v</strong>|<strong>--version</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>snmove</strong> command may be used to move a node or nodes from one service node to another backup service node.</p>
+<p>The use of backup service nodes in an xCAT hierarchical cluster can
+help improve the overall reliability, availability, and serviceability
+of the cluster.</p>
+<p>Before you run the <strong>snmove</strong> command it is assumed that the backup
+service node has been configured properly to manage the new node
+or nodes. (See the xCAT document named
+``Using xCAT Service Nodes with AIX'' for information on how to set
+up backup AIX service nodes.).</p>
+<p>The <strong>snmove</strong> command can use the information stored in the xCAT
+database or information passed in on the command line to determine
+the current service node and the backup service node.</p>
+<p>To specify the primary and backup service nodes you can set the
+``servicenode'' attribute of the node definitions.</p>
+<p>The <strong>servicenode</strong> attribute is the hostname of the xCAT service node
+as it is known by the management node. The <strong>xcatmaster</strong> attribute
+is the hostname of the xCAT service node as known by the node.
+The <strong>servicenode</strong> attribute should be set to a comma-separated list
+so that the primary service node is first and the backup service
+node is second.  The <strong>xcatmaster</strong> attribute must be set to the
+hostname of the primary service node as it is known by the node.</p>
+<p>When the <strong>snmove</strong> command is run it modifies the xCAT database to
+switch the the primary server to the backup server.</p>
+<p>It will also check the other services that are being used for the
+node (tftpserver, monserver, nfsserver, conserver), and if they were set 
+to the original service node they will be changed to point to the backup
+service node.</p>
+<p>By default the command will modify the nodes so that they will be able to be managed by the backup service node.</p>
+<p>If the -i option is specified, the nodes themselves will not be modified.</p>
+<p>You can also have postscripts executed on the nodes by using the -P option if needed.</p>
+<p>The xCAT <strong>snmove</strong> command may also be used to synchronize statelite persistent files from the primary service node to the backup service node without actually moving the nodes to the backup servers.</p>
+<p>If you run the command with the ``-l'' option it will attempt to use rsync to update the statelite persistent directory on the backup service node. This will only be done if the server specified in the ``statelite'' table is the primary service node.</p>
+<p>When the <strong>snmove</strong> command is executed the new service node must be running but
+the original service node may be down.</p>
+<p>Note: On a Linux cluster, for NFS statelite nodes that do not use external NFS server, if the original service node is down, the nodes it manages will be down too. You must run nodeset command and then reboot the nodes after running snmove. For stateless nodes and RAMDisk statelite nodes, the nodes will be up even if the original service node is down. However, make sure to run nodeset command if you decide to reboot the nodes later.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dd_7c_2d_2ddest"><strong>-d|--dest</strong></a></strong>
+
+<dd>
+<p>Specifies the hostname of the new destination service node as known by (facing) the management node.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dd_7c_2d_2ddestn"><strong>-D|--destn</strong></a></strong>
+
+<dd>
+<p>Specifies the hostname of the destination service node as known by (facing) the nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di_7c_2d_2dignorenodes"><strong>-i|--ignorenodes</strong></a></strong>
+
+<dd>
+<p>No modifications will be made on the nodes. If not specified, several xCAT postscripts will be run on the nodes to complete the switch to the new service node.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dl_7c_2d_2dliteonly"><strong>-l|--liteonly</strong></a></strong>
+
+<dd>
+<p>Use this option to ONLY synchronize any AIX statelite files from the primary server to the backup server for the nodes. It will not do the actual moving of thre nodes the the backup servers.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_7c_2d_2dpostscripts"><strong>-P|--postscripts</strong></a></strong>
+
+<dd>
+<p>Specifies a list of extra postscripts to be run on the nodes after the nodes are moved over to the new serive node. If 'all' is specified, all the postscripts defined in the postscripts table will be run for the nodes. The specified postscripts must be stored under /install/postscripts directory.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_7c_2d_2dsource"><strong>-s|--source</strong></a></strong>
+
+<dd>
+<p>Specifies the hostname of the current (source) service node sa known by (facing)
+ the management node.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_7c_2d_2dsourcen"><strong>-S|--sourcen</strong></a></strong>
+
+<dd>
+<p>Specifies the hostname of the current service node adapter as known by (facing)
+the nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Verbose mode.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command Version.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>Move the nodes contained in group ``group1'' to the service node named ``xcatsn02''.</p>
+<p><strong>snmove group1 -d xcatsn02 -D xcatsn02-eth1</strong></p>
+</li>
+<li>
+<p>Move all the nodes that use service node xcatsn01 to service node xcatsn02.</p>
+<p><strong>snmove -s xcatsn01 -S xcatsn01-eth1 -d xcatsn02 -D xcatsn02-eth1</strong></p>
+</li>
+<li>
+<p>Move any nodes that have sn1 as their primary server to the backup service node set in the xCAT node definition.</p>
+<p><strong>snmove -s sn1</strong></p>
+</li>
+<li>
+<p>Move all the nodes in the xCAT group named ``nodegroup1'' to their backup SNs.</p>
+<p><strong>snmove nodegroup1</strong></p>
+</li>
+<li>
+<p>Move all the nodes in xCAT group ``sngroup1'' to the service node named ``xcatsn2''.</p>
+<p><strong>snmove sngroup1 -d xcatsn2</strong></p>
+</li>
+<li>
+<p>Move all the nodes in xCAT group ``sngroup1'' to the SN named ``xcatsn2'' and run extra postscripts.</p>
+<p><strong>snmove sngroup1 -d xcatsn2 -P test1</strong></p>
+</li>
+<li>
+<p>Move all the nodes in xCAT group ``sngroup1'' to the SN named ``xcatsn2'' and do not run anything on the nodes.</p>
+<p><strong>snmove sngroup1 -d xcatsn2 -i</strong></p>
+</li>
+<li>
+<p>Synchronize any AIX statelite files from the primary server for compute03 to the backup server.  This will not actually move the node to it's backup service node.</p>
+<p><strong>snmove compute03 -l -V</strong></p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/sbin/snmove</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="../man3/noderange.3.html">noderange(3)</a></p>
+
+</body>
+
+</html>

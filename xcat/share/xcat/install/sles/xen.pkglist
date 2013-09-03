@@ -1,0 +1,15 @@
+@base
+@x11
+@xen_server
+@xen_server-32bit
+@32bit
+xntp
+rsync
+xen
+xen-libs
+xen-tools
+xen-tools-ioemu
+kernel-xen
+virt-manager
+xen-kmp-kdump
+xen-kmp-smp

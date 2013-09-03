@@ -1,0 +1,133 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;nodech&gt; - Changes nodes' attributes in the xCAT cluster database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>nodech</strong> - Changes nodes' attributes in the xCAT cluster database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>nodech</strong> <em>noderange</em> <em>table.column=value</em> [<em>...</em>]</p>
+<p><strong>nodech</strong> {<strong>-d</strong> | <strong>--delete</strong>} <em>noderange</em> <em>table</em> [<em>...</em>]</p>
+<p><strong>nodech</strong> {<strong>-v</strong> | <strong>--version</strong>}</p>
+<p><strong>nodech</strong> [<strong>-?</strong> | <strong>-h</strong> | <strong>--help</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The nodech command changes the specified attributes for the given nodes.  Normally, the given
+value will completely replace the current attribute value.  But if ``,='' is used instead of ``='',
+the specified value will be prepended to the attribute's comma separated list, if it is not already
+there.  If ``^='' is used, the specified value will be removed from the attribute's comma separated list,
+if it is there.  You can also use ``^='' and ``,='' in the same command to essentially replace one item
+in the list with another.  (See the Examples section.)</p>
+<p>Additionally, as in nodels, boolean expressions can be used to further limit the scope of nodech from 
+the given noderange.  The operators supported are the same as nodels (=~, !~, ==, and !=).</p>
+<p>With these operators in mind, the unambiguous assignment operator is '=@'.  If you need, for example, to set
+the nodelist.comments to =foo, you would have to do <em>nodech n1 nodelist.comments=@=foo</em>.</p>
+<p>See the <strong>xcatdb</strong> man page for an overview of each table.</p>
+<p>The nodech command also supports some short cut names as aliases to common attributes.  See the
+<strong>nodels</strong> man page for details.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dd_7c_2d_2ddelete"><strong>-d|--delete</strong></a></strong>
+
+<dd>
+<p>Delete the nodes' row in the specified tables.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command Version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_3f_7c_2dh_7c_2d_2dhelp"><strong>-?|-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<ol>
+<li>
+<p>The command completed successfully.</p>
+</li>
+<li>
+<p>An error has occurred.</p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ul>
+<li>
+<p>To update nodes in noderange  node1-node4 to be in only group all:</p>
+<p><strong>nodech</strong> <em>node1-node4 groups=all</em></p>
+</li>
+<li>
+<p>To put all nodes with nodepos.rack value of 2 into a group called rack2:</p>
+<p><strong>nodech</strong> <em>all</em> nodepos.rack==2 groups,=rack2</p>
+</li>
+<li>
+<p>To add nodes in noderange  node1-node4 to the nodetype table with os=rhel5:</p>
+<p><strong>nodech</strong> <em>node1-node4 groups=all,rhel5 nodetype.os=rhel5</em></p>
+</li>
+<li>
+<p>To add node1-node4 to group1 in addition to the groups they are already in:</p>
+<p><strong>nodech</strong> <em>node1-node4 groups,=group1</em></p>
+</li>
+<li>
+<p>To put node1-node4 in group2, instead of group1:</p>
+<p><strong>nodech</strong> <em>node1-node4 groups^=group1 groups,=group2</em></p>
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/nodech</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="nodels.1.html">nodels(1)</a>, <a href="../man8/nodeadd.8.html">nodeadd(8)</a>, <a href="../man3/noderange.3.html">noderange(3)</a></p>
+
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;monshow&gt; - Shows event data for monitoring.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#parameters">Parameters</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>monshow</strong> - Shows event data for monitoring.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><em>monshow [-h| --help]</em></p>
+<p><em>monshow [-v| --version]</em></p>
+<p><em>monshow name [noderange] [-s] [-t time] [-a attributes] [-w attr&lt;operator</em>val [-w attr&lt;operator&gt;val] ... ][-o {p|e}]&gt;</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This command displays the events that happened on the given nodes or the monitoring data that is collected from the given nodes for a monitoring plugin.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameters">Parameters</a></h1>
+<p><em>name</em> is the name of the monitoring plug-in module to be invoked.</p>
+<p><em>noderange</em> is a list of nodes to be showed for. If omitted, the data for all the nodes will be displayed.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-h | --help</strong>          Display usage message.</p>
+<p><strong>-v | --version </strong>      Command Version.</p>
+<p><strong>-s</strong>	shows the summary data.</p>
+<p><strong>-t</strong>	specifies a range of time for the data, The default is last 60 minutes. For example -t 6-4, it will display the data from last 6 minutes to 4 minutes; If it is -t 6, it will display the data from last 6 minutes until now.</p>
+<p><strong>-a</strong>	specifies a comma-separated list of attributes or metrics names. The default is all.</p>
+<p><strong>-w</strong>	specify one or multiple selection string that can be used to select events. The operators ==, !=, =,!,&gt;,&lt;,&gt;=,&lt;= are available.  Wildcards % and _ are supported in the pattern string. % allows you to match any string of any length(including zero length) and _ allows you to match on a single character. The valid attributes are eventtype, monitor, monnode, application, component, id, serverity, message, rawdata, comments. Valid severity are: Informational, Warning, Critical.</p>
+<p>Operator descriptions: 
+  ==        Select event where the attribute value is exactly this value.
+  !=        Select event where the attribute value is not this specific value.
+  =~        Select event where the attribute value matches this pattern string. Not work with severity.
+  !~        Select event where the attribute value does not match this pattern string. Not work with severity.
+  &gt;         Select event where the severity is higher than this value. Only work with severity.
+  &lt;         Select event where the severity is lower than this value. Only work with severity.
+  &gt;=        Select event where the severity is higher than this value(include). Only work with severity.
+  &lt;=        Select event where the severity is lower than this value(include). Only work with severity.
+            Note: if the ``val'' or ``operator'' fields includes spaces or any other characters that will be parsed by shell, the ``attr&lt;operator&gt;val'' needs to be quoted. If the operator is ``!~'', the ``attr&lt;operator&gt;val'' needs to be quoted using single quote.</p>
+<p><strong>-o</strong>	specifies montype, it can be p or e. p means performance, e means events.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To show summary data about PctRealMemFree and PctTotalTimeIdle of cluster in last 6 minutes, enter:</p>
+<pre>
+  monshow rmcmon -s -a PctRealMemFree,PctTotalTimeIdle -t 6</pre>
+<p>2. To show all data of node1 and node2, enter:</p>
+<pre>
+  monshow rmcmon node1,node2</pre>
+<p>3. To show summary data of nodes which managed by servicenode1, enter:</p>
+<pre>
+  monshow rmcmon servicenode1 -s</pre>
+<p>4. To show RMC event with severity Critical, enter:</p>
+<pre>
+  monshow rmcmon -w severity==Critical</pre>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/monshow</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="monls.1.html">monls(1)</a>, <a href="monstart.1.html">monstart(1)</a>, <a href="monstop.1.html">monstop(1)</a>, <a href="monadd.1.html">monadd(1)</a>, <a href="monrm.1.html">monrm(1)</a>, <a href="moncfg.1.html">moncfg(1)</a>, <a href="mondecfg.1.html">mondecfg(1)</a></p>
+
+</body>
+
+</html>

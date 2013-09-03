@@ -1,0 +1,104 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;makenetworks&gt; - Gather cluster network information and add it to the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>makenetworks</strong> - Gather cluster network information and add it to the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><em>makenetworks [-h|--help ]</em></p>
+<p><em>makenetworks [-v| --version]</em></p>
+<p><em>makenetworks [-V|--verbose] [-d|--display]</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>makenetworks</strong> command can be used to gather network information from an xCAT cluster environment and create corresponding network definitions in the xCAT database.</p>
+<p>Every network that will be used to install a cluster node must be defined in the xCAT database.</p>
+<p>The default behavior is to gather network information from the managment node, and any configured xCAT service nodes, and automatically save this information in the xCAT database.</p>
+<p>You can use the ``-d'' option to display the network information without writing it to the database.</p>
+<p>You can also redirect the output to a file that can be used with the xCAT <strong>mkdef</strong> command to define the networks.</p>
+<p>For example:</p>
+<pre>
+        makenetworks -d &gt; mynetstanzas</pre>
+<pre>
+        cat mynetstanzas | mkdef -z</pre>
+<p>This features allows you to verify and modify the network information before writing it to the database.</p>
+<p>When the network information is gathered a default value is created for the ``netname'' attribute.  This is done to make it possible to use the mkdef, chdef, lsdef, and rmdef commands to manage this data.</p>
+<p>The default naming convention is to use a hyphen separated ``net'' and ``mask'' value with the ``.'' replace by ``_''. (ex. ``8_124_47_64-255_255_255_0'')</p>
+<p>You can also modify the xCAT ``networks'' database table directly using the xCAT <strong>tabedit</strong> command.</p>
+<pre>
+        tabedit networks</pre>
+<p>Note: The <strong>makenetworks</strong> command is run automatically when xCAT is installed on a Linux management node.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-d|--display</strong>       Display the network definitions but do not write to the definitions to the xCAT database. The output will be in stanza file format and can be redirected to a stanza file that can be used with <strong>mkdef</strong> or <strong>chdef</strong> commands to create or modify the network definitions.</p>
+<p><strong>-h | --help</strong>         Display usage message.</p>
+<p><strong>-v | --version</strong>      Command Version.</p>
+<p><strong>-V |--verbose</strong>       Verbose mode.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1.  Gather cluster network information and create xCAT network definitions.</p>
+<pre>
+        makenetworks</pre>
+<p>2.  Display cluster network information but do not write the network definitions to the xCAT database.</p>
+<pre>
+        makenetworks -d</pre>
+<p>The output would be one or more stanzas of information similar to the following. The line that ends with a colon is the value of the ``netname'' attribute and is the name of the network object to use with the lsdef, mkdef, chdef and rmdef commands.</p>
+<p>9_114_37_0-255_255_255_0:
+    objtype=network
+    gateway=9.114.37.254
+    mask=255.255.255.0
+    net=9.114.37.0</p>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/sbin/makenetworks</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="makedhcp.8.html">makedhcp(8)</a></p>
+
+</body>
+
+</html>

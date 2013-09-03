@@ -1,0 +1,230 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;pasu&gt; - run the ASU to many nodes in parallel</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>pasu</strong> - run the ASU to many nodes in parallel</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>pasu</strong> [<strong>-V</strong>] [<strong>-d</strong>] [<strong>-n</strong>] [<strong>-l</strong> <em>user</em>] [<strong>-p</strong> <em>passwd</em>] [<strong>-f</strong> <em>fanout</em>] <em>noderange</em> <em>command</em></p>
+<p><strong>pasu</strong> [<strong>-V</strong>] [<strong>-d</strong>] [<strong>-n</strong>] [<strong>-l</strong> <em>user</em>] [<strong>-p</strong> <em>passwd</em>] [<strong>-f</strong> <em>fanout</em>] <strong>-b</strong> <em>batchfile</em> <em>noderange</em></p>
+<p><strong>pasu</strong> [<strong>-h</strong> | <strong>--help</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>pasu</strong> command runs the ASU command in out-of-band mode in parallel to multiple nodes.  Out-of-band mode means
+that ASU connects from the xCAT management node to the IMM (BMC) of each node to set or query the ASU settings.  To
+see all of the ASU settings available on the node, use the ``show all'' command.  To query or set multiple values,
+use the <strong>-b</strong> (batch) option.  To group similar output from multiple nodes, use <a href="xcoll.1.html">xcoll(1)</a>.</p>
+<p>Before running <strong>pasu</strong>, you must install the ASU RPM from IBM.  You can download it from the IBM Fix Central site.
+You also must configure the IMMs properly according to xCAT documentation.  Run ``<strong>rpower</strong> <em>noderange</em> <strong>stat</strong>''
+to confirm that the IMMs are configured properly.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dn_7c_2d_2dnonodecheck"><strong>-n|--nonodecheck</strong></a></strong>
+
+<dd>
+<p>Do not send the noderange to xcatd to expand it into a list of nodes.  Use the noderange exactly as it is specified
+to pasu.  In this case, the noderange must be a simple list of comma-separated hostnames of the IMMs.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dl_7c_2d_2dloginname_username"><strong>-l|--loginname</strong> <em>username</em></a></strong>
+
+<dd>
+<p>The username to use to connect to the IMMs.  If not specified, the row in the xCAT <strong>passwd</strong> table with key ``ipmi''
+will be used to get the username.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dp_7c_2d_2dpasswd_passwd"><strong>-p|--passwd</strong> <em>passwd</em></a></strong>
+
+<dd>
+<p>The password to use to connect to the IMMs.  If not specified, the row in the xCAT passwd table with key ``ipmi''
+will be used to get the password.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_7c_2d_2dfanout"><strong>-f|--fanout</strong></a></strong>
+
+<dd>
+<p>How many processes to run in parallel simultaneously.  The default is 64.  You can also set the XCATPSHFANOUT
+environment variable.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2db_7c_2d_2dbatch__2dbatchfile"><strong>-b|--batch</strong> -<em>batchfile</em></a></strong>
+
+<dd>
+<p>A simple text file that contains multiple ASU commands, each on its own line.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dd_7c_2d_2ddonotfilter"><strong>-d|--donotfilter</strong></a></strong>
+
+<dd>
+<p>By default, pasu filters out (i.e. does not display) the standard initial output from ASU:</p>
+</dd>
+<dd>
+<pre>
+ IBM Advanced Settings Utility version 9.30.79N
+ Licensed Materials - Property of IBM
+ (C) Copyright IBM Corp. 2007-2012 All Rights Reserved
+ Connected to IMM at IP address node2-imm</pre>
+</dd>
+<dd>
+<p>If you want this output to be displayed, use this flag.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Display verbose messages.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0  The command completed successfully.</p>
+<p>1  An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>To display the Com1ActiveAfterBoot setting on 2 nodes:</p>
+<pre>
+ pasu node1,node2 show DevicesandIOPorts.Com1ActiveAfterBoot</pre>
+<p>Output is similar to:</p>
+<pre>
+   node1: DevicesandIOPorts.Com1ActiveAfterBoot=Enable
+   node2: DevicesandIOPorts.Com1ActiveAfterBoot=Enable</pre>
+</li>
+<li>
+<p>To display the Com1ActiveAfterBoot setting on all compute nodes:</p>
+<pre>
+ pasu compute show DevicesandIOPorts.Com1ActiveAfterBoot | xcoll</pre>
+<p>Output is similar to:</p>
+<pre>
+   ====================================
+   compute
+   ====================================
+   DevicesandIOPorts.Com1ActiveAfterBoot=Enable</pre>
+</li>
+<li>
+<p>To set several settings on all compute nodes, create a batch file
+called (for example) asu-settings with contents:</p>
+<pre>
+ set DevicesandIOPorts.Com1ActiveAfterBoot Enable
+ set DevicesandIOPorts.SerialPortSharing Enable
+ set DevicesandIOPorts.SerialPortAccessMode Dedicated
+ set DevicesandIOPorts.RemoteConsole Enable</pre>
+<p>Then run:</p>
+<pre>
+ pasu -b asu-settings compute | xcoll</pre>
+<p>Output is similar to:</p>
+<pre>
+   ====================================
+   compute
+   ====================================
+   Batch mode start.
+   [set DevicesandIOPorts.Com1ActiveAfterBoot Enable]
+   DevicesandIOPorts.Com1ActiveAfterBoot=Enable</pre>
+<pre>
+   [set DevicesandIOPorts.SerialPortSharing Enable]
+   DevicesandIOPorts.SerialPortSharing=Enable</pre>
+<pre>
+   [set DevicesandIOPorts.SerialPortAccessMode Dedicated]
+   DevicesandIOPorts.SerialPortAccessMode=Dedicated</pre>
+<pre>
+   [set DevicesandIOPorts.RemoteConsole Enable]
+   DevicesandIOPorts.RemoteConsole=Enable</pre>
+<pre>
+   Beginning intermediate batch update.
+   Waiting for command completion status.
+   Command completed successfully.
+   Completed intermediate batch update.
+   Batch mode competed successfully.</pre>
+</li>
+<li>
+<p>To confirm that all the settings were made on all compute nodes, create a batch file
+called (for example) asu-show with contents:</p>
+<pre>
+ show DevicesandIOPorts.Com1ActiveAfterBoot
+ show DevicesandIOPorts.SerialPortSharing
+ show DevicesandIOPorts.SerialPortAccessMode
+ show DevicesandIOPorts.RemoteConsole</pre>
+<p>Then run:</p>
+<pre>
+ pasu -b asu-show compute | xcoll</pre>
+<p>Output is similar to:</p>
+<pre>
+   ====================================
+   compute
+   ====================================
+   Batch mode start.
+   [show DevicesandIOPorts.Com1ActiveAfterBoot]
+   DevicesandIOPorts.Com1ActiveAfterBoot=Enable</pre>
+<pre>
+   [show DevicesandIOPorts.SerialPortSharing]
+   DevicesandIOPorts.SerialPortSharing=Enable</pre>
+<pre>
+   [show DevicesandIOPorts.SerialPortAccessMode]
+   DevicesandIOPorts.SerialPortAccessMode=Dedicated</pre>
+<pre>
+   [show DevicesandIOPorts.RemoteConsole]
+   DevicesandIOPorts.RemoteConsole=Enable</pre>
+<pre>
+   Batch mode competed successfully.</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/pasu</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="../man3/noderange.3.html">noderange(3)</a>, <a href="rpower.1.html">rpower(1)</a>, <a href="xcoll.1.html">xcoll(1)</a></p>
+
+</body>
+
+</html>

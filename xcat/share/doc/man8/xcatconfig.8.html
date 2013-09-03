@@ -1,0 +1,151 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;xcatconfig&gt; - Sets up the  Management Node during the xCAT install.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>xcatconfig</strong> - Sets up the  Management Node during the xCAT install.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>xcatconfig</strong></p>
+<p><strong>xcatconfig</strong> {<strong>-h</strong>|<strong>--help</strong>}</p>
+<p><strong>xcatconfig</strong> {<strong>-v</strong>|<strong>--version</strong>}</p>
+<p><strong>xcatconfig</strong> {<strong>-i</strong>|<strong>--initinstall</strong>}  [<strong>-V</strong>|<strong>--verbose</strong>]</p>
+<p><strong>xcatconfig</strong> {<strong>-u</strong>|<strong>--updateinstall</strong>}  [<strong>-V</strong>|<strong>--verbose</strong>]</p>
+<p><strong>xcatconfig</strong> [<strong>-k</strong>|<strong>--sshkeys</strong>] [<strong>-s</strong>|<strong>--sshnodehostkeys</strong>] [<strong>-c</strong>|<strong>--credentials</strong>] [<strong>-d</strong>|<strong>--database</strong>] [<strong>-m</strong>|<strong>--mgtnode</strong>]  [<strong>-V</strong>|<strong>--verbose</strong>]</p>
+<p><strong>xcatconfig</strong> {<strong>-f</strong>|<strong>--force</strong>} [<strong>-V</strong>|<strong>--verbose</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p><strong>xcatconfig</strong> Performs basic xCAT setup operations on an xCAT management node. This command should not be run on an xCAT Service Node, unless you are making it a Management Node. See flag description below for more details.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Displays the usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Displays the release version of the code.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Displays verbose messages.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2di_7c_2d_2dinitialinstall"><strong>-i|--initialinstall</strong></a></strong>
+
+<dd>
+<p>The install option is normally run as a post operation from the rpm xCAT.spec file during the initial install of xCAT on the Management Node. It will setup the root ssh keys, ssh node keys, xCAT credentials, initialize the datebase, export directories, start syslog and other daemons as needed after the initial install of xCAT.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2du_7c_2d_2dupdateinstall"><strong>-u|--updateinstall</strong></a></strong>
+
+<dd>
+<p>The update install option is normally run as a post operation from the rpm xCAT.spec file during an update install of xCAT on the Management Node. It will check the setup the root ssh keys, ssh node keys, xCAT credentials, datebase, exported directories, syslog and the state of daemons needed by xCAT, after the updateinstall of xCAT. If setup is required, it will perform the operation.  It will restart the necessary daemons.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dk_7c_2d_2dsshkeys"><strong>-k|--sshkeys</strong></a></strong>
+
+<dd>
+<p>This option will remove and regenerate the root id_rsa keys.  It should only be used, if the keys are  deleted or corrupted. The keys must then be distribute to the nodes by installing, running updatenode -k, or using xdsh -K option, for root to be able to ssh to the nodes without being prompted for a password. 
+rspconfig will need to be run to distribute the key to the MM and HMCs. Any device, we need to ssh from the MN to the device will also have to be updated with the new ssh keys.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_7c_2d_2dsshnodehostkeys"><strong>-s|--sshnodehostkeys</strong></a></strong>
+
+<dd>
+<p>This option will remove and regenerate the node host ssh keys.  It should only be used, if the keys are deleted or are corrupted. The keys must then be redistribute to the nodes by installing, running updatenode -k  or using xdcp or pcp to copy the keys from /etc/xcat/hostkeys directory to the /etc/ssh directory on the nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dc_7c_2d_2dcredentials"><strong>-c|--credentials</strong></a></strong>
+
+<dd>
+<p>This option will remove all xcat credentials for root and any userids where credentials have been created. It will regenerate roots credentials,  but the admin will have to add back all the userid credentials needed with the /opt/xcat/share/xcat/scripts/setup-local-client.sh &lt;username&gt; command.  It should only be used, if they are deleted or become corrupted. The root credentials must be redistribed to the service nodes by installing the service node or using updatenode -k.  makeconservercf must be rerun to pick up the new credentials,  and conserver must be stop and started.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dd_7c_2d_2ddatabase"><strong>-d|--database</strong></a></strong>
+
+<dd>
+<p>This option will reinitialize the basic xCAT database table setup.  It will not remove any new database entries that have been added, but it is strongly suggested that you backup you database (dumpxCATdb) before using it.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df_7c_2d_2dforce"><strong>-f|--force</strong></a></strong>
+
+<dd>
+<p>The force option may  be used after the install to reinitialize the Management Node. This option will  regenerate keys, credential and reinititialize the site table. This option should be used, if keys or credentials become corrupt or lost. 
+Additional action must be taken after using the force options.  ssh keys must be redistributed to the nodes, site table attributes might need to be restored, makeconservercf needs to be rerun to pick up the new credentials and conserver stoped and started, rspconfig needs to be rerun to distribute the new keys to the MM and the HMCs. 
+A new set of common ssh host keys will have  been generated for the nodes. If you wish your nodes to be able to ssh to each other with out password intervention,  then you should redistribute these new keys to the nodes. If the nodes hostkeys are updated then you will need to remove their entries from the known_hosts files on the management node before using ssh, xdsh, xdcp. 
+Redistribute credentials and ssh keys to the service nodes and ssh keys to the nodes by using the updatenode -k command.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dm_7c_2d_2dmgtnode"><strong>-m|--mgtnode</strong></a></strong>
+
+<dd>
+<p>This option will add the Management Node to the database with the correct attributes set to be recognized by xCAT.  This should be run after the hostname of the Management Node is set to the name that  will resolve to the cluster-facing NIC.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ul>
+<li>
+<p>To force regeneration of keys and credentials and reinitialize the site table:</p>
+<p><strong>xcatconfig</strong> <em>-f</em></p>
+</li>
+<li>
+<p>To regenerate root's ssh keys:</p>
+<p><strong>xcatconfig</strong> <em>-k</em></p>
+</li>
+<li>
+<p>To regenerate node host ssh keys:</p>
+<p><strong>xcatconfig</strong> <em>-s</em></p>
+</li>
+<li>
+<p>To regenerate node host ssh keys and credentials:</p>
+<p><strong>xcatconfig</strong> <em>-s</em> <em>-c</em></p>
+</li>
+<li>
+<p>To add the Management Node to the DB:</p>
+<p><strong>xcatconfig</strong> <em>-m</em></p>
+</li>
+</ul>
+
+</body>
+
+</html>

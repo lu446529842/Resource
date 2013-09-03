@@ -1,0 +1,210 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Name</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">Name</a></li>
+	<li><a href="#synopsis"><strong>Synopsis</strong></a></li>
+	<ul>
+
+		<li><a href="#fsp_lpar__with_hmc__specific_">FSP/LPAR (with HMC) specific:</a></li>
+		<li><a href="#cec_lpar_frame__using_direct_fsp_management___specific_">CEC/LPAR/Frame (using Direct FSP Management ) specific:</a></li>
+		<li><a href="#mpa_specific_">MPA specific:</a></li>
+		<li><a href="#blade_specific_">Blade specific:</a></li>
+		<li><a href="#bmc_specific_">BMC specific:</a></li>
+	</ul>
+
+	<li><a href="#description"><strong>Description</strong></a></li>
+	<li><a href="#options"><strong>Options</strong></a></li>
+	<li><a href="#examples"><strong>Examples</strong></a></li>
+	<li><a href="#see_also"><strong>SEE ALSO</strong></a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">Name</a></h1>
+<p><strong>rvitals</strong> - remote hardware vitals</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis"><strong>Synopsis</strong></a></h1>
+<p><strong>rvitals</strong> [<strong>-h</strong>|<strong>--help</strong>|<strong>-v</strong>|<strong>--version</strong>]</p>
+<p>
+</p>
+<h2><a name="fsp_lpar__with_hmc__specific_">FSP/LPAR (with HMC) specific:</a></h2>
+<p><strong>rvitals</strong> <em>noderange</em> {<strong>temp</strong>|<strong>voltage</strong>|<strong>lcds</strong>|<strong>all</strong>}</p>
+<p>
+</p>
+<h2><a name="cec_lpar_frame__using_direct_fsp_management___specific_">CEC/LPAR/Frame (using Direct FSP Management ) specific:</a></h2>
+<p><strong>rvitals</strong> <em>noderange</em> {<strong>rackenv</strong>|<strong>lcds</strong>|<strong>all</strong>} [<strong>-V</strong>| <strong>--verbose</strong>]</p>
+<p>
+</p>
+<h2><a name="mpa_specific_">MPA specific:</a></h2>
+<p><strong>rvitals</strong> <em>noderange</em> {<strong>temp</strong>|<strong>voltage</strong>|<strong>wattage</strong>|<strong>fanspeed</strong>|<strong>power</strong>|<strong>leds</strong>|<strong>summary</strong>|<strong>all</strong>}</p>
+<p>
+</p>
+<h2><a name="blade_specific_">Blade specific:</a></h2>
+<p><strong>rvitals</strong> <em>noderange</em> {<strong>temp</strong>|<strong>wattage</strong>|<strong>fanspeed</strong>|<strong>leds</strong>|<strong>summary</strong>|<strong>all</strong>}</p>
+<p>
+</p>
+<h2><a name="bmc_specific_">BMC specific:</a></h2>
+<p><strong>rvitals</strong> <em>noderange</em> {<strong>temp</strong>|<strong>voltage</strong>|<strong>wattage</strong>|<strong>fanspeed</strong>|<strong>power</strong>|<strong>leds</strong>|<strong>lcds</strong>|<strong>summary</strong>|<strong>all</strong>}</p>
+<p>
+</p>
+<hr />
+<h1><a name="description"><strong>Description</strong></a></h1>
+<p><strong>rvitals</strong>  retrieves hardware vital information from the on-board Service
+Processor for a single or range of nodes and groups.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options"><strong>Options</strong></a></h1>
+<dl>
+<dt><strong><a name="item_cputemp"><strong>cputemp</strong></a></strong>
+
+<dd>
+<p>Retrieves CPU temperatures.</p>
+</dd>
+</li>
+<dt><strong><a name="item_disktemp"><strong>disktemp</strong></a></strong>
+
+<dd>
+<p>Retrieves HD back plane temperatures.</p>
+</dd>
+</li>
+<dt><strong><a name="item_ambtemp"><strong>ambtemp</strong></a></strong>
+
+<dd>
+<p>Retrieves ambient temperatures.</p>
+</dd>
+</li>
+<dt><strong><a name="item_temp"><strong>temp</strong></a></strong>
+
+<dd>
+<p>Retrieves all temperatures.</p>
+</dd>
+</li>
+<dt><strong><a name="item_voltage"><strong>voltage</strong></a></strong>
+
+<dd>
+<p>Retrieves power supply and VRM voltage readings.</p>
+</dd>
+</li>
+<dt><strong><a name="item_fanspeed"><strong>fanspeed</strong></a></strong>
+
+<dd>
+<p>Retrieves fan speeds.</p>
+</dd>
+</li>
+<dt><strong><a name="item_lcds"><strong>lcds</strong></a></strong>
+
+<dd>
+<p>Retrieves LCDs status.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rackenv"><strong>rackenv</strong></a></strong>
+
+<dd>
+<p>Retrieves rack environmentals.</p>
+</dd>
+</li>
+<dt><strong><a name="item_leds"><strong>leds</strong></a></strong>
+
+<dd>
+<p>Retrieves LEDs status.</p>
+</dd>
+</li>
+<dt><strong><a name="item_power"><strong>power</strong></a></strong>
+
+<dd>
+<p>Retrieves power status.</p>
+</dd>
+</li>
+<dt><strong><a name="item_powertime"><strong>powertime</strong></a></strong>
+
+<dd>
+<p>Retrieves total power uptime.  This value only increases, unless
+the Service Processor flash gets updated.</p>
+</dd>
+</li>
+<dt><strong><a name="item_reboot"><strong>reboot</strong></a></strong>
+
+<dd>
+<p>Retrieves  total  number of reboots.  This value only increases,
+unless the Service Processor flash gets updated.</p>
+</dd>
+</li>
+<dt><strong><a name="item_state"><strong>state</strong></a></strong>
+
+<dd>
+<p>Retrieves the system state.</p>
+</dd>
+</li>
+<dt><strong><a name="item_all"><strong>all</strong></a></strong>
+
+<dd>
+<p>All of the above.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h</strong>|<strong>--help</strong></a></strong>
+
+<dd>
+<p>Print help.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v</strong>|<strong>--version</strong></a></strong>
+
+<dd>
+<p>Print version.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples"><strong>Examples</strong></a></h1>
+<p><strong>rvitals</strong> <em>node5</em> <em>all</em></p>
+<pre>
+ node5: CPU 1 Temperature: + 29.00 C (+ 84.2 F)
+ node5: CPU 2 Temperature: + 19.00 C (+ 66.2 F)
+ node5: DASD Sensor 1 Temperature: + 32.00 C (+ 89.6 F)
+ node5: System Ambient Temperature Temperature: + 26.00 C (+ 78.8 F)
+ node5: +5V Voltage: +  5.01V
+ node5: +3V Voltage: +  3.29V
+ node5: +12V Voltage: + 11.98V
+ node5: +2.5V Voltage: +  2.52V
+ node5: VRM1 Voltage: +  1.61V
+ node5: VRM2 Voltage: +  1.61V
+ node5: Fan 1 Percent of max:   100%
+ node5: Fan 2 Percent of max:   100%
+ node5: Fan 3 Percent of max:   100%
+ node5: Fan 4 Percent of max:   100%
+ node5: Fan 5 Percent of max:   100%
+ node5: Fan 6 Percent of max:   100%
+ node5: Current Power Status On
+ node5: Current LCD1: SuSE Linux
+ node5: Power On Seconds  11855915
+ node5: Number of Reboots   930
+ node5: System State Booting OS or in unsupported OS</pre>
+<p>
+</p>
+<hr />
+<h1><a name="see_also"><strong>SEE ALSO</strong></a></h1>
+<p><a href="rpower.1.html">rpower(1)</a>, <a href="rinv.1.html">rinv(1)</a></p>
+
+</body>
+
+</html>

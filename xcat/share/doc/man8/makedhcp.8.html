@@ -1,0 +1,187 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;makedhcp&gt; - Creates and updates DHCP configuration files.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>makedhcp</strong> - Creates and updates DHCP configuration files.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>makedhcp</strong> <strong>-n</strong> [<strong>-l</strong>|<strong>--localonly</strong>]</p>
+<p><strong>makedhcp</strong> <strong>-a</strong> [<strong>-l</strong>|<strong>--localonly</strong>]</p>
+<p><strong>makedhcp</strong> <strong>-a -d</strong> [<strong>-l</strong>|<strong>--localonly</strong>]</p>
+<p><strong>makedhcp</strong> <strong>-d</strong> <em>noderange</em> [<strong>-l</strong>|<strong>--localonly</strong>]</p>
+<p><strong>makedhcp</strong> <em>noderange</em> [<strong>-s</strong> <em>statements</em>] [<strong>-l</strong>|<strong>--localonly</strong>]</p>
+<p><strong>makedhcp</strong> <strong>-q</strong> <em>noderange</em></p>
+<p><strong>makedhcp</strong> [<em>-h|--help</em>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>makedhcp</strong> command creates and updates the DHCP configuration on the management node and service nodes. 
+The <strong>makedhcp</strong> command is supported for both Linux and AIX clusters.</p>
+<ol>
+<li>
+<p>Start by filling out the <a href="../man5/networks.5.html">networks(5)</a> table properly.</p>
+</li>
+<li>
+<p>Then use the <strong>makedhcp -n</strong> option to create a new dhcp configuration file.
+You can set the site table, dhcplease attribute to the lease time for the dhcp client. The default value is 43200.</p>
+</li>
+<li>
+<p>Next, get the node IP addresses and MACs defined in the xCAT database.
+Also, get the hostnames and IP addresses pushed to /etc/hosts (using <a href="makehosts.8.html">makehosts(8)</a>) and to DNS (using <a href="makedns.8.html">makedns(8)</a>).</p>
+</li>
+<li>
+<p>Then run <strong>makedhcp</strong> with a noderange or the <strong>-a</strong> option.  This will inject into dhcpd configuration data pertinent to the specified nodes.
+On linux, the configuration information immediately takes effect without a restart of DHCP.</p>
+</li>
+</ol>
+<p>If you need to delete node entries from the DHCP configuration, use the <strong>-d</strong> flag.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dn"><strong>-n</strong></a></strong>
+
+<dd>
+<p>Create a new dhcp configuration file with a network statement for each network the dhcp daemon should listen on.
+(Which networks dhcpd should listen on can be controlled by the dhcpinterfaces attribute in the <a href="../man5/site.5.html">site(5)</a> table.)
+The <strong>makedhcp</strong> command will automatically restart the dhcp daemon after this operation.
+This option will replace any existing configuration file (making a backup of it first).
+For Linux systems the file will include network entries as well as certain general parameters such as a dynamic range and omapi configuration.
+For AIX systems the file will include network entries.
+On AIX systems, if there are any non-xCAT entries in the existing configuration file they will be preserved and added to the end of the new configuration file.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2da"><strong>-a</strong></a></strong>
+
+<dd>
+<p>Define all nodes to the DHCP server.  (Will only add nodes that can be reached, network-wise, by this DHCP server.)
+The dhcp daemon does not have to be restarted after this.
+On AIX systems <strong>makedhcp</strong> will not add entries for cluster nodes that will be installed using NIM.  The entries for these nodes will be managed by NIM.</p>
+</dd>
+</li>
+<dt><strong><a name="item_noderange"><em>noderange</em></a></strong>
+
+<dd>
+<p>Add the specified nodes to the DHCP server configuration.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2ds_statements"><strong>-s</strong> <em>statements</em></a></strong>
+
+<dd>
+<p>For the input noderange, the argument will be interpreted like dhcp configuration file text.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dd_noderange"><strong>-d</strong> <em>noderange</em></a></strong>
+
+<dd>
+<p>Delete node entries from the DHCP server configuration. On AIX, any entries created by NIM will not be removed.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2da__2dd"><strong>-a -d</strong></a></strong>
+
+<dd>
+<p>Delete all node entries, that were added by xCAT, from the DHCP server configuration.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dl_7c_2d_2dlocalonly"><strong>-l</strong>|<strong>--localonly</strong></a></strong>
+
+<dd>
+<p>Configure dhcpd on the local machine only.  Without this option, makedhcp will also send this
+operation to any service nodes that service the nodes in the noderange.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dq_noderange"><strong>-q</strong> <em>noderange</em></a></strong>
+
+<dd>
+<p>Query the node entries from the DHCP server configuration. On AIX, any entries created by NIM will not be listed.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>Create a new DHCP configuration file and add the network definitions:</p>
+<pre>
+ makedhcp -n</pre>
+</li>
+<li>
+<p>Define all nodes to the dhcp server:</p>
+<pre>
+ makedhcp -a</pre>
+<p>Note:  This does not add nodes that will be installed with AIX/NIM.</p>
+</li>
+<li>
+<p>Will cause dhcp on the next request to set root-path appropriately for only node5.  Note some characters (e.g. ``) must be doubly escaped (once for the shell, and once for the OMAPI layer).</p>
+<pre>
+ makedhcp node5 -s 'option root-path  \&quot;172.16.0.1:/install/freebsd6.2/x86_64\&quot;;'</pre>
+</li>
+<li>
+<p>Query a node from the DHCP server.</p>
+<pre>
+ # makedhcp -q node01 
+ node01: ip-address = 91.214.34.156, hardware-address = 00:00:c9:c6:6c:42</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>DHCP configuration files:</p>
+<p>[AIX]     /etc/dhcpsd.cnf</p>
+<p>[SLES]    /etc/dhcpd.conf</p>
+<p>[RH]      /etc/dhcp/dhcpd.conf</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="../man3/noderange.3.html">noderange(3)</a></p>
+
+</body>
+
+</html>

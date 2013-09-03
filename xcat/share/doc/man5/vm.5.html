@@ -1,0 +1,222 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;vm&gt; - a table in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#vm_attributes_">vm Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>vm</strong> - a table in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>vm Attributes:</strong>  <em>node</em>, <em>mgr</em>, <em>host</em>, <em>migrationdest</em>, <em>storage</em>, <em>storagemodel</em>, <em>cfgstore</em>, <em>memory</em>, <em>cpus</em>, <em>nics</em>, <em>nicmodel</em>, <em>bootorder</em>, <em>clockoffset</em>, <em>virtflags</em>, <em>master</em>, <em>vncport</em>, <em>textconsole</em>, <em>powerstate</em>, <em>beacon</em>, <em>datacenter</em>, <em>cluster</em>, <em>guestostype</em>, <em>othersettings</em>, <em>vidmodel</em>, <em>vidproto</em>, <em>vidpassword</em>, <em>comments</em>, <em>disable</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Virtualization parameters</p>
+<p>
+</p>
+<hr />
+<h1><a name="vm_attributes_">vm Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_node"><strong>node</strong></a></strong>
+
+<dd>
+<p>The node or static group name</p>
+</dd>
+</li>
+<dt><strong><a name="item_mgr"><strong>mgr</strong></a></strong>
+
+<dd>
+<p>The function manager for the virtual machine</p>
+</dd>
+</li>
+<dt><strong><a name="item_host"><strong>host</strong></a></strong>
+
+<dd>
+<p>The system that currently hosts the VM</p>
+</dd>
+</li>
+<dt><strong><a name="item_migrationdest"><strong>migrationdest</strong></a></strong>
+
+<dd>
+<p>A noderange representing candidate destinations for migration (i.e. similar systems, same SAN, or other criteria that xCAT can use</p>
+</dd>
+</li>
+<dt><strong><a name="item_storage"><strong>storage</strong></a></strong>
+
+<dd>
+<p>A list of storage files or devices to be used.  i.e. /cluster/vm/&lt;nodename&gt; or nfs://&lt;server&gt;/path/to/folder/</p>
+</dd>
+</li>
+<dt><strong><a name="item_storagemodel"><strong>storagemodel</strong></a></strong>
+
+<dd>
+<p>Model of storage devices to provide to guest</p>
+</dd>
+</li>
+<dt><strong><a name="item_cfgstore"><strong>cfgstore</strong></a></strong>
+
+<dd>
+<p>Optional location for persistant storage separate of emulated hard drives for virtualization solutions that require persistant store to place configuration data</p>
+</dd>
+</li>
+<dt><strong><a name="item_memory"><strong>memory</strong></a></strong>
+
+<dd>
+<p>Megabytes of memory the VM currently should be set to.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cpus"><strong>cpus</strong></a></strong>
+
+<dd>
+<p>Number of CPUs the node should see.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nics"><strong>nics</strong></a></strong>
+
+<dd>
+<p>Network configuration parameters.  Of the general form [physnet:]interface,.. Generally, interface describes the vlan entity (default for native, tagged for tagged, vl[number] for a specific vlan.  physnet is a virtual switch name or port description that is used for some virtualization technologies to construct virtual switches.  hypervisor.netmap can map names to hypervisor specific layouts, or the descriptions described there may be used directly here where possible.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nicmodel"><strong>nicmodel</strong></a></strong>
+
+<dd>
+<p>Model of NICs that will be provided to VMs (i.e. e1000, rtl8139, virtio, etc)</p>
+</dd>
+</li>
+<dt><strong><a name="item_bootorder"><strong>bootorder</strong></a></strong>
+
+<dd>
+<p>Boot sequence (i.e. net,hd)</p>
+</dd>
+</li>
+<dt><strong><a name="item_clockoffset"><strong>clockoffset</strong></a></strong>
+
+<dd>
+<p>Whether to have guest RTC synced to ``localtime'' or ``utc''  If not populated, xCAT will guess based on the nodetype.os contents.</p>
+</dd>
+</li>
+<dt><strong><a name="item_virtflags"><strong>virtflags</strong></a></strong>
+
+<dd>
+<p>General flags used by the virtualization method.  For example, in Xen it could, among other things, specify paravirtualized setup, or direct kernel boot.  For a hypervisor/dom0 entry, it is the virtualization method (i.e. ``xen'').  For KVM, the following flag=value pairs are recognized:
+            imageformat=[raw|fullraw|qcow2]
+                raw is a generic sparse file that allocates storage on demand
+                fullraw is a generic, non-sparse file that preallocates all space
+                qcow2 is a sparse, copy-on-write capable format implemented at the virtualization layer rather than the filesystem level
+            clonemethod=[qemu-img|reflink]
+                qemu-img allows use of qcow2 to generate virtualization layer copy-on-write
+                reflink uses a generic filesystem facility to clone the files on your behalf, but requires filesystem support such as btrfs 
+            placement_affinity=[migratable|user_migratable|pinned]</p>
+</dd>
+</li>
+<dt><strong><a name="item_master"><strong>master</strong></a></strong>
+
+<dd>
+<p>The name of a master image, if any, this virtual machine is linked to.  This is generally set by clonevm and indicates the deletion of a master that would invalidate the storage of this virtual machine</p>
+</dd>
+</li>
+<dt><strong><a name="item_vncport"><strong>vncport</strong></a></strong>
+
+<dd>
+<p>Tracks the current VNC display port (currently not meant to be set</p>
+</dd>
+</li>
+<dt><strong><a name="item_textconsole"><strong>textconsole</strong></a></strong>
+
+<dd>
+<p>Tracks the Psuedo-TTY that maps to the serial port or console of a VM</p>
+</dd>
+</li>
+<dt><strong><a name="item_powerstate"><strong>powerstate</strong></a></strong>
+
+<dd>
+<p>This flag is used by xCAT to track the last known power state of the VM.</p>
+</dd>
+</li>
+<dt><strong><a name="item_beacon"><strong>beacon</strong></a></strong>
+
+<dd>
+<p>This flag is used by xCAT to track the state of the identify LED with respect to the VM.</p>
+</dd>
+</li>
+<dt><strong><a name="item_datacenter"><strong>datacenter</strong></a></strong>
+
+<dd>
+<p>Optionally specify a datacenter for the VM to exist in (only applicable to VMWare)</p>
+</dd>
+</li>
+<dt><strong><a name="item_cluster"><strong>cluster</strong></a></strong>
+
+<dd>
+<p>Specify to the underlying virtualization infrastructure a cluster membership for the hypervisor.</p>
+</dd>
+</li>
+<dt><strong><a name="item_guestostype"><strong>guestostype</strong></a></strong>
+
+<dd>
+<p>This allows administrator to specify an identifier for OS to pass through to virtualization stack.  Normally this should be ignored as xCAT will translate from nodetype.os rather than requiring this field be used</p>
+</dd>
+</li>
+<dt><strong><a name="item_othersettings"><strong>othersettings</strong></a></strong>
+
+<dd>
+<p>This allows specifying a semicolon delimited list of key-&gt;value pairs to include in a vmx file of VMware.</p>
+</dd>
+</li>
+<dt><strong><a name="item_vidmodel"><strong>vidmodel</strong></a></strong>
+
+<dd>
+<p>Model of video adapter to provide to guest.  For example, qxl in KVM</p>
+</dd>
+</li>
+<dt><strong><a name="item_vidproto"><strong>vidproto</strong></a></strong>
+
+<dd>
+<p>Request a specific protocol for remote video access be set up.  For example, spice in KVM.</p>
+</dd>
+</li>
+<dt><strong><a name="item_vidpassword"><strong>vidpassword</strong></a></strong>
+
+<dd>
+<p>Password to use instead of temporary random tokens for VNC and SPICE access</p>
+</dd>
+</li>
+<dt><strong><a name="item_comments"><strong>comments</strong></a></strong>
+
+<dt><strong><a name="item_disable"><strong>disable</strong></a></strong>
+
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong></p>
+
+</body>
+
+</html>

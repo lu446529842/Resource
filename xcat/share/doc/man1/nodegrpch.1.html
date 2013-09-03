@@ -1,0 +1,110 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;nodegrpch&gt; - Changes attributes at the group level in the xCAT cluster database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>nodegrpch</strong> - Changes attributes at the group level in the xCAT cluster database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>nodegrpch</strong> <em>group1,group2,...</em> <em>table.column=value</em> [<em>...</em>]</p>
+<p><strong>nodegrpch</strong> {<strong>-v</strong> | <strong>--version</strong>}</p>
+<p><strong>nodegrpch</strong> [<strong>-?</strong> | <strong>-h</strong> | <strong>--help</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The nodegrpch command is similar to the nodech command, but ensures that the parameters are
+declared at the group level rather than the node specific level, and clears conflicting node 
+specific overrides of the specified groups.   Using table.column=value will do a 
+verbatim assignment.  If ``,='' is used instead of ``='', the specified value will be prepended to the 
+attribute's comma separated list, if it is not already there.  If ``^='' is used, the specified 
+value will be removed from the attribute's comma separated list, if it is there.  You can also 
+use ``^='' and ``,='' in the same command to essentially replace one item
+in the list with another.  (See the Examples section.)</p>
+<p>With these operators in mind, the unambiguous assignment operator is '=@'.  If you need, for example, to set
+the nodehm.comments to =foo, you would have to do <em>nodegrpch group1 nodehm.comments=@=foo</em>.</p>
+<p>See the <strong>xcatdb</strong> man page for an overview of each table.</p>
+<p>The nodegrpch command also supports some short cut names as aliases to common attributes.  See the
+<strong>nodels</strong> man page for details.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command Version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_3f_7c_2dh_7c_2d_2dhelp"><strong>-?|-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<ol>
+<li>
+<p>The command completed successfully.</p>
+</li>
+<li>
+<p>An error has occurred.</p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ul>
+<li>
+<p>To declare all members of ipmi group to have nodehm.mgt be ipmi</p>
+<p><strong>  nodegrpch</strong> <em>ipmi nodehm.mgt=ipmi</em></p>
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/nodegrpch</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="nodech.1.html">nodech(1)</a>, <a href="nodels.1.html">nodels(1)</a>, <a href="../man8/nodeadd.8.html">nodeadd(8)</a>, <a href="../man3/noderange.3.html">noderange(3)</a></p>
+
+</body>
+
+</html>

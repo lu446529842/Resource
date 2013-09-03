@@ -59,7 +59,7 @@ function config_kickstart(){
  
  service vsftpd restart
  service dhcpd restart
- service xinetd restar
+ service xinetd restart
 }
 
 

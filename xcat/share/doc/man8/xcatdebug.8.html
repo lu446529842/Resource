@@ -1,0 +1,154 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;xcatdebug&gt; - Enable or disable the trace facilities for xCAT.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>xcatdebug</strong> - Enable or disable the trace facilities for xCAT. (Only supports Linux Operating System)</p>
+<p><strong>xcatdebug</strong> { [<strong>-f enable|disable</strong> [<strong>-c configuration file | subroutine list</strong>]] | [ <strong>-d enable |disable</strong>]}</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>xCAT offers two trace facilities to debug the xCAT:</p>
+<ul>
+<li>
+<p><strong>Subroutine calling trace</strong></p>
+<p>Display the calling trace for subroutine when it is called.</p>
+<p>The trace message includes: The name of the called subroutine; The arguments which passed to the called subroutine; The calling stack of the subroutine. By default, the trace will be enabled to all the subroutines in the xcatd and plugin modules. The target subroutine can be configured by configuration file or through xcatdebug command line.</p>
+<p>The flag <strong>-c</strong> is used to specify the subroutine list for <strong>subroutine calling trace</strong>, it can only work with <strong>-f</strong>. The value of <strong>-c</strong> can be a configuration file or a subroutine list.
+  <strong>configuration file</strong>: a file contains multiple lines of <strong>SUBROUTINE_DEFINITION</strong>
+  <strong>subroutine list</strong>:    <strong>SUBROUTINE_DEFINITION</strong>|<strong>SUBROUTINE_DEFINITION</strong>|...</p>
+<p><strong>SUBROUTINE_DEFINITION</strong>: is the element for the <strong>-c</strong> to specify the subroutine list.</p>
+<p>The format of <strong>SUBROUTINE_DEFINITION</strong>: [plugin](subroutine1,subroutine2,...)</p>
+<p>If ignoring the [plugin], the subroutines in the () should be defined in the xcatd.
+    e.g. (daemonize,do_installm_service,do_udp_service)</p>
+<p>Otherwise, the package name of the plugin should be specified.
+    e.g. xCAT::Utils(isMN,Version)
+    e.g. xCAT_plugin::DBobjectdefs(defls,process_request)</p>
+<p>The trace log will be written to /var/log/xcat/subcallingtrace. The log file subcallingtrace will be backed up for each running of the <strong>xcatdebug -f enable</strong>.</p>
+</li>
+<li>
+<p><strong>Commented trace log</strong></p>
+<p>The trace log code is presented as comments in the code of xCAT. In general mode, it will be kept as comments. But in debug mode, it will be commented back as common code to display the trace log.</p>
+<p>NOTE: This facility can be enabled by pass the <strong>ENABLE_TRACE_CODE=1</strong> global variable when running the xcatd. e.g. ENABLE_TRACE_CODE=1 xcatd -f</p>
+<p>This facility offers two formats for the trace log code:</p>
+<ul>
+<li>
+<p>Trace section
+    ## TRACE_BEGIN
+    # print ``In the debug\n'';
+    ## TRACE_END</p>
+</li>
+<li>
+<p>Trace in a single line
+    ## TRACE_LINE print ``In the trace line\n'';</p>
+</li>
+</ul>
+<p>The <strong>commented trace log</strong> can be added in xcatd and plugin modules. But following section has been added into the BEGIN {} section of the target plugin module to enable the facility.</p>
+<pre>
+   if (defined $ENV{ENABLE_TRACE_CODE}) {
+     use xCAT::Enabletrace qw(loadtrace filter);
+     loadtrace();
+   }</pre>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2df"><strong>-f</strong></a></strong>
+
+<dd>
+<p>Enable or disable the <strong>subroutine calling trace</strong>.</p>
+</dd>
+<dd>
+<p>For <strong>enable</strong>, if ignoring the <strong>-c</strong> flag, all the subroutines in the xcatd and plugin modules will be enabled.</p>
+</dd>
+<dd>
+<p>For <strong>disable</strong>, all the subroutines which has been enabled by <strong>-f enable</strong> will be disabled. <strong>-c</strong> will be ignored.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dc"><strong>-c</strong></a></strong>
+
+<dd>
+<p>Specify the configuration file or subroutine list.</p>
+</dd>
+<ul>
+<li>
+<p><strong>configuration file</strong>: a file contains multiple lines of <strong>SUBROUTINE_DEFINITION</strong>
+  e.g.
+    (plugin_command)
+    xCAT_plugin::DBobjectdefs(defls,process_request)
+    xCAT::DBobjUtils(getobjdefs)</p>
+</li>
+<li><strong><a name="item_dbobjectdefs"><strong>subroutine list</strong>: a string like  <strong>SUBROUTINE_DEFINITION</strong>|<strong>SUBROUTINE_DEFINITION</strong>|...
+  e.g.
+    ``(plugin_command)|xCAT_plugin::DBobjectdefs(defls,process_request)|xCAT::DBobjUtils(getobjdefs)''</a></strong>
+
+</ul>
+<dt><strong><a name="item__2dd"><strong>-d</strong></a></strong>
+
+<dd>
+<p>Enable or disable the <strong>commented trace log</strong>.</p>
+</dd>
+<dd>
+<p>Note: The xcatd will be restarted for the performing of <strong>-d</strong>.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>Enable the <strong>subroutine calling trace</strong> for all the subroutines in the xcatd and plugin modules.
+  <strong>xcatdebug</strong> -f enable</p>
+</li>
+<li>
+<p>Enable the <strong>subroutine calling trace</strong> for the subroutines configured in the /opt/xcat/share/xcat/samples/tracelevel0
+  <strong>xcatdebug</strong> -f enable -c /opt/xcat/share/xcat/samples/tracelevel0</p>
+</li>
+<li>
+<p>Enable the <strong>subroutine calling trace</strong> for the plugin_command in xcatd and defls,process_request in the xCAT_plugin::DBobjectdefs module.
+  <strong>xcatdebug</strong> -f enable -c ``xCAT_plugin::DBobjectdefs(defls,process_request)|(plugin_command)''</p>
+</li>
+<li>
+<p>Disable the <strong>subroutine calling trace</strong> for all the subroutines which have been enabled by <strong>xcatdebug -f enable</strong>.
+  <strong>xcatdebug</strong> -f disable</p>
+</li>
+<li>
+<p>Enable the <strong>commented trace log</strong>
+  <strong>xcatdebug</strong> -d enable</p>
+</li>
+<li>
+<p>Enable both the <strong>subroutine calling trace</strong> and <strong>commented trace log</strong>
+  <strong>xcatdebug</strong> -f enable -c /opt/xcat/share/xcat/samples/tracelevel0 -d enable</p>
+</li>
+</ol>
+
+</body>
+
+</html>

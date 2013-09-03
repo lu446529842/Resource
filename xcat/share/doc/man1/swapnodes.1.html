@@ -1,0 +1,134 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;swapnodes&gt; - swap the location info in the db between 2 nodes. If swapping within a cec, it will assign the IO adapters that were assigned to the defective node to the available node.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#notes">NOTES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>swapnodes</strong> - swap the location info in the db (all the attributes in the ppc table and the nodepos table) between 2 nodes. If swapping within a cec, it will assign the IO adapters that were assigned to the defective node to the available node.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>swapnodes</strong> [<strong>-h</strong>| <strong>--help</strong>]</p>
+<p><strong>swapnodes</strong> <strong>-c</strong> <em>current_node</em> <strong>-f</strong> <em>fip_node</em> [<strong>-o</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This command is only for Power 775 using Direct FSP Management, and used in Power 775 Availability Plus.</p>
+<p>The <strong>swapnodes</strong> command will keep the <strong>current_node</strong> name in the xCAT table, and use the <em>fip_node</em>'s hardware resource. Besides that, the IO adapters will be assigned to the new hardware resource if they are in the same CEC. So the swapnodes command will do 2 things:
+</p>
+<pre>
+
+  (1)swap the location info in the db between 2 nodes:
+   All the ppc table attributes (including hcp, id, parent, supernode and so on).
+   All the nodepos table attributes(including rack, u, chassis, slot, room and so on).
+  (2)assign the I/O adapters from the defective node(the original current_node) to the available node(the original fip_node) if the nodes are in the same cec.</pre>
+<p>The <strong>swapnodes</strong> command shouldn't make the decision of which 2 nodes are swapped. It will just received the 2 node names as cmd line parameters.</p>
+<p>After running <strong>swapnodes</strong> command, the order of the I/O devices may be changed after IO re-assignment, so the administrator needs to run <strong>rbootseq</strong> to set the boot string for the current_node. And then boot the node with the same image and same postscripts because they have the same attributes.</p>
+<p>Without <strong>-o</strong> option, it's used to swap the location info in the db between 2 nodes. With <strong>-o</strong> option, it's used to move the <em>current_node</em> definition to <em>fip_node</em> (the 2nd octant), not move the <em>fip_node</em> definition to the 1st octant. If the two nodes are in a cec, it will assign the IO adapters that were assigned to the defective node to the available node. Originally, the <em>current_node</em> is a defective non-compute node, and <em>fip_node</em> is a avaible compute node. After the swapping, the <em>current_node</em> will be a available node.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dh_7c_2d_2dhelp"><strong>-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dc"><strong>-c</strong></a></strong>
+
+<dd>
+<p><em>current_node</em> -- the defective non-compute node.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2df"><strong>-f</strong></a></strong>
+
+<dd>
+<p><em>fip_node</em> -- a compute node which will be swapped as the non-compute node.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2do"><strong>-o</strong></a></strong>
+
+<dd>
+<p>one way. Only move the <em>current_node</em> definition to the <em>fip_node</em>'s hardware resource, and not move the fip_node definition to the <em>current_node</em>. And then the <em>current_node</em> will use the <em>fip_node</em>'s hardware resource, and the <em>fip_node</em> definition is not changed. if the two nodes are in the same CEC, the I/O adapter from the original <em>current_node</em> will be assigned to the <em>fip_node</em>.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>To swap the service node attributes and IO assignments between sn1 and compute2 which are in the same cec, all the attributes in the ppc table and nodepos talbe of the two node will be swapped, and the the I/O adapters from the defective node (the original sn1) will be assigned to the available node (the original compute2). After the swapping, the sn1 will use the compute2's hardware resource and the I/O adapters from the original sn1.</p>
+<pre>
+ swapnodes -c sn1 -f compute2</pre>
+</li>
+<li>
+<p>To swap the service node attributes and IO assignments between sn1 and compute2 which are NOT in the same cec, all the attributes in the ppc table and nodepos talbe of the two node will be swapped. After the swapping, the sn1 will use the compute2's hardware resource.</p>
+<pre>
+ swapnodes -c sn1 -f compute2</pre>
+</li>
+<li>
+<p>Only to move the service node (sn1) definition to the compute node (compute2)'s hardware resource, and not move the compute2 definition to the sn1. After the swapping, the sn1 will use the compute2's hardware resource, and the compute2 definition is not changed.</p>
+<pre>
+ swapnodes -c sn1 -f compute2 -o</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>$XCATROOT/bin/swapnodes</p>
+<p>(The XCATROOT environment variable is set when xCAT is installed. The
+default value is ``/opt/xcat''.)</p>
+<p>
+</p>
+<hr />
+<h1><a name="notes">NOTES</a></h1>
+<p>This command is part of the xCAT software product.</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="lsvm.1.html">lsvm(1)</a>, <a href="mkvm.1.html">mkvm(1)</a>, <a href="chvm.1.html">chvm(1)</a>
+</p>
+
+</body>
+
+</html>

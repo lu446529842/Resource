@@ -1,0 +1,4 @@
+#INCLUDE:#ENV:XCATROOT#/share/xcat/install/scripts/post.rh.common#
+#INCLUDE:#ENV:XCATROOT#/share/xcat/install/scripts/post.xcat#
+exit 0
+

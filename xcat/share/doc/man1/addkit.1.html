@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;addkit&gt; - Install a kit on the xCAT management node</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>addkit</strong> - Install a kit on the xCAT management node</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>addkit</strong> [-h|--help]</p>
+<p><strong>addkit</strong> [-i|--inspection] &lt;kitlist&gt;</p>
+<p><strong>addkit</strong> [-V|--verbose] [-p|--path &lt;path&gt;] &lt;kitlist&gt;</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>addkit</strong> command install a kit on the xCAT management node from a kit tarfile or directory, creating xCAT database definitions for kit, kitrepo, kitcomponent.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-h|--help</strong></p>
+<p>Display usage message.</p>
+<p><strong>-V|--verbose</strong></p>
+<p>Verbose mode.</p>
+<p><strong>-i|--inspection</strong></p>
+<p>Show the summary of the given kits</p>
+<p><strong>-p|--path &lt;path</strong>&gt;</p>
+<p>The destination directory to which the contents of the kit tarfiles and/or kit deploy dirs will be copied.  When this option is not specified, the default destination directory will be formed from the installdir site attribute with ./kits subdirectory.</p>
+<p><strong>kitlist</strong></p>
+<p>a comma delimited list of kit_tarball_files and kit_deploy_dirs that are to be added to the xCAT cluster.  Each entry can be an absolute or relative path.  For kit_tarball_files, these must be valid kits tarfiles added.  For kit_deploy_dirs, these must be fully populated directory structures that are identical to the contents of an expanded kit_tarball_file.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0  The command completed successfully.</p>
+<p>1  An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To add two kits from tarball files.</p>
+<p>addkit kit-test1.tar.bz2,kit-test2.tar.bz2</p>
+<p>Output is similar to:</p>
+<p>Kit /kit/kit-test1.tar.bz2,/kit/kit-test2.tar.bz2 was successfully added.</p>
+<p>2. To add two kits from directories.</p>
+<p>addkit kit-test1,kit-test2</p>
+<p>Output is similar to:</p>
+<p>Kit /kit/kit-test1,/kit/kit-test2 was successfully added.</p>
+<p>3. To add a kit from tarball file to /install/test directory.</p>
+<p>addkit -p /install/test kit-test1.tar.bz2</p>
+<p>Output is similar to:</p>
+<p>Kit /kit/kit-test1.tar.bz2 was successfully added.</p>
+<p>4. To read the general infomration of the kit, without adding the kits to xCAT DB</p>
+<p>addkit -i kit-test1.tar.bz2</p>
+<p>Output is similar to:</p>
+<p>kitname=xlc-12.1.0.0-Linux
+description=XLC12 for Linux
+version=12.1.0.0
+ostype=Linux</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="lskit.1.html">lskit(1)</a>, <a href="rmkit.1.html">rmkit(1)</a>, <a href="addkitcomp.1.html">addkitcomp(1)</a>, <a href="rmkitcomp.1.html">rmkitcomp(1)</a>, <a href="chkkitcomp.1.html">chkkitcomp(1)</a></p>
+
+</body>
+
+</html>

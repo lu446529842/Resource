@@ -1,0 +1,1021 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;xcat&gt; - extreme Cluster Administration Tool.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#xcat_database">XCAT DATABASE</a></li>
+	<li><a href="#xcat_additional_tools">XCAT ADDITIONAL TOOLS</a></li>
+	<li><a href="#xcat_commands">XCAT COMMANDS</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>xcat</strong> - extreme Cluster Administration Tool.</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Extreme Cluster Administration Toolkit (xCAT). xCAT is a scalable distributed computing management
+and provisioning tool that provides a unified interface for hardware control, discovery, and
+OS diskful/diskfree deployment.</p>
+<p>
+</p>
+<hr />
+<h1><a name="xcat_database">XCAT DATABASE</a></h1>
+<p>All of the cluster configuration information is in the xCAT database.  See <a href="../man5/xcatdb.5.html">xcatdb(5)</a> for
+descriptions of every table in the database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="xcat_additional_tools">XCAT ADDITIONAL TOOLS</a></h1>
+<p>Some additional tools have been contributed to xCAT.  You can read about them at <a href="http://xcat.sourceforge.net/tools/README.html">http://xcat.sourceforge.net/tools/README.html</a>
+or in /opt/xcat/share/xcat/tools/README.txt on your xCAT management node.</p>
+<p>
+</p>
+<hr />
+<h1><a name="xcat_commands">XCAT COMMANDS</a></h1>
+<p>What follows is a short description of each xCAT command.  To get more information about a particular
+command, see its man page.  Note that the commands are listed in alphabetical order <strong>within each section</strong>,
+i.e. all the commands in section 1, then the commands in section 3, etc.</p>
+<dl>
+<dt><strong><a name="item_addkit"><a href="addkit.1.html">addkit(1)</a></a></strong>
+
+<dd>
+<p>Install a kit on the xCAT management node</p>
+</dd>
+</li>
+<dt><strong><a name="item_addkitcomp"><a href="addkitcomp.1.html">addkitcomp(1)</a></a></strong>
+
+<dd>
+<p>Assign kit components to osimage.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cfgve"><a href="cfgve.1.html">cfgve(1)</a></a></strong>
+
+<dd>
+<p>Configure the elements for a virtual environment.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cfm2xcat"><a href="cfm2xcat.1.html">cfm2xcat(1)</a></a></strong>
+
+<dd>
+<p>Migrates the CFM setup in CSM to the xdcp rsync setup in xCAT.</p>
+</dd>
+</li>
+<dt><strong><a name="item_chdef"><a href="chdef.1.html">chdef(1)</a></a></strong>
+
+<dd>
+<p>Change xCAT data object definitions.</p>
+</dd>
+</li>
+<dt><strong><a name="item_chhypervisor"><a href="chhypervisor.1.html">chhypervisor(1)</a></a></strong>
+
+<dd>
+<p>Configure the virtualization hosts.</p>
+</dd>
+</li>
+<dt><strong><a name="item_chkkitcomp"><a href="chkkitcomp.1.html">chkkitcomp(1)</a></a></strong>
+
+<dd>
+<p>Check if kit component fits to osimage.</p>
+</dd>
+</li>
+<dt><strong><a name="item_chkosimage"><a href="chkosimage.1.html">chkosimage(1)</a></a></strong>
+
+<dd>
+<p>Use this xCAT command to check an xCAT osimage.</p>
+</dd>
+</li>
+<dt><strong><a name="item_chvm"><a href="chvm.1.html">chvm(1)</a></a></strong>
+
+<dd>
+<p>Changes HMC-, IVM-, and zVM-managed partition profiles or virtual machines. For Power 775, chvm could be used to change the octant configuration values for generating LPARs; change the I/O slots assignment to LPARs within the same CEC.</p>
+</dd>
+</li>
+<dt><strong><a name="item_clonevm"><a href="clonevm.1.html">clonevm(1)</a></a></strong>
+
+<dd>
+<p>Create masters from virtual machines and virtual machines from masters.</p>
+</dd>
+</li>
+<dt><strong><a name="item_csm2xcat"><a href="csm2xcat.1.html">csm2xcat(1)</a></a></strong>
+
+<dd>
+<p>Allows the migration of a CSM database to an xCAT database.</p>
+</dd>
+</li>
+<dt><strong><a name="item_db2sqlsetup"><a href="db2sqlsetup.1.html">db2sqlsetup(1)</a></a></strong>
+
+<dd>
+<p>Sets up the IBM DB2 for xCAT to use.</p>
+</dd>
+</li>
+<dt><strong><a name="item_dumpxcatdb"><a href="dumpxCATdb.1.html">dumpxCATdb(1)</a></a></strong>
+
+<dd>
+<p>dumps the xCAT db tables .</p>
+</dd>
+</li>
+<dt><strong><a name="item_genimage"><a href="genimage.1.html">genimage(1)</a></a></strong>
+
+<dd>
+<p>Generates a stateless image to be used for a diskless install.</p>
+</dd>
+</li>
+<dt><strong><a name="item_getmacs"><a href="getmacs.1.html">getmacs(1)</a></a></strong>
+
+<dd>
+<p>Collects node MAC address.</p>
+</dd>
+</li>
+<dt><strong><a name="item_gettab"><a href="gettab.1.html">gettab(1)</a></a></strong>
+
+<dd>
+<p>select table rows, based on attribute criteria, and display specific attributes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_getxcatdocs"><a href="getxcatdocs.1.html">getxcatdocs(1)</a></a></strong>
+
+<dd>
+<p>downloads the xCAT documentation and converts to HTML and PDF</p>
+</dd>
+</li>
+<dt><strong><a name="item_groupfiles4dsh"><a href="groupfiles4dsh.1.html">groupfiles4dsh(1)</a></a></strong>
+
+<dd>
+<p>Builds a directory of files for each defined nodegroup in xCAT.</p>
+</dd>
+</li>
+<dt><strong><a name="item_imgcapture"><a href="imgcapture.1.html">imgcapture(1)</a></a></strong>
+
+<dd>
+<p>Captures an image from a Linux diskful node and create a diskless or diskful image on the management node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_imgexport"><a href="imgexport.1.html">imgexport(1)</a></a></strong>
+
+<dd>
+<p>Exports an xCAT image.</p>
+</dd>
+</li>
+<dt><strong><a name="item_imgimport"><a href="imgimport.1.html">imgimport(1)</a></a></strong>
+
+<dd>
+<p>Imports an xCAT image or configuration file into the xCAT tables so that you can immediately begin deploying with it.</p>
+</dd>
+</li>
+<dt><strong><a name="item_liteimg"><a href="liteimg.1.html">liteimg(1)</a></a></strong>
+
+<dd>
+<p>Modify statelite image by creating a series of links.</p>
+</dd>
+</li>
+<dt><strong><a name="item_lsdef"><a href="lsdef.1.html">lsdef(1)</a></a></strong>
+
+<dd>
+<p>Use this command to list xCAT data object definitions.</p>
+</dd>
+</li>
+<dt><strong><a name="item_lsflexnode"><a href="lsflexnode.1.html">lsflexnode(1)</a></a></strong>
+
+<dd>
+<p>Display the information of flexible node</p>
+</dd>
+</li>
+<dt><strong><a name="item_lshwconn"><a href="lshwconn.1.html">lshwconn(1)</a></a></strong>
+
+<dd>
+<p>Use this command to display the connection status for CEC and Frame nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_lskit"><a href="lskit.1.html">lskit(1)</a></a></strong>
+
+<dd>
+<p>list info for one or more kits</p>
+</dd>
+</li>
+<dt><strong><a name="item_lskitcomp"><a href="lskitcomp.1.html">lskitcomp(1)</a></a></strong>
+
+<dd>
+<p>list info for one or more kit components</p>
+</dd>
+</li>
+<dt><strong><a name="item_lskitdeployparam"><a href="lskitdeployparam.1.html">lskitdeployparam(1)</a></a></strong>
+
+<dd>
+<p>list the kit deployment parameters for either one or more kits, or one or more kit components</p>
+</dd>
+</li>
+<dt><strong><a name="item_lskmodules"><a href="lskmodules.1.html">lskmodules(1)</a></a></strong>
+
+<dd>
+<p>list kernel driver modules in rpms or driver disk image files</p>
+</dd>
+</li>
+<dt><strong><a name="item_lslite"><a href="lslite.1.html">lslite(1)</a></a></strong>
+
+<dd>
+<p>Display a summary of the statelite information.</p>
+</dd>
+</li>
+<dt><strong><a name="item_lsslp"><a href="lsslp.1.html">lsslp(1)</a></a></strong>
+
+<dd>
+<p>Discovers selected networked services information within the same subnet.</p>
+</dd>
+</li>
+<dt><strong><a name="item_lstree"><a href="lstree.1.html">lstree(1)</a></a></strong>
+
+<dd>
+<p>Display the tree of service node hierarchy, hardware hierarchy, or VM hierarchy.</p>
+</dd>
+</li>
+<dt><strong><a name="item_lsve"><a href="lsve.1.html">lsve(1)</a></a></strong>
+
+<dd>
+<p>Lists detail attributes for a virtual environment.</p>
+</dd>
+</li>
+<dt><strong><a name="item_lsvm"><a href="lsvm.1.html">lsvm(1)</a></a></strong>
+
+<dd>
+<p>Lists partition profile information for HMC-, IVM-, KVM-, Vmware- and zVM-managed nodes. For Power 775, it lists the LPARs' I/O slots information and CEC configuration.</p>
+</dd>
+</li>
+<dt><strong><a name="item_lsxcatd"><a href="lsxcatd.1.html">lsxcatd(1)</a></a></strong>
+
+<dd>
+<p>lists xCAT daemon information.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mkdef"><a href="mkdef.1.html">mkdef(1)</a></a></strong>
+
+<dd>
+<p>Use this command to create xCAT data object definitions.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mkdsklsnode"><a href="mkdsklsnode.1.html">mkdsklsnode(1)</a></a></strong>
+
+<dd>
+<p>Use this xCAT command to define and initialize AIX/NIM diskless machines.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mkflexnode"><a href="mkflexnode.1.html">mkflexnode(1)</a></a></strong>
+
+<dd>
+<p>Create a flexible node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mkhwconn"><a href="mkhwconn.1.html">mkhwconn(1)</a></a></strong>
+
+<dd>
+<p>Sets up connections for CEC and Frame nodes to HMC nodes or hardware server.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mknimimage"><a href="mknimimage.1.html">mknimimage(1)</a></a></strong>
+
+<dd>
+<p>Use this xCAT command to create xCAT osimage definitions and related AIX/NIM resources. The command can also be used to update an existing AIX diskless image(SPOT).</p>
+</dd>
+</li>
+<dt><strong><a name="item_mkvm"><a href="mkvm.1.html">mkvm(1)</a></a></strong>
+
+<dd>
+<p>Creates HMC-, IVM-, and zVM-managed partitions or other virtual machines.</p>
+</dd>
+</li>
+<dt><strong><a name="item_monadd"><a href="monadd.1.html">monadd(1)</a></a></strong>
+
+<dd>
+<p>Registers a monitoring plug-in to the xCAT cluster.</p>
+</dd>
+</li>
+<dt><strong><a name="item_moncfg"><a href="moncfg.1.html">moncfg(1)</a></a></strong>
+
+<dd>
+<p>Configures a 3rd party monitoring software to monitor the xCAT cluster.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mondecfg"><a href="mondecfg.1.html">mondecfg(1)</a></a></strong>
+
+<dd>
+<p>Deconfigures a 3rd party monitoring software from monitoring the xCAT cluster.</p>
+</dd>
+</li>
+<dt><strong><a name="item_monls"><a href="monls.1.html">monls(1)</a></a></strong>
+
+<dd>
+<p>Lists monitoring plug-in modules that can be used to monitor the xCAT cluster.</p>
+</dd>
+</li>
+<dt><strong><a name="item_monrm"><a href="monrm.1.html">monrm(1)</a></a></strong>
+
+<dd>
+<p>Unregisters a monitoring plug-in module from the xCAT cluster.</p>
+</dd>
+</li>
+<dt><strong><a name="item_monshow"><a href="monshow.1.html">monshow(1)</a></a></strong>
+
+<dd>
+<p>Shows event data for monitoring.</p>
+</dd>
+</li>
+<dt><strong><a name="item_monstart"><a href="monstart.1.html">monstart(1)</a></a></strong>
+
+<dd>
+<p>Starts a plug-in module to monitor the xCAT cluster.</p>
+</dd>
+</li>
+<dt><strong><a name="item_monstop"><a href="monstop.1.html">monstop(1)</a></a></strong>
+
+<dd>
+<p>Stops a monitoring plug-in module to monitor the xCAT cluster.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mysqlsetup"><a href="mysqlsetup.1.html">mysqlsetup(1)</a></a></strong>
+
+<dd>
+<p>Sets up the MySQL database for xCAT to use.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nimnodecust"><a href="nimnodecust.1.html">nimnodecust(1)</a></a></strong>
+
+<dd>
+<p>Use this xCAT command to customize AIX/NIM standalone machines.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nimnodeset"><a href="nimnodeset.1.html">nimnodeset(1)</a></a></strong>
+
+<dd>
+<p>Use this xCAT command to initialize AIX/NIM standalone machines.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodeaddunmged"><a href="nodeaddunmged.1.html">nodeaddunmged(1)</a></a></strong>
+
+<dd>
+<p>Create a unmanaged node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodech"><a href="nodech.1.html">nodech(1)</a></a></strong>
+
+<dd>
+<p>Changes nodes' attributes in the xCAT cluster database.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodechmac"><a href="nodechmac.1.html">nodechmac(1)</a></a></strong>
+
+<dd>
+<p>Updates the MAC address for a node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodechprofile"><a href="nodechprofile.1.html">nodechprofile(1)</a></a></strong>
+
+<dd>
+<p>updates a profile used by a node</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodediscoverdef"><a href="nodediscoverdef.1.html">nodediscoverdef(1)</a></a></strong>
+
+<dd>
+<p>Define the undefined discovery request to a predefined xCAT node,</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodediscoverls"><a href="nodediscoverls.1.html">nodediscoverls(1)</a></a></strong>
+
+<dd>
+<p>List the discovered nodes</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodediscoverstart"><a href="nodediscoverstart.1.html">nodediscoverstart(1)</a></a></strong>
+
+<dd>
+<p>starts the node discovery process</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodediscoverstatus"><a href="nodediscoverstatus.1.html">nodediscoverstatus(1)</a></a></strong>
+
+<dd>
+<p>gets the node discovery process status</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodediscoverstop"><a href="nodediscoverstop.1.html">nodediscoverstop(1)</a></a></strong>
+
+<dd>
+<p>stops the node discovery process.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodegrpch"><a href="nodegrpch.1.html">nodegrpch(1)</a></a></strong>
+
+<dd>
+<p>Changes attributes at the group level in the xCAT cluster database.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodeimport"><a href="nodeimport.1.html">nodeimport(1)</a></a></strong>
+
+<dd>
+<p>Create profiled nodes by importing hostinfo file.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodels"><a href="nodels.1.html">nodels(1)</a></a></strong>
+
+<dd>
+<p>lists the nodes, and their attributes, from the xCAT database.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodepurge"><a href="nodepurge.1.html">nodepurge(1)</a></a></strong>
+
+<dd>
+<p>Removes nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_noderefresh"><a href="noderefresh.1.html">noderefresh(1)</a></a></strong>
+
+<dd>
+<p>Update nodes configurations by running associated kit plugins.</p>
+</dd>
+</li>
+<dt><strong><a name="item_noderm"><a href="noderm.1.html">noderm(1)</a></a></strong>
+
+<dd>
+<p>Removes the nodes in the noderange from all database table.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodestat"><a href="nodestat.1.html">nodestat(1)</a></a></strong>
+
+<dd>
+<p>display the running status of each node in a noderange</p>
+</dd>
+</li>
+<dt><strong><a name="item_packimage"><a href="packimage.1.html">packimage(1)</a></a></strong>
+
+<dd>
+<p>Packs the stateless image from the chroot file system.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pasu"><a href="pasu.1.html">pasu(1)</a></a></strong>
+
+<dd>
+<p>run the ASU to many nodes in parallel</p>
+</dd>
+</li>
+<dt><strong><a name="item_pcons"><a href="pcons.1.html">pcons(1)</a></a></strong>
+
+<dd>
+<p>Runs a command on the noderange using the out-of-band console.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pgsqlsetup"><a href="pgsqlsetup.1.html">pgsqlsetup(1)</a></a></strong>
+
+<dd>
+<p>Sets up the PostgreSQL database for xCAT to use.</p>
+</dd>
+</li>
+<dt><strong><a name="item_pping"><a href="pping.1.html">pping(1)</a></a></strong>
+
+<dd>
+<p>parallel ping the nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_ppping"><a href="ppping.1.html">ppping(1)</a></a></strong>
+
+<dd>
+<p>parallel ping from nodes to other nodes in the cluster.</p>
+</dd>
+</li>
+<dt><strong><a name="item_prsync"><a href="prsync.1.html">prsync(1)</a></a></strong>
+
+<dd>
+<p>parallel rsync</p>
+</dd>
+</li>
+<dt><strong><a name="item_pscp"><a href="pscp.1.html">pscp(1)</a></a></strong>
+
+<dd>
+<p>parallel remote copy</p>
+</dd>
+</li>
+<dt><strong><a name="item_psh"><a href="psh.1.html">psh(1)</a></a></strong>
+
+<dd>
+<p>parallel remote shell</p>
+</dd>
+</li>
+<dt><strong><a name="item_rbeacon"><a href="rbeacon.1.html">rbeacon(1)</a></a></strong>
+
+<dd>
+<p>Turns beacon on/off/blink or gives status of a node or noderange.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rbootseq"><a href="rbootseq.1.html">rbootseq(1)</a></a></strong>
+
+<dd>
+<p>Persistently sets the order of boot devices for BladeCenter blades or PPC LPARs using Direct FSP Management (DFM).</p>
+</dd>
+</li>
+<dt><strong><a name="item_rcons"><a href="rcons.1.html">rcons(1)</a></a></strong>
+
+<dd>
+<p>remotely accesses the serial console of a node</p>
+</dd>
+</li>
+<dt><strong><a name="item_regnotif"><a href="regnotif.1.html">regnotif(1)</a></a></strong>
+
+<dd>
+<p>Registers a Perl module or a command that will get called when changes occur in the desired xCAT database tables.</p>
+</dd>
+</li>
+<dt><strong><a name="item_renergy"><a href="renergy.1.html">renergy(1)</a></a></strong>
+
+<dd>
+<p>remote energy management tool</p>
+</dd>
+</li>
+<dt><strong><a name="item_replaycons"><a href="replaycons.1.html">replaycons(1)</a></a></strong>
+
+<dd>
+<p>replay the console output for a node</p>
+</dd>
+</li>
+<dt><strong><a name="item_restartxcatd"><a href="restartxcatd.1.html">restartxcatd(1)</a></a></strong>
+
+<dd>
+<p>Restart the xCAT daemon (xcatd) on AIX.</p>
+</dd>
+</li>
+<dt><strong><a name="item_restorexcatdb"><a href="restorexCATdb.1.html">restorexCATdb(1)</a></a></strong>
+
+<dd>
+<p>restores the xCAT db tables .</p>
+</dd>
+</li>
+<dt><strong><a name="item_reventlog"><a href="reventlog.1.html">reventlog(1)</a></a></strong>
+
+<dd>
+<p>retrieve or clear remote hardware event logs</p>
+</dd>
+</li>
+<dt><strong><a name="item_rflash"><a href="rflash.1.html">rflash(1)</a></a></strong>
+
+<dd>
+<p>Performs Licensed Internal Code (LIC) update support for HMC-attached POWER5 and POWER6 Systems, and POWER7 systems using Direct FSP management.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rinv"><a href="rinv.1.html">rinv(1)</a></a></strong>
+
+<dd>
+<p>Remote hardware inventory</p>
+</dd>
+</li>
+<dt><strong><a name="item_rmdef"><a href="rmdef.1.html">rmdef(1)</a></a></strong>
+
+<dd>
+<p>Use this command to remove xCAT data object definitions.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rmdsklsnode"><a href="rmdsklsnode.1.html">rmdsklsnode(1)</a></a></strong>
+
+<dd>
+<p>Use this xCAT command to remove AIX/NIM diskless machine definitions.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rmflexnode"><a href="rmflexnode.1.html">rmflexnode(1)</a></a></strong>
+
+<dd>
+<p>Delete a flexible node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rmhwconn"><a href="rmhwconn.1.html">rmhwconn(1)</a></a></strong>
+
+<dd>
+<p>Use this command to remove connections from CEC and Frame nodes to HMC nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rmhypervisor"><a href="rmhypervisor.1.html">rmhypervisor(1)</a></a></strong>
+
+<dd>
+<p>Remove the virtualization hosts.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rmigrate"><a href="rmigrate.1.html">rmigrate(1)</a></a></strong>
+
+<dd>
+<p>Execute migration of a guest VM between hosts/hypervisors</p>
+</dd>
+</li>
+<dt><strong><a name="item_rmimage"><a href="rmimage.1.html">rmimage(1)</a></a></strong>
+
+<dd>
+<p>Removes the Linux stateless or statelite image from the file system.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rmkit"><a href="rmkit.1.html">rmkit(1)</a></a></strong>
+
+<dd>
+<p>Remove Kits from xCAT</p>
+</dd>
+</li>
+<dt><strong><a name="item_rmkitcomp"><a href="rmkitcomp.1.html">rmkitcomp(1)</a></a></strong>
+
+<dd>
+<p>Remove kit components from osimage.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rmnimimage"><a href="rmnimimage.1.html">rmnimimage(1)</a></a></strong>
+
+<dd>
+<p>Use this xCAT command to remove NIM resources specified in an xCAT osimage definition.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rmvm"><a href="rmvm.1.html">rmvm(1)</a></a></strong>
+
+<dd>
+<p>Removes HMC-, IVM-, KVM-, Vmware- and zVM-managed partitions or virtual machines.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rnetboot"><a href="rnetboot.1.html">rnetboot(1)</a></a></strong>
+
+<dd>
+<p>Cause the range of nodes to boot to network.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rollupdate"><a href="rollupdate.1.html">rollupdate(1)</a></a></strong>
+
+<dd>
+<p>performs cluster rolling update</p>
+</dd>
+</li>
+<dt><strong><a name="item_rpower"><a href="rpower.1.html">rpower(1)</a></a></strong>
+
+<dd>
+<p>remote power control of nodes</p>
+</dd>
+</li>
+<dt><strong><a name="item_rscan"><a href="rscan.1.html">rscan(1)</a></a></strong>
+
+<dd>
+<p>Collects node information from one or more hardware control points.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rsetboot"><a href="rsetboot.1.html">rsetboot(1)</a></a></strong>
+
+<dd>
+<p>Sets the boot device to be used for BMC-based servers for the next boot only.</p>
+</dd>
+</li>
+<dt><strong><a name="item_rspconfig"><a href="rspconfig.1.html">rspconfig(1)</a></a></strong>
+
+<dd>
+<p>Configures nodes' service processors</p>
+</dd>
+</li>
+<dt><strong><a name="item_rspreset"><a href="rspreset.1.html">rspreset(1)</a></a></strong>
+
+<dd>
+<p>resets the service processors associated with the specified nodes</p>
+</dd>
+</li>
+<dt><strong><a name="item_rvitals"><a href="rvitals.1.html">rvitals(1)</a></a></strong>
+
+<dd>
+<p>remote hardware vitals</p>
+</dd>
+</li>
+<dt><strong><a name="item_sinv"><a href="sinv.1.html">sinv(1)</a></a></strong>
+
+<dd>
+<p>Checks the software configuration of the nodes in the cluster.</p>
+</dd>
+</li>
+<dt><strong><a name="item_snmove"><a href="snmove.1.html">snmove(1)</a></a></strong>
+
+<dd>
+<p>Move xCAT compute nodes to a different xCAT service node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_swapnodes"><a href="swapnodes.1.html">swapnodes(1)</a></a></strong>
+
+<dd>
+<p>swap the location info in the db (all the attributes in the ppc table and the nodepos table) between 2 nodes. If swapping within a cec, it will assign the IO adapters that were assigned to the defective node to the available node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_switchblade"><a href="switchblade.1.html">switchblade(1)</a></a></strong>
+
+<dd>
+<p>reassign the BladeCenter media tray and/or KVM to the specified blade</p>
+</dd>
+</li>
+<dt><strong><a name="item_tabgrep"><a href="tabgrep.1.html">tabgrep(1)</a></a></strong>
+
+<dd>
+<p>list table names in which an entry for the given node appears.</p>
+</dd>
+</li>
+<dt><strong><a name="item_unregnotif"><a href="unregnotif.1.html">unregnotif(1)</a></a></strong>
+
+<dd>
+<p>unregister a Perl module or a command that was watching for the changes of  the desired xCAT database tables.</p>
+</dd>
+</li>
+<dt><strong><a name="item_updatesnimage"><a href="updateSNimage.1.html">updateSNimage(1)</a></a></strong>
+
+<dd>
+<p>Adds the needed Service Node configuration files to the install image.</p>
+</dd>
+</li>
+<dt><strong><a name="item_updatenode"><a href="updatenode.1.html">updatenode(1)</a></a></strong>
+
+<dd>
+<p>Update nodes in an xCAT cluster environment.</p>
+</dd>
+</li>
+<dt><strong><a name="item_wcons"><a href="wcons.1.html">wcons(1)</a></a></strong>
+
+<dd>
+<p>windowed remote console</p>
+</dd>
+</li>
+<dt><strong><a name="item_wkill"><a href="wkill.1.html">wkill(1)</a></a></strong>
+
+<dd>
+<p>kill windowed remote consoles</p>
+</dd>
+</li>
+<dt><strong><a name="item_wvid"><a href="wvid.1.html">wvid(1)</a></a></strong>
+
+<dd>
+<p>windowed remote video console for nodes</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcatworld"><a href="xCATWorld.1.html">xCATWorld(1)</a></a></strong>
+
+<dd>
+<p>Sample client program for xCAT.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcat"><a href="xcat.1.html">xcat(1)</a></a></strong>
+
+<dd>
+<p>extreme Cluster Administration Tool.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcat2nim"><a href="xcat2nim.1.html">xcat2nim(1)</a></a></strong>
+
+<dd>
+<p>Use this command to create and manage AIX NIM definitions based on xCAT node, group and network object definitions.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcatchroot"><a href="xcatchroot.1.html">xcatchroot(1)</a></a></strong>
+
+<dd>
+<p>Use this xCAT command to modify an xCAT AIX diskless operating system image.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcoll"><a href="xcoll.1.html">xcoll(1)</a></a></strong>
+
+<dd>
+<p>Formats and consolidates the output of the <strong>psh</strong>, <strong>rinv</strong> commands.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xdcp"><a href="xdcp.1.html">xdcp(1)</a></a></strong>
+
+<dd>
+<p>Concurrently copies files to or from multiple nodes. In addition, provides an option to use rsync to update the files on the nodes, or to an installation image on the local node.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xdsh"><a href="xdsh.1.html">xdsh(1)</a></a></strong>
+
+<dd>
+<p>Concurrently runs remote commands on multiple nodes (Management Node, Service Nodes, compute nodes), or an install image.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xdshbak"><a href="xdshbak.1.html">xdshbak(1)</a></a></strong>
+
+<dd>
+<p>Formats the output of the <strong>xdsh</strong> command.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xdshcoll"><a href="xdshcoll.1.html">xdshcoll(1)</a></a></strong>
+
+<dd>
+<p>Formats and consolidates the output of the <strong>xdsh,sinv</strong> commands.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xpbsnodes"><a href="xpbsnodes.1.html">xpbsnodes(1)</a></a></strong>
+
+<dd>
+<p>PBS pbsnodes front-end for a noderange.</p>
+</dd>
+</li>
+<dt><strong><a name="item_noderange"><a href="../man3/noderange.3.html">noderange(3)</a></a></strong>
+
+<dd>
+<p>syntax for compactly expressing a list of node names</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcatstanzafile"><a href="../man5/xcatstanzafile.5.html">xcatstanzafile(5)</a></a></strong>
+
+<dd>
+<p>Format of a stanza file that can be used with xCAT data object definition commands.</p>
+</dd>
+</li>
+<dt><strong><a name="item_chtab"><a href="../man8/chtab.8.html">chtab(8)</a></a></strong>
+
+<dd>
+<p>Add, delete or update rows in the database tables.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cdrom"><a href="../man8/copycds-cdrom.8.html">copycds-cdrom(8)</a></a></strong>
+
+<dd>
+<p>Client side wrapper for copycds supporting physical drives.</p>
+</dd>
+</li>
+<dt><strong><a name="item_copycds"><a href="../man8/copycds.8.html">copycds(8)</a></a></strong>
+
+<dd>
+<p>Copies Linux distributions and service levels from DVDs/ISOs to the xCAT /install directory.</p>
+</dd>
+</li>
+<dt><strong><a name="item_makeconservercf"><a href="../man8/makeconservercf.8.html">makeconservercf(8)</a></a></strong>
+
+<dd>
+<p>creates the conserver configuration file from info in the xCAT database</p>
+</dd>
+</li>
+<dt><strong><a name="item_makedhcp"><a href="../man8/makedhcp.8.html">makedhcp(8)</a></a></strong>
+
+<dd>
+<p>Creates and updates DHCP configuration files.</p>
+</dd>
+</li>
+<dt><strong><a name="item_makedns"><a href="../man8/makedns.8.html">makedns(8)</a></a></strong>
+
+<dd>
+<p>sets up domain name services (DNS).</p>
+</dd>
+</li>
+<dt><strong><a name="item_makehosts"><a href="../man8/makehosts.8.html">makehosts(8)</a></a></strong>
+
+<dd>
+<p>sets up /etc/hosts from the xCAT hosts table.</p>
+</dd>
+</li>
+<dt><strong><a name="item_makeknownhosts"><a href="../man8/makeknownhosts.8.html">makeknownhosts(8)</a></a></strong>
+
+<dd>
+<p>Make a known_hosts file under $ROOTHOME/.ssh for input noderange.</p>
+</dd>
+</li>
+<dt><strong><a name="item_makenetworks"><a href="../man8/makenetworks.8.html">makenetworks(8)</a></a></strong>
+
+<dd>
+<p>Gather cluster network information and add it to the xCAT database.</p>
+</dd>
+</li>
+<dt><strong><a name="item_makeroutes"><a href="../man8/makeroutes.8.html">makeroutes(8)</a></a></strong>
+
+<dd>
+<p>add or delete routes to/from the os route table on nodes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_mknb"><a href="../man8/mknb.8.html">mknb(8)</a></a></strong>
+
+<dd>
+<p>creates a network boot root image for node discovery and flashing</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodeadd"><a href="../man8/nodeadd.8.html">nodeadd(8)</a></a></strong>
+
+<dd>
+<p>Adds nodes to the xCAT cluster database.</p>
+</dd>
+</li>
+<dt><strong><a name="item_nodeset"><a href="../man8/nodeset.8.html">nodeset(8)</a></a></strong>
+
+<dd>
+<p>set the boot state for a noderange</p>
+</dd>
+</li>
+<dt><strong><a name="item_rinstall"><a href="../man8/rinstall.8.html">rinstall(8)</a></a></strong>
+
+<dd>
+<p>Begin OS provision on a noderange</p>
+</dd>
+</li>
+<dt><strong><a name="item_rmosdistro"><a href="../man8/rmosdistro.8.html">rmosdistro(8)</a></a></strong>
+
+<dd>
+<p>remove OS Distro</p>
+</dd>
+</li>
+<dt><strong><a name="item_runsqlcmd"><a href="../man8/runsqlcmd.8.html">runsqlcmd(8)</a></a></strong>
+
+<dd>
+<p>Runs sql command files against the current xCAT database.</p>
+</dd>
+</li>
+<dt><strong><a name="item_setupiscsidev"><a href="../man8/setupiscsidev.8.html">setupiscsidev(8)</a></a></strong>
+
+<dd>
+<p>creates a LUN for a node to boot up with, using iSCSI</p>
+</dd>
+</li>
+<dt><strong><a name="item_tabch"><a href="../man8/tabch.8.html">tabch(8)</a></a></strong>
+
+<dd>
+<p>Add, delete or update rows in the database tables.</p>
+</dd>
+</li>
+<dt><strong><a name="item_tabdump"><a href="../man8/tabdump.8.html">tabdump(8)</a></a></strong>
+
+<dd>
+<p>display an xCAT database table in CSV format.</p>
+</dd>
+</li>
+<dt><strong><a name="item_tabedit"><a href="../man8/tabedit.8.html">tabedit(8)</a></a></strong>
+
+<dd>
+<p>view an xCAT database table in an editor and make changes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_tabprune"><a href="../man8/tabprune.8.html">tabprune(8)</a></a></strong>
+
+<dd>
+<p>Deletes records from the eventlog,auditlog,isnm_perf,isnm_perf_sum tables.</p>
+</dd>
+</li>
+<dt><strong><a name="item_tabrestore"><a href="../man8/tabrestore.8.html">tabrestore(8)</a></a></strong>
+
+<dd>
+<p>replaces the contents of an xCAT database table with the contents in a csv file.</p>
+</dd>
+</li>
+<dt><strong><a name="item_winstall"><a href="../man8/winstall.8.html">winstall(8)</a></a></strong>
+
+<dd>
+<p>Begin OS provision on a noderange and display in wcons</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcatconfig"><a href="../man8/xcatconfig.8.html">xcatconfig(8)</a></a></strong>
+
+<dd>
+<p>Sets up the  Management Node during the xCAT install.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcatd"><a href="../man8/xcatd.8.html">xcatd(8)</a></a></strong>
+
+<dd>
+<p>The xCAT daemon</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcatdebug"><a href="../man8/xcatdebug.8.html">xcatdebug(8)</a></a></strong>
+
+<dd>
+<p>Enable or disable the trace facilities for xCAT. (Only supports Linux Operating System)</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcatsetup"><a href="../man8/xcatsetup.8.html">xcatsetup(8)</a></a></strong>
+
+<dd>
+<p>Prime the xCAT database using naming conventions specified in a config file.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcatsnap"><a href="../man8/xcatsnap.8.html">xcatsnap(8)</a></a></strong>
+
+<dd>
+<p>Gathers information for service about the current running xCAT environment.</p>
+</dd>
+</li>
+<dt><strong><a name="item_xcattest"><a href="xcattest.1.html">xcattest(1)</a></a></strong>
+
+<dd>
+<p>Run automated xCAT test cases.</p>
+</dd>
+</li>
+<dt><strong><a name="item_buildkit"><a href="buildkit.1.html">buildkit(1)</a></a></strong>
+
+<dd>
+<p>Build product software kits to be installed in an xCAT cluster.</p>
+</dd>
+</li>
+</dl>
+
+</body>
+
+</html>

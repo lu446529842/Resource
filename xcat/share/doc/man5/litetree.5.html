@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;litetree&gt; - a table in the xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#litetree_attributes_">litetree Attributes:</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>litetree</strong> - a table in the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>litetree Attributes:</strong>  <em>priority</em>, <em>image</em>, <em>directory</em>, <em>mntopts</em>, <em>comments</em>, <em>disable</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Directory hierarchy to traverse to get the initial contents of node files.  The files that are specified in the litefile table are searched for in the directories specified in this table.</p>
+<p>
+</p>
+<hr />
+<h1><a name="litetree_attributes_">litetree Attributes:</a></h1>
+<dl>
+<dt><strong><a name="item_priority"><strong>priority</strong></a></strong>
+
+<dd>
+<p>This number controls what order the directories are searched.  Directories are searched from smallest priority number to largest.</p>
+</dd>
+</li>
+<dt><strong><a name="item_image"><strong>image</strong></a></strong>
+
+<dd>
+<p>The name of the image that will use this directory, as specified in the osimage table.  If image is not supplied, the default is 'ALL'. 'ALL' means use it for all images.</p>
+</dd>
+</li>
+<dt><strong><a name="item_directory"><strong>directory</strong></a></strong>
+
+<dd>
+<p>The location (hostname:path) of a directory that contains files specified in the litefile table.  Variables are allowed.  E.g: $noderes.nfsserver://xcatmasternode/install/$node/#CMD=uname-r#/</p>
+</dd>
+</li>
+<dt><strong><a name="item_mntopts"><strong>mntopts</strong></a></strong>
+
+<dd>
+<p>A comma-separated list of options to use when mounting the litetree directory.  (Ex. 'soft') The default is to do a 'hard' mount.</p>
+</dd>
+</li>
+<dt><strong><a name="item_comments"><strong>comments</strong></a></strong>
+
+<dd>
+<p>Any user-written notes.</p>
+</dd>
+</li>
+<dt><strong><a name="item_disable"><strong>disable</strong></a></strong>
+
+<dd>
+<p>Set to 'yes' or '1' to comment out this row.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><strong>nodels(1)</strong>, <strong>chtab(8)</strong>, <strong>tabdump(8)</strong>, <strong>tabedit(8)</strong></p>
+
+</body>
+
+</html>

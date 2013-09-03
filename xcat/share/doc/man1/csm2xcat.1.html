@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;csm2xcat&gt; - Allows the migration of a CSM database to an xCAT database.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>csm2xcat</strong> - Allows the migration of a CSM database to an xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>csm2xcat</strong> [<strong>--dir</strong> <em>path</em>]</p>
+<p><strong>csm2xcat</strong> [<strong>-h</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The csm2xcat command must be run on the Management Server of the CSM system that you want to migrate to xCAT.  The commmand will build  two xCAT stanza files that can update the xCAT database with the chdef command.</p>
+<p>Copy the csm2xcat command to the CSM Management Server.  Run the command, indicating where you want your stanza files saved with the --dir parameter.  Check the stanza files to see if the information is what you want put in the xCAT database. Copy the two stanza files: node.stanza, device.stanza back to your xCAT Management node, and run the chdef command to input into the xCAT database.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-h</strong>          Display usage message.</p>
+<p><strong>--dir</strong>          Path to the directory containing the stanza files.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To build xCAT stanza files, enter on the CSM Management Server:</p>
+<p><strong>csm2xcat --dir  /tmp/mydir</strong></p>
+<p>2. To put the data in the xCAT database on the xCAT Management Node:</p>
+<p><strong>cat node.stanza | chdef -z</strong></p>
+<p><strong>cat device.stanza | chdef -z</strong></p>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/share/xcat/tools/csm2xcat</p>
+<p>$dir/conversion.log</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="chdef.1.html">chdef(1)</a></p>
+
+</body>
+
+</html>

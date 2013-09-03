@@ -1,0 +1,346 @@
+#!/bin/sh
+#
+# Licensed under the GPLv2
+#
+# Copyright 2008-2009, Red Hat, Inc.
+# Harald Hoyer <harald@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
+
+wait_for_loginit()
+{
+    if getarg rdinitdebug; then
+	set +x
+	exec 0<>/dev/console 1<>/dev/console 2<>/dev/console
+	# wait for loginit
+	i=0
+	while [ $i -lt 10 ]; do 
+	    j=$(jobs)
+	    [ -z "$j" ] && break
+	    [ -z "${j##*Running*}" ] || break
+	    sleep 0.1
+	    i=$(($i+1))
+	done	
+	[ $i -eq 10 ] && kill %1 >/dev/null 2>&1
+
+        while pidof -x /sbin/loginit >/dev/null 2>&1; do
+            for pid in $(pidof -x /sbin/loginit); do
+                kill $HARD $pid >/dev/null 2>&1
+            done
+            HARD="-9"
+        done
+	set -x
+    fi
+}
+
+emergency_shell()
+{
+    set +e
+    if [ "$1" = "-n" ]; then
+        _rdshell_name=$2
+        shift 2 
+    else
+        _rdshell_name=dracut
+    fi
+    wait_for_loginit
+    echo ; echo
+    warn $@
+    source_all emergency
+    echo
+    [ -e /.die ] && exit 1
+    if getarg rdshell || getarg rdbreak; then
+        echo "Dropping to debug shell."
+        echo
+        export PS1="$_rdshell_name:\${PWD}# "
+        [ -e /.profile ] || echo "exec 0<>/dev/console 1<>/dev/console 2<>/dev/console" > /.profile
+        sh -i -l
+    else
+        warn "Boot has failed. To debug this issue add \"rdshell\" to the kernel command line."
+        # cause a kernel panic
+        exit 1
+    fi
+}
+
+export PATH=/sbin:/bin:/usr/sbin:/usr/bin
+export TERM=linux
+NEWROOT="/sysroot"
+
+trap "emergency_shell Signal caught!" 0
+# set umask
+#umask 0007
+
+RDDEBUG=""
+. /lib/dracut-lib.sh
+
+mknod -m 0666 /dev/null c 1 3
+
+# mount some important things
+mount -t proc -o nosuid,noexec,nodev proc /proc >/dev/null 2>&1
+mount -t sysfs -o nosuid,noexec,nodev sysfs /sys >/dev/null 2>&1
+
+if [ ! -c /dev/ptmx ]; then
+    # try to mount devtmpfs
+    if ! mount -t devtmpfs -o mode=0755,nosuid devtmpfs /dev >/dev/null 2>&1; then
+        # if it failed fall back to normal tmpfs
+	mount -t tmpfs -omode=0755,nosuid tmpfs /dev >/dev/null 2>&1 
+	# Make some basic devices first, let udev handle the rest
+	mknod -m 0666 /dev/null c 1 3
+	mknod -m 0666 /dev/ptmx c 5 2
+	mknod -m 0600 /dev/console c 5 1
+	mknod -m 0660 /dev/kmsg c 1 11
+    fi
+fi
+
+ln -s /proc/self/fd /dev/fd >/dev/null 2>&1
+
+if getarg rdinitdebug; then
+    getarg quiet && DRACUT_QUIET="yes"
+    mkfifo /dev/initlog.pipe
+    /sbin/loginit $DRACUT_QUIET </dev/initlog.pipe >/dev/console 2>&1 &
+    exec >/dev/initlog.pipe 2>&1
+else
+    exec 0<>/dev/console 1<>/dev/console 2<>/dev/console
+fi
+
+setdebug
+
+mkdir /dev/shm
+mkdir /dev/pts
+mount -t devpts -o gid=5,mode=620 devpts /dev/pts >/dev/null 2>&1
+mount -t tmpfs -o mode=1777,nosuid,nodev tmpfs /dev/shm >/dev/null 
+
+UDEVVERSION=$(udevadm --version)
+
+source_conf /etc/conf.d
+
+# run scriptlets to parse the command line
+getarg 'rdbreak=cmdline' && emergency_shell -n cmdline "Break before cmdline"
+source_all cmdline
+
+[ -z "$root" ] && die "No or empty root= argument"
+[ -z "$rootok" ] && die "Don't know how to handle 'root=$root'"
+
+# Network root scripts may need updated root= options,
+# so deposit them where they can see them (udev purges the env)
+{
+    echo "root='$root'"
+    echo "rflags='$rflags'"
+    echo "fstype='$fstype'"
+    echo "netroot='$netroot'"
+    echo "NEWROOT='$NEWROOT'"
+} > /tmp/root.info
+
+# pre-udev scripts run before udev starts, and are run only once.
+getarg 'rdbreak=pre-udev' && emergency_shell -n pre-udev "Break before pre-udev"
+source_all pre-udev
+
+# start up udev and trigger cold plugs
+udevd --daemon --resolve-names=never
+
+UDEV_LOG_PRIO_ARG=--log-priority
+UDEV_QUEUE_EMPTY="udevadm settle --timeout=0"
+
+if [ $UDEVVERSION -lt 140 ]; then
+   UDEV_LOG_PRIO_ARG=--log_priority
+   UDEV_QUEUE_EMPTY="udevadm settle --timeout=1"
+fi
+
+getarg rdudevinfo && udevadm control $UDEV_LOG_PRIO_ARG=info
+getarg rdudevdebug && udevadm control $UDEV_LOG_PRIO_ARG=debug
+
+getarg 'rdbreak=pre-trigger' && emergency_shell -n pre-trigger "Break before pre-trigger"
+source_all pre-trigger
+
+# then the rest
+udevadm trigger --action=add $udevtriggeropts  >/dev/null 2>&1
+
+getarg 'rdbreak=initqueue' && emergency_shell -n initqueue "Break before initqueue"
+
+RDRETRY=$(getarg 'rd_retry=')
+RDRETRY=${RDRETRY:-20}
+RDRETRY=$(($RDRETRY*2))
+export RDRETRY
+main_loop=0
+export main_loop
+while :; do
+
+    check_finished && break
+ 
+    udevsettle
+
+    check_finished && break
+
+    if [ -f /initqueue/work ]; then
+        rm /initqueue/work
+    fi
+    	
+    for job in /initqueue/*.sh; do
+	[ -e "$job" ] || break
+        job=$job . $job
+        check_finished && break 2
+    done
+
+    $UDEV_QUEUE_EMPTY >/dev/null 2>&1 || continue
+
+    modprobe scsi_wait_scan && rmmod scsi_wait_scan
+
+    $UDEV_QUEUE_EMPTY >/dev/null 2>&1 || continue
+
+    for job in /initqueue-settled/*.sh; do
+        [ -e "$job" ] || break
+        job=$job . $job
+        check_finished && break 2
+    done
+
+    $UDEV_QUEUE_EMPTY >/dev/null 2>&1 || continue
+
+    # no more udev jobs and queues empty.
+    sleep 0.5
+
+    # dirty hack for some cdrom drives,
+    # which report no medium for quiet
+    # some time.
+    for cdrom in /sys/block/sr*; do
+	[ -e "$cdrom" ] || continue
+	# skip, if cdrom medium was already found
+        strstr "$(udevadm info --query=env --path=${cdrom##/sys})" \
+	    ID_CDROM_MEDIA && continue
+        echo change > "$cdrom/uevent"        
+    done
+
+    if [ $main_loop -gt $(($RDRETRY/2)) ]; then
+	for job in /initqueue-timeout/*.sh; do
+            [ -e "$job" ] || break
+            job=$job . $job
+            main_loop=0
+	done
+    fi
+
+    main_loop=$(($main_loop+1))
+    [ $main_loop -gt $RDRETRY ] \
+        && { flock -s 9 ; emergency_shell "No root device \"$root\" found"; } 9>/.console_lock
+done
+unset job
+unset queuetriggered
+unset main_loop
+unset RDRETRY
+
+# pre-mount happens before we try to mount the root filesystem,
+# and happens once.
+getarg 'rdbreak=pre-mount' && emergency_shell -n pre-mount "Break pre-mount"
+source_all pre-mount
+
+
+getarg 'rdbreak=mount' && emergency_shell -n mount "Break mount"
+# mount scripts actually try to mount the root filesystem, and may
+# be sourced any number of times. As soon as one suceeds, no more are sourced.
+i=0
+while :; do
+    [ -d "$NEWROOT/proc" ] && break;
+    for f in /mount/*.sh; do
+       [ -f "$f" ] && . "$f"
+       [ -d "$NEWROOT/proc" ] && break;
+    done
+
+    i=$(($i+1))
+    [ $i -gt 20 ] \
+        && { flock -s 9 ; emergency_shell "Can't mount root filesystem"; } 9>/.console_lock
+done
+
+{
+    echo -n "Mounted root filesystem "
+    while read dev mp rest; do [ "$mp" = "$NEWROOT" ] && echo $dev; done < /proc/mounts 
+} | vinfo
+
+# pre pivot scripts are sourced just before we switch over to the new root.
+getarg 'rdbreak=pre-pivot' && emergency_shell -n pre-pivot "Break pre-pivot"
+source_all pre-pivot
+
+# by the time we get here, the root filesystem should be mounted.
+# Try to find init.
+for i in "$(getarg init=)" /sbin/init /etc/init /init /bin/sh; do
+    [ -f "$NEWROOT$i" -a -x "$NEWROOT$i" ] && { INIT="$i"; break; }
+done
+
+[ "$INIT" ] || {
+    echo "Cannot find init!"
+    echo "Please check to make sure you passed a valid root filesystem!"
+    emergency_shell
+}
+
+getarg rdbreak && emergency_shell -n switch_root "Break before switch_root"
+
+# stop udev queue before killing it
+udevadm control --stop-exec-queue
+
+HARD=""
+while pidof udevd >/dev/null 2>&1; do 
+    for pid in $(pidof udevd); do
+	kill $HARD $pid >/dev/null 2>&1
+    done
+    HARD="-9"
+done
+
+# Clean up the environment
+for i in $(export -p); do
+    i=${i#declare -x}
+    i=${i#export}
+    i=${i%%=*}
+    [ "$i" = "root" -o "$i" = "PATH" -o "$i" = "HOME" -o "$i" = "TERM" ] || unset $i
+done
+
+initargs=""
+
+read CLINE </proc/cmdline
+if getarg init= >/dev/null ; then
+    ignoreargs="console BOOT_IMAGE"
+    # only pass arguments after init= to the init
+    CLINE=${CLINE#*init=}
+    set $CLINE
+    shift
+    for x in "$@"; do
+        for s in $ignoreargs; do       
+            [ "${x%%=*}" = $s ] && continue 2
+        done
+        initargs="$initargs $x"
+    done
+    unset CLINE
+else
+    set $CLINE
+    shift
+    for x in "$@"; do
+        case "$x" in
+            [0-9]|s|S|single|emergency|auto )
+                initargs="$initargs $x"
+            ;;
+        esac
+    done
+fi
+
+# Debug: Copy state
+if getarg rdcopystate; then
+    [ -d /dev/.initramfs/ ] || mkdir /dev/.initramfs/
+    cp /tmp/* /dev/.initramfs/ >/dev/null 2>&1
+fi
+
+info "Switching root"
+
+wait_for_loginit
+
+if [ -f /etc/capsdrop ]; then
+    . /etc/capsdrop
+    info "Calling $INIT with capabilities $CAPS_INIT_DROP dropped."
+    exec capsh --drop="$CAPS_INIT_DROP" -- -c "exec switch_root \"$NEWROOT\" \"$INIT\" $initargs" || {
+	warn "Command:"
+	warn capsh --drop=$CAPS_INIT_DROP -- -c "'"exec switch_root "$NEWROOT" "$INIT" $initargs"'"
+	warn "failed."
+	emergency_shell
+    }
+else
+    exec switch_root "$NEWROOT" "$INIT" $initargs || {
+	warn "Something went very badly wrong in the initramfs.  Please "
+	warn "file a bug against dracut."
+	emergency_shell
+    }
+fi
+# vim:ts=8:sw=4:sts=4:et
+

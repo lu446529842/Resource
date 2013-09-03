@@ -1,0 +1,103 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;monls&gt; - Lists monitoring plug-in modules that can be used to monitor the xCAT cluster.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#parameters">Parameters</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>monls</strong> - Lists monitoring plug-in modules that can be used to monitor the xCAT cluster.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><em>monls [-h| --help]</em></p>
+<p><em>monls  [-v| --version]</em></p>
+<p><em>monls <em>name</em> [-d|--description]</em></p>
+<p><em>monls [-a|--all] [-d|--description]</em></p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This command is used to list the status, desctiption, the configuration scripts and the settings of one or all of the monitoring plug-in modules.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameters">Parameters</a></h1>
+<p><em>name</em> is the name of the monitoring plug-in module.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<p><strong>-a | --all</strong>          Searches the <em>XCATROOT/lib/perl/xCAT_monitoring</em> directory and reports all the monitoring plug-in modules. If nothing is specified, the list is read from the <em>monitoring</em> tabel.</p>
+<p><strong>-d | --description</strong>  Display the description of the plug-in modules. The description ususally contains the possible settings.</p>
+<p><strong>-h | --help</strong>         Display usage message.</p>
+<p><strong>-v | --version </strong>      Command Version.</p>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<p>0 The command completed successfully.</p>
+<p>1 An error has occurred.</p>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<p>1. To list the status of all the monitoring plug-in modules from the <em>monitoring</em> table, enter:</p>
+<pre>
+  monls</pre>
+<p>The output looks like this:</p>
+<pre>
+  xcatmon         monitored       node-status-monitored
+  snmpmon         not-monitored</pre>
+<p>2. To list the status of all the monitoring plug-in modules including the ones that are not in the monitoring table, enter</p>
+<pre>
+  monls -a</pre>
+<p>The output looks like this:</p>
+<pre>
+  xcatmon         monitored       node-status-monitored
+  snmpmon         not-monitored
+  gangliamon      not-monitored
+  rmcmon          monitored
+  nagiosmon       not-monitored</pre>
+<p>3. To list the status and the desciption for <em>snmpmon</em> module, enter:</p>
+<pre>
+  monls snmpmon -d</pre>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/monls</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="monadd.1.html">monadd(1)</a>, <a href="monrm.1.html">monrm(1)</a>, <a href="monstart.1.html">monstart(1)</a>, <a href="monstop.1.html">monstop(1)</a>, <a href="moncfg.1.html">moncfg(1)</a>, <a href="mondecfg.1.html">mondecfg(1)</a></p>
+
+</body>
+
+</html>

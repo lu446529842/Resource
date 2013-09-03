@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;rollupdate&gt; - performs cluster rolling update</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>rollupdate</strong> - performs cluster rolling update</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>cat</strong> <em>stanza-file</em> <strong>|</strong> <strong>rollupdate</strong> [<strong>-V</strong> | <strong>--verbose</strong>] [<strong>-t</strong>| <strong>--test</strong>]</p>
+<p><strong>rollupdate</strong> [<strong>-?</strong> | <strong>-h</strong> | <strong>--help</strong> | <strong>-v</strong> | <strong>--version</strong>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>rollupdate</strong> command creates and submits scheduler reservation jobs that will notify xCAT to shutdown a group of nodes, run optional out-of-band commands from the xCAT management node, and reboot the nodes.  Currently, only LoadLeveler is supported as a job scheduler with <strong>rollupdate</strong>.</p>
+<p>Input to the <strong>rollupdate</strong> command is passed in as stanza data through STDIN.  Information such as the sets of nodes that will be updated, the name of the job scheduler, a template for generating job command files, and other control data are required.  See 
+/opt/xcat/share/xcat/rollupdate/rollupdate.input.sample 
+and
+/opt/xcat/share/xcat/rollupdate/rollupdate_all.input.sample 
+for stanza keywords, usage, and examples.</p>
+<p>The <strong>rollupdate</strong> command will use the input data to determine each set of nodes that will be managed together as an update group.  For each update group, a job scheduler command file is created and a reservation request is submitted.  When the group of nodes becomes available and the scheduler activates the reservation, the xcatd daemon on the management node will be notified to begin the update process for all the nodes in the update group.  If specified, prescripts will be run, an operating system shutdown command will be sent to each node, out-of-band operations can be run on the management node, and the nodes are powered back on.</p>
+<p>The <strong>rollupdate</strong> command assumes that, if the update is to include rebooting stateless or statelite nodes to a new operating system image, the image has been created and tested, and that all relevant xCAT commands have been run for the nodes such that the new image will be loaded when xCAT reboots the nodes.</p>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command Version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dverbose"><strong>-V|--verbose</strong></a></strong>
+
+<dd>
+<p>Display additional progress and error messages.  Output is also logged in /var/log/xcat/rollupdate.log.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dt_7c_2d_2dtest"><strong>-t|--test</strong></a></strong>
+
+<dd>
+<p>Run the rollupdate command in test mode only to verify the output files that are created.  No scheduler reservation requests will be submitted.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2d_3f_7c_2dh_7c_2d_2dhelp"><strong>-?|-h|--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<ol>
+<li>
+<p>The command completed successfully.</p>
+</li>
+<li>
+<p>An error has occurred.</p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>To run a cluster rolling update based on the information you have created in the file 
+/u/admin/rolling_updates/update_all.stanza
+enter:</p>
+<pre>
+  cat /u/admin/rolling_updates/update_all.stanza | rollupdate</pre>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/rollupdate
+/opt/xcat/share/xcat/rollupdate/rollupdate.input.sample
+/opt/xcat/share/xcat/rollupdate/ll.tmpl
+/opt/xcat/share/xcat/rollupdate/rollupdate_all.input.sample
+/opt/xcat/share/xcat/rollupdate/llall.tmpl
+/var/log/xcat/rollupdate.log</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+
+</body>
+
+</html>

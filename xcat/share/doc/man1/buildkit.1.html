@@ -1,0 +1,295 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>B&lt;buildkit&gt; - build a product Kit to package software for installation in an xCAT cluster.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#subcommands">SUB-COMMANDS</a></li>
+	<li><a href="#return_value">RETURN VALUE</a></li>
+	<li><a href="#examples">EXAMPLES</a></li>
+	<li><a href="#files">FILES</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p><strong>buildkit</strong> - build a product Kit to package software for installation in an xCAT cluster.</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p><strong>buildkit</strong> [<strong>-?</strong>|<strong>-h</strong>|<strong>--help</strong>] [<strong>-v</strong>|<strong>--version</strong>]</p>
+<p>To build a new Kit</p>
+<p><strong>buildkit</strong> [<strong>-V</strong>|<strong>--verbose]</strong> <em>subcommand</em> [<em>kit_name</em>] [<em>repo_name</em>|<strong>all</strong>] [<strong>-l</strong>|<strong>--kitloc</strong> <em>kit_location</em>]</p>
+<p>To add packages to an existing Kit.</p>
+<p><strong>buildkit</strong> [<strong>-V</strong>|<strong>--verbose</strong>] <em>addpkgs</em> <em>kit_tarfile</em> [<strong>-p</strong>|<strong>--pkgdir</strong> <em>package_directory</em>] [<strong>-k</strong>|<strong>--kitversion</strong> <em>version</em>] [<strong>-r</strong>|<strong>--kitrelease</strong> <em>release</em>] [<strong>-l</strong>|<strong>--kitloc</strong> <em>kit_location</em>]</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The <strong>buildkit</strong> command provides a collection of utilities that may be used to package a software product as a Kit tarfile that can be used to install software on the nodes of an xCAT cluster.  A Kit contains the product software packages, configuration and control information, and install and customization scripts.</p>
+<p>You will need to run the <strong>buildkit</strong> command several times with different subcommands to step through the process of building a kit:</p>
+<p>By default the <strong>buildkit</strong> subcommands will operate in the current working directory, (ie. look for files, create directories etc.).  You could specify a different location by using the ``<strong>-l | --kitloc</strong> <em>kit_location</em>'' option.</p>
+<p>The <em>kit_location</em> is the full path name of the directory that contains the kit files. You would use the same location value for all the buildkit subcommands.</p>
+<p>For example, to create a new kit named ``prodkit'' in the directory /home/mykits/ <em>either</em> run:</p>
+<ol>
+<li>
+<p>If no location is provided then the command will create a subdirectory called ``prodkit'' in the current directory ``/home/mykits'' and the new kit files will be created there.
+</p>
+<pre>
+
+B&lt;cd /home/mykits&gt;</pre>
+<p><strong>buildkit create prodkit</strong> 
+</p>
+<pre>
+
+or</pre>
+</li>
+<li>
+<p>If a location is provided then the Kit files will be created there. Note that the Kit name does not necessarily have to be the directory name where the kit files are located.
+</p>
+<pre>
+
+B&lt;buidkit create prodkit -l /home/mykits/prodkit&gt;</pre>
+</li>
+</ol>
+<pre>
+
+In both cases the /home/mykits/prodkit directory is created and the inital files for the kit are created in that directory.</pre>
+<pre>
+
+The following example illustrates the basic process for building a new Kit. In this example we are building a Kit named &quot;mytstkit&quot;.</pre>
+<ol>
+<li>
+<p>Change to the directory where you wish to create the Kit.</p>
+</li>
+<li>
+<p>Create a template directory for your kit:</p>
+<p><strong>buildkit create mytstkit</strong></p>
+</li>
+<li>
+<p>Change directory to the new ``mytstkit'' subdirectory that was just created.</p>
+<p><strong>cd mytstkit</strong></p>
+</li>
+<li>
+<p>Edit the buildkit configuration file for your kit:</p>
+<p><strong>vi buildkit.conf</strong></p>
+<p>(See xCAT Kit documentation for details.)</p>
+</li>
+<li>
+<p>Create all required files, scripts, plugins, and packages for your kit.</p>
+</li>
+<li>
+<p>Validate your kit build configuration and fix any errors that are reported:</p>
+<p><strong>buildkit chkconfig</strong></p>
+</li>
+<li>
+<p>List the repos defined in your buildkit configuration file:</p>
+<p><strong>buildkit listrepo</strong></p>
+</li>
+<li>
+<p>For each repo name listed, build the repository.  Note that if you need to build repositories for OS distributions, versions, or architectures that do not match the current system, you may need to copy your kit template directory to an appropriate server to build that repository, and then copy the results back to your main build server.  For example, to build a repo named ``rhels6.3'' you would run the following command.</p>
+<p><strong>buildkit buildrepo rhels6.3</strong></p>
+<p>or, you can build all of the repos at one time if there are no OS or architecture dependencies for kitcomponent package builds or kitpackage builds:</p>
+<p><strong>buildkit buildrepo all</strong></p>
+</li>
+<li>
+<p>Build the kit tar file:</p>
+<p><strong>buildkit buildtar</strong></p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="options">OPTIONS</a></h1>
+<dl>
+<dt><strong><a name="item__2dh__7c_2d_2dhelp"><strong>-h |--help</strong></a></strong>
+
+<dd>
+<p>Display usage message.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dk_7c_2d_2dkitversion_version"><strong>-k|--kitversion</strong> <em>version</em></a></strong>
+
+<dd>
+<p>Product version.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dl_7c_2d_2dkitloc_kit_location"><strong>-l|--kitloc</strong> <em>kit_location</em></a></strong>
+
+<dd>
+<p>The directory location of the Kit files.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dr_7c_2d_2dkitrelease_release"><strong>-r|--kitrelease</strong> <em>release</em></a></strong>
+
+<dd>
+<p>Product release.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv__7c_2d_2dverbose"><strong>-V |--verbose</strong></a></strong>
+
+<dd>
+<p>Verbose mode.</p>
+</dd>
+</li>
+<dt><strong><a name="item__2dv_7c_2d_2dversion"><strong>-v|--version</strong></a></strong>
+
+<dd>
+<p>Command version.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="subcommands">SUB-COMMANDS</a></h1>
+<dl>
+<dt><strong><a name="item_create_kit_basename"><strong>create</strong> <em>kit_basename</em></a></strong>
+
+<dd>
+<p>Creates a new kit build directory structure for kit <em>kit_basename</em> using the location specified on the command line or the current directory.  The sample kit files from /opt/xcat/share/xcat/kits/kit_template are copied over, and the buildkit.conf file is modified for the specified <em>kit_basename</em>.</p>
+</dd>
+</li>
+<dt><strong><a name="item_chkconfig"><strong>chkconfig</strong></a></strong>
+
+<dd>
+<p>Reads the buildkit.conf file, verifies that the file syntax is correct and that all specified files exist.</p>
+</dd>
+</li>
+<dt><strong><a name="item_listrepo"><strong>listrepo</strong></a></strong>
+
+<dd>
+<p>Reads the buildkit.conf file, lists all Kit package repositories listed in the file, and reports the build status for each repository.</p>
+</dd>
+</li>
+<dt><strong><a name="item_buildrepo"><strong>buildrepo</strong> {<em>repo_name</em> | <strong>all</strong>}</a></strong>
+
+<dd>
+<p>Reads the buildkit.conf file, and builds the specified Kit package repository.  The built packages are placed in the directory &lt;kit_location&gt;/build/kit_repodir/<em>repo_name</em>.  If <strong>all</strong> is specified, all kit repositories are built.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cleanrepo"><strong>cleanrepo</strong> {<em>repo_name</em> | <strong>all</strong>}</a></strong>
+
+<dd>
+<p>Reads the buildkit.conf file, and deletes all the package files and package meta data files from the &lt;kit_location&gt;/build/kit_repodir/<em>repo_name</em> directory.  If <strong>all</strong> is specified, all kit repository files are deleted.</p>
+</dd>
+</li>
+<dt><strong><a name="item_buildtar"><strong>buildtar</strong></a></strong>
+
+<dd>
+<p>Reads the buildkit.conf file, validates that all kit repositories have been built, and builds the Kit tar file &lt;kit_location&gt;/<em>kitname</em>.tar.bz2.</p>
+</dd>
+</li>
+<dt><strong><a name="item_cleantar"><strong>cleantar</strong></a></strong>
+
+<dd>
+<p>Reads the &lt;kit_location&gt;/buildkit.conf file and <em>deletes</em> the following:</p>
+</dd>
+<p>- Kit tar files matching &lt;kit_location&gt;/<em>kit_name*.tar.bz2</em>.</p>
+<p>- &lt;kit_location&gt;/build/<em>kit_name</em></p>
+<p>- &lt;kit_location&gt;/rpmbuild</p>
+<p>- &lt;kit_location&gt;/tmp</p>
+<p>- &lt;kit_location&gt;/debbuild</p>
+<p>Caution:  Make sure you back up any tar files you would like to keep before running this subcommand.</p>
+<dt><strong><a name="item_cleanall"><strong>cleanall</strong></a></strong>
+
+<dd>
+<p>Equivalent to running <strong>buildkit cleanrepo all</strong> and <strong>buildkit cleantar</strong>.</p>
+</dd>
+</li>
+<dt><strong><a name="item_addpkgs"><strong>addpkgs</strong></a></strong>
+
+<dd>
+<p><em>kit_tarfile</em> {<strong>-p</strong> | <strong>--pkgdir</strong> <em>package_directory</em>} [<strong>-k</strong> | <strong>--kitversion</strong> <em>version</em>] [<strong>-r</strong> | <strong>--kitrelease</strong> <em>release</em>]</p>
+</dd>
+<dd>
+<p>Add product package rpms to a previously built kit tar file.  This is used for partial product kits that are built and shipped separately from the product packages, and are identified with a <em>kit_tarfile</em> name of <em>kitname</em>.<strong>NEED_PRODUCT_PKGS.tar.bz2</strong>. Optionally, change the kit release and version values when building the new kit tarfile.  If kitcomponent version and/or release values are defaulted to the kit values, those will also be changed and new kitcomponent rpms will be built.  If kit or kitcomponent scripts, plugins, or other files specify name, release, or version substitution strings, these will all be replaced with the new values when built into the new complete kit tarfile <em>kit_location</em>/<em>new_kitname</em>.<strong>tar.bz2</strong>.</p>
+</dd>
+</li>
+</dl>
+<p>
+</p>
+<hr />
+<h1><a name="return_value">RETURN VALUE</a></h1>
+<ol>
+<li>
+<p>The command completed successfully.</p>
+</li>
+<li>
+<p>An error has occurred.</p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="examples">EXAMPLES</a></h1>
+<ol>
+<li>
+<p>To create the sample kit shipped with the xCAT-buildkit rpm on a RHELS 6.3 server and naming it <strong>mykit</strong>, run the following commands:</p>
+<p><strong>cd /home/myuserid/kits</strong></p>
+<p><strong>buildkit create mykit</strong></p>
+<p><strong>cd mykit</strong></p>
+<p><strong>vi buildkit.conf</strong></p>
+<p><strong>buildkit chkconfig</strong></p>
+<p><strong>buildkit listrepo</strong></p>
+<p><strong>buildkit buildrepo all </strong></p>
+<p><strong>buildkit buildtar</strong></p>
+</li>
+<li>
+<p>To clean up a kit repository directory after build failures on a RHELS 6.3 server to prepare for a new kit repository build, run:</p>
+<p><strong>buildkit cleanrepo rhels6.3</strong></p>
+</li>
+<li>
+<p>To clean up all kit build files, including a previously built kit tar file, run</p>
+<p><strong>buildkit cleanall</strong></p>
+</li>
+<li>
+<p>To create a kit named ``tstkit'' located in /home/foobar/tstkit instead of the current working directory.</p>
+<p><strong>buildkit create tstkit -l /home/foobar/tstkit</strong></p>
+</li>
+</ol>
+<p>
+</p>
+<hr />
+<h1><a name="files">FILES</a></h1>
+<p>/opt/xcat/bin/buildkit</p>
+<p>/opt/xcat/share/xcat/kits/kit_template</p>
+<p>/opt/xcat/share/xcat/kits/kitcomponent.spec.template</p>
+<p>&lt;kit location&gt;/buildkit.conf
+
+</p>
+<p>&lt;kit location&gt;/build/<em>kitname</em>/kit.conf
+
+</p>
+<p>&lt;kit location&gt;/<em>kitname</em>.tar.bz2
+
+</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p>addkit(1), lskit(1), rmkit(1), addkitcomp(1), rmkitcomp(1), <code>chkkitcomp(1)</code>
+
+</p>
+
+</body>
+
+</html>
