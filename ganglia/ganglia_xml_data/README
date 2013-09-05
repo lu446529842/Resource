@@ -1,0 +1,5 @@
+GANGLIA SERVICE REQUIRE REQUEST
+    /?filter=summary (returns a summary of the whole grid, i.e. all clusters)
+    /clusterName (returns raw data of a cluster called "clusterName")
+    /clusterName/hostName (returns raw data for host "hostName" in cluster "clusterName")
+    /clusterName?filter=summary (returns a summary of only cluster "clusterName")
