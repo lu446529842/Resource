@@ -202,7 +202,6 @@ def print_dic(dic = None):
         else :
 	   print "%s:%s"% (key,dic[key])
 
-    print '================================================='
 
 
 if __name__ == "__main__":

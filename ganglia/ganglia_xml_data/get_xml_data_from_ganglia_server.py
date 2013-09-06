@@ -43,7 +43,7 @@ def read_data_from_port(host = "127.0.0.1", port = 8651, send=None):
         sock.close()
         return buffer
 
-def parse_filter_summary(host = "127.0.0.1", port = 8651, send=None):
+def parse_filter_summary(host = "127.0.0.1", port = 8652, send= "/?filter=summary"):
     """
     fetch data from gmetad ,parse into json,request :/?filter=summary
     """
@@ -51,7 +51,7 @@ def parse_filter_summary(host = "127.0.0.1", port = 8651, send=None):
     filter_json = parse_my_cluster_filter_summary_xml(xml_data)
     return filter_json
 
-def parse_my_cluster(host = "127.0.0.1", port = 8651, send=None):
+def parse_my_cluster(host = "127.0.0.1", port = 8652, send="/my_cluster\n"):
     """
     return /clusterName/hostName or /clusterName query data to json
     """
@@ -60,7 +60,7 @@ def parse_my_cluster(host = "127.0.0.1", port = 8651, send=None):
     return my_cluster_data
 
 
-def parse_cluster_filter_summary(host = "127.0.0.1", port = 8651, send=None):
+def parse_cluster_filter_summary(host = "127.0.0.1", port = 8652, send= "/my_cluster?filter=summary\n"):
     """
     return /clusterName?filter=summary  query data to json
     """
