@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<!DOCTYPE GANGLIA_XML [
+   <!ELEMENT GANGLIA_XML (GRID|CLUSTER|HOST)*>
+      <!ATTLIST GANGLIA_XML VERSION CDATA #REQUIRED>
+      <!ATTLIST GANGLIA_XML SOURCE CDATA #REQUIRED>
+   <!ELEMENT GRID (CLUSTER | GRID | HOSTS | METRICS)*>
+      <!ATTLIST GRID NAME CDATA #REQUIRED>
+      <!ATTLIST GRID AUTHORITY CDATA #REQUIRED>
+      <!ATTLIST GRID LOCALTIME CDATA #IMPLIED>
+   <!ELEMENT CLUSTER (HOST | HOSTS | METRICS)*>
+      <!ATTLIST CLUSTER NAME CDATA #REQUIRED>
+      <!ATTLIST CLUSTER OWNER CDATA #IMPLIED>
+      <!ATTLIST CLUSTER LATLONG CDATA #IMPLIED>
+      <!ATTLIST CLUSTER URL CDATA #IMPLIED>
+      <!ATTLIST CLUSTER LOCALTIME CDATA #REQUIRED>
+   <!ELEMENT HOST (METRIC)*>
+      <!ATTLIST HOST NAME CDATA #REQUIRED>
+      <!ATTLIST HOST IP CDATA #REQUIRED>
+      <!ATTLIST HOST LOCATION CDATA #IMPLIED>
+      <!ATTLIST HOST REPORTED CDATA #REQUIRED>
+      <!ATTLIST HOST TN CDATA #IMPLIED>
+      <!ATTLIST HOST TMAX CDATA #IMPLIED>
+      <!ATTLIST HOST DMAX CDATA #IMPLIED>
+      <!ATTLIST HOST GMOND_STARTED CDATA #IMPLIED>
+   <!ELEMENT METRIC (EXTRA_DATA*)>
+      <!ATTLIST METRIC NAME CDATA #REQUIRED>
+      <!ATTLIST METRIC VAL CDATA #REQUIRED>
+      <!ATTLIST METRIC TYPE (string | int8 | uint8 | int16 | uint16 | int32 | uint32 | float | double | timestamp) #REQUIRED>
+      <!ATTLIST METRIC UNITS CDATA #IMPLIED>
+      <!ATTLIST METRIC TN CDATA #IMPLIED>
+      <!ATTLIST METRIC TMAX CDATA #IMPLIED>
+      <!ATTLIST METRIC DMAX CDATA #IMPLIED>
+      <!ATTLIST METRIC SLOPE (zero | positive | negative | both | unspecified) #IMPLIED>
+      <!ATTLIST METRIC SOURCE (gmond) 'gmond'>
+   <!ELEMENT EXTRA_DATA (EXTRA_ELEMENT*)>
+   <!ELEMENT EXTRA_ELEMENT EMPTY>
+      <!ATTLIST EXTRA_ELEMENT NAME CDATA #REQUIRED>
+      <!ATTLIST EXTRA_ELEMENT VAL CDATA #REQUIRED>
+   <!ELEMENT HOSTS EMPTY>
+      <!ATTLIST HOSTS UP CDATA #REQUIRED>
+      <!ATTLIST HOSTS DOWN CDATA #REQUIRED>
+      <!ATTLIST HOSTS SOURCE (gmond | gmetad) #REQUIRED>
+   <!ELEMENT METRICS (EXTRA_DATA*)>
+      <!ATTLIST METRICS NAME CDATA #REQUIRED>
+      <!ATTLIST METRICS SUM CDATA #REQUIRED>
+      <!ATTLIST METRICS NUM CDATA #REQUIRED>
+      <!ATTLIST METRICS TYPE (string | int8 | uint8 | int16 | uint16 | int32 | uint32 | float | double | timestamp) #REQUIRED>
+      <!ATTLIST METRICS UNITS CDATA #IMPLIED>
+      <!ATTLIST METRICS SLOPE (zero | positive | negative | both | unspecified) #IMPLIED>
+      <!ATTLIST METRICS SOURCE (gmond) 'gmond'>
+]>
+<GANGLIA_XML VERSION="3.1.7" SOURCE="gmetad">
+<GRID NAME="unspecified" AUTHORITY="http://chefServer/ganglia/" LOCALTIME="1378344953">
+<HOSTS UP="4" DOWN="0" SOURCE="gmetad"/>
+<METRICS NAME="disk_free" SUM="638.277" NUM="4" TYPE="double" UNITS="GB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="disk"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total free disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Disk Space Available"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="bytes_out" SUM="5457.30" NUM="4" TYPE="double" UNITS="bytes/sec" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Number of bytes out per second"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Bytes Sent"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="dev-mapper-VolGroup-lv_home-disk_total" SUM="249.207" NUM="2" TYPE="double" UNITS="GB" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="mount" VAL="/home"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Available disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="dev-mapper-VolGroup-lv_home-disk_total"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="proc_total" SUM="1226" NUM="4" TYPE="double" UNITS=" " SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of processes"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Total Processes"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="pkts_in" SUM="25.50" NUM="4" TYPE="double" UNITS="packets/sec" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Packets in per second"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Packets Received"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_nice" SUM="0.0" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Percentage of CPU utilization that occurred while executing at the user level with nice priority"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU Nice"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-account-replicator" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-account-replicator_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="myMetric_1" SUM="97" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="random"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="test random plugin"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="just frist example one "/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_timewait" SUM="20" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of time_wait TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_timewait"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_speed" SUM="9566" NUM="4" TYPE="double" UNITS="MHz" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="CPU Speed in terms of MHz"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU Speed"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="boottime" SUM="5507954127" NUM="4" TYPE="double" UNITS="s" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="system"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="The last time that the system was started"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Last Boot Time"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-object-updater" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-object-updater_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_synsent" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of syn_sent TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_synsent"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_wio" SUM="0.1" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU wio"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_synwait" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of syn_wait TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_synwait"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_finwait2" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of fin_wait2 TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_finwait2"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="load_one" SUM="0.02" NUM="4" TYPE="double" UNITS=" " SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="load"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="One minute load average"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="One Minute Load Average"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_unknown" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of unknown TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_unknown"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_closing" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of closing TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_closing"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="disk_total" SUM="719.089" NUM="4" TYPE="double" UNITS="GB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="disk"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total available disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Total Disk Space"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_idle" SUM="398.5" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU Idle"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_user" SUM="0.5" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Percentage of CPU utilization that occurred while executing at the user level"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU User"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_established" SUM="5" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of established TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_established"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_synrecv" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of syn_recv TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_synrecv"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="swap_free" SUM="15389496" NUM="4" TYPE="double" UNITS="KB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Amount of available swap memory"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Free Swap Space"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-object-replicator" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-object-replicator_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="mem_cached" SUM="14270448" NUM="4" TYPE="double" UNITS="KB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Amount of cached memory"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Cached Memory"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="pkts_out" SUM="11.53" NUM="4" TYPE="double" UNITS="packets/sec" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Packets out per second"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Packets Sent"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-container-replicator" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-container-replicator_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="load_five" SUM="0.02" NUM="4" TYPE="double" UNITS=" " SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="load"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Five minute load average"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Five Minute Load Average"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-container-updater" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-container-updater_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_num" SUM="28" NUM="4" TYPE="double" UNITS="CPUs" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of CPUs"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU Count"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="swift_proxy" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="openstack-swift"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="test random plugin"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="swift_proxy_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_listen" SUM="30" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of listening TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_listen"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="httpd_process_status" SUM="50" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="my_httpd_group"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="test random plugin"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="httpd_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="load_fifteen" SUM="0.00" NUM="4" TYPE="double" UNITS=" " SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="load"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Fifteen minute load average"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Fifteen Minute Load Average"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="dev-mapper-VolGroup-lv_home-disk_used" SUM="11.5" NUM="2" TYPE="double" UNITS="Percent" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="mount" VAL="/home"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Used disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="dev-mapper-VolGroup-lv_home-disk_used"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="mem_free" SUM="25410796" NUM="4" TYPE="double" UNITS="KB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Amount of available memory"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Free Memory"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_closed" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of closed TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_closed"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="dev-mapper-VolGroup-lv_root-disk_used" SUM="65.8" NUM="2" TYPE="double" UNITS="Percent" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="mount" VAL="/"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Used disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="dev-mapper-VolGroup-lv_root-disk_used"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_closewait" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of close_wait TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_closewait"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_system" SUM="0.9" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Percentage of CPU utilization that occurred while executing at the system level"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU System"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="proc_run" SUM="0" NUM="4" TYPE="double" UNITS=" " SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of running processes"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Total Running Processes"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="mem_total" SUM="44655520" NUM="4" TYPE="double" UNITS="KB" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total amount of memory displayed in KBs"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Memory Total"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="dev-sda1-disk_used" SUM="31.5" NUM="2" TYPE="double" UNITS="Percent" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="mount" VAL="/boot"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Used disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="dev-sda1-disk_used"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="myMetric_2" SUM="197" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="random"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="test subs plugin"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="just frist example two"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_aidle" SUM="398.0" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Percent of time since boot idle CPU"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU aidle"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_finwait1" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of fin_wait1 TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_finwait1"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="bytes_in" SUM="2564.34" NUM="4" TYPE="double" UNITS="bytes/sec" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Number of bytes in per second"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Bytes Received"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-account-reaper" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-account-reaper_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="mem_buffers" SUM="671484" NUM="4" TYPE="double" UNITS="KB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Amount of buffered memory"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Memory Buffers"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="mem_shared" SUM="0" NUM="4" TYPE="double" UNITS="KB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Amount of shared memory"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Shared Memory"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="dev-mapper-VolGroup-lv_root-disk_total" SUM="105.690" NUM="2" TYPE="double" UNITS="GB" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="mount" VAL="/"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Available disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="dev-mapper-VolGroup-lv_root-disk_total"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="dev-sda1-disk_total" SUM="1.016" NUM="2" TYPE="double" UNITS="GB" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="mount" VAL="/boot"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Available disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="dev-sda1-disk_total"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="swap_total" SUM="15400928" NUM="4" TYPE="double" UNITS="KB" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total amount of swap space displayed in KBs"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Swap Space Total"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-account-auditor" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-account-auditor_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="part_max_used" SUM="96.9" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="disk"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Maximum percent used for all partitions"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Maximum Disk Space Used"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_lastack" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of last_ack TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_lastack"/>
+</EXTRA_DATA>
+</METRICS>
+<CLUSTER NAME="my_cluster" LOCALTIME="1378344941" OWNER="unspecified" LATLONG="unspecified" URL="unspecified">
+<HOSTS UP="4" DOWN="0" SOURCE="gmetad"/>
+<METRICS NAME="disk_free" SUM="638.277" NUM="4" TYPE="double" UNITS="GB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="disk"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total free disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Disk Space Available"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="dev-mapper-VolGroup-lv_home-disk_total" SUM="249.207" NUM="2" TYPE="double" UNITS="GB" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="mount" VAL="/home"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Available disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="dev-mapper-VolGroup-lv_home-disk_total"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="bytes_out" SUM="5457.30" NUM="4" TYPE="double" UNITS="bytes/sec" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Number of bytes out per second"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Bytes Sent"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="proc_total" SUM="1226" NUM="4" TYPE="double" UNITS=" " SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of processes"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Total Processes"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="myMetric_1" SUM="97" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="random"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="test random plugin"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="just frist example one "/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-account-replicator" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-account-replicator_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_nice" SUM="0.0" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Percentage of CPU utilization that occurred while executing at the user level with nice priority"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU Nice"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="pkts_in" SUM="25.50" NUM="4" TYPE="double" UNITS="packets/sec" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Packets in per second"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Packets Received"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_timewait" SUM="20" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of time_wait TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_timewait"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_speed" SUM="9566" NUM="4" TYPE="double" UNITS="MHz" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="CPU Speed in terms of MHz"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU Speed"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-object-updater" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-object-updater_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="boottime" SUM="5507954127" NUM="4" TYPE="double" UNITS="s" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="system"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="The last time that the system was started"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Last Boot Time"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_synsent" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of syn_sent TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_synsent"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_wio" SUM="0.1" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU wio"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_finwait2" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of fin_wait2 TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_finwait2"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_synwait" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of syn_wait TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_synwait"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_unknown" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of unknown TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_unknown"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="load_one" SUM="0.02" NUM="4" TYPE="double" UNITS=" " SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="load"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="One minute load average"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="One Minute Load Average"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_closing" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of closing TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_closing"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="disk_total" SUM="719.089" NUM="4" TYPE="double" UNITS="GB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="disk"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total available disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Total Disk Space"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_synrecv" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of syn_recv TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_synrecv"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_established" SUM="5" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of established TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_established"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_user" SUM="0.5" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Percentage of CPU utilization that occurred while executing at the user level"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU User"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_idle" SUM="398.5" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU Idle"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="swap_free" SUM="15389496" NUM="4" TYPE="double" UNITS="KB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Amount of available swap memory"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Free Swap Space"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-object-replicator" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-object-replicator_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-container-replicator" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-container-replicator_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="pkts_out" SUM="11.53" NUM="4" TYPE="double" UNITS="packets/sec" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Packets out per second"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Packets Sent"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="mem_cached" SUM="14270448" NUM="4" TYPE="double" UNITS="KB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Amount of cached memory"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Cached Memory"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="load_five" SUM="0.02" NUM="4" TYPE="double" UNITS=" " SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="load"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Five minute load average"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Five Minute Load Average"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-container-updater" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-container-updater_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="httpd_process_status" SUM="50" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="my_httpd_group"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="test random plugin"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="httpd_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_listen" SUM="30" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of listening TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_listen"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="swift_proxy" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="openstack-swift"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="test random plugin"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="swift_proxy_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_num" SUM="28" NUM="4" TYPE="double" UNITS="CPUs" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of CPUs"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU Count"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="dev-mapper-VolGroup-lv_home-disk_used" SUM="11.5" NUM="2" TYPE="double" UNITS="Percent" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="mount" VAL="/home"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Used disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="dev-mapper-VolGroup-lv_home-disk_used"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="load_fifteen" SUM="0.00" NUM="4" TYPE="double" UNITS=" " SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="load"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Fifteen minute load average"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Fifteen Minute Load Average"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="mem_free" SUM="25410796" NUM="4" TYPE="double" UNITS="KB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Amount of available memory"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Free Memory"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="dev-mapper-VolGroup-lv_root-disk_used" SUM="65.8" NUM="2" TYPE="double" UNITS="Percent" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="mount" VAL="/"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Used disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="dev-mapper-VolGroup-lv_root-disk_used"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_closed" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of closed TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_closed"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_closewait" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of close_wait TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_closewait"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_system" SUM="0.9" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Percentage of CPU utilization that occurred while executing at the system level"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU System"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="proc_run" SUM="0" NUM="4" TYPE="double" UNITS=" " SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of running processes"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Total Running Processes"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="myMetric_2" SUM="197" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="random"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="test subs plugin"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="just frist example two"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="dev-sda1-disk_used" SUM="31.5" NUM="2" TYPE="double" UNITS="Percent" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="mount" VAL="/boot"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Used disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="dev-sda1-disk_used"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="mem_total" SUM="44655520" NUM="4" TYPE="double" UNITS="KB" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total amount of memory displayed in KBs"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Memory Total"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_finwait1" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of fin_wait1 TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_finwait1"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="cpu_aidle" SUM="398.0" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="cpu"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Percent of time since boot idle CPU"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="CPU aidle"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="bytes_in" SUM="2564.34" NUM="4" TYPE="double" UNITS="bytes/sec" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Number of bytes in per second"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Bytes Received"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-account-reaper" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-account-reaper_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="mem_buffers" SUM="671484" NUM="4" TYPE="double" UNITS="KB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Amount of buffered memory"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Memory Buffers"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="dev-mapper-VolGroup-lv_root-disk_total" SUM="105.690" NUM="2" TYPE="double" UNITS="GB" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="mount" VAL="/"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Available disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="dev-mapper-VolGroup-lv_root-disk_total"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="mem_shared" SUM="0" NUM="4" TYPE="double" UNITS="KB" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Amount of shared memory"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Shared Memory"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="dev-sda1-disk_total" SUM="1.016" NUM="2" TYPE="double" UNITS="GB" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="mount" VAL="/boot"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Available disk space"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="dev-sda1-disk_total"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="openstack-swift-account-auditor" SUM="100" NUM="1" TYPE="double" UNITS="usage" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="opesntack-swift-storage-process"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="opesntack-swift-storage-process mointer"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="openstack-swift-account-auditor_process_status"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="swap_total" SUM="15400928" NUM="4" TYPE="double" UNITS="KB" SLOPE="zero" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total amount of swap space displayed in KBs"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Swap Space Total"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="part_max_used" SUM="96.9" NUM="4" TYPE="double" UNITS="%" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="disk"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Maximum percent used for all partitions"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="Maximum Disk Space Used"/>
+</EXTRA_DATA>
+</METRICS>
+<METRICS NAME="tcp_lastack" SUM="0" NUM="2" TYPE="double" UNITS="Sockets" SLOPE="both" SOURCE="gmond">
+<EXTRA_DATA>
+<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+<EXTRA_ELEMENT NAME="DESC" VAL="Total number of last_ack TCP connections"/>
+<EXTRA_ELEMENT NAME="TITLE" VAL="tcp_lastack"/>
+</EXTRA_DATA>
+</METRICS>
+</CLUSTER>
+</GRID>
+</GANGLIA_XML>
+
