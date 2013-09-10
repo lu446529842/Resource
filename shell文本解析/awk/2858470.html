@@ -1,0 +1,536 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>linux awk命令详解 - ggjucheng - 博客园</title>
+<link type="text/css" rel="stylesheet" href="2858470_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="2858470_files/style.css">
+<link type="text/css" rel="stylesheet" href="2858470_files/common2.css">
+<link type="text/css" rel="stylesheet" href="2858470_files/shStyle.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/ggjucheng/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/ggjucheng/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/ggjucheng/wlwmanifest.xml">
+<script src="2858470_files/gpt.js" type="text/javascript" async=""></script><script src="2858470_files/ga.js" async="" type="text/javascript"></script><script src="2858470_files/encoder.js" type="text/javascript"></script><script src="2858470_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">
+var currentBlogApp = 'ggjucheng';
+</script>
+<script src="2858470_files/common.js" type="text/javascript"></script> 
+<script src="2858470_files/json2.js" type="text/javascript"></script>
+<script type="text/javascript" src="2858470_files/syntaxHighlighter.js"></script>
+<script src="2858470_files/google_ads_gpt.js" type="text/javascript" async=""></script><script src="2858470_files/osd.js" type="text/javascript"></script></head>
+<body>
+<a name="top"></a>
+
+<div id="top">
+	
+<div>
+	<table>
+		<tbody><tr>
+			<td class="HeaderTitles">
+				<h1 class="HeaderTitle"><a id="Header1_HeaderTitle" class="HeaderMainTitle" href="http://www.cnblogs.com/ggjucheng/">简单，可复制</a></h1>
+				<p id="tagline">点点滴滴，尽在文中</p>
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+<div class="HeaderBar">
+	<table id="HeaderBar" class="HeaderBar" cellpadding="0" cellspacing="0">
+		<tbody><tr>
+			<td class="HeaderBarTab" nowrap="nowrap">
+&nbsp;
+ ::
+<a id="Header1_MyLinks1_MyHomeLink" href="http://www.cnblogs.com/ggjucheng/">首页</a> ::
+<a href="http://q.cnblogs.com/" class="menu">博问</a> ::
+<a href="http://home.cnblogs.com/ing/" class="menu">闪存</a> ::
+<a id="Header1_MyLinks1_NewPostLink" rel="nofollow" href="http://www.cnblogs.com/ggjucheng/admin/EditPosts.aspx?opt=1">新随笔</a> ::
+<a id="Header1_MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://space.cnblogs.com/msg/send/ggjucheng">联系</a> ::
+<a id="Header1_MyLinks1_Syndication" href="http://www.cnblogs.com/ggjucheng/rss">订阅</a>
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.cnblogs.com/ggjucheng/rss"><img src="2858470_files/xml.gif" alt="订阅"></a> ::
+<a id="Header1_MyLinks1_Admin" rel="nofollow" href="http://www.cnblogs.com/ggjucheng/admin/EditPosts.aspx">管理</a> ::
+
+</td>
+			<td><img id="Header1_BlueTab" src="2858470_files/BlueTabRight.gif" align="absmiddle"></td>
+			<td class="HeaderBarTabBack" nowrap="nowrap" width="100%">
+				
+<div class="BlogStatsBar">
+	<table class="BlogStatsBar">
+		<tbody><tr>
+			<td width="100%">
+			</td>
+			<td class="BlogStatsBar" nowrap="nowrap">
+				&nbsp;
+				345 
+				随笔&nbsp;::
+				1 文章
+				::
+				109 评论
+				::
+				0 引用
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+
+</div>
+<div id="leftmenu">	
+
+	    <div id="blog-calendar-block" style="display:none"><div id="blog-calendar"></div>
+</div>
+		
+<h3>公告</h3>
+<div class="News">
+	<div id="blog-news"><div id="weibowidget"><iframe class="share_self" src="2858470_files/index.html" frameborder="0" height="100" scrolling="no" width="190"></iframe></div>
+
+<br>
+<br>
+
+<a href="http://itfun.ingchat.com/"><span style="font-size:14px;color:#ff9a00">IT短篇笑话(看一看，笑一笑，十年少)</span></a><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/ggjucheng/">ggjucheng</a><br>园龄：<a href="http://home.cnblogs.com/u/ggjucheng/" title="入园时间：2011-12-13">1年6个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/ggjucheng/followers/">176</a><br>关注：<a href="http://home.cnblogs.com/u/ggjucheng/followees/">6</a><div id="p_b_follow"></div><div style="display: none" id="__document_write_ajax_div-2"></div></div></div>
+</div>
+
+		<div id="blog-sidecolumn">
+		<h3>博客地图</h3>
+		
+				<ul>
+			
+				<li><a id="ctl01_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/ggjucheng/archive/2012/08/18/2645319.html">c/c++笔记</a> </li>
+			<li class="c_b_p_link_desc">本人学习c/c++的一些笔记</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/ggjucheng/archive/2012/11/02/2751119.html">db笔记</a> </li>
+			<li class="c_b_p_link_desc">主要是mysql技术</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/ggjucheng/archive/2012/04/22/2465625.html">hadoop笔记</a> </li>
+			<li class="c_b_p_link_desc">本人工作中hadoop的心得</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/ggjucheng/archive/2013/01/20/2868837.html">internet笔记</a> </li>
+			<li class="c_b_p_link_desc">互联网学习笔记</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/ggjucheng/archive/2012/11/19/2777695.html">java笔记</a> </li>
+			<li class="c_b_p_link_desc">主要是java tutorial的翻译</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/ggjucheng/archive/2012/08/18/2645321.html">Linux/Unix笔记</a> </li>
+			<li class="c_b_p_link_desc">本人学习linux/unix的笔记 <br></li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/ggjucheng/archive/2012/08/18/2645324.html">TCP/IP笔记</a> </li>
+			<li class="c_b_p_link_desc">本人学习TCP/IP的心得和笔记</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/ggjucheng/archive/2011/12/15/2288839.html">其他笔记本</a> </li>
+			<li class="c_b_p_link_desc">比较零碎的技术文章归类</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/ggjucheng/archive/2012/11/17/2774916.html">学习指南</a> </li>
+			<li class="c_b_p_link_desc">IT技术学习路线,IT经典书籍学习和下载</li>
+				</ul>
+			
+	
+		<h3>友情链接</h3>
+		
+				<ul>
+			
+				<li><a id="ctl01_CatList_LinkList_1_Link_0" rel="nofollow" href="http://itfun.ingchat.com/" target="_blank">IT短篇笑话</a> </li>
+			<li class="c_b_p_link_desc">百忙中，可以看看it短篇笑话，笑一笑，放松下！</li>
+				</ul>
+			
+	
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		222151
+	</li><li>
+		排名 -
+		416
+	</li>
+</ul>
+
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ggjucheng/archive/2012/11/18/2776280.html#2716381">1. Re:C语言推荐书籍及下载(持续更新)</a></li>
+    <li class="recent_comment_body">多谢大神指导   期待早日出C++的推荐书籍和学习路径  刚开始学 路径比较模糊 不知道选择在哪个平台下做开发好 是linux还是windows 求开导啊。。。</li>
+    <li class="recent_comment_author">--jackripper</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ggjucheng/archive/2012/11/11/2765237.html#2715835">2. Re:MySQL执行计划解读</a></li>
+    <li class="recent_comment_body">好文要顶</li>
+    <li class="recent_comment_author">--shenopkss</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ggjucheng/archive/2012/08/19/2646007.html#2712151">3. Re:实例讲解虚拟机3种网络模式(桥接、nat、Host-only)</a></li>
+    <li class="recent_comment_body">引用例如你想建多个虚拟机集群，作为测试使用，而宿主机可能是一个笔记
+本，ip不固定。这种应用场景，我们需要采用nat模式了，但是我们要考虑一个问题，虚拟机之间是需要互访的，默认采用dhcp，虚拟机的ip每次重
+启，ip都是不固定的，所以我们需要手工设置虚拟机的ip地址。NAT模式下，虚拟系统的配置信息不实系统自动生成的吗？不是不可以手动更改的吗？你这里
+说的在一个笔记本上建多个虚拟机集群，并且采用nat...</li>
+    <li class="recent_comment_author">--Raining Days</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/03/2842860.html#2701669">4. Re:hive大数据倾斜总结</a></li>
+    <li class="recent_comment_body">这里说的都是reduce端的倾斜。其实map端也可能倾斜，主要原因是输入文件不可切分，一般是压缩造成的。<br>另外这里的，“group by维度过小：<br>采用sum() group by的方式来替换count(distinct)完成计算。”不懂，可否给出一个场景出来？</li>
+    <li class="recent_comment_author">--山君</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/08/2316692.html#2700339">5. Re:Linux strace命令</a></li>
+    <li class="recent_comment_body">调试代码时用的着，在我的笔记里用一下啊。<br>谢谢！</li>
+    <li class="recent_comment_author">--flash610</li>
+</ul>
+</div>
+</div>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/14/2322659.html">1. Linux tcpdump命令详解(70555)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/08/2316661.html">2. Linux netstat命令详解(38351)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2011/12/14/2287738.html">3. Linux GCC常用命令(28557)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/05/2312625.html">4. Linux vmstat命令实战详解(10972)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/11/17/2774494.html">5. java推荐书籍及下载(持续更新)(8212)</a></li></ul></div>
+</div>
+
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/08/19/2646007.html">1. 实例讲解虚拟机3种网络模式(桥接、nat、Host-only)(9)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/04/2311967.html">2. 异常不可用于逻辑处理(8)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2011/12/16/2290158.html">3. Linux入门——适合初学者(6)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/08/2850797.html">4. hive sql遇到的问题(6)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2013/02/01/2888051.html">5. hive udaf开发入门和运行过程详解(5)</a></li></ul></div>
+</div>
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/ggjucheng/archive/2011/12/14/2287738.html">1. Linux GCC常用命令(12)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/08/2316661.html">2. Linux netstat命令详解(9)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/14/2322659.html">3. Linux tcpdump命令详解(7)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/02/02/2335994.html">4. TCP慢启动算法(4)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/02/02/2335495.html">5. 基于tcpdump实例讲解TCP/IP协议(4)</a></li></ul></div>
+</div></div>
+	
+</div>
+<div id="main">
+	
+	
+<div class="post">
+	<div class="postTitle">
+		<a id="cb_post_title_url" href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html">linux awk命令详解</a>
+	</div>
+	
+	<div class="postText">
+		<div id="cnblogs_post_body"><h2><strong><span style="font-size: 18px;">简介</span></strong></h2>
+<p><span>awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。<span>简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。</span></span></p>
+<p><span><span>awk有3个不同版本: awk、nawk和gawk，未作特别说明，一般指gawk，<span>gawk 是 AWK 的 GNU 版本。</span></span></span></p>
+<p>awk其名称得自于它的创始人 Alfred Aho 、Peter Weinberger 和 Brian Kernighan 
+姓氏的首个字母。实际上 AWK 的确拥有自己的语言： AWK 程序设计语言 ， 
+三位创建者已将它正式定义为“样式扫描和处理语言”。它允许您创建简短的程序，这些程序读取输入文件、为数据排序、处理数据、对输入执行计算以及生成报
+表，还有无数其他的功能。</p>
+<p>&nbsp;</p>
+<h2><strong><span style="font-size: 14pt;">使用方法</span></strong></h2>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">awk</span> <span style="color: #800000;">'</span><span style="color: #800000;">{pattern + action}</span><span style="color: #800000;">'</span> {filenames}</pre>
+</div>
+<p><span>尽管操作可能会很复杂，但语法总是这样，<span>其中 pattern 表示 AWK 在数据中查找的内容，而 action 是在找到匹配内容时所执行的一系列命令。花括号（{}）不需要在程序中始终出现，但它们用于根据特定的模式对一系列指令进行分组。 pattern就是要表示的正则表达式，用斜杠括起来。</span></span></p>
+<p>awk语言的最基本功能是在文件或者字符串中基于指定规则浏览和抽取信息，awk抽取信息后，才能进行其他文本操作。完整的awk脚本通常用来格式化文本文件中的信息。</p>
+<p>通常，awk是以文件的一行为处理单位的。awk每接收文件的一行，然后执行相应的命令，来处理文本。</p>
+<p>&nbsp;</p>
+<h2><strong><span style="font-size: 14pt;">调用awk</span></strong></h2>
+<p><span>有三种方式调用awk</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="2858470_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #800080;">1</span><span style="color: #000000;">.命令行方式
+</span><span style="color: #0000ff;">awk</span> [-F  field-separator]  <span style="color: #800000;">'</span><span style="color: #800000;">commands</span><span style="color: #800000;">'</span>  input-<span style="color: #0000ff;">file</span><span style="color: #000000;">(s)
+其中，commands 是真正awk命令，[</span>-F域分隔符]是可选的。 input-<span style="color: #0000ff;">file</span><span style="color: #000000;">(s) 是待处理的文件。
+在awk中，文件的每一行中，由域分隔符分开的每一项称为一个域。通常，在不指名</span>-<span style="color: #000000;">F域分隔符的情况下，默认的域分隔符是空格。
+
+</span><span style="color: #800080;">2</span><span style="color: #000000;">.shell脚本方式
+将所有的awk命令插入一个文件，并使awk程序可执行，然后awk命令解释器作为脚本的首行，一遍通过键入脚本名称来调用。
+相当于shell脚本首行的：#</span>!/bin/<span style="color: #0000ff;">sh</span><span style="color: #000000;">
+可以换成：#</span>!/bin/<span style="color: #0000ff;">awk</span>
+
+<span style="color: #800080;">3</span><span style="color: #000000;">.将所有的awk命令插入一个单独文件，然后调用：
+</span><span style="color: #0000ff;">awk</span> -f <span style="color: #0000ff;">awk</span>-script-<span style="color: #0000ff;">file</span> input-<span style="color: #0000ff;">file</span><span style="color: #000000;">(s)
+其中，</span>-f选项加载awk-script-file中的awk脚本，input-<span style="color: #0000ff;">file</span>(s)跟上面的是一样的。</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="2858470_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;本章重点介绍命令行方式。</p>
+<p>&nbsp;</p>
+<h2><strong><span style="font-size: 14pt;">入门实例</span></strong></h2>
+<p>假设last -n 5的输出如下</p>
+<div class="cnblogs_code">
+<pre>[root@www ~]# <span style="color: #0000ff;">last</span> -n <span style="color: #800080;">5</span> &lt;==<span style="color: #000000;">仅取出前五行
+root     pts</span>/<span style="color: #800080;">1</span>   <span style="color: #800080;">192.168</span>.<span style="color: #800080;">1.100</span>  Tue Feb <span style="color: #800080;">10</span> <span style="color: #800080;">11</span>:<span style="color: #800080;">21</span>   still logged <span style="color: #0000ff;">in</span><span style="color: #000000;">
+root     pts</span>/<span style="color: #800080;">1</span>   <span style="color: #800080;">192.168</span>.<span style="color: #800080;">1.100</span>  Tue Feb <span style="color: #800080;">10</span> <span style="color: #800080;">00</span>:<span style="color: #800080;">46</span> - <span style="color: #800080;">02</span>:<span style="color: #800080;">28</span>  (<span style="color: #800080;">01</span>:<span style="color: #800080;">41</span><span style="color: #000000;">)
+root     pts</span>/<span style="color: #800080;">1</span>   <span style="color: #800080;">192.168</span>.<span style="color: #800080;">1.100</span>  Mon Feb  <span style="color: #800080;">9</span> <span style="color: #800080;">11</span>:<span style="color: #800080;">41</span> - <span style="color: #800080;">18</span>:<span style="color: #800080;">30</span>  (<span style="color: #800080;">06</span>:<span style="color: #800080;">48</span><span style="color: #000000;">)
+dmtsai   pts</span>/<span style="color: #800080;">1</span>   <span style="color: #800080;">192.168</span>.<span style="color: #800080;">1.100</span>  Mon Feb  <span style="color: #800080;">9</span> <span style="color: #800080;">11</span>:<span style="color: #800080;">41</span> - <span style="color: #800080;">11</span>:<span style="color: #800080;">41</span>  (<span style="color: #800080;">00</span>:<span style="color: #800080;">00</span><span style="color: #000000;">)
+root     tty1                   Fri Sep  </span><span style="color: #800080;">5</span> <span style="color: #800080;">14</span>:<span style="color: #800080;">09</span> - <span style="color: #800080;">14</span>:<span style="color: #800080;">10</span>  (<span style="color: #800080;">00</span>:<span style="color: #800080;">01</span>)</pre>
+</div>
+<p>如果只是显示最近登录的5个帐号</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">#last</span> -n <span style="color: #800080;">5</span> | <span style="color: #0000ff;">awk</span>  <span style="color: #800000;">'</span><span style="color: #800000;">{print $1}</span><span style="color: #800000;">'<br>root<br>root<br>root<br>dmtsai<br>root</span></pre>
+</div>
+<p><span>awk工作流程是这样的：读入有'\n'换行符分割的一条记录，然后将记录按指定的域分隔符划分域，填充域，<span>$0则表示所有域,$1表示第一个域,$n表示第n个域。</span>默认域分隔符是"空白键" 或 "[tab]键",所以$1表示登录用户，$3表示登录用户ip,以此类推。</span></p>
+<p>&nbsp;</p>
+<p><span>如果只是显示/etc/passwd的账户</span></p>
+<div class="cnblogs_code">
+<pre>#<span style="color: #0000ff;">cat</span> /etc/<span style="color: #0000ff;">passwd</span> |<span style="color: #0000ff;">awk</span>  -F <span style="color: #800000;">'</span><span style="color: #800000;">:</span><span style="color: #800000;">'</span>  <span style="color: #800000;">'</span><span style="color: #800000;">{print $1}</span><span style="color: #800000;">'</span><span style="color: #000000;">  
+root
+daemon
+bin
+sys</span></pre>
+</div>
+<p>这种是awk+action的示例，每行都会执行action{print $1}。</p>
+<p>-F指定域分隔符为':'。</p>
+<p>&nbsp;</p>
+<p>如果只是显示/etc/passwd的账户和账户对应的shell,而账户与shell之间以tab键分割</p>
+<div class="cnblogs_code">
+<pre>#<span style="color: #0000ff;">cat</span> /etc/<span style="color: #0000ff;">passwd</span> |<span style="color: #0000ff;">awk</span>  -F <span style="color: #800000;">'</span><span style="color: #800000;">:</span><span style="color: #800000;">'</span>  <span style="color: #800000;">'</span><span style="color: #800000;">{print $1"\t"$7}</span><span style="color: #800000;">'</span><span style="color: #000000;">
+root    </span>/bin/<span style="color: #000000;">bash
+daemon  </span>/bin/<span style="color: #0000ff;">sh</span><span style="color: #000000;">
+bin     </span>/bin/<span style="color: #0000ff;">sh</span><span style="color: #000000;">
+sys     </span>/bin/<span style="color: #0000ff;">sh</span></pre>
+</div>
+<p>&nbsp;</p>
+<p>如果只是显示/etc/passwd的账户和账户对应的shell,而账户与shell之间以逗号分割,而且在所有行添加列名name,shell,在最后一行添加"blue,/bin/nosh"。</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="2858470_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">cat</span> /etc/<span style="color: #0000ff;">passwd</span> |<span style="color: #0000ff;">awk</span>  -F <span style="color: #800000;">'</span><span style="color: #800000;">:</span><span style="color: #800000;">'</span>  <span style="color: #800000;">'</span><span style="color: #800000;">BEGIN {print "name,shell"}  {print $1","$7} END {print "blue,/bin/nosh"}</span><span style="color: #800000;">'</span><span style="color: #000000;">
+name,shell
+root,</span>/bin/<span style="color: #000000;">bash
+daemon,</span>/bin/<span style="color: #0000ff;">sh</span><span style="color: #000000;">
+bin,</span>/bin/<span style="color: #0000ff;">sh</span><span style="color: #000000;">
+sys,</span>/bin/<span style="color: #0000ff;">sh</span><span style="color: #000000;">
+....
+blue,</span>/bin/nosh</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="2858470_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span>awk工作流程是这样的：先执行BEGING，然后读取文件，读入有/n换行符分割的一条记录，然后将记录按指定的域分隔符划分域，填充域，<span>$0则表示所有域,$1表示第一个域,$n表示第n个域</span>,随后开始执行模式所对应的动作action。接着开始读入第二条记录······直到所有的记录都读完，最后执行END操作。</span></p>
+<p>&nbsp;</p>
+<p>搜索/etc/passwd有root关键字的所有行</p>
+<div class="cnblogs_code">
+<pre>#<span style="color: #0000ff;">awk</span> -F: <span style="color: #800000;">'</span><span style="color: #800000;">/root/</span><span style="color: #800000;">'</span> /etc/<span style="color: #0000ff;">passwd</span><span style="color: #000000;">
+root:x:</span><span style="color: #800080;">0</span>:<span style="color: #800080;">0</span>:root:/root:/bin/bash</pre>
+</div>
+<p>这种是pattern的使用示例，匹配了pattern(这里是root)的行才会执行action(没有指定action，默认输出每行的内容)。</p>
+<p>搜索支持正则，例如找root开头的:&nbsp;awk -F: '/^root/' /etc/passwd</p>
+<p>&nbsp;</p>
+<p>搜索/etc/passwd有root关键字的所有行，并显示对应的shell</p>
+<div class="cnblogs_code">
+<pre># <span style="color: #0000ff;">awk</span> -F: <span style="color: #800000;">'</span><span style="color: #800000;">/root/{print $7}</span><span style="color: #800000;">'</span> /etc/<span style="color: #0000ff;">passwd</span>             
+/bin/bash</pre>
+</div>
+<p>&nbsp;这里指定了action{print $7}</p>
+<p>&nbsp;</p>
+<h2><strong><span style="font-size: 14pt;">awk内置变量</span></strong></h2>
+<p><span><span>awk有许多内置变量用来设置环境信息，这些变量可以被改变，下面给出了最常用的一些变量。</span></span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="2858470_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">ARGC               命令行参数个数
+ARGV               命令行参数排列
+ENVIRON            支持队列中系统环境变量的使用
+FILENAME           awk浏览的文件名
+FNR                浏览文件的记录数
+FS                 设置输入域分隔符，等价于命令行 </span>-<span style="color: #000000;">F选项
+NF                 浏览记录的域的个数
+NR                 已读的记录数
+OFS                输出域分隔符
+ORS                输出记录分隔符
+RS                 控制记录分隔符</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="2858470_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;此外,<span>$0变量是指整条记录。$1表示当前行的第一个域,$2表示当前行的第二个域,......以此类推。</span></p>
+<p>&nbsp;</p>
+<p>统计/etc/passwd:文件名，每行的行号，每行的列数，对应的完整行内容:</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">#awk</span>  -F <span style="color: #800000;">'</span><span style="color: #800000;">:</span><span style="color: #800000;">'</span>  <span style="color: #800000;">'</span><span style="color: #800000;">{print "filename:" FILENAME ",linenumber:" NR ",columns:" NF ",linecontent:"$0}</span><span style="color: #800000;">'</span> /etc/<span style="color: #0000ff;">passwd</span><span style="color: #000000;">
+filename:</span>/etc/<span style="color: #0000ff;">passwd</span>,linenumber:<span style="color: #800080;">1</span>,columns:<span style="color: #800080;">7</span>,linecontent:root:x:<span style="color: #800080;">0</span>:<span style="color: #800080;">0</span>:root:/root:/bin/<span style="color: #000000;">bash
+filename:</span>/etc/<span style="color: #0000ff;">passwd</span>,linenumber:<span style="color: #800080;">2</span>,columns:<span style="color: #800080;">7</span>,linecontent:daemon:x:<span style="color: #800080;">1</span>:<span style="color: #800080;">1</span>:daemon:/usr/sbin:/bin/<span style="color: #0000ff;">sh</span><span style="color: #000000;">
+filename:</span>/etc/<span style="color: #0000ff;">passwd</span>,linenumber:<span style="color: #800080;">3</span>,columns:<span style="color: #800080;">7</span>,linecontent:bin:x:<span style="color: #800080;">2</span>:<span style="color: #800080;">2</span>:bin:/bin:/bin/<span style="color: #0000ff;">sh</span><span style="color: #000000;">
+filename:</span>/etc/<span style="color: #0000ff;">passwd</span>,linenumber:<span style="color: #800080;">4</span>,columns:<span style="color: #800080;">7</span>,linecontent:sys:x:<span style="color: #800080;">3</span>:<span style="color: #800080;">3</span>:sys:/dev:/bin/<span style="color: #0000ff;">sh</span></pre>
+</div>
+<p>&nbsp;</p>
+<p>使用printf替代print,可以让代码更加简洁，易读</p>
+<div class="cnblogs_code">
+<pre> <span style="color: #0000ff;">awk</span>  -F <span style="color: #800000;">'</span><span style="color: #800000;">:</span><span style="color: #800000;">'</span>  <span style="color: #800000;">'</span><span style="color: #800000;">{printf("filename:%10s,linenumber:%s,columns:%s,linecontent:%s\n",FILENAME,NR,NF,$0)}</span><span style="color: #800000;">'</span> /etc/<span style="color: #0000ff;">passwd</span></pre>
+</div>
+<p>&nbsp;</p>
+<h2><strong><span style="font-size: 14pt;">print和printf</span></strong></h2>
+<p><span>awk中同时提供了print和printf两种打印输出的函数。</span></p>
+<p><span>其中print函数的参数可以是变量、数值或者字符串。字符串必须用双引号引用，参数用逗号分隔。如果没有逗号，参数就串联在一起而无法区分。这里，逗号的作用与输出文件的分隔符的作用是一样的，只是后者是空格而已。</span></p>
+<p><span><span>printf函数，其用法和c语言中printf基本相似,可以格式化字符串,输出复杂时，printf更加好用，代码更易懂。</span></span></p>
+<p>&nbsp;</p>
+<h2><strong><span style="font-size: 14pt;">&nbsp;awk编程</span></strong></h2>
+<p><strong>&nbsp;变量和赋值</strong></p>
+<p>除了awk的内置变量，awk还可以自定义变量。</p>
+<p>下面统计/etc/passwd的账户人数</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">awk</span> <span style="color: #800000;">'</span><span style="color: #800000;">{count++;print $0;} END{print "user count is ", count}</span><span style="color: #800000;">'</span> /etc/<span style="color: #0000ff;">passwd</span><span style="color: #000000;">
+root:x:</span><span style="color: #800080;">0</span>:<span style="color: #800080;">0</span>:root:/root:/bin/<span style="color: #000000;">bash
+......
+user count is &nbsp;40<br></span></pre>
+</div>
+<p>count是自定义变量。之前的action{}里都是只有一个print,其实print只是一个语句，而action{}可以有多个语句，以;号隔开。</p>
+<p>&nbsp;</p>
+<p>这里没有初始化count，虽然默认是0，但是妥当的做法还是初始化为0:</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">awk</span> <span style="color: #800000;">'</span><span style="color: #800000;">BEGIN {count=0;print "[start]user count is ", count} {count=count+1;print $0;} END{print "[end]user count is ", count}</span><span style="color: #800000;">'</span> /etc/<span style="color: #0000ff;">passwd</span><span style="color: #000000;">
+[start]user count is  </span><span style="color: #800080;">0</span><span style="color: #000000;">
+root:x:</span><span style="color: #800080;">0</span>:<span style="color: #800080;">0</span>:root:/root:/bin/<span style="color: #000000;">bash
+...
+[end]user count is  </span><span style="color: #800080;">40</span></pre>
+</div>
+<p>&nbsp;</p>
+<p>统计某个文件夹下的文件占用的字节数</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">ls</span> -l |<span style="color: #0000ff;">awk</span> <span style="color: #800000;">'</span><span style="color: #800000;">BEGIN {size=0;} {size=size+$5;} END{print "[end]size is ", size}</span><span style="color: #800000;">'<br>[end]size is &nbsp;8657198<br></span></pre>
+</div>
+<p>&nbsp;</p>
+<p>如果以M为单位显示:</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">ls</span> -l |<span style="color: #0000ff;">awk</span> <span style="color: #800000;">'</span><span style="color: #800000;">BEGIN {size=0;} {size=size+$5;} END{print "[end]size is ", size/1024/1024,"M"}</span><span style="color: #800000;">'</span> <br>[end]size is &nbsp;8.25889 M</pre>
+</div>
+<p>注意，统计不包括文件夹的子目录。</p>
+<p>&nbsp;</p>
+<p><strong>条件语句</strong></p>
+<p><span>&nbsp;awk中的条件语句是从C语言中借鉴来的，见如下声明方式：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="2858470_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">if</span><span style="color: #000000;"> (expression) {
+    statement;
+    statement;
+    ... ...
+}
+
+</span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (expression) {
+    statement;
+} </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+    statement2;
+}
+
+</span><span style="color: #0000ff;">if</span><span style="color: #000000;"> (expression) {
+    statement1;
+} </span><span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span><span style="color: #000000;"> (expression1) {
+    statement2;
+} </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+    statement3;
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="2858470_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>统计某个文件夹下的文件占用的字节数,过滤4096大小的文件(一般都是文件夹):</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">ls</span> -l |<span style="color: #0000ff;">awk</span> <span style="color: #800000;">'</span><span style="color: #800000;">BEGIN {size=0;print "[start]size is ", size} {if($5!=4096){size=size+$5;}} END{print "[end]size is ", size/1024/1024,"M"}</span><span style="color: #800000;">'</span> <br>[end]size is &nbsp;8.22339 M</pre>
+</div>
+<p>&nbsp;</p>
+<p><strong>循环语句</strong></p>
+<p>awk中的循环语句同样借鉴于C语言，支持while、do/while、for、break、continue，这些关键字的语义和C语言中的语义完全相同。</p>
+<p>&nbsp;</p>
+<p><strong>数组</strong></p>
+<p><span>&nbsp; 
+因为awk中数组的下标可以是数字和字母，数组的下标通常被称为关键字(key)。值和关键字都存储在内部的一张针对key/value应用hash的表
+格里。由于hash不是顺序存储，因此在显示数组内容时会发现，它们并不是按照你预料的顺序显示出来的。数组和变量一样，都是在使用时自动创建的，awk
+也同样会自动判断其存储的是数字还是字符串。一般而言，awk中的数组用来从记录中收集信息，可以用于计算总和、统计单词以及跟踪模板被匹配的次数等等。</span></p>
+<p>&nbsp;</p>
+<p><span>显示/etc/passwd的账户</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="2858470_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">awk</span> -F <span style="color: #800000;">'</span><span style="color: #800000;">:</span><span style="color: #800000;">'</span> <span style="color: #800000;">'</span><span style="color: #800000;">BEGIN {count=0;} {name[count] = $1;count++;}; END{for (i = 0; i &lt; NR; i++) print i, name[i]}</span><span style="color: #800000;">'</span> /etc/<span style="color: #0000ff;">passwd</span>
+<span style="color: #800080;">0</span><span style="color: #000000;"> root
+</span><span style="color: #800080;">1</span><span style="color: #000000;"> daemon
+</span><span style="color: #800080;">2</span><span style="color: #000000;"> bin
+</span><span style="color: #800080;">3</span><span style="color: #000000;"> sys
+</span><span style="color: #800080;">4</span> <span style="color: #0000ff;">sync</span>
+<span style="color: #800080;">5</span><span style="color: #000000;"> games
+......</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="2858470_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>这里使用for循环遍历数组</p>
+<p>&nbsp;</p>
+<p>awk编程的内容极多，这里只罗列简单常用的用法，更多请参考&nbsp;<a href="http://www.gnu.org/software/gawk/manual/gawk.html">http://www.gnu.org/software/gawk/manual/gawk.html</a></p></div><div id="MySignature"></div>
+<script type="text/javascript">
+var isLogined = false;
+var cb_blogId = 104392;
+var cb_entryId = 2858470;
+var cb_blogApp = currentBlogApp;
+var cb_blogUserGuid = "d3935eec-4025-e111-b422-842b2b196315";
+var cb_entryCreatedDate = '2013/1/13 18:08:00';
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</script>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/ggjucheng/category/342328.html">Linux/Unix</a></div>
+<div id="EntryTag"></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/ggjucheng" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="2858470_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/ggjucheng/" target="_blank"><img src="2858470_files/u360373.jpg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/ggjucheng/">ggjucheng</a><br>
+<a href="http://home.cnblogs.com/u/ggjucheng/followees">关注 - 6</a><br>
+<a href="http://home.cnblogs.com/u/ggjucheng/followers">粉丝 - 176</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,'Digg')"> 
+		<span class="diggnum" id="digg_count">3</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858385.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858385.html" title="发布于2013-01-13 15:01">linux sort,uniq,cut,wc命令详解</a><br><a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858775.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858775.html" title="发布于2013-01-13 20:31">Linux CPU实时监控mpstat命令详解</a><br></div>
+</div>
+<script type="text/javascript">
+    //SyntaxHighlighter.config.strings.expandSource = '<span><img src="http://static.cnblogs.com/images/expand-code.gif" alt="" class="expand-code-icon"/>View Code</span>';
+    $(function () {  
+        loadViewCount(cb_entryId);
+        fixPostBodyFormat();
+        loadAdUnderPost();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);        
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);        
+    });
+</script>
+	</div>
+	
+	<div class="postfoot">
+		posted on <span id="post-date">2013-01-13 18:08</span> <a href="http://www.cnblogs.com/ggjucheng/">ggjucheng</a> 阅读(<span id="post_view_count">6904</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://www.cnblogs.com/ggjucheng/admin/EditPosts.aspx?postid=2858470" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2858470);return false;">收藏</a>
+	</div>
+</div>
+<script src="2858470_files/2858470.js" type="text/javascript"></script>
+
+<div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+
+<script type="text/javascript">
+    if (typeof commentManager === 'undefined') {
+        commentManager = new blogCommentManager();
+    }
+    commentManager.loadCommentForm();   
+</script>
+
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="ad_under_post_holder">
+<div id="google_ad_c1" class="c_ad_block">
+    <!-- cnblogs_blogpost_C1_sitehome -->
+    <div id="div-gpt-ad-1346480159711-0" style="width: 300px; height: 250px;">
+    
+    <iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" frameborder="0" height="250" scrolling="no" width="300"></iframe><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom; visibility: hidden; display: none;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" frameborder="0" height="0" scrolling="no" width="0"></iframe></div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/181551/" target="_blank">不利于写出好代码的15个职场因素</a><br> ·  <a href="http://news.cnblogs.com/n/181550/" target="_blank">Lumia 1020 再爆照：现“专业”拍照应用</a><br> ·  <a href="http://news.cnblogs.com/n/181549/" target="_blank">文学巨匠“复活”，本·琼森现身 Twitter</a><br> ·  <a href="http://news.cnblogs.com/n/181548/" target="_blank">用产品说话，Vine 推出重大更新回击 Instagram</a><br> ·  <a href="http://news.cnblogs.com/n/181547/" target="_blank">梅姐继续购物，3000 万美元收购通讯录应用 Xobni</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/181532/" target="_blank">云计算服务模型，第 1 部分: 基础架构即服务(IaaS)</a><br> ·  <a href="http://kb.cnblogs.com/page/181453/" target="_blank">企业云</a><br> ·  <a href="http://kb.cnblogs.com/page/181381/" target="_blank">.Net程序员学习Linux最简单的方法</a><br> ·  <a href="http://kb.cnblogs.com/page/181365/" target="_blank">BPM与SOA的演进与展望</a><br> ·  <a href="http://kb.cnblogs.com/page/181281/" target="_blank">程序员自我学习自我培训指南</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="google_ad_c2" class="c_ad_block">
+    <!-- cnblogs_blogpost_C2_sitehome -->
+    <div id="div-gpt-ad-1346479110744-1" style="width: 468px; height: 60px;">
+    
+    <iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" id="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" frameborder="0" height="60" scrolling="no" width="468"></iframe></div>
+</div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+</div>
+
+
+
+
+
+</div>
+<div class="footer">
+
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © ggjucheng
+</p>
+</div>
+<!--PageEndHtml Block Begin-->
+<script src="2858470_files/stat.php" language="JavaScript"></script><script src="2858470_files/cnzz_core.php" charset="utf-8" type="text/javascript"></script><script src="2858470_files/online.html" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=4902471" target="_blank">站长统计</a>
+<!--PageEndHtml Block End-->
+<script type="text/javascript" src="2858470_files/google-analytics.js"></script>
+
+
+</body></html>

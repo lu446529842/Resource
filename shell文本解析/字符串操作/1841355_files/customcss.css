@@ -1,0 +1,42 @@
+div.postTitle{padding-left: 3px;font-weight: bolder;font-size: 16px;padding-bottom: 3px;padding-top: 3px;border-bottom: gainsboro 1px solid;background-color: whitesmoke;}
+blockquote {background:none repeat scroll 0 0 #F0F0F0;border-color:black;border-style:dotted solid solid dotted;border-width:1px 2px 2px 1px;color:black;font-size:90%;margin:1em 0.5in;padding:0.5em;font-style:normal;}.c_ad_block{display:none;}div.postText p{font-size:14px;line-height:1.6;}
+
+/*修改left*/
+#leftmenu {width:315px;}
+#main {margin-left: 315px;}
+
+/*邮件订阅*/
+.feed-mail {
+    border: 1px solid #CCCCCC;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0 4px #EEEEEE;
+    margin-bottom: 10px;
+    padding: 12px 0 12px 12px;
+	width:285px;
+}
+.feed-mail-input {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+     padding: 4px;
+    vertical-align: middle;
+    width: 204px;
+}
+.feed-mail-btn {
+    border: 1px solid #CCCCCC;
+    cursor: pointer;
+    height: 30px;
+    margin-left: -1px;
+    vertical-align: middle;
+    width: 60px;
+	background-color: #F0F0F0;
+    background-image: -moz-linear-gradient(#F9F9F9, #F0F0F0);
+    color: #555555;
+}
+.feed-mail input, textarea {
+    color: #444444;
+    font-family: microsoft yahei,verdana,arial;
+    font-size: 12px;
+}
+
+#ad_top_left_pos {width:260px;height:380px}
+#ad_top_left{top: 150px;background-color: #ffc;position: fixed;}

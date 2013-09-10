@@ -1,0 +1,391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><script src="1841355_files/gpt.js" type="text/javascript" async=""></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>linux shell 字符串操作（长度，查找，替换）详解 - 程默 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="1841355_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="1841355_files/style.css">
+<link type="text/css" rel="stylesheet" href="1841355_files/common2.css">
+<link type="text/css" rel="stylesheet" href="1841355_files/shStyle.css">
+<link type="text/css" rel="stylesheet" href="1841355_files/customcss.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/chengmo/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/chengmo/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/chengmo/wlwmanifest.xml">
+<script src="1841355_files/ga.js" async="" type="text/javascript"></script><script src="1841355_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">
+var currentBlogApp = 'chengmo';
+</script>
+<script src="1841355_files/common.js" type="text/javascript"></script> 
+<script src="1841355_files/json2.js" type="text/javascript"></script>
+<script type="text/javascript" src="1841355_files/syntaxHighlighter.js"></script>
+<script src="1841355_files/logger.js"></script><link type="text/css" rel="stylesheet" href="1841355_files/bdsstyle.css"><script src="1841355_files/google_ads_gpt.js" type="text/javascript" async=""></script><script src="1841355_files/osd.js" type="text/javascript"></script></head>
+<body><iframe style="display: none;" frameborder="0"></iframe><div style="right: 0px; top: 264px; position: absolute; height: 330px; overflow: hidden; width: 24px;" id="bdshare"><img src="1841355_files/r6.gif" alt="" style="float:left;margin-top:58px;"><iframe id="bdsIfr" style="position: absolute; display: none; z-index: 9999; width: 0px; top: 0px; right: 0px; height: 314px;" frameborder="0"></iframe><div style="display: block; left: 24px;" id="bdshare_l"><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="#" class="bds_mshare mshare">一键分享</a></li><li><a href="#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="#" class="bds_baidu bdsc">百度云收藏</a></li><li><a href="#" class="bds_renren rrw">人人网</a></li><li><a href="#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="#" class="bds_bdxc bdxc">百度相册</a></li><li><a href="#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="#" class="bds_douban db">豆瓣网</a></li><li><a href="#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="#" class="bds_bdhome bdhome">百度新首页</a></li><li><a href="#" class="bds_sqq sqq">QQ好友</a></li><li><a href="#" class="bds_thx thx">和讯微博</a></li><li><a href="#" class="bds_more">更多...</a></li></ul><p><a href="#" class="goWebsite">百度分享</a></p></div></div></div>
+<a name="top"></a>
+
+<div id="top">
+	
+<div>
+	<table>
+		<tbody><tr>
+			<td class="HeaderTitles">
+				<h1 class="HeaderTitle"><a id="Header1_HeaderTitle" class="HeaderMainTitle" href="http://www.cnblogs.com/chengmo/">沉于思考，默默学习！</a></h1>
+				<p id="tagline">你不能预知明天，但你可以利用今天。你不能样样顺利，但你可以事事尽力!</p>
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+<div class="HeaderBar">
+	<table id="HeaderBar" class="HeaderBar" cellpadding="0" cellspacing="0">
+		<tbody><tr>
+			<td class="HeaderBarTab" nowrap="nowrap">
+&nbsp;
+<a id="Header1_MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a> ::
+<a id="Header1_MyLinks1_MyHomeLink" href="http://www.cnblogs.com/chengmo/">首页</a> ::
+<a href="http://q.cnblogs.com/" class="menu">博问</a> ::
+<a href="http://home.cnblogs.com/ing/" class="menu">闪存</a> ::
+<a id="Header1_MyLinks1_NewPostLink" rel="nofollow" href="http://www.cnblogs.com/chengmo/admin/EditPosts.aspx?opt=1">新随笔</a> ::
+<a id="Header1_MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://space.cnblogs.com/msg/send/%e7%a8%8b%e9%bb%98">联系</a> ::
+<a id="Header1_MyLinks1_Syndication" href="http://www.cnblogs.com/chengmo/rss">订阅</a>
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.cnblogs.com/chengmo/rss"><img src="1841355_files/xml.gif" alt="订阅"></a> ::
+<a id="Header1_MyLinks1_Admin" rel="nofollow" href="http://www.cnblogs.com/chengmo/admin/EditPosts.aspx">管理</a> ::
+
+</td>
+			<td><img id="Header1_BlueTab" src="1841355_files/BlueTabRight.gif" align="absmiddle"></td>
+			<td class="HeaderBarTabBack" nowrap="nowrap" width="100%">
+				
+<div class="BlogStatsBar">
+	<table class="BlogStatsBar">
+		<tbody><tr>
+			<td width="100%">
+			</td>
+			<td class="BlogStatsBar" nowrap="nowrap">
+				&nbsp;
+				62 
+				随笔&nbsp;::
+				0 文章
+				::
+				475 评论
+				::
+				0 引用
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+
+</div>
+<div id="leftmenu">	
+
+	    <div id="blog-calendar-block" style="display:none"><div id="blog-calendar"></div>
+</div>
+		
+<h3>公告</h3>
+<div class="News">
+	<div id="blog-news"><div id="ad_top_left_pos"></div>
+<div id="ad_top_left">
+
+<ins style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" frameborder="0" height="250" scrolling="no" width="300"></iframe></ins></ins>
+<div class="feed-mail">
+        <h3>欢迎订阅，新分享发布发到您的邮箱！</h3>
+        <form method="post" target="_blank" action="http://list.qq.com/cgi-bin/qf_compose_send">
+          <input value="qf_booked_feedback" name="t" type="hidden">
+          <input value="a8b440c41d6945cf9b0225c5543a26c13cbb21fb2b1f8925" name="id" type="hidden">
+          <input class="feed-mail-input" name="to" value="输入邮箱 订阅本站" onblur="if (this.value == '') {this.value = '输入邮箱 订阅本站';}" onfocus="if (this.value == '输入邮箱 订阅本站') {this.value = '';}" id="to" type="text">
+          <input value="订阅" class="feed-mail-btn" type="submit">
+        </form>
+</div>
+</div>
+<p><font color="red">本博客文章如非注明均属原创，允许转载，请务必添加原文链接</font></p>
+<p>网名:程默</p>
+<p>地址:广东·深圳</p>
+<p>行业:IT(linux,服务器，安全，架构）</p>
+<p>Q　Q:8292669</p>
+<!-- FEED自动发现标记结束 -->
+<a href="http://feed.feedsky.com/chengmo" target="_blank"><img src="1841355_files/icon_sub_c1s16.gif" alt="feedsky" style="margin-bottom: 3px;" border="0" vspace="2"></a>
+<!-- Feedsky FEED发布代码结束 --><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/chengmo/">程默</a><br>园龄：<a href="http://home.cnblogs.com/u/chengmo/" title="入园时间：2010-06-10">3年1个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/chengmo/followers/">93</a><br>关注：<a href="http://home.cnblogs.com/u/chengmo/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger('eee985f0-5b74-df11-ba8f-001cf0cd104b')">+加关注</a></div></div></div>
+</div>
+
+		<div id="blog-sidecolumn">
+
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+
+<div id="widget_my_google" class="div_my_zzk"><input name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk" type="text">&nbsp;<input onclick="google_go()" value="谷歌搜索" class="btn_my_zzk" type="button"></div>
+</div>
+
+
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/chengmo/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_1" href="http://www.cnblogs.com/chengmo/MyComments.html">我的评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_2" title="我发表过评论的随笔" href="http://www.cnblogs.com/chengmo/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/chengmo/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_4" href="http://www.cnblogs.com/chengmo/tag/">我的标签</a></li>
+	
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div>
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/chengmo/tag/linux/">linux</a>(37)</li><li><a href="http://www.cnblogs.com/chengmo/tag/shell/">shell</a>(27)</li><li><a href="http://www.cnblogs.com/chengmo/tag/php/">php</a>(15)</li><li><a href="http://www.cnblogs.com/chengmo/tag/awk/">awk</a>(14)</li><li><a href="http://www.cnblogs.com/chengmo/tag/web%E5%AE%89%E5%85%A8/">web安全</a>(5)</li><li><a href="http://www.cnblogs.com/chengmo/tag/%E5%AD%97%E7%AC%A6%E9%9B%86/">字符集</a>(3)</li><li><a href="http://www.cnblogs.com/chengmo/tag/wordpress/">wordpress</a>(2)</li><li><a href="http://www.cnblogs.com/chengmo/tag/nginx/">nginx</a>(2)</li><li><a href="http://www.cnblogs.com/chengmo/tag/mount/">mount</a>(1)</li><li><a href="http://www.cnblogs.com/chengmo/tag/python/">python</a>(1)</li><li><a href="http://www.cnblogs.com/chengmo/tag/">更多</a></li>
+</ul>
+</div>
+		<h3>随笔分类</h3>
+		
+				<ul>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/chengmo/category/251322.html">linux(36)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/chengmo/category/251320.html">nginx(3)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/chengmo/category/251321.html">php(16)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/chengmo/category/263774.html">python(1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/chengmo/category/251594.html">web前端(1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/chengmo/category/483051.html">心得分享(6)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/chengmo/category/265900.html">字符集(3)</a> </li>
+			
+				</ul>
+			
+	
+		<h3>随笔档案</h3>
+		
+				<ul>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/chengmo/archive/2013/06.html">2013年6月 (4)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/chengmo/archive/2013/05.html">2013年5月 (4)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/chengmo/archive/2013/01.html">2013年1月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/chengmo/archive/2011/02.html">2011年2月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/chengmo/archive/2010/12.html">2010年12月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/chengmo/archive/2010/10.html">2010年10月 (42)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/chengmo/archive/2010/09.html">2010年9月 (3)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/chengmo/archive/2010/07.html">2010年7月 (2)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/chengmo/archive/2010/06.html">2010年6月 (4)</a> </li>
+			
+				</ul>
+			
+	
+		<h3>友情连接</h3>
+		
+				<ul>
+			
+				<li><a id="ctl03_CatList_LinkList_2_Link_0" rel="nofollow" href="http://www.chacuo.net/">查错网</a> <a id="ctl03_CatList_LinkList_2_RssLink_0" href="#" onclick="return open_link('http://ip.chacuo.net/sitemap');">(rss)</a></li>
+			<li class="c_b_p_link_desc">生活查询网</li>
+				</ul>
+			
+	
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		68856
+	</li><li>
+		排名 -
+		1814
+	</li>
+</ul>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html">1. linux shell 字符串操作（长度，查找，替换）详解(56139)</a></li><li><a href="http://www.cnblogs.com/chengmo/archive/2010/10/14/1851434.html">2. linux shell 流程控制（条件if,循环【for,while】,选择【case】语句实例(39837)</a></li><li><a href="http://www.cnblogs.com/chengmo/archive/2010/10/17/1853356.html">3. linux shell 自定义函数(定义、返回值、变量作用域）介绍(25012)</a></li><li><a href="http://www.cnblogs.com/chengmo/archive/2010/10/08/1845913.html">4. linux awk 内置函数详细介绍（实例）(23429)</a></li><li><a href="http://www.cnblogs.com/chengmo/archive/2010/10/17/1853344.html">5. Linux Shell 通配符、元字符、转义符使用实例介绍(22524)</a></li></ul></div>
+</div>
+</div>
+	
+</div>
+<div id="main">
+	
+	
+<div class="post">
+	<div class="postTitle">
+		<a id="cb_post_title_url" href="http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html">linux shell 字符串操作（长度，查找，替换）详解</a>
+	</div>
+	
+	<div class="postText">
+		<div id="cnblogs_post_body"><p>&nbsp;</p> <p>在做shell批处理程序时候，经常会涉及到字符串相关操作。有很多命令语句，如：awk,sed都可以做字符串各种操作。 其实shell内置一系列操作符号，可以达到类似效果，大家知道，使用内部操作符会省略启动外部程序等时间，因此速度会非常的快。 </p> <p><strong></strong>&nbsp;</p> <p><strong>一、判断读取字符串值</strong></p> <blockquote> <table bgcolor="#666666" border="0" cellpadding="4" cellspacing="1" width="476"> <colgroup> <col> <col></colgroup> <thead> <tr> <th bgcolor="#cccccc">表达式</th> <th bgcolor="#cccccc" width="347">含义</th></tr></thead> <tbody> <tr> <td bgcolor="#ffffff">${var}</td> <td bgcolor="#ffffff" width="347">变量var的值, 与$var相同</td></tr> <tr> <td bgcolor="#ffffff">&nbsp;</td> <td bgcolor="#ffffff" width="347">&nbsp;</td></tr> <tr> <td bgcolor="#ffffff">${var-DEFAULT}</td> <td bgcolor="#ffffff" width="347">如果var没有被声明, 那么就以$DEFAULT作为其值 *</td></tr> <tr> <td bgcolor="#ffffff">${var:-DEFAULT}</td> <td bgcolor="#ffffff" width="347">如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *</td></tr> <tr> <td bgcolor="#ffffff">&nbsp;</td> <td bgcolor="#ffffff" width="347">&nbsp;</td></tr> <tr> <td bgcolor="#ffffff">${var=DEFAULT}</td> <td bgcolor="#ffffff" width="347">如果var没有被声明, 那么就以$DEFAULT作为其值 *</td></tr> <tr> <td bgcolor="#ffffff">${var:=DEFAULT}</td> <td bgcolor="#ffffff" width="347">如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *</td></tr> <tr> <td bgcolor="#ffffff">&nbsp;</td> <td bgcolor="#ffffff" width="347">&nbsp;</td></tr> <tr> <td bgcolor="#ffffff">${var+OTHER}</td> <td bgcolor="#ffffff" width="347">如果var声明了, 那么其值就是$OTHER, 否则就为null字符串</td></tr> <tr> <td bgcolor="#ffffff">${var:+OTHER}</td> <td bgcolor="#ffffff" width="347">如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串</td></tr> <tr> <td bgcolor="#ffffff">&nbsp;</td> <td bgcolor="#ffffff" width="347">&nbsp;</td></tr> <tr> <td bgcolor="#ffffff">${var?ERR_MSG}</td> <td bgcolor="#ffffff" width="347">如果var没被声明, 那么就打印$ERR_MSG *</td></tr> <tr> <td bgcolor="#ffffff">${var:?ERR_MSG}</td> <td bgcolor="#ffffff" width="347">如果var没被设置, 那么就打印$ERR_MSG *</td></tr> <tr> <td bgcolor="#ffffff">&nbsp;</td> <td bgcolor="#ffffff" width="347">&nbsp;</td></tr> <tr> <td bgcolor="#ffffff">${!varprefix*}</td> <td bgcolor="#ffffff" width="347">匹配之前所有以varprefix开头进行声明的变量</td></tr> <tr> <td bgcolor="#ffffff">${!varprefix@}</td> <td bgcolor="#ffffff" width="347">匹配之前所有以varprefix开头进行声明的变量</td></tr></tbody></table></blockquote> <p><span style="color: #808000">加入了“*”&nbsp; 不是意思是： 当然, 如果变量var已经被设置的话, 那么其值就是$var.</span> </p> <blockquote> <p>[chengmo@localhost ~]$ echo ${abc-'ok'}<br>ok<br>[chengmo@localhost ~]$ echo $abc </p> <p>[chengmo@localhost ~]$ echo ${abc='ok'}<br>ok<br>[chengmo@localhost ~]$ echo $abc<br>ok </p> <p>&nbsp;</p> <p><span style="color: #0000ff">如果abc 没有声明“=" 还会给abc赋值。</span></p> <p>[chengmo@localhost ~]$ var1=11;var2=12;var3=<br>[chengmo@localhost ~]$ echo ${!v@}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>var1 var2 var3<br>[chengmo@localhost ~]$ echo ${!v*}<br>var1 var2 var3 </p> <p>&nbsp; </p> <p><span style="color: #0000ff">${!varprefix*}与${!varprefix@}相似，可以通过变量名前缀字符，搜索已经定义的变量,无论是否为空值。</span></p></blockquote> <p>&nbsp;</p> <p><strong>二、字符串操作（长度，读取，替换）</strong></p> <blockquote> <table bgcolor="#333333" border="0" cellpadding="4" cellspacing="1" width="462"> <colgroup> <col> <col></colgroup> <thead> <tr> <th bgcolor="#cccccc">表达式</th> <th bgcolor="#cccccc" width="229">含义</th></tr></thead> <tbody> <tr> <td bgcolor="#ffffff">${#string}</td> <td bgcolor="#ffffff" width="229">$string的长度</td></tr> <tr> <td bgcolor="#ffffff">&nbsp;</td> <td bgcolor="#ffffff" width="229">&nbsp;</td></tr> <tr> <td bgcolor="#ffffff">${string:position}</td> <td bgcolor="#ffffff" width="229">在$string中, 从位置$position开始提取子串 </td></tr> <tr> <td bgcolor="#ffffff">${string:position:length}</td> <td bgcolor="#ffffff" width="229">在$string中, 从位置$position开始提取长度为$length的子串 </td></tr> <tr> <td bgcolor="#ffffff">&nbsp;</td> <td bgcolor="#ffffff" width="229">&nbsp;</td></tr> <tr> <td bgcolor="#ffffff">${string#substring}</td> <td bgcolor="#ffffff" width="229">从变量$string的开头, 删除最短匹配$substring的子串 </td></tr> <tr> <td bgcolor="#ffffff">${string##substring}</td> <td bgcolor="#ffffff" width="229">从变量$string的开头, 删除最长匹配$substring的子串 </td></tr> <tr> <td bgcolor="#ffffff">${string%substring}</td> <td bgcolor="#ffffff" width="229">从变量$string的结尾, 删除最短匹配$substring的子串 </td></tr> <tr> <td bgcolor="#ffffff">${string%%substring}</td> <td bgcolor="#ffffff" width="229">从变量$string的结尾, 删除最长匹配$substring的子串 </td></tr> <tr> <td bgcolor="#ffffff">&nbsp;</td> <td bgcolor="#ffffff" width="229">&nbsp;</td></tr> <tr> <td bgcolor="#ffffff">${string/substring/replacement}</td> <td bgcolor="#ffffff" width="229">使用$replacement, 来代替第一个匹配的$substring </td></tr> <tr> <td bgcolor="#ffffff">${string//substring/replacement}</td> <td bgcolor="#ffffff" width="229">使用$replacement, 代替<em>所有</em>匹配的$substring </td></tr> <tr> <td bgcolor="#ffffff">${string/#substring/replacement}</td> <td bgcolor="#ffffff" width="229">如果$string的<em>前缀</em>匹配$substring, 那么就用$replacement来代替匹配到的$substring</td></tr> <tr> <td bgcolor="#ffffff">${string/%substring/replacement}</td> <td bgcolor="#ffffff" width="229">如果$string的<em>后缀</em>匹配$substring, 那么就用$replacement来代替匹配到的$substring</td></tr> <tr> <td bgcolor="#ffffff">&nbsp;</td> <td bgcolor="#ffffff" width="229">&nbsp;</td></tr></tbody></table></blockquote> <p><span style="color: #808000"><strong>说明："*</strong> $substring”可以是一个<em>正则表达式</em>.</span> </p> <p>&nbsp;</p> <blockquote> <p><strong>1.长度</strong></p> <p>[web97@salewell97 ~]$ test='I love china'<br>[web97@salewell97 ~]$ echo ${#test}<br>12 </p> <p>${#变量名}得到字符串长度 </p> <p>&nbsp;</p> <p><span style="color: #000000"><strong>2.截取字串</strong></span></p> <p>[chengmo@localhost ~]$ test='I love china'<br>[chengmo@localhost ~]$ echo ${test:5}&nbsp;&nbsp;&nbsp;&nbsp; <br>e china<br>[chengmo@localhost ~]$ echo ${test:5:10} <br>e china </p> <p>${变量名:起始:长度}得到子字符串 </p> <p>&nbsp; </p> <p><strong>3.字符串删除</strong> </p> <p>[chengmo@localhost ~]$ test='c:/windows/boot.ini'<br>[chengmo@localhost ~]$ echo ${test#/}<br>c:/windows/boot.ini<br>[chengmo@localhost ~]$ echo ${test#*/}<br>windows/boot.ini<br>[chengmo@localhost ~]$ echo ${test##*/}<br>boot.ini </p> <p>[chengmo@localhost ~]$ echo ${test%/*} <br>c:/windows<br>[chengmo@localhost ~]$ echo ${test%%/*} </p> <p>${变量名#substring正则表达式}从字符串开头开始配备substring,删除匹配上的表达式。 </p> <p>${变量名%substring正则表达式}从字符串结尾开始配备substring,删除匹配上的表达式。 </p> <p>注意：${test##*/},${test%/*} 分别是得到文件名，或者目录地址最简单方法。 </p> <p><strong>4.字符串替换</strong> </p> <p>[chengmo@localhost ~]$ test='c:/windows/boot.ini'<br>[chengmo@localhost ~]$ echo ${test/\//\\}<br>c:\windows/boot.ini<br>[chengmo@localhost ~]$ echo ${test//\//\\}<br>c:\windows\boot.ini </p> <p>&nbsp;</p> <p>${变量/查找/替换值} 一个“/”表示替换第一个，”//”表示替换所有,当查找中出现了：”/”请加转义符”\/”表示。</p></blockquote> <p><strong>三、性能比较</strong></p> <blockquote> <p>在shell中，通过awk,sed,expr 等都可以实现，字符串上述操作。下面我们进行性能比较。 </p> <p>[chengmo@localhost
+ ~]$ 
+test='c:/windows/boot.ini'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <br>[chengmo@localhost ~]$ time for i in $(seq 10000);do 
+a=${#test};done;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ </p> <p>real&nbsp;&nbsp;&nbsp; 0m0.173s<br>user&nbsp;&nbsp;&nbsp; 0m0.139s<br>sys&nbsp;&nbsp;&nbsp;&nbsp; 0m0.004s </p> <p>[chengmo@localhost ~]$ time for i in $(seq 10000);do a=$(expr length $test);done;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p> <p>real&nbsp;&nbsp;&nbsp; 0m9.734s<br>user&nbsp;&nbsp;&nbsp; 0m1.628s </p> <p>&nbsp;</p> <p><span style="color: #808000">速度相差上百倍，调用外部命令处理，与内置操作符性能相差非常大。在shell编程中，尽量用内置操作符或者函数完成。使用awk,sed类似会出现这样结果。</span></p></blockquote></div><div id="MySignature"></div>
+<script type="text/javascript">
+var isLogined = false;
+var cb_blogId = 71819;
+var cb_entryId = 1841355;
+var cb_blogApp = currentBlogApp;
+var cb_blogUserGuid = "eee985f0-5b74-df11-ba8f-001cf0cd104b";
+var cb_entryCreatedDate = '2010/10/2 17:08:00';
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</script>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/chengmo/category/251322.html">linux</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/chengmo/tag/linux/">linux</a>, <a href="http://www.cnblogs.com/chengmo/tag/shell/">shell</a></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/%e7%a8%8b%e9%bb%98" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="1841355_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/chengmo/">程默</a><br>
+<a href="http://home.cnblogs.com/u/chengmo/followees">关注 - 0</a><br>
+<a href="http://home.cnblogs.com/u/chengmo/followers">粉丝 - 93</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,'Digg')"> 
+		<span class="diggnum" id="digg_count">6</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/01/1839942.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/chengmo/archive/2010/10/01/1839942.html" title="发布于2010-10-01 16:42">linux shell 逻辑运算符、逻辑表达式详解</a><br><a href="http://www.cnblogs.com/chengmo/archive/2010/10/03/1841753.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/chengmo/archive/2010/10/03/1841753.html" title="发布于2010-10-03 22:16">linux shell awk获得外部变量（变量传值）简介</a><br></div>
+</div>
+<script type="text/javascript">
+    //SyntaxHighlighter.config.strings.expandSource = '<span><img src="http://static.cnblogs.com/images/expand-code.gif" alt="" class="expand-code-icon"/>View Code</span>';
+    $(function () {  
+        loadViewCount(cb_entryId);
+        fixPostBodyFormat();
+        loadAdUnderPost();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);        
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);        
+    });
+</script>
+	</div>
+	
+	<div class="postfoot">
+		posted on <span id="post-date">2010-10-02 17:08</span> <a href="http://www.cnblogs.com/chengmo/">程默</a> 阅读(<span id="post_view_count">56140</span>) 评论(<span id="post_comment_count">1</span>)  <a href="http://www.cnblogs.com/chengmo/admin/EditPosts.aspx?postid=1841355" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(1841355);return false;">收藏</a>
+	</div>
+</div>
+<script src="1841355_files/1841355.js" type="text/javascript"></script>
+
+<div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<a name="comments"></a>
+<br>
+<div id="comments">
+<h3>评论</h3>
+
+
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2399768" class="layer">#1楼</a><a name="2399768" id="comment_anchor_2399768"></a><span id="comment-maxId" style="display:none;">2399768</span><span id="comment-maxDate" style="display:none;">2012/6/13 14:51:46</span>
+					<span>
+						 <span class="comment_date">2012-06-13 14:51</span>
+					</span>
+				<a id="a_comment_author_2399768" href="http://www.cnblogs.com/diyunpeng/" target="_blank">规格严格-功夫到家</a> <a href="http://space.cnblogs.com/msg/send/%e8%a7%84%e6%a0%bc%e4%b8%a5%e6%a0%bc-%e5%8a%9f%e5%a4%ab%e5%88%b0%e5%ae%b6" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="postText">
+				<div id="comment_body_2399768" class="blog_comment_body">做个标记，以后常来看看。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2399768,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2399768,'Bury',this)">反对(0)</a></div>
+			</div>
+            <div class="commentOpt">
+			&nbsp;&nbsp;<span class="comment_actions"></span>
+            </div>
+		</div>
+		<br>
+	
+</div><div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+
+<script type="text/javascript">
+    if (typeof commentManager === 'undefined') {
+        commentManager = new blogCommentManager();
+    }
+    commentManager.loadCommentForm();   
+</script>
+
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="ad_under_post_holder">
+<div id="google_ad_c1" class="c_ad_block">
+    <!-- cnblogs_blogpost_C1_sitehome -->
+    <div id="div-gpt-ad-1346480159711-0" style="width: 300px; height: 250px;">
+    
+    <iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" frameborder="0" height="250" scrolling="no" width="300"></iframe><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom; visibility: hidden; display: none;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" frameborder="0" height="0" scrolling="no" width="0"></iframe></div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/182539/" target="_blank">为山寨经济说句表扬话：它也是创新的功臣</a><br> ·  <a href="http://news.cnblogs.com/n/182538/" target="_blank">一位女孩在富士康的100天：扎实受苦的日子</a><br> ·  <a href="http://news.cnblogs.com/n/182537/" target="_blank">谷歌Google Play网页版更新或将支持谷歌眼镜</a><br> ·  <a href="http://news.cnblogs.com/n/182536/" target="_blank">评论：比尔·盖茨最怕“你”</a><br> ·  <a href="http://news.cnblogs.com/n/182535/" target="_blank">举报拘留！盛大核心业务成前员工创业雷区</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/182488/" target="_blank">分布式数据库概述</a><br> ·  <a href="http://kb.cnblogs.com/page/141892/" target="_blank">阿里巴巴集团去IOE运动的思考与总结</a><br> ·  <a href="http://kb.cnblogs.com/page/182265/" target="_blank">硅谷归来7点分享：创业者，做你自己</a><br> ·  <a href="http://kb.cnblogs.com/page/182200/" target="_blank">我为什么不能坚持？</a><br> ·  <a href="http://kb.cnblogs.com/page/168725/" target="_blank">成为高效程序员的7个重要习惯</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="google_ad_c2" class="c_ad_block">
+    <!-- cnblogs_blogpost_C2_sitehome -->
+    <div id="div-gpt-ad-1346479110744-1" style="width: 468px; height: 60px;">
+    
+    <iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" id="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" frameborder="0" height="60" scrolling="no" width="468"></iframe></div>
+</div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+</div>
+
+
+
+
+
+</div>
+<div class="footer">
+
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © 程默
+</p>
+</div>
+<!--PageEndHtml Block Begin-->
+<script language="javascript" type="text/javascript" src="1841355_files/4193882.js" defer="defer"></script>
+<noscript><a href="http://www.51.la/?4193882" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/4193882.asp" style="border:none" /></a></noscript>
+<!-- Baidu Button BEGIN -->
+<script src="1841355_files/bds_s_v2.js" type="text/javascript" id="bdshare_js" data="type=slide&amp;img=6&amp;pos=right&amp;uid=793970"></script>
+
+<script type="text/javascript">
+var bds_config={"bdTop":201};
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+<!-- Baidu Button END -->
+<!--PageEndHtml Block End-->
+<script type="text/javascript" src="1841355_files/google-analytics.js"></script>
+
+
+</body></html>

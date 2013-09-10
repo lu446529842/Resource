@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>shell中if做比较 - 生活费 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="2229286_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="2229286_files/style.css">
+<link type="text/css" rel="stylesheet" href="2229286_files/common2.css">
+<link type="text/css" rel="stylesheet" href="2229286_files/shStyle.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/276815076/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/276815076/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/276815076/wlwmanifest.xml">
+<script src="2229286_files/gpt.js" type="text/javascript" async=""></script><script src="2229286_files/ga.js" async="" type="text/javascript"></script><script src="2229286_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">
+var currentBlogApp = '276815076';
+</script>
+<script src="2229286_files/common.js" type="text/javascript"></script> 
+<script src="2229286_files/json2.js" type="text/javascript"></script>
+<script type="text/javascript" src="2229286_files/syntaxHighlighter.js"></script>
+<script src="2229286_files/google_ads_gpt.js" type="text/javascript" async=""></script><script src="2229286_files/osd.js" type="text/javascript"></script></head>
+<body>
+<a name="top"></a>
+
+<div id="header">
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/276815076/">求知</a></h1>
+<p id="tagline"></p></div>
+<div id="main">
+	
+	
+	<div class="post">
+		<h2>
+			<a id="cb_post_title_url" href="http://www.cnblogs.com/276815076/archive/2011/10/30/2229286.html">shell中if做比较</a>
+		</h2>
+		<div class="postText"><div id="cnblogs_post_body"><p>比较两个字符串是否相等的办法是：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;if [ "$test"x = "test"x ]; then</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;这里的关键有几点：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;1 使用单个等号</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;2 注意到等号两边各有一个空格：这是unix shell的要求</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;3 
+注意到"$test"x最后的x，这是特意安排的，因为当$test为空的时候，上面的表达式就变成了x = 
+testx，显然是不相等的。而如果没有这个x，表达式就会报错：[: =: unary operator expected</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;二元比较操作符,比较变量或者比较数字.注意数字与字符串的区别.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;整数比较</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;-eq 等于,如:if [ "$a" -eq "$b" ]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;-ne 不等于,如:if [ "$a" -ne "$b" ]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;-gt 大于,如:if [ "$a" -gt "$b" ]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;-ge 大于等于,如:if [ "$a" -ge "$b" ]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;-lt 小于,如:if [ "$a" -lt "$b" ]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;-le 小于等于,如:if [ "$a" -le "$b" ]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 大于(需要双括号),如:(("$a" &gt; "$b"))</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&gt;= 大于等于(需要双括号),如:(("$a" &gt;= "$b"))</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;小数据比较可使用AWK</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;字符串比较</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;= 等于,如:if [ "$a" = "$b" ]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;== 等于,如:if [ "$a" == "$b" ],与=等价</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 注意:==的功能在[[]]和[]中的行为是不同的,如下:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 1 [[ $a == z* ]] # 如果$a以"z"开头(模式匹配)那么将为true</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 2 [[ $a == "z*" ]] # 如果$a等于z*(字符匹配),那么结果为true</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 3</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 4 [ $a == z* ] # File globbing 和word splitting将会发生</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 5 [ "$a" == "z*" ] # 如果$a等于z*(字符匹配),那么结果为true</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 一点解释,关于File globbing是一种关于文件的速记法,比如"*.c"就是,再如~也是.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 但是file globbing并不是严格的正则表达式,虽然绝大多数情况下结构比较像.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;!= 不等于,如:if [ "$a" != "$b" ]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 这个操作符将在[[]]结构中使用模式匹配.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 大于,在ASCII字母顺序下.如:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; if [[ "$a" &gt; "$b" ]]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; if [ "$a" \&gt; "$b" ]</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 注意:在[]结构中"&gt;"需要被转义.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 具体参考Example 26-11来查看这个操作符应用的例子.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;-z 字符串为"null".就是长度为0.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;-n 字符串不为"null"</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #ff0000;">注意: </span></p>
+<p><span style="color: #ff0000;">&nbsp;&nbsp;&nbsp;&nbsp;       使用-n在[]结构中测试必须要用""把变量引起来.使用一个未被""的字符串来使用! -z </span></p>
+<p><span style="color: #ff0000;">&nbsp;&nbsp;&nbsp;&nbsp;       或者就是未用""引用的字符串本身,放到[]结构中。虽然一般情况下可 </span></p>
+<p><span style="color: #ff0000;">&nbsp;&nbsp;&nbsp;&nbsp;       以工作,但这是不安全的.习惯于使用""来测试字符串是一种好习惯.</span></p>
+<p><span style="color: #ff0000;">if判断式<br>if [ 条件判断一 ] &amp;&amp; (||) [ 条件判断二 ]; then<br>elif [ 条件判断三 ] &amp;&amp; (||) [ 条件判断四 ]; then<br>else<br> &nbsp; &nbsp;执行第三段內容程式<br>fi </span></p>
+<p><span style="color: #ff0000;">例如：</span></p>
+<p>&nbsp;</p>
+<pre class="reply-text mb10">root@Bizbox:~# a=0
+root@Bizbox:~# b=0
+root@Bizbox:~# c=5         
+root@Bizbox:~# if [ $a = 0 -a $b = 0 ]&amp;&amp;[ $c != 0 ]; then
+&gt; echo success
+&gt; fi
+success</pre>
+<p><span style="color: #ff0000;">if 使用的表达式</span></p>
+<div>Primary 意义<br>[ -a 文件 ] 如果文件存在为真。<br>[ -b 文件 ] 如果 文件 存在 而且 是一个 块-特殊 文件为真。<br>[ -c 文件 ] 为真 如果 文件 存在 而且 是一个 字-特殊 文件。</div>
+<p>&nbsp;</p>
+<div>[ -d 文件 ] 为真 如果 文件 存在 而且 是一个 目录。<br>[ -e 文件 ] 为真 如果 文件 存在。<br>[ -f 文件 ] 为真 如果 文件 存在 而且 是一个 普通 文件。<br>[ -g 文件 ] 为真 如果 文件 存在 而且 已经设置了他的 SGID 位。<br>[ -h 文件 ] 为真 如果 文件 存在 而且 是一个 符号连接。<br>[ -k 文件 ] 为真 如果 文件 存在 而且 他的粘住位已经设置。<br>[ -p 文件 ] 为真 如果 文件 存在 而且 是一个 已经命名的管道 (F 如果O)。<br>[ -r 文件 ] 为真 如果 文件 存在 而且 是可读的。<br>[ -s 文件 ] 为真 如果 文件 存在 而且 比零字节大。<br>[ -t FD ] 为真 如果 文件 文件描述符已经打开 而且 指向一个终端。<br>[ -u 文件 ] 为真 如果 文件 存在 而且 已经设置了他的 SUID (set user ID)位。<br>[ -w 文件 ] 为真 如果 文件 为真 如果 文件 存在 而且 是可写的。<br>[ -x 文件 ] 为真 如果 文件 存在 而且 是可执行的。<br>[ -O 文件 ] 为真 如果 文件 存在 而且 属于有效用户ID。<br>[ -G 文件 ] 为真 如果 文件 存在 而且 属于有效组ID。<br>[ -L 文件 ] 为真 如果 文件 存在 而且 是一个 符号连接。<br>[ -N 文件 ] 为真 如果 文件 存在 而且 has been mod 如果ied since it was last read。<br>[ -S 文件 ] 为真 如果 文件 存在 而且 是一个 socket。<br>[ 文件1 -nt 文件2 ] 为真 如果 文件1 has been changed more recently than 文件2, or 如果<br>文件1 存在 而且<br>文件2 does not。<br>[ 文件1 -ot 文件2 ] 为真 如果 文件1 比 文件2 旧, 或者 文件2 存在而且 文件1 不存在。<br>[ 文件1 -ef 文件2 ] 为真 如果 文件1 而且 文件2 refer to the same device 而且 inode<br>numbers。<br>[ -o 选项名 ] 为真 如果 shell 选项 "选项名" 开启。<br>[ -z STRING ] 为真 如果 "STRING"的长度是零。<br>[ -n STRING ] 或者 [ STRING ] 为真 "STRING"的长度是非零值。<br>[ STRING1 == STRING2 ] 如果两个字符串相等为真。 "=" may be used instead of "==" for<br>strict POSIX compliance。<br>[ STRING1 != STRING2 ] 为真 如果 两两个字符串不相等。<br>[ STRING1 &lt; STRING2 ] 为真 如果 "STRING1" sorts before "STRING2" lexicographically in the<br>current locale。<br>[ STRING1 &gt; STRING2 ] 为真 如果 "STRING1" sorts after "STRING2" lexicographically in the<br>current locale。<br>[ ARG1 OP ARG2 ]<br>"OP" 是 -eq, -ne, -lt, -le, -gt or -ge 其中一个。 These arithmetic binary operators<br>return 为真 如果 "ARG1" is equal to, not equal to, less than, less than or equal to, greater<br>than, or greater than or equal to "ARG2", respectively。 "ARG1" 而且 "ARG2" are<br>integers。<br>表达式可以借以下操作符组合起来, listed in decreasing order of precedence:<br>操作符效果<br>[ ! EXPR ] 如果EXPR 为假则为真。<br>[ ( EXPR ) ] 返回EXPR 的值。 这样可以用来忽略正常的操作符优先级。</div>
+<p>&nbsp;</p>
+<div>[ 表达式1 -a 表达式2 ] 如果表达式1 而且表达式2 同时为真则为真 。<br>[ 表达式1 -o 表达式2 ] 如果表达式1 或者表达式2 其中之一为真则为真。</div></div><div id="MySignature"></div>
+<script type="text/javascript">
+var isLogined = false;
+var cb_blogId = 71561;
+var cb_entryId = 2229286;
+var cb_blogApp = currentBlogApp;
+var cb_blogUserGuid = "132c5bbe-956c-df11-ba8f-001cf0cd104b";
+var cb_entryCreatedDate = '2011/10/30 14:45:00';
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</script>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/%e7%94%9f%e6%b4%bb%e8%b4%b9" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="2229286_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/276815076/" target="_blank"><img src="2229286_files/u136833.jpg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/276815076/">生活费</a><br>
+<a href="http://home.cnblogs.com/u/276815076/followees">关注 - 4</a><br>
+<a href="http://home.cnblogs.com/u/276815076/followers">粉丝 - 3</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,'Digg')"> 
+		<span class="diggnum" id="digg_count">0</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/276815076/archive/2011/10/25/2223554.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/276815076/archive/2011/10/25/2223554.html" title="发布于2011-10-25 11:03">linux ulimit调优</a><br><a href="http://www.cnblogs.com/276815076/archive/2011/11/30/2268870.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/276815076/archive/2011/11/30/2268870.html" title="发布于2011-11-30 11:47">python基础</a><br></div>
+</div>
+<script type="text/javascript">
+    //SyntaxHighlighter.config.strings.expandSource = '<span><img src="http://static.cnblogs.com/images/expand-code.gif" alt="" class="expand-code-icon"/>View Code</span>';
+    $(function () {  
+        loadViewCount(cb_entryId);
+        fixPostBodyFormat();
+        loadAdUnderPost();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);        
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);        
+    });
+</script></div>
+		<p class="postfoot">
+			posted on <span id="post-date">2011-10-30 14:45</span> <a href="http://www.cnblogs.com/276815076/">生活费</a> 阅读(<span id="post_view_count">36278</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://www.cnblogs.com/276815076/admin/EditPosts.aspx?postid=2229286" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2229286);return false;">收藏</a>
+		</p>
+	</div>
+	<script src="2229286_files/2229286.js" type="text/javascript"></script>
+	
+	<div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+
+<script type="text/javascript">
+    if (typeof commentManager === 'undefined') {
+        commentManager = new blogCommentManager();
+    }
+    commentManager.loadCommentForm();   
+</script>
+
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="ad_under_post_holder">
+<div id="google_ad_c1" class="c_ad_block">
+    <!-- cnblogs_blogpost_C1_sitehome -->
+    <div id="div-gpt-ad-1346480159711-0" style="width: 300px; height: 250px;">
+    
+    <iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" frameborder="0" height="250" scrolling="no" width="300"></iframe><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom; visibility: hidden; display: none;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" frameborder="0" height="0" scrolling="no" width="0"></iframe></div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/182068/" target="_blank">陆兆禧：阿里巴巴上市融资将用作并购</a><br> ·  <a href="http://news.cnblogs.com/n/182067/" target="_blank">类Pinterest游戏社区Pong：将自主开发街机</a><br> ·  <a href="http://news.cnblogs.com/n/182066/" target="_blank">Xbox 360“秋耕”开放公开测试，向 Xbox One 看齐</a><br> ·  <a href="http://news.cnblogs.com/n/182065/" target="_blank">“机遇”号：10周岁快乐！</a><br> ·  <a href="http://news.cnblogs.com/n/182064/" target="_blank">给苹果几个造“廉价”iPhone 的理由</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/182047/" target="_blank">谈谈对BPM的理解</a><br> ·  <a href="http://kb.cnblogs.com/page/175976/" target="_blank">编程从业五年的十四条经验，句句朴实</a><br> ·  <a href="http://kb.cnblogs.com/page/173038/" target="_blank">几种经典的网络服务器架构模型的分析与比较</a><br> ·  <a href="http://kb.cnblogs.com/page/173241/" target="_blank">学徒程序员</a><br> ·  <a href="http://kb.cnblogs.com/page/181719/" target="_blank">云计算服务模型，第 3 部分: 软件即服务(PaaS)</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="google_ad_c2" class="c_ad_block">
+    <!-- cnblogs_blogpost_C2_sitehome -->
+    <div id="div-gpt-ad-1346479110744-1" style="width: 468px; height: 60px;">
+    
+    <iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" id="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" frameborder="0" height="60" scrolling="no" width="468"></iframe></div>
+</div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+</div>
+
+
+
+
+
+</div>
+<div id="rightmenu">
+	
+		
+<h3>导航</h3>
+<ul>
+<li><a id="MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="MyLinks1_MyHomeLink" href="http://www.cnblogs.com/276815076/">首页</a></li>
+<li><a id="MyLinks1_NewPostLink" rel="nofollow" href="http://www.cnblogs.com/276815076/admin/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://space.cnblogs.com/msg/send/%e7%94%9f%e6%b4%bb%e8%b4%b9">联系</a></li>
+<li><a id="MyLinks1_Syndication" href="http://www.cnblogs.com/276815076/rss">订阅</a><a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/276815076/rss"><img src="2229286_files/xml.gif" alt="订阅"></a></li>
+<li><a id="MyLinks1_Admin" rel="nofollow" href="http://www.cnblogs.com/276815076/admin/EditPosts.aspx">管理</a></li>
+</ul>
+		
+<h3>公告</h3>
+<div class="newsItem">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/276815076/">生活费</a><br>园龄：<a href="http://home.cnblogs.com/u/276815076/" title="入园时间：2010-05-31">3年1个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/276815076/followers/">3</a><br>关注：<a href="http://home.cnblogs.com/u/276815076/followees/">4</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger('132c5bbe-956c-df11-ba8f-001cf0cd104b')">+加关注</a></div></div></div>
+</div>					
+		<div id="blog-calendar-block" style=""><div id="blog-calendar"><table id="blogCalendar" class="Cal" title="日历" cellpadding="0" cellspacing="0">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar('2011/09/01');return false;">&lt;</a></td><td align="center">2011年10月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar('2011/11/01');return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" abbr="日" scope="col" align="center">日</th><th class="CalDayHeader" abbr="一" scope="col" align="center">一</th><th class="CalDayHeader" abbr="二" scope="col" align="center">二</th><th class="CalDayHeader" abbr="三" scope="col" align="center">三</th><th class="CalDayHeader" abbr="四" scope="col" align="center">四</th><th class="CalDayHeader" abbr="五" scope="col" align="center">五</th><th class="CalDayHeader" abbr="六" scope="col" align="center">六</th></tr><tr><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalWeekendDay" align="center">1</td></tr><tr><td class="CalWeekendDay" align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td class="CalWeekendDay" align="center">8</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/276815076/archive/2011/10/09.html"><u>9</u></a></td><td align="center"><a href="http://www.cnblogs.com/276815076/archive/2011/10/10.html"><u>10</u></a></td><td align="center"><a href="http://www.cnblogs.com/276815076/archive/2011/10/11.html"><u>11</u></a></td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td class="CalWeekendDay" align="center">15</td></tr><tr><td class="CalWeekendDay" align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td class="CalWeekendDay" align="center">22</td></tr><tr><td class="CalWeekendDay" align="center">23</td><td align="center">24</td><td align="center"><a href="http://www.cnblogs.com/276815076/archive/2011/10/25.html"><u>25</u></a></td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td class="CalWeekendDay" align="center">29</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/276815076/archive/2011/10/30.html"><u>30</u></a></td><td align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td></tr>
+</tbody></table></div>
+</div>
+		
+<h3>统计</h3>
+<ul>
+	<li>随笔 - 64</li>
+	<li>文章 - 0</li>
+	<li>评论 - 1</li>
+	<li>引用 - 0</li>
+ </ul>
+		<div id="blog-sidecolumn">
+
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk" type="text">&nbsp;<input onclick="zzk_go()" value="找找看" id="btnZzk" class="btn_my_zzk" type="button"></div>
+<div id="widget_my_google" class="div_my_zzk"><input name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk" type="text">&nbsp;<input onclick="google_go()" value="谷歌搜索" class="btn_my_zzk" type="button"></div>
+</div>
+
+
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/276815076/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_1" href="http://www.cnblogs.com/276815076/MyComments.html">我的评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_2" title="我发表过评论的随笔" href="http://www.cnblogs.com/276815076/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/276815076/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_4" href="http://www.cnblogs.com/276815076/tag/">我的标签</a></li>
+	
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div>
+		<h3>随笔档案</h3>
+		
+				<ul>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/276815076/archive/2013/04.html">2013年4月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/276815076/archive/2013/03.html">2013年3月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/276815076/archive/2012/10.html">2012年10月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/276815076/archive/2012/07.html">2012年7月 (3)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/276815076/archive/2012/06.html">2012年6月 (3)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/276815076/archive/2012/05.html">2012年5月 (3)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/276815076/archive/2012/04.html">2012年4月 (2)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/276815076/archive/2012/03.html">2012年3月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/276815076/archive/2012/01.html">2012年1月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/276815076/archive/2011/12.html">2011年12月 (6)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/276815076/archive/2011/11.html">2011年11月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/276815076/archive/2011/10.html">2011年10月 (8)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/276815076/archive/2011/09.html">2011年9月 (4)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/276815076/archive/2011/08.html">2011年8月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/276815076/archive/2011/05.html">2011年5月 (8)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/276815076/archive/2011/01.html">2011年1月 (1)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/276815076/archive/2010/11.html">2010年11月 (2)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/276815076/archive/2010/10.html">2010年10月 (6)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/276815076/archive/2010/09.html">2010年9月 (7)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/276815076/archive/2010/08.html">2010年8月 (2)</a> </li>
+			
+				<li><a id="ctl03_CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/276815076/archive/2010/07.html">2010年7月 (2)</a> </li>
+			
+				</ul>
+			
+	
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+</ul>
+</div>
+</div>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/276815076/archive/2011/10/30/2229286.html">1. shell中if做比较(36277)</a></li><li><a href="http://www.cnblogs.com/276815076/archive/2010/09/09/1822598.html">2. ubuntu下配置vim(8202)</a></li><li><a href="http://www.cnblogs.com/276815076/archive/2011/05/11/2043367.html">3. Linux的shell中echo改变输出显示样式(7180)</a></li><li><a href="http://www.cnblogs.com/276815076/archive/2011/09/22/2184804.html">4. Linux下rz，sz与ssh的配合使用(6964)</a></li><li><a href="http://www.cnblogs.com/276815076/archive/2011/12/05/2276625.html">5. awk用法小结(5864)</a></li></ul></div>
+</div>
+
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/276815076/archive/2010/09/21/1832367.html">1. ubuntu安装配置指南(1)</a></li><li><a href="http://www.cnblogs.com/276815076/archive/2010/09/09/1822598.html">2. ubuntu下配置vim(0)</a></li><li><a href="http://www.cnblogs.com/276815076/archive/2010/09/01/1814975.html">3. 双向循环链表的简单操作(0)</a></li><li><a href="http://www.cnblogs.com/276815076/archive/2010/09/01/1814411.html">4. socket网络编程常用的结构及函数小结(0)</a></li><li><a href="http://www.cnblogs.com/276815076/archive/2010/09/01/1814409.html">5. c++常用知识小结(0)</a></li></ul></div>
+</div>
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/276815076/archive/2010/09/09/1822598.html">1. ubuntu下配置vim(3)</a></li><li><a href="http://www.cnblogs.com/276815076/archive/2010/11/28/1890481.html">2. linux下库浅析(2)</a></li><li><a href="http://www.cnblogs.com/276815076/archive/2010/11/15/1878011.html">3. linux 下函数库的创建(1)</a></li><li><a href="http://www.cnblogs.com/276815076/archive/2011/12/05/2276625.html">4. awk用法小结(1)</a></li><li><a href="http://www.cnblogs.com/276815076/archive/2011/10/09/2204124.html">5. Shell之Fork炸弹(1)</a></li></ul></div>
+</div></div>
+		
+<div id="footer">
+	Powered by: 
+	<br>
+	<a id="Footer1_Hyperlink3" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © 生活费
+</div>
+	
+</div>			
+			
+	
+
+<script type="text/javascript" src="2229286_files/google-analytics.js"></script>
+
+
+</body></html>

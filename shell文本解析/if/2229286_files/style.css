@@ -1,0 +1,344 @@
+body {
+	font-size : 0.9em;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	margin : 0px;
+	word-wrap:  break-word;
+}
+
+a:visited,
+a:active,
+a:link {
+	color : #06A;
+	text-decoration : none;
+}
+
+a:hover {
+	text-decoration : underline;
+}
+
+table
+{
+	
+}
+
+h1 {
+	margin : 0px;
+	font-size : 1.5em;	
+	background-color : #ADF;
+	padding-top : 1em;
+	padding-left : 5px;
+	padding-bottom : 5px;
+	background: #F9F9F9  no-repeat 10px .5em;
+	/*background-color : #ADF;*/
+	color: #000000;
+	padding-left: 100px;
+	height: 20px;
+	border-bottom: 1px dotted Black;
+	margin : 0px;
+	padding-bottom: 30px;
+	font-family: "Courier New", Verdana, monospace;
+}
+
+h1 a:hover {
+	text-decoration : none;
+}
+
+h2 {
+	margin-top : 10px;
+	font-size : 1em;
+}
+
+h5 
+{
+	margin: 0px;
+	padding: 0px;
+	font-size : 0.9em;
+}
+
+#tagline {	
+	position : absolute;
+	top : 5px;
+	right : 5px;
+	margin : 0px;
+	margin-left : 5px;
+	color : #06A;
+	font-size : 0.9em;
+	color: Gray;
+	font-size: 10pt;
+	position : absolute;
+	top : 25px;
+	right : 35px;
+	margin : 0px;
+	margin-left : 0px;
+	font-family: "Courier New", Verdana, monospace;
+}
+
+p.date img {
+	vertical-align : middle;
+}
+
+p.date
+{
+	padding-top: 2px;
+	border-bottom: #aaa 1px solid;
+	border-bottom: 1px dotted #D6D6D6;
+	color: #000000;
+	font-size: 10pt;
+	font-weight: bold;
+	padding: 0px 0px 0px 0px;
+	padding-right: 0px;
+	padding-left: 0px;
+	font-weight: bold;
+	font-size: 1em;
+	padding-bottom: 2px;
+	margin: 10px 10px 0px 50px;
+	padding-top: 2px;
+	border-bottom: #aaa 1px solid;
+}
+
+blockquote {
+	
+}
+
+p.postfoot {
+	font-size : 12px;
+}
+
+#main 
+{
+	position: absolute;
+	margin-top: 0px;
+	background-color: #FFFFFF;
+	border-right: 1px dotted #000000;
+	padding-top: 20px;
+	margin-bottom: 10px;
+	padding-bottom: 40px;
+	font-size: 10pt;	
+	right:330px;
+	left:10px;
+}
+
+#rightmenu 
+{
+    padding-left: 5px;
+	padding-bottom : 20px;
+	padding-right : 5px;
+	margin-left:0px;
+	margin-top: 10px;
+	background-color: transparent;
+	position: absolute;
+	font-size: 9pt;
+	width:300px;
+	right:5px;
+}
+
+#rightmenu h3 {
+	
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px dotted #D6D6D6;
+	color: #000000;
+	font-size: 10pt;
+	margin: 10px 0px 0px 0px;
+	padding: 2px 5px;
+}
+
+#rightmenu ul {
+	list-style : none;
+	margin : 0px;
+	padding : 5px;	
+	border : 0px solid #69A;
+}
+
+#rightmenu li {
+	 padding-bottom:3px;
+}
+
+#footer {
+	border-top : 0px solid #7AC;
+	padding-top : 5px;
+	text-align : center;
+	font-size : 0.7em;
+}
+input.text {
+	width : 300px;	
+}
+
+#comments h4 span {
+	color : #999;
+}
+
+#comments h4 {
+	margin : 0px;
+	font-size : 0.9em;
+}
+
+p {
+	margin : 0px 0px;
+}
+
+h3 {
+	font-size : 1.2em;
+	border-bottom : 1px solid #AAA;
+}
+
+h3 {
+	font-size: 10pt;
+	border-bottom: 1px dotted #D6D6D6;
+	color: #000000;
+	background-color: transparent;
+}
+
+#relatedlinks ul {
+	list-style : none;
+	margin-left : 10px;
+	padding : 0px;
+}
+
+.Cal
+{
+	border : 1px dotted #D6D6D6;
+	width:200px;
+	font-family:Arial;
+	font-size: 12px;
+	margin-top:10px;
+	height:150px;
+	 	
+}
+
+.CalTitle
+{
+	background-color :#FFF;
+	border-color:#ADF;
+	font-family:Arial;
+	font-size: 13px;
+	color : #06A;	
+	border-bottom: 1px dotted #D6D6D6;
+	margin-left : 0px;
+	padding : 0px;
+	height:100%;
+}
+
+.CalOtherMonthDay
+{
+	color:#808080;
+	
+}
+
+.CalSelector
+{
+	
+}
+
+.CalNextPrev
+{
+	
+}
+
+.CalDayHeader
+{
+	padding-top:2px;
+}
+
+.CalSelectedDay
+{
+	
+}
+
+.CalWeekendDay
+{
+	
+}
+.CalTodayDay
+{
+	color : red;
+}
+
+#headr
+{
+     height: 50px;
+}
+
+.post {
+	padding-left: 70px;
+	padding-right: 40px;
+	font-size: 10pt;
+	line-height:150%;
+}
+
+.postTitle {
+	border-bottom: 1px dotted #D6D6D6;
+	color: #000000;
+	font-size: 10pt;
+	font-weight: bold;
+	margin : 10px 0px;
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+.postText {
+	font-size: 10pt;
+	line-height:1.8;
+}
+
+.postFoot,p.postFoot
+{
+	margin : 10px 0px;
+	border-bottom: 1px dotted #D6D6D6;
+	color : #999;
+	text-align: right;
+	font-size: 9pt;
+}
+
+#comments {
+	color: #666;
+	padding-left: 70px;
+	padding-right: 40px;
+	font-size: 10pt;
+}
+
+div.commentform {
+	color: #888;
+	padding-left: 70px;
+	padding-right: 40px;
+	font-size: 10pt;
+}
+
+#relatedlinks ul {
+	list-style: none;
+	margin-left: 10px;
+	padding: 0px;
+}
+
+h1 a:visited,
+h1 a:active,
+h1 a:link {
+	color: #000000;
+	font-size: 13pt;
+	text-decoration: none;
+}
+
+h1 a:hover {
+	color: Silver;
+	text-decoration: none;
+}
+
+#blogtopad
+{
+    position:absolute;
+    top:5px;
+    left:240px; 
+    float:left;
+}
+
+span
+{
+	line-height: 150%;
+}
+
+img
+{
+	border:0px;
+}
+
+.blog_comment_body{margin-bottom:10px;}

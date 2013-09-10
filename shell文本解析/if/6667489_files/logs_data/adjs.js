@@ -1,0 +1,5 @@
+var phpadsbanner = '';
+
+phpadsbanner += '<'+'object classid=\'clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\' codebase=\'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0\' width=\'960\' height=\'90\'><'+'param name=\'movie\' value=\'http://events.csdn.net/ibm-ca-q3-mianfei-v3500-server-960-90-0709.swf\'><'+'param name=\'quality\' value=\'high\'><'+'embed src=\'http://events.csdn.net/ibm-ca-q3-mianfei-v3500-server-960-90-0709.swf\' quality=high width=\'960\' height=\'90\' type=\'application/x-shockwave-flash\' pluginspace=\'http://www.macromedia.com/go/getflashplayer\'><'+'/embed><'+'/object><'+'div id="beacon_7355" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><'+'img src=\'http://z.csdn.net/gmlog.php?bannerid=7355&amp;clientid=2733&amp;zf=&amp;zoneid=457&amp;source=&amp;block=0&amp;capping=0&amp;cb=0730cb2c28b2bdf6be2e4e99c927b853\' width=\'0\' height=\'0\' alt=\'\' style=\'width: 0px; height: 0px;\'><'+'/div>';
+
+document.write(phpadsbanner);

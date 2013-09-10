@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Openstack存储swift多代理节点安装配置 | Nemo</title>
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta name="format-detection" content="telephone=no"> 
+<link rel="stylesheet" href="1050_files/style.css" type="text/css" media="all">
+<link rel="pingback" href="http://www.nemosky.com/xmlrpc.php">
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0 - All Posts" href="http://www.nemosky.com/feed">
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0 - All Comments" href="http://www.nemosky.com/comments/feed">
+<link rel="Shortcut Icon" href="http://www.nemosky.com/wp-content/themes/Minimize/images/favicon.ico" type="image/x-icon">
+<script type="text/javascript" src="1050_files/jquery.js"></script>
+<!--[if lt IE 9]>
+    <script src="http://www.nemosky.com/wp-content/themes/Minimize/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+<script type="text/javascript" src="1050_files/comment-reply.js"></script>
+<link rel="prev" title="笔友" href="http://www.nemosky.com/life/1047.html">
+<link rel="next" title="用Nginx负载均衡Openstack对象存储swift" href="http://www.nemosky.com/job/1051.html">
+<link rel="canonical" href="http://www.nemosky.com/job/1050.html">
+<link rel="shortlink" href="http://www.nemosky.com/?p=1050">
+<meta name="description" content="Openstack存储swift多代理节点安装配置  Openstack的存储多代理的架构国内比较有名就是新浪SAE部署的Swift集群  本文参考Openstack官网openstack-install-guide-essex-ubuntu.pdf和os-compute-starterguide-essex.pdf文档，文档汉化版本貌似还没有，如需下载请移步Openstack官网  回归正题，以下是配置过程简单步骤  一、当前配置环境..">
+<link rel="stylesheet" href="1050_files/jquery.css" type="text/css" media="screen">
+<script type="text/javascript" src="1050_files/comments-ajax.js"></script>
+
+</head>
+<body class="single single-post postid-1050 single-format-standard">
+
+<div id="wrap">
+<div id="searchbox"><form role="search" onsubmit="return q.value!=''" method="GET" name="gs" action="/google">
+		<div class="search-container"><div class="search-inner clearfix">
+		<input class="google-input" placeholder="输入搜索内容并回车" name="q" type="text"><button class="google-submit" value="" type="submit" name="submit">
+<span class="sbico">Google</span>
+</button></div></div></form></div>
+<header>  
+
+  
+    <h1><a href="http://www.nemosky.com/" title="Nemo" class="logo">
+      Nemo      </a></h1>
+	   <div class="showsearch" title="Google自定义搜索"></div>
+          <a href="http://www.nemosky.com/feed" class="rss" target="_blank"></a>
+          <a href="http://user.qzone.qq.com/55882583/infocenter" class="durex" title="QQ空间" target="_blank"></a>
+          <a href="http://weibo.com/zhang0418" class="sina" title="新浪微博" target="_blank"></a>
+          <a href="http://t.qq.com/naveen_zhang" class="googleplus" title="腾讯微博" target="_blank"></a>
+          <a href="https://github.com/naveenzhang/" class="github" title="github" target="_blank"></a>
+ 
+ </header>
+
+<article>
+  <div id="floater">
+  <div id="up"></div>
+  <div id="go2comment"></div>
+  <div id="down"></div>
+  </div>
+  <div id="single-content">  
+       
+      
+	  <article id="1050" class="post-home" itemtype="http://schema.org/Article" itemscope="itemscope" data-id="1050">
+       <meta itemprop="inLanguage" content="zh-CN">
+	  <header class="article-header">
+        <h2 class="entry-title" itemprop="headline"><a href="http://www.nemosky.com/job/1050.html" title="Openstack存储swift多代理节点安装配置" rel="bookmark">
+          Openstack存储swift多代理节点安装配置          </a></h2>
+        <div class="post-meta"><span class="author"><span class="dt">Author:</span><span itemprop="author"><a href="http://www.nemosky.com/author/naveen" rel="author">尼莫爸</a></span></span><span class="publish-date">
+<span class="dt">Publish date:</span><span class="dd" itemprop="datePublished">11,01,2013</span></span><span class="section">
+<span class="dt">Section:</span>
+<span class="dd" itemprop="articleSection">
+<a href="http://www.nemosky.com/category/job" title="查看 工作记录 中的全部文章" rel="category tag">工作记录</a></span>
+</span><span class="interaction-count">
+<span class="dt">Interaction count:</span>
+<span class="dd parsed" itemprop="interactionCount">2,821 views</span>
+</span></div></header>
+        <!--.postMeta-->
+        <div class="article-body">
+         <p>Openstack存储swift多代理节点安装配置</p>
+<p>Openstack的存储多代理的架构国内比较有名就是新浪SAE部署的Swift集群</p>
+<p>本文参考Openstack官网openstack-install-guide-essex-ubuntu.pdf和os-compute-starterguide-essex.pdf文档，文档汉化版本貌似还没有，如需下载请移步<a href="http://docs.openstack.org/" target="_blank">Openstack官网</a></p>
+<p>回归正题，以下是配置过程简单步骤</p>
+<p>一、当前配置环境</p>
+<p>系统：Ubuntu Server 12.04×64 存储设置：vdb1 20G</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">架构部署
+主机名                 IP                    作用
+Proxy            192.168.100.7         代理节点
+object1          192.168.100.3        存储节点1(zone1)
+object2          192.168.100.4        存储节点2(zone2)
+
+增加代理节点
+Proxybak	 192.168.100.8      代理做冗余备份</pre>
+<p>二、配置部署</p>
+<p>1、安装代理节点Proxy</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">apt-get update
+apt-get install swift swift-proxy memcached python-keystone python-keystoneclient</pre>
+<p>2、创建swift.conf</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">cat &gt;/etc/swift/swift.conf &lt;&lt;EOF
+[swift-hash]
+# random unique string that can never change (DO NOT LOSE)
+swift_hash_path_suffix = `od -t x8 -N 8 -A n &lt;/dev/random`
+EOF</pre>
+<p>3、创建Swift 的工作目录</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">mkdir -p /etc/swift
+chown -R swift:swift /etc/swift/</pre>
+<p>4、配置memcached ，监听默认的端口</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">perl -pi -e "s/-l 127.0.0.1/-l 192.168.100.7/" /etc/memcached.conf
+service memcached restart</pre>
+<p>5、创建/etc/swift/proxy-server.conf</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">[DEFAULT]
+bind_port = 8080
+user = swift
+swift_dir = /etc/swift
+
+[pipeline:main]
+pipeline = catch_errors healthcheck cache authtoken keystone proxy-server
+
+[app:proxy-server]
+use = egg:swift#proxy
+account_autocreate = true
+
+[filter:keystone]
+paste.filter_factory = keystone.middleware.swift_auth:filter_factory
+operator_roles = admin, swiftoperator
+
+[filter:authtoken]
+paste.filter_factory = keystone.middleware.auth_token:filter_factory
+# Delaying the auth decision is required to support token-less
+# usage for anonymous referrers ('.r:*').
+delay_auth_decision = 1
+auth_protocol = http
+auth_host = 192.168.3.97
+auth_port = 35357
+auth_token = admin
+service_protocol = http
+service_host = 192.168.3.97
+service_port = 5000
+admin_token = admin
+admin_tenant_name = service
+admin_user = swift
+admin_password = swift
+
+[filter:cache]
+use = egg:swift#memcache
+memcache_servers = 192.168.100.7:11211
+set log_name = cache
+
+[filter:catch_errors]
+use = egg:swift#catch_errors
+
+[filter:healthcheck]
+use = egg:swift#healthcheck</pre>
+<p>6、创建account,container,object</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">cd /etc/swift
+swift-ring-builder object.builder create 7 2 1
+swift-ring-builder container.builder create 7 2 1
+swift-ring-builder account.builder create 7 2 1
+
+创建Ring
+需要记录每个Store Node /srv/node 中记录的存储设备
+swift-ring-builder account.builder add z1-192.168.100.3:6002/vdb1 1
+swift-ring-builder container.builder add z1-192.168.100.3:6001/vdb1 1
+swift-ring-builder object.builder add z1-192.168.100.3:6000/vdb1 1
+swift-ring-builder account.builder add z2-192.168.100.4:6002/vdb1 1
+swift-ring-builder container.builder add z2-192.168.100.4:6001/vdb1 1
+swift-ring-builder object.builder add z2-192.168.100.4:6000/vdb1 1
+
+确认ring 的内容是否正确:
+swift-ring-builder account.builder
+swift-ring-builder container.builder
+swift-ring-builder object.builder
+
+平衡(Rebalance) ring
+swift-ring-builder account.builder rebalance
+swift-ring-builder container.builder rebalance
+swift-ring-builder object.builder rebalance
+
+开启Proxy 服务
+chown -R swift:swift /etc/swift
+#需要存储节点启动后再启动
+swift-init proxy start</pre>
+<p>三、部署配置存储节点</p>
+<p>存储节点二台配置基本一致，此处只以其中一个为例</p>
+<p>1、安装</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">apt-get update
+apt-get install swift swift-account swift-container swift-object xfsprogs</pre>
+<p>2、创建一个新的分区</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">fdisk /dev/vdb
+#创建xfs 文件系统
+mkfs.xfs -i size=1024 /dev/vdb1
+#添加到启动时挂载分区
+echo "/dev/vdb1 /srv/node/sdb1 xfs noatime,nodiratime,nobarrier,logbufs=8 0 0" &gt;&gt; /etc/fstab
+
+mkdir -p /srv/node/vdb1
+mount /dev/vdb1 /srv/node/vdb1
+chown -R swift:swift /srv/node</pre>
+<p>3、创建Swift 的工作目录</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">mkdir -p /etc/swift
+chown -R swift:swift /etc/swift/</pre>
+<p>4、从proxy 节点中复制配置文件</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">scp 192.168.100.7:/etc/swift/swift.conf /etc/swift/
+scp 192.168.100.7:/etc/swift/object.ring.gz /etc/swift/
+scp 192.168.100.7:/etc/swift/container.ring.gz /etc/swift/
+scp 192.168.100.7:/etc/swift/account.ring.gz /etc/swift/</pre>
+<p>5、创建/etc/rsyncd.conf</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">uid = swift
+gid = swift
+log file = /var/log/rsyncd.log
+pid file = /var/run/rsyncd.pid
+address = 192.168.100.3 (第二台存储即写ip：192.168.100.4)
+[account]
+max connections = 2
+path = /srv/node/
+read only = false
+lock file = /var/lock/account.lock
+[container]
+max connections = 2
+path = /srv/node/
+read only = false
+lock file = /var/lock/container.lock
+[object]
+max connections = 2
+path = /srv/node/
+read only = false
+lock file = /var/lock/object.lock</pre>
+<p>6、修改/etc/default/rsync 中的RSYNC_ENABLE= 属性</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">perl -pi -e 's/RSYNC_ENABLE=false/RSYNC_ENABLE=true/' /etc/default/rsync
+service rsync start</pre>
+<p>7、创建/etc/swift/account-server.conf</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">cat &gt;/etc/swift/account-server.conf &lt; [DEFAULT]
+devices = /srv/node
+mount_check = false
+bind_port = 6002
+user = swift
+log_facility = LOG_LOCAL2
+bind_ip =0.0.0.0
+workers = 2
+[pipeline:main]
+pipeline = account-server
+[app:account-server]
+use = egg:swift#account
+[account-replicator]
+[account-auditor]
+[account-reaper]
+EOF</pre>
+<p>8、创建/etc/swift/container-server.conf</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">cat &gt;/etc/swift/container-server.conf &lt; [DEFAULT]
+devices = /srv/node
+mount_check = false
+bind_port = 6001
+user = swift
+log_facility = LOG_LOCAL3
+bind_ip =0.0.0.0
+workers = 2
+[pipeline:main]
+pipeline = container-server
+[app:container-server]
+use = egg:swift#container
+[container-replicator]
+[container-updater]
+[container-auditor]
+EOF</pre>
+<p>9、创建/etc/swift/object-server.conf</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">cat &gt;/etc/swift/object-server.conf &lt; [DEFAULT]
+devices = /srv/node
+mount_check = false
+bind_port = 6000
+user = swift
+log_facility = LOG_LOCAL4
+bind_ip = 0.0.0.0
+workers = 2
+[pipeline:main]
+pipeline = object-server
+[app:object-server]
+use = egg:swift#object
+[object-replicator]
+[object-updater]
+[object-auditor]
+EOF</pre>
+<p>10、开启存储节点服务</p>
+<pre style="margin: 15px 0; font: 100 12px/18px monaco, andale mono, courier new; padding: 10px 12px; border: #ccc 1px solid; border-left-width: 4px; background-color: #fefefe; box-shadow: 0 0 4px #eee; word-break: break-all; word-wrap: break-word; color: #444;">swift-init object-server start
+swift-init object-replicator start
+swift-init object-updater start
+swift-init object-auditor start
+swift-init container-server start
+swift-init container-replicator start
+swift-init container-updater start
+swift-init container-auditor start
+swift-init account-server start
+swift-init account-replicator start
+swift-init account-auditor start</pre>
+<p>四、测试存储的配置是否可以使用，此时的swift架构就是1个代理多个存储的部署，代理存在单点故障隐患。</p>
+<p>1、到192.168.100.7服务器开启代理服务<br>
+2、修改控制节点192.168.3.97认证的keystone，配置Endpoints部分。（PS：ip：192.168.3.97为Openstack的控制节点ip地址，swift我采用keystone认证）<br>
+3、dashboard 和命令行测试，此处不再描述</p>
+<p>五、新增一个代理节点Proxybak</p>
+<p>1、按步骤一，安装配置Proxybak节点，完全复制/etc/swift 目录下内容到新Proxybak节点，配置过程不再写。</p>
+<p>注意，swift.conf配置文件的hash值不要修改保持一致。修改proxy-server.conf 中的IP 设置为Proxybak的IP，Ring文件直接拷贝第一个代理节点的，此节点不需要在重新生成。</p>
+<p>2、启动代理服务</p>
+<p>3、检测，Proxybak的代理服务启动后，应该可以获取之前Proxy上传的所有数据，同时在Proxybak上传数据，在Proxy节点也可以看到。</p>
+<p>到此也就实现了，多代理后端存储的功能，连接任何一个代理服务器都可以看到后端的存储内容。</p>
+<p>为了保证Openstack云存储swift的代理冗余性和稳定性，我们可以采用Nginx实现代理的负载均衡。</p>
+<p>Nginx实现swift代理的负载均衡参考这篇《<a href="http://www.nemosky.com/job/1051.html" target="_blank" rel="bookmark">用Nginx负载均衡Openstack对象存储swift</a>》</p>
+<p>&nbsp;</p>
+		 
+    
+
+		 </div>
+		 <footer><ul class="article-tags"><li><a href="http://www.nemosky.com/tag/nginx" rel="tag">Nginx</a></li><li><a href="http://www.nemosky.com/tag/openstack" rel="tag">Openstack</a></li><li><a href="http://www.nemosky.com/tag/swift" rel="tag">swift</a></li></ul></footer>
+		 		 <div id="share">
+<span id="share-title">分享到:</span>
+<a id="share-weibo" href="#"></a>
+<a id="share-tx" href="#"></a>
+<a id="share-qq" href="#"></a>
+<a id="share-douban" href="#"></a>
+<a id="share-renren" href="#"></a>
+</div>
+		 <div class="clear"></div>
+		 	<div id="comments">
+
+			 
+	
+	
+	
+				
+			<div id="commnents" class="commentsorping">
+			
+				<div class="leavecom"></div>
+			
+				<div class="commentpart">Comment (13)</div>
+				<div class="pingpart">Trackback (1)</div>
+			</div>
+	
+	
+						<div class="commentshow">
+			<div id="loading-comments"></div>
+	<ul class="commentlist">
+	   <li class="comment even thread-even depth-1" id="li-comment-1830">
+		<div id="comment-1830" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/e323e158cc1b16465d87f035dae01544.jpeg" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name"><a href="http://kn007.net/" rel="external nofollow" class="url" target="_blank">kn007</a> : </span>
+				<div class="date">2013/01/12 10:45&nbsp;#1</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1830#respond" onclick='return addComment.moveForm("comment-1830", "1830", "respond", "1050")'>@Ta</a></span> <p>云平台。。。</p>
+ </div>
+			</div>
+
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-naveen bypostauthor odd alt depth-2" id="li-comment-1837">
+		<div id="comment-1837" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/31652460594f91bfc6a1bfd08771e15b.jpeg" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name"><a href="http://www.nemosky.com/" rel="external nofollow" class="url" target="_blank">尼莫爸</a> : </span>
+				<div class="date">2013/01/13 07:40</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1837#respond" onclick='return addComment.moveForm("comment-1837", "1837", "respond", "1050")'>@Ta</a></span> <p><a href="#comment-1830" rel="nofollow">@kn007</a>: 啊哈现在就会干这个了，哈哈</p>
+ </div>
+			</div>
+
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-1860">
+		<div id="comment-1860" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/e697715e4cd92f335b5189ef49bd7875.png" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name">Asher : </span>
+				<div class="date">2013/01/14 17:34&nbsp;#2</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1860#respond" onclick='return addComment.moveForm("comment-1860", "1860", "respond", "1050")'>@Ta</a></span> <p>你好，多代理节点时，是要配置/etc/swift/proxy-server.conf中的memcached_servers吧，需要修改/etc/memcached.conf中的内容吗？（将所有代理节点的IP添加进去）</p>
+ </div>
+			</div>
+
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-naveen bypostauthor odd alt depth-2" id="li-comment-1862">
+		<div id="comment-1862" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/31652460594f91bfc6a1bfd08771e15b.jpeg" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name"><a href="http://www.nemosky.com/" rel="external nofollow" class="url" target="_blank">尼莫爸</a> : </span>
+				<div class="date">2013/01/15 08:21</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1862#respond" onclick='return addComment.moveForm("comment-1862", "1862", "respond", "1050")'>@Ta</a></span> <p><a href="#comment-1860" rel="nofollow">@Asher</a>: 嗯是的，proxy-server.conf中的memcache ip用，隔开，memcached.conf添加memcache服务器本机ip即可，上面哪条perl命令即可</p>
+ </div>
+			</div>
+
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-1864">
+		<div id="comment-1864" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/e697715e4cd92f335b5189ef49bd7875.png" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name">Asher : </span>
+				<div class="date">2013/01/15 11:34&nbsp;#3</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1864#respond" onclick='return addComment.moveForm("comment-1864", "1864", "respond", "1050")'>@Ta</a></span> <p>再打扰下，怎么用新增的代理节点上传文件呢？怎么查看新增代理节点的containers或objects呢？<br>
+之前用的：<br>
+swift -V 2 -A <a href="http://auth_node_ip:5000/v2.0" rel="nofollow">http://auth_node_ip:5000/v2.0</a> -U service:swift -K $SERVICE_PASSWORD list/stat/upload</p>
+ </div>
+			</div>
+
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-naveen bypostauthor odd alt depth-2" id="li-comment-1869">
+		<div id="comment-1869" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/31652460594f91bfc6a1bfd08771e15b.jpeg" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name"><a href="http://www.nemosky.com/" rel="external nofollow" class="url" target="_blank">尼莫爸</a> : </span>
+				<div class="date">2013/01/15 12:59</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1869#respond" onclick='return addComment.moveForm("comment-1869", "1869", "respond", "1050")'>@Ta</a></span> <p><a href="#comment-1864" rel="nofollow">@Asher</a>:
+ keystone服务装在那个，就在哪台机器执行keystone 
+endpoint-list命令就可以列出了配置代理节点的信息，只需修改代理节点信息即可，修改方式参考keystone 
+endpoint-create –region region_name –service_id service_id –publicurl 
+public_url –adminurl admin_url  –internalurl internal_url 或者直接修改数据库</p>
+ </div>
+			</div>
+
+     </div>
+<ul class="children">
+   <li class="comment even depth-3" id="li-comment-1871">
+		<div id="comment-1871" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/e697715e4cd92f335b5189ef49bd7875.png" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name">Asher : </span>
+				<div class="date">2013/01/15 16:03</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1871#respond" onclick='return addComment.moveForm("comment-1871", "1871", "respond", "1050")'>@Ta</a></span> <p><a href="#comment-1869" rel="nofollow">@尼莫爸</a>: 十分感谢啦。不会是先删掉keystone endpoints中之前代理节点的信息，然后添加新增代理节点信息测试查看吧</p>
+ </div>
+			</div>
+
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-naveen bypostauthor odd alt depth-4" id="li-comment-1872">
+		<div id="comment-1872" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/31652460594f91bfc6a1bfd08771e15b.jpeg" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name"><a href="http://www.nemosky.com/" rel="external nofollow" class="url" target="_blank">尼莫爸</a> : </span>
+				<div class="date">2013/01/15 16:05</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1872#respond" onclick='return addComment.moveForm("comment-1872", "1872", "respond", "1050")'>@Ta</a></span> <p><a href="#comment-1871" rel="nofollow">@Asher</a>: 我直接在数据库找到keystone库下的endpoint表手动该的，市事，替换成新代理服务器的ip或者域名</p>
+ </div>
+			</div>
+
+     </div>
+<ul class="children">
+   <li class="comment even depth-5" id="li-comment-1873">
+		<div id="comment-1873" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/e697715e4cd92f335b5189ef49bd7875.png" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name">Asher : </span>
+				<div class="date">2013/01/15 16:51</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1873#respond" onclick='return addComment.moveForm("comment-1873", "1873", "respond", "1050")'>@Ta</a></span> <p><a href="#comment-1872" rel="nofollow">@尼莫爸</a>: 这样的话那就是keystone只能认证某一类服务中的具体一种啦，swift多个代理节点之上的负载均衡层要做这样一件事：更改endpoint中代理节点的信息？</p>
+ </div>
+			</div>
+
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-naveen bypostauthor odd alt depth-6" id="li-comment-1874">
+		<div id="comment-1874" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/31652460594f91bfc6a1bfd08771e15b.jpeg" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name"><a href="http://www.nemosky.com/" rel="external nofollow" class="url" target="_blank">尼莫爸</a> : </span>
+				<div class="date">2013/01/15 16:56</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1874#respond" onclick='return addComment.moveForm("comment-1874", "1874", "respond", "1050")'>@Ta</a></span> <p><a href="#comment-1873" rel="nofollow">@Asher</a>:
+ 
+呃你理解的不对keystone只是作为认证而已，账户login到Openstack要存放东西是基于keystone的endpoint配置信息找到
+Proxy在存储内容。你一个代理的话这个endpoint就配置你这个代理的地址即可，多个的话想负载均衡，那这个地方就写负载均衡的地址既可以了</p>
+ </div>
+			</div>
+
+     </div>
+<ul class="children">
+   <li class="comment even depth-7" id="li-comment-1875">
+		<div id="comment-1875" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/e697715e4cd92f335b5189ef49bd7875.png" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name">Asher : </span>
+				<div class="date">2013/01/15 17:05</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1875#respond" onclick='return addComment.moveForm("comment-1875", "1875", "respond", "1050")'>@Ta</a></span> <p><a href="#comment-1874" rel="nofollow">@尼莫爸</a>: 嗯，受教啦。那keystone认证节点会不会存在单节点故障呢？</p>
+ </div>
+			</div>
+
+     </div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-1865">
+		<div id="comment-1865" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/e697715e4cd92f335b5189ef49bd7875.png" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name">Asher : </span>
+				<div class="date">2013/01/15 11:54&nbsp;#4</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1865#respond" onclick='return addComment.moveForm("comment-1865", "1865", "respond", "1050")'>@Ta</a></span> <p>还有，多个代理节点组成集群只能有一个用keystone做到认证节点吗？:)</p>
+ </div>
+			</div>
+
+     </div>
+<ul class="children">
+   <li class="comment byuser comment-author-naveen bypostauthor even depth-2" id="li-comment-1867">
+		<div id="comment-1867" class="comment-body">
+			<div class="comment-author"><img alt="" src="1050_files/31652460594f91bfc6a1bfd08771e15b.jpeg" class="avatar avatar-32 photo" height="32" width="32"></div>
+			<div class="comment-head">
+				<span class="name"><a href="http://www.nemosky.com/" rel="external nofollow" class="url" target="_blank">尼莫爸</a> : </span>
+				<div class="date">2013/01/15 12:56</div>
+				<div class="comment-entry"><span class="reply"><a class="comment-reply-link" href="http://www.nemosky.com/job/1050.html?replytocom=1867#respond" onclick='return addComment.moveForm("comment-1867", "1867", "respond", "1050")'>@Ta</a></span> <p><a href="#comment-1865" rel="nofollow">@Asher</a>: keystone装一个就够了，其实装到控制节点就好</p>
+ </div>
+			</div>
+
+     </div>
+</li>
+</ul>
+</li>
+	</ul>
+	<nav class="commentnav">
+			</nav>
+	</div>
+						
+			
+						<ul class="pingtlist">
+								<li id="comment-1815">
+				<div class="pingdiv">
+					<a href="http://www.nemosky.com/job/1051.html" rel="external nofollow" class="url" target="_blank">用Nginx负载均衡Openstack对象存储swift | Nemo</a>				</div>
+		</li>
+			</ul>
+												
+		
+	
+			
+		<div id="respond">
+		<div style="display: none;" id="loading"><div class="ajax_submit"></div>Ajax Comment Submitting.....</div><div style="display: none;" id="error">#</div><div id="replytitle">Leave a Reply</div>
+<div class="cancel_comment_reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="http://www.nemosky.com/job/1050.html#respond" style="display:none;">点击这里取消回复。</a></small>
+</div>
+<form action="http://www.nemosky.com/wp-comments-post.php" method="post" id="commentform">
+<p>
+<input name="author" id="author" size="22" tabindex="1" aria-required="true" type="text"><span class="guestinfo">昵称<span class="red">*</span></span>
+</p>
+<p>
+<input name="email" id="email" size="22" tabindex="2" aria-required="true" type="text"><span class="guestinfo">邮箱<span class="red">*</span></span>
+</p>
+<p>
+<input name="url" id="url" size="22" tabindex="3" type="text"><span class="guestinfo">网址</span>
+</p>
+<div id="textareaID" class="textarea"><textarea name="comment" id="comment" rows="10" tabindex="4" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById('submit').click();return false};"></textarea>
+<div class="editor_tools">
+<a id="comment-smiley" href="javascript:;">表情</a>
+<a href="javascript:SIMPALED.Editor.strong()">加粗</a>
+<a href="javascript:SIMPALED.Editor.del()">删除线</a>
+<a href="javascript:SIMPALED.Editor.underline()">下划线</a>
+<a href="javascript:SIMPALED.Editor.ahref()">链接</a>
+<a href="javascript:SIMPALED.Editor.code()">代码</a>
+<a href="javascript:SIMPALED.Editor.quote()">引用</a>
+</div>
+<div id="smileys"><div id="smilies">
+<script type="text/javascript" language="javascript">
+/* <![CDATA[ */
+    function grin(tag) {
+    	var myField;
+    	tag = ' ' + tag + ' ';
+        if (document.getElementById('comment') && document.getElementById('comment').type == 'textarea') {
+    		myField = document.getElementById('comment');
+    	} else {
+    		return false;
+    	}
+    	if (document.selection) {
+    		myField.focus();
+    		sel = document.selection.createRange();
+    		sel.text = tag;
+    		myField.focus();
+    	}
+    	else if (myField.selectionStart || myField.selectionStart == '0') {
+    		var startPos = myField.selectionStart;
+    		var endPos = myField.selectionEnd;
+    		var cursorPos = endPos;
+    		myField.value = myField.value.substring(0, startPos)
+    					  + tag
+    					  + myField.value.substring(endPos, myField.value.length);
+    		cursorPos += tag.length;
+    		myField.focus();
+    		myField.selectionStart = cursorPos;
+    		myField.selectionEnd = cursorPos;
+    	}
+    	else {
+    		myField.value += tag;
+    		myField.focus();
+    	}
+    }
+/* ]]> */
+</script>
+<a href="javascript:grin(':arrow:')"><img src="1050_files/icon_arrow.gif" alt=""></a>
+<a href="javascript:grin(':grin:')"><img src="1050_files/icon_biggrin.gif" alt=""></a>
+<a href="javascript:grin(':!:')"><img src="1050_files/icon_exclaim.gif" alt=""></a>
+<a href="javascript:grin(':?:')"><img src="1050_files/icon_question.gif" alt=""></a>
+<a href="javascript:grin(':cool:')"><img src="1050_files/icon_cool.gif" alt=""></a>
+<a href="javascript:grin(':roll:')"><img src="1050_files/icon_rolleyes.gif" alt=""></a>
+
+<a href="javascript:grin(':eek:')"><img src="1050_files/icon_surprised.gif" alt=""></a>
+<a href="javascript:grin(':evil:')"><img src="1050_files/icon_evil.gif" alt=""></a>
+<a href="javascript:grin(':razz:')"><img src="1050_files/icon_razz.gif" alt=""></a>
+<a href="javascript:grin(':mrgreen:')"><img src="1050_files/icon_mrgreen.gif" alt=""></a>
+<a href="javascript:grin(':smile:')"><img src="1050_files/icon_smile.gif" alt=""></a>
+<a href="javascript:grin(':oops:')"><img src="1050_files/icon_redface.gif" alt=""></a>
+
+
+<a href="javascript:grin(':lol:')"><img src="1050_files/icon_lol.gif" alt=""></a>
+<a href="javascript:grin(':mad:')"><img src="1050_files/icon_mad.gif" alt=""></a>
+<a href="javascript:grin(':twisted:')"><img src="1050_files/icon_twisted.gif" alt=""></a>
+<a href="javascript:grin(':wink:')"><img src="1050_files/icon_wink.gif" alt=""></a>
+<a href="javascript:grin(':idea:')"><img src="1050_files/icon_idea.gif" alt=""></a>
+<a href="javascript:grin(':cry:')"><img src="1050_files/icon_cry.gif" alt=""></a>
+</div></div>
+</div>
+
+
+<p><input name="submit" id="submit" tabindex="5" value="SUBMIT（Ctrl + Enter）" type="submit">
+<input name="comment_post_ID" value="1050" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p>
+</form>
+</div>
+		  
+			
+</div>		<div class="article-footer"></div>
+      
+   </article>
+       
+  </div>
+  
+
+</article>
+<footer>
+<div class="footer-inner">
+<div id="footerinfo">
+Copyright&nbsp;?&nbsp;2013&nbsp;<a href="http://www.nemosky.com/" title="Nemo">Nemo</a>&nbsp; 鲁ICP备12029050号&nbsp; | &nbsp;<a href="http://www.nemosky.com/wp-login.php" target="_blank">登录</a>&nbsp; | &nbsp;<a href="http://www.nemosky.com/sitemap.html" target="_blank">地图</a>&nbsp; | &nbsp;总浏览量：283323</div>
+</div><!-- end #footer -->
+</footer>
+ </div>
+  <div class="statistic">
+			</div>
+
+
+
+    <script type="text/javascript" src="1050_files/single.js"></script>
+	<script type="text/javascript" src="1050_files/global.js"></script>	
+	
+
+<div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div></body></html>

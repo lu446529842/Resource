@@ -1,0 +1,1255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<title>shell编程 if语句 - hainan16的专栏 - 博客频道 - CSDN.NET</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="if 语句格式if&nbsp; 条件then&nbsp;Commandelse&nbsp;Commandfi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 别忘了这个结尾If语句忘了结尾fitest.sh: line 14: syntax e">
+<script src="6667489_files/logAdvanced.js" async="" charset="utf-8"></script><script src="6667489_files/log.js" async="" charset="utf-8"></script><script src="6667489_files/ga.js" async="" type="text/javascript"></script><script src="6667489_files/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="6667489_files/ad.js"></script>
+<link rel="Stylesheet" type="text/css" href="6667489_files/style.css">
+<link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/hainan16/rss/list">
+<link rel="shortcut icon" href="http://blog.csdn.net/favicon.ico">
+<link type="text/css" rel="stylesheet" href="6667489_files/default.css">
+<link href="6667489_files/style_002.css" rel="stylesheet" type="text/css"></head>
+<body>
+<script src="6667489_files/pub_topnav_2011.js" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="6667489_files/navtop_2012.css">
+<div class="nav_top_2011">
+<p><span style="color:red;">您还未登录！</span>|<a href="https://passport.csdn.net/account/login" target="_top">登录</a>|<a href="https://passport.csdn.net/account/register" target="_top">注册</a>|<a href="https://passport.csdn.net/help/faq" target="_blank">帮助</a></p><ul>
+<li><a href="http://www.csdn.net/" target="_blank" style="color: red;">首页</a></li>
+<li><a href="http://news.csdn.net/" target="_blank">业界</a></li>
+<li><a href="http://mobile.csdn.net/" target="_blank">移动</a></li>
+<li><a href="http://cloud.csdn.net/" target="_blank">云计算</a></li>
+<li><a href="http://sd.csdn.net/" target="_blank">研发</a></li>
+<li><a href="http://bbs.csdn.net/" target="_blank">论坛</a></li>
+<li><a href="http://blog.csdn.net/" target="_blank">博客</a></li>
+<li><a href="http://download.csdn.net/" target="_blank">下载</a></li>
+<li class="more"><h2 id="topnav_btnmore" onclick="showNavMore(this)"><a href="javascript:void(0);">更多</a></h2>
+<div id="topnav_hidlist">
+<iframe name="nav_frm" src="6667489_files/a_002.html" frameborder="no" height="178" scrolling="no" width="92"></iframe>
+</div>
+</li>
+</ul>
+</div>
+
+
+<div id="container">
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h1><a href="http://blog.csdn.net/hainan16">hainan16的专栏</a></h1>
+            <h2></h2>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg"></div>
+    <div class="navigator">
+        <ul>
+            <li id="btnContents"><a href="http://blog.csdn.net/hainan16?viewmode=contents"><span><img src="6667489_files/ico_list.gif">目录视图</span></a></li>
+            <li id="btnView"><a href="http://blog.csdn.net/hainan16?viewmode=list"><span><img src="6667489_files/ico_summary.gif">摘要视图</span></a></li>
+            <li id="btnRss"><a href="http://blog.csdn.net/hainan16/rss/list"><span><img src="6667489_files/ico_rss.gif">订阅</span></a></li>
+</ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "hainan16";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/hainan16";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";
+</script>
+
+<div id="body">
+<div id="main">
+<div class="main">
+<div class="notice"> 
+
+<a href="http://surveies.csdn.net/survey/comein/590" target="_blank">
+<font color="red">CSDN博客第三方发布工具有奖调查
+   </font></a>
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/9226601" target="_blank"><font color="blue">2013年7月微软MVP当选名单揭晓
+</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/csdnproduct/article/details/9226265" target="_blank">
+<font color="red">公告：CSDN博客频道新功能正式上线！ 
+
+
+ </font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/9136613" target="_blank">
+<font color="red">CSDN博客第二期云计算最佳博主评选
+
+ </font></a>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/9126517" target="_blank">
+<font color="blue">2013年10月微软MVP申请开始
+ </font></a>
+
+
+
+
+</div>
+<div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="http://blog.csdn.net/hainan16/article/details/6667489">
+        shell编程 if语句
+        </a></span>
+    </h3>
+</div>
+
+        
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="http://blog.csdn.net/hainan16/article/category/861739">shell 编程</a> 
+        </span>
+    <span class="link_postdate">2011-08-07 20:03</span>
+    <span class="link_view" title="阅读次数">7089人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments">评论</a>(2)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:collectArticle('shell编程 if语句','6667489');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report" onclick="javascript:report(6667489,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href="http://blog.csdn.net/tag/details.html?tag=shell" target="_blank">shell</a><a href="http://blog.csdn.net/tag/details.html?tag=%e7%bc%96%e7%a8%8b" target="_blank">编程</a><a href="http://blog.csdn.net/tag/details.html?tag=integer" target="_blank">integer</a><a href="http://blog.csdn.net/tag/details.html?tag=file" target="_blank">file</a><a href="http://blog.csdn.net/tag/details.html?tag=string" target="_blank">string</a><a href="http://blog.csdn.net/tag/details.html?tag=input" target="_blank">input</a></div>
+
+
+    
+<div id="article_content" class="article_content">
+
+&nbsp;<span style="font-weight:bold"><span style="font-weight:bold"></span>if 语句格式</span><br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>if&nbsp;<wbr> 条件<br>
+then<br>
+&nbsp;<wbr>Command<br>
+else<br>
+&nbsp;<wbr>Command<br>
+<span style="font-weight:bold">fi&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 别忘了这个结尾</span><br>
+</td>
+</tr>
+<tr>
+<td>If语句忘了结尾fi<br>
+test.sh: line 14: syntax error: <span style="font-weight:bold">unexpected end of fi</span></td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">if 的三种条件表达式</span><br>
+<table style="width:100%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>if<br>
+command<br>
+then<br>
+<br>
+if<br>
+&nbsp;<wbr>函数<br>
+then<br>
+</td>
+<td>&nbsp;<wbr>命令执行成功，等于返回0 （比如grep ,找到匹配）<br>
+执行失败，返回非0 （grep,没找到匹配）</td>
+</tr>
+<tr>
+<td>if [ expression_r_r_r&nbsp;<wbr> ]<br>
+then&nbsp;<wbr><br>
+</td>
+<td>&nbsp;<wbr>表达式结果为真，则返回0，if把0值引向then</td>
+</tr>
+<tr>
+<td>if test expression_r_r_r<br>
+then</td>
+<td>&nbsp;<wbr>表达式结果为假，则返回非0，if把非0值引向then</td>
+</tr>
+</tbody>
+</table>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> &nbsp;<wbr>&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">[ ] &amp;&amp;&nbsp;<wbr> ——快捷if</span><br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>[ -f "/etc/shadow" ] &amp;&amp; echo "This computer uses shadow passwors"</td>
+</tr>
+<tr>
+<td>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="font-weight:bold">&amp;&amp; 可以理解为then</span><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果左边的表达式为真则执行右边的语句<br>
+</td>
+</tr>
+</tbody>
+</table>
+&nbsp;<wbr><br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">shell的if与c语言if的功能上的区别</span><br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>&nbsp;<wbr>shell if</td>
+<td>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> c语言if</td>
+</tr>
+<tr>
+<td><span style="font-weight:bold">0为真</span>，走then</td>
+<td>&nbsp;<wbr>正好相反，非0走then</td>
+</tr>
+<tr>
+<td>&nbsp;<wbr>不支持整数变量直接if<br>
+必须:if [ i –ne 0 ]<br>
+<br>
+但支持字符串变量直接if<br>
+if [ str ] 如果字符串非0<br>
+</td>
+<td>&nbsp;<wbr>支持变量直接if<br>
+if (i )</td>
+</tr>
+</tbody>
+</table>
+<br>
+&nbsp;<wbr><br>
+=================================以command作为if 条件===================================<br>
+&nbsp;<wbr>&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">以多条command或者函数作为if 条件</span><br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>echo –n “input:”<br>
+read user<br>
+<br>
+if<br>
+多条指令,这些命令之间相当于<span style="font-weight:bold">“and”（与）</span><br>
+grep $user /etc/passwd &gt;/tmp/null&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+who -u | grep $user<br>
+then&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 上边的指令<span style="color:#ff00; font-weight:bold">都</span>执行成功,返回值$?为0，<span style="color:#ff00; font-weight:bold">0为真</span>，运行then<br>
+&nbsp;<wbr>echo "$user has logged"<br>
+else&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 指令执行失败，$?为1，运行else &nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+&nbsp;<wbr>echo "$user has not logged"<br>
+fi&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+</td>
+</tr>
+<tr>
+<td># sh test.sh<br>
+input : macg<br>
+macg&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> pts/0&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> May 15 15:55&nbsp;<wbr>&nbsp;<wbr> .&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 2075 (192.168.1.100)<br>
+macg has logged<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+# sh test.sh<br>
+input : ddd<br>
+ddd has not logged&nbsp;<wbr>&nbsp;<wbr><br>
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">以函数作为if条件&nbsp;<wbr> (函数就相当于command,函数的优点是其return值可以自定义)</span><br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>if<br>
+以函数作为if条件，<br>
+getyn<br>
+then&nbsp;<wbr>&nbsp;<wbr> 函数reture值<span style="font-weight:bold">0为真</span>，走then<br>
+echo " your answer is yes"<br>
+else&nbsp;<wbr> 函数return值非0为假，走else<br>
+echo "your anser is no"<br>
+fi&nbsp;<wbr>&nbsp;<wbr><br>
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">if command&nbsp;<wbr> 等价于 command+if $?</span><br>
+<table style="width:100%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>$ vi testsh.sh<br>
+#!/bin/sh<br>
+<br>
+<span style="font-weight:bold">if</span><br style="font-weight:bold">
+<span style="font-weight:bold">cat 111-tmp.txt | grep ting1</span><br style="font-weight:bold">
+<span style="font-weight:bold">then</span><br>
+echo found<br>
+else<br>
+echo "no found"<br>
+fi</td>
+<td>&nbsp;<wbr>$ vi testsh.sh<br>
+#!/bin/sh<br>
+<br>
+<span style="font-weight:bold">cat 111-tmp.txt | grep ting1</span><br>
+<br>
+<span style="font-weight:bold">if [ $? -eq 0 ]</span><br>
+<span style="font-weight:bold">then</span><br>
+<span style="font-weight:bold">echo $?</span><br>
+echo found<br>
+else<br>
+<span style="font-weight:bold">echo $?</span><br>
+echo "no found"<br>
+fi</td>
+</tr>
+<tr>
+<td>$ sh testsh.sh<br>
+no found&nbsp;<wbr>&nbsp;<wbr><br>
+</td>
+<td>$ sh testsh.sh<br>
+1<br>
+no found</td>
+</tr>
+<tr>
+<td style="vertical-align:top">$ vi 111-tmp.txt<br>
+that is 222file<br>
+thisting1 is 111file<br>
+<br>
+$ sh testsh.sh<br>
+thisting1 is 111file<br>
+found</td>
+<td style="vertical-align:top">$ vi 111-tmp.txt<br>
+that is 222file<br>
+thisting1 is 111file<br>
+<br>
+$ sh testsh.sh<br>
+thisting1 is 111file<br>
+0<br>
+found</td>
+</tr>
+</tbody>
+</table>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+========================================以条件表达式作为 if条件=============================<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">传统if 从句子——以条件表达式作为 if条件</span><br>
+if [ 条件表达式 ]<br>
+then<br>
+&nbsp;<wbr>command<br>
+&nbsp;<wbr>command<br>
+&nbsp;<wbr>command<br>
+else<br>
+&nbsp;<wbr>command<br>
+&nbsp;<wbr>command<br>
+fi<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+<span style="font-weight:bold">&nbsp;<wbr>&nbsp;<wbr> 条件表达式</span><br>
+<ul>
+<li>文件表达式 </li></ul>
+<span style="font-weight:bold">if [ -f&nbsp;<wbr> file ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果文件存在</span><br style="font-weight:bold">
+<span style="font-weight:bold">if [ -d ...&nbsp;<wbr>&nbsp;<wbr> ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果目录存在</span><br style="font-weight:bold">
+<span style="font-weight:bold">if [ -s file&nbsp;<wbr> ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果文件存在且非空&nbsp;<wbr></span><br>
+if [ -r file&nbsp;<wbr> ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果文件存在且可读<br>
+if [ -w file&nbsp;<wbr> ] &nbsp;<wbr>&nbsp;<wbr> 如果文件存在且可写<br>
+if [ -x file&nbsp;<wbr> ] &nbsp;<wbr>&nbsp;<wbr> 如果文件存在且可执行 &nbsp;<wbr>&nbsp;<wbr><br>
+<ul>
+<li>整数变量表达式 </li></ul>
+<span style="font-weight:bold">if [ int1 -eq int2 ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果int1等于int2&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></span><br style="font-weight:bold">
+<span style="font-weight:bold">if [ int1 -ne int2 ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果不等于 &nbsp;<wbr>&nbsp;<wbr></span>&nbsp;<wbr><br>
+if [ int1 -ge int2 ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果&gt;=<br>
+if [ int1 -gt int2 ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果&gt;<br>
+if [ int1 -le int2 ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果&lt;=<br>
+if [ int1 -lt int2 ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果&lt;<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+<ul>
+<li>&nbsp;<wbr>&nbsp;<wbr> 字符串变量表达式 </li></ul>
+If&nbsp;<wbr> [ $a = $b ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> 如果string1等于string2<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="font-weight:bold">字符串允许使用赋值号做等号</span><br>
+if&nbsp;<wbr> [ $string1 !=&nbsp;<wbr> $string2 ]&nbsp;<wbr>&nbsp;<wbr> 如果string1不等于string2&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+<span style="font-weight:bold">if&nbsp;<wbr> [ -n $string&nbsp;<wbr> ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> 如果string 非空(非0），返回0(true)</span> &nbsp;<wbr><br>
+if&nbsp;<wbr> [ -z $string&nbsp;<wbr> ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果string 为空<br>
+<span style="font-weight:bold">if&nbsp;<wbr> [ $sting ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>&nbsp;<wbr> 如果string 非空，返回0 (和-n类似) &nbsp;<wbr></span>&nbsp;<wbr>&nbsp;<wbr><br>
+<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">条件表达式引用变量要带$</span><br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>if [ a = b ] ;then&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+echo equal<br>
+else<br>
+echo no equal<br>
+fi<br>
+</td>
+</tr>
+<tr>
+<td>[macg@machome ~]$ sh test.sh<br>
+input a:<br>
+5<br>
+input b:<br>
+5<br>
+<span style="font-weight:bold">no equal&nbsp;<wbr> （等于表达式没比较$a和$b,而是比较和a和b,自然a!=b)</span></td>
+</tr>
+</tbody>
+</table>
+改正：<br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>if [ $a = $b ] ;then&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+echo equal<br>
+else<br>
+echo no equal<br>
+fi<br>
+</td>
+</tr>
+<tr>
+<td>[macg@machome ~]$ sh test.sh<br>
+input a:<br>
+5<br>
+input b:<br>
+5<br>
+equal</td>
+</tr>
+</tbody>
+</table>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr><span style="font-weight:bold">-eq&nbsp;<wbr> -ne&nbsp;<wbr> -lt&nbsp;<wbr> -nt只能用于整数，不适用于字符串，字符串等于用赋值号=</span><br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>[macg@machome ~]$ vi test.sh<br>
+echo -n "input your choice:"<br>
+read var<br>
+if&nbsp;<wbr> [ $var -eq "yes" ]<br>
+then<br>
+echo $var<br>
+fi<br>
+[macg@machome ~]$ sh -x test.sh<br>
+input your choice:<br>
+y<br>
+<span style="font-weight:bold">test.sh: line 3: test: y: integer expression_r_r_r expected</span><br style="font-weight:bold">
+<span style="font-weight:bold">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 期望整数形式，即-eq不支持字符串</span></td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr><span style="font-weight:bold">&nbsp;<wbr> =放在别的地方是赋值,放在if [ ] 里就是字符串等于,<span style="color:#ff00">shell里面没有==的,那是c语言的等于</span></span><br>
+<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">无空格的字符串，可以加" ",也可以不加</span><br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>[macg@machome ~]$ vi test.sh<br>
+echo "input a:"<br>
+read a<br>
+echo "input is $a"<br>
+if [ $a = 123 ] ; then<br>
+echo equal123<br>
+fi</td>
+</tr>
+<tr>
+<td>[macg@machome ~]$ sh test.sh<br>
+input a:<br>
+123<br>
+input is 123<br>
+equal123&nbsp;<wbr><br>
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+&nbsp;<wbr><span style="font-weight:bold">&nbsp;<wbr>&nbsp;<wbr> = 作为等于时，其两边都必须加空格，否则失效</span><br>
+等号也是操作符，必须和其他变量，关键字，用空格格开 (等号做赋值号时正好相反，两边不能有空格）<br>
+<table style="width:100%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>[macg@machome ~]$ vi test.sh<br>
+<br>
+echo "input your choice:"<br>
+read var<br>
+if [ <span style="font-weight:bold">$var="yes"</span> ]<br>
+then<br>
+echo $var<br>
+echo "input is correct"<br>
+else<br>
+echo $var<br>
+echo "input error"<br>
+fi</td>
+<td>[macg@machome ~]$ vi test.sh<br>
+<br>
+echo "input your choice:"<br>
+read var<br>
+if [ <span style="font-weight:bold">$var = "yes"</span> ]&nbsp;<wbr>&nbsp;<wbr> 在等号两边加空格<br>
+then<br>
+echo $var<br>
+echo "input is correct"<br>
+else<br>
+echo $var<br>
+echo "input error"<br>
+fi</td>
+</tr>
+<tr>
+<td>[macg@machome ~]$ sh test.sh<br>
+input your choice:<br>
+y<br>
+y<br>
+input is correct<br>
+[macg@machome ~]$ sh test.sh<br>
+input your choice:<br>
+n&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+n<br>
+input is correct&nbsp;<wbr><br>
+输错了也走then,都走then,为什么?<br>
+<span style="color:#ff00; font-weight:bold">因为if把$var="yes"连读成一个变量，而此变量为空，返回1，则走else</span></td>
+<td>&nbsp;<wbr>[macg@machome ~]$ sh test.sh<br>
+input your choice:<br>
+y<br>
+y<br>
+input error<br>
+[macg@machome ~]$ sh test.sh<br>
+input your choice:<br>
+no&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+no<br>
+input error<br>
+一切正常<br>
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="font-weight:bold">If&nbsp;<wbr> [&nbsp;<wbr> $ANS&nbsp;<wbr> ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 等价于&nbsp;<wbr> if [ -n $ANS ]</span><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果字符串变量非空（then） , 空(else)<br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>echo "input your choice:"<br>
+read ANS<br>
+<br>
+if [ $ANS ]<br>
+then<br>
+echo no empty<br>
+else<br>
+echo empth<br>
+fi&nbsp;<wbr><br>
+</td>
+</tr>
+<tr>
+<td>[macg@machome ~]$ sh test.sh<br>
+input your choice:&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>&nbsp;<wbr> &nbsp;<wbr> 回车<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+empth&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="font-weight:bold">说明“回车”就是空串</span><br>
+[macg@machome ~]$ sh test.sh<br>
+input your choice:<br>
+34<br>
+no empty&nbsp;<wbr><br>
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">整数条件表达式，大于，小于</span>，s<span style="font-weight:bold">hell里没有&gt; 和&lt; ,会被当作尖括号，只有-ge,-gt,-le,lt</span><br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>[macg@machome ~]$ vi test.sh<br>
+<br>
+echo "input a:"<br>
+read a<br>
+if&nbsp;<wbr> [ $a -ge 100 ] ; then<br>
+echo 3bit<br>
+else<br>
+echo 2bit<br>
+fi<br>
+</td>
+</tr>
+<tr>
+<td>[macg@machome ~]$ sh test.sh<br>
+input a:<br>
+123<br>
+3bit<br>
+[macg@machome ~]$ sh test.sh<br>
+input a:<br>
+20<br>
+2bit</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+&nbsp;<wbr><span style="font-weight:bold">整数操作符号-ge,-gt,-le,-lt, 别忘了加-</span><br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>if&nbsp;<wbr> test $a&nbsp;<wbr> <span style="font-weight:bold">ge</span> 100 ; then<br>
+<br>
+[macg@machome ~]$ sh test.sh<br>
+test.sh: line 4: test: ge: binary operator expected<br>
+</td>
+</tr>
+<tr>
+<td>if&nbsp;<wbr> test $a -ge 100 ; then<br>
+<br>
+[macg@machome ~]$ sh test.sh<br>
+input a:<br>
+123<br>
+3bit<br>
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+============================逻辑表达式=========================================<br>
+<span style="font-weight:bold"><br>
+</span><span style="font-weight:bold">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 逻辑非 !&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 条件表达式的相反</span><br>
+if [ ! 表达式 ]<br>
+if [ ! -d $num ]&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> &nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果不存在目录$num<br>
+<br>
+<br>
+<span style="font-weight:bold">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 逻辑与 –a</span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="font-weight:bold">条件表达式的并列</span><br>
+if [ 表达式1&nbsp;<wbr> –a&nbsp;<wbr> 表达式2 ]<br>
+<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">逻辑或 -o&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span style="font-weight:bold">条件表达式的或</span><br>
+if [ 表达式1&nbsp;<wbr> –o 表达式2 ]<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold"><br>
+&nbsp;<wbr>&nbsp;<wbr> 逻辑表达式</span><br>
+<ul>
+<li>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 表达式与前面的=&nbsp;<wbr> != -d –f –x -ne -eq -lt等合用 </li></ul>
+<ul>
+<li>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 逻辑符号就正常的接其他表达式，没有任何括号（ ），就是并列 </li></ul>
+if [ -z "$JHHOME" -a -d $HOME/$num ]<br>
+<ul>
+<li>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 注意逻辑与-a与逻辑或-o很容易和其他字符串或文件的运算符号搞混了 </li></ul>
+<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr><span style="font-weight:bold">最常见的赋值形式，赋值前对=两边的变量都进行评测</span><br>
+左边测变量是否为空，右边测目录(值)是否存在（值是否有效）<br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>&nbsp;<wbr></td>
+</tr>
+<tr>
+<td>[macg@mac-home ~]$ vi test.sh<br>
+:<br>
+echo "input the num:"<br>
+read num<br>
+echo "input is $num"<br>
+<br>
+<span style="font-weight:bold">if [ -z "$JHHOME" -a -d $HOME/$num ]&nbsp;<wbr>&nbsp;<wbr></span> 如果变量$JHHOME为空，且$HOME/$num目录存在<br>
+<span style="font-weight:bold">then</span><br style="font-weight:bold">
+<span style="font-weight:bold">JHHOME=$HOME/$num&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></span>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr> &nbsp;<wbr>&nbsp;<wbr> 则赋值<br>
+fi<br>
+<br>
+echo "JHHOME is $JHHOME"&nbsp;<wbr>&nbsp;<wbr><br>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top">-----------------------<br>
+[macg@mac-home ~]$ sh test.sh<br>
+input the num:<br>
+ppp<br>
+input is ppp<br>
+JHHOME is<br>
+<br>
+目录<span style="font-weight:bold">-d $HOME/$num&nbsp;<wbr>&nbsp;<wbr></span> 不存在，所以$JHHOME没被then赋值</td>
+</tr>
+<tr>
+<td style="vertical-align:top">[macg@mac-home ~]$ mkdir ppp<br>
+[macg@mac-home ~]$ sh test.sh<br>
+input the num:<br>
+ppp<br>
+input is ppp<br>
+JHHOME is /home/macg/ppp</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+&nbsp;<wbr><span style="font-weight:bold">&nbsp;<wbr>&nbsp;<wbr> 一个-o的例子，其中却揭示了”=”必须两边留空格的问题</span><br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>echo "input your choice:"<br>
+read ANS<br>
+<br>
+if [ <span style="font-weight:bold">$ANS="Yes"</span> -o $ANS="yes" -o $ANS="y" -o $ANS="Y" ]<br>
+then<br>
+ANS="y"<br>
+else<br>
+ANS="n"<br>
+fi<br>
+<br>
+echo $ANS</td>
+</tr>
+<tr>
+<td>[macg@machome ~]$ sh test.sh<br>
+input your choice:<br>
+n<br>
+y<br>
+[macg@machome ~]$ sh test.sh<br>
+input your choice:<br>
+no<br>
+y<br>
+为什么输入不是yes,结果仍是y(走then）<br>
+因为=被连读了，成了变量<span style="font-weight:bold">$ANS="Yes"，而变量又为空，所以走else了</span></td>
+</tr>
+</tbody>
+</table>
+<br>
+<table style="width:80%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>[macg@machome ~]$ vi test.sh<br>
+<br>
+echo "input your choice:"<br>
+read ANS&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> echo "input your choice:"<br>
+read ANS<br>
+<br>
+if [ <span style="font-weight:bold">$ANS = "Yes"</span> -o $ANS = "yes" -o $ANS = "y" -o $ANS = "Y" ]<br>
+then<br>
+ANS="y"<br>
+else<br>
+ANS="n"<br>
+fi<br>
+<br>
+echo $ANS<br>
+</td>
+</tr>
+<tr>
+<td>[macg@machome ~]$ sh test.sh<br>
+input your choice:<br>
+no<br>
+n<br>
+[macg@machome ~]$ sh test.sh<br>
+input your choice:<br>
+yes<br>
+y<br>
+[macg@machome ~]$ sh test.sh<br>
+input your choice:<br>
+y<br>
+y</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+===================以&nbsp;<wbr> test 条件表达式作为if条件===================================<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">if test $num -eq 0&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 等价于&nbsp;<wbr>&nbsp;<wbr> if [ $num –eq 0 ]</span><br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr><span style="font-weight:bold">&nbsp;<wbr> test&nbsp;<wbr> 表达式,没有 [&nbsp;<wbr> ]</span><br>
+if test $num -eq 0&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br>
+then<br>
+echo "try again"<br>
+else<br>
+echo "good"<br>
+fi<br>
+<br>
+<span style="font-weight:bold">&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> man test</span><br>
+<table style="width:100%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>[macg@machome ~]$ man test<br>
+[(1)&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> User Commands&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+ [(1)<br>
+<br>
+SYNOPSIS<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> test EXPRESSION<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> [ EXPRESSION ]<br>
+<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> [-n] STRING<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> the length of STRING is nonzero&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -n和直接$str都是非0条件<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -z STRING<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> the length of STRING is zero<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> STRING1 = STRING2<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> the strings are equal<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> STRING1 != STRING2<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> the strings are not equal<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> INTEGER1 -eq INTEGER2<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> INTEGER1 is equal to INTEGER2<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> INTEGER1 -ge INTEGER2<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> INTEGER1 is greater than or equal to INTEGER2<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> INTEGER1 -gt INTEGER2<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> INTEGER1 is greater than INTEGER2<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> INTEGER1 -le INTEGER2<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> INTEGER1 is less than or equal to INTEGER2<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> INTEGER1 -lt INTEGER2<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> INTEGER1 is less than INTEGER2<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> INTEGER1 -ne INTEGER2<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> INTEGER1 is not equal to INTEGER2<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE1 -nt FILE2<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE1 is newer (modification date) than FILE2<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE1 -ot FILE2<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE1 is older than FILE2<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -b FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists and is block special<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -c FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists and is character special<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -d FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists and is a directory<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -e FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+ 文件存在<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -f FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists and is a regular file&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 文件存在且是普通文件<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -h FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists and is a symbolic link (same as -L)<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -L FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists and is a symbolic link (same as -h)<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -G FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists and is owned by the effective group ID<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -O FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists and is owned by the effective user ID<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -p FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists and is a named pipe<br>
+<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -s FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists and has a size greater than zero<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -S FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists and is a socket<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -w FILE<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> FILE exists and is writable<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> -x FILE<br>
+FILE exists and is executable<br>
+&nbsp;<wbr><br>
+</td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+======================if简化语句=================================<br>
+<br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">最常用的简化if语句</span><br>
+<table style="width:100%" border="1" cellpadding="3" cellspacing="1">
+<tbody>
+<tr>
+<td>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">&amp;&amp; 如果是“前面”，则“后面”</span><br>
+[ -f /var/run/dhcpd.pid ] &amp;&amp; rm /var/run/dhcpd.pid&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 检查 文件是否存在，如果存在就删掉<br>
+</td>
+</tr>
+<tr>
+<td>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">||&nbsp;<wbr>&nbsp;<wbr> 如果不是“前面”，则后面</span><br>
+[ -f /usr/sbin/dhcpd ] || exit 0&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 检验文件是否存在，如果存在就退出<br>
+</td>
+</tr>
+</tbody>
+</table>
+&nbsp;<wbr><br>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> <span style="font-weight:bold">用简化 if 和$1,$2,$3来检测参数，不合理就调用help</span><br>
+<span style="font-weight:bold">[ -z "$1" ] &amp;&amp; help&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> &nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果第一个参数不存在（-z&nbsp;<wbr> 字符串长度为0 ）</span><br>
+[ "$1" = "-h" ] &amp;&amp; help&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> &nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr> 如果第一个参数是-h,就显示help<br>
+<br>
+<br>
+<span style="font-weight:bold">例子</span><br>
+#!/bin/sh<br>
+<br>
+[ -f "/etc/sysconfig/network-scripts/ifcfg-eth0" ] &amp;&amp; rm -f /etc/sysconfig/network-scripts/ifcfg-eth0<br>
+cp ifcfg-eth0.bridge /etc/sysconfig/network-scripts/ifcfg-eth0<br>
+<br>
+[ -f "/etc/sysconfig/network-scripts/ifcfg-eth1" ] &amp;&amp; rm -f /etc/sysconfig/network-scripts/ifcfg-eth1<br>
+cp ifcfg-eth1.bridge /etc/sysconfig/network-scripts/ifcfg-eth1<br>
+<br>
+[ -f "/etc/sysconfig/network-scripts/ifcfg-eth0:1" ] &amp;&amp; rm -f /etc/sysconfig/network-scripts/ifcfg-eth0:1<br>
+<br>
+
+</div>
+
+<div class="share_buttons" id="sharePanel"><span>分享到：</span> <a name="sina" class="share_sina" title="分享到新浪微博"></a><a name="qq" class="share_qq" title="分享到腾讯微博"></a></div>
+<!--192.168.100.34-->
+<div class="article_next_prev">
+    <li class="prev_article"><span>上一篇：</span><a href="http://blog.csdn.net/hainan16/article/details/6667487">shell编程 case语句</a></li>
+    <li class="next_article"><span>下一篇：</span><a href="http://blog.csdn.net/hainan16/article/details/6705917">linux 下安装qt</a></li>
+</div>
+
+
+    
+</div>
+<div id="ad_cen">
+<script type="text/javascript">BAIDU_CLB_SLOT_ID = "117306";</script>
+<script type="text/javascript" src="6667489_files/o.js"></script><script charset="utf-8" src="6667489_files/ecom.js"></script><div id="baidu_clb_slot_117306"><iframe id="baidu_clb_slot_iframe_117306" src="6667489_files/a_002.html" onload="BAIDU_CLB_renderFrame('117306')" vspace="0" hspace="0" allowtransparency="true" marginheight="0" marginwidth="0" style="border: 0; vertical-align: bottom; margin: 0; display: block;" frameborder="0" height="90" scrolling="no" width="728"></iframe></div>
+</div>
+<script type="text/javascript">
+    //new Ad(4, 'ad_cen');
+</script>
+<div id="comment_title" class="panel_head">查看评论<a name="comments"></a></div>
+<div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_2538227"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/SSSUUNNYY" target="_blank">SSSUUNNYY</a> <span class="ptime">2013-02-26 10:47发表</span>  <a href="#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2538227" username="SSSUUNNYY"> <a href="#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/SSSUUNNYY" target="_blank"><img src="6667489_files/3_sssuunnyy.gif" height="40" width="40"></a></dd><dd class="comment_body">顶</dd></dl><dl class="comment_item comment_topic" id="comment_item_2513471"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/wangwei5281528" target="_blank">wangwei5281528</a> <span class="ptime">2013-01-23 13:32发表</span>  <a href="#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2513471" username="wangwei5281528"> <a href="#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/wangwei5281528" target="_blank"><img src="6667489_files/3_wangwei5281528.jpg" height="40" width="40"></a></dd><dd class="comment_body">支持一下！！</dd></dl><div class="clear"></div></div>
+<div style="display: none;" id="comment_bar"></div>
+<div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:csdn.showLogin(function (dat) {js_logined(dat.data.userName);});">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Fhainan16%2Farticle%2Fdetails%2F6667489">[注册]</a></div></div>
+<div class="announce">* 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+<script type="text/javascript">
+    var fileName = '6667489';
+    var commentscount = 2;
+    var islock = false
+</script>
+<script type="text/javascript" src="6667489_files/comment.js"></script>
+<div id="ad_bot"><iframe src="6667489_files/ad.html" style="border-width: 0px; overflow: hidden; width: 732px; height: 170px;" id="ad_frm_0" frameborder="0" scrolling="no"></iframe></div>
+<script type="text/javascript">
+    new Ad(5, 'ad_bot');
+</script>
+<div id="report_dialog"></div>
+
+<div id="d-top" style="">
+<a id="d-top-a" href="#" title="回到顶部">
+<img src="6667489_files/top.png" alt="TOP"></a>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var d_top=$('#d-top');
+        document.onscroll=function(){
+            var scrTop=(document.body.scrollTop||document.documentElement.scrollTop);
+            if(scrTop>500){
+                d_top.show();
+            }else{
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function(){
+            scrollTo(0,0);
+            this.blur();
+            return false;
+        });
+    });
+</script>
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div id="side">
+<div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/hainan16" target="_blank">
+    <img src="6667489_files/1_hainan16.gif" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/hainan16" class="user_name" target="_blank">hainan16</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+<a href="javascript:void(0);" class="letter" onclick="loginto(1)" title="[发私信]"></a>
+</div>
+<div id="blog_medal">
+<div id="bms_box"></div></div>
+<ul id="blog_rank">
+    <li>访问：<span>33308次</span></li>
+    <li>积分：<span>807分</span></li>
+    <li>排名：<span>第14132名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>48篇</span></li>
+    <li>转载：<span>16篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>16条</span></li>
+</ul>
+</ul>
+</div>
+
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" class="blogsearch" title="请输入关键字" type="text"></span>
+        <input id="btnSubmit" value="搜索" title="search in blog" type="submit">
+        <input name="q" id="inputQ" type="hidden">
+        <input name="t" value="blog" type="hidden">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+<li>
+<a href="http://blog.csdn.net/hainan16/article/category/861739">shell 编程</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/category/880235">VC</a><span>(8)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/category/893623">硬件电路测试</a><span>(0)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/category/893625">硬件电路程序调试</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/category/894018">测量</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/category/894443">模拟电路</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/category/894723">面试</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/category/1285967">EVC wince开发</a><span>(8)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/category/1318719">AVR</a><span>(1)</span>
+</li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/hainan16/article/month/2013/01">2013年01月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/hainan16/article/month/2012/12">2012年12月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/hainan16/article/month/2012/11">2012年11月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/hainan16/article/month/2011/12">2011年12月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/hainan16/article/month/2011/10">2011年10月</a><span>(1)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/hainan16/article/month/2011/09">2011年09月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/hainan16/article/month/2011/08">2011年08月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/hainan16/article/month/2011/07">2011年07月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/hainan16/article/month/2011/06">2011年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/hainan16/article/month/2011/05">2011年05月</a><span>(14)</span></li><li><a href="http://blog.csdn.net/hainan16/article/month/2011/04">2011年04月</a><span>(7)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head"><span>阅读排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6667483" title="shell编程  for in 循环">shell编程  for in 循环</a><span>(9022)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6667489" title="shell编程 if语句">shell编程 if语句</a><span>(7089)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6651559" title="罗马计数法">罗马计数法</a><span>(1662)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6616761" title="SDRAM （转）">SDRAM （转）</a><span>(950)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6665976" title="如何学习ARM 系统">如何学习ARM 系统</a><span>(838)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6884864" title="单片机 C语言延时 分析（转载）">单片机 C语言延时 分析（转载）</a><span>(698)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6667486" title="shell编程 循环结构">shell编程 循环结构</a><span>(630)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6652993" title="S3C2410 IIC EEPROM 总结">S3C2410 IIC EEPROM 总结</a><span>(624)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/7078529" title="MFC单文档打开文件">MFC单文档打开文件</a><span>(619)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6425425" title="电路板调试总结">电路板调试总结</a><span>(610)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/7078508" title="VC++ 学习心得">VC++ 学习心得</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6440889" title="程序调试">程序调试</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6358490" title="数据总线，地址总线，外围设备">数据总线，地址总线，外围设备</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6667489" title="shell编程 if语句">shell编程 if语句</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6743842" title="VC 中 file-&gt;open 打不开文件问题解决方法">VC 中 file-&gt;open 打不开文件问题解决方法</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6665976" title="如何学习ARM 系统">如何学习ARM 系统</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6652993" title="S3C2410 IIC EEPROM 总结">S3C2410 IIC EEPROM 总结</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/7080574" title="在workspace中可以看这个类的头文件和cpp文件，但是在classview中看不到这个新建的类">在workspace中可以看这个类的头文件和cpp文件，但是在classview中看不到这个新建的类</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6433074" title="AD模块">AD模块</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/hainan16/article/details/6425425" title="电路板调试总结">电路板调试总结</a><span>(1)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend"><iframe src="6667489_files/ad_002.html" style="border-width: 0px; overflow: hidden; width: 196px; height: 311px;" id="ad_frm_1" frameborder="0" scrolling="no"></iframe></ul>
+</div>
+<script type="text/javascript">
+ new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+    <a href="http://blog.csdn.net/hainan16/article/details/6667489#comments">shell编程 if语句</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/SSSUUNNYY" class="user_name">SSSUUNNYY</a>:
+顶
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/hainan16/article/details/6667489#comments">shell编程 if语句</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/wangwei5281528" class="user_name">wangwei5281528</a>:
+支持一下！！
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/hainan16/article/details/6443980#comments">晶体管分析电路</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/hainan16" class="user_name">hainan16</a>:
+PNP型三极管工作在放大状态时：Vbe&lt;0;Vcc&lt;VbbPNP型三极管发射极电位最高,集电极电位最...
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/hainan16/article/details/6665976#comments">如何学习ARM 系统</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/cangencong" class="user_name">草根聪</a>:
+貌似不是原创呀
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/hainan16/article/details/6743842#comments">VC 中 file-&gt;open 打不开文件问题解决方法</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/kongpinggudaodeai" class="user_name">kongpinggudaodeai</a>:
+大牛，你说这个问题能不能截图操作下，我QQ642963259.谢谢
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/hainan16/article/details/7080574#comments">在workspace中可以看这个类的头文件和cpp文件，但是在classview中看不到这个新建的类</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/chsf126" class="user_name">chsf126</a>:
+嗯嗯，谢了
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/hainan16/article/details/7078508#comments">VC++ 学习心得</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/hainan16" class="user_name">hainan16</a>:
+出现指针指向空，即指针指向一段内存，结果内存中是空的，这时引用指针会出错
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/hainan16/article/details/7078508#comments">VC++ 学习心得</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/hainan16" class="user_name">hainan16</a>:
+重点还是要学会调试程序，还有最核心的东西，是要能够看懂程序，就是要知道程序的执行顺序，流程图。
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/hainan16/article/details/7078508#comments">VC++ 学习心得</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/hainan16" class="user_name">hainan16</a>:
+问题解决了，删除函数是没有问题，但是不知道为什么把 view类中 ondraw（） 函数中显示位图的...
+    </p>
+    </li>
+    <li>
+    <a href="http://blog.csdn.net/hainan16/article/details/6440889#comments">程序调试</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/hainan16" class="user_name">hainan16</a>:
+ARM核心板的UART1 RX引脚没有坏掉，而是在核心板上的GPF7引脚 虚焊，现在调试成功
+    </p>
+    </li>
+</ul>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+</div>
+
+<script type="text/javascript" src="6667489_files/newblog.js"></script>
+<script type="text/javascript" src="6667489_files/showblogmedal.js"></script>
+
+<script type="text/javascript">
+document.write('<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date()/120000).toString(36) + '="></'+'script>');
+</script><script type="text/javascript" src="6667489_files/publib_footer.js"></script><link rel="stylesheet" type="text/css" href="6667489_files/pub_footer_2012.css"><div id="pub_footerall" class="pub_footerall"><dl><dt></dt> <dd><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a>|<a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a>|<a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a>|<a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a>|<a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a>|<a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a>|<a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a>|<a href="mailto:webmaster@csdn.net">问题报告</a></dd><dd><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2355263776&amp;site=qq&amp;menu=yes" target="_blank" class="qq">QQ客服</a> <a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a> <a href="http://bbs.csdn.net/forums/Service" target="_blank" class="online">论坛反馈</a> <a href="mailto:webmaster@csdn.net" class="email">联系邮箱：webmaster@csdn.net</a> <span class="phone">服务热线：400-600-2320</span></dd><dd>京&nbsp;ICP&nbsp;证&nbsp;070598&nbsp;号</dd><dd>北京创新乐知信息技术有限公司 版权所有</dd><dd>世纪乐知(北京)网络技术有限公司 提供技术支持</dd><dd>江苏乐知网络技术有限公司 提供商务支持</dd><dd>Copyright © 1999-2012, CSDN.NET, All Rights Reserved&nbsp;<a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="6667489_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="6667489_files/notify.js"></script><script type="text/javascript" charset="utf-8" src="6667489_files/tracking.js"></script>
+
+<script type="text/javascript" src="6667489_files/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="6667489_files/pv.asc" border="0" height="0" width="0">
+<script type="text/javascript" src="6667489_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="6667489_files/msg.js"></script>
+
+
+<script type="text/javascript" src="6667489_files/ad-blog.js"></script><script type="text/javascript" src="6667489_files/ad-ms537.js"></script>
+
+
+<script type="text/javascript" src="6667489_files/count.js"></script><iframe src="6667489_files/logs.html" frameborder="0" height="0" width="0"></iframe>
+
+</div>
+
+<link type="text/css" rel="stylesheet" href="6667489_files/message_pop.css"><div id="_popup_msg_container" style="display: block;">
+
+<div style="display: block; height: 240px;" wistate="max" id="im_popupWindow_miniMsg" class="im_popupWindow">
+	<h6 class="wi_draggable"><span>微信搜索"pongo_"获取更多职位推送
+</span><a onclick="_message_tips_pop('down');return false;"><img alt="close" class="founctionpic3" src="6667489_files/pic_close.gif"></a></h6>
+    <div id="im_popupWindow_miniMsgContent" class="wi_content">
+		<style type="text/css">
+<!--
+	#im2009 { position:relative; width:280px;  background-color:#FEF9F5; overflow:hidden;}
+	#im2009 UL{ width:100%;  float:left; margin-left:0; padding:5px 10px; overflow:hidden;}
+        .blue { line-height:120%;}
+	.blue A:link { color:#100cff; text-decoration:none;}
+	.blue A:visited { color:#100cff; text-decoration:none;}
+	.blue A:active { color:#100cff; text-decoration:none;}
+	.blue A:hover { color:#100cff; text-decoration:none;}
+	
+	.bottom { margin-bottom:0px; height:40px; padding:5px}
+	.bottom A:link { color:#FF9900; text-decoration:none; font-size:12px;}
+	.bottom A:visited { color:#FF9900; text-decoration:none; font-size:12px;}
+	.bottom A:active { color:#FF9900; text-decoration:none; font-size:12px;}
+	.bottom A:hover { color:#FF9900; text-decoration:none; font-size:12px;}
+-->
+        .Adela li { margin-top:0px; margin-bottom:5px; }
+        .bottom { margin-top:10px; }
+        </style>
+
+     <div id="im2009" style="left: 0px; top: 0px; height: 200px; *height:180px">
+                 <ul class="Adela">
+       
+              <li class="blue">1、<a href="http://www.scopeinternational.com.cn/codemarathon/initIndex.action" target="__blank">赢取41000美金+名企offer 渣打编程马拉松</a></li>
+        <li class="blue">2、<a href="http://org.pongo.cn/Jobpreview/Details?ID=73513" target="__blank">【国企正式编制】VoLTE网络及通信业务研究员</a></li>
+        <li class="blue">3、<a href="http://org.pongo.cn/Jobpreview/Details?ID=73455" target="__blank">【国企正式编制】经营分析领域研究员</a></li>
+        <li class="blue">4、<a href="http://org.pongo.cn/Jobpreview/Details?ID=73375" target="__blank">【国企正式编制】IT与云计算技术研究员</a></li>
+        <li class="blue">5、<a href="http://org.pongo.cn/Jobpreview/Details?ID=74333" target="__blank">【国企正式编制】网络优化数据挖掘及分析员</a></li> 
+        <li class="blue">6、<a href="http://org.pongo.cn/Jobpreview/Details?ID=73835" target="_blank"> 【国企正式编制】WLAN新技术研发工程师</a></li>
+        <li class="blue">7、<a href="http://org.pongo.cn/Job/Details?ID=75659" target="_blank">【ThoughtWorks】Business Analyst</a></li>
+        <li class="blue">8、<a href="http://org.pongo.cn/Job/Details?ID=75187" target="__blank">【百度】社区搜索部_PHP研发工程师</a></li>
+        <li class="blue">9、<a href="http://org.pongo.cn/Job/Details?ID=75393" target="__blank">【公安部控股】C/C++工程师（数据中心）</a></li>
+        <li class="b_more"><a href="http://www.pongo.cn/" target="__blank">查看更多职位信息</a></li>
+
+
+
+       </ul>
+	</div>
+	<div class="content_qq"><span onclick="window.open('')" target="_blank"></span>
+ </div>
+ 
+ 
+</div>
+</div></div><img style="display: none;" src="6667489_files/count_new.html"><iframe src="6667489_files/log.swf" style="width: 1px; height: 1px; position: absolute; visibility: hidden;"></iframe></body></html>

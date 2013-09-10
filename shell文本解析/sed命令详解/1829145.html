@@ -1,0 +1,786 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>sed命令详解 - edwardlost - 博客园</title>
+<link type="text/css" rel="stylesheet" href="1829145_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="1829145_files/style.css">
+<link type="text/css" rel="stylesheet" href="1829145_files/common2.css">
+<link type="text/css" rel="stylesheet" href="1829145_files/shStyle.css">
+<link type="text/css" rel="stylesheet" href="1829145_files/customcss.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/edwardlost/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/edwardlost/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/edwardlost/wlwmanifest.xml">
+<script src="1829145_files/gpt.js" type="text/javascript" async=""></script><script src="1829145_files/ga.js" async="" type="text/javascript"></script><script src="1829145_files/encoder.js" type="text/javascript"></script><script src="1829145_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">
+var currentBlogApp = 'edwardlost';
+</script>
+<script src="1829145_files/common.js" type="text/javascript"></script> 
+<script src="1829145_files/json2.js" type="text/javascript"></script>
+<script type="text/javascript" src="1829145_files/syntaxHighlighter.js"></script>
+<script src="1829145_files/google_ads_gpt.js" type="text/javascript" async=""></script><script src="1829145_files/osd.js" type="text/javascript"></script></head>
+<body>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/edwardlost/">edwardlost' blog</a></div>
+<div class="subtitle"></div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/edwardlost/">首页</a></li>
+<li id="nav_q"><a class="menu" href="http://q.cnblogs.com/">博问</a></li>
+<li id="nav_ing"><a class="menu" href="http://home.cnblogs.com/ing/">闪存</a></li>
+<li id="nav_newpost"><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://www.cnblogs.com/edwardlost/admin/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://space.cnblogs.com/msg/send/edwardlost">联系</a></li>
+<li id="nav_rss"><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/edwardlost/rss">订阅</a>
+<!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/edwardlost/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://www.cnblogs.com/edwardlost/admin/EditPosts.aspx">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔-102&nbsp;
+文章-0&nbsp;
+评论-19&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+	
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/edwardlost/archive/2010/09/17/1829145.html">sed命令详解</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><div><span style="font-size: 10pt"><strong>转载：<a href="http://blog.chinaunix.net/u/22677/showart_1076318.html">http://blog.chinaunix.net/u/22677/showart_1076318.html</a></strong></span></div>
+<div><span style="font-size: 12pt"><strong>&nbsp;</strong></span></div>
+<div><span style="font-size: 12pt"><strong>1.简介</strong></span></div>
+<div>sed是非交互式的编辑器。它不会修改文件，除非使用shell重定向来保存结果。默认情况下，所有的输出行都被打印到屏幕上。</div>
+<div>sed编辑器逐行处理文件（或输入），并将结果发送到屏幕。具体过程如下：首先sed把当前正在处理的行保存在一个临时缓存区中（也称为模式空
+间），然后处理临时缓冲区中的行，完成后把该行发送到屏幕上。sed每处理完一行就将其从临时缓冲区删除，然后将下一行读入，进行处理和显示。处理完输入
+文件的最后一行后，sed便结束运行。sed把每一行都存在临时缓冲区中，对这个副本进行编辑，所以不会修改原文件。</div>
+<div>&nbsp;</div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div><span style="font-size: 12pt"><strong>2.定址</strong></span></div>
+<div>定址用于决定对哪些行进行编辑。地址的形式可以是数字、正则表达式、或二者的结合。如果没有指定地址，sed将处理输入文件的所有行。</div>
+<div>&nbsp;</div>
+<div>地址是一个数字，则表示行号；是“$"符号，则表示最后一行。例如：&nbsp;</div>
+<div></div>
+<div></div>
+<div>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed <span style="color: #0000cc">-</span>n <span style="color: #ff00ff">'3p'</span> datafile<br>只打印第三行</span></code></span></p></td></tr></tbody></table></div>
+<p>&nbsp;</p>
+<p>&nbsp;只显示指定行范围的文件内容，例如：</p>
+<div class="cnblogs_code">
+<div>#&nbsp;只查看文件的第100行到第200行<br>sed&nbsp;-n&nbsp;'100,200p'&nbsp;mysql_slow_query.log</div></div>
+<p>&nbsp;</p>
+<p>地址是逗号分隔的，那么需要处理的地址是这两行之间的范围（包括这两行在内）。范围可以用数字、正则表达式、或二者的组合表示。例如：</p>
+<div>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed <span style="color: #ff00ff">'2,5d'</span> datafile<br>#删除第二到第五行<br>sed <span style="color: #ff00ff">'/My/,/You/d'</span> datafile<br>#删除包含<span style="color: #ff00ff">"My"<span style="color: #000000">的</span></span>行到包含<span style="color: #ff00ff">"You"<span style="color: #000000">的</span></span>行之间的行<br>sed <span style="color: #ff00ff">'/My/,10d'</span> datafile<br>#删除包含<span style="color: #ff00ff">"My"<span style="color: #000000">的</span></span>行到第十行的内容</span></code></span></p></td></tr></tbody></table></div>
+<div></div>
+<p><span style="font-size: 12pt"><strong>&nbsp;</strong></span></p>
+<p><span style="font-size: 12pt"><strong>&nbsp;</strong></span></p>
+<p><span style="font-size: 12pt"><strong>3.命令与选项</strong></span></p>
+<p>sed命令告诉sed如何处理由地址指定的各输入行，如果没有指定地址则处理所有的输入行。</p>
+<p>&nbsp;</p>
+<p><strong>3.1 sed命令</strong></p>
+<div>
+<table border="1" cellpadding="1" cellspacing="1" width="500">
+<tbody>
+<tr>
+<td>&nbsp;<span style="font-size: 10pt">命令</span></td>
+<td><span style="font-size: 10pt">&nbsp;功能</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;a\</span></td>
+<td>
+<p><span style="font-size: 10pt">&nbsp;在当前行后添加一行或多行。多行时除最后一行外，每行末尾需用“\”续行</span></p></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;c\</span></td>
+<td><span style="font-size: 10pt">&nbsp;用此符号后的新文本替换当前行中的文本。多行时除最后一行外，每行末尾需用"\"续行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;i\</span></td>
+<td><span style="font-size: 10pt">&nbsp;在当前行之前插入文本。多行时除最后一行外，每行末尾需用"\"续行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;d</span></td>
+<td><span style="font-size: 10pt">&nbsp;删除行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;h</span></td>
+<td><span style="font-size: 10pt">&nbsp;把模式空间里的内容复制到暂存缓冲区</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;H</span></td>
+<td><span style="font-size: 10pt">&nbsp;把模式空间里的内容追加到暂存缓冲区</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;g</span></td>
+<td><span style="font-size: 10pt">&nbsp;把暂存缓冲区里的内容复制到模式空间，覆盖原有的内容</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;G</span></td>
+<td><span style="font-size: 10pt">&nbsp;把暂存缓冲区的内容追加到模式空间里，追加在原有内容的后面</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;l</span></td>
+<td><span style="font-size: 10pt">&nbsp;列出非打印字符</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;p</span></td>
+<td><span style="font-size: 10pt">&nbsp;打印行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;n</span></td>
+<td><span style="font-size: 10pt">&nbsp;读入下一输入行，并从下一条命令而不是第一条命令开始对其的处理</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;q</span></td>
+<td><span style="font-size: 10pt">&nbsp;结束或退出sed</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;r</span></td>
+<td><span style="font-size: 10pt">&nbsp;从文件中读取输入行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;!</span></td>
+<td><span style="font-size: 10pt">&nbsp;对所选行以外的所有行应用命令</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;s</span></td>
+<td><span style="font-size: 10pt">&nbsp;用一个字符串替换另一个</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;g</span></td>
+<td><span style="font-size: 10pt">&nbsp;在行内进行全局替换</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;</span></td>
+<td></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;w</span></td>
+<td><span style="font-size: 10pt">&nbsp;将所选的行写入文件</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;x</span></td>
+<td><span style="font-size: 10pt">&nbsp;交换暂存缓冲区与模式空间的内容</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;y</span></td>
+<td><span style="font-size: 10pt">&nbsp;将字符替换为另一字符（不能对正则表达式使用y命令）</span></td></tr></tbody></table></div>
+<p><strong>&nbsp;</strong></p>
+<p><strong>3.2 sed选项</strong></p>
+<div>
+<table border="1" cellpadding="1" cellspacing="1" width="500">
+<tbody>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;选项</span></td>
+<td><span style="font-size: 10pt">&nbsp;功能</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;-e</span></td>
+<td><span style="font-size: 10pt">&nbsp;进行多项编辑，即对输入行应用多条sed命令时使用</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;-n</span></td>
+<td><span style="font-size: 10pt">&nbsp;取消默认的输出</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;-f</span></td>
+<td><span style="font-size: 10pt">&nbsp;指定sed脚本的文件名</span></td></tr></tbody></table></div>
+<div></div>
+<div></div>
+<div><span style="font-size: 12pt"><strong>&nbsp;</strong></span></div>
+<div><span style="font-size: 12pt"><strong>&nbsp;</strong></span></div>
+<div><span style="font-size: 12pt"><strong>4.退出状态</strong></span></div>
+<div>sed不向grep一样，不管是否找到指定的模式，它的退出状态都是0。只有当命令存在语法错误时，sed的退出状态才不是0。</div>
+<div></div>
+<div></div>
+<div></div>
+<div>
+<div><span style="font-size: 12pt"><strong>5.正则表达式元字符</strong></span></div>
+<div>&nbsp;与grep一样，sed也支持特殊元字符，来进行模式查找、替换。不同的是，sed使用的正则表达式是括在斜杠线"/"之间的模式。</div>
+<div>如果要把正则表达式分隔符"/"改为另一个字符，比如o，只要在这个字符前加一个反斜线，在字符后跟上正则表达式，再跟上这个字符即可。例如：sed -n '\o^Myop' datafile</div>
+<div>&nbsp;</div>
+<div>
+<table border="1" cellpadding="1" cellspacing="1" width="500">
+<tbody>
+<tr>
+<td>&nbsp;<span style="font-size: 10pt">元字符</span></td>
+<td><span style="font-size: 10pt">&nbsp;功能</span></td>
+<td><span style="font-size: 10pt">&nbsp;示例</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;^</span></td>
+<td><span style="font-size: 10pt">&nbsp;行首定位符</span></td>
+<td><span style="font-size: 10pt">&nbsp;/^my/&nbsp; 匹配所有以my开头的行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;$</span></td>
+<td><span style="font-size: 10pt">&nbsp;行尾定位符</span></td>
+<td><span style="font-size: 10pt">&nbsp;/my$/&nbsp; 匹配所有以my结尾的行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;.</span></td>
+<td><span style="font-size: 10pt">&nbsp;匹配除换行符以外的单个字符</span></td>
+<td><span style="font-size: 10pt">&nbsp;/m..y/&nbsp; 匹配包含字母m，后跟两个任意字符，再跟字母y的行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;*</span></td>
+<td><span style="font-size: 10pt">&nbsp;匹配零个或多个前导字符</span></td>
+<td><span style="font-size: 10pt">&nbsp;/my*/&nbsp; 匹配包含字母m,后跟零个或多个y字母的行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;[]</span></td>
+<td><span style="font-size: 10pt">&nbsp;匹配指定字符组内的任一字符</span></td>
+<td><span style="font-size: 10pt">&nbsp;/[Mm]y/&nbsp; 匹配包含My或my的行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;[^]</span></td>
+<td><span style="font-size: 10pt">&nbsp;匹配不在指定字符组内的任一字符</span></td>
+<td><span style="font-size: 10pt">&nbsp;/[^Mm]y/&nbsp; 匹配包含y，但y之前的那个字符不是M或m的行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;\(..\)</span></td>
+<td><span style="font-size: 10pt">&nbsp;保存已匹配的字符</span></td>
+<td><span style="font-size: 10pt">&nbsp;1,20s/\(you\)self/\1r/&nbsp; 
+标记元字符之间的模式，并将其保存为标签1，之后可以使用\1来引用它。最多可以定义9个标签，从左边开始编号，最左边的是第一个。此例中，对第1到第
+20行进行处理，you被保存为标签1，如果发现youself，则替换为your。</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;&amp;</span></td>
+<td><span style="font-size: 10pt">&nbsp;保存查找串以便在替换串中引用</span></td>
+<td><span style="font-size: 10pt">&nbsp;s/my/**&amp;**/&nbsp;&nbsp;符号&amp;代表查找串。my将被替换为**my**</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;\&lt;</span></td>
+<td><span style="font-size: 10pt">&nbsp;词首定位符</span></td>
+<td><span style="font-size: 10pt">&nbsp;/\&lt;my/&nbsp; 匹配包含以my开头的单词的行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;\&gt;</span></td>
+<td><span style="font-size: 10pt">&nbsp;词尾定位符</span></td>
+<td><span style="font-size: 10pt">&nbsp;/my\&gt;/&nbsp; 匹配包含以my结尾的单词的行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;x\{m\}</span></td>
+<td><span style="font-size: 10pt">&nbsp;连续m个x</span></td>
+<td><span style="font-size: 10pt">&nbsp;/9\{5\}/ 匹配包含连续5个9的行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;x\{m,\}</span></td>
+<td><span style="font-size: 10pt">&nbsp;至少m个x</span></td>
+<td><span style="font-size: 10pt">&nbsp;/9\{5,\}/&nbsp; 匹配包含至少连续5个9的行</span></td></tr>
+<tr>
+<td><span style="font-size: 10pt">&nbsp;x\{m,n\}</span></td>
+<td><span style="font-size: 10pt">&nbsp;至少m个，但不超过n个x</span></td>
+<td><span style="font-size: 10pt">&nbsp;/9\{5,7\}/&nbsp; 匹配包含连续5到7个9的行</span></td></tr></tbody></table></div>
+<div></div>
+<div></div>
+<div>&nbsp;</div>
+<div></div>
+<div><span style="font-size: 12pt"><strong>6.范例</strong></span></div>
+<div>&nbsp;</div>
+<div><strong>6.1 p命令</strong></div>
+<div>命令p用于显示模式空间的内容。默认情况下，sed把输入行打印在屏幕上，选项-n用于取消默认的打印操作。当选项-n和命令p同时出现时,sed可打印选定的内容。</div>
+<div>&nbsp;</div>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed <span style="color: #ff00ff">'/my/p'</span> datafile<br>#默认情况下，sed把所有输入行都打印在标准输出上。如果某行匹配模式my，p命令将把该行另外打印一遍。</span></code></span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000"><br>sed <span style="color: #0000cc">-</span>n <span style="color: #ff00ff">'/my/p'</span> datafile<br>#选项<span style="color: #0000cc">-</span>n取消sed默认的打印，p命令把匹配模式my的行打印一遍。<br></span></code></span></p></td></tr></tbody></table>
+<p><strong>&nbsp;</strong></p>
+<p><strong>6.2 d命令</strong></p>
+<p>命令d用于删除输入行。sed先将输入行从文件复制到模式空间里，然后对该行执行sed命令，最后将模式空间里的内容显示在屏幕上。如果发出的是命令d，当前模式空间里的输入行会被删除，不被显示。</p>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed <span style="color: #ff00ff">'$d'</span> datafile<br>#删除最后一行，其余的都被显示<br><br>sed <span style="color: #ff00ff">'/my/d'</span> datafile<br>#删除包含my的行，其余的都被显示</span></code></span></p></td></tr></tbody></table>
+<p><strong>&nbsp;</strong></p>
+<p><strong>6.3 s命令</strong></p>
+<div></div>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed <span style="color: #ff00ff">'s/^My/You/g'</span> datafile<br>#命令末端的g表示在行内进行全局替换，也就是说如果某行出现多个My，所有的My都被替换为You。<br><br>sed <span style="color: #0000cc">-</span>n <span style="color: #ff00ff">'1,20s/My$/You/gp'</span> datafile<br>#取消默认输出，处理1到20行里匹配以My结尾的行，把行内所有的My替换为You，并打印到屏幕上。</span></code></span></p></td></tr></tbody></table>
+<div>&nbsp;&nbsp;</div>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed <span style="color: #ff00ff">'s#My#Your#g'</span> datafile<br>#紧跟在s命令后的字符就是查找串和替换串之间的分隔符。分隔符默认为正斜杠，但可以改变。无论什么字符（换行符、反斜线除外），只要紧跟s命令，就成了新的串分隔符。</span></code></span></p></td></tr></tbody></table>
+<p><strong>&nbsp;</strong></p>
+<p><strong>6.4 e选项</strong></p>
+<p>-e是编辑命令，用于sed执行多个编辑任务的情况下。在下一行开始编辑前，所有的编辑动作将应用到模式缓冲区中的行上。</p>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed <span style="color: #0000cc">-</span>e <span style="color: #ff00ff">'1,10d'</span> <span style="color: #0000cc">-</span>e <span style="color: #ff00ff">'s/My/Your/g'</span> datafile</span></code></span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">#选项-e用于进行多重编辑。第一重编辑删除第1-3行。第二重编辑将出现的所有My替换为Your。因为是逐行进行这两项编辑（即这两个命令都在模式空间的当前行上执行），所以编辑命令的顺序会影响结果。</span></code></span></p></td></tr></tbody></table>
+<p><strong>&nbsp;</strong></p>
+<p><strong>6.5 r命令</strong></p>
+<p>r命令是读命令。sed使用该命令将一个文本文件中的内容加到当前文件的特定位置上。</p>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed <span style="color: #ff00ff">'/My/r introduce.txt'</span> datafile<br>#如果在文件datafile的某一行匹配到模式My，就在该行后读入文件introduce<span style="color: #0000cc">.</span>txt的内容。如果出现My的行不止一行，则在出现My的各行后都读入introduce<span style="color: #0000cc">.</span>txt文件的内容。</span></code></span></p></td></tr></tbody></table>
+<div>&nbsp;</div>
+<div><strong>6.6 w命令</strong></div>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed <span style="color: #0000cc">-</span>n <span style="color: #ff00ff">'/hrwang/w me.txt'</span> datafile<br></span></code></span></p></td></tr></tbody></table>
+<p><strong>&nbsp;</strong></p>
+<p><strong>6.7 a\ 命令</strong></p>
+<p>a\ 命令是追加命令，追加将添加新文本到文件中当前行（即读入模式缓冲区中的行）的后面。所追加的文本行位于sed命令的下方另起一行。如果要追加的内容超过一行，则每一行都必须以反斜线结束，最后一行除外。最后一行将以引号和文件名结束。</p>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed <span style="color: #ff00ff">'/^hrwang/a\<br>&gt;hrwang and mjfan are husband\<br>&gt;and wife'</span> datafile<br>#如果在datafile文件中发现匹配以hrwang开头的行，则在该行下面追加hrwang and mjfan are husband and wife</span></code></span></p></td></tr></tbody></table>
+<p><strong>&nbsp;</strong></p>
+<p><strong>6.8 i\ 命令</strong></p>
+<p>i\ 命令是在当前行的前面插入新的文本。</p>
+<p><strong>&nbsp;</strong></p>
+<p><strong>6.9 c\ 命令</strong></p>
+<p>sed使用该命令将已有文本修改成新的文本。</p>
+<p><strong>&nbsp;</strong></p>
+<p><strong>6.10 n命令</strong></p>
+<p>sed使用该命令获取输入文件的下一行，并将其读入到模式缓冲区中，任何sed命令都将应用到匹配行紧接着的下一行上。</p>
+<div></div>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><code><span style="color: #000000"><span style="font-size: 10pt">sed <span style="color: #ff00ff">'/hrwang/{n;s/My/Your/;}'</span> datafile</span><br></span></code></p></td></tr></tbody></table>
+<div><span style="color: #339999">注：如果需要使用多条命令，或者需要在某个地址范围内嵌套地址，就必须用花括号将命令括起来，每行只写一条命令，或这用分号分割同一行中的多条命令。</span></div>
+<div>&nbsp;</div>
+<div><strong>6.11 y命令</strong></div>
+<div>该命令与UNIX/Linux中的tr命令类似，字符按照一对一的方式从左到右进行转换。例如，y/abc/ABC/将把所有小写的a转换成A，小写的b转换成B，小写的c转换成C。</div>
+<div>&nbsp;</div>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed <span style="color: #ff00ff">'1,20y/hrwang12/HRWANG^$/'</span> datafile<br>#将1到20行内，所有的小写hrwang转换成大写，将1转换成^<span style="color: #0000cc">,</span>将2转换成<span style="color: #0000ff">$</span><span style="color: #008080">。</span><br>#正则表达式元字符对y命令不起作用。与s命令的分隔符一样，斜线可以被替换成其它的字符。</span></code></span></p></td></tr></tbody></table>
+<p><strong>&nbsp;</strong></p>
+<p><strong>6.12 q命令</strong></p>
+<p>q命令将导致sed程序退出，不再进行其它的处理。</p>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><code><span style="color: #000000"><span style="font-size: 10pt">sed <span style="color: #ff00ff">'/hrwang/{s/hrwang/HRWANG/;q;}'</span> datafile</span><br></span></code></p></td></tr></tbody></table>
+<p><strong>&nbsp;</strong></p>
+<p><strong>6.13 h命令和g命令</strong></p>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">#cat datafile</span></code></span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">My name is hrwang.</span></code></span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">Your name is mjfan.</span></code></span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">hrwang is mjfan's husband.</span></code></span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">mjfan is hrwang's wife.</span></code></span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">&nbsp;</span></code>&nbsp;</span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed <span style="color: #0000cc">-</span>e <span style="color: #ff00ff">'/hrwang/h'</span> <span style="color: #0000cc">-</span>e <span style="color: #ff00ff">'$G'</span> datafile</span></code></span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed -e '/hrwang/H' -e '$G' datafile</span></code></span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">#通过上面两条命令，你会发现h会把原来暂存缓冲区的内容清除，只保存最近一次执行h时保存进去的模式空间的内容。而H命令则把每次匹配hrwnag的行都追加保存在暂存缓冲区。<br></span></code></span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed -e '/hrwang/H' -e '$g' datafile</span></code></span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">sed -e '/hrwang/H' -e '$G' datafile</span></code></span></p>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000">#通过上面两条命令，你会发现g把暂存缓冲区中的内容替换掉了模式空间中当前行的内容，此处即替换了最后一行。而G命令则把暂存缓冲区的内容追加到了模式空间的当前行后。此处即追加到了末尾。</span></code></span></p></td></tr></tbody></table>
+<p><span style="font-size: 12pt"><strong>&nbsp;</strong></span></p>
+<p><span style="font-size: 12pt"><strong>&nbsp;</strong></span></p>
+<p><span style="font-size: 12pt"><strong>7. sed脚本</strong></span></p>
+<p>sed脚本就是写在文件中的一列sed命令。脚本中，要求命令的末尾不能有任何多余的空格或文本。如果在一行中有多个命令，要用分号分隔。执行脚本
+时，sed先将输入文件中第一行复制到模式缓冲区，然后对其执行脚本中所有的命令。每一行处理完毕后，sed再复制文件中下一行到模式缓冲区，对其执行脚
+本中所有命令。使用sed脚本时，不再用引号来确保sed命令不被shell解释。例如sed脚本script：</p>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000"><span style="color: #ff9900">#handle datafile</span><br>3i\<br><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><br>3<span style="color: #0000cc">,</span><span style="color: #0000ff">$</span><span style="color: #008080">s</span><span style="color: #0000cc">/</span><span style="color: #0000cc">\</span><span style="color: #0000cc">(</span>hrwang\<span style="color: #0000cc">)</span> is</span></code><code><span style="color: #000000">&nbsp;\<span style="color: #0000cc">(</span>mjfan\<span style="color: #0000cc">)</span><span style="color: #0000cc">/</span><span style="color: #0000cc">\</span>2 is \1<span style="color: #0000cc">/</span></span></code><code><span style="color: #000000"><br><span style="color: #0000ff">$</span><span style="color: #008080">a</span><span style="color: #008080">\</span><br>We will love eachother <span style="color: #0000ff">for</span>ever！！</span></code><code><span style="color: #000000">&nbsp;</span></code></span></p>&nbsp;</td></tr></tbody></table>
+<p>&nbsp;</p>
+<div></div>
+<table style="border-collapse: collapse" bgcolor="#f1f1f1" border="1" bordercolor="#999999" cellpadding="0" cellspacing="0" width="95%">
+<tbody>
+<tr>
+<td>
+<p style="margin: 5px; line-height: 150%"><span style="font-size: 10pt"><code><span style="color: #000000"><span style="color: #ff9900">#sed -f script datafile</span><br><span style="color: #000000"><span style="color: #0000ff">My</span> </span>name is hrwang<br>Your name is mjfan<br><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><span style="color: #0000cc">~</span><br>mjfan is hrwang<span style="color: #ff00ff"><span style="color: #000000">'s </span><span style="color: #000000">husband</span>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ＃啦啦～～～<br><span style="color: #000000">mjfan is hrwang'</span></span><span style="color: #000000">s wife<span style="color: #0000cc">.</span><br></span>We will love eachother forever！！</span></code></span></p></td></tr></tbody></table>
+<p style="margin: 5px; line-height: 150%">&nbsp;</p></div></div><div id="MySignature"></div>
+<script type="text/javascript">
+var isLogined = false;
+var cb_blogId = 75684;
+var cb_entryId = 1829145;
+var cb_blogApp = currentBlogApp;
+var cb_blogUserGuid = "505ed1f6-ecbb-df11-ac81-842b2b196315";
+var cb_entryCreatedDate = '2010/9/17 12:12:00';
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</script>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory"></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/edwardlost/tag/shell/">shell</a>, <a href="http://www.cnblogs.com/edwardlost/tag/linux/">linux</a></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/edwardlost" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="1829145_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/edwardlost/">edwardlost</a><br>
+<a href="http://home.cnblogs.com/u/edwardlost/followees">关注 - 0</a><br>
+<a href="http://home.cnblogs.com/u/edwardlost/followers">粉丝 - 22</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,'Digg')"> 
+		<span class="diggnum" id="digg_count">3</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/09/1822484.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/edwardlost/archive/2010/09/09/1822484.html" title="发布于2010-09-09 17:08">【转载】std::map的一些注意点</a><br><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/19/1831245.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/edwardlost/archive/2010/09/19/1831245.html" title="发布于2010-09-19 18:25">PHP的foreach语句使用引用变量的问题</a><br></div>
+</div>
+<script type="text/javascript">
+    //SyntaxHighlighter.config.strings.expandSource = '<span><img src="http://static.cnblogs.com/images/expand-code.gif" alt="" class="expand-code-icon"/>View Code</span>';
+    $(function () {  
+        loadViewCount(cb_entryId);
+        fixPostBodyFormat();
+        loadAdUnderPost();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);        
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);        
+    });
+</script>
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2010-09-17 12:12</span> <a href="http://www.cnblogs.com/edwardlost/">edwardlost</a> 阅读(<span id="post_view_count">40299</span>) 评论(<span id="post_comment_count">6</span>)  <a href="http://www.cnblogs.com/edwardlost/admin/EditPosts.aspx?postid=1829145" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(1829145);return false;">收藏</a></div>
+	</div>
+	<script src="1829145_files/1829145.js" type="text/javascript"></script>
+	
+</div><!--end: topics 文章、评论容器-->
+<div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="#2034869" class="layer">#1楼</a><a name="2034869" id="comment_anchor_2034869"></a>  <span class="comment_date">2011-02-28 10:08</span> <a id="a_comment_author_2034869" href="http://home.cnblogs.com/u/274723/" target="_blank">~我是卖菜的</a> <a href="http://space.cnblogs.com/msg/send/%7e%e6%88%91%e6%98%af%e5%8d%96%e8%8f%9c%e7%9a%84" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2034869" class="blog_comment_body">echo `sed -e :a -e 'N;ta;' /0011.txt | grep -o "user.*"|awk -F'[:\t]' '{print $1}' | sed -e "s/$#/111111/g" `</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2034869,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2034869,'Bury',this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="#2438384" class="layer">#2楼</a><a name="2438384" id="comment_anchor_2438384"></a>  <span class="comment_date">2012-07-31 15:55</span> <a id="a_comment_author_2438384" href="http://www.cnblogs.com/zhuqing/" target="_blank">zhuqing_739</a> <a href="http://space.cnblogs.com/msg/send/zhuqing_739" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2438384" class="blog_comment_body">sed -i 你用过吗？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2438384,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2438384,'Bury',this)">反对(0)</a></div><span id="comment_2438384_avatar" style="display:none;">http://pic.cnitblog.com/face/u101865.jpg?id=13160952</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="#2658504" class="layer">#3楼</a><a name="2658504" id="comment_anchor_2658504"></a>  <span class="comment_date">2013-04-16 11:08</span> <a id="a_comment_author_2658504" href="http://home.cnblogs.com/u/473392/" target="_blank">stevewolf</a> <a href="http://space.cnblogs.com/msg/send/stevewolf" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2658504" class="blog_comment_body">分享了！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2658504,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2658504,'Bury',this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="#2680262" class="layer">#4楼</a><a name="2680262" id="comment_anchor_2680262"></a>  <span class="comment_date">2013-05-14 16:09</span> <a id="a_comment_author_2680262" href="http://home.cnblogs.com/u/473266/" target="_blank">wade_G</a> <a href="http://space.cnblogs.com/msg/send/wade_G" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2680262" class="blog_comment_body">sed -r 's/^([a-z]+)([^a-z].*[^a-z])([a-z]+)$/\3\2\1/' passwd<br>把passwd文件的首末单词互换，并输出到屏幕</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2680262,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2680262,'Bury',this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="#2691892" class="layer">#5楼</a><a name="2691892" id="comment_anchor_2691892"></a>  <span class="comment_date">2013-05-28 16:24</span> <a id="a_comment_author_2691892" href="http://www.cnblogs.com/way-try/" target="_blank">way_try</a> <a href="http://space.cnblogs.com/msg/send/way_try" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2691892" class="blog_comment_body">很繁琐耶</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2691892,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2691892,'Bury',this)">反对(0)</a></div><span id="comment_2691892_avatar" style="display:none;">http://pic.cnitblog.com/face/u394482.jpg?id=07022243</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="#2698435" class="layer">#6楼</a><a name="2698435" id="comment_anchor_2698435"></a><span id="comment-maxId" style="display:none;">2698435</span><span id="comment-maxDate" style="display:none;">2013/6/5 15:00:11</span>  <span class="comment_date">2013-06-05 15:00</span> <a id="a_comment_author_2698435" href="http://www.cnblogs.com/effort0209/" target="_blank">effort0209</a> <a href="http://space.cnblogs.com/msg/send/effort0209" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2698435" class="blog_comment_body">不错的文章，很好的命令</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2698435,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2698435,'Bury',this)">反对(0)</a></div><span id="comment_2698435_avatar" style="display:none;">http://pic.cnitblog.com/face/507851/20130324164615.png</span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+
+<script type="text/javascript">
+    if (typeof commentManager === 'undefined') {
+        commentManager = new blogCommentManager();
+    }
+    commentManager.loadCommentForm();   
+</script>
+
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="ad_under_post_holder">
+<div id="google_ad_c1" class="c_ad_block">
+    <!-- cnblogs_blogpost_C1_sitehome -->
+    <div id="div-gpt-ad-1346480159711-0" style="width: 300px; height: 250px;">
+    
+    <iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" frameborder="0" height="250" scrolling="no" width="300"></iframe><iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom; visibility: hidden; display: none;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" frameborder="0" height="0" scrolling="no" width="0"></iframe></div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/181572/" target="_blank">传三星Tizen手机项目已被取消</a><br> ·  <a href="http://news.cnblogs.com/n/181571/" target="_blank">10大引导世界技术革新的开源项目</a><br> ·  <a href="http://news.cnblogs.com/n/181570/" target="_blank">首批“电磁轨道炮”原型机即将交付美国海军</a><br> ·  <a href="http://news.cnblogs.com/n/181569/" target="_blank">与百姓网王建硕谈分类网站：下一家市值十亿美元的公司</a><br> ·  <a href="http://news.cnblogs.com/n/181568/" target="_blank">莫非是Ive设计的？电影《Jobs》官方海报正式发布</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/181532/" target="_blank">云计算服务模型，第 1 部分: 基础架构即服务(IaaS)</a><br> ·  <a href="http://kb.cnblogs.com/page/181453/" target="_blank">企业云</a><br> ·  <a href="http://kb.cnblogs.com/page/181381/" target="_blank">.Net程序员学习Linux最简单的方法</a><br> ·  <a href="http://kb.cnblogs.com/page/181365/" target="_blank">BPM与SOA的演进与展望</a><br> ·  <a href="http://kb.cnblogs.com/page/181281/" target="_blank">程序员自我学习自我培训指南</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="google_ad_c2" class="c_ad_block">
+    <!-- cnblogs_blogpost_C2_sitehome -->
+    <div id="div-gpt-ad-1346479110744-1" style="width: 468px; height: 60px;">
+    
+    <iframe src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px none; vertical-align: bottom;" marginheight="0" marginwidth="0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" id="google_ads_iframe_/1090369/cnblogs_blogpost_C2_sitehome_0" frameborder="0" height="60" scrolling="no" width="468"></iframe></div>
+</div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+</div>
+
+
+
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/edwardlost/">edwardlost</a><br>园龄：<a href="http://home.cnblogs.com/u/edwardlost/" title="入园时间：2010-09-09">2年9个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/edwardlost/followers/">22</a><br>关注：<a href="http://home.cnblogs.com/u/edwardlost/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger('505ed1f6-ecbb-df11-ac81-842b2b196315')">+加关注</a></div></div></div>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="displya:none"><table id="blogCalendar" class="Cal" title="日历" cellpadding="0" cellspacing="0">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar('2010/08/01');return false;">&lt;</a></td><td align="center">2010年9月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar('2010/10/01');return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" abbr="日" scope="col" align="center">日</th><th class="CalDayHeader" abbr="一" scope="col" align="center">一</th><th class="CalDayHeader" abbr="二" scope="col" align="center">二</th><th class="CalDayHeader" abbr="三" scope="col" align="center">三</th><th class="CalDayHeader" abbr="四" scope="col" align="center">四</th><th class="CalDayHeader" abbr="五" scope="col" align="center">五</th><th class="CalDayHeader" abbr="六" scope="col" align="center">六</th></tr><tr><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td class="CalWeekendDay" align="center">4</td></tr><tr><td class="CalWeekendDay" align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center"><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/09.html"><u>9</u></a></td><td align="center">10</td><td class="CalWeekendDay" align="center">11</td></tr><tr><td class="CalWeekendDay" align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center"><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/17.html"><u>17</u></a></td><td class="CalWeekendDay" align="center">18</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/19.html"><u>19</u></a></td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td class="CalWeekendDay" align="center">25</td></tr><tr><td class="CalWeekendDay" align="center">26</td><td align="center"><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/27.html"><u>27</u></a></td><td align="center"><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/28.html"><u>28</u></a></td><td align="center">29</td><td align="center">30</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td></tr><tr><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td></tr>
+</tbody></table></div></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn">
+
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="widget_my_zzk" class="div_my_zzk"><input id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk" type="text">&nbsp;<input onclick="zzk_go()" value="找找看" id="btnZzk" class="btn_my_zzk" type="button"></div>
+<div id="widget_my_google" class="div_my_zzk"><input name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk" type="text">&nbsp;<input onclick="google_go()" value="谷歌搜索" class="btn_my_zzk" type="button"></div>
+</div>
+
+
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/edwardlost/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_1" href="http://www.cnblogs.com/edwardlost/MyComments.html">我的评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_2" title="我发表过评论的随笔" href="http://www.cnblogs.com/edwardlost/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/edwardlost/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="ctl01_rptMainLinks_lnkLinkItem_4" href="http://www.cnblogs.com/edwardlost/tag/">我的标签</a></li>
+	
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div>
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/edwardlost/tag/C%2B%2B/">C++</a>(29)</li><li><a href="http://www.cnblogs.com/edwardlost/tag/linux/">linux</a>(21)</li><li><a href="http://www.cnblogs.com/edwardlost/tag/boost/">boost</a>(16)</li><li><a href="http://www.cnblogs.com/edwardlost/tag/mysql/">mysql</a>(13)</li><li><a href="http://www.cnblogs.com/edwardlost/tag/PHP/">PHP</a>(8)</li><li><a href="http://www.cnblogs.com/edwardlost/tag/shell/">shell</a>(7)</li><li><a href="http://www.cnblogs.com/edwardlost/tag/asio/">asio</a>(6)</li><li><a href="http://www.cnblogs.com/edwardlost/tag/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/">游戏开发</a>(6)</li><li><a href="http://www.cnblogs.com/edwardlost/tag/SVN/">SVN</a>(4)</li><li><a href="http://www.cnblogs.com/edwardlost/tag/%E5%85%B6%E5%AE%83/">其它</a>(3)</li><li><a href="http://www.cnblogs.com/edwardlost/tag/">更多</a></li>
+</ul>
+</div>
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/edwardlost/archive/2013/03.html">2013年3月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/edwardlost/archive/2013/01.html">2013年1月 (5)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/edwardlost/archive/2012/12.html">2012年12月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/edwardlost/archive/2012/11.html">2012年11月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/edwardlost/archive/2012/10.html">2012年10月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/edwardlost/archive/2012/08.html">2012年8月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/edwardlost/archive/2012/07.html">2012年7月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/edwardlost/archive/2012/05.html">2012年5月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/edwardlost/archive/2012/04.html">2012年4月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/edwardlost/archive/2012/03.html">2012年3月 (3)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/edwardlost/archive/2012/02.html">2012年2月 (3)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/edwardlost/archive/2012/01.html">2012年1月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/edwardlost/archive/2011/12.html">2011年12月 (5)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/edwardlost/archive/2011/11.html">2011年11月 (9)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/edwardlost/archive/2011/10.html">2011年10月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/edwardlost/archive/2011/09.html">2011年9月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/edwardlost/archive/2011/08.html">2011年8月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/edwardlost/archive/2011/07.html">2011年7月 (6)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/edwardlost/archive/2011/06.html">2011年6月 (1)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/edwardlost/archive/2011/05.html">2011年5月 (4)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/edwardlost/archive/2011/04.html">2011年4月 (8)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/edwardlost/archive/2011/03.html">2011年3月 (7)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/edwardlost/archive/2011/02.html">2011年2月 (2)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/edwardlost/archive/2011/01.html">2011年1月 (5)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/edwardlost/archive/2010/12.html">2010年12月 (9)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/edwardlost/archive/2010/11.html">2010年11月 (6)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/edwardlost/archive/2010/10.html">2010年10月 (6)</a> </li>
+
+<li><a id="ctl03_CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/edwardlost/archive/2010/09.html">2010年9月 (5)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListArticleCategory">
+<h3 class="catListTitle">文章分类</h3>
+
+<ul>
+
+<li><a id="ctl03_CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/edwardlost/category/261081.html">技术开发</a> </li>
+
+</ul>
+
+</div>
+
+
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/17/1829145.html#2698435">1. Re:sed命令详解</a></li>
+    <li class="recent_comment_body">不错的文章，很好的命令</li>
+    <li class="recent_comment_author">--effort0209</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/17/1829145.html#2691892">2. Re:sed命令详解</a></li>
+    <li class="recent_comment_body">很繁琐耶</li>
+    <li class="recent_comment_author">--way_try</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/17/1829145.html#2680262">3. Re:sed命令详解</a></li>
+    <li class="recent_comment_body">sed -r 's/^([a-z]+)([^a-z].*[^a-z])([a-z]+)$/\3\2\1/' passwd<br>把passwd文件的首末单词互换，并输出到屏幕</li>
+    <li class="recent_comment_author">--wade_G</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/17/1829145.html#2658504">4. Re:sed命令详解</a></li>
+    <li class="recent_comment_body">分享了！</li>
+    <li class="recent_comment_author">--stevewolf</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/edwardlost/archive/2010/11/02/1861742.html#2450042">5. Re:Coroutine介绍</a></li>
+    <li class="recent_comment_body">@我是一头快乐的小毛驴-(Zealot Yin)引用看了很久才看明白 
+原来这是你自己利用switch实现的协程其实不是楼主原创，来源应该是这里：http://www.chiark.greenend.org.uk
+/~sgtatham/coroutines.html</li>
+    <li class="recent_comment_author">--黎小明</li>
+</ul>
+</div>
+</div>
+
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/17/1829145.html">1. sed命令详解(40299)</a></li><li><a href="http://www.cnblogs.com/edwardlost/archive/2010/10/11/1848009.html">2. boost::asio学习 - buffer篇(3514)</a></li><li><a href="http://www.cnblogs.com/edwardlost/archive/2010/11/02/1861742.html">3. Coroutine介绍(3246)</a></li><li><a href="http://www.cnblogs.com/edwardlost/archive/2010/10/25/1859152.html">4. boost::asio学习 - HTTP Server性能测试报告(2414)</a></li><li><a href="http://www.cnblogs.com/edwardlost/archive/2011/07/13/2105598.html">5. 利用 MySQL bin-log 恢复数据表(2361)</a></li></ul></div>
+</div>
+
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/17/1829145.html">1. sed命令详解(6)</a></li><li><a href="http://www.cnblogs.com/edwardlost/archive/2010/11/02/1861742.html">2. Coroutine介绍(4)</a></li><li><a href="http://www.cnblogs.com/edwardlost/archive/2011/06/21/2039100.html">3. 寻路算法学习笔记：Toward More Realistic Pathfinding(3)</a></li><li><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/19/1831245.html">4. PHP的foreach语句使用引用变量的问题(2)</a></li><li><a href="http://www.cnblogs.com/edwardlost/archive/2010/12/01/1887983.html">5. C++类型转换操作符（type conversion operator）(1)</a></li></ul></div>
+</div>
+
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/17/1829145.html">1. sed命令详解(3)</a></li><li><a href="http://www.cnblogs.com/edwardlost/archive/2010/09/09/1822484.html">2. 【转载】std::map的一些注意点(2)</a></li><li><a href="http://www.cnblogs.com/edwardlost/archive/2010/11/10/1873372.html">3. VIM实用技巧(1)</a></li><li><a href="http://www.cnblogs.com/edwardlost/archive/2011/09/01/2161825.html">4. C++11 新标准(1)</a></li><li><a href="http://www.cnblogs.com/edwardlost/archive/2011/07/13/2105598.html">5. 利用 MySQL bin-log 恢复数据表(1)</a></li></ul></div>
+</div></div>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2013 edwardlost
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<script type="text/javascript" src="1829145_files/google-analytics.js"></script>
+
+
+</body></html>
