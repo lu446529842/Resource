@@ -1,0 +1,16 @@
+o summarize the IRC session at http://community.opscode.com/chat/chef/2013-02-23:
+
+Chef-server redirects api clients between its components (in this case erchef and bookshelf). These redirects are based on the FQDN of the chef-server. If the server doesn't have a valid FQDN at install time, this can result in redirects to https://localhost:443.
+
+One solution is to fix the FQDN on chef-server and run chef-server-ctl reconfigure.
+
+Another solution is to set a few options in /etc/chef-server/chef-server.rb (I had to create this file) and then run chef-server-ctl reconfigure.
+
+server_name = "192.168.114.11"
+api_fqdn server_name
+
+nginx['url'] = "https://#{server_name}"
+nginx['server_name'] = server_name
+lb['fqdn'] = server_name
+bookshelf['vip'] = server_name
+

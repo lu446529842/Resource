@@ -1,0 +1,58 @@
+Install Storage node packages:
+
+# apt-get install swift-account swift-container swift-object xfsprogs
+
+# yum install openstack-swift-account openstack-swift-container openstack-swift-object xfsprogs
+
+For every device on the node you wish to use for storage, setup the XFS volume (/dev/sdb is used as an example). Use a single partition per drive. For example, in a server with 12 disks you may use one or two disks for the operating system which should not be touched in this step. The other 10 or 11 disks should be partitioned with a single partition, then formatted in XFS.
+
+# fdisk /dev/sdb
+
+mkfs.xfs -i size=1024 /dev/sdb1
+echo "/dev/sdb1 /srv/node/sdb1 xfs noatime,nodiratime,nobarrier,logbufs=8 0 0" >> /etc/fstab
+mkdir -p /srv/node/sdb1
+mount /srv/node/sdb1
+chown -R swift:swift /srv/node
+
+Create /etc/rsyncd.conf:
+
+uid = swift
+gid = swift
+log file = /var/log/rsyncd.log
+pid file = /var/run/rsyncd.pid
+address = <STORAGE_LOCAL_NET_IP>
+
+[account]
+max connections = 2
+path = /srv/node/
+read only = false
+lock file = /var/lock/account.lock
+
+[container]
+max connections = 2
+path = /srv/node/
+read only = false
+lock file = /var/lock/container.lock
+
+[object]
+max connections = 2
+path = /srv/node/
+read only = false
+lock file = /var/lock/object.lock         
+
+Edit the following line in /etc/default/rsync:
+
+RSYNC_ENABLE = true
+
+Start rsync daemon:
+
+# service rsync start
+
+[Note]	Note
+
+The rsync daemon requires no authentication, so it should be run on a local, private network.
+
+Create the swift recon cache directory and set its permissions.
+
+# mkdir -p /var/swift/recon
+# chown -R swift:swift /var/swift/recon

@@ -1,0 +1,238 @@
+<!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html class=" gecko linux js" xmlns="http://www.w3.org/1999/xhtml" xmlns:exsl="http://exslt.org/common" xmlns:ng="http://docbook.org/docbook-ng" xmlns:fb="http://ogp.me/ns/fb#"><head>
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<title>Proxy Server Configuration&nbsp;-&nbsp;OpenStack Object Storage Administration Manual
+  &nbsp;-&nbsp;Folsom, 1.4.8</title><meta name="generator" content="DocBook XSL-NS Stylesheets V1.76.1"><link rel="home" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/index.html" title="OpenStack Object Storage Administration Manual"><link rel="up" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/server-configuration-reference.html" title="Server Configuration Reference"><link rel="prev" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/account-server-configuration.html" title="Account Server Configuration"><link rel="next" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/object-layout-on-storage.html" title="Object Layout on Storage"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="proxy-server-configuration_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">
+            //The id for tree cookie
+            var treeCookieId = "treeview-5791";
+            var language = "en";
+            var w = new Object();
+            //Localization
+            txt_filesfound = 'Results';
+            txt_enter_at_least_1_char = "You must enter at least one character.";
+            txt_browser_not_supported = "Your browser is not supported. Use of Mozilla Firefox is recommended.";
+            txt_please_wait = "Please wait. Search in progress...";
+            txt_results_for = "Results for: ";
+        </script><style type="text/css">
+            input {
+            margin-bottom: 5px;
+            margin-top: 2px;
+            }
+
+            .folder {
+            display: block;
+            height: 22px;
+            padding-left: 20px;
+            background: transparent url(../common/jquery/treeview/images/folder.gif) 0 0px no-repeat;
+            }
+            
+        </style><link rel="shortcut icon" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/favicon.ico" type="image/x-icon"><link rel="stylesheet" type="text/css" href="proxy-server-configuration_files/positioning.css"><link rel="stylesheet" type="text/css" href="proxy-server-configuration_files/custom.css"><link href="http://docs.openstack.org/folsom/openstack-object-storage/admin/atom.xml" type="application/atom+xml" rel="alternate" title="Document ATOM Feed"><link rel="canonical" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content//proxy-server-configuration.html"><!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="../common/css/ie.css"/>
+	<![endif]--><link rel="stylesheet" type="text/css" href="proxy-server-configuration_files/jquery-ui-1.css"><link rel="stylesheet" type="text/css" href="proxy-server-configuration_files/jquery.css"><script type="text/javascript" src="proxy-server-configuration_files/jquery-1.js"><!----></script><script type="text/javascript" src="proxy-server-configuration_files/jquery-ui-1.js"><!----></script><script type="text/javascript" src="proxy-server-configuration_files/jquery_003.js"><!----></script><script type="text/javascript" src="proxy-server-configuration_files/jquery.js"><!----></script><script type="text/javascript" src="proxy-server-configuration_files/jquery_002.js"><!--jQuery plugin for glossary popups. --></script><script type="text/javascript" src="proxy-server-configuration_files/htmlFileList.js"><!----></script><script type="text/javascript" src="proxy-server-configuration_files/htmlFileInfoList.js"><!----></script><script type="text/javascript" src="proxy-server-configuration_files/nwSearchFnt.js"><!----></script><script type="text/javascript" src="proxy-server-configuration_files/en_stemmer.js"><!--//make this scalable to other languages as well.--></script><script type="text/javascript" src="proxy-server-configuration_files/index-1.js"><!----></script><script type="text/javascript" src="proxy-server-configuration_files/index-2.js"><!----></script><script type="text/javascript" src="proxy-server-configuration_files/index-3.js"><!----></script><script type="text/javascript">
+	    var _gaq = _gaq || [];
+	    _gaq.push(['_setAccount', 'UA-17511903-1']);
+	    
+	    _gaq.push(['_setDomainName', '.openstack.org']);	        
+	        </script><script type="text/javascript" src="proxy-server-configuration_files/ga_002.js"><!----></script><script>
+	    (function(){var twitterWidgets = document.createElement('script');
+        twitterWidgets.type = 'text/javascript';
+        twitterWidgets.async = true;
+        twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+        // Setup a callback to track once the script loads.
+        twitterWidgets.onload = _ga.trackTwitter;
+        document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+        })();
+      </script><script src="proxy-server-configuration_files/embed.js" async="" type="text/javascript"></script></head><body><div id="header"><a onclick="_gaq.push(['_trackEvent', 'Header', 'logo', 'click', 1]);" target="_blank" href="http://www.openstack.org/"><img src="proxy-server-configuration_files/openstack-logo.png" alt="OpenStack Documentation" height="47" width="157"></a><h1>Proxy Server Configuration</h1><div id="navheader" align="right"><!----><table class="navLinks"><tbody><tr><td><a id="showHideButton" onclick="showHideToc(); _gaq.push(['_trackEvent', 'Header', 'show/hide', 'click', 1]);" class="pointLeft" title="Hide TOC tree">Sidebar
+                            </a></td><td><a accesskey="p" class="navLinkPrevious" onclick="_gaq.push(['_trackEvent', 'Header', 'prevLink', 'click', 1]);" tabindex="5" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/account-server-configuration.html">Prev</a>
+				      |
+                                        <a accesskey="u" class="navLinkUp" onclick="_gaq.push(['_trackEvent', 'Header', 'upLink', 'click', 1]);" tabindex="5" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/server-configuration-reference.html">Up</a>
+				  |
+                                    <a accesskey="n" class="navLinkNext" onclick="_gaq.push(['_trackEvent', 'Header', 'nextLink', 'click', 1]);" tabindex="5" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/object-layout-on-storage.html">Next</a></td></tr></tbody></table></div></div><div id="toolbar" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"><div id="toolbar-left"><p class="breadcrumbs"><a href="http://docs.openstack.org/">OpenStack Manuals</a><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/index.html">OpenStack Object Storage Administration Manual
+  &nbsp;-&nbsp;Folsom, 1.4.8</a></p><a onclick="_gaq.push(['_trackEvent', 'Header', 'pdfDownload', 'click', 1]);" alt="Download a pdf of this document" class="pdficon" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/os-objectstorage-adminguide-folsom.pdf"><img src="proxy-server-configuration_files/pdf.png"></a>
+      &nbsp;
+      <a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/atom.xml"><img alt="Atom feed of this document" src="proxy-server-configuration_files/feed-icon.png"></a></div></div><div id="content"><div class="statustext">&nbsp;</div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="proxy-server-configuration">&nbsp;</a>Proxy Server Configuration</h3></div></div></div><p>An example Proxy Server configuration can be found at etc/proxy-server.conf-sample
+                in the source code repository.</p><p>The following configuration options are available:</p><table rules="all" id="d6e1464"><caption>Table&nbsp;4.17.&nbsp;proxy-server.conf Default Options in the [DEFAULT] section</caption><tbody><tr>
+                        <td>Option</td>
+                        <td>Default</td>
+                        <td>Description</td>
+                    </tr><tr>
+                        <td>bind_ip</td>
+                        <td>0.0.0.0</td>
+                        <td>IP Address for server to bind to</td>
+                    </tr><tr>
+                        <td>bind_port</td>
+                        <td>80</td>
+                        <td>Port for server to bind to</td>
+                    </tr><tr>
+                        <td>swift_dir</td>
+                        <td>/etc/swift</td>
+                        <td>Swift configuration directory</td>
+                    </tr><tr>
+                        <td>workers</td>
+                        <td>1</td>
+                        <td>Number of workers to fork</td>
+                    </tr><tr>
+                        <td>user</td>
+                        <td>swift</td>
+                        <td>User to run as</td>
+                    </tr><tr>
+                        <td>cert_file</td>
+                        <td> </td>
+                        <td>Path to the ssl .crt</td>
+                    </tr><tr>
+                        <td>key_file</td>
+                        <td> </td>
+                        <td>Path to the ssl .key</td>
+                    </tr></tbody></table><table rules="all" id="d6e1499"><caption>Table&nbsp;4.18.&nbsp;proxy-server.conf Server Options in the [proxy-server] section</caption><tbody><tr>
+                        <td>Option</td>
+                        <td>Default</td>
+                        <td>Description</td>
+                    </tr><tr>
+                        <td>use</td>
+                        <td> </td>
+                        <td>Entry point for paste.deploy for the proxy server. For most cases, this
+                            should be <code class="code">egg:swift#proxy</code>.</td>
+                    </tr><tr>
+                        <td>log_name</td>
+                        <td>proxy-server</td>
+                        <td>Label used when logging</td>
+                    </tr><tr>
+                        <td>log_facility</td>
+                        <td>LOG_LOCAL0</td>
+                        <td>Syslog log facility</td>
+                    </tr><tr>
+                        <td>log_level</td>
+                        <td>INFO</td>
+                        <td>Log level</td>
+                    </tr><tr>
+                        <td>log_headers</td>
+                        <td>True</td>
+                        <td>If True, log headers in each request</td>
+                    </tr><tr>
+                        <td>recheck_account_existence</td>
+                        <td>60</td>
+                        <td>Cache timeout in seconds to send memcached for account existence</td>
+                    </tr><tr>
+                        <td>recheck_container_existence</td>
+                        <td>60</td>
+                        <td>Cache timeout in seconds to send memcached for container existence</td>
+                    </tr><tr>
+                        <td>object_chunk_size</td>
+                        <td>65536</td>
+                        <td>Chunk size to read from object servers</td>
+                    </tr><tr>
+                        <td>client_chunk_size</td>
+                        <td>65536</td>
+                        <td>Chunk size to read from clients</td>
+                    </tr><tr>
+                        <td>memcache_servers</td>
+                        <td>127.0.0.1:11211</td>
+                        <td>Comma separated list of memcached servers ip:port.</td>
+                    </tr><tr>
+                        <td>node_timeout</td>
+                        <td>10</td>
+                        <td>Request timeout to external services</td>
+                    </tr><tr>
+                        <td>client_timeout</td>
+                        <td>60</td>
+                        <td>Timeout to read one chunk from a client</td>
+                    </tr><tr>
+                        <td>conn_timeout</td>
+                        <td>0.5</td>
+                        <td>Connection timeout to external services</td>
+                    </tr><tr>
+                        <td>error_suppression_interval</td>
+                        <td>60</td>
+                        <td>Time in seconds that must elapse since the last error for a node to be
+                            considered no longer error limited</td>
+                    </tr><tr>
+                        <td>error_suppression_limit</td>
+                        <td>10</td>
+                        <td>Error count to consider a node error limited</td>
+                    </tr><tr>
+                        <td>allow_account_management</td>
+                        <td>false</td>
+                        <td>Whether account PUTs and DELETEs are even callable</td>
+                    </tr></tbody></table><table rules="all" id="d6e1571"><caption>Table&nbsp;4.19.&nbsp;proxy-server.conf Paste.deploy Options in the [filter:swauth] section</caption><tbody><tr>
+                        <td>Option</td>
+                        <td>Default</td>
+                        <td>Description</td>
+                    </tr><tr>
+                        <td>use</td>
+                        <td> </td>
+                        <td>Entry point for paste.deploy to use for auth, set to:
+                                <code class="code">egg:swauth#swauth</code> to use the swauth downloaded from
+                            https://github.com/gholt/swauth </td>
+                    </tr><tr>
+                        <td>log_name</td>
+                        <td>auth-server</td>
+                        <td>Label used when logging</td>
+                    </tr><tr>
+                        <td>log_facility</td>
+                        <td>LOG_LOCAL0</td>
+                        <td>Syslog log facility</td>
+                    </tr><tr>
+                        <td>log_level</td>
+                        <td>INFO</td>
+                        <td>Log level</td>
+                    </tr><tr>
+                        <td>log_headers</td>
+                        <td>True</td>
+                        <td>If True, log headers in each request</td>
+                    </tr><tr>
+                        <td>reseller_prefix</td>
+                        <td>AUTH</td>
+                        <td>The naming scope for the auth service. Swift storage accounts and auth
+                            tokens will begin with this prefix.</td>
+                    </tr><tr>
+                        <td>auth_prefix</td>
+                        <td>/auth/</td>
+                        <td>The HTTP request path prefix for the auth service. Swift itself reserves
+                            anything beginning with the letter <code class="code">v</code>.</td>
+                    </tr><tr>
+                        <td>default_swift_cluster</td>
+                        <td>local#http://127.0.0.1:8080/v1</td>
+                        <td>The default Swift cluster to place newly created accounts on; only
+                            needed if you are using Swauth for authentication.</td>
+                    </tr><tr>
+                        <td>token_life</td>
+                        <td>86400</td>
+                        <td>The number of seconds a token is valid.</td>
+                    </tr><tr>
+                        <td>node_timeout</td>
+                        <td>10</td>
+                        <td>Request timeout</td>
+                    </tr><tr>
+                        <td>super_admin_key</td>
+                        <td>None</td>
+                        <td>The key for the .super_admin account.</td>
+                    </tr></tbody></table><table rules="all" id="d6e1624"><caption>Table&nbsp;4.20.&nbsp;proxy-server.conf Server Options in the [filter:cache] section</caption><tbody><tr>
+                        <td>Option</td>
+                        <td>Default</td>
+                        <td>Description</td>
+                    </tr><tr>
+                        <td>log_name</td>
+                        <td>cache</td>
+                        <td>Label used when logging</td>
+                    </tr><tr>
+                        <td>log_facility</td>
+                        <td>LOG_LOCAL0</td>
+                        <td>Syslog log facility</td>
+                    </tr><tr>
+                        <td>log_level</td>
+                        <td>INFO</td>
+                        <td>Log level</td>
+                    </tr><tr>
+                        <td>log_headers</td>
+                        <td>False</td>
+                        <td>If True, log headers in each request</td>
+                    </tr><tr>
+                        <td>memcache_servers</td>
+                        <td>127.0.0.1:11211</td>
+                        <td>Comma separated list of memcached servers ip:port. Note: the value
+                        in here will be ignored if it is also specified in 
+                        /etc/swift/proxy-server.conf</td>
+                    </tr></tbody></table></div><script type="text/javascript" src="proxy-server-configuration_files/main.js"><!----></script><hr><div id="disqus_thread"><iframe src="proxy-server-configuration_files/client.html" style="width: 100%; border: medium none; overflow: hidden; height: 0pt; display: none;" role="application" allowtransparency="true" data-disqus-uid="1" id="dsq1" frameborder="0" width="100%"></iframe><iframe verticalscrolling="no" horizontalscrolling="no" src="proxy-server-configuration_files/a.html" style="width: 100%; border: medium none; overflow: hidden; height: 353px;" role="complementary" allowtransparency="true" data-disqus-uid="2" id="dsq2" frameborder="0" scrolling="no" width="100%"></iframe></div><hr><div class="legal"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/index.html">Legal notices</a></div></div><div><div id="leftnavigation" style="padding-top:3px; background-color:white;"><div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="tabs"><ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"><li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#treeDiv" tabindex="1"><span class="contentsTab">Contents</span></a></li><li class="ui-state-default ui-corner-top"><a href="#searchDiv" tabindex="1"><span class="searchTab">Search</span></a></li></ul><div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="treeDiv"><img src="proxy-server-configuration_files/loading.gif" alt="loading table of contents..." id="tocLoading" style="display: none;"><div id="ulTreeDiv" style="" class="thisisthat"><ul style="display: block;" id="tree" class="filetree treeview"><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_getting-started-with-openstack.html">1. Getting Started with OpenStack</a></span><ul style="display: none;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/why-cloud.html">Why Cloud?</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/what-is-openstack.html">What is OpenStack?</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/components-of-openstack.html">Components of OpenStack</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/conceptual-architecture.html">Conceptual Architecture</a></span></li><li class="expandable lastExpandable" tabindex="2"><div class="hitarea expandable-hitarea lastExpandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/logical-architecture.html">Logical Architecture</a></span><ul style="display: none;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-dashboard-arch.html">Dashboard</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-compute-arch.html">Compute</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-object-store-arch.html">Object Store</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-image-store-arch.html">Image Store</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-identity-arch.html">Identity</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-network-arch.html">Network</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-block-storage-arch.html">Block Storage</a></span></li></ul></li></ul></li><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_introduction-to-openstack-object-storage.html">2. Introduction to OpenStack Object Storage</a></span><ul style="display: none;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/accounts-and-account-servers.html">Accounts and Account Servers</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/authentication-and-access-permissions.html">Authentication and Access Permissions</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/containers-and-objects.html">Containers and Objects</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/operations.html">Operations</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/language-specific-api-bindings.html">Language-Specific API Bindings</a></span></li></ul></li><li class="collapsable" tabindex="2"><div class="hitarea collapsable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_installing-openstack-object-storage.html">3. Installing OpenStack Object Storage </a></span><ul style="display: block;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/object-storage-system-requirements.html">System Requirements</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/object-storage-network-planning.html">Object Storage Network Planning</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/example-object-storage-installation-architecture.html">Example Object Storage Installation Architecture</a></span></li><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/installing-openstack-object-storage-on-ubuntu.html">Installing OpenStack Object Storage on Ubuntu</a></span><ul style="display: none;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/before-you-begin-swift-install.html">Before You Begin</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/general-installation-steps-swift.html">General Installation Steps </a></span></li></ul></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/installing-and-configuring-storage-nodes.html">Installing and Configuring the Storage Nodes</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/installing-and-configuring-the-proxy-node.html">Installing and Configuring the Proxy Node</a></span></li><li class="collapsable lastCollapsable" tabindex="2"><div class="hitarea collapsable-hitarea lastCollapsable-hitarea"></div><span class="file"><a class="" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/object-storage-post-install.html">OpenStack Object Storage Post Installation</a></span><ul style="display: block;"><li tabindex="2"><span class="file"><a class="" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/verify-swift-installation.html">Verify the Installation</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/adding-proxy-server.html">Adding an Additional Proxy Server</a></span></li></ul></li></ul></li><li class="collapsable" tabindex="2"><div class="hitarea collapsable-hitarea "></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_running-openstack-object-storage.html">4. System Administration for OpenStack Object Storage</a></span><ul style="display: block;"><li class="collapsable" tabindex="2"><div class="hitarea collapsable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/understanding-how-object-storage-works.html">Understanding How Object Storage Works</a></span><ul style="display: block;"><li tabindex="2"><span class="file"><a class="" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/understanding-how-object-storage-works.html#the-ring">The Ring</a></span></li><li tabindex="2"><span class="file"><a class="" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/understanding-how-object-storage-works.html#d6e676">Proxy Server</a></span></li><li tabindex="2"><span class="file"><a class="" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/understanding-how-object-storage-works.html#object-server">Object Server</a></span></li><li tabindex="2"><span class="file"><a class="" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/understanding-how-object-storage-works.html#container-server">Container Server</a></span></li><li tabindex="2"><span class="file"><a class="" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/understanding-how-object-storage-works.html#d6e689">Account Server</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/understanding-how-object-storage-works.html#swift-replication">Replication</a></span></li><li tabindex="2"><span class="file"><a class="" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/understanding-how-object-storage-works.html#updaters">Updaters</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/understanding-how-object-storage-works.html#auditors">Auditors</a></span></li></ul></li><li class="collapsable" tabindex="2"><div class="hitarea collapsable-hitarea "></div><span class="file"><a class="" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/server-configuration-reference.html">Server Configuration Reference</a></span><ul style="display: block;"><li tabindex="2"><span class="file"><a class="hover" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/object-server-configuration.html">Object Server Configuration</a></span></li><li tabindex="2"><span class="file"><a class="" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/container-server-configuration.html">Container Server Configuration</a></span></li><li tabindex="2"><span class="file"><a class="" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/account-server-configuration.html">Account Server Configuration</a></span></li><li style="background-color: #DEE9E9;  " class="last" tabindex="2" id="webhelp-currentid"><span class="file"><a style="color: black;" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/proxy-server-configuration.html">Proxy Server Configuration</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/object-layout-on-storage.html">Object Layout on Storage</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/configuring-and-tuning-openstack-object-storage.html">Configuring and Tuning OpenStack Object Storage</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/preparing-the-ring.html">Preparing the Ring</a></span></li><li class="collapsable" tabindex="2"><div class="hitarea collapsable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/considerations-and-tuning.html">Considerations and Tuning</a></span><ul style="display: block;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/memcached-considerations.html">Memcached Considerations</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/system-time.html">System Time</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/general-service-tuning.html">General Service Tuning</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/raid.html">RAID Considerations</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/filesystem-considerations.html">Filesystem Considerations</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/general-system-tuning.html">General System Tuning</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/logging-considerations.html">Logging Considerations</a></span></li><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/working-with-rings.html">Working with Rings</a></span><ul style="display: none;"><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/managing-rings-with-the-ring-builder.html">Managing Rings with the Ring Builder</a></span><ul style="display: none;"><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/about-the-ring-data-structure.html">About the Ring Data Structure</a></span><ul style="display: none;"><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/list-of-devices-in-the-ring.html">List of Devices in the Ring</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/partition-assignment-list.html">Partition Assignment List</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/partition-shift-value.html">Partition Shift Value</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/building-the-ring.html">Building the Ring</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/history-of-the-ring-design.html">History of the Ring Design</a></span></li></ul></li><li class="expandable lastExpandable" tabindex="2"><div class="hitarea expandable-hitarea lastExpandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/the-account-reaper.html">The Account Reaper</a></span><ul style="display: none;"><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/account-reaper-background-and-history.html">Account Reaper Background and History</a></span></li></ul></li></ul></li><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/replication.html">Replication</a></span><ul style="display: none;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/database-replication.html">Database Replication</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/object-replication.html">Object Replication</a></span></li></ul></li><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/managing-large-objects.html">Managing Large Objects (Greater than 5 GB)</a></span><ul style="display: none;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/using-swift-to-manage-segmented-objects.html">Using swift to Manage Segmented Objects</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/direct-api-management-of-large-objects.html">Direct API Management of Large Objects</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/additional-notes-on-large-objects.html">Additional Notes on Large Objects</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/large-object-storage-history-and-background.html">Large Object Storage History and Background</a></span></li></ul></li><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/throttling-resources-by-setting-rate-limits.html">Throttling Resources by Setting Rate Limits</a></span><ul style="display: none;"><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/configuration-for-rate-limiting.html">Configuration for Rate Limiting</a></span></li></ul></li><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-additional-features.html">Additional Features</a></span><ul style="display: none;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-healthcheck.html">Health Check</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-domain-remap.html">Domain Remap</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-cname-lookup.html">CNAME Lookup</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-tempurl.html">Temporary URL</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-name-check.html">Name Check Filter</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-constraints.html">Constraints</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-dispersion.html">Cluster Health</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/configuring-openstack-object-storage-with-s3_api.html">Configuring Object Storage with the S3 API</a></span></li><li class="expandable lastExpandable" tabindex="2"><div class="hitarea expandable-hitarea lastExpandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/managing-openstack-object-storage-with-swift-cli.html">Managing OpenStack Object Storage with CLI Swift</a></span><ul style="display: none;"><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-cli-basics.html">Swift CLI Basics</a></span><ul style="display: none;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-cli-basics.html#d6e2272">stat [container] [object]</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-cli-basics.html#d6e2275">list [options] [container]</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-cli-basics.html#d6e2278">upload [options] container file_or_directory [file_or_directory] […]</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-cli-basics.html#d6e2281">post [options] [container] [object]</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-cli-basics.html#d6e2285">download —all OR download container [object] [object] …</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-cli-basics.html#d6e2288">delete —all OR delete container [object] [object] …</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/swift-cli-basics.html#d6e2292">Options for swift</a></span></li></ul></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/analyzing-log-files-with-swift-cli.html">Analyzing Log Files with Swift CLI</a></span></li></ul></li></ul></li><li class="collapsable" tabindex="2"><div class="hitarea collapsable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_openstack-object-storage-tutorials.html">5. OpenStack Object Storage Tutorials</a></span><ul style="display: block;"><li class="expandable lastExpandable" tabindex="2"><div class="hitarea expandable-hitarea lastExpandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/storing-large-photos-or-videos-on-the-cloud.html">Storing Large Photos or Videos on the Cloud</a></span><ul style="display: none;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/part-i-setting-up-secure-access.html">Part I: Setting Up Secure Access</a></span></li><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/part-ii-configuring-cyberduck.html">Part II: Configuring Cyberduck</a></span><ul style="display: none;"><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/part-ii-configuring-cyberduck.html#d6e2398">Connecting to a Unsecured Swift Cluster</a></span></li></ul></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/part-iii-copying-files.html">Part III: Creating Containers (Folders) and Uploading Files</a></span></li></ul></li></ul></li><li class="expandable" tabindex="2"><div class="hitarea expandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_introduction-to-openstack-object-storage-monitoring.html">6. OpenStack Object Storage Monitoring</a></span><ul style="display: none;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_introduction-to-openstack-object-storage-monitoring.html#monitoring-swiftrecon">Swift Recon</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_introduction-to-openstack-object-storage-monitoring.html#monitoring-swift-informant">Swift-Informant</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_introduction-to-openstack-object-storage-monitoring.html#monitoring-statsdlog">Statsdlog</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_introduction-to-openstack-object-storage-monitoring.html#monitoring-statsD">Swift StatsD Logging</a></span></li></ul></li><li class="collapsable" tabindex="2"><div class="hitarea collapsable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_support-and-troubleshooting.html">7. Support</a></span><ul style="display: block;"><li class="expandable lastExpandable" tabindex="2"><div class="hitarea expandable-hitarea lastExpandable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/community-support.html">Community Support</a></span><ul style="display: none;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/community-support.html#d6e2512">The Launchpad Answers area</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/community-support.html#d6e2534">OpenStack mailing list</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/community-support.html#d6e2540">The OpenStack Wiki search </a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/community-support.html#d6e2544">The Launchpad Bugs area </a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/community-support.html#d6e2577">The OpenStack IRC channel </a></span></li></ul></li></ul></li><li class="collapsable lastCollapsable" tabindex="2"><div class="hitarea collapsable-hitarea lastCollapsable-hitarea"></div><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/troubleshooting-openstack-object-storage.html">8. Troubleshooting OpenStack Object Storage</a></span><ul style="display: block;"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/handling-drive-failure.html">Handling Drive Failure</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/handling-server-failure.html">Handling Server Failure</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/detecting-failed-drives.html">Detecting Failed Drives</a></span></li><li class="last" tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/recover-ring-builder-file.html">Emergency Recovery of Ring Builder Files</a></span></li></ul></li></ul></div></div><div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="searchDiv"><div id="search"><form onsubmit="Verifie(ditaSearch_Form);return false" name="ditaSearch_Form" class="searchForm"><fieldset class="searchFieldSet"><legend>Search</legend><center><input id="textToSearch" name="textToSearch" class="searchText" type="text"> &nbsp; <input onclick="Verifie(ditaSearch_Form)" class="searchButton" value="Go" id="doSearch" type="button"></center></fieldset></form></div><div id="searchResults"><center></center></div><p class="searchHighlight"><a href="#" onclick="toggleHighlight()">Search Highlighter (On/Off)</a></p></div></div></div></div><script type="text/javascript" src="proxy-server-configuration_files/jquery_002.js"><!--jQuery plugin for glossary popups. -->
+                   $('a[title]').qtip({ style: { name: 'cream', tip: true } })
+                </script></body></html>

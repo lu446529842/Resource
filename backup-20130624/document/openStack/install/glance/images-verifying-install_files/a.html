@@ -1,0 +1,3113 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html lang="en" class="ie8"><![endif]-->
+<!--[if IE 9]><html lang="en" class="ie9"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html class=" js no-touch localstorage sessionstorage contenteditable" lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Disqus Comments</title>
+        <script src="a_data/beacon.js" async=""></script><script src="images-verifying-install_files/ga.js" async="" type="text/javascript"></script><script src="a_data/lib.js" charset="utf-8" type="text/javascript"></script><script src="a_data/client.js" charset="utf-8" type="text/javascript"></script><script src="a_data/theme.js" async="" charset="utf-8" type="text/javascript"></script><!-- base href="http://docs.openstack.org/folsom/openstack-compute/install/yum/content/images-verifying-install.html" -->
+
+        <!--
+        
+        -->
+        <script type="text/json" id="disqus-jsonData">{"cursor": {"hasPrev": false, "prev": null, "total": 17, "hasNext": false, "next": "1:0:0"}, "code": 0, "response": {"forum": {"name": "OpenStack Install and Deploy Manual - Fedora/RHEL/CentOS", "language": "en", "settings": {"allowAnonPost": true, "allowMedia": true, "moderatorText": "", "typeface": "auto", "hasReactions": false, "audienceSyncEnabled": false, "ssoRequired": false, "backplaneEnabled": false, "colorScheme": "auto", "linkAffiliationEnabled": false}, "url": "http://docs.openstack.org/essex/openstack-compute/install/yum/content/", "favicon": {"permalink": "http://disqus.com/api/forums/favicons/os-install-yum.jpg", "cache": "http://mediacdn.disqus.com/uploads/forums/149/1670/favicon.png"}, "pk": 1491670, "founder": "366081", "id": "os-install-yum"}, "thread": {"feed": "http://os-install-yum.disqus.com/verifying_the_image_service_installation_openstack_install_and_deploy_manual_red_hat_folsom_compute_/latest.rss", "reactions": 0, "uploadAdd": "http://os-install-yum.disqus.com/thread/verifying_the_image_service_installation_openstack_install_and_deploy_manual_red_hat_folsom_compute_/async_media_upload/", "dislikes": 0, "likes": 0, "message": "", "id": "926438786", "createdAt": "2012-11-13T17:52:21", "category": "1520327", "author": "366081", "userScore": 0, "moderators": [12079568, 366081, 29433037, 30114422], "isDeleted": false, "hasStreaming": false, "uploadRemove": "http://os-install-yum.disqus.com/thread/verifying_the_image_service_installation_openstack_install_and_deploy_manual_red_hat_folsom_compute_/async_media_remove/", "isClosed": false, "link": "http://docs.openstack.org/folsom/openstack-compute/install/yum/content/images-verifying-install.html", "slug": "verifying_the_image_service_installation_openstack_install_and_deploy_manual_red_hat_folsom_compute_", "forum": "os-install-yum", "identifiers": ["openstack-install-manual-folsomimages-verifying-install"], "posts": 17, "userSubscription": false, "title": "Verifying the Image Service Installation\u00a0-\u00a0OpenStack Install and Deploy Manual - Red Hat \u00a0-\u00a0Folsom, Compute 2012.2, Network 2012.2, Object Storage 1.4.8"}, "lastModified": 1367181518, "posts": [{"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"name": "sigma", "url": "", "profileUrl": "http://disqus.com/guest/4ed4bea0f97f9cdce3a44304edf98ff2/", "emailHash": "4ed4bea0f97f9cdce3a44304edf98ff2", "avatar": {"small": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=4ed4bea0f97f9cdce3a44304edf98ff2", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=4ed4bea0f97f9cdce3a44304edf98ff2"}, "large": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=4ed4bea0f97f9cdce3a44304edf98ff2", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=4ed4bea0f97f9cdce3a44304edf98ff2"}, "permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=4ed4bea0f97f9cdce3a44304edf98ff2", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=4ed4bea0f97f9cdce3a44304edf98ff2"}, "isAnonymous": true}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "When uploading the image,i got an error:Error communicating with http://192.168.xxx.xxx:9292 [Errno 111] Connection refused.I checked the ports and found that 9292 was not open.That means glance-api service actually is down.But when i repeat service openstack-glance-api start,it did start! So far i've been googling,i found no acurate answer.Using glance-control is a alternative solution.", "createdAt": "2012-12-24T05:12:03", "id": "746645303", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 2, "isEdited": false, "message": "\u003cp>When uploading the image,i got an error:Error communicating with http://192.168.xxx.xxx:9292 [Errno 111] Connection refused.I checked the ports and found that 9292 was not open.That means glance-api service actually is down.But when i repeat service openstack-glance-api start,it did start! So far i've been googling,i found no acurate answer.Using glance-control is a alternative solution.\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 2}, {"isFlagged": false, "forum": "os-install-yum", "parent": 746645303, "author": {"name": "D", "url": "", "profileUrl": "http://disqus.com/guest/3a9cf5629bc870a13a73adfdd781b9af/", "emailHash": "3a9cf5629bc870a13a73adfdd781b9af", "avatar": {"small": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=3a9cf5629bc870a13a73adfdd781b9af", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=3a9cf5629bc870a13a73adfdd781b9af"}, "large": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=3a9cf5629bc870a13a73adfdd781b9af", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=3a9cf5629bc870a13a73adfdd781b9af"}, "permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=3a9cf5629bc870a13a73adfdd781b9af", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=3a9cf5629bc870a13a73adfdd781b9af"}, "isAnonymous": true}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "I had this error and it was a issue with connecting to the glancedb in mysql. A test you can do is try to manually login to mysql with the glance user. If you can then it should work. What I had to do was drop the glance user and recreate it. Also you can try updating its password in mysql with the root account.\n\nUPDATE mysql.user SET Password = PASSWORD('password')\n WHERE User = 'glance';", "createdAt": "2013-04-07T17:46:46", "id": "855347775", "thread": "926438786", "depth": 1, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>I had this error and it was a issue with connecting to the glancedb in mysql. A test you can do is try to manually login to mysql with the glance user. If you can then it should work. What I had to do was drop the glance user and recreate it. Also you can try updating its password in mysql with the root account.\u003c/p>\n\n\u003cp>UPDATE mysql.user SET Password = PASSWORD('password')\u003cbr> WHERE User = 'glance';\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"username": "facebook-1636142753", "about": "", "name": "Jason Legate", "url": "http://www.facebook.com/profile.php?id=1636142753", "isAnonymous": false, "rep": 1.233277, "profileUrl": "http://disqus.com/facebook-1636142753/", "emailHash": "d41d8cd98f00b204e9800998ecf8427e", "reputation": 1.233277, "location": "", "isPrimary": true, "joinedAt": "2011-04-06T22:10:41", "id": "8851111", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/facebook-1636142753.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/885/1111/avatar32.jpg?1363834523"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/facebook-1636142753.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/885/1111/avatar92.jpg?1363834523", "large": {"permalink": "http://disqus.com/api/users/avatars/facebook-1636142753.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/885/1111/avatar92.jpg?1363834523"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "Found a bug in /usr/lib/python2.6/site-packages/glance/common/crypt.py on CentOS 6.3 running folsom:\n\n$ glance -d -v --os-username='jason' --os-password='blah' --os-tenant-name='ops' --os-auth-url='http://x.y.z.120:35357/v2.0' image-create --name=\"tty-linux-kernel\" --disk-format=aki --container-format=aki \u003c ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz \ncurl -i -X POST -H 'x-image-meta-container_format: aki' -H 'User-Agent: python-glanceclient' -H 'x-image-meta-size: 4404752' -H 'x-image-meta-is_public: False' -H 'X-Auth-Token: 5ee32f616637459b929ee47998aa53fc' -H 'Content-Type: application/octet-stream' -H 'x-image-meta-disk_format: aki' -H 'x-image-meta-name: tty-linux-kernel' -d '\u003copen file '\u003cstdin>', mode 'r' at 0x7f560d7570c0>' http://a.b.c.20:9292/v1/images\n\nHTTP/1.1 500 Internal Server Error\ndate: Thu, 21 Mar 2013 02:37:36 GMT\ncontent-length: 4246\ncontent-type: text/plain\nconnection: close\nTraceback (most recent call last):\n\n  File \"/usr/lib/python2.6/site-packages/eventlet/wsgi.py\", line 382, in handle_one_response\nresult = self.application(self.environ, start_response)\nFile \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/dec.py\", line 147, in __call__\nresp = self.call_func(req, *args, **self.kwargs)\nFile \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/dec.py\", line 208, in call_func\nreturn self.func(req, *args, **kwargs)\nFile \"/usr/lib/python2.6/site-packages/glance/common/wsgi.py\", line 326, in __call__\nresponse = req.get_response(self.application)\nFile \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/request.py\", line 1053, in get_response\napplication, catch_exc_info=False)\nFile \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/request.py\", line 1022, in call_application\napp_iter = application(self.environ, start_response)\nFile \"/usr/lib/python2.6/site-packages/keystone/middleware/auth_token.py\", line 278, in __call__\nreturn self.app(env, start_response)\nFile \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/dec.py\", line 147, in __call__\nresp = self.call_func(req, *args, **self.kwargs)\nFile \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/dec.py\", line 208, in call_func\nreturn self.func(req, *args, **kwargs)\nFile \"/usr/lib/python2.6/site-packages/glance/common/wsgi.py\", line 326, in __call__\nresponse = req.get_response(self.application)\nFile \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/request.py\", line 1053, in get_response\napplication, catch_exc_info=False)\nFile \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/request.py\", line 1022, in call_application\napp_iter = application(self.environ, start_response)\nFile \"/usr/lib/python2.6/site-packages/paste/urlmap.py\", line 203, in __call__\nreturn app(environ, start_response)\nFile \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/dec.py\", line 159, in __call__\nreturn resp(environ, start_response)\nFile \"/usr/lib/python2.6/site-packages/Routes-1.12.3-py2.6.egg/routes/middleware.py\", line 131, in __call__\nresponse = self.app(environ, start_response)\nFile \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/dec.py\", line 159, in __call__\nreturn resp(environ, start_response)\nFile \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/dec.py\", line 147, in __call__\nresp = self.call_func(req, *args, **self.kwargs)\nFile \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/dec.py\", line 208, in call_func\nreturn self.func(req, *args, **kwargs)\nFile \"/usr/lib/python2.6/site-packages/glance/common/wsgi.py\", line 532, in __call__\nrequest, **action_args)\nFile \"/usr/lib/python2.6/site-packages/glance/common/wsgi.py\", line 549, in dispatch\nreturn method(*args, **kwargs)\nFile \"/usr/lib/python2.6/site-packages/glance/common/utils.py\", line 425, in wrapped\nreturn func(self, req, *args, **kwargs)\nFile \"/usr/lib/python2.6/site-packages/glance/api/v1/images.py\", line 687, in create\nimage_meta = self._handle_source(req, id, image_meta, image_data)\nFile \"/usr/lib/python2.6/site-packages/glance/api/v1/images.py\", line 611, in _handle_source\nimage_meta = self._upload_and_activate(req, image_meta)\nFile \"/usr/lib/python2.6/site-packages/glance/api/v1/images.py\", line 600, in _upload_and_activate\nreturn self._activate(req, image_id, location) if location else None\nFile \"/usr/lib/python2.6/site-packages/glance/api/v1/images.py\", line 543, in _activate\n\nimage_meta)\nFile \"/usr/lib/python2.6/site-packages/glance/registry/__init__.py\", line 146, in update_image_metadata\nreturn c.update_image(image_id, image_meta, purge_props)\nFile \"/usr/lib/python2.6/site-packages/glance/registry/client.py\", line 154, in update_image\nimage_metadata['image'])\nFile \"/usr/lib/python2.6/site-packages/glance/registry/client.py\", line 65, in encrypt_metadata\nimage_metadata['location'], 64)\nFile \"/usr/lib/python2.6/site-packages/glance/common/crypt.py\", line 45, in urlsafe_encrypt\ninit_vector = os.urandom(16)\n\nNameError: global name 'os' is not defined\n\nRequest returned failure status.\nHTTPInternalServerError (HTTP 500)\n\nPatch:\n--- crypt-old.py\t2013-03-20 19:38:58.975518258 -0700\n+++ crypt.py\t2013-03-20 19:37:26.567518059 -0700\n@@ -19,7 +19,7 @@\n Routines for URL-safe encrypting/decrypting\n \"\"\"\n\n-import base64\n+import base64, os\n from Crypto.Cipher import AES", "createdAt": "2013-03-21T02:55:22", "id": "836650613", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 1, "isEdited": false, "message": "\u003cp>Found a bug in /usr/lib/python2.6/site-packages/glance/common/\u003ca href=\"http://crypt.py\" rel=\"nofollow\">crypt.py\u003c/a> on CentOS 6.3 running folsom:\u003c/p>\n\n\u003cp>$ glance -d -v --os-username='jason' --os-password='blah' --os-tenant-name='ops' --os-auth-url='http://x.y.z.120:35357/v2.0' image-create --name=\"tty-linux-kernel\" --disk-format=aki --container-format=aki &lt; ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz \u003cbr>curl -i -X POST -H 'x-image-meta-container_format: aki' -H 'User-Agent: python-glanceclient' -H 'x-image-meta-size: 4404752' -H 'x-image-meta-is_public: False' -H 'X-Auth-Token: 5ee32f616637459b929ee47998aa53fc' -H 'Content-Type: application/octet-stream' -H 'x-image-meta-disk_format: aki' -H 'x-image-meta-name: tty-linux-kernel' -d '&lt;open '&lt;stdin=\"\" file=\"\"&gt;', mode 'r' at 0x7f560d7570c0&gt;' http://a.b.c.20:9292/v1/images\u003c/p>\n\n\u003cp>HTTP/1.1 500 Internal Server Error\u003cbr>date: Thu, 21 Mar 2013 02:37:36 GMT\u003cbr>content-length: 4246\u003cbr>content-type: text/plain\u003cbr>connection: close\u003cbr>Traceback (most recent call last):\u003c/p>\n\n\u003cp>  File \"/usr/lib/python2.6/site-packages/eventlet/\u003ca href=\"http://wsgi.py\" rel=\"nofollow\">wsgi.py\u003c/a>\", line 382, in handle_one_response\u003cbr>result = self.application(self.environ, start_response)\u003cbr>File \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/\u003ca href=\"http://dec.py\" rel=\"nofollow\">dec.py\u003c/a>\", line 147, in __call__\u003cbr>resp = self.call_func(req, *args, **self.kwargs)\u003cbr>File \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/\u003ca href=\"http://dec.py\" rel=\"nofollow\">dec.py\u003c/a>\", line 208, in call_func\u003cbr>return self.func(req, *args, **kwargs)\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/common/\u003ca href=\"http://wsgi.py\" rel=\"nofollow\">wsgi.py\u003c/a>\", line 326, in __call__\u003cbr>response = req.get_response(self.application)\u003cbr>File \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/\u003ca href=\"http://request.py\" rel=\"nofollow\">request.py\u003c/a>\", line 1053, in get_response\u003cbr>application, catch_exc_info=False)\u003cbr>File \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/\u003ca href=\"http://request.py\" rel=\"nofollow\">request.py\u003c/a>\", line 1022, in call_application\u003cbr>app_iter = application(self.environ, start_response)\u003cbr>File \"/usr/lib/python2.6/site-packages/keystone/middleware/\u003ca href=\"http://auth_token.py\" rel=\"nofollow\">auth_token.py\u003c/a>\", line 278, in __call__\u003cbr>return self.app(env, start_response)\u003cbr>File \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/\u003ca href=\"http://dec.py\" rel=\"nofollow\">dec.py\u003c/a>\", line 147, in __call__\u003cbr>resp = self.call_func(req, *args, **self.kwargs)\u003cbr>File \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/\u003ca href=\"http://dec.py\" rel=\"nofollow\">dec.py\u003c/a>\", line 208, in call_func\u003cbr>return self.func(req, *args, **kwargs)\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/common/\u003ca href=\"http://wsgi.py\" rel=\"nofollow\">wsgi.py\u003c/a>\", line 326, in __call__\u003cbr>response = req.get_response(self.application)\u003cbr>File \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/\u003ca href=\"http://request.py\" rel=\"nofollow\">request.py\u003c/a>\", line 1053, in get_response\u003cbr>application, catch_exc_info=False)\u003cbr>File \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/\u003ca href=\"http://request.py\" rel=\"nofollow\">request.py\u003c/a>\", line 1022, in call_application\u003cbr>app_iter = application(self.environ, start_response)\u003cbr>File \"/usr/lib/python2.6/site-packages/paste/\u003ca href=\"http://urlmap.py\" rel=\"nofollow\">urlmap.py\u003c/a>\", line 203, in __call__\u003cbr>return app(environ, start_response)\u003cbr>File \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/\u003ca href=\"http://dec.py\" rel=\"nofollow\">dec.py\u003c/a>\", line 159, in __call__\u003cbr>return resp(environ, start_response)\u003cbr>File \"/usr/lib/python2.6/site-packages/Routes-1.12.3-py2.6.egg/routes/\u003ca href=\"http://middleware.py\" rel=\"nofollow\">middleware.py\u003c/a>\", line 131, in __call__\u003cbr>response = self.app(environ, start_response)\u003cbr>File \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/\u003ca href=\"http://dec.py\" rel=\"nofollow\">dec.py\u003c/a>\", line 159, in __call__\u003cbr>return resp(environ, start_response)\u003cbr>File \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/\u003ca href=\"http://dec.py\" rel=\"nofollow\">dec.py\u003c/a>\", line 147, in __call__\u003cbr>resp = self.call_func(req, *args, **self.kwargs)\u003cbr>File \"/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/\u003ca href=\"http://dec.py\" rel=\"nofollow\">dec.py\u003c/a>\", line 208, in call_func\u003cbr>return self.func(req, *args, **kwargs)\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/common/\u003ca href=\"http://wsgi.py\" rel=\"nofollow\">wsgi.py\u003c/a>\", line 532, in __call__\u003cbr>request, **action_args)\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/common/\u003ca href=\"http://wsgi.py\" rel=\"nofollow\">wsgi.py\u003c/a>\", line 549, in dispatch\u003cbr>return method(*args, **kwargs)\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/common/\u003ca href=\"http://utils.py\" rel=\"nofollow\">utils.py\u003c/a>\", line 425, in wrapped\u003cbr>return func(self, req, *args, **kwargs)\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/api/v1/\u003ca href=\"http://images.py\" rel=\"nofollow\">images.py\u003c/a>\", line 687, in create\u003cbr>image_meta = self._handle_source(req, id, image_meta, image_data)\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/api/v1/\u003ca href=\"http://images.py\" rel=\"nofollow\">images.py\u003c/a>\", line 611, in _handle_source\u003cbr>image_meta = self._upload_and_activate(req, image_meta)\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/api/v1/\u003ca href=\"http://images.py\" rel=\"nofollow\">images.py\u003c/a>\", line 600, in _upload_and_activate\u003cbr>return self._activate(req, image_id, location) if location else None\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/api/v1/\u003ca href=\"http://images.py\" rel=\"nofollow\">images.py\u003c/a>\", line 543, in _activate\u003c/p>\n\n\u003cp>image_meta)\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/registry/\u003ca href=\"http://__init__.py\" rel=\"nofollow\">__init__.py\u003c/a>\", line 146, in update_image_metadata\u003cbr>return c.update_image(image_id, image_meta, purge_props)\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/registry/\u003ca href=\"http://client.py\" rel=\"nofollow\">client.py\u003c/a>\", line 154, in update_image\u003cbr>image_metadata['image'])\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/registry/\u003ca href=\"http://client.py\" rel=\"nofollow\">client.py\u003c/a>\", line 65, in encrypt_metadata\u003cbr>image_metadata['location'], 64)\u003cbr>File \"/usr/lib/python2.6/site-packages/glance/common/\u003ca href=\"http://crypt.py\" rel=\"nofollow\">crypt.py\u003c/a>\", line 45, in urlsafe_encrypt\u003cbr>init_vector = os.urandom(16)\u003c/p>\n\n\u003cp>NameError: global name 'os' is not defined\u003c/p>\n\n\u003cp>Request returned failure status.\u003cbr>HTTPInternalServerError (HTTP 500)\u003c/p>\n\n\u003cp>Patch:\u003cbr>--- \u003ca href=\"http://crypt-old.py\" rel=\"nofollow\">crypt-old.py\u003c/a>\t2013-03-20 19:38:58.975518258 -0700\u003cbr>+++ \u003ca href=\"http://crypt.py\" rel=\"nofollow\">crypt.py\u003c/a>\t2013-03-20 19:37:26.567518059 -0700\u003cbr>@@ -19,7 +19,7 @@\u003cbr> Routines for URL-safe encrypting/decrypting\u003cbr> \"\"\"\u003c/p>\n\n\u003cp>-import base64\u003cbr>+import base64, os\u003cbr> from Crypto.Cipher import AES&lt;/open&gt;\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 1}, {"isFlagged": false, "forum": "os-install-yum", "parent": 836650613, "author": {"username": "lhochstein", "about": "", "name": "Lorin Hochstein", "url": "http://lorinhochstein.org/", "isAnonymous": false, "rep": 1.254408, "profileUrl": "http://disqus.com/lhochstein/", "emailHash": "c690634d340d85fb40ac03668259ff1c", "reputation": 1.254408, "location": "Northern Virginia", "isPrimary": true, "joinedAt": "2012-07-23T14:49:15", "id": "29433037", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/lhochstein.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/2943/3037/avatar32.jpg?1369966647"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/lhochstein.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/2943/3037/avatar92.jpg?1369966647", "large": {"permalink": "http://disqus.com/api/users/avatars/lhochstein.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/2943/3037/avatar92.jpg?1369966647"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "Hmmmm... that bug doesn't seem to be present in the upstream Folsom release of glance: https://github.com/openstack/glance/blob/stable/folsom/glance/common/crypt.py#L50\n\nYou may need to report this to the managers of the CentOS packages you are using.", "createdAt": "2013-03-21T03:15:23", "id": "836667080", "thread": "926438786", "depth": 1, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>Hmmmm... that bug doesn't seem to be present in the upstream Folsom release of glance: \u003ca href=\"https://github.com/openstack/glance/blob/stable/folsom/glance/common/crypt.py#L50\" rel=\"nofollow\">https://github.com/openstack/g...\u003c/a>\u003c/p>\n\n\u003cp>You may need to report this to the managers of the CentOS packages you are using.\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"name": "CMFL", "url": "", "profileUrl": "http://disqus.com/guest/67c3b5e770b5bf40973ddccad8388603/", "emailHash": "67c3b5e770b5bf40973ddccad8388603", "avatar": {"small": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=67c3b5e770b5bf40973ddccad8388603", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=67c3b5e770b5bf40973ddccad8388603"}, "large": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=67c3b5e770b5bf40973ddccad8388603", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=67c3b5e770b5bf40973ddccad8388603"}, "permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=67c3b5e770b5bf40973ddccad8388603", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=67c3b5e770b5bf40973ddccad8388603"}, "isAnonymous": true}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "I'm not sure what caused my problem in the first step where I was unable to upload an image... I get getting 401 errors and I found an article where some folks have disabled 'flavor=keystone' from their /etc/glance/glance-api.conf and /etc/glance-registry.conf.  I then restarted glance via 'glance-control api restart' 'glance-control registry restart' and ran 'glance-manage db_sync' and I was able to upload images but I also had to add the line '--is-public True' to each image-create like others posted.  \n\nWhy does removing 'flavor=keystone' work and is this bad?\n\nHere is my openrc, and I have installed nova,glance,keystone,mysql on on a single host.\n\n[root@drudge mysql]# cat /root/openrc \nexport OS_USERNAME=admin\nexport OS_TENANT_NAME=demo\nexport OS_PASSWORD=secrete\nexport OS_AUTH_URL=http://localhost:35357/v2.0/\nexport OS_REGION_NAME=RegionOne", "createdAt": "2013-04-28T20:38:38", "id": "878765915", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>I'm not sure what caused my problem in the first step where I was unable to upload an image... I get getting 401 errors and I found an article where some folks have disabled 'flavor=keystone' from their /etc/glance/glance-api.conf and /etc/glance-registry.conf.  I then restarted glance via 'glance-control api restart' 'glance-control registry restart' and ran 'glance-manage db_sync' and I was able to upload images but I also had to add the line '--is-public True' to each image-create like others posted.  \u003c/p>\n\n\u003cp>Why does removing 'flavor=keystone' work and is this bad?\u003c/p>\n\n\u003cp>Here is my openrc, and I have installed nova,glance,keystone,mysql on on a single host.\u003c/p>\n\n\u003cp>[root@drudge mysql]# cat /root/openrc \u003cbr>export OS_USERNAME=admin\u003cbr>export OS_TENANT_NAME=demo\u003cbr>export OS_PASSWORD=secrete\u003cbr>export OS_AUTH_URL=http://localhost:35357/v2.0/\u003cbr>export OS_REGION_NAME=RegionOne\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"username": "fritzhardy", "about": "", "name": "Jeff Hardy", "url": "http://www.fritzhardy.com/", "isAnonymous": false, "rep": 1.2336, "profileUrl": "http://disqus.com/fritzhardy/", "emailHash": "585ad42e6fd3fe02ef205630a50a23f1", "reputation": 1.2336, "location": "", "isPrimary": true, "joinedAt": "2013-04-21T16:12:22", "id": "48727505", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/fritzhardy.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4872/7505/avatar32.jpg?1367525128"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/fritzhardy.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4872/7505/avatar92.jpg?1367525128", "large": {"permalink": "http://disqus.com/api/users/avatars/fritzhardy.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4872/7505/avatar92.jpg?1367525128"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "I was getting auth errors trying to create images on EL 6.2, and can confirm a few of the other comments.  You must hardcode the macro-looking %WHATEVER% values in the [keystone_authtoken] stanza in glance-api.conf and glance-registry.conf, where sample_data.sh would have set admin_tenant_name = service and admin_user/pass = glance.  Additionally, as noted in another comment, the value for --os-auth-url when running glance at the command-line is incorrectly pointing to the glance service itself, and should instead be pointed to keystone on port 35357.  Lastly, as is the case elsewhere in the docs, the authentication arguments at the command-line are incorrect: the sample_data.sh value for --os-password = secrete, and --os-tenant-name = demo.  If that is all sorted out, you should be able to create images.", "createdAt": "2013-04-21T16:28:59", "id": "871233273", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 0, "isEdited": true, "message": "\u003cp>I was getting auth errors trying to create images on EL 6.2, and can confirm a few of the other comments.  You must hardcode the macro-looking %WHATEVER% values in the [keystone_authtoken] stanza in glance-api.conf and glance-registry.conf, where \u003ca href=\"http://sample_data.sh\" rel=\"nofollow\">sample_data.sh\u003c/a> would have set admin_tenant_name = service and admin_user/pass = glance.  Additionally, as noted in another comment, the value for --os-auth-url when running glance at the command-line is incorrectly pointing to the glance service itself, and should instead be pointed to keystone on port 35357.  Lastly, as is the case elsewhere in the docs, the authentication arguments at the command-line are incorrect: the \u003ca href=\"http://sample_data.sh\" rel=\"nofollow\">sample_data.sh\u003c/a> value for --os-password = secrete, and --os-tenant-name = demo.  If that is all sorted out, you should be able to create images.\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"username": "liyong", "about": "", "name": "liyong", "url": "", "isAnonymous": false, "rep": 1.2324929999999998, "profileUrl": "http://disqus.com/liyong/", "emailHash": "654f1a8445c3d8c38018eb595f8a448e", "reputation": 1.2324929999999998, "location": "", "isPrimary": true, "joinedAt": "2013-03-15T06:35:47", "id": "45715937", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/liyong.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4571/5937/avatar32.jpg?1363574039"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/liyong.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4571/5937/avatar92.jpg?1363574039", "large": {"permalink": "http://disqus.com/api/users/avatars/liyong.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4571/5937/avatar92.jpg?1363574039"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "I am facing an issue during creation of image. as below:\n\n[root@xxx images]# glance --os-username=admin --os-password=secretword --os-tenant-name=openstackDemo --os-auth-url=http://localhost:5000/v2.0 image-create --name=\"tty-linux-kernel\" --disk-format=aki --container-format=aki \u003c ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz\n\nRequest returned failure status.\nHTTPInternalServerError (HTTP 500)\n\nContents of keystonerc file is given below :\n\nexport OS_USERNAME=admin\nexport OS_PASSWORD=secretword\nexport OS_TENANT_NAME=openstackDemo\nexport OS_AUTH_URL=http://192.168.135.110:35357/v2.0\nexport OS_REGION_NAME=RegionOne\n\nwho can help me?", "createdAt": "2013-03-15T06:36:10", "id": "829833590", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>I am facing an issue during creation of image. as below:\u003c/p>\n\n\u003cp>[root@xxx images]# glance --os-username=admin --os-password=secretword --os-tenant-name=openstackDemo --os-auth-url=http://localhost:5000/v2.0 image-create --name=\"tty-linux-kernel\" --disk-format=aki --container-format=aki &lt; ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz\u003c/p>\n\n\u003cp>Request returned failure status.\u003cbr>HTTPInternalServerError (HTTP 500)\u003c/p>\n\n\u003cp>Contents of keystonerc file is given below :\u003c/p>\n\n\u003cp>export OS_USERNAME=admin\u003cbr>export OS_PASSWORD=secretword\u003cbr>export OS_TENANT_NAME=openstackDemo\u003cbr>export OS_AUTH_URL=http://192.168.135.110:35357/v2.0\u003cbr>export OS_REGION_NAME=RegionOne\u003c/p>\n\n\u003cp>who can help me?\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"username": "groc", "about": "", "name": "groc", "url": "", "isAnonymous": false, "rep": 1.2324929999999998, "profileUrl": "http://disqus.com/groc/", "emailHash": "47d9891ab730ce730366abec8fc9c891", "reputation": 1.2324929999999998, "location": "", "isPrimary": true, "joinedAt": "2013-02-27T02:33:51", "id": "44544145", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/groc.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4454/4145/avatar32.jpg?1362381348"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/groc.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4454/4145/avatar92.jpg?1362381348", "large": {"permalink": "http://disqus.com/api/users/avatars/groc.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4454/4145/avatar92.jpg?1362381348"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "I am able to upload the images, however glance image-list does not display anything, it just returns back to the shell prompt. I made sure that when I uploaded the images I used --is-public IS_PUBLIC.", "createdAt": "2013-03-04T07:12:46", "id": "818675465", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>I am able to upload the images, however glance image-list does not display anything, it just returns back to the shell prompt. I made sure that when I uploaded the images I used --is-public IS_PUBLIC.\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"name": "Ashutosh Narayan", "url": "", "profileUrl": "http://disqus.com/guest/206f5fd8b5d2b9a8a151501f69166a65/", "emailHash": "206f5fd8b5d2b9a8a151501f69166a65", "avatar": {"small": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=206f5fd8b5d2b9a8a151501f69166a65", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=206f5fd8b5d2b9a8a151501f69166a65"}, "large": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=206f5fd8b5d2b9a8a151501f69166a65", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=206f5fd8b5d2b9a8a151501f69166a65"}, "permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=206f5fd8b5d2b9a8a151501f69166a65", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=206f5fd8b5d2b9a8a151501f69166a65"}, "isAnonymous": true}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "I am facing an issue during creation of image. It throws the following error :\n\n192.168.105.61 is the IP of the host. Why is it getting timed out ?\n\n[root@xxx images]# glance --os-username=admin --os-password=secretword --os-tenant-name=openstackDemo --os-auth-url=http://192.168.105.61:5000/v2.0/ image-create --name=\"tty-linux-kernel\" --disk-format=aki --container-format=aki \u003c ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz\nError communicating with http://192.168.105.61:9292 timed out\n\nContents of openrc file is given below :\n\nexport OS_USERNAME=admin\nexport OS_TENANT_NAME=openstackDemo\nexport OS_PASSWORD=secretword\nexport OS_AUTH_URL=http://192.168.105.61:5000/v2.0/\nexport OS_REGION_NAME=RegionOne", "createdAt": "2013-03-01T14:14:40", "id": "816478014", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>I am facing an issue during creation of image. It throws the following error :\u003c/p>\n\n\u003cp>192.168.105.61 is the IP of the host. Why is it getting timed out ?\u003c/p>\n\n\u003cp>[root@xxx images]# glance --os-username=admin --os-password=secretword --os-tenant-name=openstackDemo --os-auth-url=http://192.168.105.61:5000/v2.0/ image-create --name=\"tty-linux-kernel\" --disk-format=aki --container-format=aki &lt; ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz\u003cbr>Error communicating with http://192.168.105.61:9292 timed out\u003c/p>\n\n\u003cp>Contents of openrc file is given below :\u003c/p>\n\n\u003cp>export OS_USERNAME=admin\u003cbr>export OS_TENANT_NAME=openstackDemo\u003cbr>export OS_PASSWORD=secretword\u003cbr>export OS_AUTH_URL=http://192.168.105.61:5000/v2.0/\u003cbr>export OS_REGION_NAME=RegionOne\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"name": "xiay", "url": "", "profileUrl": "http://disqus.com/guest/e13ebf454811fce8803d8156b88c648c/", "emailHash": "e13ebf454811fce8803d8156b88c648c", "avatar": {"small": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=e13ebf454811fce8803d8156b88c648c", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=e13ebf454811fce8803d8156b88c648c"}, "large": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=e13ebf454811fce8803d8156b88c648c", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=e13ebf454811fce8803d8156b88c648c"}, "permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=e13ebf454811fce8803d8156b88c648c", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=e13ebf454811fce8803d8156b88c648c"}, "isAnonymous": true}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "2013-01-26 06:20:58 31764 WARNING keystone.middleware.auth_token [-] Unexpected response from keystone service: {u'error': {u'message': u'Invalid tenant', u'code': 401, u'title': u'Not Authorized'}}\n2013-01-26 06:20:58 31764 WARNING keystone.middleware.auth_token [-] Authorization failed for token c3a057101ef744c9b0c741c9dab75765\n2013-01-26 06:20:58 31764 INFO keystone.middleware.auth_token [-] Invalid user token - deferring reject downstream\nRequest returned failure status.\nInvalid OpenStack Identity credentials\n\n\nwho can help me ?", "createdAt": "2013-01-26T11:25:56", "id": "778791695", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>2013-01-26 06:20:58 31764 WARNING keystone.middleware.auth_token [-] Unexpected response from keystone service: {u'error': {u'message': u'Invalid tenant', u'code': 401, u'title': u'Not Authorized'}}\u003cbr>2013-01-26 06:20:58 31764 WARNING keystone.middleware.auth_token [-] Authorization failed for token c3a057101ef744c9b0c741c9dab75765\u003cbr>2013-01-26 06:20:58 31764 INFO keystone.middleware.auth_token [-] Invalid user token - deferring reject downstream\u003cbr>Request returned failure status.\u003cbr>Invalid OpenStack Identity credentials\u003c/p>\n\n\u003cp>who can help me ?\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": 778791695, "author": {"name": "hjswust", "url": "", "profileUrl": "http://disqus.com/guest/2232a894987a5a16ff96c084dc3db209/", "emailHash": "2232a894987a5a16ff96c084dc3db209", "avatar": {"small": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=2232a894987a5a16ff96c084dc3db209", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=2232a894987a5a16ff96c084dc3db209"}, "large": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=2232a894987a5a16ff96c084dc3db209", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=2232a894987a5a16ff96c084dc3db209"}, "permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=2232a894987a5a16ff96c084dc3db209", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=2232a894987a5a16ff96c084dc3db209"}, "isAnonymous": true}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "your   Identity credentials not right...\nthe user name/pass which in api.conf or other conf is not the same with your keystone's conf", "createdAt": "2013-03-01T14:17:17", "id": "816481523", "thread": "926438786", "depth": 1, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>your   Identity credentials not right...\u003cbr>the user name/pass which in api.conf or other conf is not the same with your keystone's conf\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"name": "Guest", "url": "", "profileUrl": "http://disqus.com/guest/1f6747697b0a02d14e45ed1e97f83984/", "emailHash": "1f6747697b0a02d14e45ed1e97f83984", "avatar": {"small": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=1f6747697b0a02d14e45ed1e97f83984", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=1f6747697b0a02d14e45ed1e97f83984"}, "large": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=1f6747697b0a02d14e45ed1e97f83984", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=1f6747697b0a02d14e45ed1e97f83984"}, "permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=1f6747697b0a02d14e45ed1e97f83984", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=1f6747697b0a02d14e45ed1e97f83984"}, "isAnonymous": true}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "I had to make the images public (with glance image-attribute --is-public=True... ) to be able to see them with glance image-list.  Would like to understand why. Hereafter the content of the the source'd rc file use before creating the images\n\n#export SERVICE_TOKEN=012345SECRET99TOKEN012345\n#export SERVICE_ENDPOINT=\"http://nova-ctlr.mgmt.hp.local:35357/v2.0\"\nexport OS_USERNAME=admin\nexport OS_PASSWORD=secretword\nexport OS_TENANT_NAME=openstackDemo\nexport OS_AUTH_URL=http://nova-ctlr.mgmt.hp.local:35357/v2.0/\nexport OS_REGION_NAME=RegionOne", "createdAt": "2013-01-01T19:09:58", "id": "752798479", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>I had to make the images public (with glance image-attribute --is-public=True... ) to be able to see them with glance image-list.  Would like to understand why. Hereafter the content of the the source'd rc file use before creating the images\u003c/p>\n\n\u003cp>#export SERVICE_TOKEN=012345SECRET99TOKEN012345\u003cbr>#export SERVICE_ENDPOINT=\"http://nova-ctlr.mgmt.hp.local:35357/v2.0\"\u003cbr>export OS_USERNAME=admin\u003cbr>export OS_PASSWORD=secretword\u003cbr>export OS_TENANT_NAME=openstackDemo\u003cbr>export OS_AUTH_URL=http://nova-ctlr.mgmt.hp.local:35357/v2.0/\u003cbr>export OS_REGION_NAME=RegionOne\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"username": "hbliu1985", "about": "", "name": "hbliu1985", "url": "", "isAnonymous": false, "rep": 1.232124, "profileUrl": "http://disqus.com/hbliu1985/", "emailHash": "8468f3c256da034dbde62b14d95dc7a1", "reputation": 1.232124, "location": "", "isPrimary": true, "joinedAt": "2012-12-26T01:48:48", "id": "39604857", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/hbliu1985.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/3960/4857/avatar32.jpg?1356486809"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/hbliu1985.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/3960/4857/avatar92.jpg?1356486809", "large": {"permalink": "http://disqus.com/api/users/avatars/hbliu1985.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/3960/4857/avatar92.jpg?1356486809"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "When uploading the image,i got an ERROR:\n\n#glance --os-username=admin --os-password=Hbl5173 --os-tenant-name=openstackDemo --os-auth-url=http://127.0.0.7:5000/v2.0 image-create --name=\"tty-linux-kernel\" --disk-format=aki --container-format=aki \u003c /tmp/images/ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz \nRequest returned failure status.\nInvalid OpenStack Identity credentials.\n\nhere is logs:\n\n[root@openstacktest1 openstackenv]# tail /var/log/glance/api.log -n 15 | grep ERROR\n2012-12-26 09:49:54 5505 ERROR keystone.middleware.auth_token [-] Bad response code while validating token: 403", "createdAt": "2012-12-26T01:53:27", "id": "747559532", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>When uploading the image,i got an ERROR:\u003c/p>\n\n\u003cp>#glance --os-username=admin --os-password=Hbl5173 --os-tenant-name=openstackDemo --os-auth-url=http://127.0.0.7:5000/v2.0 image-create --name=\"tty-linux-kernel\" --disk-format=aki --container-format=aki &lt; /tmp/images/ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz \u003cbr>Request returned failure status.\u003cbr>Invalid OpenStack Identity credentials.\u003c/p>\n\n\u003cp>here is logs:\u003c/p>\n\n\u003cp>[root@openstacktest1 openstackenv]# tail /var/log/glance/api.log -n 15 | grep ERROR\u003cbr>2012-12-26 09:49:54 5505 ERROR keystone.middleware.auth_token [-] Bad response code while validating token: 403\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"username": "hongjinjimmywei", "about": "", "name": "Hong Jin (Jimmy) Wei", "url": "", "isAnonymous": false, "rep": 1.2329599999999998, "profileUrl": "http://disqus.com/hongjinjimmywei/", "emailHash": "86275b2ce3cfb72c764576ca1ad113e1", "reputation": 1.2329599999999998, "location": "", "isPrimary": true, "joinedAt": "2012-12-17T10:08:03", "id": "39028306", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/hongjinjimmywei.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/3902/8306/avatar32.jpg?1357286987"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/hongjinjimmywei.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/3902/8306/avatar92.jpg?1357286987", "large": {"permalink": "http://disqus.com/api/users/avatars/hongjinjimmywei.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/3902/8306/avatar92.jpg?1357286987"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "glance image-list show me with the different Size, here is what I got:\n\n# glance image-list\n\n+--------------------------------------+-------------------+-------------+------------------+----------+--------+\n\n| ID                                   | Name              | Disk Format | Container Format | Size     | Status |\n\n+--------------------------------------+-------------------+-------------+------------------+----------+--------+\n\n| bb0f2b0d-8ad6-4d82-99d6-7608bf77ff73 | tty-linux-ramdisk | ari         | ari              | 96629    | active |\n\n| dafe7304-e385-4bba-828a-6abaffd7b6c3 | tty-linux-kernel  | aki         | aki              | 4404752  | active |\n\n| f5ab106e-3201-441f-ae14-5a4c289e03b1 | tty-linux         | ami         | ami              | 25165824 | active |\n\n+--------------------------------------+-------------------+-------------+------------------+----------+--------+", "createdAt": "2012-12-18T07:03:37", "id": "741432414", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>glance image-list show me with the different Size, here is what I got:\u003c/p>\n\n\u003cp># glance image-list\u003c/p>\n\n\u003cp>+--------------------------------------+-------------------+-------------+------------------+----------+--------+\u003c/p>\n\n\u003cp>| ID                                   | Name              | Disk Format | Container Format | Size     | Status |\u003c/p>\n\n\u003cp>+--------------------------------------+-------------------+-------------+------------------+----------+--------+\u003c/p>\n\n\u003cp>| bb0f2b0d-8ad6-4d82-99d6-7608bf77ff73 | tty-linux-ramdisk | ari         | ari              | 96629    | active |\u003c/p>\n\n\u003cp>| dafe7304-e385-4bba-828a-6abaffd7b6c3 | tty-linux-kernel  | aki         | aki              | 4404752  | active |\u003c/p>\n\n\u003cp>| f5ab106e-3201-441f-ae14-5a4c289e03b1 | tty-linux         | ami         | ami              | 25165824 | active |\u003c/p>\n\n\u003cp>+--------------------------------------+-------------------+-------------+------------------+----------+--------+\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"name": "Nate", "url": "", "profileUrl": "http://disqus.com/guest/19971bdcd95f528df92eeb961ad89167/", "emailHash": "19971bdcd95f528df92eeb961ad89167", "avatar": {"small": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=19971bdcd95f528df92eeb961ad89167", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=19971bdcd95f528df92eeb961ad89167"}, "large": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=19971bdcd95f528df92eeb961ad89167", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=19971bdcd95f528df92eeb961ad89167"}, "permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=19971bdcd95f528df92eeb961ad89167", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=19971bdcd95f528df92eeb961ad89167"}, "isAnonymous": true}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "The auth URL that the document provides in the sample points to the Glance Service instead of Keystone.  The doc has OS_AUTH_URL=http://192.168.206.130:5000/v2.0/ when the port number should be 35357 for Keystone.", "createdAt": "2012-11-30T15:31:33", "id": "723803343", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>The auth URL that the document provides in the sample points to the Glance Service instead of Keystone.  The doc has OS_AUTH_URL=http://192.168.206.130:5000/v2.0/ when the port number should be 35357 for Keystone.\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"name": "Nate", "url": "", "profileUrl": "http://disqus.com/guest/19971bdcd95f528df92eeb961ad89167/", "emailHash": "19971bdcd95f528df92eeb961ad89167", "avatar": {"small": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=19971bdcd95f528df92eeb961ad89167", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=19971bdcd95f528df92eeb961ad89167"}, "large": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=19971bdcd95f528df92eeb961ad89167", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=19971bdcd95f528df92eeb961ad89167"}, "permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=19971bdcd95f528df92eeb961ad89167", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=19971bdcd95f528df92eeb961ad89167"}, "isAnonymous": true}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "The argument names have changed in the Folsom release.  The dashes have been replaced by underscores.  The image properties do the same, and they do not require a prefix of \"--\" anymore.  Below is what I used.\n\nglance add --os_username=$OS_USERNAME --os_password=$OS_PASSWORD --os_tenant_name=$OS_TENANT_NAME --os_auth_url=$OS_AUTH_URL name=\"my-disk-image\" disk_format=aki container_format=aki\n\nHere is my package information for the release I used.\n\nName        : openstack-glance\nVersion     : 2012.1.2\nRelease     : 2.fc17", "createdAt": "2012-11-30T15:29:23", "id": "723801332", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>The argument names have changed in the Folsom release.  The dashes have been replaced by underscores.  The image properties do the same, and they do not require a prefix of \"--\" anymore.  Below is what I used.\u003c/p>\n\n\u003cp>glance add --os_username=$OS_USERNAME --os_password=$OS_PASSWORD --os_tenant_name=$OS_TENANT_NAME --os_auth_url=$OS_AUTH_URL name=\"my-disk-image\" disk_format=aki container_format=aki\u003c/p>\n\n\u003cp>Here is my package information for the release I used.\u003c/p>\n\n\u003cp>Name        : openstack-glance\u003cbr>Version     : 2012.1.2\u003cbr>Release     : 2.fc17\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"name": "3aam", "url": "", "profileUrl": "http://disqus.com/guest/8087cdd61d80c620db119940bb5b3e42/", "emailHash": "8087cdd61d80c620db119940bb5b3e42", "avatar": {"small": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=8087cdd61d80c620db119940bb5b3e42", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=8087cdd61d80c620db119940bb5b3e42"}, "large": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=8087cdd61d80c620db119940bb5b3e42", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=8087cdd61d80c620db119940bb5b3e42"}, "permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=8087cdd61d80c620db119940bb5b3e42", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=8087cdd61d80c620db119940bb5b3e42"}, "isAnonymous": true}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "Hi,\nI install glance on a machine and keystone on a separate one,when I try to upload image it give this error: Error communicating with http://192.168.20.215:9292 timed out where 192.168.20.215 IP of glance can enybody help me? \nthanks", "createdAt": "2012-11-22T07:16:27", "id": "716586102", "thread": "926438786", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>Hi,\u003cbr>I install glance on a machine and keystone on a separate one,when I try to upload image it give this error: Error communicating with http://192.168.20.215:9292 timed out where 192.168.20.215 IP of glance can enybody help me? \u003cbr>thanks\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}], "switches": ["website_addons", "evm_publisher_reports", "is_last_modified", "shardpost", "limit_get_posts_days_30d", "website_follow_redirect", "filter_ads_by_country", "new_sort_paginator", "pause_rt_when_posting", "partitions", "discovery_next:truncate", "discovery_next:tempest", "discussions_tab", "community_icon", "next_profile_modal", "stats", "next_dragdrop_nag", "firehose_gnip", "support_contact_with_frames", "use_rs_paginator_5m", "next_new_login", "limit_textdigger", "next_show_new_media", "next_discard_low_rep", "mentions", "content_security_policy", "firehose_gnip_http", "juggler_thread_onReady", "juggler_enabled", "next_comments_truncation_enabled", "discovery_next:top_placement", "shardpost:index", "firehose_push", "enable_link_affiliation", "discovery_analytics", "next_realtime_indicators", "next_upvoters_tooltip", "static_styles", "discovery_next", "firehose_pubsub", "next_use_handlebars", "dark_jester", "new_embed_js", "textdigger_crawler", "digest_thread_votes"], "theme": {"base": {"name": "Disqus 2012", "css": "http://mediacdn.disqus.com/1371070053/build/next/lounge/lounge.css", "js": "http://mediacdn.disqus.com/1371070053/build/next/lounge/theme.js"}}, "session": {"canModerate": false, "isReadOnly": null, "audienceSyncVerified": false, "canReply": true, "notificationCount": null, "mustVerifyEmail": false}, "features": {}}, "order": "popular"}</script>
+
+        <style>
+            html {
+                overflow: hidden;
+            }
+
+            #postCompatContainer {
+                position: absolute;
+                left: -10000px;
+                width: 1000px;
+            }
+
+            html.not-supported {
+                overflow-y: auto;
+            }
+
+            .not-supported body {
+                font-family: Arial, sans-serif;
+                font-size: 10pt;
+            }
+
+            .not-supported ul, .not-supported li {
+                margin: 0;
+                padding: 0;
+            }
+
+            .not-supported li {
+                list-style-type: none;
+            }
+
+            .not-supported h4 a {
+                color: #000;
+                text-decoration: none;
+            }
+
+            .not-supported h4 {
+                margin: 0 0 5px;
+                padding: 5px 0;
+                border-bottom: dashed 1px #999;
+            }
+
+            .not-supported #notSupported {
+                display: block;
+                border: solid 1px red;
+                padding: 10px;
+                margin-bottom: 10px;
+                overflow: hidden;
+            }
+
+            .not-supported #notSupported p {
+                margin-bottom: 10px;
+            }
+
+            .not-supported #notSupported ul {
+                margin-left: 20px;
+            }
+
+            .not-supported #notSupported ul li {
+                margin-bottom: 5px;
+            }
+
+            #notSupported, .legacy-mode, .old-browser {
+                display: none;
+            }
+
+            .not-supported.type-1 .old-browser {
+                display: block;
+            }
+
+            .not-supported.type-2 .legacy-mode {
+                display: block;
+            }
+
+            .not-supported #postCompatContainer {
+                position: static;
+                left: 0;
+                width: 500px;
+                margin-top: 20px;
+            }
+        </style>
+    <style id="css_1371099992938"></style><link href="a_data/lounge.css" type="text/css" rel="stylesheet"><script charset="UTF-8" async="" src="http://juggler.services.disqus.com/event.js?thread_slug=verifying_the_image_service_installation_openstack_install_and_deploy_manual_red_hat_folsom_compute_&amp;user_type=anon&amp;referrer=http%3A%2F%2Fdocs.openstack.org%2Ffolsom%2Fopenstack-compute%2Finstall%2Fyum%2Fcontent%2Fimages-verifying-install.html&amp;theme=next&amp;event=init_embed&amp;thread=926438786&amp;forum=os-install-yum&amp;forum_id=1491670&amp;imp=vrbqcdjsdjn5&amp;prev_imp=vq5q46lo09dk"></script><script charset="UTF-8" async="" src="http://referrer.disqus.com/juggler/event.js?thread_slug=verifying_the_image_service_installation_openstack_install_and_deploy_manual_red_hat_folsom_compute_&amp;user_type=anon&amp;referrer=http%3A%2F%2Fdocs.openstack.org%2Ffolsom%2Fopenstack-compute%2Finstall%2Fyum%2Fcontent%2Fimages-verifying-install.html&amp;theme=next&amp;event=init_embed&amp;thread=926438786&amp;forum=os-install-yum&amp;forum_id=1491670&amp;imp=vrbqcdjsdjn5&amp;prev_imp=vrbqcdjsdjn5"></script></head>
+
+    <body>
+        <div id="notSupported">
+            <p class="old-browser">Sorry, the browser you are using is not currently supported. Disqus actively supports the following browsers:</p>
+            <ul class="old-browser">
+                <li><a href="http://www.mozilla.org/firefox/">Firefox</a></li>
+                <li><a href="https://www.google.com/chrome/">Chrome</a></li>
+                <li><a href="http://windows.microsoft.com/en-us/internet-explorer/products/ie/home">Internet Explorer 8+</a></li>
+                <li><a href="http://www.apple.com/safari/">Safari</a></li>
+            </ul>
+            
+            <p class="legacy-mode">This page is forcing your browser to use legacy mode, which is not compatible with Disqus. Please see our <a href="http://help.disqus.com/customer/portal/articles/666084-troubleshooting-disqus-2012-in-internet-explorer-8-9">troubleshooting guide</a> to get more information about this error.</p>
+        </div>
+
+        <div id="postCompatContainer">
+            <ul>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/guest/4ed4bea0f97f9cdce3a44304edf98ff2/">sigma</a>
+                    </h4>
+
+                    <div>
+                        <p>When uploading the image,i got an error:Error
+ communicating with http://192.168.xxx.xxx:9292 [Errno 111] Connection 
+refused.I checked the ports and found that 9292 was not open.That means 
+glance-api service actually is down.But when i repeat service 
+openstack-glance-api start,it did start! So far i've been googling,i 
+found no acurate answer.Using glance-control is a alternative solution.</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/guest/3a9cf5629bc870a13a73adfdd781b9af/">D</a>
+                    </h4>
+
+                    <div>
+                        <p>I had this error and it was a issue with 
+connecting to the glancedb in mysql. A test you can do is try to 
+manually login to mysql with the glance user. If you can then it should 
+work. What I had to do was drop the glance user and recreate it. Also 
+you can try updating its password in mysql with the root account.</p>
+
+<p>UPDATE mysql.user SET Password = PASSWORD('password')<br> WHERE User = 'glance';</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/facebook-1636142753/">Jason Legate</a>
+                    </h4>
+
+                    <div>
+                        <p>Found a bug in /usr/lib/python2.6/site-packages/glance/common/<a href="http://crypt.py/" rel="nofollow">crypt.py</a> on CentOS 6.3 running folsom:</p>
+
+<p>$ glance -d -v --os-username='jason' --os-password='blah' 
+--os-tenant-name='ops' --os-auth-url='http://x.y.z.120:35357/v2.0' 
+image-create --name="tty-linux-kernel" --disk-format=aki 
+--container-format=aki &lt; ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz <br>curl
+ -i -X POST -H 'x-image-meta-container_format: aki' -H 'User-Agent: 
+python-glanceclient' -H 'x-image-meta-size: 4404752' -H 
+'x-image-meta-is_public: False' -H 'X-Auth-Token: 
+5ee32f616637459b929ee47998aa53fc' -H 'Content-Type: 
+application/octet-stream' -H 'x-image-meta-disk_format: aki' -H 
+'x-image-meta-name: tty-linux-kernel' -d '&lt;open '&lt;stdin="" 
+file=""&gt;', mode 'r' at 0x7f560d7570c0&gt;' 
+http://a.b.c.20:9292/v1/images</p>
+
+<p>HTTP/1.1 500 Internal Server Error<br>date: Thu, 21 Mar 2013 02:37:36 GMT<br>content-length: 4246<br>content-type: text/plain<br>connection: close<br>Traceback (most recent call last):</p>
+
+<p>  File "/usr/lib/python2.6/site-packages/eventlet/<a href="http://wsgi.py/" rel="nofollow">wsgi.py</a>", line 382, in handle_one_response<br>result = self.application(self.environ, start_response)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 147, in __call__<br>resp = self.call_func(req, *args, **self.kwargs)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 208, in call_func<br>return self.func(req, *args, **kwargs)<br>File "/usr/lib/python2.6/site-packages/glance/common/<a href="http://wsgi.py/" rel="nofollow">wsgi.py</a>", line 326, in __call__<br>response = req.get_response(self.application)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://request.py/" rel="nofollow">request.py</a>", line 1053, in get_response<br>application, catch_exc_info=False)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://request.py/" rel="nofollow">request.py</a>", line 1022, in call_application<br>app_iter = application(self.environ, start_response)<br>File "/usr/lib/python2.6/site-packages/keystone/middleware/<a href="http://auth_token.py/" rel="nofollow">auth_token.py</a>", line 278, in __call__<br>return self.app(env, start_response)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 147, in __call__<br>resp = self.call_func(req, *args, **self.kwargs)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 208, in call_func<br>return self.func(req, *args, **kwargs)<br>File "/usr/lib/python2.6/site-packages/glance/common/<a href="http://wsgi.py/" rel="nofollow">wsgi.py</a>", line 326, in __call__<br>response = req.get_response(self.application)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://request.py/" rel="nofollow">request.py</a>", line 1053, in get_response<br>application, catch_exc_info=False)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://request.py/" rel="nofollow">request.py</a>", line 1022, in call_application<br>app_iter = application(self.environ, start_response)<br>File "/usr/lib/python2.6/site-packages/paste/<a href="http://urlmap.py/" rel="nofollow">urlmap.py</a>", line 203, in __call__<br>return app(environ, start_response)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 159, in __call__<br>return resp(environ, start_response)<br>File "/usr/lib/python2.6/site-packages/Routes-1.12.3-py2.6.egg/routes/<a href="http://middleware.py/" rel="nofollow">middleware.py</a>", line 131, in __call__<br>response = self.app(environ, start_response)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 159, in __call__<br>return resp(environ, start_response)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 147, in __call__<br>resp = self.call_func(req, *args, **self.kwargs)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 208, in call_func<br>return self.func(req, *args, **kwargs)<br>File "/usr/lib/python2.6/site-packages/glance/common/<a href="http://wsgi.py/" rel="nofollow">wsgi.py</a>", line 532, in __call__<br>request, **action_args)<br>File "/usr/lib/python2.6/site-packages/glance/common/<a href="http://wsgi.py/" rel="nofollow">wsgi.py</a>", line 549, in dispatch<br>return method(*args, **kwargs)<br>File "/usr/lib/python2.6/site-packages/glance/common/<a href="http://utils.py/" rel="nofollow">utils.py</a>", line 425, in wrapped<br>return func(self, req, *args, **kwargs)<br>File "/usr/lib/python2.6/site-packages/glance/api/v1/<a href="http://images.py/" rel="nofollow">images.py</a>", line 687, in create<br>image_meta = self._handle_source(req, id, image_meta, image_data)<br>File "/usr/lib/python2.6/site-packages/glance/api/v1/<a href="http://images.py/" rel="nofollow">images.py</a>", line 611, in _handle_source<br>image_meta = self._upload_and_activate(req, image_meta)<br>File "/usr/lib/python2.6/site-packages/glance/api/v1/<a href="http://images.py/" rel="nofollow">images.py</a>", line 600, in _upload_and_activate<br>return self._activate(req, image_id, location) if location else None<br>File "/usr/lib/python2.6/site-packages/glance/api/v1/<a href="http://images.py/" rel="nofollow">images.py</a>", line 543, in _activate</p>
+
+<p>image_meta)<br>File "/usr/lib/python2.6/site-packages/glance/registry/<a href="http://__init__.py/" rel="nofollow">__init__.py</a>", line 146, in update_image_metadata<br>return c.update_image(image_id, image_meta, purge_props)<br>File "/usr/lib/python2.6/site-packages/glance/registry/<a href="http://client.py/" rel="nofollow">client.py</a>", line 154, in update_image<br>image_metadata['image'])<br>File "/usr/lib/python2.6/site-packages/glance/registry/<a href="http://client.py/" rel="nofollow">client.py</a>", line 65, in encrypt_metadata<br>image_metadata['location'], 64)<br>File "/usr/lib/python2.6/site-packages/glance/common/<a href="http://crypt.py/" rel="nofollow">crypt.py</a>", line 45, in urlsafe_encrypt<br>init_vector = os.urandom(16)</p>
+
+<p>NameError: global name 'os' is not defined</p>
+
+<p>Request returned failure status.<br>HTTPInternalServerError (HTTP 500)</p>
+
+<p>Patch:<br>--- <a href="http://crypt-old.py/" rel="nofollow">crypt-old.py</a>	2013-03-20 19:38:58.975518258 -0700<br>+++ <a href="http://crypt.py/" rel="nofollow">crypt.py</a>	2013-03-20 19:37:26.567518059 -0700<br>@@ -19,7 +19,7 @@<br> Routines for URL-safe encrypting/decrypting<br> """</p>
+
+<p>-import base64<br>+import base64, os<br> from Crypto.Cipher import AES&lt;/open&gt;</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/lhochstein/">Lorin Hochstein</a>
+                    </h4>
+
+                    <div>
+                        <p>Hmmmm... that bug doesn't seem to be present in the upstream Folsom release of glance: <a href="https://github.com/openstack/glance/blob/stable/folsom/glance/common/crypt.py#L50" rel="nofollow">https://github.com/openstack/g...</a></p>
+
+<p>You may need to report this to the managers of the CentOS packages you are using.</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/guest/67c3b5e770b5bf40973ddccad8388603/">CMFL</a>
+                    </h4>
+
+                    <div>
+                        <p>I'm not sure what caused my problem in the 
+first step where I was unable to upload an image... I get getting 401 
+errors and I found an article where some folks have disabled 
+'flavor=keystone' from their /etc/glance/glance-api.conf and 
+/etc/glance-registry.conf.  I then restarted glance via 'glance-control 
+api restart' 'glance-control registry restart' and ran 'glance-manage 
+db_sync' and I was able to upload images but I also had to add the line 
+'--is-public True' to each image-create like others posted.  </p>
+
+<p>Why does removing 'flavor=keystone' work and is this bad?</p>
+
+<p>Here is my openrc, and I have installed nova,glance,keystone,mysql on on a single host.</p>
+
+<p>[root@drudge mysql]# cat /root/openrc <br>export OS_USERNAME=admin<br>export OS_TENANT_NAME=demo<br>export OS_PASSWORD=secrete<br>export OS_AUTH_URL=http://localhost:35357/v2.0/<br>export OS_REGION_NAME=RegionOne</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/fritzhardy/">Jeff Hardy</a>
+                    </h4>
+
+                    <div>
+                        <p>I was getting auth errors trying to create 
+images on EL 6.2, and can confirm a few of the other comments.  You must
+ hardcode the macro-looking %WHATEVER% values in the 
+[keystone_authtoken] stanza in glance-api.conf and glance-registry.conf,
+ where <a href="http://sample_data.sh/" rel="nofollow">sample_data.sh</a>
+ would have set admin_tenant_name = service and admin_user/pass = 
+glance.  Additionally, as noted in another comment, the value for 
+--os-auth-url when running glance at the command-line is incorrectly 
+pointing to the glance service itself, and should instead be pointed to 
+keystone on port 35357.  Lastly, as is the case elsewhere in the docs, 
+the authentication arguments at the command-line are incorrect: the <a href="http://sample_data.sh/" rel="nofollow">sample_data.sh</a>
+ value for --os-password = secrete, and --os-tenant-name = demo.  If 
+that is all sorted out, you should be able to create images.</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/liyong/">liyong</a>
+                    </h4>
+
+                    <div>
+                        <p>I am facing an issue during creation of image. as below:</p>
+
+<p>[root@xxx images]# glance --os-username=admin 
+--os-password=secretword --os-tenant-name=openstackDemo 
+--os-auth-url=http://localhost:5000/v2.0 image-create 
+--name="tty-linux-kernel" --disk-format=aki --container-format=aki &lt; 
+ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz</p>
+
+<p>Request returned failure status.<br>HTTPInternalServerError (HTTP 500)</p>
+
+<p>Contents of keystonerc file is given below :</p>
+
+<p>export OS_USERNAME=admin<br>export OS_PASSWORD=secretword<br>export OS_TENANT_NAME=openstackDemo<br>export OS_AUTH_URL=http://192.168.135.110:35357/v2.0<br>export OS_REGION_NAME=RegionOne</p>
+
+<p>who can help me?</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/groc/">groc</a>
+                    </h4>
+
+                    <div>
+                        <p>I am able to upload the images, however 
+glance image-list does not display anything, it just returns back to the
+ shell prompt. I made sure that when I uploaded the images I used 
+--is-public IS_PUBLIC.</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/guest/206f5fd8b5d2b9a8a151501f69166a65/">Ashutosh Narayan</a>
+                    </h4>
+
+                    <div>
+                        <p>I am facing an issue during creation of image. It throws the following error :</p>
+
+<p>192.168.105.61 is the IP of the host. Why is it getting timed out ?</p>
+
+<p>[root@xxx images]# glance --os-username=admin 
+--os-password=secretword --os-tenant-name=openstackDemo 
+--os-auth-url=http://192.168.105.61:5000/v2.0/ image-create 
+--name="tty-linux-kernel" --disk-format=aki --container-format=aki &lt; 
+ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz<br>Error communicating with http://192.168.105.61:9292 timed out</p>
+
+<p>Contents of openrc file is given below :</p>
+
+<p>export OS_USERNAME=admin<br>export OS_TENANT_NAME=openstackDemo<br>export OS_PASSWORD=secretword<br>export OS_AUTH_URL=http://192.168.105.61:5000/v2.0/<br>export OS_REGION_NAME=RegionOne</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/guest/e13ebf454811fce8803d8156b88c648c/">xiay</a>
+                    </h4>
+
+                    <div>
+                        <p>2013-01-26 06:20:58 31764 WARNING 
+keystone.middleware.auth_token [-] Unexpected response from keystone 
+service: {u'error': {u'message': u'Invalid tenant', u'code': 401, 
+u'title': u'Not Authorized'}}<br>2013-01-26 06:20:58 31764 WARNING 
+keystone.middleware.auth_token [-] Authorization failed for token 
+c3a057101ef744c9b0c741c9dab75765<br>2013-01-26 06:20:58 31764 INFO keystone.middleware.auth_token [-] Invalid user token - deferring reject downstream<br>Request returned failure status.<br>Invalid OpenStack Identity credentials</p>
+
+<p>who can help me ?</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/guest/2232a894987a5a16ff96c084dc3db209/">hjswust</a>
+                    </h4>
+
+                    <div>
+                        <p>your   Identity credentials not right...<br>the user name/pass which in api.conf or other conf is not the same with your keystone's conf</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/guest/1f6747697b0a02d14e45ed1e97f83984/">Guest</a>
+                    </h4>
+
+                    <div>
+                        <p>I had to make the images public (with glance 
+image-attribute --is-public=True... ) to be able to see them with glance
+ image-list.  Would like to understand why. Hereafter the content of the
+ the source'd rc file use before creating the images</p>
+
+<p>#export SERVICE_TOKEN=012345SECRET99TOKEN012345<br>#export SERVICE_ENDPOINT="http://nova-ctlr.mgmt.hp.local:35357/v2.0"<br>export OS_USERNAME=admin<br>export OS_PASSWORD=secretword<br>export OS_TENANT_NAME=openstackDemo<br>export OS_AUTH_URL=http://nova-ctlr.mgmt.hp.local:35357/v2.0/<br>export OS_REGION_NAME=RegionOne</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/hbliu1985/">hbliu1985</a>
+                    </h4>
+
+                    <div>
+                        <p>When uploading the image,i got an ERROR:</p>
+
+<p>#glance --os-username=admin --os-password=Hbl5173 
+--os-tenant-name=openstackDemo --os-auth-url=http://127.0.0.7:5000/v2.0 
+image-create --name="tty-linux-kernel" --disk-format=aki 
+--container-format=aki &lt; 
+/tmp/images/ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz <br>Request returned failure status.<br>Invalid OpenStack Identity credentials.</p>
+
+<p>here is logs:</p>
+
+<p>[root@openstacktest1 openstackenv]# tail /var/log/glance/api.log -n 15 | grep ERROR<br>2012-12-26 09:49:54 5505 ERROR keystone.middleware.auth_token [-] Bad response code while validating token: 403</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/hongjinjimmywei/">Hong Jin (Jimmy) Wei</a>
+                    </h4>
+
+                    <div>
+                        <p>glance image-list show me with the different Size, here is what I got:</p>
+
+<p># glance image-list</p>
+
+<p>+--------------------------------------+-------------------+-------------+------------------+----------+--------+</p>
+
+<p>| ID                                   | Name              | Disk Format | Container Format | Size     | Status |</p>
+
+<p>+--------------------------------------+-------------------+-------------+------------------+----------+--------+</p>
+
+<p>| bb0f2b0d-8ad6-4d82-99d6-7608bf77ff73 | tty-linux-ramdisk | ari         | ari              | 96629    | active |</p>
+
+<p>| dafe7304-e385-4bba-828a-6abaffd7b6c3 | tty-linux-kernel  | aki         | aki              | 4404752  | active |</p>
+
+<p>| f5ab106e-3201-441f-ae14-5a4c289e03b1 | tty-linux         | ami         | ami              | 25165824 | active |</p>
+
+<p>+--------------------------------------+-------------------+-------------+------------------+----------+--------+</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/guest/19971bdcd95f528df92eeb961ad89167/">Nate</a>
+                    </h4>
+
+                    <div>
+                        <p>The auth URL that the document provides in 
+the sample points to the Glance Service instead of Keystone.  The doc 
+has OS_AUTH_URL=http://192.168.206.130:5000/v2.0/ when the port number 
+should be 35357 for Keystone.</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/guest/19971bdcd95f528df92eeb961ad89167/">Nate</a>
+                    </h4>
+
+                    <div>
+                        <p>The argument names have changed in the Folsom
+ release.  The dashes have been replaced by underscores.  The image 
+properties do the same, and they do not require a prefix of "--" 
+anymore.  Below is what I used.</p>
+
+<p>glance add --os_username=$OS_USERNAME --os_password=$OS_PASSWORD 
+--os_tenant_name=$OS_TENANT_NAME --os_auth_url=$OS_AUTH_URL 
+name="my-disk-image" disk_format=aki container_format=aki</p>
+
+<p>Here is my package information for the release I used.</p>
+
+<p>Name        : openstack-glance<br>Version     : 2012.1.2<br>Release     : 2.fc17</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/guest/8087cdd61d80c620db119940bb5b3e42/">3aam</a>
+                    </h4>
+
+                    <div>
+                        <p>Hi,<br>I install glance on a machine and 
+keystone on a separate one,when I try to upload image it give this 
+error: Error communicating with http://192.168.20.215:9292 timed out 
+where 192.168.20.215 IP of glance can enybody help me? <br>thanks</p>
+                    </div>
+                </li>
+            
+            </ul>
+        </div>
+
+        <div id="error" style="display:none;">
+            <p>We were unable to load Disqus. If you are a moderator please see our <a href="http://docs.disqus.com/help/83/"> troubleshooting guide</a>. </p>
+        </div>
+
+        
+        
+
+
+<!--[if lte IE 8]>
+<script src="http://mediacdn.disqus.com/1371070053/build/next/ie8.js"></script>
+<![endif]-->
+<!--[if IE 9]>
+<script src="http://mediacdn.disqus.com/1371070053/build/next/ie9.js"></script>
+<![endif]-->
+
+
+        
+        <script src="a_data/load.js"></script>
+        
+    
+
+<div id="layout">
+    <header>
+        
+
+        
+            
+    <div id="discovery-top"></div>
+
+    <nav id="global-nav">
+        <div id="thread-votes" class="pull-right"><div class="thread-likes " data-role="vote-button">
+        <a href="#" data-action="upvote" title="Star this discussion">
+            <span class="notch"></span>
+            <span class="icon-star"></span>
+            <span class="counter"><span data-role="like-count">0</span></span>
+            <img src="a_data/checkx2.png" class="check-mark" alt="Voted" height="8" width="10">
+        </a>
+    </div></div>
+
+        <div id="realtime-toggle"></div>
+
+        <ul class="publisher-anchor-hover">
+            <li class="active" data-role="global-nav">
+                <a href="#" id="post-count" data-nav="conversation">
+    <h4>
+            17 comments
+        </h4>
+</a>
+            </li>
+
+            
+        </ul>
+    </nav>
+
+        
+
+        <div id="form"><div class="reply  ">
+    <div class="alert error" style="display:none" role="alert">
+        <a class="close" data-action="dismiss-alert" title="Dismiss">×</a>
+        <span><!-- error goes here --></span>
+    </div>
+
+    <div class="postbox">
+        <div class="avatar">
+            
+                <span class="user">
+                    <img data-role="user-avatar" src="a_data/noavatar92.png">
+                </span>
+            
+        </div>
+        <form action="">
+            <div class="textarea-wrapper" data-role="textarea">
+                <div style="overflow: auto; max-height: 350px;" aria-multiline="true" role="textbox" tabindex="0" class="textarea" contenteditable="true"><span class="placeholder">Leave a message...</span></div>
+                <div data-role="drag-drop-placeholder" class="media-drag-hover" style="display: none">
+                    <div class="drag-text">
+                        ⬇ Drag and drop your images here to upload them.
+                    </div>
+                </div>
+                
+                    <div class="media-preview empty" data-role="media-preview">
+                        <ul data-role="media-preview-list">
+                        
+                        </ul>
+                        <div class="media-expanded empty" data-role="media-preview-expanded">
+                            
+                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-role="media-preview-expanded-image">
+                        </div>
+                    </div>
+                
+                <div class="post-actions">
+                    <ul class="wysiwyg">
+                        
+                            <li>
+                                <a href="#" tabindex="-1" data-action="attach" class="attach" title="Upload Images"><span>Attach</span></a>
+                                <input data-role="media-upload" tabindex="-1" class="regular" accept="image/*" type="file">
+                            </li>
+                        
+                        
+                    </ul>
+                    
+                    
+                </div>
+            <div></div></div>
+            
+                
+<div class="logged-out auth-section">
+    <section data-tab="auth-external">
+        <div class="connect">
+            <h6>Sign in with</h6>
+            <ul class="services">
+                
+                    
+                
+                 <li class="auth-disqus">
+                    <a data-action="auth:disqus" href="#" title="Disqus">Disqus</a>
+                </li>
+                <li class="auth-facebook">
+                    <a data-action="auth:facebook" href="#" title="Facebook">Facebook</a>
+                </li>
+                <li class="auth-twitter">
+                    <a data-action="auth:twitter" href="#" title="Twitter">Twitter</a>
+                </li>
+                <li class="auth-google">
+                    <a data-action="auth:google" href="#" title="Google">Google</a>
+                </li>
+            </ul>
+        </div>
+
+        
+    <div class="guest">
+        <h6 class="guest-form-title">
+            
+                or pick a name
+            
+        </h6>
+
+        <div class="what-is-disqus help-icon">
+            <div id="rules" class="tooltip show">
+                <h3>DISQUS is a conversation network</h3>
+                <ul>
+                    <li><span>Disqus never moderates or censors. The rules on this community are its own.</span></li>
+                    <li><span>Your email is safe with us. It's only used for moderation and optional notifications.</span></li>
+                    <li><span>Don't be a jerk or do anything illegal. Everything is easier that way.</span></li>
+                    </ul>
+                <p class="clearfix"><a href="http://docs.disqus.com/kb/terms-and-policies/" class="btn btn-small" target="_blank">Read full terms and conditions</a></p>
+            </div>
+        </div>
+
+        <p class="input-wrapper">
+            <input placeholder="Name" name="author-name" maxlength="30" type="text">
+        </p>
+
+        <div class="guest-details " data-role="guest-details">
+            <p class="input-wrapper">
+                <input placeholder="Email" name="author-email" type="email">
+            </p>
+
+            
+                <p class="input-wrapper">
+                    <input placeholder="Password" name="author-password" type="password">
+                </p>
+                
+                    <div class="guest-checkbox">
+                        <label>
+                            <input name="author-guest" type="checkbox">
+                            I'd rather post as guest
+                        </label>
+                    </div>
+                
+            
+
+        </div>
+    </div>
+    <div class="proceed">
+        
+             <button type="submit" class="btn submit" aria-label="Post"><span class="icon-proceed"></span></button>
+            <button type="submit" class="btn next" aria-label="Next"><span class="icon-proceed"></span></button>
+        
+    </div>
+
+
+    </section>
+</div>
+
+            
+            
+        </form>
+    </div>
+</div></div>
+
+        
+            
+    <div id="main-nav" class="nav">
+        <ul>
+            
+<li data-role="post-sort" class="active dropdown">
+    <a href="#" data-nav="conversation" class="dropdown-toggle publisher-nav-color" data-toggle="dropdown">
+        Best
+        
+        
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="selected">
+            <a href="#" data-action="sort" data-sort="popular">Best</a>
+        </li>
+
+        <li>
+            <a href="#" data-action="sort" data-sort="desc">Newest</a>
+        </li>
+
+        <li>
+            <a href="#" data-action="sort" data-sort="asc">Oldest</a>
+        </li>
+    </ul>
+</li>
+
+
+            <li><a href="#" data-nav="community" class="publisher-nav-color" id="community-tab">Community</a></li>
+            <li><a href="#" data-nav="dashboard" style="display: none;" class="publisher-nav-color">My Disqus <span class="notification-count" data-role="notification-count" style="display: none;"></span></a></li>
+
+            <li class="user-menu dropdown" data-role="logout">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <span class="cog"><i aria-hidden="true" class="icon-cog"></i></span> <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        
+        
+			
+            	<li>
+                	<a href="#" data-action="auth:disqus">Login</a>
+            	</li>
+        	
+        
+
+        
+
+        
+        <li>
+            <a href="https://www.surveymonkey.com/s/5RBPTTZ?c=http%3A%2F%2Fdocs.openstack.org%2Ffolsom%2Fopenstack-compute%2Finstall%2Fyum%2Fcontent%2Fimages-verifying-install.html" target="_blank">Send Feedback</a>
+        </li>
+        
+
+        
+
+        
+    </ul>
+</li>
+
+            <li id="thread-share-menu" class="share-menu dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Share">
+                    <span class="label">Share</span> <span class="icon-export"></span>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                    <li class="share">Share this discussion on
+                        <ul>
+                            <li class="twitter">
+                                <a data-action="share:twitter" href="#">Twitter</a>
+                            </li>
+                            <li class="facebook">
+                                <a data-action="share:facebook" href="#">Facebook</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+        
+    </header>
+
+    <section id="conversation" data-role="main">
+        <div id="posts">
+            <button class="alert realtime" style="display: none;" data-action="load-queued-posts" data-role="realtime-notification">
+                <!-- Show 2 new posts. -->
+            </button>
+
+            <!-- This message appears when there are no comments -->
+            <div id="no-posts" style="display: none;">No one has commented yet.</div>
+
+            <ul id="post-list" class="post-list"><li class="post
+    " id="post-746645303">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar">
+                        <div class="user"><img src="a_data/avatar.png" class="user" alt="Avatar"></div>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="name">sigma</span>
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-746645303" data-role="relative-time" class="time-ago" title="Monday, December 24 2012 1:12 PM">
+                                6 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div style="" data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>When uploading the image,i got an
+ error:Error communicating with http://192.168.xxx.xxx:9292 [Errno 111] 
+Connection refused.I checked the ports and found that 9292 was not 
+open.That means glance-api service actually is down.But when i repeat 
+service openstack-glance-api start,it did start! So far i've been 
+googling,i found no acurate answer.Using glance-control is a alternative
+ solution.</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:746645303">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-2" data-action="upvote" title="">
+        <span class="updatable count" data-role="likes">2</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-746645303">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+<li class="post
+    " id="post-855347775">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar">
+                        <div class="user"><img src="a_data/avatar_008.png" class="user" alt="Avatar"></div>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="name">D</span>
+                        
+
+                        
+                            <span><a href="#comment-746645303" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> sigma</a></span>
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-855347775" data-role="relative-time" class="time-ago" title="Monday, April 8 2013 1:46 AM">
+                                2 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div style="" data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>I had this error and it was a 
+issue with connecting to the glancedb in mysql. A test you can do is try
+ to manually login to mysql with the glance user. If you can then it 
+should work. What I had to do was drop the glance user and recreate it. 
+Also you can try updating its password in mysql with the root account.</p>
+
+<p>UPDATE mysql.user SET Password = PASSWORD('password')<br> WHERE User = 'glance';</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:855347775">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-855347775">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li></ul></li><li class="post
+    " id="post-836650613">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="8851111">
+                            <img src="a_data/avatar92_004.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="8851111">Jason Legate</a></span>
+                            
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-836650613" data-role="relative-time" class="time-ago" title="Thursday, March 21 2013 10:55 AM">
+                                3 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div style="height: 374px;" class="post-message-container post-message-collapse" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div style="" data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>Found a bug in /usr/lib/python2.6/site-packages/glance/common/<a href="http://crypt.py/" rel="nofollow">crypt.py</a> on CentOS 6.3 running folsom:</p>
+
+<p>$ glance -d -v --os-username='jason' --os-password='blah' 
+--os-tenant-name='ops' --os-auth-url='http://x.y.z.120:35357/v2.0' 
+image-create --name="tty-linux-kernel" --disk-format=aki 
+--container-format=aki &lt; ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz <br>curl
+ -i -X POST -H 'x-image-meta-container_format: aki' -H 'User-Agent: 
+python-glanceclient' -H 'x-image-meta-size: 4404752' -H 
+'x-image-meta-is_public: False' -H 'X-Auth-Token: 
+5ee32f616637459b929ee47998aa53fc' -H 'Content-Type: 
+application/octet-stream' -H 'x-image-meta-disk_format: aki' -H 
+'x-image-meta-name: tty-linux-kernel' -d '&lt;open '&lt;stdin="" 
+file=""&gt;', mode 'r' at 0x7f560d7570c0&gt;' 
+http://a.b.c.20:9292/v1/images</p>
+
+<p>HTTP/1.1 500 Internal Server Error<br>date: Thu, 21 Mar 2013 02:37:36 GMT<br>content-length: 4246<br>content-type: text/plain<br>connection: close<br>Traceback (most recent call last):</p>
+
+<p>  File "/usr/lib/python2.6/site-packages/eventlet/<a href="http://wsgi.py/" rel="nofollow">wsgi.py</a>", line 382, in handle_one_response<br>result = self.application(self.environ, start_response)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 147, in __call__<br>resp = self.call_func(req, *args, **self.kwargs)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 208, in call_func<br>return self.func(req, *args, **kwargs)<br>File "/usr/lib/python2.6/site-packages/glance/common/<a href="http://wsgi.py/" rel="nofollow">wsgi.py</a>", line 326, in __call__<br>response = req.get_response(self.application)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://request.py/" rel="nofollow">request.py</a>", line 1053, in get_response<br>application, catch_exc_info=False)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://request.py/" rel="nofollow">request.py</a>", line 1022, in call_application<br>app_iter = application(self.environ, start_response)<br>File "/usr/lib/python2.6/site-packages/keystone/middleware/<a href="http://auth_token.py/" rel="nofollow">auth_token.py</a>", line 278, in __call__<br>return self.app(env, start_response)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 147, in __call__<br>resp = self.call_func(req, *args, **self.kwargs)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 208, in call_func<br>return self.func(req, *args, **kwargs)<br>File "/usr/lib/python2.6/site-packages/glance/common/<a href="http://wsgi.py/" rel="nofollow">wsgi.py</a>", line 326, in __call__<br>response = req.get_response(self.application)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://request.py/" rel="nofollow">request.py</a>", line 1053, in get_response<br>application, catch_exc_info=False)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://request.py/" rel="nofollow">request.py</a>", line 1022, in call_application<br>app_iter = application(self.environ, start_response)<br>File "/usr/lib/python2.6/site-packages/paste/<a href="http://urlmap.py/" rel="nofollow">urlmap.py</a>", line 203, in __call__<br>return app(environ, start_response)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 159, in __call__<br>return resp(environ, start_response)<br>File "/usr/lib/python2.6/site-packages/Routes-1.12.3-py2.6.egg/routes/<a href="http://middleware.py/" rel="nofollow">middleware.py</a>", line 131, in __call__<br>response = self.app(environ, start_response)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 159, in __call__<br>return resp(environ, start_response)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 147, in __call__<br>resp = self.call_func(req, *args, **self.kwargs)<br>File "/usr/lib/python2.6/site-packages/WebOb-1.0.8-py2.6.egg/webob/<a href="http://dec.py/" rel="nofollow">dec.py</a>", line 208, in call_func<br>return self.func(req, *args, **kwargs)<br>File "/usr/lib/python2.6/site-packages/glance/common/<a href="http://wsgi.py/" rel="nofollow">wsgi.py</a>", line 532, in __call__<br>request, **action_args)<br>File "/usr/lib/python2.6/site-packages/glance/common/<a href="http://wsgi.py/" rel="nofollow">wsgi.py</a>", line 549, in dispatch<br>return method(*args, **kwargs)<br>File "/usr/lib/python2.6/site-packages/glance/common/<a href="http://utils.py/" rel="nofollow">utils.py</a>", line 425, in wrapped<br>return func(self, req, *args, **kwargs)<br>File "/usr/lib/python2.6/site-packages/glance/api/v1/<a href="http://images.py/" rel="nofollow">images.py</a>", line 687, in create<br>image_meta = self._handle_source(req, id, image_meta, image_data)<br>File "/usr/lib/python2.6/site-packages/glance/api/v1/<a href="http://images.py/" rel="nofollow">images.py</a>", line 611, in _handle_source<br>image_meta = self._upload_and_activate(req, image_meta)<br>File "/usr/lib/python2.6/site-packages/glance/api/v1/<a href="http://images.py/" rel="nofollow">images.py</a>", line 600, in _upload_and_activate<br>return self._activate(req, image_id, location) if location else None<br>File "/usr/lib/python2.6/site-packages/glance/api/v1/<a href="http://images.py/" rel="nofollow">images.py</a>", line 543, in _activate</p>
+
+<p>image_meta)<br>File "/usr/lib/python2.6/site-packages/glance/registry/<a href="http://__init__.py/" rel="nofollow">__init__.py</a>", line 146, in update_image_metadata<br>return c.update_image(image_id, image_meta, purge_props)<br>File "/usr/lib/python2.6/site-packages/glance/registry/<a href="http://client.py/" rel="nofollow">client.py</a>", line 154, in update_image<br>image_metadata['image'])<br>File "/usr/lib/python2.6/site-packages/glance/registry/<a href="http://client.py/" rel="nofollow">client.py</a>", line 65, in encrypt_metadata<br>image_metadata['location'], 64)<br>File "/usr/lib/python2.6/site-packages/glance/common/<a href="http://crypt.py/" rel="nofollow">crypt.py</a>", line 45, in urlsafe_encrypt<br>init_vector = os.urandom(16)</p>
+
+<p>NameError: global name 'os' is not defined</p>
+
+<p>Request returned failure status.<br>HTTPInternalServerError (HTTP 500)</p>
+
+<p>Patch:<br>--- <a href="http://crypt-old.py/" rel="nofollow">crypt-old.py</a>	2013-03-20 19:38:58.975518258 -0700<br>+++ <a href="http://crypt.py/" rel="nofollow">crypt.py</a>	2013-03-20 19:37:26.567518059 -0700<br>@@ -19,7 +19,7 @@<br> Routines for URL-safe encrypting/decrypting<br> """</p>
+
+<p>-import base64<br>+import base64, os<br> from Crypto.Cipher import AES&lt;/open&gt;</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow" data-role="message-shadow"></div>
+                    <a href="#" class="more-button" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:836650613">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-1" data-action="upvote" title="">
+        <span class="updatable count" data-role="likes">1</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-836650613">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+<li class="post
+    " id="post-836667080">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="29433037">
+                            <img src="a_data/avatar92.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="29433037">Lorin Hochstein</a></span>
+                            
+                                <span class="badge moderator">Mod</span>
+                            
+                        
+
+                        
+                            <span><a href="#comment-836650613" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Jason Legate</a></span>
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-836667080" data-role="relative-time" class="time-ago" title="Thursday, March 21 2013 11:15 AM">
+                                3 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div style="" data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>Hmmmm... that bug doesn't seem to be present in the upstream Folsom release of glance: <a href="https://github.com/openstack/glance/blob/stable/folsom/glance/common/crypt.py#L50" rel="nofollow">https://github.com/openstack/g...</a></p>
+
+<p>You may need to report this to the managers of the CentOS packages you are using.</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:836667080">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-836667080">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li></ul></li><li class="post
+    " id="post-878765915">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar">
+                        <div class="user"><img src="a_data/avatar_005.png" class="user" alt="Avatar"></div>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="name">CMFL</span>
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-878765915" data-role="relative-time" class="time-ago" title="Monday, April 29 2013 4:38 AM">
+                                a month ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div style="" data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>I'm not sure what caused my 
+problem in the first step where I was unable to upload an image... I get
+ getting 401 errors and I found an article where some folks have 
+disabled 'flavor=keystone' from their /etc/glance/glance-api.conf and 
+/etc/glance-registry.conf.  I then restarted glance via 'glance-control 
+api restart' 'glance-control registry restart' and ran 'glance-manage 
+db_sync' and I was able to upload images but I also had to add the line 
+'--is-public True' to each image-create like others posted.  </p>
+
+<p>Why does removing 'flavor=keystone' work and is this bad?</p>
+
+<p>Here is my openrc, and I have installed nova,glance,keystone,mysql on on a single host.</p>
+
+<p>[root@drudge mysql]# cat /root/openrc <br>export OS_USERNAME=admin<br>export OS_TENANT_NAME=demo<br>export OS_PASSWORD=secrete<br>export OS_AUTH_URL=http://localhost:35357/v2.0/<br>export OS_REGION_NAME=RegionOne</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:878765915">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-878765915">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li><li class="post
+    " id="post-871233273">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="48727505">
+                            <img src="a_data/avatar92_003.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="48727505">Jeff Hardy</a></span>
+                            
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-871233273" data-role="relative-time" class="time-ago" title="Monday, April 22 2013 12:28 AM">
+                                2 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div style="" data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>I was getting auth errors trying 
+to create images on EL 6.2, and can confirm a few of the other comments.
+  You must hardcode the macro-looking %WHATEVER% values in the 
+[keystone_authtoken] stanza in glance-api.conf and glance-registry.conf,
+ where <a href="http://sample_data.sh/" rel="nofollow">sample_data.sh</a>
+ would have set admin_tenant_name = service and admin_user/pass = 
+glance.  Additionally, as noted in another comment, the value for 
+--os-auth-url when running glance at the command-line is incorrectly 
+pointing to the glance service itself, and should instead be pointed to 
+keystone on port 35357.  Lastly, as is the case elsewhere in the docs, 
+the authentication arguments at the command-line are incorrect: the <a href="http://sample_data.sh/" rel="nofollow">sample_data.sh</a>
+ value for --os-password = secrete, and --os-tenant-name = demo.  If 
+that is all sorted out, you should be able to create images.</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:871233273">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-871233273">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li><li class="post
+    " id="post-829833590">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="45715937">
+                            <img src="a_data/avatar92_006.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="45715937">liyong</a></span>
+                            
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-829833590" data-role="relative-time" class="time-ago" title="Friday, March 15 2013 2:36 PM">
+                                3 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div style="" data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>I am facing an issue during creation of image. as below:</p>
+
+<p>[root@xxx images]# glance --os-username=admin 
+--os-password=secretword --os-tenant-name=openstackDemo 
+--os-auth-url=http://localhost:5000/v2.0 image-create 
+--name="tty-linux-kernel" --disk-format=aki --container-format=aki &lt; 
+ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz</p>
+
+<p>Request returned failure status.<br>HTTPInternalServerError (HTTP 500)</p>
+
+<p>Contents of keystonerc file is given below :</p>
+
+<p>export OS_USERNAME=admin<br>export OS_PASSWORD=secretword<br>export OS_TENANT_NAME=openstackDemo<br>export OS_AUTH_URL=http://192.168.135.110:35357/v2.0<br>export OS_REGION_NAME=RegionOne</p>
+
+<p>who can help me?</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:829833590">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-829833590">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li><li class="post
+    " id="post-818675465">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="44544145">
+                            <img src="a_data/avatar92_007.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="44544145">groc</a></span>
+                            
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-818675465" data-role="relative-time" class="time-ago" title="Monday, March 4 2013 3:12 PM">
+                                3 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div style="" data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>I am able to upload the images, 
+however glance image-list does not display anything, it just returns 
+back to the shell prompt. I made sure that when I uploaded the images I 
+used --is-public IS_PUBLIC.</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:818675465">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-818675465">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li><li class="post
+    " id="post-816478014">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar">
+                        <div class="user"><img src="a_data/avatar.jpeg" class="user" alt="Avatar"></div>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="name">Ashutosh Narayan</span>
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-816478014" data-role="relative-time" class="time-ago" title="Friday, March 1 2013 10:14 PM">
+                                3 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div style="" data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>I am facing an issue during creation of image. It throws the following error :</p>
+
+<p>192.168.105.61 is the IP of the host. Why is it getting timed out ?</p>
+
+<p>[root@xxx images]# glance --os-username=admin 
+--os-password=secretword --os-tenant-name=openstackDemo 
+--os-auth-url=http://192.168.105.61:5000/v2.0/ image-create 
+--name="tty-linux-kernel" --disk-format=aki --container-format=aki &lt; 
+ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz<br>Error communicating with http://192.168.105.61:9292 timed out</p>
+
+<p>Contents of openrc file is given below :</p>
+
+<p>export OS_USERNAME=admin<br>export OS_TENANT_NAME=openstackDemo<br>export OS_PASSWORD=secretword<br>export OS_AUTH_URL=http://192.168.105.61:5000/v2.0/<br>export OS_REGION_NAME=RegionOne</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:816478014">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-816478014">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li><li class="post
+    " id="post-778791695">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar">
+                        <div class="user"><img src="a_data/avatar_004.png" class="user" alt="Avatar"></div>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="name">xiay</span>
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-778791695" data-role="relative-time" class="time-ago" title="Saturday, January 26 2013 7:25 PM">
+                                5 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div style="" data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>2013-01-26 06:20:58 31764 WARNING
+ keystone.middleware.auth_token [-] Unexpected response from keystone 
+service: {u'error': {u'message': u'Invalid tenant', u'code': 401, 
+u'title': u'Not Authorized'}}<br>2013-01-26 06:20:58 31764 WARNING 
+keystone.middleware.auth_token [-] Authorization failed for token 
+c3a057101ef744c9b0c741c9dab75765<br>2013-01-26 06:20:58 31764 INFO keystone.middleware.auth_token [-] Invalid user token - deferring reject downstream<br>Request returned failure status.<br>Invalid OpenStack Identity credentials</p>
+
+<p>who can help me ?</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:778791695">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-778791695">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+<li class="post
+    " id="post-816481523">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar">
+                        <div class="user"><img src="a_data/avatar_002.png" class="user" alt="Avatar"></div>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="name">hjswust</span>
+                        
+
+                        
+                            <span><a href="#comment-778791695" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> xiay</a></span>
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-816481523" data-role="relative-time" class="time-ago" title="Friday, March 1 2013 10:17 PM">
+                                3 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div style="" data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>your   Identity credentials not right...<br>the user name/pass which in api.conf or other conf is not the same with your keystone's conf</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:816481523">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-816481523">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li></ul></li><li class="post
+    " id="post-752798479">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar">
+                        <div class="user"><img src="a_data/avatar_003.png" class="user" alt="Avatar"></div>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="name">Guest</span>
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-752798479" data-role="relative-time" class="time-ago" title="Wednesday, January 2 2013 3:09 AM">
+                                5 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>I had to make the images public 
+(with glance image-attribute --is-public=True... ) to be able to see 
+them with glance image-list.  Would like to understand why. Hereafter 
+the content of the the source'd rc file use before creating the images</p>
+
+<p>#export SERVICE_TOKEN=012345SECRET99TOKEN012345<br>#export SERVICE_ENDPOINT="http://nova-ctlr.mgmt.hp.local:35357/v2.0"<br>export OS_USERNAME=admin<br>export OS_PASSWORD=secretword<br>export OS_TENANT_NAME=openstackDemo<br>export OS_AUTH_URL=http://nova-ctlr.mgmt.hp.local:35357/v2.0/<br>export OS_REGION_NAME=RegionOne</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:752798479">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-752798479">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li><li class="post
+    " id="post-747559532">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="39604857">
+                            <img src="a_data/avatar92_005.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="39604857">hbliu1985</a></span>
+                            
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-747559532" data-role="relative-time" class="time-ago" title="Wednesday, December 26 2012 9:53 AM">
+                                6 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>When uploading the image,i got an ERROR:</p>
+
+<p>#glance --os-username=admin --os-password=Hbl5173 
+--os-tenant-name=openstackDemo --os-auth-url=http://127.0.0.7:5000/v2.0 
+image-create --name="tty-linux-kernel" --disk-format=aki 
+--container-format=aki &lt; 
+/tmp/images/ttylinux-uec-amd64-12.1_2.6.35-22_1-vmlinuz <br>Request returned failure status.<br>Invalid OpenStack Identity credentials.</p>
+
+<p>here is logs:</p>
+
+<p>[root@openstacktest1 openstackenv]# tail /var/log/glance/api.log -n 15 | grep ERROR<br>2012-12-26 09:49:54 5505 ERROR keystone.middleware.auth_token [-] Bad response code while validating token: 403</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:747559532">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-747559532">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li><li class="post
+    " id="post-741432414">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="39028306">
+                            <img src="a_data/avatar92_002.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="39028306">Hong Jin (Jimmy) Wei</a></span>
+                            
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-741432414" data-role="relative-time" class="time-ago" title="Tuesday, December 18 2012 3:03 PM">
+                                6 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>glance image-list show me with the different Size, here is what I got:</p>
+
+<p># glance image-list</p>
+
+<p>+--------------------------------------+-------------------+-------------+------------------+----------+--------+</p>
+
+<p>| ID                                   | Name              | Disk Format | Container Format | Size     | Status |</p>
+
+<p>+--------------------------------------+-------------------+-------------+------------------+----------+--------+</p>
+
+<p>| bb0f2b0d-8ad6-4d82-99d6-7608bf77ff73 | tty-linux-ramdisk | ari         | ari              | 96629    | active |</p>
+
+<p>| dafe7304-e385-4bba-828a-6abaffd7b6c3 | tty-linux-kernel  | aki         | aki              | 4404752  | active |</p>
+
+<p>| f5ab106e-3201-441f-ae14-5a4c289e03b1 | tty-linux         | ami         | ami              | 25165824 | active |</p>
+
+<p>+--------------------------------------+-------------------+-------------+------------------+----------+--------+</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:741432414">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-741432414">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li><li class="post
+    " id="post-723803343">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar">
+                        <div class="user"><img src="a_data/avatar_006.png" class="user" alt="Avatar"></div>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="name">Nate</span>
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-723803343" data-role="relative-time" class="time-ago" title="Friday, November 30 2012 11:31 PM">
+                                7 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>The auth URL that the document 
+provides in the sample points to the Glance Service instead of Keystone.
+  The doc has OS_AUTH_URL=http://192.168.206.130:5000/v2.0/ when the 
+port number should be 35357 for Keystone.</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:723803343">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-723803343">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li><li class="post
+    " id="post-723801332">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar">
+                        <div class="user"><img src="a_data/avatar_006.png" class="user" alt="Avatar"></div>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="name">Nate</span>
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-723801332" data-role="relative-time" class="time-ago" title="Friday, November 30 2012 11:29 PM">
+                                7 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>The argument names have changed 
+in the Folsom release.  The dashes have been replaced by underscores.  
+The image properties do the same, and they do not require a prefix of 
+"--" anymore.  Below is what I used.</p>
+
+<p>glance add --os_username=$OS_USERNAME --os_password=$OS_PASSWORD 
+--os_tenant_name=$OS_TENANT_NAME --os_auth_url=$OS_AUTH_URL 
+name="my-disk-image" disk_format=aki container_format=aki</p>
+
+<p>Here is my package information for the release I used.</p>
+
+<p>Name        : openstack-glance<br>Version     : 2012.1.2<br>Release     : 2.fc17</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:723801332">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-723801332">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li><li class="post
+    " id="post-716586102">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar">
+                        <div class="user"><img src="a_data/avatar_007.png" class="user" alt="Avatar"></div>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="name">3aam</span>
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-716586102" data-role="relative-time" class="time-ago" title="Thursday, November 22 2012 3:16 PM">
+                                7 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>Hi,<br>I install glance on a 
+machine and keystone on a separate one,when I try to upload image it 
+give this error: Error communicating with http://192.168.20.215:9292 
+timed out where 192.168.20.215 IP of glance can enybody help me? <br>thanks</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:716586102">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-716586102">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li></ul>
+
+            <div class="load-more" data-role="more" style="display: none;">
+                <a href="#" data-action="more-posts" class="btn">Load more comments</a>
+            </div>
+        </div>
+
+        
+            
+                
+    
+        <section id="reactions" style="display: none;" data-role="main">
+
+            <ul id="reaction-list" class="post-list loading">
+            </ul>
+
+            <div class="load-more" data-role="more" style="display: none;">
+                <a href="#" data-action="more-reactions" class="btn">Load more reactions</a>
+            </div>
+        </section>
+    
+
+            
+        
+    </section>
+
+    <section id="community" style="display: none;" data-role="main">
+<div>
+    <div class="primary">
+        <h3>Top Discussions on 
+    <strong>OpenStack Install and Deploy Manual - Fedora/RHEL/CentOS</strong>
+</h3>
+        <div data-role="top-threads"><ol class="loading" id="top-threads"></ol></div>
+    </div>
+
+    <div class="secondary">
+        <h3>Top Commenters</h3>
+
+        <div data-role="top-users"><ol class="loading" id="top-users"></ol></div>
+    </div>
+</div>
+
+</section>
+
+    <section id="dashboard" style="display: none;" data-role="main">
+        <!-- Dashboard goes here -->
+        <!-- Default message if there are no notifications or activity to show -->
+        <p style="line-height: 1.4;">Nothing for you here ... yet. But as you comment with Disqus and follow
+        other Disqus users, you will start to receive notifications here, as well as a personalized
+        feed of activity by you and the people you follow. So get out there and participate in
+        some discussions!</p>
+    </section>
+
+    <section id="profile" style="display: none;" data-role="main">
+    </section>
+
+    
+
+    
+    <div id="discovery"></div>
+
+    <div id="footer">
+        <ul>
+            <li class="logo"><a href="http://disqus.com/" title="Powered by Disqus">Powered by Disqus</a></li>
+            <li class="rss"><a href="http://os-install-yum.disqus.com/verifying_the_image_service_installation_openstack_install_and_deploy_manual_red_hat_folsom_compute_/latest.rss"><i aria-hidden="true" class="icon-feed" title="in reply to"></i><span class="clip">Comment feed</span></a></li>
+            <li id="thread-subscribe-button" class="email"> <!-- Three options: nothing, show-form, subscribed -->
+                <div class="default">
+                    <a href="#" data-action="subscribe"><i aria-hidden="true" class="icon-mail" title="Get email updates"></i><span class="clip">Subscribe via email</span> <i aria-hidden="true" class="icon-checkmark" title="Subscribe via email"></i></a>
+                </div>
+                <div class="form">
+                    <div class="input-wrapper"><input id="thread-subscribe-email" placeholder="yourname@email.com" type="email"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div></body></html>

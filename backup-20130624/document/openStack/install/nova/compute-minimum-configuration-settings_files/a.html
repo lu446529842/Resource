@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html lang="en" class="ie8"><![endif]-->
+<!--[if IE 9]><html lang="en" class="ie9"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html class=" js no-touch localstorage sessionstorage contenteditable" lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Disqus Comments</title>
+        <script src="a_data/beacon.js" async=""></script><script src="compute-minimum-configuration-settings_files/ga.js" async="" type="text/javascript"></script><script src="a_data/lib.js" charset="utf-8" type="text/javascript"></script><script src="a_data/client.js" charset="utf-8" type="text/javascript"></script><script src="a_data/theme.js" async="" charset="utf-8" type="text/javascript"></script><!-- base href="http://docs.openstack.org/folsom/openstack-compute/install/yum/content/compute-minimum-configuration-settings.html" -->
+
+        <!--
+        
+        -->
+        <script type="text/json" id="disqus-jsonData">{"cursor": {"hasPrev": false, "prev": null, "total": 9, "hasNext": false, "next": "1:0:0"}, "code": 0, "response": {"forum": {"name": "OpenStack Install and Deploy Manual - Fedora/RHEL/CentOS", "language": "en", "settings": {"allowAnonPost": true, "allowMedia": true, "moderatorText": "", "typeface": "auto", "hasReactions": false, "audienceSyncEnabled": false, "ssoRequired": false, "backplaneEnabled": false, "colorScheme": "auto", "linkAffiliationEnabled": false}, "url": "http://docs.openstack.org/essex/openstack-compute/install/yum/content/", "favicon": {"permalink": "http://disqus.com/api/forums/favicons/os-install-yum.jpg", "cache": "http://mediacdn.disqus.com/uploads/forums/149/1670/favicon.png"}, "pk": 1491670, "founder": "366081", "id": "os-install-yum"}, "thread": {"feed": "http://os-install-yum.disqus.com/configuring_openstack_compute_openstack_install_and_deploy_manual_red_hat_folsom_compute_20122_netwo/latest.rss", "reactions": 0, "uploadAdd": "http://os-install-yum.disqus.com/thread/configuring_openstack_compute_openstack_install_and_deploy_manual_red_hat_folsom_compute_20122_netwo/async_media_upload/", "dislikes": 0, "likes": 0, "message": "", "id": "926960731", "createdAt": "2012-11-14T01:13:58", "category": "1520327", "author": "366081", "userScore": 0, "moderators": [12079568, 366081, 29433037, 30114422], "isDeleted": false, "hasStreaming": false, "uploadRemove": "http://os-install-yum.disqus.com/thread/configuring_openstack_compute_openstack_install_and_deploy_manual_red_hat_folsom_compute_20122_netwo/async_media_remove/", "isClosed": false, "link": "http://docs.openstack.org/folsom/openstack-compute/install/yum/content/compute-minimum-configuration-settings.html", "slug": "configuring_openstack_compute_openstack_install_and_deploy_manual_red_hat_folsom_compute_20122_netwo", "forum": "os-install-yum", "identifiers": ["openstack-install-manual-folsomcompute-minimum-configuration-settings"], "posts": 9, "userSubscription": false, "title": "Configuring OpenStack Compute\u00a0-\u00a0OpenStack Install and Deploy Manual - Red Hat \u00a0-\u00a0Folsom, Compute 2012.2, Network 2012.2, Object Storage 1.4.8"}, "lastModified": 1364999566, "posts": [{"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"name": "pll", "url": "", "profileUrl": "http://disqus.com/guest/a689973e98acb2f330a47bc9865082f0/", "emailHash": "a689973e98acb2f330a47bc9865082f0", "avatar": {"small": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=a689973e98acb2f330a47bc9865082f0", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=a689973e98acb2f330a47bc9865082f0"}, "large": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=a689973e98acb2f330a47bc9865082f0", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=a689973e98acb2f330a47bc9865082f0"}, "permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=a689973e98acb2f330a47bc9865082f0", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=a689973e98acb2f330a47bc9865082f0"}, "isAnonymous": true}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "The doc states: You must change /etc/nova/api-paste.ini under [filter:authtoken] to set admin_tenant_name, admin_user, admin_password.\n\n\nYet the example given shows an api-paste.ini without any of these settings, and later, shows these settings made in the nova.conf file.  This is, so far, the most confusing page I've found in the documentation.", "createdAt": "2013-01-10T17:12:19", "id": "762633375", "thread": "926960731", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>The doc states: You must change /etc/nova/api-paste.ini under [filter:authtoken] to set admin_tenant_name, admin_user, admin_password.\u003c/p>\n\n\u003cp>Yet the example given shows an api-paste.ini without any of these settings, and later, shows these settings made in the nova.conf file.  This is, so far, the most confusing page I've found in the documentation.\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": 762633375, "author": {"username": "lhochstein", "about": "", "name": "Lorin Hochstein", "url": "http://lorinhochstein.org/", "isAnonymous": false, "rep": 1.254408, "profileUrl": "http://disqus.com/lhochstein/", "emailHash": "c690634d340d85fb40ac03668259ff1c", "reputation": 1.254408, "location": "Northern Virginia", "isPrimary": true, "joinedAt": "2012-07-23T14:49:15", "id": "29433037", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/lhochstein.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/2943/3037/avatar32.jpg?1369966647"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/lhochstein.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/2943/3037/avatar92.jpg?1369966647", "large": {"permalink": "http://disqus.com/api/users/avatars/lhochstein.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/2943/3037/avatar92.jpg?1369966647"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "That line should be removed from the documentation, please disregard it. That content now goes in nova.conf instead of api-paste.ini. Proposed doc fix is here: https://review.openstack.org/19582", "createdAt": "2013-01-13T20:27:00", "id": "766369910", "thread": "926960731", "depth": 1, "numReports": 0, "likes": 0, "isEdited": true, "message": "\u003cp>That line should be removed from the documentation, please disregard it. That content now goes in nova.conf instead of api-paste.ini. Proposed doc fix is here: \u003ca href=\"https://review.openstack.org/19582\" rel=\"nofollow\">https://review.openstack.org/1...\u003c/a>\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": null, "author": {"username": "google-6a2bbea99936eecd13979ba182dc98b6", "about": "", "name": "Bill Borsari", "url": "", "isAnonymous": false, "rep": 1.234165, "profileUrl": "http://disqus.com/google-6a2bbea99936eecd13979ba182dc98b6/", "emailHash": "6a2bbea99936eecd13979ba182dc98b6", "reputation": 1.234165, "location": "", "isPrimary": true, "joinedAt": "2012-11-26T22:02:46", "id": "37378921", "avatar": {"small": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=6a2bbea99936eecd13979ba182dc98b6", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar32.png&size=32&gravatar_id=6a2bbea99936eecd13979ba182dc98b6"}, "large": {"permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=6a2bbea99936eecd13979ba182dc98b6", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=6a2bbea99936eecd13979ba182dc98b6"}, "permalink": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=6a2bbea99936eecd13979ba182dc98b6", "cache": "http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fmediacdn.disqus.com%2F1371070053%2Fimages%2Fnoavatar92.png&size=92&gravatar_id=6a2bbea99936eecd13979ba182dc98b6"}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "The example nova.conf here uses the rabbit_host but the setup directions have the user install qpid.  The correct statement would be to remove the rabbit_host and replace it with the qpid tag: \"qpid_hostname=hostname.example.com\"", "createdAt": "2012-11-29T18:21:35", "id": "722872116", "thread": "926960731", "depth": 0, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>The example nova.conf here uses the rabbit_host but the setup directions have the user install qpid.  The correct statement would be to remove the rabbit_host and replace it with the qpid tag: \"qpid_hostname=\u003ca href=\"http://hostname.example.com\" rel=\"nofollow\">hostname.example.com\u003c/a>\"\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": 722872116, "author": {"username": "disqus_DlXr1E8ThU", "about": "", "name": "Action", "url": "", "isAnonymous": false, "rep": 1.2324929999999998, "profileUrl": "http://disqus.com/disqus_DlXr1E8ThU/", "emailHash": "1de57ddfe69b6e5a28b653ffc8528d05", "reputation": 1.2324929999999998, "location": "", "isPrimary": true, "joinedAt": "2013-01-31T05:10:24", "id": "42554408", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/disqus_DlXr1E8ThU.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4255/4408/avatar32.jpg?1359690923"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/disqus_DlXr1E8ThU.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4255/4408/avatar92.jpg?1359690923", "large": {"permalink": "http://disqus.com/api/users/avatars/disqus_DlXr1E8ThU.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4255/4408/avatar92.jpg?1359690923"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "If use qpid, don't forget add  this line \n\n rpc_backend=nova.rpc.impl_qpid\n\nto nova.conf.", "createdAt": "2013-01-31T05:10:51", "id": "784146619", "thread": "926960731", "depth": 1, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>If use qpid, don't forget add  this line \u003c/p>\n\n\u003cp> rpc_backend=nova.rpc.impl_qpid\u003c/p>\n\n\u003cp>to nova.conf.\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": 722872116, "author": {"username": "annegentle", "about": "Anne Gentle is the fanatical technical writer and community documentation coordinator at Rackspace for OpenStack, an open source cloud computing project. ", "name": "Anne Gentle", "url": "", "isAnonymous": false, "rep": 1.447782, "profileUrl": "http://disqus.com/annegentle/", "emailHash": "913b9223ea9d6c206ff2bdb47ebfccc2", "reputation": 1.447782, "location": "Austin, TX", "isPrimary": true, "joinedAt": "2009-06-05T05:00:58", "id": "366081", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/annegentle.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/36/6081/avatar32.jpg?1370637138"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/annegentle.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/36/6081/avatar92.jpg?1370637138", "large": {"permalink": "http://disqus.com/api/users/avatars/annegentle.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/36/6081/avatar92.jpg?1370637138"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "Ah good catch, this will be fun to fix since we share all the content between Ubuntu (rabbit) and RHEL (qpid) but will track with this doc bug. https://bugs.launchpad.net/openstack-manuals/+bug/1085411", "createdAt": "2012-12-01T14:02:39", "id": "724848185", "thread": "926960731", "depth": 1, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>Ah good catch, this will be fun to fix since we share all the content between Ubuntu (rabbit) and RHEL (qpid) but will track with this doc bug. \u003ca href=\"https://bugs.launchpad.net/openstack-manuals/+bug/1085411\" rel=\"nofollow\">https://bugs.launchpad.net/ope...\u003c/a>\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": 724848185, "author": {"username": "disqus_1v2BZ8Mnpg", "about": "", "name": "Andy", "url": "", "isAnonymous": false, "rep": 1.232862, "profileUrl": "http://disqus.com/disqus_1v2BZ8Mnpg/", "emailHash": "cd6b9a5010569f99bd46e60cb545e432", "reputation": 1.232862, "location": "", "isPrimary": true, "joinedAt": "2013-04-03T12:46:31", "id": "47207180", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/disqus_1v2BZ8Mnpg.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4720/7180/avatar32.jpg?1364999418"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/disqus_1v2BZ8Mnpg.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4720/7180/avatar92.jpg?1364999418", "large": {"permalink": "http://disqus.com/api/users/avatars/disqus_1v2BZ8Mnpg.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4720/7180/avatar92.jpg?1364999418"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "The bug says this has been fixed - so I'd like to see the fixed docs.  Are they somewhere accessible?\nthanks", "createdAt": "2013-04-03T13:54:46", "id": "850784014", "thread": "926960731", "depth": 2, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>The bug says this has been fixed - so I'd like to see the fixed docs.  Are they somewhere accessible?\u003cbr>thanks\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": 850784014, "author": {"username": "annegentle", "about": "Anne Gentle is the fanatical technical writer and community documentation coordinator at Rackspace for OpenStack, an open source cloud computing project. ", "name": "Anne Gentle", "url": "", "isAnonymous": false, "rep": 1.447782, "profileUrl": "http://disqus.com/annegentle/", "emailHash": "913b9223ea9d6c206ff2bdb47ebfccc2", "reputation": 1.447782, "location": "Austin, TX", "isPrimary": true, "joinedAt": "2009-06-05T05:00:58", "id": "366081", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/annegentle.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/36/6081/avatar32.jpg?1370637138"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/annegentle.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/36/6081/avatar92.jpg?1370637138", "large": {"permalink": "http://disqus.com/api/users/avatars/annegentle.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/36/6081/avatar92.jpg?1370637138"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "Strange, I see the patch with the fix merged to master, which builds to docs.openstack.org/trunk/, but it is not fixed. Investigating, thanks Andy for asking.", "createdAt": "2013-04-03T13:57:51", "id": "850786444", "thread": "926960731", "depth": 3, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>Strange, I see the patch with the fix merged to master, which builds to \u003ca href=\"http://docs.openstack.org/trunk/\" rel=\"nofollow\">docs.openstack.org/trunk/\u003c/a>, but it is not fixed. Investigating, thanks Andy for asking.\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": 850786444, "author": {"username": "disqus_1v2BZ8Mnpg", "about": "", "name": "Andy", "url": "", "isAnonymous": false, "rep": 1.232862, "profileUrl": "http://disqus.com/disqus_1v2BZ8Mnpg/", "emailHash": "cd6b9a5010569f99bd46e60cb545e432", "reputation": 1.232862, "location": "", "isPrimary": true, "joinedAt": "2013-04-03T12:46:31", "id": "47207180", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/disqus_1v2BZ8Mnpg.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4720/7180/avatar32.jpg?1364999418"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/disqus_1v2BZ8Mnpg.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4720/7180/avatar92.jpg?1364999418", "large": {"permalink": "http://disqus.com/api/users/avatars/disqus_1v2BZ8Mnpg.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/4720/7180/avatar92.jpg?1364999418"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "Ah, I didn't know about the trunk area.  It doesn't seem to be linked to from the docs site.  Or, to be more specific, if I go to http://docs.openstack.org/trunk/, and then click on 'Installing ...', I end up back with a page of links to the folsom docs, not the truck docs.", "createdAt": "2013-04-03T14:30:17", "id": "850811813", "thread": "926960731", "depth": 4, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>Ah, I didn't know about the trunk area.  It doesn't seem to be linked to from the docs site.  Or, to be more specific, if I go to \u003ca href=\"http://docs.openstack.org/trunk/\" rel=\"nofollow\">http://docs.openstack.org/trun...\u003c/a>, and then click on 'Installing ...', I end up back with a page of links to the folsom docs, not the truck docs.\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}, {"isFlagged": false, "forum": "os-install-yum", "parent": 850811813, "author": {"username": "annegentle", "about": "Anne Gentle is the fanatical technical writer and community documentation coordinator at Rackspace for OpenStack, an open source cloud computing project. ", "name": "Anne Gentle", "url": "", "isAnonymous": false, "rep": 1.447782, "profileUrl": "http://disqus.com/annegentle/", "emailHash": "913b9223ea9d6c206ff2bdb47ebfccc2", "reputation": 1.447782, "location": "Austin, TX", "isPrimary": true, "joinedAt": "2009-06-05T05:00:58", "id": "366081", "avatar": {"small": {"permalink": "http://disqus.com/api/users/avatars/annegentle.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/36/6081/avatar32.jpg?1370637138"}, "isCustom": false, "permalink": "http://disqus.com/api/users/avatars/annegentle.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/36/6081/avatar92.jpg?1370637138", "large": {"permalink": "http://disqus.com/api/users/avatars/annegentle.jpg", "cache": "http://mediacdn.disqus.com/uploads/users/36/6081/avatar92.jpg?1370637138"}}}, "media": [], "isDeleted": false, "isApproved": true, "dislikes": 0, "raw_message": "Yep, we're pretty purposeful about installation links, because trunk docs just don't work for grizzly installations yet because the packages are not yet ready. I know it's tough, this time of the release cycle, but we must have patience.", "createdAt": "2013-04-03T14:32:46", "id": "850813755", "thread": "926960731", "depth": 5, "numReports": 0, "likes": 0, "isEdited": false, "message": "\u003cp>Yep, we're pretty purposeful about installation links, because trunk docs just don't work for grizzly installations yet because the packages are not yet ready. I know it's tough, this time of the release cycle, but we must have patience.\u003c/p>", "isSpam": false, "isHighlighted": false, "points": 0}], "switches": ["website_addons", "evm_publisher_reports", "is_last_modified", "shardpost", "limit_get_posts_days_30d", "website_follow_redirect", "filter_ads_by_country", "new_sort_paginator", "pause_rt_when_posting", "partitions", "discovery_next:truncate", "discovery_next:tempest", "discussions_tab", "community_icon", "next_profile_modal", "stats", "next_dragdrop_nag", "firehose_gnip", "support_contact_with_frames", "use_rs_paginator_5m", "next_new_login", "limit_textdigger", "next_show_new_media", "next_discard_low_rep", "mentions", "content_security_policy", "firehose_gnip_http", "juggler_thread_onReady", "juggler_enabled", "next_comments_truncation_enabled", "discovery_next:top_placement", "shardpost:index", "firehose_push", "enable_link_affiliation", "discovery_analytics", "next_realtime_indicators", "next_upvoters_tooltip", "static_styles", "discovery_next", "firehose_pubsub", "next_use_handlebars", "dark_jester", "new_embed_js", "textdigger_crawler", "digest_thread_votes"], "theme": {"base": {"name": "Disqus 2012", "css": "http://mediacdn.disqus.com/1371070053/build/next/lounge/lounge.css", "js": "http://mediacdn.disqus.com/1371070053/build/next/lounge/theme.js"}}, "session": {"canModerate": false, "isReadOnly": null, "audienceSyncVerified": false, "canReply": true, "notificationCount": null, "mustVerifyEmail": false}, "features": {}}, "order": "popular"}</script>
+
+        <style>
+            html {
+                overflow: hidden;
+            }
+
+            #postCompatContainer {
+                position: absolute;
+                left: -10000px;
+                width: 1000px;
+            }
+
+            html.not-supported {
+                overflow-y: auto;
+            }
+
+            .not-supported body {
+                font-family: Arial, sans-serif;
+                font-size: 10pt;
+            }
+
+            .not-supported ul, .not-supported li {
+                margin: 0;
+                padding: 0;
+            }
+
+            .not-supported li {
+                list-style-type: none;
+            }
+
+            .not-supported h4 a {
+                color: #000;
+                text-decoration: none;
+            }
+
+            .not-supported h4 {
+                margin: 0 0 5px;
+                padding: 5px 0;
+                border-bottom: dashed 1px #999;
+            }
+
+            .not-supported #notSupported {
+                display: block;
+                border: solid 1px red;
+                padding: 10px;
+                margin-bottom: 10px;
+                overflow: hidden;
+            }
+
+            .not-supported #notSupported p {
+                margin-bottom: 10px;
+            }
+
+            .not-supported #notSupported ul {
+                margin-left: 20px;
+            }
+
+            .not-supported #notSupported ul li {
+                margin-bottom: 5px;
+            }
+
+            #notSupported, .legacy-mode, .old-browser {
+                display: none;
+            }
+
+            .not-supported.type-1 .old-browser {
+                display: block;
+            }
+
+            .not-supported.type-2 .legacy-mode {
+                display: block;
+            }
+
+            .not-supported #postCompatContainer {
+                position: static;
+                left: 0;
+                width: 500px;
+                margin-top: 20px;
+            }
+        </style>
+    <style id="css_1371100395586"></style><link href="a_data/lounge.css" type="text/css" rel="stylesheet"><script charset="UTF-8" async="" src="a_data/event.js"></script><script charset="UTF-8" async="" src="a_data/event_002.js"></script></head>
+
+    <body>
+        <div id="notSupported">
+            <p class="old-browser">Sorry, the browser you are using is not currently supported. Disqus actively supports the following browsers:</p>
+            <ul class="old-browser">
+                <li><a href="http://www.mozilla.org/firefox/">Firefox</a></li>
+                <li><a href="https://www.google.com/chrome/">Chrome</a></li>
+                <li><a href="http://windows.microsoft.com/en-us/internet-explorer/products/ie/home">Internet Explorer 8+</a></li>
+                <li><a href="http://www.apple.com/safari/">Safari</a></li>
+            </ul>
+            
+            <p class="legacy-mode">This page is forcing your browser to use legacy mode, which is not compatible with Disqus. Please see our <a href="http://help.disqus.com/customer/portal/articles/666084-troubleshooting-disqus-2012-in-internet-explorer-8-9">troubleshooting guide</a> to get more information about this error.</p>
+        </div>
+
+        <div id="postCompatContainer">
+            <ul>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/guest/a689973e98acb2f330a47bc9865082f0/">pll</a>
+                    </h4>
+
+                    <div>
+                        <p>The doc states: You must change 
+/etc/nova/api-paste.ini under [filter:authtoken] to set 
+admin_tenant_name, admin_user, admin_password.</p>
+
+<p>Yet the example given shows an api-paste.ini without any of these 
+settings, and later, shows these settings made in the nova.conf file.  
+This is, so far, the most confusing page I've found in the 
+documentation.</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/lhochstein/">Lorin Hochstein</a>
+                    </h4>
+
+                    <div>
+                        <p>That line should be removed from the 
+documentation, please disregard it. That content now goes in nova.conf 
+instead of api-paste.ini. Proposed doc fix is here: <a href="https://review.openstack.org/19582" rel="nofollow">https://review.openstack.org/1...</a></p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/google-6a2bbea99936eecd13979ba182dc98b6/">Bill Borsari</a>
+                    </h4>
+
+                    <div>
+                        <p>The example nova.conf here uses the 
+rabbit_host but the setup directions have the user install qpid.  The 
+correct statement would be to remove the rabbit_host and replace it with
+ the qpid tag: "qpid_hostname=<a href="http://hostname.example.com/" rel="nofollow">hostname.example.com</a>"</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/disqus_DlXr1E8ThU/">Action</a>
+                    </h4>
+
+                    <div>
+                        <p>If use qpid, don't forget add  this line </p>
+
+<p> rpc_backend=nova.rpc.impl_qpid</p>
+
+<p>to nova.conf.</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/annegentle/">Anne Gentle</a>
+                    </h4>
+
+                    <div>
+                        <p>Ah good catch, this will be fun to fix since 
+we share all the content between Ubuntu (rabbit) and RHEL (qpid) but 
+will track with this doc bug. <a href="https://bugs.launchpad.net/openstack-manuals/+bug/1085411" rel="nofollow">https://bugs.launchpad.net/ope...</a></p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/disqus_1v2BZ8Mnpg/">Andy</a>
+                    </h4>
+
+                    <div>
+                        <p>The bug says this has been fixed - so I'd like to see the fixed docs.  Are they somewhere accessible?<br>thanks</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/annegentle/">Anne Gentle</a>
+                    </h4>
+
+                    <div>
+                        <p>Strange, I see the patch with the fix merged to master, which builds to <a href="http://docs.openstack.org/trunk/" rel="nofollow">docs.openstack.org/trunk/</a>, but it is not fixed. Investigating, thanks Andy for asking.</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/disqus_1v2BZ8Mnpg/">Andy</a>
+                    </h4>
+
+                    <div>
+                        <p>Ah, I didn't know about the trunk area.  It 
+doesn't seem to be linked to from the docs site.  Or, to be more 
+specific, if I go to <a href="http://docs.openstack.org/trunk/" rel="nofollow">http://docs.openstack.org/trun...</a>, and then click on 'Installing ...', I end up back with a page of links to the folsom docs, not the truck docs.</p>
+                    </div>
+                </li>
+            
+                <li>
+                    <h4>
+                        <a href="http://disqus.com/annegentle/">Anne Gentle</a>
+                    </h4>
+
+                    <div>
+                        <p>Yep, we're pretty purposeful about 
+installation links, because trunk docs just don't work for grizzly 
+installations yet because the packages are not yet ready. I know it's 
+tough, this time of the release cycle, but we must have patience.</p>
+                    </div>
+                </li>
+            
+            </ul>
+        </div>
+
+        <div id="error" style="display:none;">
+            <p>We were unable to load Disqus. If you are a moderator please see our <a href="http://docs.disqus.com/help/83/"> troubleshooting guide</a>. </p>
+        </div>
+
+        
+        
+
+
+<!--[if lte IE 8]>
+<script src="http://mediacdn.disqus.com/1371070053/build/next/ie8.js"></script>
+<![endif]-->
+<!--[if IE 9]>
+<script src="http://mediacdn.disqus.com/1371070053/build/next/ie9.js"></script>
+<![endif]-->
+
+
+        
+        <script src="a_data/load.js"></script>
+        
+    
+
+<div id="layout">
+    <header>
+        
+
+        
+            
+    <div id="discovery-top"></div>
+
+    <nav id="global-nav">
+        <div id="thread-votes" class="pull-right"><div class="thread-likes " data-role="vote-button">
+        <a href="#" data-action="upvote" title="Star this discussion">
+            <span class="notch"></span>
+            <span class="icon-star"></span>
+            <span class="counter"><span data-role="like-count">0</span></span>
+            <img src="a_data/checkx2.png" class="check-mark" alt="Voted" height="8" width="10">
+        </a>
+    </div></div>
+
+        <div id="realtime-toggle"></div>
+
+        <ul class="publisher-anchor-hover">
+            <li class="active" data-role="global-nav">
+                <a href="#" id="post-count" data-nav="conversation">
+    <h4>
+            9 comments
+        </h4>
+</a>
+            </li>
+
+            
+        </ul>
+    </nav>
+
+        
+
+        <div id="form"><div class="reply  ">
+    <div class="alert error" style="display:none" role="alert">
+        <a class="close" data-action="dismiss-alert" title="Dismiss">×</a>
+        <span><!-- error goes here --></span>
+    </div>
+
+    <div class="postbox">
+        <div class="avatar">
+            
+                <span class="user">
+                    <img data-role="user-avatar" src="a_data/noavatar92.png">
+                </span>
+            
+        </div>
+        <form action="">
+            <div class="textarea-wrapper" data-role="textarea">
+                <div style="overflow: auto; max-height: 350px;" aria-multiline="true" role="textbox" tabindex="0" class="textarea" contenteditable="true"><span class="placeholder">Leave a message...</span></div>
+                <div data-role="drag-drop-placeholder" class="media-drag-hover" style="display: none">
+                    <div class="drag-text">
+                        ⬇ Drag and drop your images here to upload them.
+                    </div>
+                </div>
+                
+                    <div class="media-preview empty" data-role="media-preview">
+                        <ul data-role="media-preview-list">
+                        
+                        </ul>
+                        <div class="media-expanded empty" data-role="media-preview-expanded">
+                            
+                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-role="media-preview-expanded-image">
+                        </div>
+                    </div>
+                
+                <div class="post-actions">
+                    <ul class="wysiwyg">
+                        
+                            <li>
+                                <a href="#" tabindex="-1" data-action="attach" class="attach" title="Upload Images"><span>Attach</span></a>
+                                <input data-role="media-upload" tabindex="-1" class="regular" accept="image/*" type="file">
+                            </li>
+                        
+                        
+                    </ul>
+                    
+                    
+                </div>
+            <div></div></div>
+            
+                
+<div class="logged-out auth-section">
+    <section data-tab="auth-external">
+        <div class="connect">
+            <h6>Sign in with</h6>
+            <ul class="services">
+                
+                    
+                
+                 <li class="auth-disqus">
+                    <a data-action="auth:disqus" href="#" title="Disqus">Disqus</a>
+                </li>
+                <li class="auth-facebook">
+                    <a data-action="auth:facebook" href="#" title="Facebook">Facebook</a>
+                </li>
+                <li class="auth-twitter">
+                    <a data-action="auth:twitter" href="#" title="Twitter">Twitter</a>
+                </li>
+                <li class="auth-google">
+                    <a data-action="auth:google" href="#" title="Google">Google</a>
+                </li>
+            </ul>
+        </div>
+
+        
+    <div class="guest">
+        <h6 class="guest-form-title">
+            
+                or pick a name
+            
+        </h6>
+
+        <div class="what-is-disqus help-icon">
+            <div id="rules" class="tooltip show">
+                <h3>DISQUS is a conversation network</h3>
+                <ul>
+                    <li><span>Disqus never moderates or censors. The rules on this community are its own.</span></li>
+                    <li><span>Your email is safe with us. It's only used for moderation and optional notifications.</span></li>
+                    <li><span>Don't be a jerk or do anything illegal. Everything is easier that way.</span></li>
+                    </ul>
+                <p class="clearfix"><a href="http://docs.disqus.com/kb/terms-and-policies/" class="btn btn-small" target="_blank">Read full terms and conditions</a></p>
+            </div>
+        </div>
+
+        <p class="input-wrapper">
+            <input placeholder="Name" name="author-name" maxlength="30" type="text">
+        </p>
+
+        <div class="guest-details " data-role="guest-details">
+            <p class="input-wrapper">
+                <input placeholder="Email" name="author-email" type="email">
+            </p>
+
+            
+                <p class="input-wrapper">
+                    <input placeholder="Password" name="author-password" type="password">
+                </p>
+                
+                    <div class="guest-checkbox">
+                        <label>
+                            <input name="author-guest" type="checkbox">
+                            I'd rather post as guest
+                        </label>
+                    </div>
+                
+            
+
+        </div>
+    </div>
+    <div class="proceed">
+        
+             <button type="submit" class="btn submit" aria-label="Post"><span class="icon-proceed"></span></button>
+            <button type="submit" class="btn next" aria-label="Next"><span class="icon-proceed"></span></button>
+        
+    </div>
+
+
+    </section>
+</div>
+
+            
+            
+        </form>
+    </div>
+</div></div>
+
+        
+            
+    <div id="main-nav" class="nav">
+        <ul>
+            
+<li data-role="post-sort" class="active dropdown">
+    <a href="#" data-nav="conversation" class="dropdown-toggle publisher-nav-color" data-toggle="dropdown">
+        Best
+        
+        
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="selected">
+            <a href="#" data-action="sort" data-sort="popular">Best</a>
+        </li>
+
+        <li>
+            <a href="#" data-action="sort" data-sort="desc">Newest</a>
+        </li>
+
+        <li>
+            <a href="#" data-action="sort" data-sort="asc">Oldest</a>
+        </li>
+    </ul>
+</li>
+
+
+            <li><a href="#" data-nav="community" class="publisher-nav-color" id="community-tab">Community</a></li>
+            <li><a href="#" data-nav="dashboard" style="display: none;" class="publisher-nav-color">My Disqus <span class="notification-count" data-role="notification-count" style="display: none;"></span></a></li>
+
+            <li class="user-menu dropdown" data-role="logout">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <span class="cog"><i aria-hidden="true" class="icon-cog"></i></span> <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        
+        
+			
+            	<li>
+                	<a href="#" data-action="auth:disqus">Login</a>
+            	</li>
+        	
+        
+
+        
+
+        
+        <li>
+            <a href="https://www.surveymonkey.com/s/5RBPTTZ?c=http%3A%2F%2Fdocs.openstack.org%2Ffolsom%2Fopenstack-compute%2Finstall%2Fyum%2Fcontent%2Fcompute-minimum-configuration-settings.html" target="_blank">Send Feedback</a>
+        </li>
+        
+
+        
+
+        
+    </ul>
+</li>
+
+            <li id="thread-share-menu" class="share-menu dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Share">
+                    <span class="label">Share</span> <span class="icon-export"></span>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                    <li class="share">Share this discussion on
+                        <ul>
+                            <li class="twitter">
+                                <a data-action="share:twitter" href="#">Twitter</a>
+                            </li>
+                            <li class="facebook">
+                                <a data-action="share:facebook" href="#">Facebook</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+        
+    </header>
+
+    <section id="conversation" data-role="main">
+        <div id="posts">
+            <button class="alert realtime" style="display: none;" data-action="load-queued-posts" data-role="realtime-notification">
+                <!-- Show 2 new posts. -->
+            </button>
+
+            <!-- This message appears when there are no comments -->
+            <div id="no-posts" style="display: none;">No one has commented yet.</div>
+
+            <ul id="post-list" class="post-list"><li class="post
+    " id="post-762633375">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar">
+                        <div class="user"><img src="a_data/avatar.png" class="user" alt="Avatar"></div>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="name">pll</span>
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-762633375" data-role="relative-time" class="time-ago" title="Friday, January 11 2013 1:12 AM">
+                                5 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>The doc states: You must change 
+/etc/nova/api-paste.ini under [filter:authtoken] to set 
+admin_tenant_name, admin_user, admin_password.</p>
+
+<p>Yet the example given shows an api-paste.ini without any of these 
+settings, and later, shows these settings made in the nova.conf file.  
+This is, so far, the most confusing page I've found in the 
+documentation.</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:762633375">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-762633375">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+<li class="post
+    " id="post-766369910">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="29433037">
+                            <img src="a_data/avatar92.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="29433037">Lorin Hochstein</a></span>
+                            
+                                <span class="badge moderator">Mod</span>
+                            
+                        
+
+                        
+                            <span><a href="#comment-762633375" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> pll</a></span>
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-766369910" data-role="relative-time" class="time-ago" title="Monday, January 14 2013 4:27 AM">
+                                5 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>That line should be removed from 
+the documentation, please disregard it. That content now goes in 
+nova.conf instead of api-paste.ini. Proposed doc fix is here: <a href="https://review.openstack.org/19582" rel="nofollow">https://review.openstack.org/1...</a></p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:766369910">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-766369910">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li></ul></li><li class="post
+    " id="post-722872116">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="37378921">
+                            <img src="a_data/avatar_002.png" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="37378921">Bill Borsari</a></span>
+                            
+                        
+
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-722872116" data-role="relative-time" class="time-ago" title="Friday, November 30 2012 2:21 AM">
+                                7 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>The example nova.conf here uses 
+the rabbit_host but the setup directions have the user install qpid.  
+The correct statement would be to remove the rabbit_host and replace it 
+with the qpid tag: "qpid_hostname=<a href="http://hostname.example.com/" rel="nofollow">hostname.example.com</a>"</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:722872116">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-722872116">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+<li class="post
+    " id="post-784146619">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="42554408">
+                            <img src="a_data/avatar92_003.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="42554408">Action</a></span>
+                            
+                        
+
+                        
+                            <span><a href="#comment-722872116" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Bill Borsari</a></span>
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-784146619" data-role="relative-time" class="time-ago" title="Thursday, January 31 2013 1:10 PM">
+                                4 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>If use qpid, don't forget add  this line </p>
+
+<p> rpc_backend=nova.rpc.impl_qpid</p>
+
+<p>to nova.conf.</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:784146619">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-784146619">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li><li class="post
+    " id="post-724848185">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="366081">
+                            <img src="a_data/avatar92_002.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="366081">Anne Gentle</a></span>
+                            
+                                <span class="badge moderator">Mod</span>
+                            
+                        
+
+                        
+                            <span><a href="#comment-722872116" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Bill Borsari</a></span>
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-724848185" data-role="relative-time" class="time-ago" title="Saturday, December 1 2012 10:02 PM">
+                                6 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>Ah good catch, this will be fun 
+to fix since we share all the content between Ubuntu (rabbit) and RHEL 
+(qpid) but will track with this doc bug. <a href="https://bugs.launchpad.net/openstack-manuals/+bug/1085411" rel="nofollow">https://bugs.launchpad.net/ope...</a></p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:724848185">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-724848185">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+<li class="post
+    " id="post-850784014">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="47207180">
+                            <img src="a_data/avatar92_004.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="47207180">Andy</a></span>
+                            
+                        
+
+                        
+                            <span><a href="#comment-724848185" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Anne Gentle</a></span>
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-850784014" data-role="relative-time" class="time-ago" title="Wednesday, April 3 2013 9:54 PM">
+                                2 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>The bug says this has been fixed - so I'd like to see the fixed docs.  Are they somewhere accessible?<br>thanks</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:850784014">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-850784014">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+<li class="post
+    " id="post-850786444">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="366081">
+                            <img src="a_data/avatar92_002.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="366081">Anne Gentle</a></span>
+                            
+                                <span class="badge moderator">Mod</span>
+                            
+                        
+
+                        
+                            <span><a href="#comment-850784014" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Andy</a></span>
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-850786444" data-role="relative-time" class="time-ago" title="Wednesday, April 3 2013 9:57 PM">
+                                2 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>Strange, I see the patch with the fix merged to master, which builds to <a href="http://docs.openstack.org/trunk/" rel="nofollow">docs.openstack.org/trunk/</a>, but it is not fixed. Investigating, thanks Andy for asking.</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:850786444">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-850786444">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+<li class="post
+    " id="post-850811813">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="47207180">
+                            <img src="a_data/avatar92_004.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="47207180">Andy</a></span>
+                            
+                        
+
+                        
+                            <span><a href="#comment-850786444" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Anne Gentle</a></span>
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-850811813" data-role="relative-time" class="time-ago" title="Wednesday, April 3 2013 10:30 PM">
+                                2 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>Ah, I didn't know about the trunk
+ area.  It doesn't seem to be linked to from the docs site.  Or, to be 
+more specific, if I go to <a href="http://docs.openstack.org/trunk/" rel="nofollow">http://docs.openstack.org/trun...</a>, and then click on 'Installing ...', I end up back with a page of links to the folsom docs, not the truck docs.</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:850811813">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-850811813">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+<li class="post
+    " id="post-850813755">
+
+    <div data-role="post-content" class="post-content ">
+        <div class="indicator"></div>
+
+        
+            
+
+                
+                    <div class="avatar hovercard">
+                        <a href="#" class="user" data-action="profile" data-user="366081">
+                            <img src="a_data/avatar92_002.jpg" alt="Avatar">
+                        </a>
+                    </div>
+                
+
+                <div class="post-body">
+                    <header>
+                        
+                            <span class="publisher-anchor-color"><a href="#" data-action="profile" data-user="366081">Anne Gentle</a></span>
+                            
+                                <span class="badge moderator">Mod</span>
+                            
+                        
+
+                        
+                            <span><a href="#comment-850811813" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Andy</a></span>
+                        
+
+                        <span class="bullet" aria-hidden="true">•</span>
+
+                        
+                            <a href="#comment-850813755" data-role="relative-time" class="time-ago" title="Wednesday, April 3 2013 10:32 PM">
+                                2 months ago
+                            </a>
+                        
+
+                        <ul class="post-menu">
+
+                            <li class="collapse"><a href="#" data-action="collapse" title="Collapse">−</a></li>
+                            <li class="expand" style="display:none"><a href="#" data-action="collapse" title="Expand">+</a></li>
+
+                            <li class="dropdown" data-role="menu" role="menu">
+                                
+    
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a>
+        <ul class="dropdown-menu invisible">
+            
+                
+                <li><a href="#" data-action="flag">Flag as inappropriate</a></li>
+            
+        </ul>
+    
+
+                            </li>
+                        </ul>
+                    </header>
+
+                    <!-- Use message-container to manage visible height of the post message (including media) -->
+                    <div class="post-message-container" data-role="message-container">
+                        <!-- Use message-content to measure post content (including media) -->
+                        <div data-role="message-content">
+                            <div class="post-message publisher-anchor-color " data-role="message">
+                                
+                                    <p>Yep, we're pretty purposeful 
+about installation links, because trunk docs just don't work for grizzly
+ installations yet because the packages are not yet ready. I know it's 
+tough, this time of the release cycle, but we must have patience.</p>
+                                
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                    <div class="message-shadow hidden" data-role="message-shadow"></div>
+                    <a href="#" class="more-button hidden" title="see more" data-action="post-expand">see more</a>
+
+                    <footer>
+                        
+    
+        <menu>
+            <li class="realtime" data-role="realtime-notification:850813755">
+                <span style="display:none;" class="realtime-replies"></span>
+                <a style="display: none;" href="#" class="btn small" data-action="load-queued-posts"></a>
+                 <!-- Realtime notification about new replies -->
+            </li>
+
+            <li class="voting" data-role="voting">
+                
+    <a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+        <span class="updatable count" data-role="likes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow-2"></i></span>
+    </a>
+    <a class="vote-down  count-0" title="Vote down">
+        <span class="updatable count" data-role="dislikes">0</span>
+        <span class="control"><i aria-hidden="true" class="icon-arrow"></i></span>
+        <span class="tooltip">You must sign in to down-vote this post.</span>
+    </a>
+
+            </li>
+            <li class="bullet" aria-hidden="true">•</li>
+
+            
+                
+
+                
+                    <li class="reply"><a href="#" data-action="reply">Reply</a></li>
+                    <li class="bullet" aria-hidden="true">•</li>
+                
+            
+
+            <li class="share">
+                <a class="toggle">Share ›</a>
+                <ul>
+                    <li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+                    <li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+                    <li class="link"><a href="#comment-850813755">Link</a></li>
+                </ul>
+            </li>
+        </menu>
+    
+
+                    </footer>
+                </div>
+
+             
+         
+
+        <div data-role="blacklist-form"></div>
+    </div>
+
+    <!-- Child comments are appended here -->
+    <ul data-role="children" class="children">
+
+</ul></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul>
+
+            <div class="load-more" data-role="more" style="display: none;">
+                <a href="#" data-action="more-posts" class="btn">Load more comments</a>
+            </div>
+        </div>
+
+        
+            
+                
+    
+        <section id="reactions" style="display: none;" data-role="main">
+
+            <ul id="reaction-list" class="post-list loading">
+            </ul>
+
+            <div class="load-more" data-role="more" style="display: none;">
+                <a href="#" data-action="more-reactions" class="btn">Load more reactions</a>
+            </div>
+        </section>
+    
+
+            
+        
+    </section>
+
+    <section id="community" style="display: none;" data-role="main">
+<div>
+    <div class="primary">
+        <h3>Top Discussions on 
+    <strong>OpenStack Install and Deploy Manual - Fedora/RHEL/CentOS</strong>
+</h3>
+        <div data-role="top-threads"><ol class="loading" id="top-threads"></ol></div>
+    </div>
+
+    <div class="secondary">
+        <h3>Top Commenters</h3>
+
+        <div data-role="top-users"><ol class="loading" id="top-users"></ol></div>
+    </div>
+</div>
+
+</section>
+
+    <section id="dashboard" style="display: none;" data-role="main">
+        <!-- Dashboard goes here -->
+        <!-- Default message if there are no notifications or activity to show -->
+        <p style="line-height: 1.4;">Nothing for you here ... yet. But as you comment with Disqus and follow
+        other Disqus users, you will start to receive notifications here, as well as a personalized
+        feed of activity by you and the people you follow. So get out there and participate in
+        some discussions!</p>
+    </section>
+
+    <section id="profile" style="display: none;" data-role="main">
+    </section>
+
+    
+
+    
+    <div id="discovery"></div>
+
+    <div id="footer">
+        <ul>
+            <li class="logo"><a href="http://disqus.com/" title="Powered by Disqus">Powered by Disqus</a></li>
+            <li class="rss"><a href="http://os-install-yum.disqus.com/configuring_openstack_compute_openstack_install_and_deploy_manual_red_hat_folsom_compute_20122_netwo/latest.rss"><i aria-hidden="true" class="icon-feed" title="in reply to"></i><span class="clip">Comment feed</span></a></li>
+            <li id="thread-subscribe-button" class="email"> <!-- Three options: nothing, show-form, subscribed -->
+                <div class="default">
+                    <a href="#" data-action="subscribe"><i aria-hidden="true" class="icon-mail" title="Get email updates"></i><span class="clip">Subscribe via email</span> <i aria-hidden="true" class="icon-checkmark" title="Subscribe via email"></i></a>
+                </div>
+                <div class="form">
+                    <div class="input-wrapper"><input id="thread-subscribe-email" placeholder="yourname@email.com" type="email"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div></body></html>

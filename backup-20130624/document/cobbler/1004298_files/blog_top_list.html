@@ -1,0 +1,55 @@
+
+var start = 1;
+
+var _html = '<div class="blogpopMain"><div class="l">'
+          + '<a href="http://blog.51cto.com/zt/515" target="_blank"><img src="http://blog.51cto.com/image/blog_top/upload/1371092168_index.jpg" width="105" height="105" /></a>'
+          + '<p><a href="http://blog.51cto.com/zt/515" target="_blank">SQL Server 存储引擎详讲</a></p></div>'
+          + '<div class="r"><h4 style="text-align:left;"><a href="http://chenge.blog.51cto.com/309066/1220926" target="_blank">如何成为编程高手？</a></h4>'
+          + '<ul>'
+          + '<li><a href="http://liangxiao.blog.51cto.com/3626612/1220498" target="_blank">吐槽苹果的革新 iOS 7</a></li>'
+          + '<li><a href="http://lichen.blog.51cto.com/697816/1220236" target="_blank"style="color:red;">做个精致的程序员</a></li>'
+          + '<li><a href="http://jiushu.blog.51cto.com/972756/1220516" target="_blank">你的俏皮本性</a></li>'
+          + '<li><a href="http://blog.51cto.com/contest/college2013/" target="_blank"style="color:red;">大学生IT博客大赛50强即将诞生啦</a></li>'
+          + '</ul>'
+          + '</div></div>'
+          + '';
+
+jQuery('#showMessagerDim').show();
+
+jQuery(function(){
+//window.onload=function(){
+   if(get_cookie('blog_top')==''&&start==1){
+//	 show_pop();
+	    jQuery.messager.showblogtop('', _html);
+        var date=new Date();
+	    var day = 1371225600000;//
+	    date.setTime(day);
+	    var test = date.getTime();
+	    document.cookie="blog_top=yes;domain=.blog.51cto.com;expires="+date.toGMTString()+";path=/;";
+    }
+	jQuery("#showMessagerDim").click(function(){
+		jQuery.messager.showblogtop('', _html);
+		//removeIframe();
+	});
+//}
+});
+
+
+function get_cookie(Name) {
+    var search = Name + "=";
+    var returnvalue = "";
+    if (document.cookie.length > 0) {
+        offset = document.cookie.indexOf(search);
+        if (offset != -1) {
+            offset += search.length;
+
+            end1 = document.cookie.indexOf(";", offset);
+
+            if (end1 == -1)
+            end1 = document.cookie.length;
+            returnvalue=unescape(document.cookie.substring(offset, end1));
+        }
+    }
+    return returnvalue;
+}
+

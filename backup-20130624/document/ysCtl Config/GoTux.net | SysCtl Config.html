@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>GoTux.net | SysCtl Config</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="all">
+    <meta name="keywords" content="">
+    <link rel="pingback" href="http://gotux.net/xmlrpc.php">
+    <link rel="icon" type="image/png" href="http://gotux.net/wp-content/themes/simplicity/images/fav.png">
+    <link rel="stylesheet" href="GoTux.net%20%7C%20SysCtl%20Config_files/style.css">
+    
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.7 - http://yoast.com/wordpress/seo/ -->
+<link rel="canonical" href="http://gotux.net/arch-linux/sysctl-config/">
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="GoTux.net » SysCtl Config Comments Feed" href="http://gotux.net/arch-linux/sysctl-config/feed/">
+<link rel="stylesheet" id="crayon-css" href="GoTux.net%20%7C%20SysCtl%20Config_files/crayon.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-theme-classic-css" href="GoTux.net%20%7C%20SysCtl%20Config_files/classic.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-font-arial-css" href="GoTux.net%20%7C%20SysCtl%20Config_files/arial.css" type="text/css" media="all">
+<link rel="stylesheet" id="easy-fancybox-css-css" href="GoTux.net%20%7C%20SysCtl%20Config_files/easy-fancybox.css" type="text/css" media="screen">
+<link rel="stylesheet" id="toc-screen-css" href="GoTux.net%20%7C%20SysCtl%20Config_files/screen.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-pagenavi-css" href="GoTux.net%20%7C%20SysCtl%20Config_files/pagenavi-css.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-ui-css" href="GoTux.net%20%7C%20SysCtl%20Config_files/wp-ui.css" type="text/css" media="all">
+<link rel="stylesheet" id="wpui-gene-css" href="GoTux.net%20%7C%20SysCtl%20Config_files/wpui-gene.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-ui-all-css" href="GoTux.net%20%7C%20SysCtl%20Config_files/wpui-all.css" type="text/css" media="all">
+<link rel="stylesheet" id="wpui-custom-css-css" href="GoTux.net%20%7C%20SysCtl%20Config_files/a.css" type="text/css" media="all">
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/jquery_010.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.2.1","is_admin":"0","ajaxurl":"http:\/\/gotux.net\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/crayon.js"></script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/jquery_004.js"></script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/jquery_002.js"></script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/jquery_007.js"></script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/jquery_006.js"></script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/jquery_005.js"></script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/jquery_009.js"></script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/jquery_008.js"></script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/jquery_012.js"></script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/jquery.js"></script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/jquery_011.js"></script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/jquery_003.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpUIOpts = {"wpUrl":"http:\/\/gotux.net","pluginUrl":"http:\/\/gotux.net\/wp-content\/plugins\/wp-ui\/","enableTabs":"on","enableAccordion":"on","enableSpoilers":"on","enableDialogs":"on","tabsEffect":"none","effectSpeed":"400","accordEffect":"none","alwaysRotate":"stop","tabsEvent":"click","collapsibleTabs":"off","accordEvent":"click","topNav":"off","accordAutoHeight":"off","accordCollapsible":"off","accordEasing":"false","mouseWheelTabs":"false","bottomNav":"on","tabPrevText":"Prev","tabNextText":"Next","spoilerShowText":"Click to show","spoilerHideText":"Click to hide","cookies":"on","hashChange":"on","docWriteFix":"on","linking_history":"on","misc_options":"hashing_method=1\r\ntinymce_icon_row=3"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="GoTux.net%20%7C%20SysCtl%20Config_files/wp-ui.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://gotux.net/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://gotux.net/wp-includes/wlwmanifest.xml"> 
+<link rel="shortlink" href="http://gotux.net/?p=15">
+<style type="text/css">div#toc_container {background: #f7f7f7;border: 1px solid #f0f0f0;}div#toc_container ul li {font-size: 90%;}</style>
+<style type="text/css">
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,regular,italic,600,600italic,700,700italic,800,800italic:vietnamese,cyrillic,latin,greek-ext,latin-ext,greek,cyrillic-ext|ABeeZee:regular,italic:latin|Actor:regular:latin|Aldrich:regular:latin|Ubuntu+Mono:regular,italic,700,700italic:latin,cyrillic,cyrillic-ext,latin-ext,greek-ext,greek|Nova+Square:regular:latin);
+.entry-content{ font-family: "Open Sans"; }
+.entry-title{ font-family: "ABeeZee"; }
+arch{ font-family: "Actor"; }
+h1,h2,h4,h5,h6{ font-family: "Aldrich"; }
+{ font-family: "Ubuntu Mono"; }
+.alert{ font-family: "Nova Square"; }
+</style>
+<!--==-- End Typecase Font Declarations --==-->
+
+
+	<!-- Easy FancyBox 1.5.0 using FancyBox 1.3.5 - RavanH (http://status301.net/wordpress-plugins/easy-fancybox/) -->
+	<script type="text/javascript">
+	/* <![CDATA[ */
+	var fb_timeout = null;
+	var fb_opts = { 'overlayShow' : true, 'hideOnOverlayClick' : true, 'showCloseButton' : true, 'centerOnScroll' : true, 'enableEscapeButton' : true, 'autoScale' : true };
+	var easy_fancybox_handler = function(){
+	/* IMG */
+	var fb_IMG_select = 'a[href*=".jpg"]:not(.nofancybox), area[href*=".jpg"]:not(.nofancybox), a[href*=".jpeg"]:not(.nofancybox), area[href*=".jpeg"]:not(.nofancybox), a[href*=".png"]:not(.nofancybox), area[href*=".png"]:not(.nofancybox)';
+	jQuery(fb_IMG_select).addClass('fancybox');
+	var fb_IMG_sections = jQuery('div.gallery');
+	fb_IMG_sections.each(function() { jQuery(this).find(fb_IMG_select).attr('rel', 'gallery-' + fb_IMG_sections.index(this)); });
+	jQuery('a.fancybox, area.fancybox, li.fancybox a:not(li.nofancybox a)').fancybox( jQuery.extend({}, fb_opts, { 'transitionIn' : 'elastic', 'easingIn' : 'easeOutBack', 'transitionOut' : 'elastic', 'easingOut' : 'easeInBack', 'opacity' : false, 'hideOnContentClick' : false, 'titleShow' : true, 'titlePosition' : 'over', 'titleFromAlt' : true, 'showNavArrows' : true, 'enableKeyboardNav' : true, 'cyclic' : false }) );
+	/* Auto-click */ 
+	jQuery('#fancybox-auto').trigger('click');
+	}
+	/* ]]> */
+	</script>
+	<style type="text/css">.fancybox-hidden{display:none}.rtl #fancybox-left{left:auto;right:0px}.rtl #fancybox-right{left:0px;right:auto}.rtl #fancybox-right-ico{background-position:-40px -30px}.rtl #fancybox-left-ico{background-position:-40px -60px}.rtl .fancybox-title-over{text-align:right}.rtl #fancybox-left-ico,.rtl #fancybox-right-ico{right:-9999px}.rtl #fancybox-right:hover span{right:auto;left:20px}.rtl #fancybox-left:hover span{right:20px}#fancybox-img{max-width:none;max-height:none}</style>
+	  </head>
+<body>
+<div id="wrapper">
+<div id="header">
+  <a href="http://gotux.net/" id="logo">&nbsp;</a>
+<div id="gastop">
+</div> <!--#gastop-->
+</div> <!--#header-->
+<div class="menu"><ul><li class="page_item page-item-4"><a href="http://gotux.net/about/">About</a></li><li class="page_item page-item-5"><a href="http://gotux.net/stats/">Stats</a></li><li class="page_item page-item-26"><a href="http://gotux.net/videos/">Videos</a></li></ul></div>
+<div id="page">
+<div id="content">
+<div id="breadcrumbs"><span xmlns:v="http://rdf.data-vocabulary.org/#"><span typeof="v:Breadcrumb"><a href="http://gotux.net/" rel="v:url" property="v:title">Home</a></span> » <span typeof="v:Breadcrumb"><a href="http://gotux.net/arch-linux/" rel="v:url" property="v:title">Arch Linux</a></span> » <span typeof="v:Breadcrumb"><span class="breadcrumb_last" property="v:title">SysCtl Config</span></span></span></div>
+
+			
+<article id="post-15" class="post-15 post type-post status-publish format-standard hentry category-arch-linux">
+  
+  <header class="entry-header">
+		    <h1 class="entry-title"> SysCtl Config </h1>
+    <div class="meta">
+      Posted in Arch Linux 
+      by TuxLyn on January 26, 2013 
+      edited on February 24, 2013            <div id="views"> 1,946 views </div>
+    </div> <!--.meta-->
+	  </header> <!--.entry-header-->
+	
+	  <div class="entry-content">
+		<p><img src="GoTux.net%20%7C%20SysCtl%20Config_files/BxBT2o6.png" alt="Config File" class="cover">
+ SysCtl (System Control) is an interface for examining and dynamically 
+changing parameters in the BSD and Linux operating systems. The 
+implementation mechanism in these two systems is very different. <span id="more-15"></span></p>
+<div class="alert notice"> ToDo: Update this config later… </div>
+<p>This is rough research, this speed may very on different computers 
+and isp’s. But usually this tweak shows noticeable speed differences. 
+Only do this if you understand how to tweak this file to your own 
+connection. Otherwise just remove all of “speed tweak” options and just 
+leave the security ones.</p>
+<ul>
+<li class="title"> Equipment Used: </li>
+<li> Motorola (SB6120) Cable Modem
+<ul>
+<li> Hardware Version: 3.0 </li>
+<li> Firmware Version: SB612X-1.0.3.3-SCM00-NOSH </li>
+</ul>
+</li>
+<li> D-Link DIR-615 4-Port Router
+<ul>
+<li> Hardware Version: C1 </li>
+<li> Firmware Version: 3.11NA </li>
+</ul>
+</li>
+<li class="title"> Speeds Achieved: </li>
+<li> ISP “Advertised” Plan: 15mbps Download &amp; 5mbps Upload
+<ul>
+<li> Default “Real” Speed: 2mbps Download &amp; 256kb Upload </li>
+<li> Tweaked SysCtl Speed: 4mbps Download &amp; 1mbps Upload </li>
+</ul>
+</li>
+<li> ISP “Advertised” Plan: 30mbps Download &amp; 5mbps Upload
+<ul>
+<li> Default “Real” Speed: 5mbps Download &amp; 1mbps Upload </li>
+<li> Tweaked SysCtl Speed: 8mbps Download &amp; 2mbps Upload </li>
+</ul>
+</li>
+</ul>
+<p></p>
+		<div id="crayon-51c252291d5f9" class="crayon-syntax crayon-theme-classic crayon-font-arial crayon-os-pc print-yes" data-settings=" no-popup minimize scroll-always disable-anim" style="margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px ! important; line-height: 18px ! important; height: auto;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title">/etc/sysctl.conf</span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-wrap-button" title="Toggle Line Wrap"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><span class="crayon-language">Default</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="" readonly="readonly" style="-moz-tab-size: 1; font-size: 16px ! important; line-height: 18px ! important; z-index: 0; opacity: 0;">#
+# Kernel Configuration
+# /etc/sysctl.conf
+#
+
+kernel.sysrq = 0
+
+## speed tweak
+net.core.rmem_max = 12582912
+net.core.wmem_max = 12582912
+#net.core.rmem_default = 31457280
+#net.core.wmem_default = 31457280
+
+net.ipv4.tcp_rmem = 10240 87380 12582912
+net.ipv4.tcp_wmem = 10240 87380 12582912
+
+net.ipv4.tcp_sack = 1
+net.ipv4.tcp_window_scaling = 1
+net.ipv4.tcp_no_metrics_save = 1
+net.core.netdev_max_backlog = 5000
+
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 1
+
+net.ipv4.tcp_fin_timeout = 30
+net.ipv4.tcp_keepalive_time = 1800
+
+#net.ipv4.tcp_keepalive_intvl = 30
+#net.ipv4.tcp_keepalive_probes = 5
+
+#net.ipv4.tcp_moderate_rcvbuf = 1
+#sys.net.ipv4.route.flush = 1
+
+
+#### IPv4 networking ####
+# settings for security #
+
+# Disable packet forwarding/redirects.
+net.ipv4.ip_forward = 0
+net.ipv4.conf.all.send_redirects = 0
+net.ipv4.conf.default.send_redirects = 0
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.all.secure_redirects = 0
+
+# Number of times SYNACKs for passive TCP connection.
+net.ipv4.tcp_synack_retries = 2
+
+# Prevent SYN flood attack.
+net.ipv4.tcp_syncookies = 1
+
+# Protect Against TCP Time-Wait
+net.ipv4.tcp_rfc1337 = 1
+
+# TCP Timestamps
+net.ipv4.tcp_timestamps = 0
+
+# Ignore All Echo Requests
+net.ipv4.icmp_echo_ignore_all = 1
+
+# Ignore Bogus ICMP Errors
+net.ipv4.icmp_ignore_bogus_error_responses = 1
+
+# Prevent all ICMP_ECHO and TIMESTAMP requests.
+net.ipv4.icmp_echo_ignore_broadcasts = 1
+
+# Prevent IP spoofing and DDoS attacks.
+# Enable source validation by reversed path.
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.conf.default.rp_filter = 1
+
+# Increase system IP port limits.
+#net.ipv4.ip_local_port_range = 2000 65000
+
+# Log packets with impossible addresses to kernel
+net.ipv4.conf.all.log_martians = 1
+net.ipv4.conf.default.accept_source_route = 0
+net.ipv4.conf.default.accept_redirects = 0
+net.ipv4.conf.default.secure_redirects = 0</textarea></div>
+			<div class="crayon-main" style="max-height: 700px; position: relative; z-index: 1;">
+				<table style="margin-left: -34px;" class="crayon-table">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="hide">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 18px !important;"><div class="crayon-num" data-line="crayon-51c252291d5f9-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-2">2</div><div class="crayon-num" data-line="crayon-51c252291d5f9-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-4">4</div><div class="crayon-num" data-line="crayon-51c252291d5f9-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-6">6</div><div class="crayon-num" data-line="crayon-51c252291d5f9-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-8">8</div><div class="crayon-num" data-line="crayon-51c252291d5f9-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-10">10</div><div class="crayon-num" data-line="crayon-51c252291d5f9-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-12">12</div><div class="crayon-num" data-line="crayon-51c252291d5f9-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-14">14</div><div class="crayon-num" data-line="crayon-51c252291d5f9-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-16">16</div><div class="crayon-num" data-line="crayon-51c252291d5f9-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-18">18</div><div class="crayon-num" data-line="crayon-51c252291d5f9-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-20">20</div><div class="crayon-num" data-line="crayon-51c252291d5f9-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-22">22</div><div class="crayon-num" data-line="crayon-51c252291d5f9-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-24">24</div><div class="crayon-num" data-line="crayon-51c252291d5f9-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-26">26</div><div class="crayon-num" data-line="crayon-51c252291d5f9-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-28">28</div><div class="crayon-num" data-line="crayon-51c252291d5f9-29">29</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-30">30</div><div class="crayon-num" data-line="crayon-51c252291d5f9-31">31</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-32">32</div><div class="crayon-num" data-line="crayon-51c252291d5f9-33">33</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-34">34</div><div class="crayon-num" data-line="crayon-51c252291d5f9-35">35</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-36">36</div><div class="crayon-num" data-line="crayon-51c252291d5f9-37">37</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-38">38</div><div class="crayon-num" data-line="crayon-51c252291d5f9-39">39</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-40">40</div><div class="crayon-num" data-line="crayon-51c252291d5f9-41">41</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-42">42</div><div class="crayon-num" data-line="crayon-51c252291d5f9-43">43</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-44">44</div><div class="crayon-num" data-line="crayon-51c252291d5f9-45">45</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-46">46</div><div class="crayon-num" data-line="crayon-51c252291d5f9-47">47</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-48">48</div><div class="crayon-num" data-line="crayon-51c252291d5f9-49">49</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-50">50</div><div class="crayon-num" data-line="crayon-51c252291d5f9-51">51</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-52">52</div><div class="crayon-num" data-line="crayon-51c252291d5f9-53">53</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-54">54</div><div class="crayon-num" data-line="crayon-51c252291d5f9-55">55</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-56">56</div><div class="crayon-num" data-line="crayon-51c252291d5f9-57">57</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-58">58</div><div class="crayon-num" data-line="crayon-51c252291d5f9-59">59</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-60">60</div><div class="crayon-num" data-line="crayon-51c252291d5f9-61">61</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-62">62</div><div class="crayon-num" data-line="crayon-51c252291d5f9-63">63</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-64">64</div><div class="crayon-num" data-line="crayon-51c252291d5f9-65">65</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-66">66</div><div class="crayon-num" data-line="crayon-51c252291d5f9-67">67</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-68">68</div><div class="crayon-num" data-line="crayon-51c252291d5f9-69">69</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-70">70</div><div class="crayon-num" data-line="crayon-51c252291d5f9-71">71</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-72">72</div><div class="crayon-num" data-line="crayon-51c252291d5f9-73">73</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-74">74</div><div class="crayon-num" data-line="crayon-51c252291d5f9-75">75</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-76">76</div><div class="crayon-num" data-line="crayon-51c252291d5f9-77">77</div><div class="crayon-num crayon-striped-num" data-line="crayon-51c252291d5f9-78">78</div><div class="crayon-num" data-line="crayon-51c252291d5f9-79">79</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 18px !important;"><div class="crayon-line" id="crayon-51c252291d5f9-1"><span class="crayon-p">#</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-2"><span class="crayon-p"># Kernel Configuration</span></div><div class="crayon-line" id="crayon-51c252291d5f9-3"><span class="crayon-p"># /etc/sysctl.conf</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-4"><span class="crayon-p">#</span></div><div class="crayon-line" id="crayon-51c252291d5f9-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-6"><span class="crayon-v">kernel</span><span class="crayon-sy">.</span><span class="crayon-v">sysrq</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span></div><div class="crayon-line" id="crayon-51c252291d5f9-7">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-8"><span class="crayon-p">## speed tweak</span></div><div class="crayon-line" id="crayon-51c252291d5f9-9"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">core</span><span class="crayon-sy">.</span><span class="crayon-v">rmem_max</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">12582912</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-10"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">core</span><span class="crayon-sy">.</span><span class="crayon-v">wmem_max</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">12582912</span></div><div class="crayon-line" id="crayon-51c252291d5f9-11"><span class="crayon-p">#net.core.rmem_default = 31457280</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-12"><span class="crayon-p">#net.core.wmem_default = 31457280</span></div><div class="crayon-line" id="crayon-51c252291d5f9-13">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-14"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_rmem</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">10240</span><span class="crayon-h"> </span><span class="crayon-cn">87380</span><span class="crayon-h"> </span><span class="crayon-cn">12582912</span></div><div class="crayon-line" id="crayon-51c252291d5f9-15"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_wmem</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">10240</span><span class="crayon-h"> </span><span class="crayon-cn">87380</span><span class="crayon-h"> </span><span class="crayon-cn">12582912</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-16">&nbsp;</div><div class="crayon-line" id="crayon-51c252291d5f9-17"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_sack</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-18"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_window_scaling</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line" id="crayon-51c252291d5f9-19"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_no_metrics_save</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-20"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">core</span><span class="crayon-sy">.</span><span class="crayon-v">netdev_max_backlog</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">5000</span></div><div class="crayon-line" id="crayon-51c252291d5f9-21">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-22"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_tw_reuse</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line" id="crayon-51c252291d5f9-23"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_tw_recycle</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-24">&nbsp;</div><div class="crayon-line" id="crayon-51c252291d5f9-25"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_fin_timeout</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">30</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-26"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_keepalive_time</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1800</span></div><div class="crayon-line" id="crayon-51c252291d5f9-27">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-28"><span class="crayon-p">#net.ipv4.tcp_keepalive_intvl = 30</span></div><div class="crayon-line" id="crayon-51c252291d5f9-29"><span class="crayon-p">#net.ipv4.tcp_keepalive_probes = 5</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-30">&nbsp;</div><div class="crayon-line" id="crayon-51c252291d5f9-31"><span class="crayon-p">#net.ipv4.tcp_moderate_rcvbuf = 1</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-32"><span class="crayon-p">#sys.net.ipv4.route.flush = 1</span></div><div class="crayon-line" id="crayon-51c252291d5f9-33">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-34">&nbsp;</div><div class="crayon-line" id="crayon-51c252291d5f9-35"><span class="crayon-p">#### IPv4 networking ####</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-36"><span class="crayon-p"># settings for security #</span></div><div class="crayon-line" id="crayon-51c252291d5f9-37">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-38"><span class="crayon-p"># Disable packet forwarding/redirects.</span></div><div class="crayon-line" id="crayon-51c252291d5f9-39"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">ip_forward</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-40"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span><span class="crayon-sy">.</span><span class="crayon-v">all</span><span class="crayon-sy">.</span><span class="crayon-v">send_redirects</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span></div><div class="crayon-line" id="crayon-51c252291d5f9-41"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span><span class="crayon-sy">.</span><span class="crayon-st">default</span><span class="crayon-sy">.</span><span class="crayon-v">send_redirects</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-42"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span><span class="crayon-sy">.</span><span class="crayon-v">all</span><span class="crayon-sy">.</span><span class="crayon-v">accept_source_route</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span></div><div class="crayon-line" id="crayon-51c252291d5f9-43"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span><span class="crayon-sy">.</span><span class="crayon-v">all</span><span class="crayon-sy">.</span><span class="crayon-v">accept_redirects</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-44"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span><span class="crayon-sy">.</span><span class="crayon-v">all</span><span class="crayon-sy">.</span><span class="crayon-v">secure_redirects</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span></div><div class="crayon-line" id="crayon-51c252291d5f9-45">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-46"><span class="crayon-p"># Number of times SYNACKs for passive TCP connection.</span></div><div class="crayon-line" id="crayon-51c252291d5f9-47"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_synack_retries</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">2</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-48">&nbsp;</div><div class="crayon-line" id="crayon-51c252291d5f9-49"><span class="crayon-p"># Prevent SYN flood attack.</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-50"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_syncookies</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line" id="crayon-51c252291d5f9-51">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-52"><span class="crayon-p"># Protect Against TCP Time-Wait</span></div><div class="crayon-line" id="crayon-51c252291d5f9-53"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_rfc1337</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-54">&nbsp;</div><div class="crayon-line" id="crayon-51c252291d5f9-55"><span class="crayon-p"># TCP Timestamps</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-56"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">tcp_timestamps</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span></div><div class="crayon-line" id="crayon-51c252291d5f9-57">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-58"><span class="crayon-p"># Ignore All Echo Requests</span></div><div class="crayon-line" id="crayon-51c252291d5f9-59"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">icmp_echo_ignore_all</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-60">&nbsp;</div><div class="crayon-line" id="crayon-51c252291d5f9-61"><span class="crayon-p"># Ignore Bogus ICMP Errors</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-62"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">icmp_ignore_bogus_error_responses</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line" id="crayon-51c252291d5f9-63">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-64"><span class="crayon-p"># Prevent all ICMP_ECHO and TIMESTAMP requests.</span></div><div class="crayon-line" id="crayon-51c252291d5f9-65"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">icmp_echo_ignore_broadcasts</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-66">&nbsp;</div><div class="crayon-line" id="crayon-51c252291d5f9-67"><span class="crayon-p"># Prevent IP spoofing and DDoS attacks.</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-68"><span class="crayon-p"># Enable source validation by reversed path.</span></div><div class="crayon-line" id="crayon-51c252291d5f9-69"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span><span class="crayon-sy">.</span><span class="crayon-v">all</span><span class="crayon-sy">.</span><span class="crayon-v">rp_filter</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-70"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span><span class="crayon-sy">.</span><span class="crayon-st">default</span><span class="crayon-sy">.</span><span class="crayon-v">rp_filter</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line" id="crayon-51c252291d5f9-71">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-72"><span class="crayon-p"># Increase system IP port limits.</span></div><div class="crayon-line" id="crayon-51c252291d5f9-73"><span class="crayon-p">#net.ipv4.ip_local_port_range = 2000 65000</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-74">&nbsp;</div><div class="crayon-line" id="crayon-51c252291d5f9-75"><span class="crayon-p"># Log packets with impossible addresses to kernel</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-76"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span><span class="crayon-sy">.</span><span class="crayon-v">all</span><span class="crayon-sy">.</span><span class="crayon-v">log_martians</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span></div><div class="crayon-line" id="crayon-51c252291d5f9-77"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span><span class="crayon-sy">.</span><span class="crayon-st">default</span><span class="crayon-sy">.</span><span class="crayon-v">accept_source_route</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span></div><div class="crayon-line crayon-striped-line" id="crayon-51c252291d5f9-78"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span><span class="crayon-sy">.</span><span class="crayon-st">default</span><span class="crayon-sy">.</span><span class="crayon-v">accept_redirects</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span></div><div class="crayon-line" id="crayon-51c252291d5f9-79"><span class="crayon-v">net</span><span class="crayon-sy">.</span><span class="crayon-v">ipv4</span><span class="crayon-sy">.</span><span class="crayon-v">conf</span><span class="crayon-sy">.</span><span class="crayon-st">default</span><span class="crayon-sy">.</span><span class="crayon-v">secure_redirects</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div><p></p>
+<ul>
+<li class="title"> Related Links </li>
+<li> <a href="http://en.wikipedia.org/wiki/Sysctl" target="_blank" rel="nofollow">http://en.wikipedia.org/wiki/Sysctl</a> </li>
+<li><a href="http://linux.die.net/man/2/sysctl" target="_blank" rel="nofollow">http://linux.die.net/man/2/sysctl</a> </li>
+</ul>
+  </div> <!--.entry-content-->
+	
+</article> <!--#post-->
+	
+	
+
+
+</div> <!--#content-->
+
+<div id="sidebar">
+  <div class="widget">
+    <aside id="text-13" class="widget widget_text"><h3 class="widget-title">Blog Menu</h3>			<div class="textwidget"><ul id="link">
+ <li> <a href="http://gotux.net/arch-linux/"> Arch Linux </a>
+ </li><li> <a href="http://gotux.net/research/"> Research </a>
+ </li><li> <a href="http://gotux.net/code/"> Source Code </a>
+</li></ul></div>
+		</aside><aside id="text-12" class="widget widget_text"><h3 class="widget-title">TextFiles</h3>			<div class="textwidget"><ul id="text">
+ <li> <a href="http://gotux.net/text-files/computers/"> Computers </a>
+ </li><li> <a href="http://gotux.net/text-files/hacking/"> Hacking </a>
+ </li><li> <a href="http://gotux.net/text-files/humor/"> Humor </a>
+ </li><li> <a href="http://gotux.net/text-files/mailing-lists/"> Mailing Lists </a>
+ </li><li> <a href="http://gotux.net/text-files/programming/"> Programming </a>
+ </li><li> <a href="http://gotux.net/text-files/survival/"> Survival </a>
+</li></ul></div>
+		</aside><aside id="text-2" class="widget widget_text"><h3 class="widget-title">Projects</h3>			<div class="textwidget"><ul id="projects">
+ <li class="tv"> <a href="http://tvicarus.com/" target="_blank"> TVicarus.com </a> -- <small> <i> TV Shows Guide </i> </small> </li>
+ <li class="tv"> <a href="http://gotux.net/media/trailers.html" target="_blank"> Movie Trailers </a> -- <small> <i> Automaticly Updated </i> </small> </li>
+ <li class="sml"> <a href="http://comics.gotux.net/" target="_blank"> Comics Strips </a> -- <small> <i> Automaticly Updated </i> </small> </li>
+<li class="stats"> <a href="http://gotux.net/tools/sitestats/" target="_blank"> Site Statistics </a> -- <small> <i> Alexa and WhoIs tools. </i> </small> </li>
+ <li class="wiki"> <a href="http://mirror.gotux.net/" target="_blank"> GoTux Mirror </a> -- <small> <i> Small Website Archive </i> </small> </li>
+</ul></div>
+		</aside><aside id="text-3" class="widget widget_text"><h3 class="widget-title">GoTux News</h3>			<div class="textwidget"><ul id="news">
+ <li> <small> 2013-05-28 </small> -- <i> Fixed TVicarus.com "Shows" list pagination on demo site. </i> </li>
+</ul></div>
+		</aside><aside id="text-9" class="widget widget_text"><h3 class="widget-title">Resources</h3>			<div class="textwidget"><ul id="links">
+<li> <a href="http://docs.gotux.net/ci3guide/" target="_blank"> CodeIgniter v3.0 Guide </a> </li>
+</ul></div>
+		</aside><aside id="text-5" class="widget widget_text"><h3 class="widget-title">Links Exchange</h3>			<div class="textwidget"><ul id="links">
+  <li> <a href="http://www.distrogeeks.com/" target="_blank" rel="nofollow"> DistroGeeks.com </a> </li>
+  <li> <a href="http://crankysysadmin.com/" target="_blank" rel="nofollow"> CrankySysAdmin.com </a> </li>
+</ul></div>
+		</aside><aside id="text-4" class="widget widget_text"><h3 class="widget-title">Sponsors</h3>			<div class="textwidget"><ul id="sponsors">
+ <li> <a href="http://www.perfect-privacy.com/" target="_blank" rel="nofollow"> <img src="GoTux.net%20%7C%20SysCtl%20Config_files/aOPSS5D.png" alt="Perfect-Privacy.com"> </a> </li>
+ <li> <center> <a href="https://www.hushmail.com/" target="_blank" rel="nofollow"> <img src="GoTux.net%20%7C%20SysCtl%20Config_files/Ex7DefG.gif" alt="HushMail.com"> </a> </center> </li>
+ <li> <a href="https://www.onlysavvy.com/" target="_blank" rel="nofollow"> <img src="GoTux.net%20%7C%20SysCtl%20Config_files/Xh7hEdv.png" alt="OnlySavvy.com"> </a> </li>
+ <li> <a href="https://www.santrex.net/" target="_blank" rel="nofollow"> <img src="GoTux.net%20%7C%20SysCtl%20Config_files/Q58834q.png" alt="Santrex.net"> </a> </li>
+</ul></div>
+		</aside><aside id="text-8" class="widget widget_text"><h3 class="widget-title">Donation</h3>			<div class="textwidget"><p class="donate"> If you like this blog or any other GoTux projects, please consider donating using PayPal or Flattr. Thank you! </p>
+<p> </p><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="donate-button"> <input name="cmd" value="_s-xclick" type="hidden"> <input name="hosted_button_id" value="SBDY3JG4AC9AE" type="hidden"> <input src="GoTux.net%20%7C%20SysCtl%20Config_files/IaHRKbU.png" name="submit" alt="PayPal" border="0" type="image"> </form> <a href="http://flattr.com/thing/1248069/GoTux" target="_blank"> <img src="GoTux.net%20%7C%20SysCtl%20Config_files/FOPnM5t.png" alt="Flattr" class="donate-button"></a> <!--// <img src="http://i.imgur.com/0iDB2x5.png" alt="Amazon" class="donate-button"> //--> <p></p></div>
+		</aside>  </div> <!--#widget-->
+</div> <!--#sidebar-->
+
+</div> <!--#page-->
+<div id="widgets">
+</div> <!--#widgets-->
+<div id="footer">
+  <small> 2011-2013 GoTux.net • "Simplicity" Theme by TuxLyn </small>
+</div> <!--#footer-->
+</div> <!--#wrapper-->
+<img src="GoTux.net%20%7C%20SysCtl%20Config_files/a.gif" style="display: none;" alt="StatCounter">
+<img src="GoTux.net%20%7C%20SysCtl%20Config_files/gotuxnet.png" style="display: none;" alt="WhosAmungUs">
+<img src="GoTux.net%20%7C%20SysCtl%20Config_files/a.png" style="display: none;" alt="FlagCounter">
+
+</body></html>

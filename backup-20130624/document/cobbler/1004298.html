@@ -1,0 +1,1509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title>运维自动化之使用Cobbler自动化安装系统与FAQ - 吟—技术交流 - 51CTO技术博客</title>
+<meta name="description" content="以前在没有kickstart的时候，安装系统都是通过光盘来安装，如果数量大的话，就会很浪费时间，有了kickstart，通过pxe+dhcp+tftp配合kickstart，这样安装系统就方便了很多，现在开源社区里的cobbler工具，使用后觉..">
+<meta name="keywords" content="cobbler,运维自动化,自动化安装系统,cobbler的faq">
+<meta http-equiv="Cache-Control" content="private">
+<!-- base href="http://dl528888.blog.51cto.com/" -->
+<script src="1004298_files/ga.js" async="" type="text/javascript"></script><script src="1004298_files/def.js"></script>
+<script language="javascript" src="1004298_files/message.js" type="text/javascript"></script>
+<script language="javascript" src="1004298_files/user_comment.js" type="text/javascript"></script>
+<script language="javascript" src="1004298_files/base2.js" type="text/javascript"></script>
+<script language="javascript" src="1004298_files/dialog_utf8.js" type="text/javascript"></script>
+<link href="1004298_files/42.css" rel="stylesheet" type="text/css">
+<link rel="alternate" href="http://dl528888.blog.51cto.com/rss.php?uid=2382721" type="application/rss+xml" title="RSS 2.0">
+<link rel="edituri" type="application/rsd+xml" title="rsd" href="http://dl528888.blog.51cto.com/xmlrpc.php?rsd=1">
+<link href="1004298_files/header_master_top.css" rel="stylesheet" type="text/css">
+<link href="1004298_files/base.css" rel="stylesheet" type="text/css">
+<script src="1004298_files/poptop.js"></script>
+<style type="text/css">
+	.mainNav li a{display:inline-block}
+</style>
+<script>
+var myid = "";
+function add_flink(){
+	if(myid==""){
+
+        var refurlk = "http://dl528888.blog.51cto.com/2382721/1004298";
+
+				//commentSubmit("",refurlk);
+				location.href="http://home.51cto.com/index.php?reback="+encodeURIComponent(encodeURIComponent(refurlk));
+				return false;
+	}else{
+      		var url='/mod/edit_flink.php?type=addflink&uid=2382721&flink=http://dl528888.blog.51cto.com';
+		var ajax = InitAjax1();
+		ajax.open("GET", url, true);
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				if(ajax.responseText==""){
+					alert("添加成功。");
+				}
+				if(ajax.responseText=="1"){
+				alert("链接指向自己。");
+				}
+				if(ajax.responseText=="2"){
+				alert("友情链接已存在。")
+				}
+			}
+		}
+		ajax.send(null);
+	}
+
+
+
+}
+function sendmessage(){
+
+	var refurlk = "http://dl528888.blog.51cto.com/2382721/1004298";
+
+	if(myid){
+		return true;
+	}else{
+		commentSubmit("",refurlk);
+		return false;
+	}
+}
+function copylink(ourl){
+	if(!ourl){
+		var clipBoardContent = "http://dl528888.blog.51cto.com";
+	}else{
+		var clipBoardContent = ourl;
+	}
+	window.clipboardData.setData("Text",clipBoardContent);
+	alert("复制成功!");
+	return false;
+}
+function correctPNG() {
+if (document.getElementById('blog_touxian'))
+{
+var img = document.getElementById('blog_touxian');
+      var imgName = img.src.toUpperCase()
+      var imgID = (img.id) ? "id='" + img.id + "' " : ""
+      var imgClass = (img.className) ? "class='" + img.className + "' " : ""
+      var imgTitle = (img.title) ? "title='" + img.title + "' " : "title='" + img.alt + "' "
+      var imgStyle = "display:inline-block;" + img.style.cssText
+      if (img.align == "left") imgStyle = "float:left;" + imgStyle
+      if (img.align == "right") imgStyle = "float:right;" + imgStyle
+      if (img.parentElement.href) imgStyle = "cursor:hand;" + imgStyle
+      var strNewHTML = "<span " + imgID + imgClass + imgTitle
+         + " style=\"" + "width:" + img.width + "px; height:" + img.height + "px;" + imgStyle + ";"
+         + "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"
+         + "(src=\'" + img.src + "\', sizingMethod='scale');\"></span>" ;
+      img.outerHTML = strNewHTML;
+}
+}
+//window.attachEvent("onload", correctPNG);
+window.onload=correctPNG;
+
+function copy(){
+var text=document.getElementById("txtUser").value;
+if(copy2Clipboard(text)!=false){ 
+alert("复制成功了！ "); 
+} 
+}
+function copy2Clipboard(txt){ 
+if(window.clipboardData){ 
+window.clipboardData.clearData(); 
+window.clipboardData.setData("Text",txt); 
+}else if(navigator.userAgent.indexOf("Opera")!=-1){ 
+window.location=txt; 
+}else if(window.netscape){ 
+try{ 
+netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect"); 
+} 
+catch(e){ 
+alert("您使用的浏览器不支持此复制功能，请使用Ctrl+C或鼠标右键。"); 
+return false; 
+} 
+var clip=Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard); 
+if(!clip)return; 
+var trans=Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable); 
+if(!trans)return; 
+trans.addDataFlavor('text/unicode'); 
+var str=new Object(); 
+var len=new Object(); 
+var str=Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString); 
+var copytext=txt;str.data=copytext; 
+trans.setTransferData("text/unicode",str,copytext.length*2); 
+var clipid=Components.interfaces.nsIClipboard; 
+if(!clip)return false; 
+clip.setData(trans,null,clipid.kGlobalClipboard); 
+return true;
+} 
+}
+
+function mod_close(){
+  document.getElementById('mod_tg').style.display="none";
+}
+
+function match_invite(uid) {
+    var url='/mod/match_invite.php';
+	var ajax = InitAjax();
+    var re = 'uid=' + uid;
+	ajax.open("POST", url, true);
+    ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	ajax.send(re);
+    ajax.onreadystatechange = function() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+            if(ajax.responseText == 1){
+                alert("邀请信息已经发送成功。");
+            } else if(ajax.responseText=="-1"){
+                alert("邀请失败，请稍候再试。");
+            } else if(ajax.responseText=="2"){
+                alert("该用户已经报名了。")
+            }
+        }
+    }
+}
+
+</script>
+<style type="text/css">
+/*
+.artContent img {max-width:450px !important;}
+.showContent img{max-width:650px!important;}
+*/
+
+.artContent img{max-width: 450px; width:expression(this.width > 450 ? "450px" : this.width)}
+/*
+.showContent img{max-width: 450px; width:expression(this.width > 650 ? "650px" : this.width)}
+*/
+
+
+</style>
+<link type="text/css" rel="stylesheet" href="1004298_files/bdsstyle.css"><style id="list">
+.showContent ol,.showContent ul{margin:0;pading:0;}.showContent .list-paddingleft-1{padding-left:0}
+.showContent .list-paddingleft-2{padding-left:20px}
+.showContent .list-paddingleft-3{padding-left:40px}
+.showContent ol,.showContent ul{margin:0;pading:0;}.showContent .list-paddingleft-1{padding-left:0}
+.showContent .list-paddingleft-2{padding-left:20px}
+.showContent .list-paddingleft-3{padding-left:40px}</style><link href="" type="text/css" rel="stylesheet" id="syntaxhighlighter_css"><script src="1004298_files/logger.js"></script></head>
+
+<body><iframe style="display: none;" frameborder="0"></iframe><div style="display: block;" id="bdshare_s"><iframe id="bdsIfr" style="position: absolute; display: none; z-index: 9999;" frameborder="0"></iframe><div style="display: none;" id="bdshare_l"><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="#" class="bds_mshare mshare">一键分享</a></li><li><a href="#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="#" class="bds_baidu bdsc">百度搜藏</a></li><li><a href="#" class="bds_renren rrw">人人网</a></li><li><a href="#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="#" class="bds_bdxc bdxc">百度相册</a></li><li><a href="#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="#" class="bds_douban db">豆瓣网</a></li><li><a href="#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="#" class="bds_bdhome bdhome">百度新首页</a></li><li><a href="#" class="bds_sqq sqq">QQ好友</a></li><li><a href="#" class="bds_thx thx">和讯微博</a></li><li><a href="#" class="bds_more">更多...</a></li></ul><p><a href="#" class="goWebsite">百度分享</a></p></div></div></div>
+
+<div id="home_top">
+<div class="top_nav" style="width:990px;">
+<div class="left" style="margin-top:10px; width:440px;"><a href="http://blog.51cto.com/" target="_blank"><img src="1004298_files/head_blog_sibebar_logo.gif" style="margin-top: -4px;" align="absmiddle"></a><a target="_blank" href="http://www.51cto.com/">51CTO首页</a><img src="1004298_files/top_bg_xian.gif" style="margin-top: -4px;" height="25" width="16" align="absmiddle"><a href="http://blog.51cto.com/" target="_blank">51CTO博客</a><img src="1004298_files/top_bg_xian.gif" style="margin-top: -4px;" height="25" width="16" align="absmiddle"><a href="http://home.51cto.com/?reback=http%253A%252F%252Fdl528888.blog.51cto.com%252F2382721%252F1004298">我的博客</a><img src="1004298_files/top_bg_xian.gif" style="margin-top: -4px;" height="25" width="16" align="absmiddle">
+
+<a target="_blank" href="http://blog.51cto.com/search.php">搜索</a>
+<a href="javascript:void(0);" style="color: rgb(255, 0, 0); text-decoration: underline;" id="showMessagerDim">每日博报</a>
+</div>
+
+<div class="right" style="width:550px;">
+<div class="more"><img src="1004298_files/top_shequ.gif" height="16" width="27" align="absmiddle">社区：<a target="_blank" href="http://bbs.51cto.com/">论坛</a><a target="_blank" href="http://blog.51cto.com/">博客</a><a target="_blank" href="http://down.51cto.com/">下载</a><a target="_blank" href="http://book.51cto.com/">读书</a><a href="javascript:viod(0);" onmouseout="popupClose()" onmouseover="show(3,this)">更多<img style="padding-left: 4px;" src="1004298_files/nav_ico1.gif" align="absmiddle"></a>            </div>            <span id="login_status"><div class="login" style="padding-top:8px; text-align:right;"><a href="http://home.51cto.com/index.php?s=/Home/index" style="background: none repeat scroll 0% 0% transparent;"><img style="margin-top: -3px;" id="dia" title="今天领无忧币了吗？" src="1004298_files/dia.gif" width="20" align="absmiddle"></a><a href="http://home.51cto.com/?reback=http%253A%252F%252Fdl528888.blog.51cto.com%252F2382721%252F1004298" target="_self">登录</a><a href="http://ucenter.51cto.com/reg_01.php?reback=http%253A%252F%252Fdl528888.blog.51cto.com%252F2382721%252F1004298" target="_self">注册</a></div></span>                </div>    </div></div>
+
+
+
+<div style="display: none; top: 27px; left: 952px;" class="subMenu3" id="s3" onmouseover="popupNoClose()" onmouseout="popupClose()">
+<ul>
+<li><a href="http://home.51cto.com/" target="_blank">家园</a></li>
+<li><a href="http://t.51cto.com/" target="_blank">微博</a></li>
+<li><a href="http://blog.51cto.com/" target="_blank">博客</a></li>
+<li><a href="http://bbs.51cto.com/" target="_blank">论坛</a></li>
+<li><a href="http://down.51cto.com/" target="_blank">下载</a></li>
+<li><a href="http://selftest.51cto.com/" target="_blank">自测</a></li>
+<li><a href="http://doctor.51cto.com/" target="_blank">门诊</a></li>
+<li><a href="http://blog.51cto.com/newsletter/" target="_blank">周刊</a></li>
+<li><a href="http://book.51cto.com/" target="_blank">读书</a></li>
+<li><a href="http://g.51cto.com/" target="_blank">技术圈</a></li>
+<li><a href="http://zhidao.51cto.com/" target="_blank">知道</a></li>
+</ul>
+</div>
+<!--简导航end-->
+
+
+
+<div class="headerBox">
+<div class="header">
+<div class="header_l">
+<div class="logo_blogname">
+
+
+<div class="blogLogo">
+<a href="http://blog.51cto.com/blogcommend" target="_blank"><img src="1004298_files/blogLogo01.png" height="70px;" width="161px;"></a>
+</div>
+
+
+<div class="blogName">
+<a href="http://dl528888.blog.51cto.com/"><h1>吟—技术交流</h1></a>
+</div>
+</div><!--logo_blogname end-->
+<div class="blogLink">
+
+<a href="http://dl528888.blog.51cto.com/">http://dl528888.blog.51cto.com</a> <input id="txtUser" size="32" value="http://dl528888.blog.51cto.com" type="hidden">   <a href="javascript:void(0);" onclick="copy();">【复制】</a> <a href="http://dl528888.blog.51cto.com/rss.php?uid=2382721" target="_blank"></a><a href="http://dl528888.blog.51cto.com/rss.php?uid=2382721" target="_blank">【订阅】</a>
+
+</div>
+
+
+
+</div><!--header_l end-->
+<div class="header_r">
+<div class="blogInfo"><span><a href="http://dl528888.blog.51cto.com/2382721/o" title="察看dl528888所有原创文章">原创</a>:66</span><span><a href="http://dl528888.blog.51cto.com/2382721/t" title="察看dl528888所有翻译文章">翻译</a>:0</span><span><a href="http://dl528888.blog.51cto.com/2382721/c" title="察看dl528888所有转载文章">转载</a>:9</span></div>
+<div class="blogNav"><a href="http://dl528888.blog.51cto.com/">博 客</a>|<a href="http://dl528888.blog.51cto.com/pic/">图库</a>|<a href="http://dl528888.blog.51cto.com/addblog.php">写博文</a>|<a href="http://51ctoblog.blog.51cto.com/all/26414/4" target="_blank">帮 助</a></div>
+</div>
+</div>
+<!--header end-->
+</div><!--headerBox end-->
+<div class="mainNav">
+<span class="mainNavT"></span>
+<ul>
+<li><a href="#">首页</a></li>|<li><a href="http://dl528888.blog.51cto.com/2382721/d-1">linux</a></li>|<li><a href="http://dl528888.blog.51cto.com/2382721/d-2">oracle应用专题</a></li>|<li><a href="http://dl528888.blog.51cto.com/2382721/d-3">mysql应用专题</a></li>|<li><a href="http://dl528888.blog.51cto.com/2382721/d-4">运维自动化专题</a></li>|<li><a href="http://dl528888.blog.51cto.com/2382721/d-5">项目管理专题</a></li>|<li><a href="http://dl528888.blog.51cto.com/2382721/d-6">数据备份方法</a></li>|<li><a href="http://dl528888.blog.51cto.com/2382721/d-7">存储应用专题</a></li>|<li><a href="http://dl528888.blog.51cto.com/2382721/d-8">FAQ</a></li>|<li><a href="http://dl528888.blog.51cto.com/2382721/d-9">web应用专题</a></li>|<li><a href="http://dl528888.blog.51cto.com/2382721/d-10">架构实例分享</a></li>
+</ul>
+<span class="mainNavB"></span>
+</div>
+<!--mainNav end-->
+
+<script type="text/javascript" src="1004298_files/jquery-1.js"></script>
+<!--[if IE 6]>
+  <script type="text/javascript" src="http://images.watchstor.com/newhomes/png.js"></script>
+  <script>
+    DD_belatedPNG.fix('img,input,ul,li, .get-box, div, .add, .sub, .ui-slider-handle, .footer-chopper');
+  </script>
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="1004298_files/fck_editorarea.css">
+<script type="text/javascript" charset="gbk" src="1004298_files/shCores.js"></script>
+<link rel="stylesheet" type="text/css" href="1004298_files/shCoreDefault.css">
+<script type="text/javascript" charset="gbk" src="1004298_files/uparse.js"></script>
+<script type="text/javascript">
+	uParse('.showContent');
+	$(function(){
+		//为了在编辑器之外能展示高亮代码
+		SyntaxHighlighter.highlight();
+	}); 
+</script>
+<script type="text/javascript">
+/**
+ * 回复评论需要用的js
+ * 2012-5-14
+ * by:chengtao
+ */
+ jQuery(function(){
+	blogpost.init();//初始化博客回复功能
+ })
+ /**
+  * 处理博文评论功能优化
+  */
+ blogpost={
+	abstruct_list:null,
+	init:function(){
+		blogpost.bind();//绑定一些时间
+		this.abstruct_list=new Array();//初始化保存评论信息的数组
+	},
+	/**
+	 * 博客回复需要绑定的一些事件
+	 */
+	bind:function(){
+		/**
+		 * 点击回复的事件
+		 */
+		jQuery('.repost').live('click',function(){
+			blogpost.repost(jQuery(this).attr('user_name'),jQuery(this).attr('parentid'));
+			return false;
+		});
+		/**
+		 * 点击楼层进行翻页且找到锚点
+		 */
+		jQuery('.anchor_page').live('click',function(){
+			var parentid = $(this).attr('parentid');
+			var tid=$(this).attr('tid');
+			$.get('/comments.php?tid='+tid+'&parentid='+parentid,function(data){
+				$('#artcomment').html(data);
+				window.location.hash=''+parentid;
+			})
+			return false;
+		}),
+		jQuery('.anchor_page').live('mouseover',function(){
+			var parentid = $(this).attr('parentid');
+			if(!blogpost.abstruct_list[parentid]){
+				var this_t = $(this);
+				$.get('/comments.php?cid='+parentid,function(data,textStatus){
+					blogpost.abstruct_list[parentid]=data;
+					this_t.attr('title',this_t.text()+':'+ blogpost.abstruct_list[parentid]);
+				});
+			}else{
+				$(this).attr('title',$(this).text()+':'+blogpost.abstruct_list[parentid]);
+			}
+		})
+	},
+	/**
+	 * @param user_name 用户名
+	 * @param parentid  父评论id
+	 */
+	repost:function(user_name,parentid){
+		window.location.hash='comment';
+		jQuery('#parentid').val(parentid);
+		jQuery('#commentcontent').val('回复 '+user_name+":\n").focus();
+		if(!$.browser.mozilla){
+			var elem = jQuery('#commentcontent')[0];		
+			var caretPos = elem.value.length;
+			if (elem.createTextRange) {
+				var range = elem.createTextRange();
+				range.move('character', caretPos);
+				range.select();
+			}else{
+				elem.setSelectionRange(caretPos, caretPos);	
+			}
+		}
+	},
+	/**
+	 * 发送完毕之后清理表单数据 不是ajax可能用不到
+	 */
+	clean:function(){
+		
+	}
+ }
+</script>
+<script type="text/javascript">
+jQuery(function(){
+	var anchor = document.location.hash;
+	var comment_id=anchor.split('#')[1];
+	if(!isNaN(parseInt(comment_id))){//是整形
+		jQuery.get('/comments.php?tid=1004298&parentid='+comment_id,function(data){
+			jQuery('#artcomment').html(data);
+			window.location.hash=''+comment_id;
+		})
+	}
+});
+</script>
+
+
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#favourdiv').mouseover(function(){
+		if(jQuery(this).attr('className') == 'support01')
+		{
+			jQuery(this).attr('className', "support02");
+			jQuery(this).html('+1人');
+			jQuery(this).attr('title', "赞一个，我支持TA");
+		}
+		else if(jQuery(this).attr('className') == 'support03')
+		{
+			jQuery(this).attr('title', "你已经赞了这篇博文！");
+		}
+		
+	});
+	jQuery('#favourdiv').mouseout(function(){
+		if(jQuery(this).attr('className') == 'support02')
+		{
+			jQuery(this).attr('className', "support01");
+			jQuery(this).html("11人");
+		}
+	});
+	jQuery('.blog_match_yq').click(function(){
+		var wind_uid = '';
+		if(!wind_uid){
+			alert("请先登录！");
+			return false;
+		}
+		jQuery.ajax({
+			   type: "POST",
+			   url:"/contest2012/index.php?mod=sendmsg",
+			   dataType: "html",
+			   data: "vuid=" + 2382721,
+			   success: function(data) {
+					if(data == 0)
+					{
+						alert("查无此人！");
+						return false;
+					}else if(data == 1){
+						alert("请先登录！");
+						return false;
+					}else if(data == 2){
+						alert("不能邀请自己！");
+						return false;
+					}else if(data == 22){  
+						alert("邀请信息已发出！");
+						return false;
+					}
+			   }
+		  });
+	});
+	jQuery('#favourdiv').click(function(){
+			jQuery.ajax({
+			   type: "POST",
+			   url:"/mod/favour.php",
+			   dataType: "html",
+			   data: "tid=" + 1004298,
+			   success: function(data) {
+					if(data == 0)
+					{
+						alert("您还未登录或者已过期，请重新登录");
+						location.href = "http://home.51cto.com/index.php?reback=http%253A%252F%252Fdl528888.blog.51cto.com%252F2382721%252F1004298";
+						return false;
+					}
+					else if(data == '-1')
+					{
+						alert("参数传递错误！");
+						return false;
+					}
+					else if(data == '-2')
+					{
+						alert("该博文已被删除或者不存在！");
+						return false;
+					}
+					else if(data == '-3')
+					{
+						alert("您已经赞过了！");
+						return false;
+					}
+					else if(data == '-4')
+					{
+						alert("赞操作失败！");
+						return false;
+					}
+					else
+					{  
+						//alert("操作成功，你已经赞了这篇博文！");
+						jQuery('#favourdiv').attr('className', "support03");
+
+						var num = 11 + 1 + "人";
+						jQuery('#favourdiv').html(num);
+						jQuery('#favourer').html(data);
+						return false;
+					}
+			   }
+		  });
+	})
+
+
+})
+</script>
+
+
+
+
+<style type="text/css">
+.m_sharelinks{ 
+	line-height:36px; 
+	text-align:left; 
+	padding-left:20px; 
+	background:url(http://img1.51cto.com/images/share/ico_lb.gif) no-repeat left center;
+	float:left; 
+	width:600px; 
+	height:36px;
+}
+.m_sharelinks a{ margin-left:10px;}
+.m_sharebtn{ height:50px; width:726px; margin:0 auto;}
+.m_sharebtn01{width:520px; float:left;}
+.weibo_51cto{ background:url(http://img1.51cto.com/images/share/ico_mweibo.gif) no-repeat center center; display:block; width:33px; height:33px; float:left; margin:3px 3px 0 0;cursor:pointer;}
+.shareMored {
+    line-height: 36px;
+	float:right; 
+	text-align:right; 
+	width:100px; 
+	height:36px;
+}
+
+.showContent {
+	margin:20px 15px 8px;
+}
+.userImage img {
+    text-align: center;
+	border:0;
+	padding:0;
+}
+.photo_links{ line-height:30px; padding-top:5px; font-size:13px;width:170px; margin:0 auto;}
+.photo_links_blue{ text-align:center;}
+.photo_links_blue a:link,.photo_links_blue a:visited,.photo_links_blue a:hover,.photo_links_blue a:active{ color:#015F91; text-decoration: underline;}
+.photo_links_red{ text-align:left;}
+.photo_links_red a:link,.photo_links_red a:visited,.photo_links_red a:hover,.photo_links_red a:active{ color:#fc4343; text-decoration:underline;}
+.photo_links_red02{ text-align:center;}
+</style>
+<script language="JavaScript" type="text/javascript" src="1004298_files/group.js"></script>
+<div id="add_sys_type_div" style="width:600px;border:1px #58B0DD solid; background-color:#FFF; position:absolute;left:30%;top:300px;display:none;z-index:255"></div>
+<div id="add_sys_type_divs" style="width:550px;border:1px #58B0DD solid; background-color:#FFF; position:absolute;left:30%;top:300px;display:none;z-index:255"></div>
+
+
+
+<div class="blogMain">
+<div class="blogLeft">
+
+
+<div class="box moduleUser">
+<div class="title">
+<h2><strong>dl528888</strong> 的BLOG  </h2>
+</div>
+<div class="modCon">
+
+<div class="userImage" style="margin: 10px auto 5px;text-align: center;width: 130px;border: 1px solid #D4D4D4;">
+	<table cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr>
+			<td height="130" valign="middle" align="center"><script src="1004298_files/userface.html"></script><img src="1004298_files/avatar_007.jpeg" id="userface"></td>
+		</tr>
+	</tbody></table>
+</div>
+<div class="photo_links">
+</div>
+
+
+
+
+
+
+
+
+
+<div style="width:179px; height:54px; margin:0 auto; clear:both;">
+		<a href="http://blog.51cto.com/contest2012/2382721" target="_blank"><img src="1004298_files/jcbk50.gif"></a>
+	</div>
+
+
+
+
+<div class="crumbs">
+<a href="http://home.51cto.com/index.php?s=/space/2382721#message" class="writeMessage" target="_blank">写留言</a><a href="http://g.51cto.com/addgroup.php?uid=" class="inCircle" target="_blank">邀请进圈子</a><a href="http://home.51cto.com/index.php?s=/Notify/write/uid/2382721" class="message" target="_blank">发消息</a> <a href="http://dl528888.blog.51cto.com/" onclick="add_flink(2382721);return false" class="joinLinks">加友情链接</a><a href="http://home.51cto.com/index.php?s=/space/2382721" class="joinFriends" target="_blank">进家园 加好友</a>
+</div>
+
+<div style="width:239px;height:64px;display:none;">
+
+
+<div style="float:left;"><p style="padding:15px 0 0 28px; line-height:20px;">2012年度IT博客大赛<br><a target="_blank" href="http://blog.51cto.com/contest2012/#top10000" style="color: rgb(255, 0, 0); text-decoration: underline;">十大杰出IT博客诞生</a></p></div>
+<div style="float:right;"><a target="_blank" href="http://blog.51cto.com/contest2012/2382721"><img src="1004298_files/blog_match_endlook.jpg" style="margin: 23px 20px 0pt 0pt;" height="27" width="57"></a></div>
+
+
+
+<div class="clear"></div>
+</div>
+
+
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="infoList box">
+<div class="title">
+<h2>博客统计信息</h2>
+</div>
+<div class="modCon">
+<p>
+<span class="infoListHead"><a href="http://blog.51cto.com/blogcommend" target="_blank" class="operlink"><b>51CTO推荐博客</b></a> <br></span>
+用户名：dl528888<br>
+文章数：76<br>
+评论数：440<br>
+访问量：133071<br>
+<a href="http://home.51cto.com/index.php?s=/Account/credit" target="_blank">无忧币</a>：13302<br>
+<a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank">博客积分</a>：2110<br>
+<a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank">博客等级</a>：6<br>
+注册日期：2010-11-06<br>
+<script src="1004298_files/blogno1countdown.html"></script><style type="text/css">.icon_01{background:url(http://blog.51cto.com/active/no1/images/bks_icon_01.gif) no-repeat 13px 0;padding:1px 0 1px 35px}</style></p><div class="icon_01"><a href="http://blog.51cto.com/active/no1/ing.html" target="_blank">距离博客No.1争夺赛结束还有 <span style="color:#f00">37</span> 天 </a></div> 
+<p></p>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="hotArt box">
+<div class="title">
+<h2>热门文章</h2>
+</div>
+<div class="modCon">
+<ul>
+<li><a href="http://dl528888.blog.51cto.com/2382721/1034992">运维自动化之使用PHP+MYS..</a></li>
+<li><a href="http://dl528888.blog.51cto.com/2382721/804596">Nginx+Tomcat实现动静分离</a></li>
+<li><a href="http://dl528888.blog.51cto.com/2382721/1004298">运维自动化之使用Cobbler..</a></li>
+<li><a href="http://dl528888.blog.51cto.com/2382721/830807">分享我做的nginx+keepali..</a></li>
+<li><a href="http://dl528888.blog.51cto.com/2382721/1035131">运维自动化之使用PHP+MYS..</a></li>
+<li><a href="http://dl528888.blog.51cto.com/2382721/771533">rsync+inotify实现服务器..</a></li>
+<li><a href="http://dl528888.blog.51cto.com/2382721/1159510">运维自动化之基于python..</a></li>
+<li><a href="http://dl528888.blog.51cto.com/2382721/1035335">运维自动化之使用PHP+MYS..</a></li>
+
+</ul>
+</div>
+<span class="modBot"></span>
+</div>
+<div class="search box">
+<div class="title"><h2>搜索BLOG文章</h2></div>
+<div class="modCon">
+<form method="post" action="search.php?" tabindex="99">
+<input name="step" value="2" type="hidden">
+<input name="authorid" value="2382721" type="hidden">
+<input name="sch_area" value="S" type="hidden">
+<input name="keyword" class="searchInput" type="text">
+<input value="搜 索" class="searchBtn" type="submit">
+</form>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="myHome box">
+<div class="title"><h2 class="fl">我的技术圈(<a href="http://dl528888.blog.51cto.com/mygroup.php" target="_blank"><b>4</b></a>)</h2>
+<a href="http://home.51cto.com/apps/group/index.php?s=/Index/index/" class="fr" target="_blank">更多&gt;&gt;</a></div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://g.51cto.com/netengineer" target="_blank">网络工程师联盟</a>&nbsp;&nbsp;
+
+<img src="1004298_files/3.gif" alt="有新成员加入">
+
+</li>
+
+<li><a href="http://g.51cto.com/linuxengineers" target="_blank">Linux运维工程师</a>&nbsp;&nbsp;
+
+<img src="1004298_files/3.gif" alt="有新成员加入">
+
+</li>
+
+<li><a href="http://g.51cto.com/linux" target="_blank">linux-北京圈</a>&nbsp;&nbsp;
+
+<img src="1004298_files/3.gif" alt="有新成员加入">
+
+</li>
+
+<li><a href="http://g.51cto.com/cookinglinux" target="_blank">linux/bsd技术联盟</a>&nbsp;&nbsp;
+
+
+</li>
+
+</ul>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="box recentGuests">
+<div class="title">
+<h2>最近访客</h2>
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://1687141.blog.51cto.com/"><img src="1004298_files/avatar.jpeg"></a>
+<p><a href="http://1687141.blog.51cto.com/">Delta..</a></p>
+
+</li><li><a href="http://1076468.blog.51cto.com/"><img src="1004298_files/avatar_002.gif"></a>
+<p><a href="http://1076468.blog.51cto.com/">caoli..</a></p>
+
+</li><li><a href="http://853326.blog.51cto.com/"><img src="1004298_files/avatar_003.gif"></a>
+<p><a href="http://853326.blog.51cto.com/">hw1017</a></p>
+
+</li><li><a href="http://ttpod.blog.51cto.com/"><img src="1004298_files/avatar_006.jpeg"></a>
+<p><a href="http://ttpod.blog.51cto.com/">anqua..</a></p>
+
+</li><li><a href="http://4531823.blog.51cto.com/"><img src="1004298_files/avatar_005.gif"></a>
+<p><a href="http://4531823.blog.51cto.com/">ritchrs</a></p>
+
+</li><li><a href="http://sukaka.blog.51cto.com/"><img src="1004298_files/avatar_002.jpeg"></a>
+<p><a href="http://sukaka.blog.51cto.com/">sukakazl</a></p>
+
+</li><li><a href="http://crazyming.blog.51cto.com/"><img src="1004298_files/avatar_003.jpeg"></a>
+<p><a href="http://crazyming.blog.51cto.com/">crazy..</a></p>
+
+</li><li><a href="http://4068489.blog.51cto.com/"><img src="1004298_files/avatar.gif"></a>
+<p><a href="http://4068489.blog.51cto.com/">winki..</a></p>
+
+</li><li><a href="http://gongfuxiongmao.blog.51cto.com/"><img src="1004298_files/avatar_004.jpeg"></a>
+<p><a href="http://gongfuxiongmao.blog.51cto.com/">hanfa..</a></p>
+
+</li><li><a href="http://7291408.blog.51cto.com/"><img src="1004298_files/avatar_006.gif"></a>
+<p><a href="http://7291408.blog.51cto.com/">Johncent</a></p>
+
+</li><li><a href="http://5133611.blog.51cto.com/"><img src="1004298_files/avatar_004.gif"></a>
+<p><a href="http://5133611.blog.51cto.com/">ghostyxd</a></p>
+
+</li><li><a href="http://312461613.blog.51cto.com/"><img src="1004298_files/avatar_005.jpeg"></a>
+<p><a href="http://312461613.blog.51cto.com/">lrm929</a></p>
+
+</li></ul>
+<span class="clear"></span>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="newComments box">
+<div class="title">
+<h2>最新评论 
+
+</h2>
+
+
+
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://freman.blog.51cto.com/" class="operlink" target="_blank"><b>freehei</b></a>：<a href="http://dl528888.blog.51cto.com/2382721/763079" target="_blank">如果環境中沒有安裝sendmail呢，那�..</a></li>
+
+<li><a href="http://tntdba.blog.51cto.com/" class="operlink" target="_blank"><b>vbbb625</b></a>：<a href="http://dl528888.blog.51cto.com/2382721/1213286" target="_blank">回复 dl528888: 你换公司啦，我也..</a></li>
+
+<li><a href="http://dl528888.blog.51cto.com/" class="operlink" target="_blank"><b>dl528888</b></a>：<a href="http://dl528888.blog.51cto.com/2382721/1213286" target="_blank">回复 vbbb625: 你说对了，少个l，..</a></li>
+
+<li><a href="http://tntdba.blog.51cto.com/" class="operlink" target="_blank"><b>vbbb625</b></a>：<a href="http://dl528888.blog.51cto.com/2382721/1213286" target="_blank">其实我想说的是标题是不是写错了 - -</a></li>
+
+<li><a href="http://rfyiamcool.blog.51cto.com/" class="operlink" target="_blank"><b>rfyiamcool</b></a>：<a href="http://dl528888.blog.51cto.com/2382721/1213286" target="_blank">不错不错~  </a></li>
+
+
+</ul>
+</div>
+<span class="modBot"></span>
+</div>
+
+
+<div class="hotBlogArt box">
+<div class="title">
+  <h2 class="fl">51CTO推荐博文</h2>
+  <a href="http://blog.51cto.com/artcommend" class="fr">更多&gt;&gt;</a></div>
+<div class="modCon">
+<ul>
+<li><a href="http://dynamic.blog.51cto.com/711418/1220580" title="Lync 小技巧-4-我是否应该用动态内存" target="_blank">Lync 小技巧-4-我是否应该用动态内存</a></li>
+<li><a href="http://redking.blog.51cto.com/27212/1220814" title="CentOS6.4 Linux常用命令" target="_blank">CentOS6.4 Linux常用命令</a></li>
+<li><a href="http://dufei.blog.51cto.com/382644/1220842" title="SCVMM2012 初探：概述" target="_blank">SCVMM2012 初探：概述</a></li>
+<li><a href="http://chenhao6.blog.51cto.com/6228054/1218028" title="Samba文件共享服务（共享脚本 让你工作更轻松）" target="_blank">Samba文件共享服务（共享脚本 让..</a></li>
+<li><a href="http://lansgg.blog.51cto.com/5675165/1220807" title="linux之iptables详解及配置（二）+案例" target="_blank">linux之iptables详解及配置（二）..</a></li>
+<li><a href="http://wgkgood.blog.51cto.com/1192594/1220828" title="使用Shell脚本批量清除Nginx缓存" target="_blank">使用Shell脚本批量清除Nginx缓存</a></li>
+<li><a href="http://frankfan.blog.51cto.com/6402282/1219755" title="【虚拟化实战】网络设计之一vSwitch" target="_blank">【虚拟化实战】网络设计之一vSwitch</a></li>
+<li><a href="http://mageedu.blog.51cto.com/4265610/1220030" title="【马哥Linux在线视频】-Linux文件查找和find用法" target="_blank">【马哥Linux在线视频】-Linux文件..</a></li>
+<li><a href="http://lansgg.blog.51cto.com/5675165/1219516" title="Centos6.0之rsyslog部署日志服务器" target="_blank">Centos6.0之rsyslog部署日志服务器</a></li>
+<li><a href="http://jiushu.blog.51cto.com/972756/1220220" title="SystemCenter2012SP1实践(29)HyperV3.0副本复制详解" target="_blank">SystemCenter2012SP1实践(29)Hype..</a></li>
+<li><a href="http://yanghuawu.blog.51cto.com/2638960/1220221" title="rsync+inotify目录文件实时同步备份" target="_blank">rsync+inotify目录文件实时同步备份</a></li>
+
+</ul>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+<div class="friendLink box">
+<div class="title">
+  <h2>友情链接</h2>
+</div>
+<div class="modCon">
+<ul>
+
+<li><a href="http://bg7nyt.blog.51cto.com/" title="" target="_blank">Netkiller 技术手札</a></li>
+
+<li><a href="http://jzzone.blog.51cto.com/" title="jzz_zh 的BLOG" target="_blank">我还是我</a></li>
+
+<li><a href="http://netemu.blog.51cto.com/" title="撒加的博客" target="_blank">撒加</a></li>
+
+<li><a href="http://xucg.me/" title="linux初学者殿堂" target="_blank">摸不到的颜色</a></li>
+
+<li><a href="http://baidutech.blog.51cto.com/" title="百度技术博客" target="_blank">百度技术博客</a></li>
+
+<li><a href="http://51ctoblog.blog.51cto.com/" title="51CTO博客开发" target="_blank">51CTO博客开发</a></li>
+
+</ul>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div>
+
+
+
+</div>
+<!--left end-->
+
+<script type="text/javascript">
+    var favor_url = "http://dl528888.blog.51cto.com/2382721/1004298";
+    var favor_title = "运维自动化之使用Cobbler自动化安装系统与FAQ";
+    var favor_fuid = "2382721";
+</script>
+<script type="text/javascript" src="1004298_files/favorbox.js"></script>
+<div class="blogRight">
+	<div class="artShow box">
+   	  <div class="share" id="share">
+
+    <div class="shareItem">
+		<div class="m_sharelinks"><a target="_blank" href="http://www.diaochapai.com/survey/b55a849d-cecf-441a-87ce-4d0854fd5831" style="color: blue;">小调查：你拿什么打动了面试官？</a><a target="_blank" href="http://doctor.51cto.com/develop-287.html" style="color: red;">如何运用python轻松应对系统运维？</a><a target="_blank" href="http://blog.51cto.com/contest/college2013/" style="color: blue;">IT博客，你求职的另一份简历</a></div>
+		<p class="shareMored"><a href="http://dl528888.blog.51cto.com/all/2382721">博主的更多文章&gt;&gt;</a></p>
+	</div>
+      </div>
+       <div class="modCon">
+   	  <div class="showBox" style="margin:0 0 10px;">
+      <div class="line_hd_r"></div>
+      <div class="art_tj">
+
+      <a href="http://blog.51cto.com/artcommend" target="_blank"><img src="1004298_files/tj.png"></a>
+
+      </div>
+
+ 
+    		<div class="showHead">
+    		  <div class="showTitleBOx" style="text-align:center">
+              <div class="showTitle">
+
+             <img src="1004298_files/artType01.jpg">
+
+
+    		    运维自动化之使用Cobbler自动化安装系统与FAQ
+                </div>
+  		    </div>
+   		    <span class="artTime">2012-09-24 10:03:52</span></div><!--showHead end-->
+    <div class="showTags">标签：<a href="http://blog.51cto.com/tag-cobbler.html" target="_blank" class="operlink">cobbler</a> <a href="http://blog.51cto.com/tag-%E8%BF%90%E7%BB%B4%E8%87%AA%E5%8A%A8%E5%8C%96.html" target="_blank" class="operlink">运维自动化</a> <a href="http://blog.51cto.com/tag-%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F.html" target="_blank" class="operlink">自动化安装系统</a> <a href="http://blog.51cto.com/tag-cobbler%E7%9A%84faq.html" target="_blank" class="operlink">cobbler的faq</a>
+
+	</div>
+
+			<div class="CopyrightStatement lh22">
+            原创作品，允许转载，转载时请务必以超链接形式标明文章 <a href="http://dl528888.blog.51cto.com/2382721/1004298" target="_blank" style="text-decoration: underline;">原始出处</a> 、作者信息和本声明。否则将追究法律责任。<a href="http://dl528888.blog.51cto.com/2382721/1004298">http://dl528888.blog.51cto.com/2382721/1004298</a>
+            </div>
+
+
+            <!--正文 begin-->
+    		<div class="showContent">
+    		  <p>以前在没有kickstart的时候，安装系统都是通过光盘来安装，如果数量大的话，就会很浪费时间，有了kickstart，通
+过pxe+dhcp+tftp配合kickstart，这样安装系统就方便了很多，现在开源社区里的cobbler工具，使用后觉得比kickstart
+更方便，Cobbler支持命令行管理，web界面管理，还提供了API接口，可以方便二次开发使用。</p>
+<p>一、安装<span>epel源</span></p>
+<p>二、安装与配置<span>cobbler</span></p>
+<p>三、使用<span>koan来实现cobbler重新安装系统</span></p>
+<p>四、<span>cobbler的图形化管理</span></p>
+<div>五、使用<span>vmware来安装系统</span></div>
+<div>&nbsp;</div>
+<div>六、<span>FAQ</span></div>
+<p>&nbsp;</p>
+<div>一、安装<span>epel源</span></div>
+<div>默认的光盘中没有<span>cobbler软件，必须在yum仓库中设置第三方的软件源，才能安装cobbler等软件。这里用的epel软件源</span></div>
+<div>由于我的<span>rhel 5.3 64为系统，所以我下载的是</span></div>
+<div>http://dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm源</div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>wget&nbsp;http://dl.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm &nbsp;</span></span></li><li><span>rpm&nbsp;-ivh&nbsp;epel-release-5-4.noarch.rpm &nbsp;</span></li></ol></pre>
+<div>（<span>1）、什么是epel<br>
+如果既想获得 RHEL 的高质量、高性能、高可靠性，又需要方便易用(关键是免费)的软件包更新功能，那么 Fedora Project 推出的 
+EPEL(Extra Packages for Enterprise 
+Linux)正好适合你。EPEL(http://fedoraproject.org/wiki/EPEL) 是由 Fedora 社区打造，为 
+RHEL 及衍生发行版如 CentOS、Scientific Linux 等提供高质量软件包的项目。<br>
+（2）、使用心得<br>
+1，不用去换原来yum源，安装后会产生新repo<br>
+2，epel会有很多源地址，如果一个下不到，会去另外一个下<br>
+3，更新时如果下载的包不全，就不会进行安装。这样的话，依赖关系可以保重</span></div>
+<div>（<span>3）安装epel源的好处</span></div>
+<div>就是<span>epel这个项目是由fedora维护的，在维护的这个源中包含许多软件，包括ntop，nagios之类的，也就是说，你安装了epel源就可以直接用yum install ntop来安装了，贼方便</span></div>
+<div>不过这个应该针对红帽企业版<span>Linux(RHEL)及其衍生发行版(比如CentOS、Scientific Linux)系统，ubuntu这类的应该不行。</span></div>
+<div>二、安装与配置<span>cobbler</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>yum&nbsp;install&nbsp;cobbler&nbsp;httpd&nbsp;rsync&nbsp;tftp-server&nbsp;xinetd&nbsp;dhcp&nbsp;python-ctypes&nbsp;</span></span></li></ol></pre>
+<div>安装完成后，启动<span>cobbler与httpd，然后输入cobbler check</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;~]#&nbsp;cobbler&nbsp;check &nbsp;</span></span></li><li><span>The&nbsp;following&nbsp;are&nbsp;potential&nbsp;configuration&nbsp;items&nbsp;that&nbsp;you&nbsp;may&nbsp;want&nbsp;to&nbsp;fix: &nbsp;</span></li><li class="alt"><span>&nbsp; &nbsp;</span></li><li><span>&nbsp;1&nbsp;:&nbsp;The&nbsp;'server'&nbsp;field&nbsp;in&nbsp;/etc/cobbler/settings&nbsp;must&nbsp;be&nbsp;set&nbsp;to&nbsp;something&nbsp;other&nbsp;than&nbsp;localhost,or&nbsp;kickstarting&nbsp;features&nbsp;will&nbsp;not&nbsp;work.&nbsp;&nbsp;This&nbsp;should&nbsp;be&nbsp;a&nbsp;resolvable&nbsp;hostname&nbsp;or&nbsp;IP&nbsp;for&nbsp;the&nbsp;boot&nbsp;server&nbsp;as&nbsp;reachable&nbsp;by&nbsp;all&nbsp;machines&nbsp;that&nbsp;will&nbsp;use&nbsp;it. &nbsp;</span></li><li class="alt"><span>&nbsp;2&nbsp;:&nbsp;For&nbsp;PXE&nbsp;to&nbsp;be&nbsp;functional,&nbsp;the&nbsp;'next_server'&nbsp;field&nbsp;in&nbsp;/etc/cobbler/settings&nbsp;must&nbsp;be&nbsp;set&nbsp;to&nbsp;something&nbsp;other&nbsp;than&nbsp;127.0.0.1,&nbsp;and&nbsp;should&nbsp;match&nbsp;the&nbsp;IP&nbsp;of&nbsp;the&nbsp;boot&nbsp;server&nbsp;on&nbsp;the&nbsp;PXE&nbsp;network. &nbsp;</span></li><li><span>&nbsp;3&nbsp;:&nbsp;you&nbsp;need&nbsp;to&nbsp;set&nbsp;some&nbsp;SELinux&nbsp;content&nbsp;rules&nbsp;to&nbsp;ensure&nbsp;cobbler&nbsp;works&nbsp;correctly&nbsp;in&nbsp;your&nbsp;SELinux&nbsp;environment,&nbsp;run&nbsp;the&nbsp;following: &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/usr/sbin/semanage&nbsp;fcontext&nbsp;-a&nbsp;-t&nbsp;public_content_t&nbsp;"/tftpboot/.*"&nbsp;&amp;&amp;&nbsp;\ &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/usr/sbin/semanage&nbsp;fcontext&nbsp;-a&nbsp;-t&nbsp;public_content_t&nbsp;"/var/www/cobbler/images/.*" &nbsp;</span></li><li class="alt"><span>&nbsp;4&nbsp;:&nbsp;some&nbsp;network&nbsp;boot-loaders&nbsp;are&nbsp;missing&nbsp;from&nbsp;/var/lib/cobbler/loaders,&nbsp;you&nbsp;may&nbsp;run&nbsp;'cobbler&nbsp;get-loaders'&nbsp;to&nbsp;download&nbsp;them,&nbsp;or,&nbsp;if&nbsp;you&nbsp;only&nbsp;want&nbsp;to&nbsp;handle&nbsp;x86/x86_64&nbsp;netbooting,&nbsp;you&nbsp;may&nbsp;ensure&nbsp;that&nbsp;you&nbsp;have&nbsp;installed&nbsp;a&nbsp;*recent*&nbsp;version&nbsp;of&nbsp;the&nbsp;syslinux&nbsp;package&nbsp;installed&nbsp;and&nbsp;can&nbsp;ignore&nbsp;this&nbsp;message&nbsp;entirely.&nbsp;&nbsp;Files&nbsp;in&nbsp;this&nbsp;directory,&nbsp;should&nbsp;you&nbsp;want&nbsp;to&nbsp;support&nbsp;all&nbsp;architectures,&nbsp;should&nbsp;include&nbsp;pxelinux.0,&nbsp;menu.c32,&nbsp;elilo.efi,&nbsp;and&nbsp;yaboot.The&nbsp;'cobbler&nbsp;get-loaders'&nbsp;command&nbsp;is&nbsp;the&nbsp;easiest&nbsp;way&nbsp;to&nbsp;resolve&nbsp;these&nbsp;requirements. &nbsp;</span></li><li><span>&nbsp;5&nbsp;:&nbsp;change&nbsp;'disable'&nbsp;to&nbsp;'no'&nbsp;in&nbsp;/etc/xinetd.d/tftp &nbsp;</span></li><li class="alt"><span>&nbsp;6&nbsp;:&nbsp;change&nbsp;'disable'&nbsp;to&nbsp;'no'&nbsp;in&nbsp;/etc/xinetd.d/rsync &nbsp;</span></li><li><span>&nbsp;7&nbsp;:&nbsp;since&nbsp;iptables&nbsp;may&nbsp;be&nbsp;running,&nbsp;ensure&nbsp;69,&nbsp;80,&nbsp;and&nbsp;25151&nbsp;are&nbsp;unblocked &nbsp;</span></li><li class="alt"><span>&nbsp;8&nbsp;:&nbsp;debmirror&nbsp;package&nbsp;is&nbsp;not&nbsp;installed,&nbsp;it&nbsp;will&nbsp;be&nbsp;required&nbsp;to&nbsp;manage&nbsp;debian&nbsp;deployments&nbsp;and&nbsp;repositories &nbsp;</span></li><li><span>&nbsp;9&nbsp;:&nbsp;The&nbsp;default&nbsp;password&nbsp;used&nbsp;by&nbsp;the&nbsp;sample&nbsp;templates&nbsp;for&nbsp;newly&nbsp;installed&nbsp;machines &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(default_password_crypted&nbsp;in&nbsp;/etc/cobbler/settings)&nbsp;is&nbsp;still&nbsp;set&nbsp;to&nbsp;'cobbler'&nbsp;and&nbsp;should&nbsp;be&nbsp;changed, &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try:&nbsp;"openssl&nbsp;passwd&nbsp;-1&nbsp;-salt&nbsp;'random-phrase-here'&nbsp;'your-password-here'"&nbsp;to&nbsp;generate&nbsp;new&nbsp;one &nbsp;</span></li><li class="alt"><span>&nbsp; &nbsp;</span></li><li><span>&nbsp;Restart&nbsp;cobblerd&nbsp;and&nbsp;then&nbsp;run&nbsp;'cobbler&nbsp;sync'&nbsp;to&nbsp;apply&nbsp;changes. &nbsp;</span></li></ol></pre>
+<div>上面这段信息大意就是：</div>
+<div>1，编辑<span>/etc/cobbler/settings文件，找到 server选项，修改为适当的ip地址，本实例配置ip为：192.168.10.1</span></div>
+<div>2，编辑<span>/etc/cobbler/settings文件，找到 next_server选项，修改为适当的ip地址，本实例配置ip为：192.168.10.1</span></div>
+<div>3，<span>SELinux的设置。如果上面已经关闭了SELinux就不用管了</span></div>
+<div>4，执行<span> cobbler get-loaders，系统将自动下载loader程序，完成提示4的修复工作。</span></div>
+<div>5，编辑<span>/etc/xinetd.d/tftp文件，将文件中的disable字段的配置由yes改为no</span></div>
+<div>6，编辑<span>/etc/xinetd.d/rsync文件，将文件中的disable字段的配置由yes改为no</span></div>
+<div>7，在<span>iptables中将69，80，25151端口打开。如果仅仅只是在内部环境中使用，建议直接将防火墙关掉</span></div>
+<div>8，提示说<span>debmirror没安装。如果不是安装 debian之类的系统，此提示可以忽略，如果需要安装，下载地址为：</span></div>
+<div>http://rpmfind.net/linux/rpm2html/search.php?query=debmirror</div>
+<div>CentOS 6使用<span>RHEL 5的包就可以。</span></div>
+<div>9，修改<span>cobbler用户的默认密码，可以使用如下命令生成密码，并使用生成后的密码替换/etc/cobbler/settings中的密码。生成密码命令：</span></div>
+<div>openssl passwd -1 -salt 'random-phrase-here' 'your-password-here'</div>
+<div>其中“<span>random-phrase-here”为干扰码</span></div>
+<div>所有提示全部<span>fix之后，执行</span></div>
+<div>/etc/init.d/cobblerd restart</div>
+<div>&nbsp;</div>
+<div>为了解决上面的问题，使用以下方法：</div>
+<div>1、tftp服务和<span>rsync服务配置</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>sed&nbsp;-i&nbsp;'/disable/c\\tdisable\t\t\</span><span class="attribute">t</span><span>=&nbsp;</span><span class="attribute-value">no</span><span>'&nbsp;/etc/xinetd.d/tftp &nbsp;</span></span></li><li><span>sed&nbsp;-i&nbsp;-e&nbsp;'s/\=\&nbsp;yes/\=\&nbsp;no/g'&nbsp;/etc/xinetd.d/rsync&nbsp; &nbsp;</span></li><li class="alt"><span>service&nbsp;xinetd&nbsp;restart &nbsp;</span></li></ol></pre>
+<div>你的<span>iptables与selinux也必须关闭</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>chkconfig&nbsp;ip6tables&nbsp;off &nbsp;</span></span></li><li><span>chkconfig&nbsp;iptables&nbsp;off &nbsp;</span></li><li class="alt"><span>/etc/init.d/ip6tables&nbsp;stop &nbsp;</span></li><li><span>/etc/init.d/iptables&nbsp;stop &nbsp;</span></li></ol></pre>
+<div>并且<span>selinux修改后，需要重启</span></div>
+<div>2、TFTP服务器<span> IP地址</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>sed&nbsp;-i&nbsp;'s/next_server:&nbsp;127.0.0.1/next_server:&nbsp;192.168.1.225/g'&nbsp;/etc/cobbler/settings&nbsp;</span></span></li></ol></pre>
+<div>3、cobbler管理<span>rsync</span></div>
+<div>&nbsp;</div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>sed&nbsp;-i&nbsp;'s/manage_rsync:&nbsp;0/manage_rsync:&nbsp;1/g'&nbsp;/etc/cobbler/settings&nbsp;</span></span></li></ol></pre>
+<div>4、cobbler管理<span>dhcp</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>sed&nbsp;-i&nbsp;'s/manage_dhcp:&nbsp;0/manage_dhcp:&nbsp;1/g'&nbsp;/etc/cobbler/settings&nbsp;</span></span></li></ol></pre>
+<div>5、dhcp服务是有<span>cobbler来管理 /etc/cobbler/dhcp.template</span></div>
+<div>修改下面的内容就可以。如果你不想内网出个<span>dhcp服务器，那么你需要注释掉 range dynamic-bootp 。不然你内网就会出现一个dhcp服务器。</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>subnet&nbsp;192.168.1.0&nbsp;netmask&nbsp;255.255.255.0&nbsp;{ &nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;option&nbsp;routers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.1; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;option&nbsp;domain-name-servers&nbsp;202.106.0.20; &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;option&nbsp;subnet-mask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;255.255.255.0; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;range&nbsp;dynamic-bootp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.10&nbsp;192.168.1.50; &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/pxelinux.0"; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default-lease-time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;21600; &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max-lease-time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;43200; &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;next-server&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$next_server; &nbsp;</span></li><li><span>} &nbsp;</span></li></ol></pre>
+<div>6、启动菜单</div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>cobbler&nbsp;get-loaders&nbsp;</span></span></li></ol></pre>
+<div>7、然后挂载光盘，导入镜像文件</div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;mnt]#&nbsp;mount&nbsp;-o&nbsp;loop&nbsp;/root/rhel-server-5.3-i386-dvd.iso&nbsp;/mnt/rhel/&nbsp;</span></span></li></ol></pre>
+<div>由于<span>centos里光盘信息比较多，所以导入的时候，会同时创建一个distro，profile。并且还设置的repo。不过这个repo，只包括DVD1，如果希望包括DVD2，还需要做设置才行</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;mnt]#&nbsp;cobbler&nbsp;import&nbsp;</span><span class="attribute">--path</span><span>=/mnt/rhel/&nbsp;</span><span class="attribute">--name</span><span>=</span><span class="attribute-value">rhel</span><span>-server-5.3-i386 &nbsp;</span></span></li><li><span>task&nbsp;started:&nbsp;2012-09-11_225453_import &nbsp;</span></li><li class="alt"><span>task&nbsp;started&nbsp;(</span><span class="attribute">id</span><span>=</span><span class="attribute-value">Media</span><span>&nbsp;import,&nbsp;</span><span class="attribute">time</span><span>=</span><span class="attribute-value">Tue</span><span>&nbsp;Sep&nbsp;11&nbsp;22:54:53&nbsp;2012) &nbsp;</span></li><li><span>Found&nbsp;a&nbsp;redhat&nbsp;compatible&nbsp;signature:&nbsp;Server &nbsp;</span></li><li class="alt"><span>adding&nbsp;distros &nbsp;</span></li><li><span>creating&nbsp;new&nbsp;distro:&nbsp;rhel-server-5.3-i386 &nbsp;</span></li><li class="alt"><span>creating&nbsp;new&nbsp;profile:&nbsp;rhel-server-5.3-i386 &nbsp;</span></li><li><span>creating&nbsp;new&nbsp;distro:&nbsp;rhel-server-5.3-xen-i386 &nbsp;</span></li><li class="alt"><span>creating&nbsp;new&nbsp;profile:&nbsp;rhel-server-5.3-xen-i386 &nbsp;</span></li><li><span>associating&nbsp;repos &nbsp;</span></li><li class="alt"><span>traversing&nbsp;distro&nbsp;rhel-server-5.3-i386 &nbsp;</span></li><li><span>descent&nbsp;into&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386 &nbsp;</span></li><li class="alt"><span>processing&nbsp;repo&nbsp;at&nbsp;:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/ClusterStorage &nbsp;</span></li><li><span>need&nbsp;to&nbsp;process&nbsp;repo/comps:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/ClusterStorage &nbsp;</span></li><li class="alt"><span>looking&nbsp;for&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/ClusterStorage/repodata/*comps*.xml &nbsp;</span></li><li><span>running:&nbsp;createrepo&nbsp;-c&nbsp;cache&nbsp;-s&nbsp;sha&nbsp;--groupfile&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/ClusterStorage/repodata/comps-rhel5-cluster-st.xml&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/ClusterStorage &nbsp;</span></li><li class="alt"><span>39/39&nbsp;-&nbsp;Global_File_System-mr-IN-5.2-1.noarch.rpm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span></li><li><span>Saving&nbsp;Primary&nbsp;metadata &nbsp;</span></li><li class="alt"><span>Saving&nbsp;file&nbsp;lists&nbsp;metadata &nbsp;</span></li><li><span>Saving&nbsp;other&nbsp;metadata &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>received&nbsp;on&nbsp;stderr:&nbsp;This&nbsp;option&nbsp;is&nbsp;deprecated &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>processing&nbsp;repo&nbsp;at&nbsp;:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Server &nbsp;</span></li><li class="alt"><span>need&nbsp;to&nbsp;process&nbsp;repo/comps:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Server &nbsp;</span></li><li><span>looking&nbsp;for&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Server/repodata/*comps*.xml &nbsp;</span></li><li class="alt"><span>running:&nbsp;createrepo&nbsp;-c&nbsp;cache&nbsp;-s&nbsp;sha&nbsp;--groupfile&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Server/repodata/comps-rhel5-server-core.xml&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Server &nbsp;</span></li><li><span>2216/2216&nbsp;-&nbsp;m17n-db-kazakh-1.3.3-48.el5.noarch.rpm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m &nbsp;</span></li><li class="alt"><span>Saving&nbsp;Primary&nbsp;metadata &nbsp;</span></li><li><span>Saving&nbsp;file&nbsp;lists&nbsp;metadata &nbsp;</span></li><li class="alt"><span>Saving&nbsp;other&nbsp;metadata &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>received&nbsp;on&nbsp;stderr:&nbsp;This&nbsp;option&nbsp;is&nbsp;deprecated &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>processing&nbsp;repo&nbsp;at&nbsp;:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/VT &nbsp;</span></li><li><span>need&nbsp;to&nbsp;process&nbsp;repo/comps:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/VT &nbsp;</span></li><li class="alt"><span>looking&nbsp;for&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/VT/repodata/*comps*.xml &nbsp;</span></li><li><span>running:&nbsp;createrepo&nbsp;-c&nbsp;cache&nbsp;-s&nbsp;sha&nbsp;--groupfile&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/VT/repodata/comps-rhel5-vt.xml&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/VT &nbsp;</span></li><li class="alt"><span>35/35&nbsp;-&nbsp;xen-3.0.3-80.el5.i386.rpm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span></li><li><span>Saving&nbsp;Primary&nbsp;metadata &nbsp;</span></li><li class="alt"><span>Saving&nbsp;file&nbsp;lists&nbsp;metadata &nbsp;</span></li><li><span>Saving&nbsp;other&nbsp;metadata &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>received&nbsp;on&nbsp;stderr:&nbsp;This&nbsp;option&nbsp;is&nbsp;deprecated &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>processing&nbsp;repo&nbsp;at&nbsp;:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Cluster &nbsp;</span></li><li class="alt"><span>need&nbsp;to&nbsp;process&nbsp;repo/comps:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Cluster &nbsp;</span></li><li><span>looking&nbsp;for&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Cluster/repodata/*comps*.xml &nbsp;</span></li><li class="alt"><span>running:&nbsp;createrepo&nbsp;-c&nbsp;cache&nbsp;-s&nbsp;sha&nbsp;--groupfile&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Cluster/repodata/comps-rhel5-cluster.xml&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Cluster &nbsp;</span></li><li><span>32/32&nbsp;-&nbsp;Cluster_Administration-es-ES-5.2-1.noarch.rpm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span></li><li class="alt"><span>Saving&nbsp;Primary&nbsp;metadata &nbsp;</span></li><li><span>Saving&nbsp;file&nbsp;lists&nbsp;metadata &nbsp;</span></li><li class="alt"><span>Saving&nbsp;other&nbsp;metadata &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>received&nbsp;on&nbsp;stderr:&nbsp;This&nbsp;option&nbsp;is&nbsp;deprecated &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>traversing&nbsp;distro&nbsp;rhel-server-5.3-xen-i386 &nbsp;</span></li><li><span>descent&nbsp;into&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386 &nbsp;</span></li><li class="alt"><span>processing&nbsp;repo&nbsp;at&nbsp;:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/ClusterStorage &nbsp;</span></li><li><span>need&nbsp;to&nbsp;process&nbsp;repo/comps:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/ClusterStorage &nbsp;</span></li><li class="alt"><span>looking&nbsp;for&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/ClusterStorage/repodata/*comps*.xml &nbsp;</span></li><li><span>running:&nbsp;createrepo&nbsp;-c&nbsp;cache&nbsp;-s&nbsp;sha&nbsp;--groupfile&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/ClusterStorage/repodata/comps-rhel5-cluster-st.xml&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/ClusterStorage &nbsp;</span></li><li class="alt"><span>39/39&nbsp;-&nbsp;Global_File_System-mr-IN-5.2-1.noarch.rpm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span></li><li><span>Saving&nbsp;Primary&nbsp;metadata &nbsp;</span></li><li class="alt"><span>Saving&nbsp;file&nbsp;lists&nbsp;metadata &nbsp;</span></li><li><span>Saving&nbsp;other&nbsp;metadata &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>received&nbsp;on&nbsp;stderr:&nbsp;This&nbsp;option&nbsp;is&nbsp;deprecated &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>processing&nbsp;repo&nbsp;at&nbsp;:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Server &nbsp;</span></li><li class="alt"><span>need&nbsp;to&nbsp;process&nbsp;repo/comps:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Server &nbsp;</span></li><li><span>looking&nbsp;for&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Server/repodata/*comps*.xml &nbsp;</span></li><li class="alt"><span>running:&nbsp;createrepo&nbsp;-c&nbsp;cache&nbsp;-s&nbsp;sha&nbsp;--groupfile&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Server/repodata/comps-rhel5-server-core.xml&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Server &nbsp;</span></li><li><span>2216/2216&nbsp;-&nbsp;m17n-db-kazakh-1.3.3-48.el5.noarch.rpm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m &nbsp;</span></li><li class="alt"><span>Saving&nbsp;Primary&nbsp;metadata &nbsp;</span></li><li><span>Saving&nbsp;file&nbsp;lists&nbsp;metadata &nbsp;</span></li><li class="alt"><span>Saving&nbsp;other&nbsp;metadata &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>received&nbsp;on&nbsp;stderr:&nbsp;This&nbsp;option&nbsp;is&nbsp;deprecated &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>processing&nbsp;repo&nbsp;at&nbsp;:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/VT &nbsp;</span></li><li><span>need&nbsp;to&nbsp;process&nbsp;repo/comps:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/VT &nbsp;</span></li><li class="alt"><span>looking&nbsp;for&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/VT/repodata/*comps*.xml &nbsp;</span></li><li><span>running:&nbsp;createrepo&nbsp;-c&nbsp;cache&nbsp;-s&nbsp;sha&nbsp;--groupfile&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/VT/repodata/comps-rhel5-vt.xml&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/VT &nbsp;</span></li><li class="alt"><span>35/35&nbsp;-&nbsp;xen-3.0.3-80.el5.i386.rpm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span></li><li><span>Saving&nbsp;Primary&nbsp;metadata &nbsp;</span></li><li class="alt"><span>Saving&nbsp;file&nbsp;lists&nbsp;metadata &nbsp;</span></li><li><span>Saving&nbsp;other&nbsp;metadata &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>received&nbsp;on&nbsp;stderr:&nbsp;This&nbsp;option&nbsp;is&nbsp;deprecated &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>processing&nbsp;repo&nbsp;at&nbsp;:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Cluster &nbsp;</span></li><li class="alt"><span>need&nbsp;to&nbsp;process&nbsp;repo/comps:&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Cluster &nbsp;</span></li><li><span>looking&nbsp;for&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Cluster/repodata/*comps*.xml &nbsp;</span></li><li class="alt"><span>running:&nbsp;createrepo&nbsp;-c&nbsp;cache&nbsp;-s&nbsp;sha&nbsp;--groupfile&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Cluster/repodata/comps-rhel5-cluster.xml&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/Cluster &nbsp;</span></li><li><span>32/32&nbsp;-&nbsp;Cluster_Administration-es-ES-5.2-1.noarch.rpm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span></li><li class="alt"><span>Saving&nbsp;Primary&nbsp;metadata &nbsp;</span></li><li><span>Saving&nbsp;file&nbsp;lists&nbsp;metadata &nbsp;</span></li><li class="alt"><span>Saving&nbsp;other&nbsp;metadata &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>received&nbsp;on&nbsp;stderr:&nbsp;This&nbsp;option&nbsp;is&nbsp;deprecated &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>associating&nbsp;kickstarts &nbsp;</span></li><li><span>***&nbsp;TASK&nbsp;COMPLETE&nbsp;*** &nbsp;</span></li></ol></pre>
+<div>导入的镜像存储在<span>/var/www/cobbler/ks_mirror/这个目录下<br>
+cobbler distro list 查看导入结果</span></div>
+<div>8、完成后同步所有配置</div>
+<div>每次修改后必须<span>cobbler sync同步配置</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;~]#&nbsp;cobbler&nbsp;sync &nbsp;</span></span></li><li><span>task&nbsp;started:&nbsp;2012-09-11_233141_sync &nbsp;</span></li><li class="alt"><span>task&nbsp;started&nbsp;(</span><span class="attribute">id</span><span>=</span><span class="attribute-value">Sync</span><span>,&nbsp;</span><span class="attribute">time</span><span>=</span><span class="attribute-value">Tue</span><span>&nbsp;Sep&nbsp;11&nbsp;23:31:41&nbsp;2012) &nbsp;</span></li><li><span>running&nbsp;pre-sync&nbsp;triggers &nbsp;</span></li><li class="alt"><span>cleaning&nbsp;trees &nbsp;</span></li><li><span>removing:&nbsp;/var/www/cobbler/images/rhel-server-5.3-xen-i386 &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/var/www/cobbler/images/rhel-server-5.3-i386 &nbsp;</span></li><li><span>removing:&nbsp;/tftpboot/pxelinux.cfg/default &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/tftpboot/grub/images &nbsp;</span></li><li><span>removing:&nbsp;/tftpboot/grub/efidefault &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/tftpboot/s390x/profile_list &nbsp;</span></li><li><span>copying&nbsp;bootloaders &nbsp;</span></li><li class="alt"><span>copying:&nbsp;/var/lib/cobbler/loaders/pxelinux.0&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/pxelinux.0 &nbsp;</span></li><li><span>copying:&nbsp;/usr/lib/syslinux/pxelinux.0&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/pxelinux.0 &nbsp;</span></li><li class="alt"><span>copying:&nbsp;/usr/lib/syslinux/menu.c32&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/menu.c32 &nbsp;</span></li><li><span>copying:&nbsp;/var/lib/cobbler/loaders/yaboot&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/yaboot &nbsp;</span></li><li class="alt"><span>copying:&nbsp;/usr/lib/syslinux/memdisk&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/memdisk &nbsp;</span></li><li><span>copying&nbsp;distros&nbsp;to&nbsp;tftpboot &nbsp;</span></li><li class="alt"><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;rhel-server-5.3-xen-i386 &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/images/xen/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/rhel-server-5.3-xen-i386/vmlinuz &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/images/xen/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/rhel-server-5.3-xen-i386/initrd.img &nbsp;</span></li><li><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;rhel-server-5.3-i386 &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/images/pxeboot/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/rhel-server-5.3-i386/vmlinuz &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/images/pxeboot/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/rhel-server-5.3-i386/initrd.img &nbsp;</span></li><li class="alt"><span>copying&nbsp;images &nbsp;</span></li><li><span>generating&nbsp;PXE&nbsp;configuration&nbsp;files &nbsp;</span></li><li class="alt"><span>generating&nbsp;PXE&nbsp;menu&nbsp;structure &nbsp;</span></li><li><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;rhel-server-5.3-xen-i386 &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/images/xen/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/rhel-server-5.3-xen-i386/vmlinuz &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/images/xen/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/rhel-server-5.3-xen-i386/initrd.img &nbsp;</span></li><li class="alt"><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;rhel-server-5.3-i386 &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/images/pxeboot/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/rhel-server-5.3-i386/vmlinuz &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-server-5.3-i386/images/pxeboot/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/rhel-server-5.3-i386/initrd.img &nbsp;</span></li><li><span>rendering&nbsp;DHCP&nbsp;files &nbsp;</span></li><li class="alt"><span>generating&nbsp;/etc/dhcpd.conf &nbsp;</span></li><li><span>rendering&nbsp;TFTPD&nbsp;files &nbsp;</span></li><li class="alt"><span>generating&nbsp;/etc/xinetd.d/tftp &nbsp;</span></li><li><span>cleaning&nbsp;link&nbsp;caches &nbsp;</span></li><li class="alt"><span>running&nbsp;post-sync&nbsp;triggers &nbsp;</span></li><li><span>running&nbsp;python&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/sync/post/* &nbsp;</span></li><li class="alt"><span>running&nbsp;python&nbsp;trigger&nbsp;cobbler.modules.sync_post_restart_services &nbsp;</span></li><li><span>running:&nbsp;dhcpd&nbsp;-t&nbsp;-q &nbsp;</span></li><li class="alt"><span>received&nbsp;on&nbsp;stdout:&nbsp; &nbsp;</span></li><li><span>received&nbsp;on&nbsp;stderr:&nbsp; &nbsp;</span></li><li class="alt"><span>running:&nbsp;service&nbsp;dhcpd&nbsp;restart &nbsp;</span></li><li><span>received&nbsp;on&nbsp;stdout:&nbsp;Starting&nbsp;dhcpd:&nbsp;[&nbsp;&nbsp;OK&nbsp;&nbsp;] &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>received&nbsp;on&nbsp;stderr:&nbsp; &nbsp;</span></li><li class="alt"><span>running&nbsp;shell&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/sync/post/* &nbsp;</span></li><li><span>running&nbsp;python&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/change/* &nbsp;</span></li><li class="alt"><span>running&nbsp;python&nbsp;trigger&nbsp;cobbler.modules.scm_track &nbsp;</span></li><li><span>running&nbsp;shell&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/change/* &nbsp;</span></li><li class="alt"><span>***&nbsp;TASK&nbsp;COMPLETE&nbsp;*** &nbsp;</span></li><li><span>看到以下内容即成功： &nbsp;</span></li><li class="alt"><span>running&nbsp;shell&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/change/* &nbsp;</span></li><li><span>***&nbsp;TASK&nbsp;COMPLETE&nbsp;*** &nbsp;</span></li><li class="alt"><span>若看到以下内容： &nbsp;</span></li><li><span>dhcpd&nbsp;-t&nbsp;failed &nbsp;</span></li><li class="alt"><span>Exception&nbsp;occured:&nbsp;cobbler.cexceptions.CX &nbsp;</span></li><li><span>Exception&nbsp;value:&nbsp;'cobbler&nbsp;trigger&nbsp;failed:&nbsp;cobbler.modules.sync_post_restart_services' &nbsp;</span></li><li class="alt"><span>...................................................................... &nbsp;</span></li></ol></pre>
+<div>去查看下<span>/var/log/messages这里一定有你需要的信息</span></div>
+<div>9、然后再重启<span>xinted、httpd、cobblerd</span></div>
+<div>cobbler sync时会自动启动<span>dhcpd的服务，不需要单独启动。</span></div>
+<div><b>重要：用<span>cobbler安装操作系统时，cobbler真正执行的kickstart文件其实不是&nbsp;/var
+/lib/cobbler/kickstarts/default.ks，而是&nbsp;/var/lib/cobbler/kickstarts
+/sample.ks，当然，这是在默认没有手动指定profile的情况下。</span></b></div>
+<div>对<span>ks进行配置，可以参考kickstart的配置，使用</span>system-config-kickstart命令来进行图形化的配置，如果没有这个命令的话，可以yum install system-config-kickstart.noarch来安装。</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp;学习<span>cobbler配置，最好把kickstart的配置文件也搞懂，默认sample.ks文件会清空硬盘所有分区资料。</span></div>
+<div>下面贴出我的&nbsp;<b>sample.ks</b></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;kickstarts]#&nbsp;cat&nbsp;sample.ks &nbsp;</span></span></li><li><span>#</span><span class="attribute">platform</span><span>=</span><span class="attribute-value">x86</span><span>,&nbsp;AMD64,&nbsp;or&nbsp;Intel&nbsp;EM64T &nbsp;</span></li><li class="alt"><span>#&nbsp;System&nbsp;authorization&nbsp;information &nbsp;</span></li><li><span>auth&nbsp;&nbsp;--useshadow&nbsp;&nbsp;--enablemd5 &nbsp;</span></li><li class="alt"><span>#&nbsp;System&nbsp;bootloader&nbsp;configuration &nbsp;</span></li><li><span>bootloader&nbsp;</span><span class="attribute">--location</span><span>=</span><span class="attribute-value">mbr</span><span>&nbsp;</span></li><li class="alt"><span>#&nbsp;Partition&nbsp;clearing&nbsp;information &nbsp;</span></li><li><span>clearpart&nbsp;--all&nbsp;--initlabel &nbsp;</span></li><li class="alt"><span>#&nbsp;Use&nbsp;text&nbsp;mode&nbsp;install &nbsp;</span></li><li><span>lang&nbsp;zh_CN.UTF-8 &nbsp;</span></li><li class="alt"><span>#langsupport&nbsp;zh_CN.UTF-8&nbsp;en_US&nbsp;</span><span class="attribute">--default</span><span>=</span><span class="attribute-value">en_US</span><span>&nbsp;</span></li><li><span>keyboard&nbsp;us &nbsp;</span></li><li class="alt"><span>#mouse&nbsp;generic3ps/2 &nbsp;</span></li><li><span>timezone&nbsp;Asia/Shanghai &nbsp;</span></li><li class="alt"><span>install &nbsp;</span></li><li><span>url&nbsp;</span><span class="attribute">--url</span><span>=$tree &nbsp;</span></li><li class="alt"><span>text &nbsp;</span></li><li><span>#zerombr&nbsp;yes &nbsp;</span></li><li class="alt"><span>#Partition&nbsp;clearing&nbsp;information &nbsp;</span></li><li><span>part&nbsp;/boot&nbsp;--fstype&nbsp;ext3&nbsp;</span><span class="attribute">--size</span><span>=</span><span class="attribute-value">100</span><span>&nbsp;</span></li><li class="alt"><span>part&nbsp;swap&nbsp;</span><span class="attribute">--size</span><span>=</span><span class="attribute-value">2048</span><span>&nbsp;</span></li><li><span>part&nbsp;/&nbsp;--fstype&nbsp;ext3&nbsp;</span><span class="attribute">--size</span><span>=</span><span class="attribute-value">10000</span><span>&nbsp;</span></li><li class="alt"><span>network&nbsp;--bootproto&nbsp;static&nbsp;--device&nbsp;eth0&nbsp;--ip&nbsp;192.168.1.55&nbsp;--netmask&nbsp;255.255.255.0&nbsp;</span><span class="attribute">--gateway</span><span>=</span><span class="attribute-value">192</span><span>.168.1.1&nbsp;--noipv6&nbsp;--hostname&nbsp;test &nbsp;</span></li><li><span>firewall&nbsp;--disabled &nbsp;</span></li><li class="alt"><span>selinux&nbsp;--disabled &nbsp;</span></li><li><span>skipx &nbsp;</span></li><li class="alt"><span>#&nbsp;Network&nbsp;information &nbsp;</span></li><li><span>#---&nbsp;Reboot&nbsp;the&nbsp;host&nbsp;after&nbsp;installation&nbsp;is&nbsp;done&nbsp;&nbsp; &nbsp;</span></li><li class="alt"><span>reboot &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>#Root&nbsp;password &nbsp;</span></li><li><span>rootpw&nbsp;123456 &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>%pre &nbsp;</span></li><li class="alt"><span>$SNIPPET('log_ks_pre') &nbsp;</span></li><li><span>$SNIPPET('kickstart_start') &nbsp;</span></li><li class="alt"><span>$SNIPPET('pre_install_network_config') &nbsp;</span></li><li><span>%packages &nbsp;</span></li><li class="alt"><span>@base &nbsp;</span></li><li><span>@core &nbsp;</span></li><li class="alt"><span>@development &nbsp;</span></li><li><span>device-mapper-multipath &nbsp;</span></li><li class="alt"><span>imake &nbsp;</span></li><li><span>%post &nbsp;</span></li><li class="alt"><span>$SNIPPET('log_ks_post') &nbsp;</span></li><li><span>#&nbsp;Start&nbsp;yum&nbsp;configuration&nbsp; &nbsp;</span></li><li class="alt"><span>$yum_config_stanza &nbsp;</span></li><li><span>#&nbsp;End&nbsp;yum&nbsp;configuration &nbsp;</span></li><li class="alt"><span>$SNIPPET('post_install_kernel_options') &nbsp;</span></li><li><span>#$SNIPPET('post_install_network_config') &nbsp;</span></li><li class="alt"><span>echo&nbsp;"</span><span class="attribute">NETWORKING</span><span>=</span><span class="attribute-value">yes</span><span>"&nbsp;</span><span class="tag">&gt;</span><span>/etc/sysconfig/network &nbsp;</span></li><li><span>echo&nbsp;"</span><span class="attribute">NETWORKING_IPV6</span><span>=</span><span class="attribute-value">no</span><span>"&nbsp;</span><span class="tag">&gt;</span><span class="tag">&gt;</span><span>/etc/sysconfig/network &nbsp;</span></li><li class="alt"><span>echo&nbsp;"</span><span class="attribute">HOSTNAME</span><span>=</span><span class="attribute-value">cobbler</span><span>"&nbsp;</span><span class="tag">&gt;</span><span class="tag">&gt;</span><span>/etc/sysconfig/network &nbsp;</span></li><li><span>echo&nbsp;"</span><span class="attribute">GATEWAY</span><span>=</span><span class="attribute-value">192</span><span>.168.1.1"</span><span class="tag">&gt;</span><span class="tag">&gt;</span><span>/etc/sysconfig/network &nbsp;</span></li><li class="alt"><span>echo&nbsp;"nameserver&nbsp;&nbsp;192.168.1.1"&nbsp;</span><span class="tag">&gt;</span><span>/etc/resolv.conf &nbsp;</span></li><li><span>echo&nbsp;"nameserver&nbsp;&nbsp;202.106.0.20"&nbsp;</span><span class="tag">&gt;</span><span class="tag">&gt;</span><span>/etc/resolv.conf &nbsp;</span></li><li class="alt"><span>for&nbsp;service&nbsp;in&nbsp;`chkconfig&nbsp;--list|awk&nbsp;'{print&nbsp;$1}'|egrep&nbsp;-v&nbsp;"^$"|awk&nbsp;-F&nbsp;":"&nbsp;'{print&nbsp;$1}'`;&nbsp;do&nbsp;chkconfig&nbsp;$service&nbsp;off;done &nbsp;</span></li><li><span>for&nbsp;service&nbsp;in&nbsp;crond&nbsp;&nbsp;sshd&nbsp;syslog&nbsp;network;&nbsp;do&nbsp;chkconfig&nbsp;$service&nbsp;on;done &nbsp;</span></li><li class="alt"><span>ulimit&nbsp;-HSn&nbsp;65535 &nbsp;</span></li><li><span>echo&nbsp;"this&nbsp;is&nbsp;cobber"</span><span class="tag">&gt;</span><span>/etc/motd &nbsp;</span></li><li class="alt"><span>#&nbsp;Start&nbsp;final&nbsp;steps &nbsp;</span></li><li><span>$SNIPPET('kickstart_done') &nbsp;</span></li><li class="alt"><span>#&nbsp;End&nbsp;final&nbsp;steps &nbsp;</span></li></ol></pre>
+<div>10、安装第三方的<span>repo源</span></div>
+<div>这个源里面有<span>2726个rpm包，所以如果你安装的话，得看你的的网络是否给力，硬盘空间是否足够了。</span></div>
+<div>下面是我的第三方源的<span>rpm包个数</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;CentOS]#&nbsp;cd&nbsp;/var/www/cobbler/repo_mirror/rhel-5.3/CentOS/ &nbsp;</span></span></li><li><span>[root@cobbler&nbsp;CentOS]#&nbsp;ll|wc&nbsp;-l &nbsp;</span></li><li class="alt"><span>2726 &nbsp;</span></li></ol></pre>
+<div>如果想安装第三放源，可以使用下面命令：</div>
+<div>（<span>1）</span>添加第三方<span>rpm仓库</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>cobbler&nbsp;repo&nbsp;add&nbsp;</span><span class="attribute">--name</span><span>=</span><span class="attribute-value">rhel</span><span>-5.3&nbsp;</span><span class="attribute">--mirror</span><span>=</span><span class="attribute-value">http</span><span>://mirrors.163.com/centos/5/os/i386/&nbsp;</span></span></li></ol></pre>
+<div>（<span>2）</span>添加完成后，同步<span>epel上的文件到本地：</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>cobbler&nbsp;reposync&nbsp;</span></span></li></ol></pre>
+<p>11、设置<span>profile和system:</span></p>
+<div>这里你也可以不用设置<span>profile，因为默认已经创建了profile，下面是我的cobbler list</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/100318799.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/100318799.jpg" border="0"></a></p>
+<div>如果有多个发行版，则在创建<span>system的时候就要指定使用哪个发行版了。</span></div>
+<div>添加<span>profile:</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>cobbler&nbsp;profile&nbsp;</span><span class="attribute">--name</span><span>=</span><span class="attribute-value">rhel6</span><span>&nbsp;</span><span class="attribute">--distro</span><span>=</span><span class="attribute-value">RHEL6_X86_64</span><span>-x86_64&nbsp;</span><span class="attribute">--kickstart</span><span>=/var/lib/cobbler/kickstarts/rhel6.ks&nbsp;</span></span></li></ol></pre>
+<div>三、使用<span>koan来实现cobbler重新安装系统</span></div>
+<div>1、这个软件是安装在客户端的，可以对已经存在的客户端进行重新安装，默认的系统光盘里是没有的，必须使用第三方源，这里是<span>epel软件源，执行yum install koan即可。</span></div>
+<div>2、查看<span>cobbler server上的配置文件<br>
+koan --server=192.168.1.225 --list=profiles</span></div>
+<div>3、重新安装客户端系统<span><br>
+koan --replace-self --server=192.168.1.225 --profile=rhel-5.3-i386<br>
+reboot<br>
+4、reboot重启服务器后，客户端服务器会自动重新安装操作系统</span></div>
+<div>四、<span>cobbler的图形化管理</span></div>
+<div>cobbler的使用，主要是集中在上面几个菜单里。这里简单解析一下。</div>
+<div>Distros：这个其实就是发行版，类似<span>Centos，ubuntu，suse。centos6.2和centos6.3，是不同的distros。假设我们导入一个centos6.3的iso，就是增加了一个Distros</span></div>
+<div>Profiles：针对<span>Distros的设置，一个distros，可以保护多个profiles，包括不同的kickstart文件。源的设置，都是在这里设置。</span></div>
+<div>Systems：针对是每个节点，这里可以指定节点的<span>ip地址，dns name，还有就是ipmi的用户名和密码，实现远程开机，关机。这是一个重点，日后对机器的操作，全部在sytem的菜单里操作。system里，会指定节点使用哪个profile。</span></div>
+<div>Repos：这个主要是针对<span>Redhat和Centos有效，可以管理源，并且这些源，可以在profile里添加。比较方便。需要注意的是，对于ubuntu的源，只能在kickstart 脚本里指定。</span></div>
+<div>Images：这个我没用到，看说明主要是针对不能<span>pxe的机器，采用iso启动。</span></div>
+<div>Kicsstart Templates：这是核心，<span>cobbler内置了几个ks文件，你如果导入一个centos，系统会默认关联一个ks文件，你不需要做任何设置，就可以把os自动装完。对于ubuntu，我们就需要单独创建一个preseed文件，这些文件可以通过web管理和修改。非常方便。</span></div>
+<div>Snippets：这是<span>cobbler的精华。一些常用的设置，写成一个模块，让ks文件调用。这样更加灵活。例如centos的网络固定IP地址的设置，就是通过这里实现。</span></div>
+<div>1、安装<span>cobbler_web</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>yum&nbsp;install&nbsp;cobbler-web&nbsp;</span></span></li></ol></pre>
+<p>2、设置用户名密码：<span><br>
+为已存在的用户重置密码：</span></p>
+<pre><ol class="dp-xml"><li class="alt"><span><span>htdigest&nbsp;/etc/cobbler/users.digest&nbsp;"Cobbler"&nbsp;cobbler&nbsp; &nbsp;</span></span></li><li><span>添加新用户： &nbsp;</span></li><li class="alt"><span>htdigest&nbsp;/etc/cobbler/users.digest&nbsp;"Cobbler"&nbsp;your_newname &nbsp;</span></li></ol></pre>
+<div>3、<span>web可以登录</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>sed&nbsp;-i&nbsp;'s/authn_denyall/authn_configfile/g'&nbsp;/etc/cobbler/modules.conf&nbsp;</span></span></li></ol></pre>
+<div>4、重启<span>cobbler与http</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>service&nbsp;cobblerd&nbsp;restart &nbsp;</span></span></li><li><span>/etc/init.d/httpd&nbsp;restart &nbsp;</span></li></ol></pre>
+<div>如果只是重启<span>cobbler，那么在web里打开cobbler的时候，就会出现404错误，如下图</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/100730806.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/100730806.jpg" border="0"></a>&nbsp;</p>
+<p>5、<span>Cobbler web界面访问地址：</span></p>
+<div>http://192.168.1.225/cobbler_web/ （<span>192.168.1.225为Cobbler web server地址）</span></div>
+<div>用户与密码是第<span>2步设置的。</span></div>
+<div>五、使用<span>vmware来通过Cobbler安装系统</span></div>
+<div>1、新建个虚拟机，选择自定义配置，然后选择下一步</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/100840289.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/100840289.jpg" border="0"></a></p>
+<div>2、硬件兼容性，我选择<span>workstation 8.0（这个按照你的需要选择），然后选择下一步</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/100922206.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/100922206.jpg" border="0"></a></p>
+<div>3、设置<span>vmware的如何安装系统时候，不选择镜像，选择以后再安装操作系统，然后选择下一步</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101033449.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101033449.jpg" border="0"></a></p>
+<div>4、系统我选择的<span>rhel5，然后选择下一步</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101123324.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101123324.jpg" border="0"></a></p>
+<div>5、虚拟机名字与位置，根据你的需要设置，然后选择下一步</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101200995.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101200995.jpg" border="0"></a></p>
+<div>6、处理器核数，我选择默认，然后选择下一步</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101246907.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101246907.jpg" border="0"></a></p>
+<div>7、内存大小，我选择<span>1024MB，然后选择下一步</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101321699.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101321699.jpg" border="0"></a></p>
+<div>8、然后再选择网络的时候，选择桥接，然后选择下一步</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101359427.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101359427.jpg" border="0"></a></p>
+<div>9、<span>I/O我选择默认的，然后选择下一步</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101432634.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101432634.jpg" border="0"></a></p>
+<div>10、我选择创建一个新的虚拟磁盘，然后选择下一步</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101503446.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101503446.jpg" border="0"></a></p>
+<div>11、磁盘类型，我选择<span>scsi，然后选择下一步</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101544682.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101544682.jpg" border="0"></a></p>
+<div>12、磁盘大小，我选择<span>20GB，由于是测试，所以没不要那么大，然后选择下一步</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101612688.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101612688.jpg" border="0"></a></p>
+<div>13、直接默认，然后选择下一步</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101641669.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101641669.jpg" border="0"></a></p>
+<div>14、选择完成即可</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101711645.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101711645.jpg" border="0"></a></p>
+<div>15、之后启动<span>vmware的时候，默认就是dhcp安装</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101739921.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101739921.jpg" border="0"></a></p>
+<div>16、等<span>dhcp获取了cobbler的地址，就会出现以下界面，选择我们的rhel-5.3-i386，然后回车</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101858100.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101858100.jpg" border="0"></a></p>
+<div>然后等待即可</div>
+<div>17、之后就出现以下界面，选择<span>skip，然后ok</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101927760.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101927760.jpg" border="0"></a></p>
+<div>18、如果出现以下界面，选择<span>Continue，这个界面主要是安装我ks里的packages</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/101954250.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/101954250.jpg" border="0"></a></p>
+<div>19、以下界面是安装刚才的<span>package界面，等待既可以</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/102026322.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/102026322.jpg" border="0"></a></p>
+<div>20、出现以下界面代表系统安装成功</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/102106523.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/102106523.jpg" border="0"></a></p>
+<div>输入你的账号与密码即可，比如我是账号是<span>root，密码是ks里的rootpw为123456</span></div>
+<div>21、成功登陆后，发现有个信息为“<span>this&nbsp;is cobbler”这个是我在ks里设置/etc/motd里的内容</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/102134580.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/102134580.jpg" border="0"></a></p>
+<div>22、在查看一下内存与硬盘分区大小，查看是否与我们在<span>ks里设置的一样</span></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/102205938.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/102205938.jpg" border="0"></a></p>
+<div>经过对比，没有发现问题，所以此次使用<span>vmware来通过cobbler安装rhel 5.3系统成功。</span></div>
+<div>上面的<span>ks配置与vmware安装系统，为了给大家观看方便，所以在进行vmware安装系统的时候，通过dhcp找到cobbler的ip，然后选择镜像来安装系统，下面是ks配置与操作，是进行自动化安装系统。</span></div>
+<div>1、查看列表</div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;centos-6.3]#&nbsp;cobbler&nbsp;list &nbsp;</span></span></li><li><span>distros: &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;rhel-5.3-i386 &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;rhel-5.3-xen-i386 &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>profiles: &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;rhel-5.3-i386 &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;rhel-5.3-xen-i386 &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>systems: &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>repos: &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;rhel-5.3 &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>images: &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>mgmtclasses: &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>packages: &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>files: &nbsp;</span></li></ol></pre>
+<div>可以看到现在只有<span>rhel-5.3镜像与配置</span></div>
+<div>2、现在挂载<span>centos6.3镜像</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;centos-6.3]#&nbsp;cobbler&nbsp;import&nbsp;</span><span class="attribute">--path</span><span>=/mnt/centos-6.3/&nbsp;</span><span class="attribute">--name</span><span>=</span><span class="attribute-value">centos6</span><span>.3 &nbsp;</span></span></li><li><span>task&nbsp;started:&nbsp;2012-09-23_074339_import &nbsp;</span></li><li class="alt"><span>task&nbsp;started&nbsp;(</span><span class="attribute">id</span><span>=</span><span class="attribute-value">Media</span><span>&nbsp;import,&nbsp;</span><span class="attribute">time</span><span>=</span><span class="attribute-value">Sun</span><span>&nbsp;Sep&nbsp;23&nbsp;07:43:39&nbsp;2012) &nbsp;</span></li><li><span>Found&nbsp;a&nbsp;redhat&nbsp;compatible&nbsp;signature:&nbsp;Packages &nbsp;</span></li><li class="alt"><span>adding&nbsp;distros &nbsp;</span></li><li><span>creating&nbsp;new&nbsp;distro:&nbsp;centos-6.3-i386 &nbsp;</span></li><li class="alt"><span>creating&nbsp;new&nbsp;profile:&nbsp;centos-6.3-i386 &nbsp;</span></li><li><span>associating&nbsp;repos &nbsp;</span></li><li class="alt"><span>traversing&nbsp;distro&nbsp;centos-6.3-i386 &nbsp;</span></li><li><span>descent&nbsp;into&nbsp;/var/www/cobbler/ks_mirror/centos-6.3 &nbsp;</span></li><li class="alt"><span>processing&nbsp;repo&nbsp;at&nbsp;:&nbsp;/var/www/cobbler/ks_mirror/centos-6.3 &nbsp;</span></li><li><span>need&nbsp;to&nbsp;process&nbsp;repo/comps:&nbsp;/var/www/cobbler/ks_mirror/centos-6.3 &nbsp;</span></li><li class="alt"><span>looking&nbsp;for&nbsp;/var/www/cobbler/ks_mirror/centos-6.3/repodata/*comps*.xml &nbsp;</span></li><li><span>running:&nbsp;createrepo&nbsp;-c&nbsp;cache&nbsp;-s&nbsp;sha&nbsp;--groupfile&nbsp;/var/www/cobbler/ks_mirror/centos-6.3/repodata/151ad5b0a3056212a6012b429192adcabba8b37571ff12453d6a29bc5199c943-c6-i386-comps.xml&nbsp;/var/www/cobbler/ks_mirror/centos-6.3 &nbsp;</span></li><li class="alt"><span>3024/3024&nbsp;-&nbsp;Packages/git-1.7.1-2.el6_0.1.i686.rpm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mpm &nbsp;</span></li><li><span>Saving&nbsp;Primary&nbsp;metadata &nbsp;</span></li><li class="alt"><span>Saving&nbsp;file&nbsp;lists&nbsp;metadata &nbsp;</span></li><li><span>Saving&nbsp;other&nbsp;metadata &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>received&nbsp;on&nbsp;stderr:&nbsp;This&nbsp;option&nbsp;is&nbsp;deprecated &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>associating&nbsp;kickstarts &nbsp;</span></li><li class="alt"><span>***&nbsp;TASK&nbsp;COMPLETE&nbsp;*** &nbsp;</span></li></ol></pre>
+<div>iso镜像导入完成后，查看一下列表</div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;images]#&nbsp;cobbler&nbsp;list &nbsp;</span></span></li><li><span>distros: &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;centos6.3-i386 &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;rhel-5.3-i386 &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;rhel-5.3-xen-i386 &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>profiles: &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;centos6.3-i386 &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;rhel-5.3-i386 &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;rhel-5.3-xen-i386 &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>systems: &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>repos: &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;rhel-5.3 &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>images: &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>mgmtclasses: &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>packages: &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>files: &nbsp;</span></li></ol></pre>
+<div>可以看到centos6.3的distro与profile已经有了，但如果我们想使用自己的ks配置，所以直接修改profile</div>
+<div>
+<div>3、</div>
+<pre><p class="alt">&nbsp;</p><ol class="dp-xml"><li><span>[root@cobbler&nbsp;images]#&nbsp;cobbler&nbsp;profile&nbsp;edit&nbsp;</span><span class="attribute">--name</span><span>=</span><span class="attribute-value">centos6</span><span>.3-i386&nbsp;</span><span class="attribute">--distro</span><span>=</span><span class="attribute-value">centos6</span><span>.3-i386&nbsp;</span><span class="attribute">--kickstart</span><span>=/var/lib/cobbler/kickstarts/centos-6.3.ks&nbsp; &nbsp;</span></li><li class="alt"><span>[root@cobbler&nbsp;images]#&nbsp;cobbler&nbsp;list &nbsp;</span></li><li><span>distros: &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;centos6.3-i386 &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;rhel-5.3-i386 &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;rhel-5.3-xen-i386 &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>profiles: &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;centos6.3-i386 &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;rhel-5.3-i386 &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;rhel-5.3-xen-i386 &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>systems: &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>repos: &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;rhel-5.3 &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>images: &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>mgmtclasses: &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>packages: &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>files: &nbsp;</span></li></ol></pre>
+</div>
+<div>4、进行配置同步</div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;images]#&nbsp;cobbler&nbsp;sync &nbsp;</span></span></li><li><span>task&nbsp;started:&nbsp;2012-09-23_104034_sync &nbsp;</span></li><li class="alt"><span>task&nbsp;started&nbsp;(</span><span class="attribute">id</span><span>=</span><span class="attribute-value">Sync</span><span>,&nbsp;</span><span class="attribute">time</span><span>=</span><span class="attribute-value">Sun</span><span>&nbsp;Sep&nbsp;23&nbsp;10:40:34&nbsp;2012) &nbsp;</span></li><li><span>running&nbsp;pre-sync&nbsp;triggers &nbsp;</span></li><li class="alt"><span>cleaning&nbsp;trees &nbsp;</span></li><li><span>removing:&nbsp;/var/www/cobbler/images/rhel-5.3-xen-i386 &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/var/www/cobbler/images/rhel-5.3-i386 &nbsp;</span></li><li><span>removing:&nbsp;/var/www/cobbler/images/centos6.3-i386 &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/tftpboot/pxelinux.cfg/default &nbsp;</span></li><li><span>removing:&nbsp;/tftpboot/grub/grub-x86_64.efi &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/tftpboot/grub/grub-x86.efi &nbsp;</span></li><li><span>removing:&nbsp;/tftpboot/grub/efidefault &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/tftpboot/grub/images &nbsp;</span></li><li><span>removing:&nbsp;/tftpboot/s390x/profile_list &nbsp;</span></li><li class="alt"><span>copying&nbsp;bootloaders &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/lib/cobbler/loaders/grub-x86_64.efi&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/grub/grub-x86_64.efi &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/lib/cobbler/loaders/grub-x86.efi&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/grub/grub-x86.efi &nbsp;</span></li><li><span>copying&nbsp;distros&nbsp;to&nbsp;tftpboot &nbsp;</span></li><li class="alt"><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;rhel-5.3-i386 &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/pxeboot/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/rhel-5.3-i386/vmlinuz &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/pxeboot/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/rhel-5.3-i386/initrd.img &nbsp;</span></li><li><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;centos6.3-i386 &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/centos6.3/images/pxeboot/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/centos6.3-i386/vmlinuz &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/centos6.3/images/pxeboot/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/centos6.3-i386/initrd.img &nbsp;</span></li><li class="alt"><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;rhel-5.3-xen-i386 &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/xen/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/rhel-5.3-xen-i386/vmlinuz &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/xen/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/rhel-5.3-xen-i386/initrd.img &nbsp;</span></li><li><span>copying&nbsp;images &nbsp;</span></li><li class="alt"><span>generating&nbsp;PXE&nbsp;configuration&nbsp;files &nbsp;</span></li><li><span>generating&nbsp;PXE&nbsp;menu&nbsp;structure &nbsp;</span></li><li class="alt"><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;rhel-5.3-i386 &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/pxeboot/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/rhel-5.3-i386/vmlinuz &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/pxeboot/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/rhel-5.3-i386/initrd.img &nbsp;</span></li><li><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;centos6.3-i386 &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/centos6.3/images/pxeboot/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/centos6.3-i386/vmlinuz &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/centos6.3/images/pxeboot/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/centos6.3-i386/initrd.img &nbsp;</span></li><li class="alt"><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;rhel-5.3-xen-i386 &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/xen/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/rhel-5.3-xen-i386/vmlinuz &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/xen/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/rhel-5.3-xen-i386/initrd.img &nbsp;</span></li><li><span>rendering&nbsp;DHCP&nbsp;files &nbsp;</span></li><li class="alt"><span>generating&nbsp;/etc/dhcpd.conf &nbsp;</span></li><li><span>rendering&nbsp;TFTPD&nbsp;files &nbsp;</span></li><li class="alt"><span>generating&nbsp;/etc/xinetd.d/tftp &nbsp;</span></li><li><span>cleaning&nbsp;link&nbsp;caches &nbsp;</span></li><li class="alt"><span>running&nbsp;post-sync&nbsp;triggers &nbsp;</span></li><li><span>running&nbsp;python&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/sync/post/* &nbsp;</span></li><li class="alt"><span>running&nbsp;python&nbsp;trigger&nbsp;cobbler.modules.sync_post_restart_services &nbsp;</span></li><li><span>running:&nbsp;dhcpd&nbsp;-t&nbsp;-q &nbsp;</span></li><li class="alt"><span>received&nbsp;on&nbsp;stdout:&nbsp; &nbsp;</span></li><li><span>received&nbsp;on&nbsp;stderr:&nbsp; &nbsp;</span></li><li class="alt"><span>running:&nbsp;service&nbsp;dhcpd&nbsp;restart &nbsp;</span></li><li><span>received&nbsp;on&nbsp;stdout:&nbsp;Shutting&nbsp;down&nbsp;dhcpd:&nbsp;[&nbsp;&nbsp;OK&nbsp;&nbsp;] &nbsp;</span></li><li class="alt"><span>Starting&nbsp;dhcpd:&nbsp;[&nbsp;&nbsp;OK&nbsp;&nbsp;] &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>received&nbsp;on&nbsp;stderr:&nbsp; &nbsp;</span></li><li><span>running&nbsp;shell&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/sync/post/* &nbsp;</span></li><li class="alt"><span>running&nbsp;python&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/change/* &nbsp;</span></li><li><span>running&nbsp;python&nbsp;trigger&nbsp;cobbler.modules.scm_track &nbsp;</span></li><li class="alt"><span>running&nbsp;shell&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/change/* &nbsp;</span></li><li><span>***&nbsp;TASK&nbsp;COMPLETE&nbsp;*** &nbsp;</span></li></ol></pre>
+<div>如果想实现自动化安装自动化安装系统的话，需要在cobbler服务端把需要安装机器网卡的mac给记住，然后再根据mac自动化进行安装系统，使客户端不用在通过dhcp获取服务端ip，继而手动选择系统来安装。</div>
+<div>下面是我的centos-6.3.ks配置</div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;kickstarts]#&nbsp;cat&nbsp;centos-6.3.ks&nbsp; &nbsp;</span></span></li><li><span>#</span><span class="attribute">platform</span><span>=</span><span class="attribute-value">x86</span><span>,&nbsp;AMD64,&nbsp;or&nbsp;Intel&nbsp;EM64T &nbsp;</span></li><li class="alt"><span>#&nbsp;System&nbsp;authorization&nbsp;information &nbsp;</span></li><li><span>auth&nbsp;&nbsp;--useshadow&nbsp;&nbsp;--enablemd5 &nbsp;</span></li><li class="alt"><span>#&nbsp;System&nbsp;bootloader&nbsp;configuration &nbsp;</span></li><li><span>bootloader&nbsp;</span><span class="attribute">--location</span><span>=</span><span class="attribute-value">mbr</span><span>&nbsp;</span></li><li class="alt"><span>#&nbsp;Use&nbsp;text&nbsp;mode&nbsp;install &nbsp;</span></li><li><span>lang&nbsp;zh_CN.UTF-8 &nbsp;</span></li><li class="alt"><span>#langsupport&nbsp;zh_CN.UTF-8&nbsp;en_US&nbsp;</span><span class="attribute">--default</span><span>=</span><span class="attribute-value">en_US</span><span>&nbsp;</span></li><li><span>keyboard&nbsp;us &nbsp;</span></li><li class="alt"><span>#mouse&nbsp;generic3ps/2 &nbsp;</span></li><li><span>timezone&nbsp;Asia/Shanghai &nbsp;</span></li><li class="alt"><span>install &nbsp;</span></li><li><span>url&nbsp;</span><span class="attribute">--url</span><span>=</span><span class="attribute-value">http</span><span>://192.168.1.225/cobbler/ks_mirror/centos6.3 &nbsp;</span></li><li class="alt"><span>text &nbsp;</span></li><li><span>#zerombr&nbsp;yes &nbsp;</span></li><li class="alt"><span>#&nbsp;Partition&nbsp;clearing&nbsp;information &nbsp;</span></li><li><span>clearpart&nbsp;--all&nbsp;--initlabel &nbsp;</span></li><li class="alt"><span>#Partition&nbsp;clearing&nbsp;information &nbsp;</span></li><li><span>part&nbsp;/boot&nbsp;--fstype&nbsp;ext4&nbsp;</span><span class="attribute">--size</span><span>=</span><span class="attribute-value">100</span><span>&nbsp;</span></li><li class="alt"><span>part&nbsp;swap&nbsp;</span><span class="attribute">--size</span><span>=</span><span class="attribute-value">2048</span><span>&nbsp;</span></li><li><span>part&nbsp;/&nbsp;--fstype&nbsp;ext4&nbsp;</span><span class="attribute">--size</span><span>=</span><span class="attribute-value">10000</span><span>&nbsp;</span></li><li class="alt"><span>network&nbsp;--bootproto&nbsp;static&nbsp;--device&nbsp;eth0&nbsp;--ip&nbsp;192.168.1.30&nbsp;--netmask&nbsp;255.255.255.0&nbsp;</span><span class="attribute">--gateway</span><span>=</span><span class="attribute-value">192</span><span>.168.1.1&nbsp;--noipv6&nbsp;--hostname&nbsp;cobbler &nbsp;</span></li><li><span>firewall&nbsp;--disabled &nbsp;</span></li><li class="alt"><span>selinux&nbsp;--disabled &nbsp;</span></li><li><span>skipx &nbsp;</span></li><li class="alt"><span>#&nbsp;Network&nbsp;information &nbsp;</span></li><li><span>#---&nbsp;Reboot&nbsp;the&nbsp;host&nbsp;after&nbsp;installation&nbsp;is&nbsp;done&nbsp;&nbsp; &nbsp;</span></li><li class="alt"><span>reboot &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>#Root&nbsp;password &nbsp;</span></li><li><span>rootpw&nbsp;111111 &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>%pre &nbsp;</span></li><li class="alt"><span>$SNIPPET('log_ks_pre') &nbsp;</span></li><li><span>$SNIPPET('kickstart_start') &nbsp;</span></li><li class="alt"><span>$SNIPPET('pre_install_network_config') &nbsp;</span></li><li><span>%packages &nbsp;</span></li><li class="alt"><span>@base &nbsp;</span></li><li><span>@core &nbsp;</span></li><li class="alt"><span>%post &nbsp;</span></li><li><span>$SNIPPET('log_ks_post') &nbsp;</span></li><li class="alt"><span>#&nbsp;Start&nbsp;yum&nbsp;configuration&nbsp; &nbsp;</span></li><li><span>$yum_config_stanza &nbsp;</span></li><li class="alt"><span>#&nbsp;End&nbsp;yum&nbsp;configuration &nbsp;</span></li><li><span>$SNIPPET('post_install_kernel_options') &nbsp;</span></li><li class="alt"><span>#$SNIPPET('post_install_network_config') &nbsp;</span></li><li><span>echo&nbsp;"</span><span class="attribute">NETWORKING</span><span>=</span><span class="attribute-value">yes</span><span>"&nbsp;</span><span class="tag">&gt;</span><span>/etc/sysconfig/network &nbsp;</span></li><li class="alt"><span>echo&nbsp;"</span><span class="attribute">NETWORKING_IPV6</span><span>=</span><span class="attribute-value">no</span><span>"&nbsp;</span><span class="tag">&gt;</span><span class="tag">&gt;</span><span>/etc/sysconfig/network &nbsp;</span></li><li><span>echo&nbsp;"</span><span class="attribute">HOSTNAME</span><span>=</span><span class="attribute-value">cobbler</span><span>"&nbsp;</span><span class="tag">&gt;</span><span class="tag">&gt;</span><span>/etc/sysconfig/network &nbsp;</span></li><li class="alt"><span>echo&nbsp;"nameserver&nbsp;&nbsp;192.168.1.1"&nbsp;</span><span class="tag">&gt;</span><span>/etc/resolv.conf &nbsp;</span></li><li><span>echo&nbsp;"nameserver&nbsp;&nbsp;202.106.0.20"&nbsp;</span><span class="tag">&gt;</span><span class="tag">&gt;</span><span>/etc/resolv.conf &nbsp;</span></li><li class="alt"><span>for&nbsp;service&nbsp;in&nbsp;`chkconfig&nbsp;--list|awk&nbsp;'{print&nbsp;$1}'|egrep&nbsp;-v&nbsp;"^$"|awk&nbsp;-F&nbsp;":"&nbsp;'{print&nbsp;$1}'`;&nbsp;do&nbsp;chkconfig&nbsp;$service&nbsp;off;done &nbsp;</span></li><li><span>for&nbsp;service&nbsp;in&nbsp;crond&nbsp;&nbsp;sshd&nbsp;syslog&nbsp;network;&nbsp;do&nbsp;chkconfig&nbsp;$service&nbsp;on;done &nbsp;</span></li><li class="alt"><span>ulimit&nbsp;-HSn&nbsp;65535 &nbsp;</span></li><li><span>#&nbsp;Start&nbsp;final&nbsp;steps &nbsp;</span></li><li class="alt"><span>$SNIPPET('kickstart_done') &nbsp;</span></li><li><span>#&nbsp;End&nbsp;final&nbsp;steps &nbsp;</span></li></ol></pre>
+<div>其实除了对方的mac知道外，如果想制定系统的话，在url --url=http://192.168.1.225/cobbler/ks_mirror/centos6.3</div>
+<div>这一块必须手动的输入系统路径，ip是cobbler服务端的ip，这个路径是我们在进行iso导入的时候，文件复制的路径，一般为/var/www/cobbler/ks_mirror，如果想手动选择系统，这一块可以变为url --url=$tree。</div>
+<div>现在在服务端还需要知道要安装系统的mac，并且设定ip、dns、hostname等</div>
+<div>5、通过绑定mac来进行自动化安装</div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;images]#&nbsp;cobbler&nbsp;system&nbsp;add&nbsp;</span><span class="attribute">--name</span><span>=</span><span class="attribute-value">centos6</span><span>.3-i386&nbsp;</span><span class="attribute">--mac</span><span>=</span><span class="attribute-value">00</span><span>:0C:29:A0:26:7F&nbsp;</span><span class="attribute">--ip-address</span><span>=</span><span class="attribute-value">192</span><span>.168.1.30&nbsp;</span><span class="attribute">--subnet</span><span>=</span><span class="attribute-value">255</span><span>.255.255.0&nbsp;</span><span class="attribute">--gateway</span><span>=</span><span class="attribute-value">192</span><span>.168.1.1&nbsp;</span><span class="attribute">--interface</span><span>=</span><span class="attribute-value">eth0</span><span>&nbsp;</span><span class="attribute">--static</span><span>=</span><span class="attribute-value">1</span><span>&nbsp;</span><span class="attribute">--dns-name</span><span>=</span><span class="attribute-value">202</span><span>.106.0.20&nbsp;</span><span class="attribute">--profile</span><span>=</span><span class="attribute-value">centos6</span><span>.3-i386 &nbsp;</span></span></li><li><span>[root@cobbler&nbsp;images]#&nbsp;cobbler&nbsp;list &nbsp;</span></li><li class="alt"><span>distros: &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;centos6.3-i386 &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;rhel-5.3-i386 &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;rhel-5.3-xen-i386 &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>profiles: &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;centos6.3-i386 &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;rhel-5.3-i386 &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;rhel-5.3-xen-i386 &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>systems: &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;centos6.3-i386 &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>repos: &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;rhel-5.3 &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>images: &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>mgmtclasses: &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>packages: &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>files: &nbsp;</span></li><li><span>[root@cobbler&nbsp;images]#&nbsp;cobbler&nbsp;sync &nbsp;</span></li><li class="alt"><span>task&nbsp;started:&nbsp;2012-09-23_104149_sync &nbsp;</span></li><li><span>task&nbsp;started&nbsp;(</span><span class="attribute">id</span><span>=</span><span class="attribute-value">Sync</span><span>,&nbsp;</span><span class="attribute">time</span><span>=</span><span class="attribute-value">Sun</span><span>&nbsp;Sep&nbsp;23&nbsp;10:41:49&nbsp;2012) &nbsp;</span></li><li class="alt"><span>running&nbsp;pre-sync&nbsp;triggers &nbsp;</span></li><li><span>cleaning&nbsp;trees &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/var/www/cobbler/images/rhel-5.3-xen-i386 &nbsp;</span></li><li><span>removing:&nbsp;/var/www/cobbler/images/rhel-5.3-i386 &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/var/www/cobbler/images/centos6.3-i386 &nbsp;</span></li><li><span>removing:&nbsp;/tftpboot/pxelinux.cfg/01-00-0c-29-a0-26-7f &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/tftpboot/pxelinux.cfg/default &nbsp;</span></li><li><span>removing:&nbsp;/tftpboot/grub/grub-x86_64.efi &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/tftpboot/grub/grub-x86.efi &nbsp;</span></li><li><span>removing:&nbsp;/tftpboot/grub/efidefault &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/tftpboot/grub/images &nbsp;</span></li><li><span>removing:&nbsp;/tftpboot/grub/01-00-0C-29-A0-26-7F &nbsp;</span></li><li class="alt"><span>removing:&nbsp;/tftpboot/s390x/profile_list &nbsp;</span></li><li><span>copying&nbsp;bootloaders &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/lib/cobbler/loaders/grub-x86_64.efi&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/grub/grub-x86_64.efi &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/lib/cobbler/loaders/grub-x86.efi&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/grub/grub-x86.efi &nbsp;</span></li><li class="alt"><span>copying&nbsp;distros&nbsp;to&nbsp;tftpboot &nbsp;</span></li><li><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;rhel-5.3-i386 &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/pxeboot/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/rhel-5.3-i386/vmlinuz &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/pxeboot/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/rhel-5.3-i386/initrd.img &nbsp;</span></li><li class="alt"><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;centos6.3-i386 &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/centos6.3/images/pxeboot/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/centos6.3-i386/vmlinuz &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/centos6.3/images/pxeboot/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/centos6.3-i386/initrd.img &nbsp;</span></li><li><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;rhel-5.3-xen-i386 &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/xen/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/rhel-5.3-xen-i386/vmlinuz &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/xen/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/tftpboot/images/rhel-5.3-xen-i386/initrd.img &nbsp;</span></li><li class="alt"><span>copying&nbsp;images &nbsp;</span></li><li><span>generating&nbsp;PXE&nbsp;configuration&nbsp;files &nbsp;</span></li><li class="alt"><span>generating:&nbsp;/tftpboot/pxelinux.cfg/01-00-0c-29-a0-26-7f &nbsp;</span></li><li><span>generating:&nbsp;/tftpboot/grub/01-00-0C-29-A0-26-7F &nbsp;</span></li><li class="alt"><span>generating&nbsp;PXE&nbsp;menu&nbsp;structure &nbsp;</span></li><li><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;rhel-5.3-i386 &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/pxeboot/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/rhel-5.3-i386/vmlinuz &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/pxeboot/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/rhel-5.3-i386/initrd.img &nbsp;</span></li><li class="alt"><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;centos6.3-i386 &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/centos6.3/images/pxeboot/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/centos6.3-i386/vmlinuz &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/centos6.3/images/pxeboot/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/centos6.3-i386/initrd.img &nbsp;</span></li><li><span>copying&nbsp;files&nbsp;for&nbsp;distro:&nbsp;rhel-5.3-xen-i386 &nbsp;</span></li><li class="alt"><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/xen/vmlinuz&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/rhel-5.3-xen-i386/vmlinuz &nbsp;</span></li><li><span>trying&nbsp;hardlink&nbsp;/var/www/cobbler/ks_mirror/rhel-5.3/images/xen/initrd.img&nbsp;-</span><span class="tag">&gt;</span><span>&nbsp;/var/www/cobbler/images/rhel-5.3-xen-i386/initrd.img &nbsp;</span></li><li class="alt"><span>rendering&nbsp;DHCP&nbsp;files &nbsp;</span></li><li><span>generating&nbsp;/etc/dhcpd.conf &nbsp;</span></li><li class="alt"><span>rendering&nbsp;TFTPD&nbsp;files &nbsp;</span></li><li><span>generating&nbsp;/etc/xinetd.d/tftp &nbsp;</span></li><li class="alt"><span>cleaning&nbsp;link&nbsp;caches &nbsp;</span></li><li><span>running&nbsp;post-sync&nbsp;triggers &nbsp;</span></li><li class="alt"><span>running&nbsp;python&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/sync/post/* &nbsp;</span></li><li><span>running&nbsp;python&nbsp;trigger&nbsp;cobbler.modules.sync_post_restart_services &nbsp;</span></li><li class="alt"><span>running:&nbsp;dhcpd&nbsp;-t&nbsp;-q &nbsp;</span></li><li><span>received&nbsp;on&nbsp;stdout:&nbsp; &nbsp;</span></li><li class="alt"><span>received&nbsp;on&nbsp;stderr:&nbsp; &nbsp;</span></li><li><span>running:&nbsp;service&nbsp;dhcpd&nbsp;restart &nbsp;</span></li><li class="alt"><span>received&nbsp;on&nbsp;stdout:&nbsp;Shutting&nbsp;down&nbsp;dhcpd:&nbsp;[&nbsp;&nbsp;OK&nbsp;&nbsp;] &nbsp;</span></li><li><span>Starting&nbsp;dhcpd:&nbsp;[&nbsp;&nbsp;OK&nbsp;&nbsp;] &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>received&nbsp;on&nbsp;stderr:&nbsp; &nbsp;</span></li><li class="alt"><span>running&nbsp;shell&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/sync/post/* &nbsp;</span></li><li><span>running&nbsp;python&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/change/* &nbsp;</span></li><li class="alt"><span>running&nbsp;python&nbsp;trigger&nbsp;cobbler.modules.scm_track &nbsp;</span></li><li><span>running&nbsp;shell&nbsp;triggers&nbsp;from&nbsp;/var/lib/cobbler/triggers/change/* &nbsp;</span></li><li class="alt"><span>***&nbsp;TASK&nbsp;COMPLETE&nbsp;*** &nbsp;</span></li></ol></pre>
+<div>下面是在vmware里安装系统出现的界面（选择几个重要的内容截图）</div>
+<div>如果想知道对方的mac地址，可以查看网络适配器——高级——MAC地址查看</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/102801499.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/102801499.jpg" border="0"></a></p>
+<div>在打开虚拟机的时候，由于在cobble服务端通过mac制定了系统，所以开始的界面为</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/102830212.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/102830212.jpg" border="0"></a></p>
+<div>之后就完全的是自动化安装了，没有什么好说的</div>
+<div>10分钟左右，系统安装成功，下面是登录界面</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/102901168.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/102901168.jpg" border="0"></a></p>
+<div>输入账号与密码</div>
+<div>可以看到分区大小、类型、ip都是我们配置的</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/102940954.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/102940954.jpg" border="0"></a></p>
+<div>hostname与dns正确</div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/103011449.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/103011449.jpg" border="0"></a></p>
+<div>现在cobbler自动化安装系统完成。</div>
+<p>&nbsp;</p>
+<div>六、<span>FAQ</span></div>
+<div>1、在RHEL 5.4安装<span>cobbler完的时候需要重启http，但重启发现错误如下</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;cobbler]#&nbsp;service&nbsp;httpd&nbsp;start &nbsp;</span></span></li><li><span>Starting&nbsp;httpd:&nbsp;Syntax&nbsp;error&nbsp;on&nbsp;line&nbsp;10&nbsp;of&nbsp;/etc/httpd/conf.d/cobbler.conf: &nbsp;</span></li><li class="alt"><span>Invalid&nbsp;command&nbsp;'WSGIScriptAliasMatch',&nbsp;perhaps&nbsp;misspelled&nbsp;or&nbsp;defined&nbsp;by&nbsp;a&nbsp;module&nbsp;not&nbsp;included&nbsp;in&nbsp;the&nbsp;server&nbsp;configuration &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[FAILED] &nbsp;</span></li></ol></pre>
+<div>问题在于模块<span>mod_wsgi.so未启动，手工开启下：编辑/etc/httpd/conf.d/wsgi.conf ，取消注释"LoadModule wsgi_module modules/mod_wsgi.so"即可</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;cobbler]#&nbsp;cat&nbsp;/etc/httpd/conf.d/wsgi.conf&nbsp; &nbsp;</span></span></li><li><span>################################################################################# &nbsp;</span></li><li class="alt"><span>#&nbsp;mod_python&nbsp;and&nbsp;mod_wsgi&nbsp;compatibility&nbsp;note &nbsp;</span></li><li><span>################################################################################# &nbsp;</span></li><li class="alt"><span>#&nbsp;mod_wsgi&nbsp;will&nbsp;deadlock&nbsp;if&nbsp;run&nbsp;in&nbsp;daemon&nbsp;mode&nbsp;while&nbsp;mod_python&nbsp;is&nbsp;enabled &nbsp;</span></li><li><span>#&nbsp;do&nbsp;not&nbsp;enable&nbsp;both&nbsp;mod_python&nbsp;and&nbsp;mod_wsgi&nbsp;if&nbsp;you&nbsp;are&nbsp;going&nbsp;to&nbsp;use&nbsp;the &nbsp;</span></li><li class="alt"><span>#&nbsp;WSGIDaemonProcess&nbsp;directive &nbsp;</span></li><li><span>#&nbsp;In&nbsp;previous&nbsp;version&nbsp;of&nbsp;mod_wsgi,&nbsp;apache&nbsp;would&nbsp;segfault&nbsp;when&nbsp;both&nbsp;mod_wsgi &nbsp;</span></li><li class="alt"><span>#&nbsp;and&nbsp;mod_python&nbsp;were&nbsp;enabled.&nbsp;&nbsp;This&nbsp;update&nbsp;does&nbsp;not&nbsp;guarantee&nbsp;that&nbsp;will&nbsp;not &nbsp;</span></li><li><span>#&nbsp;happen.&nbsp;&nbsp; &nbsp;</span></li><li class="alt"><span>################################################################################# &nbsp;</span></li><li><span>#&nbsp;Do&nbsp;not&nbsp;enable&nbsp;mod_python&nbsp;and&nbsp;mod_wsgi&nbsp;in&nbsp;the&nbsp;same&nbsp;apache&nbsp;process. &nbsp;</span></li><li class="alt"><span>################################################################################# &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>LoadModule&nbsp;wsgi_module&nbsp;modules/mod_wsgi.so &nbsp;</span></li></ol></pre>
+<div>重启<span>httpd</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;cobbler]#&nbsp;service&nbsp;httpd&nbsp;restart &nbsp;</span></span></li><li><span>Stopping&nbsp;httpd:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[FAILED] &nbsp;</span></li><li class="alt"><span>Starting&nbsp;httpd:&nbsp;[Mon&nbsp;Sep&nbsp;10&nbsp;02:34:26&nbsp;2012]&nbsp;[warn]&nbsp;The&nbsp;Alias&nbsp;directive&nbsp;in&nbsp;/etc/httpd/conf/httpd.conf&nbsp;at&nbsp;line&nbsp;995&nbsp;will&nbsp;probably&nbsp;never&nbsp;match&nbsp;because&nbsp;it&nbsp;overlaps&nbsp;an&nbsp;earlier&nbsp;Alias. &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;OK&nbsp;&nbsp;] &nbsp;</span></li></ol></pre>
+<div>查看端口是否监听</div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;cobbler]#&nbsp;lsof&nbsp;-i:80 &nbsp;</span></span></li><li><span>COMMAND&nbsp;&nbsp;PID&nbsp;&nbsp;&nbsp;USER&nbsp;&nbsp;&nbsp;FD&nbsp;&nbsp;&nbsp;TYPE&nbsp;DEVICE&nbsp;SIZE&nbsp;NODE&nbsp;NAME &nbsp;</span></li><li class="alt"><span>httpd&nbsp;&nbsp;&nbsp;3128&nbsp;&nbsp;&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;3u&nbsp;&nbsp;IPv6&nbsp;437066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCP&nbsp;*:http&nbsp;(LISTEN) &nbsp;</span></li><li><span>httpd&nbsp;&nbsp;&nbsp;3130&nbsp;apache&nbsp;&nbsp;&nbsp;&nbsp;3u&nbsp;&nbsp;IPv6&nbsp;437066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCP&nbsp;*:http&nbsp;(LISTEN) &nbsp;</span></li><li class="alt"><span>httpd&nbsp;&nbsp;&nbsp;3131&nbsp;apache&nbsp;&nbsp;&nbsp;&nbsp;3u&nbsp;&nbsp;IPv6&nbsp;437066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCP&nbsp;*:http&nbsp;(LISTEN) &nbsp;</span></li><li><span>httpd&nbsp;&nbsp;&nbsp;3132&nbsp;apache&nbsp;&nbsp;&nbsp;&nbsp;3u&nbsp;&nbsp;IPv6&nbsp;437066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCP&nbsp;*:http&nbsp;(LISTEN) &nbsp;</span></li><li class="alt"><span>httpd&nbsp;&nbsp;&nbsp;3133&nbsp;apache&nbsp;&nbsp;&nbsp;&nbsp;3u&nbsp;&nbsp;IPv6&nbsp;437066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCP&nbsp;*:http&nbsp;(LISTEN) &nbsp;</span></li><li><span>httpd&nbsp;&nbsp;&nbsp;3134&nbsp;apache&nbsp;&nbsp;&nbsp;&nbsp;3u&nbsp;&nbsp;IPv6&nbsp;437066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCP&nbsp;*:http&nbsp;(LISTEN) &nbsp;</span></li><li class="alt"><span>httpd&nbsp;&nbsp;&nbsp;3135&nbsp;apache&nbsp;&nbsp;&nbsp;&nbsp;3u&nbsp;&nbsp;IPv6&nbsp;437066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCP&nbsp;*:http&nbsp;(LISTEN) &nbsp;</span></li><li><span>httpd&nbsp;&nbsp;&nbsp;3136&nbsp;apache&nbsp;&nbsp;&nbsp;&nbsp;3u&nbsp;&nbsp;IPv6&nbsp;437066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCP&nbsp;*:http&nbsp;(LISTEN) &nbsp;</span></li><li class="alt"><span>httpd&nbsp;&nbsp;&nbsp;3137&nbsp;apache&nbsp;&nbsp;&nbsp;&nbsp;3u&nbsp;&nbsp;IPv6&nbsp;437066&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TCP&nbsp;*:http&nbsp;(LISTEN) &nbsp;</span></li></ol></pre>
+<div>2、<span>RHEL5.4启动cobbler的时候出现</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;~]#&nbsp;/etc/init.d/cobblerd&nbsp;start &nbsp;</span></span></li><li><span>Starting&nbsp;cobbler&nbsp;daemon:&nbsp;No&nbsp;module&nbsp;named&nbsp;ctypes &nbsp;</span></li><li class="alt"><span>Traceback&nbsp;(most&nbsp;recent&nbsp;call&nbsp;last): &nbsp;</span></li><li><span>&nbsp;&nbsp;File&nbsp;"/usr/bin/cobblerd",&nbsp;line&nbsp;76,&nbsp;in&nbsp;main &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">api</span><span>&nbsp;=&nbsp;</span><span class="attribute-value">cobbler_api</span><span>.BootAPI(</span><span class="attribute">is_cobblerd</span><span>=</span><span class="attribute-value">True</span><span>) &nbsp;</span></li><li><span>&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.4/site-packages/cobbler/api.py",&nbsp;line&nbsp;127,&nbsp;in&nbsp;__init__ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;module_loader.load_modules() &nbsp;</span></li><li><span>&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.4/site-packages/cobbler/module_loader.py",&nbsp;line&nbsp;62,&nbsp;in&nbsp;load_modules &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">blip</span><span>&nbsp;=&nbsp;&nbsp;</span><span class="attribute-value">__import__</span><span>("modules.%s"&nbsp;%&nbsp;(&nbsp;modname),&nbsp;globals(),&nbsp;locals(),&nbsp;[modname]) &nbsp;</span></li><li><span>&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.4/site-packages/cobbler/modules/authn_pam.py",&nbsp;line&nbsp;53,&nbsp;in&nbsp;? &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;ctypes&nbsp;import&nbsp;CDLL,&nbsp;POINTER,&nbsp;Structure,&nbsp;CFUNCTYPE,&nbsp;cast,&nbsp;pointer,&nbsp;sizeof &nbsp;</span></li><li><span>ImportError:&nbsp;No&nbsp;module&nbsp;named&nbsp;ctypes &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;OK&nbsp;&nbsp;] &nbsp;</span></li></ol></pre>
+<div>同时<span>cobbler锁住</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;~]#&nbsp;/etc/init.d/cobblerd&nbsp;status &nbsp;</span></span></li><li><span>cobblerd&nbsp;dead&nbsp;but&nbsp;subsys&nbsp;locked &nbsp;</span></li></ol></pre>
+<div>原因是python-ctypes没有安装</div>
+<div>解决方法是<span>yum install python-ctypes</span></div>
+<div>然后再运行<span>cobbler</span></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;~]#&nbsp;/etc/init.d/cobblerd&nbsp;start &nbsp;</span></span></li><li><span>Starting&nbsp;cobbler&nbsp;daemon:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;OK&nbsp;&nbsp;] &nbsp;</span></li><li class="alt"><span>[root@cobbler&nbsp;~]#&nbsp;/etc/init.d/cobblerd&nbsp;status &nbsp;</span></li><li><span>cobblerd&nbsp;(pid&nbsp;30812)&nbsp;is&nbsp;running... &nbsp;</span></li></ol></pre>
+<div>3、<b>启动<span>apache发现</span></b></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;tmp]#&nbsp;/etc/init.d/httpd&nbsp;restart &nbsp;</span></span></li><li><span>Stopping&nbsp;httpd:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;OK&nbsp;&nbsp;] &nbsp;</span></li><li class="alt"><span>Starting&nbsp;httpd:&nbsp;httpd:&nbsp;apr_sockaddr_info_get()&nbsp;failed&nbsp;for&nbsp;cobbler &nbsp;</span></li><li><span>httpd:&nbsp;Could&nbsp;not&nbsp;reliably&nbsp;determine&nbsp;the&nbsp;server's&nbsp;fully&nbsp;qualified&nbsp;domain&nbsp;name,&nbsp;using&nbsp;127.0.0.1&nbsp;for&nbsp;ServerName &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;OK&nbsp;&nbsp;] &nbsp;</span></li></ol></pre>
+<div><b>解决方法是在<span>/etc/hosts里，把ip与主机名对应上</span></b></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@cobbler&nbsp;tmp]#&nbsp;cat&nbsp;/etc/hosts &nbsp;</span></span></li><li><span>#&nbsp;Do&nbsp;not&nbsp;remove&nbsp;the&nbsp;following&nbsp;line,&nbsp;or&nbsp;various&nbsp;programs &nbsp;</span></li><li class="alt"><span>#&nbsp;that&nbsp;require&nbsp;network&nbsp;functionality&nbsp;will&nbsp;fail. &nbsp;</span></li><li><span>127.0.0.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;localhost.localdomain&nbsp;localhost &nbsp;</span></li><li class="alt"><span>::1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;localhost6.localdomain6&nbsp;localhost6 &nbsp;</span></li><li><span>192.168.1.205&nbsp;&nbsp;&nbsp;cobbler &nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>[root@cobbler&nbsp;tmp]#&nbsp;/etc/init.d/httpd&nbsp;restart &nbsp;</span></li><li class="alt"><span>Stopping&nbsp;httpd:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;OK&nbsp;&nbsp;] &nbsp;</span></li><li><span>Starting&nbsp;httpd:&nbsp;httpd:&nbsp;Could&nbsp;not&nbsp;reliably&nbsp;determine&nbsp;the&nbsp;server's&nbsp;fully&nbsp;qualified&nbsp;domain&nbsp;name,&nbsp;using&nbsp;192.168.1.205&nbsp;for&nbsp;ServerName &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;OK&nbsp;&nbsp;] &nbsp;</span></li></ol></pre>
+<div><b>4</b><b>、如果在安装<span>cobbler的web，打开界面的时候，出现404错误，如下图</span></b></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/103526329.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/103526329.jpg" border="0"></a></p>
+<div><b>说明<span>httpd或者cobbler没有重启，解决方法，重启这2个服务即可</span></b></div>
+<div><b>成功后如下图</b></div>
+<p><a target="_blank" href="http://img1.51cto.com/attachment/201209/103605104.jpg"><img onunload="" onsubmit="" onselect="" onresize="" onreset="" onmouseup="" onmouseover="" onmouseout="" onmousemove="" onmousedown="" onkeyup="" onkeypress="" onkeydown="" onfocus="" onerror="" ondblclick="" onclick="" onchange="" onblur="" onabort="" onload="if(this.width>650) this.width=650;" alt="" src="1004298_files/103605104.jpg" border="0"></a></p>
+<div><b>5</b><b>、在<span>centos 6.3系统里，进行cobbler get-loaders获得镜像的时候，发现问题如下</span></b></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@centos-6&nbsp;centos-6.3]#&nbsp;cobbler&nbsp;get-loaders &nbsp;</span></span></li><li><span>task&nbsp;started:&nbsp;2012-09-21_004402_get_loaders &nbsp;</span></li><li class="alt"><span>task&nbsp;started&nbsp;(</span><span class="attribute">id</span><span>=</span><span class="attribute-value">Download</span><span>&nbsp;Bootloader&nbsp;Content,&nbsp;</span><span class="attribute">time</span><span>=</span><span class="attribute-value">Fri</span><span>&nbsp;Sep&nbsp;21&nbsp;00:44:02&nbsp;2012) &nbsp;</span></li><li><span>path&nbsp;/var/lib/cobbler/loaders/README&nbsp;already&nbsp;exists,&nbsp;not&nbsp;overwriting&nbsp;existing&nbsp;content,&nbsp;use&nbsp;--force&nbsp;if&nbsp;you&nbsp;wish&nbsp;to&nbsp;update &nbsp;</span></li><li class="alt"><span>path&nbsp;/var/lib/cobbler/loaders/COPYING.elilo&nbsp;already&nbsp;exists,&nbsp;not&nbsp;overwriting&nbsp;existing&nbsp;content,&nbsp;use&nbsp;--force&nbsp;if&nbsp;you&nbsp;wish&nbsp;to&nbsp;update &nbsp;</span></li><li><span>downloading&nbsp;http://dgoodwin.fedorapeople.org/loaders/COPYING.yaboot&nbsp;to&nbsp;/var/lib/cobbler/loaders/COPYING.yaboot &nbsp;</span></li><li class="alt"><span>Exception&nbsp;occured:&nbsp;</span><span class="tag">&lt;</span><span class="tag-name">class</span><span>&nbsp;'urlgrabber.grabber.URLGrabError'</span><span class="tag">&gt;</span><span>&nbsp;</span></li><li><span>Exception&nbsp;value:&nbsp;[Errno&nbsp;14]&nbsp;PYCURL&nbsp;ERROR&nbsp;6&nbsp;-&nbsp;"Couldn't&nbsp;resolve&nbsp;host&nbsp;'dgoodwin.fedorapeople.org'" &nbsp;</span></li><li class="alt"><span>Exception&nbsp;Info: &nbsp;</span></li><li><span>&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.6/site-packages/cobbler/remote.py",&nbsp;line&nbsp;89,&nbsp;in&nbsp;run &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">rc</span><span>&nbsp;=&nbsp;</span><span class="attribute-value">self</span><span>._run(self) &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.6/site-packages/cobbler/remote.py",&nbsp;line&nbsp;183,&nbsp;in&nbsp;runner &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;self.remote.api.dlcontent(self.options.get("force",False),&nbsp;self.logger) &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.6/site-packages/cobbler/api.py",&nbsp;line&nbsp;689,&nbsp;in&nbsp;dlcontent &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;grabber.run(force) &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.6/site-packages/cobbler/action_dlcontent.py",&nbsp;line&nbsp;80,&nbsp;in&nbsp;run &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;urlgrabber.grabber.urlgrab(src,&nbsp;</span><span class="attribute">filename</span><span>=</span><span class="attribute-value">dst</span><span>,&nbsp;</span><span class="attribute">proxies</span><span class="attribute-value">proxies</span><span>=proxies) &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.6/site-packages/urlgrabber/grabber.py",&nbsp;line&nbsp;618,&nbsp;in&nbsp;urlgrab &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;default_grabber.urlgrab(url,&nbsp;filename,&nbsp;**kwargs) &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.6/site-packages/urlgrabber/grabber.py",&nbsp;line&nbsp;985,&nbsp;in&nbsp;urlgrab &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;self._retry(opts,&nbsp;retryfunc,&nbsp;url,&nbsp;filename) &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.6/site-packages/urlgrabber/grabber.py",&nbsp;line&nbsp;886,&nbsp;in&nbsp;_retry &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">r</span><span>&nbsp;=&nbsp;</span><span class="attribute-value">apply</span><span>(func,&nbsp;(opts,)&nbsp;+&nbsp;args,&nbsp;{}) &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.6/site-packages/urlgrabber/grabber.py",&nbsp;line&nbsp;971,&nbsp;in&nbsp;retryfunc &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="attribute">fo</span><span>&nbsp;=&nbsp;</span><span class="attribute-value">PyCurlFileObject</span><span>(url,&nbsp;filename,&nbsp;opts) &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.6/site-packages/urlgrabber/grabber.py",&nbsp;line&nbsp;1066,&nbsp;in&nbsp;__init__ &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;self._do_open() &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.6/site-packages/urlgrabber/grabber.py",&nbsp;line&nbsp;1360,&nbsp;in&nbsp;_do_open &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;self._do_grab() &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.6/site-packages/urlgrabber/grabber.py",&nbsp;line&nbsp;1490,&nbsp;in&nbsp;_do_grab &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;self._do_perform() &nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;File&nbsp;"/usr/lib/python2.6/site-packages/urlgrabber/grabber.py",&nbsp;line&nbsp;1347,&nbsp;in&nbsp;_do_perform &nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;err &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>!!!&nbsp;TASK&nbsp;FAILED&nbsp;!!! &nbsp;</span></li></ol></pre>
+<div><b>解决方法是修改<span>/etc/resolv.conf，增加内容如下：</span></b></div>
+<pre><ol class="dp-xml"><li class="alt"><span><span>[root@centos-6&nbsp;yum.repos.d]#&nbsp;cat&nbsp;/etc/resolv.conf&nbsp; &nbsp;</span></span></li><li><span>#&nbsp;Generated&nbsp;by&nbsp;NetworkManager &nbsp;</span></li><li class="alt"><span>#search&nbsp;3 &nbsp;</span></li><li><span>&nbsp;</span></li><li class="alt"><span>&nbsp;</span></li><li><span>#&nbsp;No&nbsp;nameservers&nbsp;found;&nbsp;try&nbsp;putting&nbsp;DNS&nbsp;servers&nbsp;into&nbsp;your &nbsp;</span></li><li class="alt"><span>#&nbsp;ifcfg&nbsp;files&nbsp;in&nbsp;/etc/sysconfig/network-scripts&nbsp;like&nbsp;so: &nbsp;</span></li><li><span># &nbsp;</span></li><li class="alt"><span>#&nbsp;</span><span class="attribute">DNS1</span><span>=</span><span class="attribute-value">xxx</span><span>.xxx.xxx.xxx &nbsp;</span></li><li><span>#&nbsp;</span><span class="attribute">DNS2</span><span>=</span><span class="attribute-value">xxx</span><span>.xxx.xxx.xxx &nbsp;</span></li><li class="alt"><span>#&nbsp;</span><span class="attribute">DOMAIN</span><span>=</span><span class="attribute-value">lab</span><span>.foo.com&nbsp;bar.foo.com &nbsp;</span></li><li><span>nameserver&nbsp;8.8.8.8 &nbsp;</span></li><li class="alt"><span>nameserver&nbsp;202.106.0.20 &nbsp;</span></li></ol></pre>
+<p>&nbsp;</p><p>本文出自 “<a href="http://dl528888.blog.51cto.com/">吟—技术交流</a>” 博客，请务必保留此出处<a href="http://dl528888.blog.51cto.com/2382721/1004298">http://dl528888.blog.51cto.com/2382721/1004298</a></p>
+    		</div><!--正文 end-->
+<script type="text/javascript">
+	var kevent = 'onabort|onblur|onchange|onclick|ondblclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload';
+	var aevent = kevent.split('|');
+
+	jQuery('.showContent img').each(function(){
+		var nimg = this;
+		jQuery.each(aevent, function(i, n){
+			if (n!='onload') {
+				jQuery(nimg).attr(n, '');
+			} else {
+				if (jQuery(nimg).attr(n) != 'if(this.width>650) this.width=650;') {
+					jQuery(nimg).attr(n, '');
+				}
+			}
+		});
+	});
+</script>
+<script type="text/javascript" charset="utf-8">
+var encodetitle = encodeURI('一篇很棒的博文分享给大家：《运维自动化之使用Cobbler自动化安装系统与FAQ》');
+
+function show51share(){
+
+	window.open('http://t.51cto.com/index.php?m=share&url=http://dl528888.blog.51cto.com/2382721/1004298&type=l&count=&relateUid=&appkey=3843950324&title=' + encodetitle);
+}
+</script>		
+<div class="m_sharebtn clear">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	  <tbody><tr>
+		<td height="43" valign="middle" width="11%" align="center"><img src="1004298_files/ssk.png" alt="分享至"></td>
+		<td valign="top" width="77%" align="left">
+			<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare" data="{'wbuid':1706976420}">
+				<a href="#" title="分享到新浪微博" class="bds_tsina"></a>
+				<a href="#" title="分享到QQ空间" class="bds_qzone"></a>
+				<a href="#" title="分享到腾讯微博" class="bds_tqq"></a>
+				<a href="#" title="分享到百度搜藏" class="bds_baidu"></a>
+				<a href="#" title="分享到人人网" class="bds_renren"></a>
+				<a href="#" title="分享到QQ收藏" class="bds_qq"></a>
+				<a href="#" title="分享到豆瓣网" class="bds_douban"></a>
+				<a href="#" title="分享到百度空间" class="bds_hi"></a>
+				<a href="#" title="分享到MSN" class="bds_msn"></a>
+				<em title="分享到51CTO微博" class="weibo_51cto" onmouseout="this.style.backgroundImage='url(http://img1.51cto.com/images/share/ico_mweibo.gif)'" onmouseover="this.style.backgroundImage='url(http://img1.51cto.com/images/share/ico_mweibob.gif)'" onclick="show51share();"></em>
+				<span class="bds_more">更多</span>
+				
+				<a title="累计分享4次" href="#" class="shareCount">4</a>
+			</div>
+	<script src="1004298_files/bds_s_v2.js" type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=559183"></script>
+	
+	<script type="text/javascript">
+		var bds_config = {'wbUid':1706976420, 'bdPic':'http://blog.51cto.com/attachment/201305/173413310.jpg'};
+		document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
+	</script>
+	<!-- Baidu Button END --></td>
+		<td valign="middle" width="12%" align="right"><a href="javascript:favorBox('open');" title="一键收藏，随时查看，分享好友！"><img src="1004298_files/favorite_add_small.gif" alt="一键收藏，随时查看，分享好友！" border="0"></a></td>
+	  </tr>
+	</tbody></table>
+
+</div>			
+    		<div class="showBottom">
+            <!--<div class="reviews"><span class="fl" style="cursor:pointer;"><a onclick="openFavoulist();" id="favourer">wangyuqian513、kity_bie、九叔</a>
+
+            </span><div id="favourdiv" class="support01">11人</div>
+              <span class="fl">了这篇文章</span></div>-->
+              <table border="0" cellpadding="0" cellspacing="0" width="720">
+  <tbody><tr>
+    <td align="right"><img src="1004298_files/icon01.png" height="16" width="15"> <span style="cursor:pointer;"><a onclick="openFavoulist();" id="favourer">wangyuqian513、kity_bie、九叔</a></span></td>
+    <td width="70" align="left"><div style="line-height:28px;" id="favourdiv" class="support01">11人</div></td>
+    <td width="60" align="left">了这篇文章</td>
+  </tr>
+</tbody></table>
+
+
+
+
+            <div class="showType">类别：<a href="http://dl528888.blog.51cto.com/2382721/d-4" class="operlink">运维自动化专题</a>┆<a class="operlink" onclick="javascript:joingroups(1004298,'dl528888');return false;">技术圈</a>(<script src="1004298_files/joingroup.html"></script>0)┆阅读(<script src="1004298_files/header.html"></script>2790)┆评论(<script>document.write(replies)</script>22)
+
+
+┆
+
+	<a href="#" onclick="javascript:dfanologin('http://home.51cto.com/index.php?reback=http%253A%252F%252Fdl528888.blog.51cto.com%252F2382721%252F1004298');return false;" class="operlink">
+
+推送到技术圈</a>┆<a href="http://dl528888.blog.51cto.com/">返回首页</a></div>
+            <div class="prevNext">
+
+			上一篇 <a href="http://dl528888.blog.51cto.com/2382721/971092" class="operlink" title="我对存储的一些感悟">我对存储的一些感悟</a>
+
+
+			下一篇 <a href="http://dl528888.blog.51cto.com/2382721/1034992" class="operlink" title="运维自动化之使用PHP+MYSQL+SHELL打造私有监控系统（一）">运维自动化之使用PHP+MYSQL+SHELL打造私有监控..</a>
+
+
+            </div>
+
+            </div>
+
+	  </div><!--showBottom end-->
+      </div><!--modCon-->
+    <span class="modBot"></span>
+    </div><!--artShow end-->
+    <span class="blank"></span>
+	
+	<div class="relatedArt box">
+<a href="javascript:;"><img src="1004298_files/172048373.jpg"></a>
+</div>
+	
+
+
+    <div class="relatedArt box">
+    <div class="title" name="zhuanti" id="zhuanti"><h2>相关文章</h2></div>
+    <div class="modCon">
+<ul>
+
+<li><a href="http://donghui.blog.51cto.com/2709336/658036" title="利用cobbler实现无人值守" target="_blank">利用cobbler实现无人值守</a></li>
+
+
+<li><a href="http://xg2007524.blog.51cto.com/869106/961636" title="运维自动化Cobbler批量部署RedHat" target="_blank">运维自动化Cobbler批量部署RedHat</a></li>
+
+
+<li><a href="http://navyaijm.blog.51cto.com/4647068/816601" title="Cobbler批量布署CentOS" target="_blank">Cobbler批量布署CentOS</a></li>
+
+
+<li><a href="http://jiaminqiang.blog.51cto.com/654308/284346" title="Cobbler" target="_blank">Cobbler</a></li>
+
+
+<li><a href="http://3770921.blog.51cto.com/3760921/921922" title="运维自动化之puppet " target="_blank">运维自动化之puppet </a></li>
+
+
+<li><a href="http://relearn.blog.51cto.com/2605709/758299" title="Cobbler自动安装linux系统" target="_blank">Cobbler自动安装linux系统</a></li>
+
+
+<li><a href="http://redhatdebian.blog.51cto.com/1197273/716746" title="运维自动化之Cobbler系统安装详解(1)" target="_blank">运维自动化之Cobbler系统安装详解(1)</a></li>
+
+
+<li><a href="http://jinyan2049.blog.51cto.com/881440/878689" title="cobbler2012版" target="_blank">cobbler2012版</a></li>
+
+
+
+</ul>
+
+
+
+<span class="blank6"></span>
+</div><!--modCon end-->
+<span class="modBot"></span>
+</div><!--相关文章 end-->
+
+
+<div class="artComm box">
+    <div class="title"><a name="replay"></a><h2>文章评论</h2></div>
+    <div class="modCon" id="artcomment">
+		<div> <a href="" onclick="getcomment(1004298,1);return false">&nbsp;&lt;&lt;&nbsp;</a>&nbsp;&nbsp;<b>1</b>&nbsp; <a href="" onclick="getcomment(1004298,2);return false">&nbsp;2&nbsp;</a> <input size="2" id="com_top" name="com_top" style="height: 16px; border: 1px solid rgb(229, 229, 229);" onkeydown="javascript: if(event.keyCode==13) getcomment(1004298,this.value);" type="text"> <a href="" onclick="getcomment(1004298,2);return false">&nbsp;&gt;&gt;&nbsp;</a>&nbsp;&nbsp;页数 ( 1/2 ) &nbsp;</div><a name="511500"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid0"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[1楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://qinghua.blog.51cto.com/" class="operlink" ref="nofollow"><b>hanling</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="hanling" parentid="511500">回复</a></label></div></div><div align="right">2012-09-24 10:49:49</div><div class="commentcontent">非常详细。必须顶！！！！！！</div></div><br><a name="511502"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid1"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[2楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;[匿名]小余</label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="小余" parentid="511502">回复</a></label></div></div><div align="right">2012-09-24 10:53:44</div><div class="commentcontent">学习学习。。。再接再励，多发好文。</div></div><br><a name="511505"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid2"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[3楼]<a href="http://dl528888.blog.51cto.com/">楼主</a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://dl528888.blog.51cto.com/" class="operlink" ref="nofollow"><b>dl528888</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="dl528888" parentid="511505">回复</a></label></div></div><div align="right">2012-09-24 11:01:30</div><div class="commentcontent">回复 hanling:<a href="#" class="anchor_page" title="加载中....." style="cursor: pointer;" tid="1004298" parentid="511500">[1楼]</a><br><br>希望本文对您有用。</div></div><br><a name="511506"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid3"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[4楼]<a href="http://dl528888.blog.51cto.com/">楼主</a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://dl528888.blog.51cto.com/" class="operlink" ref="nofollow"><b>dl528888</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="dl528888" parentid="511506">回复</a></label></div></div><div align="right">2012-09-24 11:01:43</div><div class="commentcontent">回复 小余:<a href="#" class="anchor_page" title="加载中....." style="cursor: pointer;" tid="1004298" parentid="511502">[2楼]</a><br><br>希望本文对您有用。<br></div></div><br><a name="511512"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid4"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[5楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://chenkui.blog.51cto.com/" class="operlink" ref="nofollow"><b>techcto</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="techcto" parentid="511512">回复</a></label></div></div><div align="right">2012-09-24 11:10:38</div><div class="commentcontent">处处皆详细</div></div><br><a name="511534"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid5"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[6楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://chenguang.blog.51cto.com/" class="operlink" ref="nofollow"><b>李晨光</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="李晨光" parentid="511534">回复</a></label></div></div><div align="right">2012-09-24 12:48:01</div><div class="commentcontent">不错！很详细。</div></div><br><a name="511546"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid6"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[7楼]<a href="http://dl528888.blog.51cto.com/">楼主</a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://dl528888.blog.51cto.com/" class="operlink" ref="nofollow"><b>dl528888</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="dl528888" parentid="511546">回复</a></label></div></div><div align="right">2012-09-24 13:48:17</div><div class="commentcontent">回复 techcto:<a href="#" class="anchor_page" title="加载中....." style="cursor: pointer;" tid="1004298" parentid="511512">[5楼]</a><br><br>希望本文对您了解cobbler有更好的帮助。</div></div><br><a name="511547"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid7"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[8楼]<a href="http://dl528888.blog.51cto.com/">楼主</a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://dl528888.blog.51cto.com/" class="operlink" ref="nofollow"><b>dl528888</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="dl528888" parentid="511547">回复</a></label></div></div><div align="right">2012-09-24 13:48:23</div><div class="commentcontent">回复 李晨光:<a href="#" class="anchor_page" title="加载中....." style="cursor: pointer;" tid="1004298" parentid="511534">[6楼]</a><br><br>希望本文对您了解cobbler有更好的帮助。</div></div><br><a name="511840"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid8"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[9楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;[匿名]http://www.sunfeng.net</label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="http://www.sunfeng.net" parentid="511840">回复</a></label></div></div><div align="right">2012-09-25 15:43:44</div><div class="commentcontent">都是好技术的人</div></div><br><a name="511884"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid9"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[10楼]<a href="http://dl528888.blog.51cto.com/">楼主</a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://dl528888.blog.51cto.com/" class="operlink" ref="nofollow"><b>dl528888</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="dl528888" parentid="511884">回复</a></label></div></div><div align="right">2012-09-25 18:42:42</div><div class="commentcontent">回复 http:<a href="#" class="anchor_page" title="加载中....." style="cursor: pointer;" tid="1004298" parentid="511840">[9楼]</a><br>//www.sunfeng.net:<br>希望本文对您了解cobbler有更好的帮助。</div></div><br><a name="511938"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid10"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[11楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://cwtea.blog.51cto.com/" class="operlink" ref="nofollow"><b>煮酒品茶</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="煮酒品茶" parentid="511938">回复</a></label></div></div><div align="right">2012-09-26 09:20:10</div><div class="commentcontent">非常不错，</div></div><br><a name="511966"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid11"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[12楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://jiushu.blog.51cto.com/" class="operlink" ref="nofollow"><b>九叔</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="九叔" parentid="511966">回复</a></label></div></div><div align="right">2012-09-26 10:12:34</div><div class="commentcontent">好东西 </div></div><br><a name="511967"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid12"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[13楼]<a href="http://dl528888.blog.51cto.com/">楼主</a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://dl528888.blog.51cto.com/" class="operlink" ref="nofollow"><b>dl528888</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="dl528888" parentid="511967">回复</a></label></div></div><div align="right">2012-09-26 10:15:38</div><div class="commentcontent">回复 煮酒品茶:<a href="#" class="anchor_page" title="加载中....." style="cursor: pointer;" tid="1004298" parentid="511938">[11楼]</a><br><br>希望本文对您了解cobbler有更好的帮助。</div></div><br><a name="511968"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid13"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[14楼]<a href="http://dl528888.blog.51cto.com/">楼主</a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://dl528888.blog.51cto.com/" class="operlink" ref="nofollow"><b>dl528888</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="dl528888" parentid="511968">回复</a></label></div></div><div align="right">2012-09-26 10:15:45</div><div class="commentcontent">回复 九叔:<a href="#" class="anchor_page" title="加载中....." style="cursor: pointer;" tid="1004298" parentid="511966">[12楼]</a><br><br>希望本文对您了解cobbler有更好的帮助。</div></div><br><a name="512281"></a><div class="itcomment" style="table-layout: fixed;word-wrap: break-word" id="itcommentid14"><div><div style="width:100%;border-bottom:1px solid #A0A0A0;height:20px"><label style="float:left">[15楼]&nbsp;&nbsp;&nbsp;&nbsp;<img src="1004298_files/reply.gif">&nbsp;&nbsp;<a target="_blank" href="http://lilinqing.blog.51cto.com/" class="operlink" ref="nofollow"><b>老林</b></a></label><label style="float:right">&nbsp;<a href="#" class="repost operlink" user_name="老林" parentid="512281">回复</a></label></div></div><div align="right">2012-09-27 13:44:57</div><div class="commentcontent">很详细，收藏了，谢谢</div></div><br><div> <a href="" onclick="getcomment(1004298,1);return false">&nbsp;&lt;&lt;&nbsp;</a>&nbsp;&nbsp;<b>1</b>&nbsp; <a href="" onclick="getcomment(1004298,2);return false">&nbsp;2&nbsp;</a> <input size="2" style="height: 16px; border: 1px solid rgb(229, 229, 229);" onkeydown="javascript: if(event.keyCode==13) getcomment(1004298,this.value);" type="text"> <a href="" onclick="getcomment(1004298,2);return false">&nbsp;&gt;&gt;&nbsp;</a>&nbsp;&nbsp;页数 ( 1/2 ) &nbsp;</div>
+    </div><!--modCon-->
+        <span class="modBot"></span>
+</div><!--commBox end-->
+<a href="" id="com_top_top"></a>
+<form action="/comment.php?" method="post" name="form1" id="form1" onsubmit='return commentSubmit(this,"");'>
+<span class="blank1"></span>
+<div class="box writeComm">
+<a name="comment"></a>
+<input name="action" value="comment" type="hidden">
+<input id="commenttid" name="tid" value="1004298" type="hidden">
+<input name="com_count_ajax" id="com_count_ajax" value="2" type="hidden">
+
+ <div class="title">
+	<h2 class="fl">发表评论&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+	<span class="fl"><a class="mred" target="_blank" href="http://51ctotopic.blog.51cto.com/2009463/1217116">回忆高考，还记得你考了多少分吗？</a></span>
+	<style type="text/css">
+		a.mred:link{ color:#ff0000; text-decoration:underline;}
+		a.mred:visited{color:#ff0000;}
+		a.mred:hover{color:#ff0000;}
+		a.mred:active{color:#ff0000;}
+	</style>
+</div>
+ <div class="modCon">
+ <div class="commForm">
+<dl>
+<dt>昵&nbsp;&nbsp;称：</dt>
+<dd>
+
+<input id="commentusername" name="username" class="commInput fl" type="text"><span><a href="http://home.51cto.com/index.php?reback=http%253A%252F%252Fdl528888.blog.51cto.com%252F2382721%252F1004298" style="text-decoration: underline;">登录</a>&nbsp;&nbsp;<a href="http://ucenter.51cto.com/reg_01.php?reback=http://blog.51cto.com" target="_blank" style="text-decoration: underline;">快速注册</a></span>
+
+
+
+</dd>
+</dl>
+
+
+
+<dl id="commentyanzheng">
+
+
+<dt>验证码：</dt>
+<dd><input class="code" id="commentauthnum" name="authnum" onclick="displaysecunum();" type="text">
+
+  <img class="fl" id="secunum" onclick="refimg()" style="display: none;" height="29" width="78"><p class="fl"><span style="display:none;" id="spanfont">点击图片可刷新验证码</span><span style="display:inline;" id="clickfont">请点击后输入验证码</span><span class="pl5"><a href="http://51ctoblog.blog.51cto.com/26414/5591" target="_blank" style="text-decoration: underline;">博客过2级，无需填写验证码</a></span></p></dd>
+</dl>
+<dl>
+<dt>内&nbsp;&nbsp;容：</dt>
+<dd>
+<textarea class="writeCommCon f12" id="commentcontent" name="content"></textarea>
+</dd>
+</dl>
+</div>
+<div class="writeCommBot">
+  <input name="parentid" value="" id="parentid" type="hidden">
+  <input class="commBtn fl" name="submit" id="commentsubmit" value="" onclick="commentSubmitend2()" type="button">
+
+ <p class="fl" style="display:none;"><input class="fl" name="favour" id="favour" checked="checked" value="1" type="checkbox"><span class="fl">同时赞一个</span></p>
+
+</div>
+<span class="blank"></span>
+</div><!--modCon-->
+<span class="modBot"></span>
+</div>
+</form>
+
+<iframe id="iframe1" name="iframe1" height="0" width="0"></iframe>
+<!--发表评论 end-->
+</div>
+</div>
+<script language="javascript">
+	function refimg(){
+		var randval = Math.random();
+		document.getElementById("secunum").src="/seccode.php?rnum="+randval;
+	}
+	function displaysecunum()
+	{
+		var displaystr = document.getElementById("secunum").style.display;
+		if(displaystr == 'none')
+		{
+			refimg();
+			document.getElementById("clickfont").style.display = 'none';
+			document.getElementById("secunum").style.display = 'inline';
+			document.getElementById("spanfont").style.display = 'inline';
+		}
+	}
+
+	function showMsn(){
+		document.getElementById("c02").style.display = "none";
+		document.getElementById("c01").style.display = "block";
+		document.getElementById("share").style.height = "83px";
+		document.getElementById("share").style.background = "none";
+	}
+	function showBBS(){
+		document.getElementById("c01").style.display = "none";
+		document.getElementById("c02").style.display = "block";
+		document.getElementById("share").style.height = "83px";
+		document.getElementById("share").style.background = "none";
+	}
+
+	//资源页面，分享按钮
+	function copyShareUrl(title){
+
+		if (window.clipboardData){
+
+			if(document.getElementById("c01").style.display == 'block')
+			{
+				copy = "推荐：" + title + "http://dl528888.blog.51cto.com/2382721/1004298";
+				var alertText = "复制成功，你可以粘贴到MSN或QQ中发给好友。";
+			}
+			else
+			{
+				copy = "[url=" + "http://dl528888.blog.51cto.com/2382721/1004298" + "][u]" + title + "[/u][/url]";
+				var alertText = "复制成功，你可以粘贴到论坛分享给坛友。";
+			}
+			window.clipboardData.clearData();
+			window.clipboardData.setData("Text", copy);
+			alert(alertText);
+		}
+		else if (window.netscape){
+			alert("您使用的浏览器不支持此复制功能，请使用Ctrl+C或鼠标右键。");
+			if(document.getElementById("c01").style.display == 'block')
+			{
+				document.getElementById("shareTextQM").value = "推荐：" + title + "http://dl528888.blog.51cto.com/2382721/1004298";
+				document.getElementById("shareTextQM").select();
+			}
+			else
+			{
+				document.getElementById("shareTextBBS").value = "[url=" + "http://dl528888.blog.51cto.com/2382721/1004298" + "][u]" + title + "[/u][/url]";
+                document.getElementById("shareTextBBS").select();
+			}
+		}
+		return false;
+	}
+	function select_login(){
+		document.getElementById('fixed').style.display='';
+	}
+	function commentcheck()
+	{
+		if(document.form1.content.value == "")
+		{
+			alert("评论内容为空!");
+			document.form1.content.focus();
+			return false;
+		}
+	}
+	function changename(){
+
+	var memberid=0;
+	memberid="";
+
+	if(document.getElementById('commentniming').checked){
+		document.getElementById('commentusername').disabled=false;
+		document.getElementById('commentusername').value='';
+		document.getElementById("indexhidden").style.display="none";
+		document.getElementById("commentindex").value='';
+		document.getElementById("commentyanzheng").style.display="";
+	}else{
+		document.getElementById('commentusername').disabled=true;
+		document.getElementById('commentusername').value="";
+		document.getElementById("indexhidden").style.display="";
+		document.getElementById("commentindex").value="http://.blog.51cto.com";
+		if(memberid>8)
+		{
+			document.getElementById("commentyanzheng").style.display="none";
+		}
+	}
+	}
+	function openFavoulist()
+	{
+		window.open ('http://blog.51cto.com/mod/favourlist.php?tid=1004298','newwindow','height=300,width=500,top=400,left=400,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no,z-look=yes');
+	}
+
+	var e_zti = document.getElementById('zti');//有专题锚点
+	var maodian = window.location.href;//锚点
+	if (e_zti) {
+		e_zti.href= (/[#]+/.test(maodian)) ? maodian : maodian + "#zhuanti";
+	}
+</script>
+<script src="1004298_files/jquery-1.js"></script>
+<script src="1004298_files/jquery.js"></script>
+<script src="1004298_files/jquery_002.js"></script>
+<link href="1004298_files/blog_top.css" rel="stylesheet" type="text/css">
+<script src="1004298_files/blog_top_list.html" type="text/javascript" language="javascript"></script>
+<style>
+.backToTop {
+    display: none;
+	WIDTH: 45px;
+	height:45px;
+	BOTTOM: 20px;
+     position: fixed;
+    _position: absolute;
+    right: 140px;
+    bottom: 10px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=60);
+	text-indent:-9999px;
+}
+.tops { background:url(/images/topq.jpg) no-repeat center center; }
+</style>
+<script type="text/javascript">
+(function() {
+    var backToTopTxt = "返回顶部", backToTopEle = $('<div class="backToTop tops"></div>').appendTo($("body"))
+        .text(backToTopTxt).attr("title", backToTopTxt).click(function() {
+            $("html, body").animate({ scrollTop: 0 }, 520);
+    }), backToTopFun = function() {
+        var st = $(document).scrollTop(), winh = $(window).height();
+        (st > 0)? backToTopEle.show(): backToTopEle.hide();    
+        //IE6下的定位
+        if (!window.XMLHttpRequest) {
+            backToTopEle.css("top", st + winh - 60);    
+        }
+    };
+    $(window).bind("scroll", backToTopFun);
+    $(function() { backToTopFun(); });
+})();
+</script><div style="display: block;" title="返回顶部" class="backToTop tops">返回顶部</div>
+
+
+
+
+
+
+<div class="clear"></div>
+<!-- <script>
+jQuery(function(){
+	var html= "<div id=\"sogou_se_tgbar\" style=\"text-align:center;margin:0px auto 2px auto;clear:both;background:url(http://home.51cto.com/public/images/notice/sogou_se_tgbar_bg_final1.gif) repeat-x;width:950px;color:#000;font-size:13px;height:36px;z-index:21474836471\"><div style=\"float:left;cursor:pointer;width:910px;text-align:center;border-left:solid #efbf00 1px;height:32px; line-height:32px;txt-align:center;\"><span style=\"\">	<a href=\"http://51ctoblog.blog.51cto.com/26414/1093282\">【新年祝福征集】51CTO社区年底嘉年华活动正在征集博主祝福语，祝福以红包的形式随机的赠送给访问51CTO的网友 点此送祝福>></a></span></div><div onclick=\"document.getElementById('sogou_se_tgbar').style.display = 'none';\" style=\"float:right;width:20px;cursor:pointer;height:28px;padding:4px 8px 0px 8px;border-right:solid #efbf00 1px\"><img style=\"border:none;margin:4px 0px 0px 0px;\" src=\"http://home.51cto.com/public/images/notice/sogou_se_tgbar_close_final1.gif\"></div></div>"
+	jQuery('body').prepend(html);
+})
+</script> -->
+
+<div id="footer">
+  <div id="innerFooter">
+	<center>
+		<small>
+			Copyright By 51CTO.COM 版权所有<br><br>
+			<a href="http://blog.51cto.com/" target="_blank"><img src="1004298_files/copyright.jpg"></a>
+	  </small>
+	</center>
+  </div>
+</div>
+<script src="1004298_files/index.html" charset="utf-8"></script>
+<div style="display:none">
+<script src="1004298_files/count.js"></script><script src="1004298_files/count.html"></script>
+
+<iframe src="1004298_files/pageview.html" frameborder="0" height="0" scrolling="no" width="0"></iframe>
+</div>
+<div style="display:none;"><script src="1004298_files/stat.php" language="JavaScript"></script><script src="1004298_files/cnzz_core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=4274540" target="_blank" title="站长统计"><img src="1004298_files/pic.gif" border="0" hspace="0" vspace="0"></a><div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-38670657-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</div></div></body></html>

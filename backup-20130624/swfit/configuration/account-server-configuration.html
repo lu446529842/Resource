@@ -1,0 +1,247 @@
+<!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html class=" gecko linux js" xmlns="http://www.w3.org/1999/xhtml" xmlns:exsl="http://exslt.org/common" xmlns:ng="http://docbook.org/docbook-ng" xmlns:fb="http://ogp.me/ns/fb#"><head>
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<title>Account Server Configuration&nbsp;-&nbsp;OpenStack Object Storage Administration Manual
+  &nbsp;-&nbsp;Folsom, 1.4.8</title><meta name="generator" content="DocBook XSL-NS Stylesheets V1.76.1"><link rel="home" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/index.html" title="OpenStack Object Storage Administration Manual"><link rel="up" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/server-configuration-reference.html" title="Server Configuration Reference"><link rel="prev" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/container-server-configuration.html" title="Container Server Configuration"><link rel="next" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/proxy-server-configuration.html" title="Proxy Server Configuration"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="account-server-configuration_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">
+            //The id for tree cookie
+            var treeCookieId = "treeview-5791";
+            var language = "en";
+            var w = new Object();
+            //Localization
+            txt_filesfound = 'Results';
+            txt_enter_at_least_1_char = "You must enter at least one character.";
+            txt_browser_not_supported = "Your browser is not supported. Use of Mozilla Firefox is recommended.";
+            txt_please_wait = "Please wait. Search in progress...";
+            txt_results_for = "Results for: ";
+        </script><style type="text/css">
+            input {
+            margin-bottom: 5px;
+            margin-top: 2px;
+            }
+
+            .folder {
+            display: block;
+            height: 22px;
+            padding-left: 20px;
+            background: transparent url(../common/jquery/treeview/images/folder.gif) 0 0px no-repeat;
+            }
+            
+        </style><link rel="shortcut icon" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/favicon.ico" type="image/x-icon"><link rel="stylesheet" type="text/css" href="account-server-configuration_files/positioning.css"><link rel="stylesheet" type="text/css" href="account-server-configuration_files/custom.css"><link href="http://docs.openstack.org/folsom/openstack-object-storage/admin/atom.xml" type="application/atom+xml" rel="alternate" title="Document ATOM Feed"><link rel="canonical" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content//account-server-configuration.html"><!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="../common/css/ie.css"/>
+	<![endif]--><link rel="stylesheet" type="text/css" href="account-server-configuration_files/jquery-ui-1.css"><link rel="stylesheet" type="text/css" href="account-server-configuration_files/jquery.css"><script type="text/javascript" src="account-server-configuration_files/jquery-1.js"><!----></script><script type="text/javascript" src="account-server-configuration_files/jquery-ui-1.js"><!----></script><script type="text/javascript" src="account-server-configuration_files/jquery_003.js"><!----></script><script type="text/javascript" src="account-server-configuration_files/jquery.js"><!----></script><script type="text/javascript" src="account-server-configuration_files/jquery_002.js"><!--jQuery plugin for glossary popups. --></script><script type="text/javascript" src="account-server-configuration_files/htmlFileList.js"><!----></script><script type="text/javascript" src="account-server-configuration_files/htmlFileInfoList.js"><!----></script><script type="text/javascript" src="account-server-configuration_files/nwSearchFnt.js"><!----></script><script type="text/javascript" src="account-server-configuration_files/en_stemmer.js"><!--//make this scalable to other languages as well.--></script><script type="text/javascript" src="account-server-configuration_files/index-1.js"><!----></script><script type="text/javascript" src="account-server-configuration_files/index-2.js"><!----></script><script type="text/javascript" src="account-server-configuration_files/index-3.js"><!----></script><script type="text/javascript">
+	    var _gaq = _gaq || [];
+	    _gaq.push(['_setAccount', 'UA-17511903-1']);
+	    
+	    _gaq.push(['_setDomainName', '.openstack.org']);	        
+	        </script><script type="text/javascript" src="account-server-configuration_files/ga_002.js"><!----></script><script>
+	    (function(){var twitterWidgets = document.createElement('script');
+        twitterWidgets.type = 'text/javascript';
+        twitterWidgets.async = true;
+        twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+        // Setup a callback to track once the script loads.
+        twitterWidgets.onload = _ga.trackTwitter;
+        document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+        })();
+      </script><script src="account-server-configuration_files/embed.js" async="" type="text/javascript"></script></head><body><div id="header"><a onclick="_gaq.push(['_trackEvent', 'Header', 'logo', 'click', 1]);" target="_blank" href="http://www.openstack.org/"><img src="account-server-configuration_files/openstack-logo.png" alt="OpenStack Documentation" height="47" width="157"></a><h1>Account Server Configuration</h1><div id="navheader" align="right"><!----><table class="navLinks"><tbody><tr><td><a id="showHideButton" onclick="showHideToc(); _gaq.push(['_trackEvent', 'Header', 'show/hide', 'click', 1]);" class="pointLeft" title="Hide TOC tree">Sidebar
+                            </a></td><td><a accesskey="p" class="navLinkPrevious" onclick="_gaq.push(['_trackEvent', 'Header', 'prevLink', 'click', 1]);" tabindex="5" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/container-server-configuration.html">Prev</a>
+				      |
+                                        <a accesskey="u" class="navLinkUp" onclick="_gaq.push(['_trackEvent', 'Header', 'upLink', 'click', 1]);" tabindex="5" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/server-configuration-reference.html">Up</a>
+				  |
+                                    <a accesskey="n" class="navLinkNext" onclick="_gaq.push(['_trackEvent', 'Header', 'nextLink', 'click', 1]);" tabindex="5" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/proxy-server-configuration.html">Next</a></td></tr></tbody></table></div></div><div id="toolbar" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"><div id="toolbar-left"><p class="breadcrumbs"><a href="http://docs.openstack.org/">OpenStack Manuals</a><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/index.html">OpenStack Object Storage Administration Manual
+  &nbsp;-&nbsp;Folsom, 1.4.8</a></p><a onclick="_gaq.push(['_trackEvent', 'Header', 'pdfDownload', 'click', 1]);" alt="Download a pdf of this document" class="pdficon" href="http://docs.openstack.org/folsom/openstack-object-storage/admin/os-objectstorage-adminguide-folsom.pdf"><img src="account-server-configuration_files/pdf.png"></a>
+      &nbsp;
+      <a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/atom.xml"><img alt="Atom feed of this document" src="account-server-configuration_files/feed-icon.png"></a></div></div><div id="content"><div class="statustext">&nbsp;</div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="account-server-configuration">&nbsp;</a>Account Server Configuration</h3></div></div></div><p>An example Account Server configuration can be found at
+                etc/account-server.conf-sample in the source code repository.</p><p>The following configuration options are available:</p><table rules="all" id="d6e1256"><caption>Table&nbsp;4.12.&nbsp;account-server.conf Default Options in the [DEFAULT] section</caption><tbody><tr>
+                        <td>Option</td>
+                        <td>Default</td>
+                        <td>Description</td>
+                    </tr><tr>
+                        <td>swift_dir</td>
+                        <td>/etc/swift</td>
+                        <td>Swift configuration directory</td>
+                    </tr><tr>
+                        <td>devices</td>
+                        <td>/srv/node</td>
+                        <td>Parent directory or where devices are mounted</td>
+                    </tr><tr>
+                        <td>mount_check</td>
+                        <td>true</td>
+                        <td>Whether or not check if the devices are mounted to prevent accidentally
+                            writing to the root device</td>
+                    </tr><tr>
+                        <td>bind_ip</td>
+                        <td>0.0.0.0</td>
+                        <td>IP Address for server to bind to</td>
+                    </tr><tr>
+                        <td>bind_port</td>
+                        <td>6002</td>
+                        <td>Port for server to bind to</td>
+                    </tr><tr>
+                        <td>workers</td>
+                        <td>1</td>
+                        <td>Number of workers to fork</td>
+                    </tr><tr>
+                        <td>user</td>
+                        <td>swift</td>
+                        <td>User to run as</td>
+                    </tr><tr>
+                        <td>backlog</td>
+                        <td>4096</td>
+                        <td>Maximum number of allowed pending TCP connections.</td>
+                    </tr><tr>
+                        <td>db_preallocation</td>
+                        <td>true</td>
+                        <td>preallocate disk space for new SQLite databases to decrease fragmentation</td>
+                    </tr><tr>
+                        <td>disable_fallocate</td>
+                        <td>false</td>
+                        <td>Disable "fast fail" fallocate checks if the underlying filesystem does not support it.</td>
+                    </tr></tbody></table><table rules="all" id="d6e1303"><caption>Table&nbsp;4.13.&nbsp;account-server.conf Server Options in the [account-server] section</caption><tbody><tr>
+                        <td>Option</td>
+                        <td>Default</td>
+                        <td>Description</td>
+                    </tr><tr>
+                        <td>use</td>
+                        <td> </td>
+                        <td>Entry point for paste.deploy for the account server. For most cases,
+                            this should be <code class="code">egg:swift#account</code>.</td>
+                    </tr><tr>
+                        <td>log_name</td>
+                        <td>account-server</td>
+                        <td>Label used when logging</td>
+                    </tr><tr>
+                        <td>log_facility</td>
+                        <td>LOG_LOCAL0</td>
+                        <td>Syslog log facility</td>
+                    </tr><tr>
+                        <td>log_level</td>
+                        <td>INFO</td>
+                        <td>Logging level</td>
+                    </tr><tr>
+                        <td>log_requests</td>
+                        <td>true</td>
+                        <td>Whether or not to log each request</td>
+                    </tr><tr>
+                        <td>auto_create_account_prefix</td>
+                        <td>.</td>
+                        <td>prefix used when automatically creating accounts</td>
+                    </tr></tbody></table><table rules="all" id="d6e1335"><caption>Table&nbsp;4.14.&nbsp;account-server.conf  Replicator Options in the [account-replicator] section</caption><tbody><tr>
+                        <td>Option</td>
+                        <td>Default</td>
+                        <td>Description</td>
+                    </tr><tr>
+                        <td>log_name</td>
+                        <td>account-replicator</td>
+                        <td>Label used when logging</td>
+                    </tr><tr>
+                        <td>log_facility</td>
+                        <td>LOG_LOCAL0</td>
+                        <td>Syslog log facility</td>
+                    </tr><tr>
+                        <td>log_level</td>
+                        <td>INFO</td>
+                        <td>Logging level</td>
+                    </tr><tr>
+                        <td>per_diff</td>
+                        <td>1000</td>
+                        <td>Limit number of items to get per diff</td>
+                    </tr><tr>
+                        <td>max_diffs</td>
+                        <td>100</td>
+                        <td>Caps how long the replicator spends trying to sync a database per pass</td>
+                    </tr><tr>
+                        <td>concurrency</td>
+                        <td>8</td>
+                        <td>Number of replication workers to spawn</td>
+                    </tr><tr>
+                        <td>run_pause</td>
+                        <td>30</td>
+                        <td>Time in seconds to wait between replication passes</td>
+                    </tr><tr>
+                        <td>node_timeout</td>
+                        <td>10</td>
+                        <td>Request timeout to external services</td>
+                    </tr><tr>
+                        <td>conn_timeout</td>
+                        <td>0.5</td>
+                        <td>Connection timeout to external services</td>
+                    </tr><tr>
+                        <td>reclaim_age</td>
+                        <td>604800</td>
+                        <td>Time elapsed in seconds before an account can be reclaimed</td>
+                    </tr><tr>
+                        <td>vm_test_mode</td>
+                        <td>no</td>
+                        <td>Indicates that you are using a VM environment</td>
+                    </tr><tr>
+                        <td>interval</td>
+                        <td>30</td>
+                        <td>Minimum time for a pass to take</td>
+                    </tr><tr>
+                        <td>error_suppression_interval</td>
+                        <td>60</td>
+                        <td>Time in seconds that must elapse since the last error for a node to be
+                            considered no longer error limited</td>
+                    </tr><tr>
+                        <td>error_suppression_limit</td>
+                        <td>10</td>
+                        <td>Error count to consider a node error limited</td>
+                    </tr></tbody></table><table rules="all" id="d6e1398"><caption>Table&nbsp;4.15.&nbsp;account-server.conf Auditor Options in the [account-auditor] section</caption><tbody><tr>
+                        <td>Option</td>
+                        <td>Default</td>
+                        <td>Description</td>
+                    </tr><tr>
+                        <td>log_name</td>
+                        <td>account-auditor</td>
+                        <td>Label used when logging</td>
+                    </tr><tr>
+                        <td>log_facility</td>
+                        <td>LOG_LOCAL0</td>
+                        <td>Syslog log facility</td>
+                    </tr><tr>
+                        <td>log_level</td>
+                        <td>INFO</td>
+                        <td>Logging level</td>
+                    </tr><tr>
+                        <td>interval</td>
+                        <td>1800</td>
+                        <td>Minimum time for a pass to take</td>
+                    </tr></tbody></table><table rules="all" id="d6e1421"><caption>Table&nbsp;4.16.&nbsp;account-server.conf Reaper Options in the [account-reaper] section</caption><tbody><tr>
+                        <td>Option</td>
+                        <td>Default</td>
+                        <td>Description</td>
+                    </tr><tr>
+                        <td>delay_reaping</td>
+                        <td>0</td>
+                        <td>Number of seconds to delay reaper from deleting account info for deleted accounts. 2592000 = 30
+                            days, for example</td>
+                    </tr><tr>
+                        <td>log_name</td>
+                        <td>account-auditor</td>
+                        <td>Label used when logging</td>
+                    </tr><tr>
+                        <td>log_facility</td>
+                        <td>LOG_LOCAL0</td>
+                        <td>Syslog log facility</td>
+                    </tr><tr>
+                        <td>log_level</td>
+                        <td>INFO</td>
+                        <td>Logging level</td>
+                    </tr><tr>
+                        <td>concurrency</td>
+                        <td>25</td>
+                        <td>Number of replication workers to spawn</td>
+                    </tr><tr>
+                        <td>interval</td>
+                        <td>3600</td>
+                        <td>Minimum time for a pass to take</td>
+                    </tr><tr>
+                        <td>node_timeout</td>
+                        <td>10</td>
+                        <td>Request timeout to external services</td>
+                    </tr><tr>
+                        <td>conn_timeout</td>
+                        <td>0.5</td>
+                        <td>Connection timeout to external services</td>
+                    </tr></tbody></table></div><script type="text/javascript" src="account-server-configuration_files/main.js"><!----></script><hr><div id="disqus_thread"><iframe src="account-server-configuration_files/client.html" style="width: 100%; border: medium none; overflow: hidden; height: 0pt; display: none;" role="application" allowtransparency="true" data-disqus-uid="1" id="dsq1" frameborder="0" width="100%"></iframe><div style="overflow: hidden;"><div style="width: 54px; height: 54px; margin: 0pt auto; overflow: hidden; background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAABmCAMAAACA210sAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAlhQTFRFMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtWDj2BwAAAMh0Uk5TAAABAQICAwMEBAUFBgYHBwgICQkKCgsLDAwNDQ4ODw8QEBEREhITExQUFRUWFhcXGBgZGRoaGxscHB0dHh4fHyAgISEjIyQkJSUmJigoKSkqKisrLCwtLS4uLy8wMDExMjIzMzQ0NTU2Njc3ODg5OTo6Ozs8PD09Pj4/P0BAQUFCQkNDRERFRUZGR0dISElJS0tMTE1NTk5PT1BQUVFSUlNTVFRVVVZWV1dYWFlZWlpbW1xcXV1eXl9fYGBhYWJiY2NkZGVlZmaMInkiAAAFVklEQVRo3u2Yf0hbVxTHP/flmYYQxFoXghMJzkpXQmszCd0ma7eKKyKuSOlKGaV0RaRzsIHIGDK2MqSsXVvKcKWIG6V0ItI5Z1tXZBsiIkWciC0iYsMIIbisC1mWhpDG/RFjfpvr4O2vnH+Se+/J575z3z3n5n4F2Uy12aotpUY1HFp1OecXo+S00vo6q9kYXF2ZnfLG+0QWYH2jw5jcEZi6P50dW33qoBL//sl4TqbpyPHSzB97bo2GMjr1bcfUjcbcWXIwlZb24uxBenvH0sM+b0s0om2PAJPBC+hS3KxfvrUtx8IZD+z9LZDcUfL1zqTWj98DtLVP/JP2nIc74+vonplfWQ2EDcZya22deb3T1zOZtOq9saf0jMy6vSarywdU3tAvdIRTmGdOxz5Dd8cWkqeyNzXG1i16ZWijs+MEQPjaUCTh+EU9DFxNZna2AhAZvPUkPXDLqebY++3rj7/xfhXwfTyX5LX/EhA9tZxYz/bjACx0/vQ0YzEDk9O27QD2vx/Gej6oBiKdcylub24DsWN8g9ncAcDAp39mfUV/jJp3Aux//Big9CMF+Go8xcfveR14/k6cuatHB0Qvf5MrZ55NiH0Ajl/8wKEDgOezNOeVV8tAca8z9Zd3AFy4nTsLmRX7AP2Ld9bgxAvA4Ey6S9HLwNP11HrHCnBjmM2sbwTA1gJUAWQgmQKwxpiWkwAz19ncriwBtJugDMCZ4eAOAeYY84QeCPZE8zBDn0eA4qOgAvgzPQKASQEobQbo85DPlgcBjhkIA2SpNSVAQAFoMADeYfLbzSBQ8hpPACwZw2YV8CoATQCDIQmmbwTgMCsA9oxhO4BTASw1QGQMGRsBqDPNADSr6aPNADNKnD7rlWI6lwG1bioCVDSlDb5iB6ITClAL8AA5mwbY9eTXjaRPWs1ugEmvEt/AjySZjwCs9EcAQ3tK8bpUAkT7UYBKgGVJphOgAucAwI2kgfq+KoChJVRQTYA/IMl0AZTB9Vob9+cBSn1RxeJorAVg6RqoYIwngJRFQgYwQqSr19ILUH6LkCl+Iru6QglmEGkosdT0nXWsApzVo4+PLXZ5Y6NBWAdLmbrOxXcfoO6NxHk81BsmiVksjTSkRKV0bBAnvl3amDXiLwZTsV+OWQmQyA/9UF2V2Rj0OmcnvMmROPcAVXNbYLoS5W90NMNFAX4HsEnGvjt7NU5nLgA4JJn78yedEj9XasukkDXVQGQ2L9O9DKhNUswmgJlAXiZjAEdUCWRJC8Bd8jP9AOGIBPOkAfBNSjBbAW7LrOZRgIFQfubuXUBI4uwwdKuAL9/sCnAE4GeJPIrV9WuB/MziBgCJk7i9BWB+VKLKHDYAiwuo5RUW9/QmyJMAgXNRCWYrgP5qhVmBQHeus87Y1QhAjztvPDocbwNsLzcJQN+oPsy6p2wXXgLg4j0kmO9Zk9ui9tBfzrV0r/L3P9wOwPXvJHacKLudkT/O4fHkW4Jib2pYv3dclPlPhTh9Jl6nPW7vQcP698W5RddqMGQyVpbb7fHqEjg3KVUTxLA56Ha7XB63OwKV3ZuU0QfnPXLlUOxxpcTZ0laS4755dVz2yMq4Fxtbj2WppO6bd8P8Zyao9Q0OU8q9Z3p8Koq8CZF1h9lqaixlRn0w5HWtLCytsSVTc8y0rahIpxNFz3S6Ip1Y26J2ITTQLoQG2oXQQLsQGmgXQgPtQmigXQgNtAuhgXYhNNAuhAbahShoFwXtoqBdFLSLgnZR0C4K2kVBuyhoFwXtIofOIDTQLoQG2sVzGmgX72qgXfyggXaxVwPtQmigXYj/S7tQU7WLrQCBfwFnft8xK3413wAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat;"><style type="text/css">.disqus-loader{animation:disqus-embed-spinner .7s infinite linear;-webkit-animation:disqus-embed-spinner .7s infinite linear}@keyframes disqus-embed-spinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@-webkit-keyframes disqus-embed-spinner{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}</style><div class="disqus-loader" style="width: 29px; height: 29px; margin: 11px 14px; background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFMAAABmCAMAAACA210sAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAlhQTFRFMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtMzY63+TtWDj2BwAAAMh0Uk5TAAABAQICAwMEBAUFBgYHBwgICQkKCgsLDAwNDQ4ODw8QEBEREhITExQUFRUWFhcXGBgZGRoaGxscHB0dHh4fHyAgISEjIyQkJSUmJigoKSkqKisrLCwtLS4uLy8wMDExMjIzMzQ0NTU2Njc3ODg5OTo6Ozs8PD09Pj4/P0BAQUFCQkNDRERFRUZGR0dISElJS0tMTE1NTk5PT1BQUVFSUlNTVFRVVVZWV1dYWFlZWlpbW1xcXV1eXl9fYGBhYWJiY2NkZGVlZmaMInkiAAAFVklEQVRo3u2Yf0hbVxTHP/flmYYQxFoXghMJzkpXQmszCd0ma7eKKyKuSOlKGaV0RaRzsIHIGDK2MqSsXVvKcKWIG6V0ItI5Z1tXZBsiIkWciC0iYsMIIbisC1mWhpDG/RFjfpvr4O2vnH+Se+/J575z3z3n5n4F2Uy12aotpUY1HFp1OecXo+S00vo6q9kYXF2ZnfLG+0QWYH2jw5jcEZi6P50dW33qoBL//sl4TqbpyPHSzB97bo2GMjr1bcfUjcbcWXIwlZb24uxBenvH0sM+b0s0om2PAJPBC+hS3KxfvrUtx8IZD+z9LZDcUfL1zqTWj98DtLVP/JP2nIc74+vonplfWQ2EDcZya22deb3T1zOZtOq9saf0jMy6vSarywdU3tAvdIRTmGdOxz5Dd8cWkqeyNzXG1i16ZWijs+MEQPjaUCTh+EU9DFxNZna2AhAZvPUkPXDLqebY++3rj7/xfhXwfTyX5LX/EhA9tZxYz/bjACx0/vQ0YzEDk9O27QD2vx/Gej6oBiKdcylub24DsWN8g9ncAcDAp39mfUV/jJp3Aux//Big9CMF+Go8xcfveR14/k6cuatHB0Qvf5MrZ55NiH0Ajl/8wKEDgOezNOeVV8tAca8z9Zd3AFy4nTsLmRX7AP2Ld9bgxAvA4Ey6S9HLwNP11HrHCnBjmM2sbwTA1gJUAWQgmQKwxpiWkwAz19ncriwBtJugDMCZ4eAOAeYY84QeCPZE8zBDn0eA4qOgAvgzPQKASQEobQbo85DPlgcBjhkIA2SpNSVAQAFoMADeYfLbzSBQ8hpPACwZw2YV8CoATQCDIQmmbwTgMCsA9oxhO4BTASw1QGQMGRsBqDPNADSr6aPNADNKnD7rlWI6lwG1bioCVDSlDb5iB6ITClAL8AA5mwbY9eTXjaRPWs1ugEmvEt/AjySZjwCs9EcAQ3tK8bpUAkT7UYBKgGVJphOgAucAwI2kgfq+KoChJVRQTYA/IMl0AZTB9Vob9+cBSn1RxeJorAVg6RqoYIwngJRFQgYwQqSr19ILUH6LkCl+Iru6QglmEGkosdT0nXWsApzVo4+PLXZ5Y6NBWAdLmbrOxXcfoO6NxHk81BsmiVksjTSkRKV0bBAnvl3amDXiLwZTsV+OWQmQyA/9UF2V2Rj0OmcnvMmROPcAVXNbYLoS5W90NMNFAX4HsEnGvjt7NU5nLgA4JJn78yedEj9XasukkDXVQGQ2L9O9DKhNUswmgJlAXiZjAEdUCWRJC8Bd8jP9AOGIBPOkAfBNSjBbAW7LrOZRgIFQfubuXUBI4uwwdKuAL9/sCnAE4GeJPIrV9WuB/MziBgCJk7i9BWB+VKLKHDYAiwuo5RUW9/QmyJMAgXNRCWYrgP5qhVmBQHeus87Y1QhAjztvPDocbwNsLzcJQN+oPsy6p2wXXgLg4j0kmO9Zk9ui9tBfzrV0r/L3P9wOwPXvJHacKLudkT/O4fHkW4Jib2pYv3dclPlPhTh9Jl6nPW7vQcP698W5RddqMGQyVpbb7fHqEjg3KVUTxLA56Ha7XB63OwKV3ZuU0QfnPXLlUOxxpcTZ0laS4755dVz2yMq4Fxtbj2WppO6bd8P8Zyao9Q0OU8q9Z3p8Koq8CZF1h9lqaixlRn0w5HWtLCytsSVTc8y0rahIpxNFz3S6Ip1Y26J2ITTQLoQG2oXQQLsQGmgXQgPtQmigXQgNtAuhgXYhNNAuhAbahShoFwXtoqBdFLSLgnZR0C4K2kVBuyhoFwXtIofOIDTQLoQG2sVzGmgX72qgXfyggXaxVwPtQmigXYj/S7tQU7WLrQCBfwFnft8xK3413wAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-position: -54px 0pt;"></div></div></div><iframe src="account-server-configuration_files/a.html" style="width: 100%; border: medium none; overflow: hidden; height: 0pt;" role="complementary" allowtransparency="true" data-disqus-uid="2" id="dsq2" frameborder="0" width="100%"></iframe></div><hr><div class="legal"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/index.html">Legal notices</a></div></div><div><div id="leftnavigation" style="padding-top:3px; background-color:white;"><div id="tabs"><ul><li><a href="#treeDiv" tabindex="1"><span class="contentsTab">Contents</span></a></li><li><a href="#searchDiv" tabindex="1"><span class="searchTab">Search</span></a></li></ul><div id="treeDiv"><img src="account-server-configuration_files/loading.gif" alt="loading table of contents..." id="tocLoading" style="display: block;"><div id="ulTreeDiv" style="display:none" class="thisisthat"><ul id="tree" class="filetree"><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_getting-started-with-openstack.html">1. Getting Started with OpenStack</a></span><ul><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/why-cloud.html">Why Cloud?</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/what-is-openstack.html">What is OpenStack?</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/components-of-openstack.html">Components of OpenStack</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/conceptual-architecture.html">Conceptual Architecture</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/logical-architecture.html">Logical Architecture</a></span><ul><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-dashboard-arch.html">Dashboard</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-compute-arch.html">Compute</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-object-store-arch.html">Object Store</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-image-store-arch.html">Image Store</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-identity-arch.html">Identity</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-network-arch.html">Network</a></span></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/overview-block-storage-arch.html">Block Storage</a></span></li></ul></li></ul></li><li tabindex="2"><span class="file"><a href="http://docs.openstack.org/folsom/openstack-object-storage/admin/content/ch_introduction-to-openstack-object-storage.html">2. Introduction to OpenStack Object Storage</a></span></li></ul></div></div></div></div></div></body></html>

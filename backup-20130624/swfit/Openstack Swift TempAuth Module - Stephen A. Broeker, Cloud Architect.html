@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="en-US">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="en-US">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en-US"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/count.json" async=""></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="stylesheet" type="text/css" media="all" href="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/style.css">
+<link rel="pingback" href="http://www.stephenbroeker.com/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="http://www.stephenbroeker.com/wp-content/themes/twentyeleven/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.7 - http://yoast.com/wordpress/seo/ -->
+<title>Openstack Swift TempAuth Module - Stephen A. Broeker, Cloud Architect</title>
+<meta name="description" content="Explanation of Openstack Swift Test Authentication and Authorization System (tempauth), an excellent module for SAIO and development work.">
+<link rel="canonical" href="http://www.stephenbroeker.com/2012/03/28/openstack-swift-tempauth-module/">
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="Stephen A. Broeker, Cloud Architect » Feed" href="http://www.stephenbroeker.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Stephen A. Broeker, Cloud Architect » Comments Feed" href="http://www.stephenbroeker.com/comments/feed/">
+
+            <script src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.3 | http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-28406156-1']);
+				            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+			<link rel="alternate" type="application/rss+xml" title="Stephen A. Broeker, Cloud Architect » Openstack Swift TempAuth Module Comments Feed" href="http://www.stephenbroeker.com/2012/03/28/openstack-swift-tempauth-module/feed/">
+<link rel="stylesheet" id="quotescollection-style-css" href="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/quotes-collection.css" type="text/css" media="all">
+<link rel="stylesheet" id="NextGEN-css" href="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/nggallery.css" type="text/css" media="screen">
+<link rel="stylesheet" id="shutter-css" href="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/shutter-reloaded.css" type="text/css" media="screen">
+<link rel="stylesheet" id="jetpack-widgets-css" href="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/widgets.css" type="text/css" media="all">
+<link rel="stylesheet" id="sharedaddy-css" href="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/sharing.css" type="text/css" media="all">
+<script type="text/javascript" src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/jquery_002.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var QCAjax = {"ajaxurl":"http:\/\/www.stephenbroeker.com\/wp-admin\/admin-ajax.php","nonce":"07bd8b8f61","nextquote":"Next quote\u00a0\u00bb","loading":"Loading...","error":"Error getting quote","auto_refresh_max":"30","auto_refresh_count":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/quotes-collection.js"></script>
+<script type="text/javascript" src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/comment-reply.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var shutterSettings = {"msgLoading":"L O A D I N G","msgClose":"Click to Close","imageCount":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/shutter-reloaded.js"></script>
+<script type="text/javascript" src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/jquery.js"></script>
+<script type="text/javascript" src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/ngg.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.stephenbroeker.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.stephenbroeker.com/wp-includes/wlwmanifest.xml"> 
+<link rel="shortlink" href="http://wp.me/p2TGH2-cO">
+<!-- <meta name="NextGEN" version="1.9.12" /> -->
+<style type="text/css">.broken_link, a.broken_link {
+	text-decoration: line-through;
+}</style>	<style type="text/css">
+			#site-title a,
+		#site-description {
+			color: # !important;
+		}
+		</style>
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #f1f1f1; }
+</style>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/services.css"></head>
+
+<body class="single single-post postid-794 single-format-standard custom-background singular two-column right-sidebar">
+<div id="page" class="hfeed">
+	<header id="branding" role="banner">
+			<hgroup>
+				<h1 id="site-title"><span><a href="http://www.stephenbroeker.com/" title="Stephen A. Broeker, Cloud Architect" rel="home">Stephen A. Broeker, Cloud Architect</a></span></h1>
+				<h2 id="site-description"></h2>
+			</hgroup>
+
+						<a href="http://www.stephenbroeker.com/">
+									<img src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/cropped-Biased-Fog.jpg" alt="" height="288" width="1000">
+							</a>
+			
+								<form method="get" id="searchform" action="http://www.stephenbroeker.com/">
+		<label for="s" class="assistive-text">Search</label>
+		<input class="field" name="s" id="s" placeholder="Search" type="text">
+		<input class="submit" name="submit" id="searchsubmit" value="Search" type="submit">
+	</form>
+			
+			<nav id="access" role="navigation">
+				<h3 class="assistive-text">Main menu</h3>
+								<div class="skip-link"><a class="assistive-text" href="#content" title="Skip to primary content">Skip to primary content</a></div>
+				<div class="skip-link"><a class="assistive-text" href="#secondary" title="Skip to secondary content">Skip to secondary content</a></div>
+								<div class="menu-main-container"><ul id="menu-main" class="menu"><li id="menu-item-1981" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1981"><a href="http://www.stephenbroeker.com/">Home</a></li>
+<li id="menu-item-245" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-245"><a title="Title Attribute" href="http://www.stephenbroeker.com/expertise/">Expertise</a>
+<ul class="sub-menu">
+	<li id="menu-item-2952" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2952"><a href="http://www.stephenbroeker.com/career-outline/">Career Outline</a></li>
+	<li id="menu-item-1820" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1820"><a href="http://www.stephenbroeker.com/expertise/resume/">Resume</a></li>
+	<li id="menu-item-248" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-248"><a href="http://www.stephenbroeker.com/education/">Education</a></li>
+	<li id="menu-item-756" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-756"><a href="http://www.stephenbroeker.com/patents/">Patents</a></li>
+	<li id="menu-item-754" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-754"><a href="http://www.stephenbroeker.com/references/">References</a></li>
+	<li id="menu-item-755" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-755"><a href="http://www.stephenbroeker.com/theses-papers/">Theses &amp; Papers</a></li>
+	<li id="menu-item-250" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-250"><a href="http://www.stephenbroeker.com/resources/">Resources</a></li>
+</ul>
+</li>
+<li id="menu-item-763" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-763"><a href="http://www.stephenbroeker.com/beekeeping-2/">Beekeeping</a>
+<ul class="sub-menu">
+	<li id="menu-item-2062" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2062"><a href="http://www.stephenbroeker.com/beekeeping-2/beekeeping-overview/">Beekeeping Overview</a></li>
+	<li id="menu-item-2055" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2055"><a href="http://www.stephenbroeker.com/category/beekeeping/">Beekeeping Articles</a></li>
+</ul>
+</li>
+<li id="menu-item-1975" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1975"><a href="http://www.stephenbroeker.com/about/cooking/">Cooking</a>
+<ul class="sub-menu">
+	<li id="menu-item-2068" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2068"><a href="http://www.stephenbroeker.com/about/cooking/cooking-overview/">Cooking Overview</a></li>
+	<li id="menu-item-2056" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2056"><a href="http://www.stephenbroeker.com/category/cooking/">Cooking Articles</a></li>
+</ul>
+</li>
+<li id="menu-item-764" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-764"><a href="http://www.stephenbroeker.com/about/sports/">Sports</a>
+<ul class="sub-menu">
+	<li id="menu-item-2057" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2057"><a href="http://www.stephenbroeker.com/category/sports/">Sports Articles</a></li>
+</ul>
+</li>
+<li id="menu-item-2085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2085"><a href="http://www.stephenbroeker.com/about/">About</a>
+<ul class="sub-menu">
+	<li id="menu-item-1973" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1973"><a href="http://www.stephenbroeker.com/about/faith/">Faith</a></li>
+	<li id="menu-item-1974" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1974"><a href="http://www.stephenbroeker.com/about/family/">Family</a></li>
+</ul>
+</li>
+<li id="menu-item-251" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-251"><a href="http://www.stephenbroeker.com/contact/">Contact Me</a></li>
+</ul></div>			</nav><!-- #access -->
+	</header><!-- #branding -->
+
+
+	<div id="main">
+
+		<div id="primary">
+			<div id="content" role="main">
+
+				
+					<nav id="nav-single">
+						<h3 class="assistive-text">Post navigation</h3>
+						<span class="nav-previous"><a href="http://www.stephenbroeker.com/2012/03/14/swift-rest-api-example/" rel="prev"><span class="meta-nav">←</span> Previous</a></span>
+						<span class="nav-next"><a href="http://www.stephenbroeker.com/2012/04/04/smp-symmetric-multi-processor-explained-part-1/" rel="next">Next <span class="meta-nav">→</span></a></span>
+					</nav><!-- #nav-single -->
+
+					
+<article id="post-794" class="post-794 post type-post status-publish format-standard hentry category-computer-science">
+	<header class="entry-header">
+		<h1 class="entry-title">Openstack Swift TempAuth Module</h1>
+
+				<div class="entry-meta">
+			<span class="sep">Posted on </span><a href="http://www.stephenbroeker.com/2012/03/28/openstack-swift-tempauth-module/" title="9:00 am" rel="bookmark"><time class="entry-date" datetime="2012-03-28T09:00:12+00:00">March 28, 2012</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="http://www.stephenbroeker.com/author/stephenbroeker/" title="View all posts by stephenbroeker" rel="author">stephenbroeker</a></span></span>		</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p><a href="http://www.stephenbroeker.com/wp-content/uploads/2012/03/Swift-Lights.jpg"><img class="alignleft size-full wp-image-1092" title="Swift Lights" src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/Swift-Lights.jpg" alt="" height="340" width="1024"></a>Last time I presented a <a title="Swift REST API Example" href="http://www.stephenbroeker.com/2012/03/14/swift-rest-api-example/">Swift REST API example</a>.
+ Now I’ll explain the Openstack Swift Test Authentication and 
+Authorization System (tempauth). This is an excellent authentication 
+module for Swift All In One (SAIO) and for development work.<span id="more-794"></span></p>
+<h2>Add Tempauth to Openstack Swift Proxy Server</h2>
+<p>The first thing that you will need to do is to add tempauth to the 
+Proxy Server configuration. So make sure that the following is in 
+proxy-server.conf:</p>
+<p>[pipeline:main]<br>
+pipeline = catch_errors cache tempauth proxy-server</p>
+<p>[app:proxy-server]<br>
+account_autocreate = true</p>
+<p>[filter:tempauth]<br>
+use = egg:swift#tempauth<br>
+user_admin_admin = admin .admin .reseller_admin<br>
+user_test_tester = testing .admin<br>
+user_test2_tester2 = testing2 .admin<br>
+user_test_tester3 = testing3</p>
+<p>The configuration lines under the [filter:tempauth] section that 
+begin with “user_”, define a users login, password, and privileges. 
+These lines are of the form: user_&lt;login1&gt;_&lt;login2&gt; = 
+&lt;password&gt; &lt;privileges&gt;</p>
+<h2>Four Users, Four Permissions</h2>
+<p>This configuration enables tempauth and creates the following four users, each with different permissions.</p>
+<p>1) login = admin:admin<br>
+password = admin<br>
+privileges = .admin, .reseller_admin</p>
+<p>2) login = test:tester<br>
+password = testing<br>
+privileges = .admin</p>
+<p>3) login = test2:tester2<br>
+password = testing2<br>
+privileges = .admin</p>
+<p>4) login = test:tester3<br>
+password = testing3<br>
+privileges = None</p>
+<h2>Openstack Swift Privileges</h2>
+<p>So what do the privileges mean?</p>
+<p>1) admin<br>
+Admin users can do anything within their account.</p>
+<p>2) reseller_admin<br>
+Reseller Admin users can do anything to any account.</p>
+<p>3) None<br>
+Non-Admin users can only perform operations per container based on the container’s X-Container-Read and</p>
+<p>X-Container-Write ACLs.</p>
+<p>To allow a “user” to read the objects in container, then set the container header “X-Container-Read: .r:user”.</p>
+<p>To allow a “user” to list the contents of a container, then set the container header “X-Container-Read: .rlistings”.</p>
+<p>To allow a “user” to read and list the objects in container, then set the container header</p>
+<p>“X-Container-Read: .r:user, .rlistings”.</p>
+<p>To allow anyone to write to a container, then set the container header “X-Container-Write: .r:*”.</p>
+<p>For complete ACL details, check out <a title="Openstack Dev Documentation" href="http://swift.openstack.org/misc.html#module-swift.common.middleware.acl" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://swift.openstack.org']);" target="_blank">Openstack Swift dev documentation</a>.</p>
+<p>When a Non-Admin user is created, then the only way to create 
+X-Container-Read and X-Container-Write headers is via a Reseller Admin 
+user.</p>
+<p>Or, do you have another solution?</p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="http://www.stephenbroeker.com/2012/03/28/openstack-swift-tempauth-module/?share=facebook&amp;nb=1" target="_blank" title="Share on Facebook" id="sharing-facebook-794"><span>Facebook</span></a></li><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="http://www.stephenbroeker.com/2012/03/28/openstack-swift-tempauth-module/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter" id="sharing-twitter-794"><span>Twitter</span></a></li><li class="share-google-plus-1"><a rel="nofollow" class="share-google-plus-1 sd-button share-icon" href="http://www.stephenbroeker.com/2012/03/28/openstack-swift-tempauth-module/?share=google-plus-1&amp;nb=1" target="_blank" title="Click to share on Google+" id="sharing-google-794"><span>Google +1</span></a></li><li class="share-linkedin"><a rel="nofollow" class="share-linkedin sd-button share-icon" href="http://www.stephenbroeker.com/2012/03/28/openstack-swift-tempauth-module/?share=linkedin&amp;nb=1" target="_blank" title="Click to share on LinkedIn" id="sharing-linkedin-794"><span>LinkedIn</span></a></li><li class="share-stumbleupon"><a rel="nofollow" class="share-stumbleupon sd-button share-icon" href="http://www.stephenbroeker.com/2012/03/28/openstack-swift-tempauth-module/?share=stumbleupon&amp;nb=1" target="_blank" title="Click to share on StumbleUpon"><span>StumbleUpon</span></a></li><li class="share-pinterest"><a rel="nofollow" class="share-pinterest sd-button share-icon" href="http://www.stephenbroeker.com/2012/03/28/openstack-swift-tempauth-module/?share=pinterest&amp;nb=1" target="_blank" title="Click to share on Pinterest"><span>Pinterest</span></a></li><li class="share-end"></li></ul></div></div></div><div class="yarpp-related yarpp-related-none">
+<p>No related posts.</p>
+</div>
+			</div><!-- .entry-content -->
+
+	<footer class="entry-meta">
+		This entry was posted in <a href="http://www.stephenbroeker.com/category/computer-science/" title="View all posts in Computer Science" rel="category tag">Computer Science</a> by <a href="http://www.stephenbroeker.com/author/stephenbroeker/">stephenbroeker</a>. Bookmark the <a href="http://www.stephenbroeker.com/2012/03/28/openstack-swift-tempauth-module/" title="Permalink to Openstack Swift TempAuth Module" rel="bookmark">permalink</a>.		
+			</footer><!-- .entry-meta -->
+</article><!-- #post-794 -->
+
+						<div id="comments">
+	
+	
+	
+									<div id="respond">
+				<h3 id="reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://www.stephenbroeker.com/2012/03/28/openstack-swift-tempauth-module/#respond" style="display: none;">Cancel reply</a></small></h3>
+									<form action="http://www.stephenbroeker.com/wp-comments-post.php" method="post" id="commentform">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" size="30" aria-required="true" type="text"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" size="30" aria-required="true" type="text"></p>
+<p class="comment-form-url"><label for="url">Website</label><input id="url" name="url" size="30" type="text"></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>						<p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a
+ href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; 
+&lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del 
+datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; 
+&lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" id="submit" value="Post Comment" type="submit">
+							<input name="comment_post_ID" value="794" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+						<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="ac8db487e5" type="hidden"></p>Protected with <a href="http://ip-finder.me/"><img src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/icon.png" style="display: inline;" alt="IP Blacklist Cloud">IP Blacklist Cloud</a><p class="comment-subscription-form"><input name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox;" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments" style="display: inline;">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox;" type="checkbox"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog" style="display: inline;">Notify me of new posts by email.</label></p>					</form>
+							</div><!-- #respond -->
+			        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery('#commentform').submit(function () {
+                    _gaq.push(
+                            ['_setAccount', 'UA-28406156-1'],
+                            ['_trackEvent', 'comment', 'submit']
+                    );
+                });
+            });
+        </script>
+					
+</div><!-- #comments -->
+
+				
+			</div><!-- #content -->
+		</div><!-- #primary -->
+
+
+	</div><!-- #main -->
+
+	<footer id="colophon" role="contentinfo">
+
+			
+
+			<div id="site-generator">
+								<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
+			</div>
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+	<div style="display:none">
+	</div>
+
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/www.stephenbroeker.com\/2012\/03\/28\/openstack-swift-tempauth-module\/":794}	</script>
+<script type="text/javascript" src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/sharing.js"></script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=600,height=600' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-linkedin' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+		});
+		</script>
+							<script type="text/javascript">
+			jQuery(document).on('ready', function(){
+				jQuery('body').on('click', 'a.share-pinterest', function(e){
+					e.preventDefault();
+
+					// Load Pinterest Bookmarklet code
+					var s = document.createElement("script");
+					s.type = "text/javascript";
+					s.src = window.location.protocol + "//assets.pinterest.com/js/pinmarklet.js?r=" + ( Math.random() * 99999999 );
+					var x = document.getElementsByTagName("script")[0];
+					x.parentNode.insertBefore(s, x);
+
+					// Trigger Stats
+					var s = document.createElement("script");
+					s.type = "text/javascript";
+					s.src = this + ( this.toString().indexOf( '?' ) ? '&' : '?' ) + 'js_only=1';
+					var x = document.getElementsByTagName("script")[0];
+					x.parentNode.insertBefore(s, x);
+				});
+			});
+			</script>
+		<script type="text/javascript" src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/wpgroho.js"></script>
+
+	<script src="Openstack%20Swift%20TempAuth%20Module%20-%20Stephen%20A.%20Broeker,%20Cloud%20Architect_files/e-201325.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:2.2.5',blog:'42824828',post:'794',tz:'-7'});
+	var load_cmc = function(){linktracker_init(42824828,794,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script>
+
+</body></html>

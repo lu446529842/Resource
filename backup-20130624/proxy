@@ -1,0 +1,140 @@
+    Install swift-proxy service:
+
+    # apt-get install swift-proxy memcached python-keystoneclient python-swiftclient python-webob
+
+    # yum install openstack-swift-proxy memcached openstack-utils python-swiftclient python-keystone-auth-token
+
+    Create self-signed cert for SSL:
+
+    # cd /etc/swift
+    # openssl req -new -x509 -nodes -out cert.crt -keyout cert.key                
+
+    Modify memcached to listen on the default interfaces. Preferably this should be on a local, non-public network. Edit the following line in /etc/memcached.conf, changing:
+
+    -l 127.0.0.1 
+    to
+    -l <PROXY_LOCAL_NET_IP>
+
+    Restart the memcached server:
+
+    # service memcached restart
+
+    RHEL/CentOS/Fedora Only: To set up Object Storage to authenticate tokens we need to set the keystone Admin token in the swift proxy file with the openstack-config command.
+
+    # openstack-config --set /etc/swift/proxy-server.conf filter:authtoken admin_token $ADMIN_TOKEN
+    # sudo openstack-config --set /etc/swift/proxy-server.conf filter:authtoken auth_token $ADMIN_TOKEN
+
+    Create /etc/swift/proxy-server.conf:
+
+    [DEFAULT]
+    bind_port = 8888
+    user = swift
+
+    [pipeline:main]
+    pipeline = healthcheck cache authtoken keystoneauth proxy-server
+
+    [app:proxy-server]
+    use = egg:swift#proxy
+    allow_account_management = true
+    account_autocreate = true
+
+    [filter:keystoneauth]
+    use = egg:swift#keystoneauth
+    operator_roles = Member,admin,swiftoperator
+
+    [filter:authtoken]
+    paste.filter_factory = keystoneclient.middleware.auth_token:filter_factory
+
+    # Delaying the auth decision is required to support token-less
+    # usage for anonymous referrers ('.r:*').
+    delay_auth_decision = true
+
+    # cache directory for signing certificate
+    signing_dir = /home/swift/keystone-signing
+
+    # auth_* settings refer to the Keystone server
+    auth_protocol = http
+    auth_host = 192.168.56.3
+    auth_port = 35357
+
+    # the same admin_token as provided in keystone.conf
+    admin_token = 012345SECRET99TOKEN012345
+
+    # the service tenant and swift userid and password created in Keystone
+    admin_tenant_name = service
+    admin_user = swift
+    admin_password = swift
+
+    [filter:cache]
+    use = egg:swift#memcache
+
+    [filter:catch_errors]
+    use = egg:swift#catch_errors
+
+    [filter:healthcheck]
+    use = egg:swift#healthcheck
+
+    [Note]	Note
+
+    If you run multiple memcache servers, put the multiple IP:port listings in the [filter:cache] section of the proxy-server.conf file like:
+
+    10.1.2.3:11211,10.1.2.4:11211
+
+    Only the proxy server uses memcache.
+
+    Create the signing_dir and set its permissions accordingly.
+
+    # mkdir -p /home/swift/keystone-signing
+    # chown -R swift:swift /home/swift/keystone-signing
+
+    Create the account, container and object rings. The builder command is basically creating a builder file with a few parameters. The parameter with the value of 18 represents 2 ^ 18th, the value that the partition will be sized to. Set this “partition power” value based on the total amount of storage you expect your entire ring to use. The value of 3 represents the number of replicas of each object, with the last value being the number of hours to restrict moving a partition more than once.
+
+    # cd /etc/swift
+    # swift-ring-builder account.builder create 18 3 1
+    # swift-ring-builder container.builder create 18 3 1
+    # swift-ring-builder object.builder create 18 3 1            
+
+    For every storage device on each node add entries to each ring:
+
+    # swift-ring-builder account.builder add z<ZONE>-<STORAGE_LOCAL_NET_IP>:6002/<DEVICE> 100
+    # swift-ring-builder container.builder add z<ZONE>-<STORAGE_LOCAL_NET_IP_1>:6001/<DEVICE> 100
+    # swift-ring-builder object.builder add z<ZONE>-<STORAGE_LOCAL_NET_IP_1>:6000/<DEVICE> 100
+
+    For example, if you were setting up a storage node with a partition in Zone 1 on IP 10.0.0.1. The mount point of this partition is /srv/node/sdb1, and the path in rsyncd.conf is /srv/node/, the DEVICE would be sdb1 and the commands would look like:
+
+    # swift-ring-builder account.builder add z1-10.0.0.1:6002/sdb1 100
+    # swift-ring-builder container.builder add z1-10.0.0.1:6001/sdb1 100
+    # swift-ring-builder object.builder add z1-10.0.0.1:6000/sdb1 100
+    			
+
+    [Note]	Note
+
+    Assuming there are 5 zones with 1 node per zone, ZONE should start at 1 and increment by one for each additional node.
+
+    Verify the ring contents for each ring:
+
+    # swift-ring-builder account.builder
+    # swift-ring-builder container.builder
+    # swift-ring-builder object.builder
+                    
+
+    Rebalance the rings:
+
+    # swift-ring-builder account.builder rebalance
+    # swift-ring-builder container.builder rebalance
+    # swift-ring-builder object.builder rebalance
+                    
+
+    [Note]	Note
+
+    Rebalancing rings can take some time.
+
+    Copy the account.ring.gz, container.ring.gz, and object.ring.gz files to each of the Proxy and Storage nodes in /etc/swift.
+
+    Make sure all the config files are owned by the swift user:
+
+    # chown -R swift:swift /etc/swift
+
+    Start Proxy services:
+
+    # service proxy-server start

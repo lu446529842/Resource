@@ -1,0 +1,595 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh"><head>
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="content-type" content="text/html; charset=gbk">
+    <meta http-equiv="content-style-type" content="text/css">
+    <meta http-equiv="content-script-type" content="text/javascript">
+    <meta name="version" content="neblog-1.0">
+    <script type="text/javascript">
+      
+      
+      document.uniqueID!=document.uniqueID&&!!location.hash&&(location.hash=location.hash); 
+      document.domain = location.hostname.replace(/^.*\.([\w]+\.[\w]+)$/,'$1');
+      window.focus();
+      window.getMusicTimeStamp=function(){return '829d66be587dbb4e8f15b28b08677ef3';};
+    </script>
+<title>Linux静态IP设置 - weilaisecond的日志 - 网易博客</title>
+<meta name="author" content="weilaisecond,weilaisecond">
+<meta name="keywords" content="Linux静态IP设置,日志,weilaisecond,second,网易博客,网易,blog">
+<meta name="description" content="Linux静态IP设置,weilaisecond的网易博客,second,">
+  <script type="text/javascript">
+    (function(){
+     var R=24,C=11,a=[];
+     for(var i=0;i<C;i++)for(var j=0;j<R;a.push('.icn0-'+i+j+'{background-position:'+(i>0?('-'+i*40+'px'):'0')+' '+(j>0?('-'+j*20+'px'):'0')+';}'),j++);
+          document.write('<style type="text/css">'+a.join('')+'</st'+'yle>');
+    })();
+  </script><style type="text/css">.icn0-00{background-position:0 0;}.icn0-01{background-position:0 -20px;}.icn0-02{background-position:0 -40px;}.icn0-03{background-position:0 -60px;}.icn0-04{background-position:0 -80px;}.icn0-05{background-position:0 -100px;}.icn0-06{background-position:0 -120px;}.icn0-07{background-position:0 -140px;}.icn0-08{background-position:0 -160px;}.icn0-09{background-position:0 -180px;}.icn0-010{background-position:0 -200px;}.icn0-011{background-position:0 -220px;}.icn0-012{background-position:0 -240px;}.icn0-013{background-position:0 -260px;}.icn0-014{background-position:0 -280px;}.icn0-015{background-position:0 -300px;}.icn0-016{background-position:0 -320px;}.icn0-017{background-position:0 -340px;}.icn0-018{background-position:0 -360px;}.icn0-019{background-position:0 -380px;}.icn0-020{background-position:0 -400px;}.icn0-021{background-position:0 -420px;}.icn0-022{background-position:0 -440px;}.icn0-023{background-position:0 -460px;}.icn0-10{background-position:-40px 0;}.icn0-11{background-position:-40px -20px;}.icn0-12{background-position:-40px -40px;}.icn0-13{background-position:-40px -60px;}.icn0-14{background-position:-40px -80px;}.icn0-15{background-position:-40px -100px;}.icn0-16{background-position:-40px -120px;}.icn0-17{background-position:-40px -140px;}.icn0-18{background-position:-40px -160px;}.icn0-19{background-position:-40px -180px;}.icn0-110{background-position:-40px -200px;}.icn0-111{background-position:-40px -220px;}.icn0-112{background-position:-40px -240px;}.icn0-113{background-position:-40px -260px;}.icn0-114{background-position:-40px -280px;}.icn0-115{background-position:-40px -300px;}.icn0-116{background-position:-40px -320px;}.icn0-117{background-position:-40px -340px;}.icn0-118{background-position:-40px -360px;}.icn0-119{background-position:-40px -380px;}.icn0-120{background-position:-40px -400px;}.icn0-121{background-position:-40px -420px;}.icn0-122{background-position:-40px -440px;}.icn0-123{background-position:-40px -460px;}.icn0-20{background-position:-80px 0;}.icn0-21{background-position:-80px -20px;}.icn0-22{background-position:-80px -40px;}.icn0-23{background-position:-80px -60px;}.icn0-24{background-position:-80px -80px;}.icn0-25{background-position:-80px -100px;}.icn0-26{background-position:-80px -120px;}.icn0-27{background-position:-80px -140px;}.icn0-28{background-position:-80px -160px;}.icn0-29{background-position:-80px -180px;}.icn0-210{background-position:-80px -200px;}.icn0-211{background-position:-80px -220px;}.icn0-212{background-position:-80px -240px;}.icn0-213{background-position:-80px -260px;}.icn0-214{background-position:-80px -280px;}.icn0-215{background-position:-80px -300px;}.icn0-216{background-position:-80px -320px;}.icn0-217{background-position:-80px -340px;}.icn0-218{background-position:-80px -360px;}.icn0-219{background-position:-80px -380px;}.icn0-220{background-position:-80px -400px;}.icn0-221{background-position:-80px -420px;}.icn0-222{background-position:-80px -440px;}.icn0-223{background-position:-80px -460px;}.icn0-30{background-position:-120px 0;}.icn0-31{background-position:-120px -20px;}.icn0-32{background-position:-120px -40px;}.icn0-33{background-position:-120px -60px;}.icn0-34{background-position:-120px -80px;}.icn0-35{background-position:-120px -100px;}.icn0-36{background-position:-120px -120px;}.icn0-37{background-position:-120px -140px;}.icn0-38{background-position:-120px -160px;}.icn0-39{background-position:-120px -180px;}.icn0-310{background-position:-120px -200px;}.icn0-311{background-position:-120px -220px;}.icn0-312{background-position:-120px -240px;}.icn0-313{background-position:-120px -260px;}.icn0-314{background-position:-120px -280px;}.icn0-315{background-position:-120px -300px;}.icn0-316{background-position:-120px -320px;}.icn0-317{background-position:-120px -340px;}.icn0-318{background-position:-120px -360px;}.icn0-319{background-position:-120px -380px;}.icn0-320{background-position:-120px -400px;}.icn0-321{background-position:-120px -420px;}.icn0-322{background-position:-120px -440px;}.icn0-323{background-position:-120px -460px;}.icn0-40{background-position:-160px 0;}.icn0-41{background-position:-160px -20px;}.icn0-42{background-position:-160px -40px;}.icn0-43{background-position:-160px -60px;}.icn0-44{background-position:-160px -80px;}.icn0-45{background-position:-160px -100px;}.icn0-46{background-position:-160px -120px;}.icn0-47{background-position:-160px -140px;}.icn0-48{background-position:-160px -160px;}.icn0-49{background-position:-160px -180px;}.icn0-410{background-position:-160px -200px;}.icn0-411{background-position:-160px -220px;}.icn0-412{background-position:-160px -240px;}.icn0-413{background-position:-160px -260px;}.icn0-414{background-position:-160px -280px;}.icn0-415{background-position:-160px -300px;}.icn0-416{background-position:-160px -320px;}.icn0-417{background-position:-160px -340px;}.icn0-418{background-position:-160px -360px;}.icn0-419{background-position:-160px -380px;}.icn0-420{background-position:-160px -400px;}.icn0-421{background-position:-160px -420px;}.icn0-422{background-position:-160px -440px;}.icn0-423{background-position:-160px -460px;}.icn0-50{background-position:-200px 0;}.icn0-51{background-position:-200px -20px;}.icn0-52{background-position:-200px -40px;}.icn0-53{background-position:-200px -60px;}.icn0-54{background-position:-200px -80px;}.icn0-55{background-position:-200px -100px;}.icn0-56{background-position:-200px -120px;}.icn0-57{background-position:-200px -140px;}.icn0-58{background-position:-200px -160px;}.icn0-59{background-position:-200px -180px;}.icn0-510{background-position:-200px -200px;}.icn0-511{background-position:-200px -220px;}.icn0-512{background-position:-200px -240px;}.icn0-513{background-position:-200px -260px;}.icn0-514{background-position:-200px -280px;}.icn0-515{background-position:-200px -300px;}.icn0-516{background-position:-200px -320px;}.icn0-517{background-position:-200px -340px;}.icn0-518{background-position:-200px -360px;}.icn0-519{background-position:-200px -380px;}.icn0-520{background-position:-200px -400px;}.icn0-521{background-position:-200px -420px;}.icn0-522{background-position:-200px -440px;}.icn0-523{background-position:-200px -460px;}.icn0-60{background-position:-240px 0;}.icn0-61{background-position:-240px -20px;}.icn0-62{background-position:-240px -40px;}.icn0-63{background-position:-240px -60px;}.icn0-64{background-position:-240px -80px;}.icn0-65{background-position:-240px -100px;}.icn0-66{background-position:-240px -120px;}.icn0-67{background-position:-240px -140px;}.icn0-68{background-position:-240px -160px;}.icn0-69{background-position:-240px -180px;}.icn0-610{background-position:-240px -200px;}.icn0-611{background-position:-240px -220px;}.icn0-612{background-position:-240px -240px;}.icn0-613{background-position:-240px -260px;}.icn0-614{background-position:-240px -280px;}.icn0-615{background-position:-240px -300px;}.icn0-616{background-position:-240px -320px;}.icn0-617{background-position:-240px -340px;}.icn0-618{background-position:-240px -360px;}.icn0-619{background-position:-240px -380px;}.icn0-620{background-position:-240px -400px;}.icn0-621{background-position:-240px -420px;}.icn0-622{background-position:-240px -440px;}.icn0-623{background-position:-240px -460px;}.icn0-70{background-position:-280px 0;}.icn0-71{background-position:-280px -20px;}.icn0-72{background-position:-280px -40px;}.icn0-73{background-position:-280px -60px;}.icn0-74{background-position:-280px -80px;}.icn0-75{background-position:-280px -100px;}.icn0-76{background-position:-280px -120px;}.icn0-77{background-position:-280px -140px;}.icn0-78{background-position:-280px -160px;}.icn0-79{background-position:-280px -180px;}.icn0-710{background-position:-280px -200px;}.icn0-711{background-position:-280px -220px;}.icn0-712{background-position:-280px -240px;}.icn0-713{background-position:-280px -260px;}.icn0-714{background-position:-280px -280px;}.icn0-715{background-position:-280px -300px;}.icn0-716{background-position:-280px -320px;}.icn0-717{background-position:-280px -340px;}.icn0-718{background-position:-280px -360px;}.icn0-719{background-position:-280px -380px;}.icn0-720{background-position:-280px -400px;}.icn0-721{background-position:-280px -420px;}.icn0-722{background-position:-280px -440px;}.icn0-723{background-position:-280px -460px;}.icn0-80{background-position:-320px 0;}.icn0-81{background-position:-320px -20px;}.icn0-82{background-position:-320px -40px;}.icn0-83{background-position:-320px -60px;}.icn0-84{background-position:-320px -80px;}.icn0-85{background-position:-320px -100px;}.icn0-86{background-position:-320px -120px;}.icn0-87{background-position:-320px -140px;}.icn0-88{background-position:-320px -160px;}.icn0-89{background-position:-320px -180px;}.icn0-810{background-position:-320px -200px;}.icn0-811{background-position:-320px -220px;}.icn0-812{background-position:-320px -240px;}.icn0-813{background-position:-320px -260px;}.icn0-814{background-position:-320px -280px;}.icn0-815{background-position:-320px -300px;}.icn0-816{background-position:-320px -320px;}.icn0-817{background-position:-320px -340px;}.icn0-818{background-position:-320px -360px;}.icn0-819{background-position:-320px -380px;}.icn0-820{background-position:-320px -400px;}.icn0-821{background-position:-320px -420px;}.icn0-822{background-position:-320px -440px;}.icn0-823{background-position:-320px -460px;}.icn0-90{background-position:-360px 0;}.icn0-91{background-position:-360px -20px;}.icn0-92{background-position:-360px -40px;}.icn0-93{background-position:-360px -60px;}.icn0-94{background-position:-360px -80px;}.icn0-95{background-position:-360px -100px;}.icn0-96{background-position:-360px -120px;}.icn0-97{background-position:-360px -140px;}.icn0-98{background-position:-360px -160px;}.icn0-99{background-position:-360px -180px;}.icn0-910{background-position:-360px -200px;}.icn0-911{background-position:-360px -220px;}.icn0-912{background-position:-360px -240px;}.icn0-913{background-position:-360px -260px;}.icn0-914{background-position:-360px -280px;}.icn0-915{background-position:-360px -300px;}.icn0-916{background-position:-360px -320px;}.icn0-917{background-position:-360px -340px;}.icn0-918{background-position:-360px -360px;}.icn0-919{background-position:-360px -380px;}.icn0-920{background-position:-360px -400px;}.icn0-921{background-position:-360px -420px;}.icn0-922{background-position:-360px -440px;}.icn0-923{background-position:-360px -460px;}.icn0-100{background-position:-400px 0;}.icn0-101{background-position:-400px -20px;}.icn0-102{background-position:-400px -40px;}.icn0-103{background-position:-400px -60px;}.icn0-104{background-position:-400px -80px;}.icn0-105{background-position:-400px -100px;}.icn0-106{background-position:-400px -120px;}.icn0-107{background-position:-400px -140px;}.icn0-108{background-position:-400px -160px;}.icn0-109{background-position:-400px -180px;}.icn0-1010{background-position:-400px -200px;}.icn0-1011{background-position:-400px -220px;}.icn0-1012{background-position:-400px -240px;}.icn0-1013{background-position:-400px -260px;}.icn0-1014{background-position:-400px -280px;}.icn0-1015{background-position:-400px -300px;}.icn0-1016{background-position:-400px -320px;}.icn0-1017{background-position:-400px -340px;}.icn0-1018{background-position:-400px -360px;}.icn0-1019{background-position:-400px -380px;}.icn0-1020{background-position:-400px -400px;}.icn0-1021{background-position:-400px -420px;}.icn0-1022{background-position:-400px -440px;}.icn0-1023{background-position:-400px -460px;}</style>
+    <link type="text/css" rel="stylesheet" href="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/c.css">
+    <link type="text/css" rel="stylesheet" href="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/nb.css" id="blog-163-com-theme">
+  <!--[if lte IE 6]>
+  <style type="text/css">
+    html,body,#blog-163-com-ie6body{height:100%;width:100%;overflow:hidden;}
+    #blog-163-com-ie6body{overflow:auto;overflow-y:scroll;}
+    #blog-163-com{background:none;}
+  </style>
+  <![endif]-->
+  
+  
+  <style type="text/css">.m-3 .nbw-ryt .left .mcnt{padding-left:10px;}.m-3 .nbw-ryt .right .acts{position:relative;margin:0 0 12px 0;line-height:20px;}.m-3 .nbw-ryt .right .more{margin-top:-15px;height:24px;line-height:24px;}#blog-163-com .m-3 .phide{display:none;}.m-3 .nbw-ryt .left .nbw-bitm{margin:0;padding:0 0 0 10px;position:relative;}.m-3 .nbw-ryt .left .nbw-bitm .title{margin:30px 0 20px;}.m-3 .nbw-ryt .left .nbw-bitm .title .tcnt{font-size:20px;font-family:'微软雅黑','黑体',Arial,Helvetica,Sans-Serif;}.m-3 .nbw-ryt .left .nbw-bitm .tdep{margin-bottom:20px;}.m-3 .nbw-ryt .left .nbw-bitm .tbar{margin:5px 0;padding:10px 10px 10px 0;line-height:20px;text-align:right;}.m-3 .nbw-ryt .left .nbw-bitm .bct{font-size:14px;padding-left:0}.m-3 .nbw-ryt .left .nbw-bitm .muava{float:left;margin:5px 7px 0 0;border-width:0 1px 0 0;height:40px;}.m-3 .nbw-ryt .left .snl .pnb div{line-height:20px;text-align:left;}.m-3 .nbw-ryt .cite{margin:20px 0 0 50px;line-height:24px;text-align:left;}.m-3 .nbw-ryt .cite .close{float:right;margin:0;text-align:right;}.m-3 .nbw-ryt .cite span{cursor:pointer;}.m-3 .nbw-ryt .cite .nbw-act{text-align:center;}.m-3 .nbw-ryt .cite .ads{margin-left:20px;width:400px;}.m-3 .nbw-ryt .cite .tbac{margin-left:60px;padding:0;border:0;list-style:none;line-height:24px;}.m-3 .nbw-ryt .cite .tbl{width:150px;overflow:hidden;}.m-3 .nbw-ryt .cite .tbr{margin-left:20px;overflow:hidden;}.m-3 .nbw-act-share{position:relative;}.m-3 .nbw-act-share .nas-wrap{visibility:hidden;}.m-3 .nbw-act-share:hover .nas-wrap,.m-3 .js-share-hover .nas-wrap{visibility:visible;}.m-3 .nas-wrap,.nas-itm,.nas-wb{background:url(/newpage/images/blog/icn-share.png?0011) no-repeat 9999px 9999px;}.m-3 .nas-wrap{margin-top:5px;}.nas-itm,.nas-wb{text-decoration:none;}.nas-itm,.nas-wb:hover{text-decoration:underline;}.m-3 .nas-itm{float:left;width:16px;height:16px;margin:0 1px 0 6px;overflow:hidden;cursor:pointer;}.m-3 .nas-itm0{background-position:0 -173px;}.m-3 .nas-itm1{background-position:0 -56px;}.m-3 .nas-itm2{background-position:0 -85px;}.m-3 .nas-itm3{background-position:0 -227px;}.m-3 .nas-itm4{background-position:0 -143px;}.m-3 .nas-itm5{background-position:0 -201px;}.m-3 .nas-itm6{background-position:0 -249px;}.m-3 .nas-itm7{background-position:0 -283px;}.m-3 .nas-itm8{background-position:0 -313px;}.m-3 .nas-itm9{background-position:0 -342px;}.nas-wb{padding-left:20px;cursor:pointer;line-height:normal;background-position:0 -173px;}.nas-icn0fix{margin-top:4px;}.nas-tofix{margin-top:0;*margin-top:2px;line-height:25px;}.m-3 .ptc{position:absolute;cursor:pointer;}.m-3 .ptc .ptcp .bcmimg{float:left;background-image:url("http://b.bst.126.net/newpage/images/blogcmtimg.png");background-position:0 0;background-repeat:no-repeat;height:22px;line-height:22px;width:22px;padding:0 6px 0 0;}.m-3 .ptc .ptcp{cursor:pointer;position:absolute;left:5px;bottom:5px;clear:both;width:94px;}.m-3 .ptc .ptcp .ptcmi{float:left;width:16px;height:16px;padding:3px 6px 3px 5px;_padding:2px 6px 0 3px;margin:0;}.m-3 .ptc .ptcp .ptcmt{background-position:-418px -50px;float:left;width:67px;height:22px;overflow:hidden;margin:0px 0 0 -3px;line-height:22px;*line-height:23px;text-align:left;color:#444444;}.m-3 .ptc .ptcp .ptcmt-2{width:61px;padding-left:6px;background-position:-424px -50px;}.m-3 .relateblog{text-align:left;}.m-3 .relateblog h4{margin:0;padding:0 0 0 10px;line-height:30px;}.m-3 .relateblog .cnt{padding-left:8px;margin:10px 0 10px 0px;}.m-3 .relateblog .cnt ul{margin:0;padding:0;list-style:none;}.m-3 .relateblog .cnt ul li{height:24px;margin-right:20px;line-height:24px;}.m-3 .relateblog .cnt ul li span{margin:0 8px;}.m-3 .author, .m-3 .comment{text-align:left;}.m-3 .author .nlogif{width:150px;line-height:20px;margin-left:5px;_margin-left:3px;}.m-3 .author .nlogif .nbw-fce{margin:0 3px 0 10px;_margin-left:5px}.m-3 .author .nlogif .pright{width:85px;margin:0;padding:5px 0;_padding-top:10px}.m-3 .nbw-ryt .right h4{margin:0;padding:0;line-height:30px;}.m-3 .author h4, .m-3 .comment h4{margin:0;padding:0 0 0 10px;line-height:30px;}.m-3 .author .cwd{border:0;text-align:left;}.m-3 .author .vname{width:50px;text-align:center;}.m-3 .author .cnt{margin:10px 0 10px -5px;}.m-3 .author .nbw-fce{margin:0 11px;}.m-3 .author .nbw-f50{width:50px}.m-3 .nbw-ryt .left .top{position:relative;padding-bottom:5px;line-height:20px;}.m-3 .nbw-ryt .left .top .ilft{position:absolute;left:0;top:0;}.m-3 .nbw-ryt .left .top .irgt{position:absolute;right:-10px;top:0;}.m-3 .nbw-ryt .left .top .pleft{margin-left:20px;_margin-left:10px;overflow:hidden;width:40%;height:20px;text-align:left}.m-3 .nbw-ryt .left .top .pright{margin-right:10px;_margin-right:5px;overflow:hidden;width:40%;height:20px;text-align:right}.m-3 .nbw-ryt .left .snl .top{position:relative;padding:5px 0 15px 0;line-height:20px;}.m-3 .nbw-ryt .left .snl .top .ilft{position:absolute;left:-10px;top:5px;}.m-3 .nbw-ryt .left .snl .top .irgt{position:absolute;right:-10px;top:5px;}.m-3 .nbw-ryt .left .snl .top .pleft{margin-left:10px;_margin-left:5px;overflow:hidden;width:40%;height:20px;text-align:left}.m-3 .nbw-ryt .left .snl .top .pright{margin-right:10px;_margin-left:5px;overflow:hidden;width:40%;height:20px;text-align:right}.m-3 .nbw-ryt .left .snl .pnb{padding:5px 0 10px 10px;overflow:hidden;_width:100%}.m-3 .comment h4{padding:0 0 0 10px}.m-3 .comment .publish{margin:10px 0;padding:0 0 10px 5px;text-align:left;}.m-3 .comment .publish .nbw-fce{padding-top:0;}.m-3 .comment .publish .nbw-fce .cwd{border:0;}.m-3 .comment .publish .redt{margin-left:65px;}.m-3 .comment .nolog{border:1px solid #000;background-color:#FFFFE1;height:40px;line-height:40px;text-align:center;padding:0;_padding:10px 0;_height:20px;}.m-3 .comment .case{padding-left:5px;padding-bottom:10px;}.m-3 .comment .vgl{margin:8px;width:75%;text-align:center;}#blog-163-com .m-3 .comment .nbw-cmt .cnt{width:488px;}#blog-163-com .m-3 .comment .nbw-cmt .nbw-cmt .cnt{width:444px;}.m-3 .edt-cmt{width:444px;}.m-3 .comment .publish .edt-cmt{width:488px;}.m-3 .comment .publish .edt-cmt .zbcc{display:none;}.m-3 .nbw-ryt .left .nbw-bitm .js-fs0{font-size:150%;}.m-3 .nbw-ryt .left .nbw-bitm .js-fs1{font-size:130%;}.m-3 .nbw-ryt .left .nbw-bitm .js-fs2{}.m-3 .nbw-ryt .left .nbw-bitm .js-fs3{font-size:12px;}.m-3 .js-fcurrent{font-color:#000;font-weight:bold;text-decoration:none;}.m-3 .nbw-bitm .dream{margin-top:-10px;clear:both}.m-3 .nbw-bitm .cited{margin-top:-15px;}.m-3 .nbw-bitm .rdif{line-height:24px;height:24px;}.m-3 .nbw-bitm .rdif .pnt{line-height:24px;height:24px;margin-right:10px;}.m-3 .nbw-bitm .rdif .pclass{vertical-align:middle;width:57px;height:22px;}.m-3 .nbw-bitm .rdif .rdct{display:inline-block;}.m-3 .snl .rdcnt{padding:5px;text-align:left}.m-3 .snl .rdcnt .nbw-fce{margin:0 5px}.m-3 .snl .rdcnt p{margin:10px 0}.m-3 .snl .rdcnt .rrb{list-style:none;height:22px;line-height:22px;}.m-3 .acts .iblock{width:18px;}.m-3 .ns{margin:0 0 0 2px;}.m-3 .cancel{display:none;}.m-3 .js-hover .cancel, .m-3 .follow:hover .cancel, .m-3 .frd:hover .cancel{display:inline;}.m-3 .follow{*margin-left:2px;}.m-3 .flw{padding:7px 8px;color:#000;background:#fefce4;border:1px solid #b7b7b7;}.m-3 .acts .flw .iblock{width:20px;}.m-3 .sntesctf{width:15px;margin-left:3px;}.dr-warm{width:420px;padding:12px 18px;margin:18px 0;line-height:20px;border:1px solid #aaa;color:#666;background:#ffffdc;}.dr-warm a,.dr-warm a:hover{text-decoration:underline;color:#02a;}.dr-warm .codeinput{width:70px;text-align:center;}.dr-warm .codediv{margin:10px 0 0;}.dr-warm .ml{margin:0px 10px;vertical-align:middle;}.dr-warm .button{background-color:#77716F;width:42px;height:20px;border:0 none;color:#fff;cursor:pointer;}.m-3 .commentcntwrap{position:relative;zoom:1;}.m-3 .cmtMultiUserRole{position:absolute;left:62px;bottom:5px;width:300px;overflow-x;hidden;}.m-3 .cmtMultiUserRole .selectRole{float:right;padding:1px 1px 0 1px;border:none;}.m-3 .cmtMultiUserRole .selectRole .ztxt{float:left;width:auto;overflow:hidden;}.m-3 .cmtMultiUserRole .selectRole .zdwn{float:left;background:url("/newpage/images/icon.png") -240px -420px no-repeat;text-indent:-9999px;}.m-3 .cmtMultiUserRole .selectRole .zlst .zitm{}.m-3 .cmtMultiUserRole .selectRole .zlst .zitm:hover, .m-3 .cmtMultiUserRole .selectRole .slst .item.js-zhvr-910{color:#333;background-color:#ececec;}.m-3 .nbw-cmt{position:static;}.m-3 .nbw-cmt .thde{position:relative;zoom:1;}.m-3 .publish .redt{position:relative;zoom:1;}.m-3 .publish .redt .cmtMultiUserRole{left:135px;_left:132px;}.m-3 .cmtMultiUserRole .js-showlist{padding:0;margin:0;border-style:solid;border-width:1px 1px 0 1px;border-color:#aaa;}.m-3 .cmtMultiUserRole .js-showlist .zlst{border-style:solid;border-width:0 1px 1px 1px;border-color:#aaa;}.m-3 .multiuserItem{}.m-3 .multiuserItem .author{margin-right:-50px;}.m-3 .multiuserItem .multicntwrap{padding:30px 0 20px 0;}.m-3 .multiuserItem .multicnt{_padding-top:2px;margin-left:50px;}.m-3 .nbw-ryt .left .multiuserItem .multicnt .title{width:95%;margin-top:0;margin-bottom:0;}.m-3 .nbw-ryt .left .multiuserItem .multicnt .tdep{margin-bottom:0;}.m-3 .attachment{margin-bottom:20px;}.m-3 .awidth{width:40px;}.m-3 .view{margin-right:10px;}.m-3 .nbw-cmt .op{height:18px;line-height:18px;}.m-3 .suggestedreading{overflow:hidden;position:relative;zoom:1;}.m-3 .suggestedreading .m-list{margin-left:0;padding-left:15px;overflow:hidden;font-size:14px;}.m-3 .suggestedreading .m-list .gap{margin-left:8px;color:#ADADAD;}.m-3 .suggestedreading .m-list li{height:20px;padding:3px 0 2px;vertical-align:middle;}.m-3 .suggestedreading .wrap li{float:left;width:118px;height:146px;}.m-3 .suggestedreading .suggesteditem1{line-height:24px;margin:5px 0;font-size:12px;margin-right:10px;}.m-3 .suggestedreading .suggesteditem2{margin:5px 0;font-size:12px;}.m-3 .suggestedreading .suggesteditem2 .imgwrap1{position:relative;overflow:hidden;width:90px;height:90px;zoom:1;}.m-3 .suggestedreading .suggesteditem2 .imgwrap2{z-index:2;position:absolute;left:0;top:0;}.m-3 .suggestedreading .suggesteditem2 .btitle{width:96px;height:148px;overflow:hidden;text-decoration:none;}.m-3 .suggestedreading .suggesteditem2 .sep{padding:5px 10px 0 10px;}.m-3 .suggestedreading .suggesteditem2 a{cursor:pointer;}.m-3 .suggestedreading .suggesteditem2 a:hover{text-decoration:none;}.m-3 .suggestedreading .suggesteditem2 img{border-width:0;}.m-3 .suggestedreading .color1{background-color:#B3786B;}.m-3 .suggestedreading .color2{background-color:#D2C1A8;}.m-3 .suggestedreading .color3{background-color:#D46646;}.m-3 .suggestedreading .color4{background-color:#D28FA8;}.m-3 .suggestedreading .color5{background-color:#C84F54;}.m-3 .suggestedreading .white{color:white;}.m-3 .suggestedreading .imgtip{margin:2px;font-weight:bold;color:white;font-size:13px;font-family:微软雅黑;}.m-3 .suggestedreading .borderwrap{padding:2px;background-color:#fff;}.m-3 .suggestedreading .time{position:absolute;bottom:0;right:0;}.m-3 .suggestedreading .hidsep{margin-left:-1px;}.m-3 .suggestedreading .srtitle{font-size:14px;font-weight:bold;margin-bottom:10px;}.m-3 #yodaoad{padding-left:5px;}.m-3 #yodaoad_3{padding:20px 0 25px 0;}.m-3 .relategroup{width:45%}.m-3 .blogvote{padding-left:35px;position:relative;zoom:1;}.m-3 .blogvote .sep{margin:0 5px;}.m-3 .blogvote .vtitle{margin:15px 0 15px -30px;}.m-3 .blogvote .vtitle span{padding-right:8px;}.m-3 .blogvote .vtitle .close{width:60px;height:24px;vertical-align:middle;}.m-3 .blogvote .roleview{padding-right:10px}.m-3 .blogvote .roleview .iblock{width:10px}.m-3 .blogvote .options{clear:both;margin-right:10px}.m-3 .blogvote .options ul{margin:0;padding:0;list-style:none;}.m-3 .blogvote .options ul li{padding:10px 0;line-height:16px;}.m-3 .blogvote .options .role{margin-bottom:15px;}.m-3 .blogvote .options .acts{margin-bottom:15px;height:24px;line-height:26px;}.m-3 .blogvote .options .acts .leftpt{height:24px;line-height:26px;}.m-3 .blogvote .options .acts .leftpt button{height:24px;line-height:18px;}.m-3 .blogvote .options .acts .leftpt span{}.m-3 .blogvote .options .acts .view{margin-left:5px;}.m-3 .blogvote .fvote{padding-top:10px;}.m-3 .blogvote .fvote ul{list-style:none;margin:10px 0;padding:0;}.m-3 .blogvote .fvote ul li{line-height:20px;margin:5px 0;}.m-3 .blogvote .options ul .col0{width:230px;margin-right:10px;margin-top:-3px;_margin-top:-5px;line-height:20px}.m-3 .blogvote .options ul .col0 input{_position:relative;_top:3px}.m-3 .blogvote .options ul .col0 label{width:200px;_position:relative;_top:4px}.m-3 .blogvote .options ul .col1{width:190px;height:14px;line-height:14px;;background:none repeat scroll 0 0 #EAEAEA;}.m-3 .blogvote .options ul .col1 .iblock{width:100%;height:16px;vertical-align:middle;}.qing001{margin:0;border:none;}.qing001 .nb-mc{background:none;}.qing001 .nb-mc .cc{width:942px;padding:0;margin:0 auto;}.qing001 .nb-mc .cl{display:none;}.qing001 .nb-mc .cr{display:none;}.qing001 .bh{display:none;}.qing001 .nbw-ryt{background:url(/newpage/images/qingtheme/qing001/blogdetail_cntbg.png) 0 0 repeat-y;}.qing001 .nbw-ryt .left{background:url(/newpage/images/qingtheme/qing001/blogdetail_ftbg.png) bottom left no-repeat;}.qing001 .nbw-ryt .left .lcnt{width:100%;padding:0;margin:0;background:url(/newpage/images/qingtheme/qing001/blogdetail_ttlbg.png) 0 0 no-repeat;}.qing001 .nbw-ryt .left .mcnt{padding:0 30px;}.qing001 .nbw-ryt .left .nbw-bitm{padding:0;}.qing001 .nb-mt{display:none;}.qing001 .nbw-ryt .left .top{display:none;}.qing001 .nbw-ryt .left .nbw-bitm .title{height:31px;padding:30px 0 46px 3px;margin:0;}.qing001 .nbw-ryt .left .nbw-bitm .title .tcnt{color:#fffadc;font-size:24px;font-family:'微软雅黑','黑体',Arial,Helvetica,Sans-Serif;}.qing001 .nbw-ryt .left .nbw-bitm .tdep{padding-top:6px;}.qing001 .comment .case{padding-bottom:40px;}.m-3 .article .douban{float:left;width:200px;margin:0 10px 10px 0;font-size:12px;}.m-3 .article .douban .field{padding-top:5px;}.m-3 .article .douban .field .dbyinyue{width:10px;height:8px;border-width:0;}.m-3 .article .douban img{max-width:100%;width:100%;border-color:#e9e9e9;display:inline-block;border-width:1px;border-style:solid;}.m-3 .article-1 .douban{float:right;width:200px;margin:0 3px 10px 10px;}.m-3 .article-2 .douban{float:left;width:250px;margin:0 -250px 0 0;}.m-3 .article-2 .blog{margin-left:270px;}.m-3 .article-2 .blogc{width:99%;overflow:hidden;}.m-3 .article-3 .douban{float:right;width:250px;margin:0 3px 0 -250px;}.m-3 .article-3 .blog{margin-right:270px;}.m-3 .article-3 .blogc{width:99%;overflow:hidden;}.m-3 .vote_star{overflow:visible;}.m-3 .rateword{display:none;left:88px;width:37px;top:-2px;position:absolute;line-height:23px;}.m-3 .star_d0 .rateword0{display:inline;}.m-3 .star_d1 .rateword1{display:inline;}.m-3 .star_d2 .rateword2{display:inline;}.m-3 .star_d3 .rateword3{display:inline;}.m-3 .star_d4 .rateword4{display:inline;}.m-3 .star_d5 .rateword5{display:inline;}.m-3 .nbw-act .blogsep{margin:0 2px}.m-3 .zihao{position:relative;cursor:default;}.m-3 .zihaoshow{position:absolute;width:26px;top:-57px;left:-3px;padding:0 0 3px;line-height:18px;}.m-3 .zihaoshow span{display:block;text-align:center;cursor:pointer;}.m-3 .zihaoc{border-style:solid;border-width:1px;}.m-3 .mbga{margin-bottom:12px;position:relative;}.m-3 .mbga a{margin-left:20px;}.m-3 .mbgai{position:absolute;top:-1px;width:17px;background:url(/newpage/images/microblog.png?1) no-repeat;_background:none transparent;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://b2.bst.126.net/newpage/images/microblog.png');_zoom:1;}.m-3 .mingxing{width:18px;background-position:-43px -80px;}.m-3 .xinxing{width:18px;background-position:-81px -80px;}.m-3 .darendesc{padding:7px 15px;margin-top:10px;line-height:18px;background:#efeae7;vertical-align:middle;}.m-3 .js-cmt-noavatar .nbw-cmt .nbw-fce{display:none;}.m-3 .js-cmt-noavatar .nbw-cmt .thde{padding-left:8px;margin-left:0;}.m-3 .js-cmt-noavatar .nbw-cmt .reps .thde{margin-left:55px;} </style>
+  
+  <link href="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/prettify.css" type="text/css" rel="stylesheet">
+  <script src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/relatedItems.asc" type="text/javascript"></script><style type="text/css">.ui-5454011935 .zcvr,.ui-5454011935 .zhnt{display:none;position:fixed;_position:absolute;z-index:80;} .ui-5454011935 .zcvr{top:0;left:0;width:100%;height:100%;background:url(http://b.bst.126.net/common/empty.png);} .ui-5454011935 .zhnt{top:5px;right:5px;padding:4px;color:#000;background:#ffffae;z-index:120;}.ui-1980493446-hack{position:absolute;z-index:99;} .ui-1980493446{position:absolute;z-index:100;border:1px solid #97abc9;background-color:#fff;}.ui-4564132284-hack{position:absolute;z-index:99;} .ui-4564132284-cover{position:absolute;top:0;left:0;width:100%;height:100%;background:url(http://b.bst.126.net/common/empty.png);z-index:10;} .ui-4564132284{position:absolute;top:0;left:0;z-index:100;text-align:center;border:1px solid #97abc9;background-color:#fff;} .ui-4564132284 .ztbr{height:30px;line-height:30px;text-align:left;background-color:#5e9ff7;font-size:14px;font-weight:bold;color:#fff;} .ui-4564132284 .zmov{cursor:move;} .ui-4564132284 .zttl{width:85%;padding-left:10px;} .ui-4564132284 .zcls{position:absolute;top:5px;right:10px;width:20px;height:20px;overflow:hidden;cursor:pointer;z-index:5;} .ui-4564132284 .zcnt{padding:10px;min-height:100px;_height:100px;font-size:12px;} .ui-4564132284 .zext{display:none;} .ui-4564132284.js-zncls-102 .zcls{display:none;}.zbwin{color:#000;border:1px solid #aaa;background-color:#fff;} .zbwin .zcls{top:8px;background:url(http://b.bst.126.net/common/widget/wincls.gif) no-repeat 2px center;text-indent:50px;} .zbwin .ztbr{height:35px;line-height:35px;color:#000;background:url(http://b.bst.126.net/common/widget/winbar.gif) repeat-x;} .zbwin .zact{margin:10px 0;text-align:center;} .zbwin .ztxt{height:1.3em;padding-top:3px;} .zbwin .zbtn{height:28px;padding:0 8px;font-size:14px;cursor:pointer;} .zbwin .zbtnok{font-weight:bold;} .zbwin .zbtncc{margin-left:20px;}.ui-8376341690{position:relative;zoom:1;text-align:left;} .ui-8376341690-hack{position:absolute;z-index:99;} .ui-8376341690 .zcom{width:200px;border:1px solid #aaa;} .ui-8376341690 .zcse{visibility:hidden;position:absolute;top:20px;left:0;background:#fff;} .ui-8376341690 .zitm{width:100%;height:20px;line-height:20px;cursor:default;} .ui-8376341690 .zitm.js-zhvr-900{background-color:#316ac5;} .ui-8376341690 .zcse .js-login-hovered{background-color:#ddd;color:#fff;}.ui-4898257113 .iblock{display:-moz-inline-box;display:inline-block;*display:inline;zoom:1;} .ui-4898257113 .fs1{font-size:14px;} .ui-4898257113 .fw1{font-weight:bold;} .ui-4898257113 .noselect{user-select:none;-moz-user-select:none;-webkit-user-select:none;-khtml-user-select:none;-o-user-select:none;} .ui-4898257113 .zcvr,.ui-4898257113 .zhnt{display:none;position:fixed;_position:absolute;z-index:80;} .ui-4898257113 .zcvr{top:0;left:0;width:100%;height:100%;background:url(http://b.bst.126.net/common/empty.png);} .ui-4898257113 .zhnt{position:absolute;height:36px;line-height:36px;top:5px;right:5px;padding:11px 10px 11px 4px;color:#000;z-index:120;vertical-align:middle;} .ui-4898257113 .showhint-0{background-image:url(/common/showhint/hintbg.png);background-repeat:no-repeat;background-position:-7px -1px;_background-image:url(/common/showhint/hintbg2.png);} .ui-4898257113 .showhint-1{background-image:url(/common/showhint/hintbg_right.png);background-repeat:no-repeat;background-position:0px 0px;width:20px;_background-image:url(/common/showhint/hintbg2_right.png);} .ui-4898257113 .showhint-2{background-image:url(/common/showhint/hinticon.png);background-repeat:no-repeat;} .ui-4898257113 .showhint-2-0{background-position:0 1px;} .ui-4898257113 .showhint-2-1{background-position:0 -45px;} .ui-4898257113 .showhint-2-2{background-position:0 -90px;} .ui-4898257113 .showhint-3{background-image:url(/common/showhint/loading.gif);background-repeat:no-repeat;} .ui-4898257113 .typeicon{width:25px;height:25px;padding:4px 5px 7px 6px;margin:0 10px 0 15px;line-height:25px;vertical-align:middle;} .ui-4898257113 .typeicon .loading{width:25px;height:25px;line-height:25px;vertical-align:middle;} .ui-4898257113 .bg_right{position:absolute;right:-20px;top:2px;z-index:120;display:block;height:36px;padding:11px 0 11px 0;} .ui-4898257113 .txthint{vertical-align:middle;} .ui-4898257113 .showhint-bg{position:absolute;right:0;top:0;width:200px;height:30px;background:#f5f5f5;border:1px solid #ccc;} .ui-4898257113-hack{display:none;position:absolute;z-index:101;width:100%;height:100%;overflow:hidden;}.ui-5170535313-hack,.ui-5170535313-cvr-hack{position:absolute;z-index:99;} .ui-5170535313-cover{position:absolute;top:-99999px;left:-99999px;width:100%;height:100%;background:url(http://b.bst.126.net/common/empty.png);z-index:10;} .ui-5170535313{position:absolute;top:-99999px;left:-99999px;z-index:100;text-align:center;} .ui-5170535313 .ztbr{height:30px;line-height:30px;text-align:left;background-color:#5e9ff7;font-size:14px;font-weight:bold;/*color:#fff;*/} .ui-5170535313 .zmov{cursor:move;} .ui-5170535313 .zttl{width:85%;padding-left:10px;} .ui-5170535313 .zcls{position:absolute;top:5px;right:10px;width:20px;height:20px;overflow:hidden;cursor:pointer;z-index:5;} .ui-5170535313 .zcnt{padding:10px;min-height:30px;_height:30px;font-size:12px;background-color:#fff;} .ui-5170535313 .zext{display:none;} .ui-5170535313.js-zncls-102 .zcls{display:none;}.nbwindow{color:#000;border:1px solid #beb8ab;} #blog-163-com #blog-163-com-layer .nbwindow{/*height:auto;*/min-height:100px;border:1px solid #beb8ab;} .nbwindow .js-hide{display:none;} .nbwindow .zttl{font-size:12px;} .nbwindow .txtclose{position:absolute;top:4px;_top:5px;right:11px;_right:9px;width:10px;height:10px;line-height:10px;} .nbwindow .zcls{right:12px;top:-1px;width:32px;height:18px;line-height:18px;background:#beb8ab url(http://b.bst.126.net/common/nbwindow/close_01.png) no-repeat 0px center;color:#646464;text-indent:1px;_text-indent:2px;} .nbwindow .zclshover{background:#cd3503 url(http://b.bst.126.net/common/nbwindow/close_02.png) no-repeat 0px center;color:#ffe9e1;} .nbwindow .zclsmousedown{background:#ae2601 url(http://b.bst.126.net/common/nbwindow/close_03.png) no-repeat 0px center;color:#ffd9cb;} .nbwindow .ztbr{height:23px;line-height:23px;margin:0 auto;color:#000;background:#e8e8e6 url(http://b.bst.126.net/common/nbwindow/top_bg.png) bottom repeat-x;} .nbwindow .zact{margin:10px 0;text-align:center;} .nbwindow .ztxt{height:1.3em;padding-top:3px;} .nbwindow .zbtnbar{height:31px;line-height:31px;background:#eee;} .nbwindow .zbtn{height:28px;padding:0 8px;font-size:14px;cursor:pointer;} .nbwindow .zbtnok{font-weight:bold;} .nbwindow .zbtncc{margin-left:20px;} #blog-163-com .nbwindow .nbwinwrap .nbwinbtnbar{position:absolute;right:-2px;bottom:0;z-index:101;height:22px;line-height:22px;padding:4px 14px 4px 0;margin:0;border:none;background:none;} #blog-163-com .nbwindow .nbwinwrap .nbwinbtnbar .nbwinbtn{height:22px;padding:0px 10px;margin:0 0 0 10px;line-height:22px;*line-height:20px;font-size:12px;font-weight:normal;cursor:pointer;text-align:center;} #blog-163-com .nbwindow .nbwinwrap .nbwinclear{height:0;padding:0;margin:0;border:none;} #blog-163-com .nbwindow .nbwinwrap .nbwinhide{display:none;} #blog-163-com #blog-163-com-layer .nbwinascard{border:none;} .nbwinascard .zcls{display:none;} .nbwinascard .ztbr{display:none;} .nbwinascard .zcnt{padding:0;background:none;} .nbwinascard .zbtnbar{display:none;} #blog-163-com #blog-163-com-layer .nbwinautoheight{height:auto;} #nbwinNeedScroll{position:absolute;z-index:110;overflow:auto;background:url(http://b.bst.126.net/common/empty.png);} .nbwinzindex{position:relative;z-index:120;} .nbwinzindex .zcse{z-index:120;} #blog-163-com .nbwindow .nbwinwrap .nbwinlogin{width:230px;padding-bottom:5px;} #blog-163-com .nbwindow .nbwinwrap .nbwinlogin .nbwinloginreg{*height:16px;*line-height:16px;*padding-top:6px;} .nbwindow .zext{display:block;position:absolute;} .nbwindow .zext0{left:0;top:-6px;width:100%;height:6px;background:url(http://b.bst.126.net/common/nbwindow/top_bg.png) top repeat-x;} .nbwindow .zext1{left:0;bottom:-6px;width:100%;height:6px;background:url(http://b.bst.126.net/common/nbwindow/bottom_bg.png) bottom repeat-x;} .nbwindow .zext2{left:-6px;top:0;width:6px;height:100%;background:url(http://b.bst.126.net/common/nbwindow/left_bg.png) left repeat-y;} .nbwindow .zext3{right:-6px;top:0;width:6px;height:100%;background:url(http://b.bst.126.net/common/nbwindow/right_bg.png) right repeat-y;} .nbwindow .zext4{left:-6px;top:-6px;width:12px;height:29px;background:url(http://b.bst.126.net/common/nbwindow/left_top.png) no-repeat;} .nbwindow .zext5{right:-6px;top:-6px;width:12px;height:29px;background:url(http://b.bst.126.net/common/nbwindow/right_top.png) no-repeat;} .nbwindow .zext6{left:-6px;bottom:-6px;width:12px;height:37px;background:url(http://b.bst.126.net/common/nbwindow/left_bottom.png) no-repeat;} .nbwindow .zext7{right:-6px;bottom:-6px;width:12px;height:37px;background:url(http://b.bst.126.net/common/nbwindow/right_bottom.png) no-repeat;} .nbwinascard .zext{display:none;} .ui-6445362430{position:relative;zoom:1;text-align:left;} .ui-6445362430-hack{position:absolute;z-index:99;} .ui-6445362430 .zcom{width:200px;border:1px solid #aaa;} .ui-6445362430 .zcse{visibility:hidden;position:absolute;top:20px;left:0;background:#fff;} .ui-6445362430 .zitm{width:100%;height:20px;line-height:20px;cursor:default;} .ui-6445362430 .zitm.js-zhvr-900{background-color:#316ac5;} .ui-6445362430 .zcse .js-login-hovered{background-color:#ddd;color:#fff;}.zibox{position:relative;zoom:1;} .zibox .zitm{float:left;margin:-1px 0 0 -1px;overflow:hidden;text-indent:200px;border:1px solid #e5e5e1;cursor:pointer;background-repeat:no-repeat;zoom:1;} .zibox .zitm:hover,.zibox .js-zhvr-110{position:relative;border-color:#000;}.zibox .zitm.a{width:30px;height:30px;line-height:30px;}.zibox .a0{background-position:-0px -0px;}.zibox .a1{background-position:-30px -0px;}.zibox .a2{background-position:-60px -0px;}.zibox .a3{background-position:-90px -0px;}.zibox .a4{background-position:-120px -0px;}.zibox .a5{background-position:-150px -0px;}.zibox .a6{background-position:-180px -0px;}.zibox .a7{background-position:-210px -0px;}.zibox .a8{background-position:-240px -0px;}.zibox .a9{background-position:-270px -0px;}.zibox .a10{background-position:-0px -30px;}.zibox .a11{background-position:-30px -30px;}.zibox .a12{background-position:-60px -30px;}.zibox .a13{background-position:-90px -30px;}.zibox .a14{background-position:-120px -30px;}.zibox .a15{background-position:-150px -30px;}.zibox .a16{background-position:-180px -30px;}.zibox .a17{background-position:-210px -30px;}.zibox .a18{background-position:-240px -30px;}.zibox .a19{background-position:-270px -30px;}.zibox .a20{background-position:-0px -60px;}.zibox .a21{background-position:-30px -60px;}.zibox .a22{background-position:-60px -60px;}.zibox .a23{background-position:-90px -60px;}.zibox .a24{background-position:-120px -60px;}.zibox .a25{background-position:-150px -60px;}.zibox .a26{background-position:-180px -60px;}.zibox .a27{background-position:-210px -60px;}.zibox .a28{background-position:-240px -60px;}.zibox .a29{background-position:-270px -60px;}.zibox .a30{background-position:-0px -90px;}.zibox .a31{background-position:-30px -90px;}.zibox .a32{background-position:-60px -90px;}.zibox .a33{background-position:-90px -90px;}.zibox .a34{background-position:-120px -90px;}.zibox .a35{background-position:-150px -90px;}.zibox .a36{background-position:-180px -90px;}.zibox .a37{background-position:-210px -90px;}.zibox .a38{background-position:-240px -90px;}.zibox .a39{background-position:-270px -90px;}.zibox .a40{background-position:-0px -120px;}.zibox .a41{background-position:-30px -120px;}.zibox .a42{background-position:-60px -120px;}.zibox .a43{background-position:-90px -120px;}.zibox .a44{background-position:-120px -120px;}.zibox .a45{background-position:-150px -120px;}.zibox .a46{background-position:-180px -120px;}.zibox .a47{background-position:-210px -120px;}.zibox .a48{background-position:-240px -120px;}.zibox .a49{background-position:-270px -120px;}.zibox .a50{background-position:-0px -150px;}.zibox .a51{background-position:-30px -150px;}.zibox .a52{background-position:-60px -150px;}.zibox .a53{background-position:-90px -150px;}.zibox .a54{background-position:-120px -150px;}.zibox .a55{background-position:-150px -150px;}.zibox .a56{background-position:-180px -150px;}.zibox .a57{background-position:-210px -150px;}.zibox .a58{background-position:-240px -150px;}.zibox .a59{background-position:-270px -150px;}.zibox .zitm.b{width:61px;height:60px;line-height:60px;}.zibox .b0{background-position:-0px -0px;}.zibox .b1{background-position:-60px -0px;}.zibox .b2{background-position:-120px -0px;}.zibox .b3{background-position:-180px -0px;}.zibox .b4{background-position:-240px -0px;}.zibox .b5{background-position:-0px -60px;}.zibox .b6{background-position:-60px -60px;}.zibox .b7{background-position:-120px -60px;}.zibox .b8{background-position:-180px -60px;}.zibox .b9{background-position:-240px -60px;}.zibox .b10{background-position:-0px -120px;}.zibox .b11{background-position:-60px -120px;}.zibox .b12{background-position:-120px -120px;}.zibox .b13{background-position:-180px -120px;}.zibox .b14{background-position:-240px -120px;} .zibox .zprv{position:absolute;top:0;left:0;background:#fff no-repeat center center;border:1px solid #888;} .zibox div.zprv{width:60px;height:60px;}.ui-9246326849{width:310px;padding:5px;background:#e5e5e1;border:1px solid #888;} .ui-9246326849 .zibox{height:190px;} .ui-9246326849 .zibox.js-page-0 .zitm{background-image:url(http://b.bst.126.net/common/portrait/face/face-0.png);} .ui-9246326849 .zibox.js-page-1 .zitm{background-image:url(http://b.bst.126.net/common/portrait/face/face-1.png);} .ui-9246326849 .zpgr{line-height:20px;padding:3px;font-size:12px;text-align:right;} .ui-9246326849 .zpgr .ztag{color:#000;cursor:pointer;} .ui-9246326849 .zpgr .zsep{margin:0 3px;} .ui-9246326849 .zpgr .js-zdsab-307{color:#777;cursor:default;}.ui-3995438236{font-size:12px;text-align:left;} .ui-3995438236 .zbrd{border-width:1px;border-style:solid;} .ui-3995438236 .zbgp{background:url(http://b.bst.126.net/common/icon.png) no-repeat;} .ui-3995438236 .zcnt{height:100px;overflow:hidden;} .ui-3995438236 .zcnt iframe,.ui-3995438236 .zcnt textarea{width:100%;height:100%;border:0;} .ui-3995438236 .zcnt textarea{overflow:auto;} .ui-3995438236 .zhnd{cursor:pointer;} .ui-3995438236 .zbtn{position:relative;height:30px;line-height:30px;zoom:1;text-align:right;} .ui-3995438236 .zbok{_margin-top:4px;} .ui-3995438236 .zfce{position:absolute;left:0;top:5px;width:20px;height:20px;cursor:pointer;background-position:0 1px;} .ui-3995438236 .zvcd{position:absolute;top:0;right:80px;} .ui-3995438236 .zvcd *{vertical-align:middle;} .ui-3995438236 .zvcd img{width:40px;height:24px;margin:0 3px;cursor:pointer;} .ui-3995438236 .zvcd span{text-decoration:underline;cursor:pointer;} .ui-3995438236 .zvcd input{width:35px;padding:2px 0;} .ui-3995438236 .zmsg{line-height:20px;} .ui-3995438236 .zmsg .zicn{width:25px;height:20px;background-position:5px -58px;} .ui-3995438236 .zprt{left:0;top:30px;}.ui-9531358386{font-size:12px;padding-bottom:3px;text-align:center;} .ui-9531358386 .frg{display:none;font-weight:bold;} .ui-9531358386 .iblock{height:22px;line-height:22px;padding:1px 8px;margin:0 2px;cursor:pointer;text-decoration:underline;} .ui-9531358386 .pgi:hover,.ui-9531358386 .pgi.js-zhvr-258{padding:0 7px;border-width:1px;border-style:solid;} .ui-9531358386 .pgi.js-zslt-987{padding:1px 8px;border-width:0;background-color:transparent;font-weight:bold;cursor:default;text-decoration:none;} .ui-9531358386 .pgb.js-znpg-097{visibility:hidden;} .ui-9531358386.js-zfrg-6540 .frg{display:none;} .ui-9531358386.js-zfrg-6541 .frg.fgn{display:inline;} .ui-9531358386.js-zfrg-6542 .frg.fgp{display:inline;} .ui-9531358386.js-zfrg-6543 .frg{display:inline;}.lightphotowin{width:450px;height:365px;text-align:left;} .lightphotowin .js-hide{display:none;} .lightphotowin .zcnt{position:relative;z-index:100;padding:0 22px 20px 22px;} .lightphotowin .zbtnbar{display:none;} .lightphotowin .lightphotobox .toparea{height:28px;line-height:28px;padding:14px 0;} .lightphotowin .lightphotobox .uploadarea{position:relative;zoom:1;height:28px;line-height:28px;} .lightphotowin .lightphotobox .uploadfile{position:absolute;left:161px;top:1px;width:58px;height:26px;opacity:0;filter:alpha(opacity=0);overflow:hidden;text-align:left;background:none;} .lightphotowin .lightphotobox .uploadform{height:28px;} .lightphotowin .lightphotobox .uploadform .iptfile{position:absolute;left:-155px;top:-3px;height:30px;cursor:pointer;opacity:0;filter:alpha(opacity=0);} .lightphotowin .lightphotobox .btnupload{width:58px;height:25px;line-height:25px;padding:0;margin-right:22px;background:#ff7700;color:#fff;border:1px solid #bf7331;} .lightphotowin .lightphotobox .tips-fc1{color:#7d7d7d;} .lightphotowin .lightphotobox .error-fc1{color:#990000;} .lightphotowin .lightphotobox .loadingarea{text-align:center;} .lightphotowin .lightphotobox .loading{width:25px;height:25px;line-height:25px;background:url("/common/showhint/loading.gif") no-repeat;} .lightphotowin .lightphotobox .iptttl{width:99%;height:28px;line-height:28px;padding:1px;margin-bottom:10px;} .lightphotowin .lightphotobox .txtarea{width:99%;height:128px;padding:1px;} .lightphotowin .lightphotobox .blogclass{padding:20px 0 15px 0;} .lightphotowin .lightphotobox .selclass{width:180px;padding:1px;} .lightphotowin .lightphotobox .previewarea{padding:20px 0;} .lightphotowin .lightphotobox .imgwrap{width:406px;height:406px;} .lightphotowin .lightphotobox .previmg{display:block;margin:0 auto;border:none;} .lightphotowin .lightphotobox .prevbtm{padding-top:3px;} .lightphotowin .lightphotobox .modify{color:#21759B;} .lightphotowin .lightphotobox .vcdarea{height:22px;line-height:22px;padding-bottom:15px;vertical-align:middle;} .lightphotowin .lightphotobox .valid{width:60px;height:18px;line-height:18px;padding:1px;} .lightphotowin .lightphotobox .valid,.lightphotowin .lightphotobox .vcdimg{height:22px;margin-right:5px;} .lightphotowin .lightphotobox .showfileaddr{width:80px;height:18px;margin-right:16px;} .lightphotowin .lightphotobox .imgname{display:block;width:360px;overflow:hidden;text-overflow:ellipsis;word-break:break-all;} .ui-8606421473{display:none;margin-right:6px;} .ui-8606421473 .miniBlogSetInfo{width:16px;height:16px;} .ui-8606421473 .chkMiniBlogSetInfo{float:left;position:relative;width:16px;height:16px;cursor:pointer;} .ui-8606421473 .chkMiniBlogSetInfo em{position:absolute;top:0;left:0;z-index:3;width:100%;height:100%;overflow:hidden;text-indent:-2000px;background:url("/newpage/images/setting/synminiblog/synicon8.png") -40px -21px no-repeat;} .ui-8606421473 .chkMiniBlogSetInfo b{display:none;position:absolute;bottom:-1px;right:-2px;z-index:5;clear:both;width:8px;height:8px;overflow:hidden;cursor:pointer;background:url("/newpage/images/setting/synminiblog/synicon8.png") 0 -42px no-repeat;} .ui-8606421473 .js-checked em{background-position:-40px 0;} .ui-8606421473 .js-checked b{display:block;} .ui-5853907449{display:none;margin-right:6px;} .ui-5853907449 .miniBlogSetInfo{width:16px;height:16px;} .ui-5853907449 .chkMiniBlogSetInfo{float:left;position:relative;width:16px;height:16px;cursor:pointer;} .ui-5853907449 .chkMiniBlogSetInfo em{position:absolute;top:0;left:0;z-index:3;width:100%;height:100%;overflow:hidden;text-indent:-2000px;background:url("/newpage/images/setting/synminiblog/synicon8.png") -20px -20px no-repeat;} .ui-5853907449 .chkMiniBlogSetInfo b{display:none;position:absolute;bottom:-1px;right:-2px;z-index:5;clear:both;width:8px;height:8px;overflow:hidden;cursor:pointer;background:url("/newpage/images/setting/synminiblog/synicon8.png") 0 -42px no-repeat;} .ui-5853907449 .js-checked em{background-position:-20px 0;} .ui-5853907449 .js-checked b{display:block;} .ui-7463595196{position:relative;float:left;text-align:left;cursor:pointer;} .ui-7463595196,.ui-7463595196 .iblock{height:18px;line-height:18px;} .ui-7463595196 .ztxt{margin-left:5px;} .ui-7463595196 .zdwn{width:18px;text-align:center;} .ui-7463595196 .zlst{visibility:hidden;position:absolute;top:18px;left:-1px;width:100%;max-height:180px;overflow:auto;overflow-x:hidden;} .ui-7463595196 .zlst .zitm{padding:0 5px;height:18px;line-height:18px;cursor:pointer;} .ui-7463595196{font-size:12px;} .ui-7463595196,.ui-7463595196 .zlst{border:1px solid #7f9db9;} .ui-7463595196 .zlst .zitm{background-color:#fff;} .ui-7463595196 .zlst .zitm:hover,.ui-7463595196 .slst .item.js-zhvr-910{color:#fff;background-color:#002080;}.lightwin{width:680px;text-align:left;} .lightwin .zbtnbar{display:none;}.goodnighttip{width:420px;text-align:left;} .goodnighttip .box{height:90px;*height:100px;} .goodnighttip input{position:relative;margin:0 4px 0 0;top:1px;} .goodnighttip .imgwrap{padding-right:10px;margin-right:0px;} .goodnighttip .desc{margin-left:0px;line-height:20px;} .goodnighttip .key{font-size:14px;color:#f60;} .ui-5992246969{margin-right:6px;} .ui-5992246969 .miniBlogSetInfo{width:16px;height:16px;} .ui-5992246969 .chkMiniBlogSetInfo{float:left;position:relative;width:16px;height:16px;cursor:pointer;} .ui-5992246969 .chkMiniBlogSetInfo em{position:absolute;top:0;left:0;z-index:3;width:100%;height:100%;overflow:hidden;text-indent:-2000px;background:url("/newpage/images/setting/synminiblog/synicon8.png") 0 -20px no-repeat;} .ui-5992246969 .chkMiniBlogSetInfo b{display:none;position:absolute;bottom:-1px;right:-2px;z-index:5;clear:both;width:8px;height:8px;overflow:hidden;cursor:pointer;background:url("/newpage/images/setting/synminiblog/synicon8.png") 0 -42px no-repeat;} .ui-5992246969 .js-checked em{background-position:0 0;} .ui-5992246969 .js-checked b{display:block;} .grouprecommendwin{width:355px;text-align:left;} .grouprecommendwin .box{position:relative;max-height:200px;_height:200px;overflow-x:hidden;overflow-y:auto;} .grouprecommendwin ul{overflow:hidden;margin:0;padding:0 0 8px 0;list-style:none;background-color:#FFF;} .grouprecommendwin .selected{background:#ECECEC} .grouprecommendwin li{overflow:hidden;margin:0;padding:0;height:28px;line-height:28px} .grouprecommendwin .groupitem{position:relative;zoom:1;padding-left:0;cursor:pointer;} .grouprecommendwin .groupicon{width:25px;height:20px;line-height:20px;padding:2px 0 2px 5px;} .grouprecommendwin .groupicon img{width:20px;height:20px;padding:0;margin:0;border:none;} .grouprecommendwin .groupname{width:150px;height:28px;line-height:28px;color:#5872a7;} </style></head>
+<body onload="prettyPrint()" id="blog-163-com" class="nb-body nb-inr nb-prv">
+  <!--[if lte IE 6]><div id="blog-163-com-ie6bodywrap" class=""><![endif]-->
+    <!--[if lte IE 6]><div id="blog-163-com-ie6body" class="nb-body"><![endif]-->
+
+<div class="nb-nbar clearfix" id="blog-163-com-topbar">
+  <div class="pl fl clearfix">
+  <div id="" class="nbw-im fl im im0">
+    <a rel="nofollow" class="lbl bd ia noul " href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://www.163.com/" target="_blank" hidefocus="true"><span class="tx">网易</span><span class="iblock icn0 icn0-421">&nbsp;</span></a><div class="nbw-tcd box-shadow bd">
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://news.163.com/">
+            新闻
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://t.163.com/">
+            微博
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://email.163.com/">
+            邮箱
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://photo.163.com/">
+            相册
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://yuedu.163.com/">
+            阅读
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://www.youdao.com/">
+            有道
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://photo.163.com/pp/square/">
+            摄影
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://aipai.163.com?from=163blog">
+            爱拍
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://quan.163.com/?from=blogdh">
+            优惠券
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://note.youdao.com/?vendor=163blog">
+            云笔记
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://fm.163.com/?fmblogzx0628">
+            闪电邮
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://m.123.163.com/?frombkcp">
+            手机邮
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://yxp.163.com/">
+            印像派
+          </a>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://61.163.com/?from=blogxiala">
+            网易识字
+          </a>
+        <div class="sep bd space">&nbsp;</div>
+          <a rel="nofollow" target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://sitemap.163.com/">
+            更多
+          </a>
+        
+    </div>
+  </div>
+
+    <span style="display:none;margin-left:0;" class="fl iblock space icn1 icn1-4">&nbsp;</span>
+
+  <div id="" class="nbw-im fl im im10">
+    <a class="lbl bd ia noul " href="http://blog.163.com/?frompersonalbloghome" target="_blank" hidefocus="true"><span class="tx">博客</span><span class="iblock icn0 icn0-421">&nbsp;</span></a><div class="nbw-tcd box-shadow bd">
+          <a target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/services/wapblog.html?frompersonalbloghome">
+            手机博客
+          </a>
+          <a target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/clone/clone.html?frompersonalbloghome">
+            博客搬家
+          </a>
+          <a target="_blank" class="itm noul youcai " hidefocus="true" href="http://blog.163.com/vip.do?frompersonalbloghome">
+            博客VIP服务
+          </a>
+        <div class="sep bd space">&nbsp;</div>
+          <a target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/blog_admin/blog/static/721279201082863728829/?frompersonalbloghome">
+            LiveWriter写博
+          </a>
+          <a target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/blog_admin/blog/static/721279201092713253500/?frompersonalbloghome">
+            word写博
+          </a>
+          <a target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/services/mailblog.html?frompersonalbloghome">
+            邮件写博
+          </a>
+          <a target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/services/emsblog.html?frompersonalbloghome">
+            短信写博
+          </a>
+        <div class="sep bd space">&nbsp;</div>
+          <a target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/showMultiUser.do?frompersonalbloghome">
+            群博客
+          </a>
+          <a target="_blank" class="itm noul youcai " hidefocus="true" href="http://blog.163.com/BLOG_YOUCAI/">
+            博客油菜地
+          </a>
+          <a target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/ht/?frompersonalbloghome">
+            博客话题
+          </a>
+          <a target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/hot/history/?frompersonalbloghome">
+            博客热点
+          </a>
+          <a target="_blank" class="itm noul  " hidefocus="true" href="http://q.163.com/#home?frompersonalbloghome">
+            博客圈子
+          </a>
+          <a target="_blank" class="itm noul  " hidefocus="true" href="http://blog.163.com/findFriend.do?type=5?frompersonalbloghome">
+            找朋友
+          </a>
+        
+    </div>
+  </div>
+
+
+    <div class="nbw-im fl im1 im explore"><a class="lbl bd ima spy" href="http://blog.163.com/public/explore/?frompersonalbloghome">发现</a></div>
+    <div class="nbw-im fl im1 im bloggroup"><a class="lbl bd ima spy" href="http://blog.163.com/g/?frompersonalbloghome">小组</a></div>
+    <div class="nbw-im fl im1 im customtheme"><a class="lbl bd ima spy" href="http://blog.163.com/public/theme/?frompersonalbloghome">风格</a></div>
+    <div class="nbw-im fl im1 im seebyway"><a rel="nofollow" title="随便看看" class="lbl bd ima spy" href="http://blog.163.com/randomUser.do"><span>&nbsp;</span></a></div>
+
+    <span style="display:none;" class="fl iblock space icn1 icn1-4">&nbsp;</span>
+    <div id="topbar_randShowArea" class="fl">
+      <div class="nbw-im fl im1 im randtag"><a style="width: 142px;" target="_blank" class="lbl bd ima moveblog randshow" href="http://istyle.163.com/" onclick="window.open('http://istyle.163.com/?act=idpistyle_20120604_01');return false;">网易真人搭配社区iStyle</a></div>
+      <div class="nbw-im fl im1 im randtag phide"><a style="width: 150px;" target="_blank" class="lbl bd ima moveblog randshow" href="http://www.lofter.com/app">下载最文艺的手机博客APP&gt;</a></div>
+      <div class="nbw-im fl im1 im randtag phide"><a style="width: 150px;" target="_blank" class="lbl bd ima moveblog randshow" href="http://www.lofter.com/app">下载最文艺的手机博客APP&gt;</a></div>
+    </div>
+  </div>
+  <div class="fr pr clearfix">
+    <div id="topbar_loginAndReg" class="fr">
+      <a rel="nofollow" style="margin-left: 10px; color: rgb(255, 119, 0);" class="iblock fr ima" href="http://reg.163.com/reg/reg.jsp?product=blog&amp;url=http://blog.163.com/ntesRegBlank.html&amp;loginurl=http://blog.163.com/" target="_blank">创建博客</a>
+      <a rel="nofollow" class="iblock fr ima ztag" href="#">登录</a>
+      <span class="fr iblock space icn1 icn1-4 spx">&nbsp;</span>
+      <div id="topbar_followArea" class="nbw-im fr"><span class="lbl bd ima followit fl ztag"><span class="fl addicon">&nbsp;</span><span class="fl">加关注</span></span></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  (function(){
+      var e = document.getElementById('blog-163-com-main');
+      if(!!e) e.parentNode.insertBefore(document.getElementById('blog-163-com-topbar'),e);
+      e = document.getElementById('blog-notice-email');
+      if(!!e) window.setTimeout(function(){e.style.display='';},50);
+  })()
+</script>
+<div class="blogtoptips phide" id="blog-163-com-toptips">
+ <div class="blogtoptipswrap">
+    <div id="newbulletinstip" class="newbulletinstip phide">
+    <a class="lnknews fc03 m2a tiptag phide" href="" target="_blank"></a><span class="txtnews tiptag phide"></span>&nbsp;&nbsp;&nbsp;<a class="fc03 ul nextorprevnews tiptag phide" href="" hidefocus="true">显示下一条</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="fc03 ul close tiptag" href="" hidefocus="true">关闭</a>
+  </div>
+ </div>
+ 	<div id="sinaoauthtip" class="sinaoauthtip phide">
+    	<span style="">温馨提示！由于新浪微博认证机制调整，您的新浪微博帐号绑定已过期，请重新绑定！</span><a rel="nofollow" class="fc03 noul iblock" href="http://weilaisecond.blog.163.com/settings/?fromnewcenter#m=6">立即重新绑定新浪微博》</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="fc03 iblock close" href="">关闭</a>
+  	</div>
+    <div id="$_faxiantip" class="faxiantip phide">
+      <div>
+	    <a class="m2a iblock" href="http://blog.163.com/public/explore/?fromblogbanner" target="_blank"></a>
+	    <span class="faxiantag m2a"></span>
+      </div>
+    </div>
+    <div id="$_guanggaotip" class="guanggaotip phide">
+      <div>
+	    
+	    <span class="guanggaotag m2a"></span>
+      </div>
+    </div>
+    <div id="$_lofterInviteTip" class="lofterInviteTip phide">
+      <div>
+	    <a class="m2a iblock" href="http://www.lofter.com/invite/163blog/?email=" target="_blank"></a>
+	    <span class="lofterInviteTag m2a"></span>
+      </div>
+    </div>
+</div>  <div class="nb-wrap wsy" id="blog-163-com-main"><div class="nb-are nb-top">
+  <div class="wkg h" id="blog-163-com-banner">
+    
+    <div class="t">
+      <h1 class="n c"><span class="ztag pre">second</span></h1>
+      <p class="d c"><span class="ztag pre">second</span></p>
+    </div>
+    <div class="f h ztag">&nbsp;</div>
+    <a class="x" hidefocus="true" target="_blank" href="#"><span class="xx ztag"></span></a>
+  </div>
+</div><div class="nb-are nb-nav">
+  <div class="wkg">
+    <div class="c h">
+      <h2>导航</h2>
+      <ul class="noul clearfix">
+                
+	        <li class="w w0">
+	          <a class="i i0 fc01 h" hidefocus="true" href="http://weilaisecond.blog.163.com/">首页</a>
+	        </li>
+	        <li class="w w1 selected">
+	          <a class="i i1 fc01 h" hidefocus="true" href="http://weilaisecond.blog.163.com/blog/">日志</a>
+	        </li>
+	        <li class="w w2">
+	          <a class="i i2 fc01 h" hidefocus="true" href="http://weilaisecond.blog.163.com/album/">相册</a>
+	        </li>
+	        <li class="w w3">
+	          <a class="i i3 fc01 h" hidefocus="true" href="http://weilaisecond.blog.163.com/music/">音乐</a>
+	        </li>
+	        <li class="w w4">
+	          <a class="i i4 fc01 h" hidefocus="true" href="http://weilaisecond.blog.163.com/collection/">收藏</a>
+	        </li>
+	        <li class="w w5">
+	          <a class="i i5 fc01 h" hidefocus="true" href="http://weilaisecond.blog.163.com/friends/">博友</a>
+	        </li>
+	        <li class="w w6">
+	          <a class="i i6 fc01 h" hidefocus="true" href="http://weilaisecond.blog.163.com/profile/">关于我</a>
+	        </li>
+      </ul><!--
+ --></div>
+    <div class="l h">&nbsp;</div>
+    <div class="r h">&nbsp;</div>
+  </div>
+</div>  <div class="nb-are nb-smt"><div class="wkg h space"><div class="l h">&nbsp;</div><div class="r h">&nbsp;</div><div class="c h">&nbsp;</div></div></div>
+  <div class="nb-are nb-cnt">
+    <div class="wkg">
+      <div class="c wc h clearfix " id="blog-163-com-container">
+  <div class="nb-mdl lcr m-3 " id="-3">
+  <div class="nb-mt lcr th fc02">
+    <div class="c tc th lcr"><h2 class="thide nb-jsc mdl_t_t">日志</h2></div>
+    <div class="r tm th nb-jsc"></div>
+    <div class="l tl th">&nbsp;</div>
+    <div class="r tr th">&nbsp;</div>
+  </div>
+    <div class="nb-mc lcr">
+      <div class="c cc lcr nb-jsc"><script>
+function g_onSuggestedReadingImgLoad(_img){
+    var image = new Image();
+    image.src = _img.src;
+    var _width = 90;
+    var _height = 90;
+    if(image.width > image.height){
+    	_img.style.marginLeft = -Math.floor((image.width*(_height/image.height)-_width)/2)+'px';
+    	_img.style.height = _height+'px';
+    }else {
+    	_img.style.width = _width+'px';
+    	_img.style.marginTop = -Math.floor((image.height*(_width/image.width)-_height)/2)+'px';
+    }
+    _img.style.display = 'block';
+}
+</script>
+<div class="nbw-ryt ztag clearfix js-auto-098">
+  <div class="right bdwl bds0 bdc0"><div class="cnt ztag"></div></div>
+  <div class="left">
+     <div class="lcnt bdwr bds0 bdc0 ">
+      <div id="$_divTopLink" class="top fc03 bdwb bdc0 bds2 clearfix">
+        <span class="ilft iblock icn0 icn0-620">&nbsp;</span>
+        <div class="pleft thide"><a class="m2a" href="http://weilaisecond.blog.163.com/blog/static/115927600201081923814805/">linux  U 盘 挂载</a></div>
+        <span class="irgt iblock icn0 icn0-619">&nbsp;</span>
+        <div class="pright thide"><a class="m2a" href="http://weilaisecond.blog.163.com/blog/static/115927600201082511630767/">国内外DNS服务器地址列表</a></div>
+     </div>
+     <div class="mcnt ztag">
+      <div class="nbw-bitm bdwb bds2 bdc0 ">
+        <div class="multicntwrap">
+	      <div class="multicnt">
+	      	<div>
+		      <h3 class="title pre fs1"><span class="tcnt">Linux静态IP设置</span>&nbsp;&nbsp;<span class="bgc0 fc07 fw0 fs0"></span></h3>
+		      <p class="tdep clearfix nbw-act fc06" style="line-height:20px;">
+		        <span class="pleft">
+		          
+		          <span class="blogsep">2010-09-22 04:38:27</span><span class="blogsep">|&nbsp;&nbsp;分类：</span>
+		          <a class="fc03 m2a" href="http://weilaisecond.blog.163.com/blog/#m=0&amp;t=1&amp;c=fks_084067080080089071084083081095085087084074086081080067084" title="linux">linux</a>
+		          <span class="blogsep phide" id="$_blogTagTitle">|&nbsp;&nbsp;标签：</span><span class="fc03 phide" id="$_blogTagInfo"></span>
+		        </span>
+		        <span class="pright fc07 ztag"><span class="blogsep">|</span><span class="zihao fc03" id="$_fontswitch">字号<span class="zihaoshow  phide" id="$_fontsTypes"><span class="zihaoc bdc0"><span class="stag"></span><span class="fc04 stag">大</span><span class="fc04 stag selected js-fcurrent fc05">中</span><span class="fc04 stag">小</span></span></span></span></span><span class="pright pnt fc03" id="$_blog_subscribe"><span class="iblock icn0 icn0-919">&nbsp;</span><a class="m2a">订阅</a></span>
+		      </p>
+		    </div>
+	      </div>
+        </div>
+
+        <div>
+        
+        </div>
+
+        <div class="nbw-blog-start"></div>
+        <div class="bct fc05 fc11 nbw-blog ztag js-fs2"><p>Linux静态IP设置</p>
+<p>IP配置:<br>/etc/sysconfig/network-scripts/ifcfg-eth0<br>DEVICE=eth0<br>BOOTPROTO=static<br>HWADDR=00:26:18:0B:38:C0<br>ONBOOT=yes<br>IPADDR=192.168.0.20<br>NETMASK=255.255.255.0<br>GATEWAY=192.168.0.1<br>IP生效:<br>/sbin/ifdown eth0<br>/sbin/ifup eth0</p>
+<p>通知网关更新信息:<br>/etc/init.d/network restart</p>
+<p>配置DNS:<br>vi /etc/resolv.conf<br>nameserver 202.96.134.133</p>
+<p>解决重启生效:<br>chattr +i /etc/resolv.conf<br>改为只读</p>
+<p>修改ip地址<br>即时生效:</p>
+<p># ifconfig eth0 192.168.0.20 netmask 255.255.255.0<br>启动生效:<br>修改/etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<p>修改default gateway<br>即时生效:<br># route add default gw 192.168.0.254<br>启动生效:<br>修改/etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<p>修改dns<br>修改/etc/resolv.conf<br>修改后可即时生效，启动同样有效</p>
+<p>修改host name<br>即时生效:<br># hostname fc2<br>启动生效:&nbsp; 修改/etc/sysconfig/network</p>
+<p>&nbsp;<br>etc/sysconfig/network-scripts/ifcfg-ethN 文件 </p>
+<p>　　在RedHat中，系统网络设备的配置文件保存在“/etc/sysconfig/network-scripts”目录下，ifcfg-eth0包含第一块网卡的配置信息，ifcfg-eth1包含第二块网卡的配置信息。 </p>
+<p>　　下面是“/etc/sysconfig/network-scripts/ifcfg-eth0”文件的示例： <br>　　
+DEVICE=eth0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DEVICE=name
+　　　　&nbsp;&nbsp; name表示物理设备的名字<br>　　
+IPADDR=x.x.x.x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ IPADDR=addr　　　　&nbsp;&nbsp;&nbsp; addr表示赋给该卡的IP地址 <br>　　
+NETMASK=255.255.255.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ NETMASK=mask　　　&nbsp;&nbsp;&nbsp; mask表示网络掩码 <br>　　
+NETWORK=x.x.x.x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ NETWORK=addr　　　　addr表示网络地址 <br>　　
+BROADCAST=x.x.x.x&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ BROADCAST=addr　　&nbsp;&nbsp; addr表示广播地址 <br>　　
+ONBOOT=yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ ONBOOT=yes/no　　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 启动时是否激活该卡 <br>　　
+BOOTPROTO=none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ none：无须启动协议&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+bootp：使用bootp协议&nbsp;&nbsp; dhcp：使用dhcp协议 <br>　　
+USERCTL=no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USERCTL=yes/no
+　　　是否允许非root用户控制该设备</p>
+<p>　　若希望手工修改网络地址或在新的接口上增加新的网络界面，可以通过修改对应的文件（ifcfg-ethN）或创建新的文件来实现。 </p>
+<p>手工使用命令法是基于以太网卡已装入的情况下，编辑配置文件来配置网络的方法。具体步骤如下：　　 </p>
+<p>　　⑴ 编辑/etc/rc.d/rc.local文件　　 <br>　　　在该文件中加入类似下列各行:　　 <br>　　　#配置第一个以太网卡eth0的IP地址，子网掩码，UP起激活作用　　 <br>　　　/sbin/ifconfig，etho 163.1.5.125 netmask 255.255.0.0 UP　　 <br>　　　#配置并激活回环设备lo　　 <br>　　　/sbin/ifconfig lo 127.0.0.1 UP　 <br>　　　/sbin/route add –host 127.0.0.1 lo　　 <br>　　　#让Linux将本地网的信息发送到eth0接口　　 <br>　　　/sbin/route add –net 163.1.5.125 netmask 255.255.0.0 eth0　　 <br>　　　#指定访问远程网络的缺省网关，假定缺省网关的IP地址为163.1.1.254　　 <br>　　　/sbin/route default gw 163.1.1.254 eth0　　 </p>
+<p>　　　⑵ 编辑/etc/resdv.conf文件　　 <br>　　　该文件作用是设置名称服务器。可加入下列内容。　　 <br>　　　#指定本机域名为linux.net。　　 <br>　　　 Domain linux.net　　 <br>　　　#域名称服务器(DNS)，可以是本地网，也可以是远程网上的。按nameserver的顺序#逐一查找。若未找到，则Linux放弃寻找。　　 <br>　　　 Nameserver 163.1.1.4　　 <br>　　　 Nameserver 10.55.0.33　　 </p>
+<p>　　　⑶ 编辑/etc/hosts.conf文件　　 <br>　　　设置主机文件表。可加入如下行：　 <br>　　　 order hosts，bind　　 <br>　　　 multi on　　 <br>　　　 163.1.5.125 lgx.linux.net lgx　　 </p>
+<p>　　　第一行表示：查找名称时，首先检查本地主机文件（hosts），然后按/etc/resolv.conf所指定的Nameservers顺序查找。　　 <br>　　　第三行列出主机IP地址、主机名和别名。 <br>　　　对/etc/rc.d/rc.local，/etc/hosts.conf，/etc/resolv.conf三个文件编辑后，必须重新启动机器。　　 <br>　　　五、结束语　　 <br>　　　 综上所述，只要采用其中的任意一种方法，定义主机名字、主机表、网络接口设备及路由等参数，配置好Linux以太网，就能接入Internet，享受Internet提供的服务。<br></p></div>
+        <div class="nbw-blog-end"></div>
+
+        <div>
+		</div>
+
+        <div>
+		</div>
+
+		<div>
+      	  <div>
+		  	<div class="wumii-hook"></div><script type="text/javascript" id="wumiiRelatedItems"></script>
+		  </div>
+		</div>
+
+        <div class="ptc phide ztag">
+          <span class="ptcp">
+            <span class="iblock bcmimg">&nbsp;</span>
+            <span class="nbc-0 nbc-0-40 ptcmt ptcmt-2">评论这张</span>
+          </span>
+        </div>
+		<div class="ptc phide ztag">
+          <span class="ptcp">
+            <span class="nbc-0 nbc-0-40 ptcmi">
+              <img src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/microblog.png">
+            </span>
+            <span class="nbc-0 nbc-0-40 ptcmt">转发至微博</span>
+          </span>
+        </div>
+        <div style="left: 26px; top: 347px;" class="ptc ztag phide">
+          <span class="ptcp">
+            <span class="nbc-0 nbc-0-40 ptcmi">
+              <img src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/microblog.png">
+            </span>
+            <span class="nbc-0 nbc-0-40 ptcmt">转发至微博</span>
+          </span>
+        </div>
+
+
+        <div class="nbw-act tbar fc03 clearfix">
+         <div style="height:24px;line-height:24px;">
+          <div class="pleft rdif">
+	          <span class="pnt pleft" id="$_spanRecommend"><img class="pclass" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/tuijian.png"></span>
+	        <span id="$_spanShowRecommend" class="pleft rdct  phide">
+	          <span class="pleft ul fc03"><span id="$_spanRecommendCount">0</span>人</span><span class="pleft iblock icn0 icn0-722 nbw-tgl1 nas-icn0fix">&nbsp;</span><span class="pleft iblock icn0 icn0-621 nbw-tgl0 nas-icn0fix">&nbsp;</span><span class="fc07"></span>|&nbsp;
+	        </span>
+	         <span class="fc07 pleft nas-tofix">分享到：</span><span class="nas-wrap pleft"><span id="$_shareBtn_163weibo" title="分享到网易微博" class="nas-itm nas-itm0">&nbsp;</span><span id="$_shareBtn_sinaweibo" title="分享到新浪微博" class="nas-itm nas-itm6">&nbsp;</span><span id="$_shareBtn_qqweibo" title="分享到腾讯微博" class="nas-itm nas-itm9">&nbsp;</span><span class="nas-itm nas-itm7" title="分享到MSN" id="$_shareBtn_msn">&nbsp;</span><span class="nas-itm nas-itm3" title="分享到QQ空间" id="$_shareBtn_qq">&nbsp;</span><span class="nas-itm nas-itm1" title="分享到人人网" id="$_shareBtn_renren">&nbsp;</span><span class="nas-itm nas-itm2" title="分享到开心网" id="$_shareBtn_kaixin">&nbsp;</span><span class="nas-itm nas-itm4" title="分享到豆瓣" id="$_shareBtn_douban">&nbsp;</span></span>
+          </div>
+          <div class="pright">
+              <span class="fc07">阅读(<span id="$_spaniReadCount">1814</span>)</span><span class="sep fc07">|</span>
+              <span class="fc07">评论(<span id="$_spaniCommentCount">0</span>)</span><span class="sep fc07">|</span>
+              <span class="m2a" id="$_spanCite">转载</span> <span class="m2a" id="$_spanCiteCount">(0)</span>
+              <span class="sep fc07">|</span><span id="$_spanReport" class="m2a">举报</span>
+          </div>
+         </div>
+        </div>
+      </div>
+      <div class="snl">
+        <div class="phide bdwb bds2 bdc0 rdcnt" id="$_divRecommendContent"></div>
+        <div id="yodaoad" class="bdwb bds2 bdc0" style="display:none;_zoom:1;">&nbsp;</div>
+        <div id="$_divTopLink" class="top fc03 clearfix">
+	        <span class="ilft iblock icn0 icn0-620">&nbsp;</span>
+	        <div class="pleft thide"><a class="m2a" href="http://weilaisecond.blog.163.com/blog/static/115927600201081923814805/">linux  U 盘 挂载</a></div>
+	        <span class="irgt iblock icn0 icn0-619">&nbsp;</span>
+	        <div class="pright thide"><a class="m2a" href="http://weilaisecond.blog.163.com/blog/static/115927600201082511630767/">国内外DNS服务器地址列表</a></div>
+	     </div>
+	    <div class="relateblog">
+          <h4 class="bdwb bds2 bdc0 fc07 fs0">历史上的今天</h4>
+          <div class="cnt ztag clearfix"><ul>                          <li class="thide fc03">          <a class="m2a" target="_blank" href="http://blog.163.com/weilaisecond/blog/static/115927600201282204639265" title="淡泊是一种大境界">淡泊是一种大境界</a><span class="fc07">2012-09-22 12:46:39</span>        </li>                </ul></div>
+        </div>
+	    <div class="author">
+	      <h4 class="bdwb bds2 bdc0 fc07 fs0">最近读者</h4>
+	      <div class="cnt ztag clearfix"><div class="pleft nlogif clearfix"> <div class="pleft nbw-f50 nbw-fce"><img class="cwd pnt" onerror="this.src=location.f60" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/face60.png"></div> <div class="m2a pright fc03"><span class="ul">登录</span>后，您可以在此留下足迹。</div> </div>        <div class="iblock nbw-fce nbw-f40">      <a class="fc03 noul" target="_blank" hidefocus="true" href="http://blog.163.com/joyjjjz@126/">            <img alt="joyjjjz@126" onerror="this.src=location.f40" class="cwd bdwa bdc0" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/ava_005.jpeg">            </a>      <div class="cwd vname thide">                <a class="fc03 m2a" target="_blank" hidefocus="true" href="http://blog.163.com/joyjjjz@126/">          joyjjjz@        </a>      </div>    </div>                <div class="iblock nbw-fce nbw-f40">      <a class="fc03 noul" target="_blank" hidefocus="true" href="http://blog.163.com/xianzhengguang21@126/">            <img alt="xianzhengguang21@126" onerror="this.src=location.f40" class="cwd bdwa bdc0" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/ava_007.jpeg">            </a>      <div class="cwd vname thide">                <a class="fc03 m2a" target="_blank" hidefocus="true" href="http://blog.163.com/xianzhengguang21@126/">          xianzhen        </a>      </div>    </div>                <div class="iblock nbw-fce nbw-f40">      <a class="fc03 noul" target="_blank" hidefocus="true" href="http://blog.163.com/huangdb@126/">            <img alt="huangdb" onerror="this.src=location.f40" class="cwd bdwa bdc0" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/ava_004.jpeg">            </a>      <div class="cwd vname thide">                <a class="fc03 m2a" target="_blank" hidefocus="true" href="http://blog.163.com/huangdb@126/">          huangdb        </a>      </div>    </div>                <div class="iblock nbw-fce nbw-f40">      <a class="fc03 noul" target="_blank" hidefocus="true" href="http://blog.163.com/qwl1188/">            <img alt="KladTommy" onerror="this.src=location.f40" class="cwd bdwa bdc0" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/ava_006.jpeg">            </a>      <div class="cwd vname thide">                <a class="fc03 m2a" target="_blank" hidefocus="true" href="http://blog.163.com/qwl1188/">          KladTomm        </a>      </div>    </div>                <div class="iblock nbw-fce nbw-f40">      <a class="fc03 noul" target="_blank" hidefocus="true" href="http://blog.163.com/halex05/">            <img alt="halex05" onerror="this.src=location.f40" class="cwd bdwa bdc0" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/ava_008.jpeg">            </a>      <div class="cwd vname thide">                <a class="fc03 m2a" target="_blank" hidefocus="true" href="http://blog.163.com/halex05/">          halex05        </a>      </div>    </div>                <div class="iblock nbw-fce nbw-f40">      <a class="fc03 noul" target="_blank" hidefocus="true" href="http://blog.163.com/hzc190684/">            <img alt="hzc190684" onerror="this.src=location.f40" class="cwd bdwa bdc0" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/ava_002.jpeg">            </a>      <div class="cwd vname thide">                <a class="fc03 m2a" target="_blank" hidefocus="true" href="http://blog.163.com/hzc190684/">          hzc19068        </a>      </div>    </div>                <div class="iblock nbw-fce nbw-f40">      <a class="fc03 noul" target="_blank" hidefocus="true" href="http://blog.163.com/keithwzl/">            <img alt="上下求索" onerror="this.src=location.f40" class="cwd bdwa bdc0" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/ava_003.jpeg">            </a>      <div class="cwd vname thide">                <a class="fc03 m2a" target="_blank" hidefocus="true" href="http://blog.163.com/keithwzl/">          上下求索        </a>      </div>    </div>                <div class="iblock nbw-fce nbw-f40">      <a class="fc03 noul" target="_blank" hidefocus="true" href="http://blog.163.com/shenfanfan_168@126/">            <img alt="shenfanfan_168@126" onerror="this.src=location.f40" class="cwd bdwa bdc0" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/ava.jpeg">            </a>      <div class="cwd vname thide">                <a class="fc03 m2a" target="_blank" hidefocus="true" href="http://blog.163.com/shenfanfan_168@126/">          shenfanf        </a>      </div>    </div>        </div>
+	    </div>
+	    <div class="phide" id="yodaoad_1" style="_zoom:1;"></div>
+	    <div class="comment">
+	      <h4 class="bdwb bds2 bdc0 fc07 fs0">评论</h4>
+	      <a name="blogComment" id="blogComment"></a>
+	      <div class="ztag"><div>    <div class="publish ztag"><div class="nbw-cdt edt-cmt"><div class="nbw-act tp"> <span class="m2a fc03 ztag">点击登录</span><span class="sep">|</span><span class="fc05">昵称：</span><input maxlength="18" class="znick bdwa bds0 bdc0 ztag" type="text"> </div> <div class="edt ztag"><div class="ui-3995438236"><div class="zcnt ztag zbrd bdc0"><iframe src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/a.html" frameborder="0"></iframe></div> <div class="zbtn"> <span class="zfce zbgp ztag space">&nbsp;</span> <input class="zbok zhnd ztag nbtn fc09 bdc1 bgc2" value="发表" type="button"> <span class="zbcc zhnd ztag fc04">取消</span> <div class="zvcd ztag" style="display:none;"> <label>验证码：</label><input class="zbrd xtag bdc0" maxlength="4" type="text"><img src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/empty.png" class="xtag" title="点击刷新验证码"><span class="xtag fc04">换一张</span> </div> </div> <div class="zmsg fc07" style="display:none;"><span class="zicn zbgp iblock">&nbsp;</span><span class="ztag"></span></div></div></div> <div style="display: none;" class="hnt thide ztag"></div></div></div>
+    <div class="bdwt bds2 bdc0 phide" id="yodaoad_2" style="_zoom:1;"></div>
+    <div class="ztag bdwt bds2 bdc0">
+      <div class="case"></div>
+      <div style="display: none;" class="clearfix"><div style="display: none;" class="ui-9531358386 noselect js-zfrg-6540"><span class="pgi pgb iblock fc03 bgc9 bdc0 js-znpg-097">上一页</span> <span class="pgi zpg1 iblock fc03 bgc9 bdc0 js-zslt-987 fc05">1</span> <span class="frg fgp fc06">...</span> <span style="display: none;" class="pgi zpg2 iblock fc03 bgc9 bdc0">-1</span> <span style="display: none;" class="pgi zpg3 iblock fc03 bgc9 bdc0">-1</span> <span style="display: none;" class="pgi zpg4 iblock fc03 bgc9 bdc0">-1</span> <span style="display: none;" class="pgi zpg5 iblock fc03 bgc9 bdc0">-1</span> <span style="display: none;" class="pgi zpg6 iblock fc03 bgc9 bdc0">-1</span> <span style="display: none;" class="pgi zpg7 iblock fc03 bgc9 bdc0">-1</span> <span style="display: none;" class="pgi zpg8 iblock fc03 bgc9 bdc0">-1</span> <span class="frg fgn fc06">...</span> <span style="display: none;" class="pgi zpg9 iblock fc03 bgc9 bdc0">-1</span> <span class="pgi pgb iblock fc03 bgc9 bdc0 js-znpg-097">下一页</span></div></div>
+    </div>
+  </div></div>
+	    </div>
+	    <div class="phide" id="yodaoad_3" style="_zoom:1;"></div>
+      </div>
+      <div class="cite ztag fc03 phide"></div>
+    </div>
+   </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+var wumiiPermaLink = "http://blog.163.com/weilaisecond/blog/static/115927600201082243642682/"; //文章的永久链接，作为文章的唯一标识
+var wumiiTags = ""; //文章标签，以英文逗号分隔，如："标签1,标签2"
+var wumiiSitePrefix = "http://blog.163.com/weilaisecond/"; //博客的主页地址，作为博客的唯一标识
+var wumiiParams = "&num=5&mode=3&pf=blog163"; //num为默认显示的相关文章数目，mode为默认的显示模式（1为文字，2为图片，3为自动）
+</script>
+<script type="text/javascript" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/relatedItemsWidget.js"></script>
+</div>
+      <div class="l cl h100">&nbsp;</div>
+      <div class="r cr h100">&nbsp;</div>
+    </div>
+    <div class="nb-mb lcr bh space">
+      <div class="l bl bh">&nbsp;</div>
+      <div class="r br bh">&nbsp;</div>
+      <div class="c bc bh lcr">&nbsp;</div>
+    </div>
+  </div>
+
+</div>
+      <div class="l wl g lg h100">&nbsp;</div>
+      <div class="l wl t lt">&nbsp;</div>
+      <div class="l wl b lb">&nbsp;</div>
+      <div class="r wr g rg h100">&nbsp;</div>
+      <div class="r wr t rt">&nbsp;</div>
+      <div class="r wr b rb">&nbsp;</div>
+    </div>
+  </div>
+  <div class="nb-are nb-smb"><div class="wkg h space"><div class="l h">&nbsp;</div><div class="r h">&nbsp;</div><div class="c h">&nbsp;</div></div></div>
+<div class="nb-are nb-fot">
+  <div class="wkg h">
+    <h2>页脚</h2>
+    <div class="k">      <a rel="nofollow" class="m2a fc08" target="_blank" href="http://corp.163.com/index_gb.html">公司简介</a>
+      <span class="p fc10">-</span>
+      <a rel="nofollow" class="m2a fc08" target="_blank" href="http://gb.corp.163.com/gb/contactus.html">联系方法</a>
+      <span class="p fc10">-</span>
+      <a rel="nofollow" class="m2a fc08" target="_blank" href="http://corp.163.com/gb/job/job.html">招聘信息</a>
+      <span class="p fc10">-</span>
+      <a rel="nofollow" class="m2a fc08" target="_blank" href="http://help.163.com/?b13abk1">客户服务</a>
+      <span class="p fc10">-</span>
+      <a rel="nofollow" class="m2a fc08" target="_blank" href="http://corp.163.com/gb/legal/legal.html">隐私政策</a>
+      <span class="p fc10">-</span>
+      <a rel="nofollow" class="m2a fc08" target="_blank" href="http://blog.163.com/public/theme/">博客风格</a>
+      <span class="p fc10">-</span>
+      <a rel="nofollow" class="m2a fc08" target="_blank" href="http://blog.163.com/services/wapblog.html">手机博客</a>
+      <span class="p fc10">-</span>
+      <a rel="nofollow" class="m2a fc08" target="_blank" href="http://blog.163.com/vip.do">VIP博客</a>
+      
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="http://weilaisecond.blog.163.com/rss/">
+      <span class="p fc10">-</span><span class="fc08" id="$_foot_subscribe"><span class="iblock m2a icn0 icn0-919">&nbsp;</span><a class="m2a fc08">订阅此博客</a></span>
+    </div>
+    <p class="fc08">网易公司版权所有&nbsp;&#169;1997-2013</p>
+  </div>
+</div></div>
+    <!--[if lte IE 6]></div><![endif]-->
+  <!--[if lte IE 6]></div><![endif]-->
+  <div class="nb-layer" id="blog-163-com-layer"><div style="bottom: -300px;" class="ui-5170535313 postadlayer nbw-win nbwindow nbwinautoheight"><div class="nbwinwrap"> <div class="zcls zflg" title="关闭"><div class="txtclose">×</div></div> <div class="ztbr noselect zflg"><div class="zttl thide zflg">信息提示</div></div> <div class="zcnt zflg"><div style="top: 100px; left: 200px;" class=""><div class="m-postadlayer" style=""><embed style="width: 290px; height: 260px;" wmode="transparent" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/014161_290260_quanguo_b.swf" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" allowfullscreen="true"><div style="position:absolute;top:0px;height:260px;width:100%"> </div><a class="adlink" href="http://g.163.com/a?CID=21650&amp;Values=3454055144&amp;Redirect=http://e.cn.miaozhen.com/r.gif?k=1006190&amp;p=3yWym0&amp;ae=1000528&amp;vo=34d46640&amp;vr=2&amp;rt=2&amp;ns=[M_ADIP]&amp;ni=[M_IESID]&amp;na=[M_MAC]&amp;o=http%3A%2F%2Fphsignature.qq.com" target="_blank"></a><div class="ztag close"></div><div class="cnt" style="left:19px;width:260px;"><div class="sep" style="width:255px;"><a style="margin-right: 4px; margin-top: 2px; display: block; width: 60px; overflow: hidden;" class="pleft" href="http://blog.163.com/" target="_blank"><img style="width: 60px; height: 52px;" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/20130617083121973a0.jpg"></a><ul class="pleft" style="margin-top:-3px;overflow:hidden;width:190px;text-overflow: ellipsis;"><li><a style="letter-spacing: -0.5px;" href="http://blog.163.com/" target="_blank"><b>中国还有如此苦的女工</b></a></li><li><a href="http://heyafu67.blog.163.com/blog/static/107334342201351661925221/" target="_blank">该呼吁重罚'超生'张艺谋吗</a></li><li><a href="http://liuzhirong.blog.163.com/blog/static/20038005520135166725990/" target="_blank">为什么各国央行要储备黄金</a></li></ul></div><ul class="clearfix down"><li><a href="http://blog.163.com/" target="_blank">汪华斌：感谢中国男足演绎了真实的中国</a></li><li><a href="http://xwzm.blog.163.com/blog/static/16908848120135178452858/" target="_blank">国足还要说多久'对不起'？</a></li><li><a href="http://tang-xinzi.blog.163.com/blog/static/12708933920135177916995/" target="_blank">日本学生如何上体育课(图)</a></li><li><a href="http://gududengdai1974.blog.163.com/blog/static/317499320135170233580/" target="_blank">我那总接济亲戚的军人父亲</a></li><li><a href="http://qin.qy.blog.163.com/blog/static/2750874520135161355892/" target="_blank">毛泽东时代一年能洗几回澡</a></li></ul></div></div></div></div> <div class="zbtnbar zflg"></div> <div style="width: 278px; left: 6px;" class="zext zext0">&nbsp;</div> <div style="width: 278px; left: 6px;" class="zext zext1">&nbsp;</div> <div style="height: 206px; top: 23px;" class="zext zext2">&nbsp;</div> <div style="height: 206px; top: 23px;" class="zext zext3">&nbsp;</div> <div class="zext zext4">&nbsp;</div> <div class="zext zext5">&nbsp;</div> <div class="zext zext6">&nbsp;</div> <div class="zext zext7">&nbsp;</div> </div></div></div>
+  
+<script type="text/javascript">
+  window.N = {tm:{'zbtn':'nbtn',
+                  'bdc0':'bdc0','bdc2':'bdc1',
+				  'bgc0':'bgc0','bgc1':'bgc1','bgc2':'bgc2','bgh0':'bgc9',
+				  'fc00':'fc03','fc01':'fc04','fc02':'fc05','fc03':'fc06','fc04':'fc07','fc05':'fc09'}};
+  Date.servTime = '06/17/2013 14:02:51';
+  location.api = 'http://api.blog.163.com/';
+  location.msg = 'http://api.blog.163.com/msg/dwr';
+  location.dwr = 'http://api.blog.163.com/weilaisecond/dwr';
+  location.vcd = 'http://api.blog.163.com/cap/captcha.jpgx?parentId=115927600&r=';
+  location.mrt = 'http://b.bst.126.net/newpage/style/mbox/';
+  location.fce = 'http://os.blog.163.com/common/ava.s?host=';
+  location.fce2= 'http://os.blog.163.com/common/ava.s?host=';
+  location.passportfce = 'http://os.blog.163.com/common/ava.s?passport=';
+  location.fpr = 'http://b.bst.126.net/common/portrait/face/preview/';
+  location.f60 = 'http://b.bst.126.net/common/face60.png';
+  location.f140= 'http://b.bst.126.net/common/face140.png';
+  location.f40 = location.f140;
+  location.adf140= 'http://b.bst.126.net/common/admireface140.png';
+  location.ept = 'http://b.bst.126.net/common/empty.png';
+  location.guide_profile_add= 'http://b.bst.126.net/common/guide_profile_add.gif';
+  location.phtoto_dream = 'http://photo.dream.163.com/blog/writeBlogCallback.do';
+  window.CF = {
+    ca:false
+   ,cb:''
+   ,cc:false
+   ,cd:false
+   ,ce:'-3'
+   ,ck:0
+   ,ci:['api.blog.163.com'
+       ,'http://photo.163.com/photo/html/crossdomain.html?t=20100205'
+        
+        ,'ud.blog.163.com'
+        
+        
+        
+        ]
+   ,cj:[-3]
+   ,cl:''
+   ,cm:["","blog/","album/","music/","collection/","friends/","profile/","pprank/"]
+   ,cf:0
+   ,co:{pv:false
+       ,ti:4196
+       ,tn:''
+       ,tc:0
+       ,tl:3
+       ,ut:0
+       ,un:''
+       ,um:''
+       ,ui:0
+       ,ud:false}
+   ,cp:{nr:0
+       ,cr:0
+       ,vr:-100
+       ,fr:0}
+   ,cs:0
+   ,ct:{'nav':['首页','日志','相册','音乐','收藏','博友','关于我'],'enabled':[0,1,6],'defaultnav':parseInt('1111111',2)}
+   ,cu:false
+   ,cv:false
+   ,cw:false
+  };
+  window.UD = {};
+  UD.host = {
+      userId:115927600
+     ,userName:'weilaisecond'
+     ,nickName:'weilaisecond'
+     ,imageUpdateTime:1294930585868
+     ,baseUrl:'http://weilaisecond.blog.163.com/'
+     ,gender:'他'
+     ,email:'weilaisecond@163.com'
+     ,photo163Name:'weilaisecond'
+     ,photo163HostName:'weilaisecond'
+     ,TOKEN_HTMLMODULE:''
+     ,isMultiUserBlog:false
+     ,isWumiUser:true
+     ,sRank:-100
+  };
+</script>
+    <script type="text/javascript" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/pc.js"></script><iframe src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/crossdomain.html" id="api.blog.163.com" name="api.blog.163.com" onload="J.a('api.blog.163.com');" style="display: none;" height="0" width="0"></iframe><iframe src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/crossdomain_002.html" id="photo.163.com" name="photo.163.com" onload="J.a('photo.163.com');" style="display: none;" height="0" width="0"></iframe><iframe src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/crossdomain_003.html" id="ud.blog.163.com" name="ud.blog.163.com" onload="J.a('ud.blog.163.com');" style="display: none;" height="0" width="0"></iframe>
+    <script type="text/javascript" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/pm.js"></script>
+  <script src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/ntes.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    _ntes_nacc='blog';neteaseTracker();
+    
+    new Image().src = 'http://blog.163.com/newpage/images/analyse.png?s=p&t='+new Date().getTime();
+  </script>
+
+<script type="text/javascript">
+    window.setTimeout(function(){
+			J.loadScript('http://music.ph.126.net/ph.js?001');
+			
+			J.postDataByDWR(location.dwr,'MusicBeanNew','setCopyrightMusicSessionToken',false);
+	},1000);
+</script>
+
+    <script type="text/javascript" src="Linux%E9%9D%99%E6%80%81IP%E8%AE%BE%E7%BD%AE%20-%20weilaisecond%E7%9A%84%E6%97%A5%E5%BF%97%20-%20%E7%BD%91%E6%98%93%E5%8D%9A%E5%AE%A2_files/prettify.js"></script>
+
+
+</body></html>

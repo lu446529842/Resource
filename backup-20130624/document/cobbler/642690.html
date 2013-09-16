@@ -1,0 +1,507 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Cobbler批量部署RedHat - 一个人的安静 - ITeye技术网站</title>
+    <meta name="description" content="前面一篇介绍了使用Kickstart批量部署redhat，但是这种方法配置起来比较麻烦。现在，我们有了更好的选择。那就是：Cobbler。在看以下内容时最好先看下：Kickstart批量部署redhat。 系统环境：CentOS 5 CentOS5.4默认的Repository里找不到Cobbler，先安装rpmforce这个Repository。很全很强大，近10000个软件包。 #32位：  w ...">
+    <meta name="keywords" content="RedHat, CentOS, 配置管理, Linux, Blog Cobbler批量部署RedHat">
+    <link rel="shortcut icon" href="http://saplingidea.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://saplingidea.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://saplingidea.iteye.com/rss" rel="alternate" title="一个人的安静" type="application/rss+xml">
+    <link href="642690_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="642690_files/blue.css" media="screen" rel="stylesheet" type="text/css">
+    <script src="642690_files/ga.js" async="" type="text/javascript"></script><script src="642690_files/ga.js" async="" type="text/javascript"></script><script src="642690_files/application.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="642690_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="642690_files/shCoreCommon.js" type="text/javascript"></script>
+<script src="642690_files/hotkey.js" type="text/javascript"></script>
+  <script src="642690_files/code_favorites.js" type="text/javascript"></script>
+<script src="642690_files/weiboshare.js" type="text/javascript"></script>
+  <style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style><style type="text/css">.dp-j .annotation { color: #646464; }.dp-j .number { color: #C00000; }</style></head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="left: 368px; display: none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="http://saplingidea.iteye.com/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://saplingidea.iteye.com/login">登录</a>
+    <a href="http://saplingidea.iteye.com/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://saplingidea.iteye.com/">一个人的安静</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://saplingidea.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://saplingidea.iteye.com/weibo">微博</a></li>
+            <li><a href="http://saplingidea.iteye.com/album">相册</a></li>
+            <li><a href="http://saplingidea.iteye.com/link">收藏</a></li>
+            <li><a href="http://saplingidea.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://saplingidea.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px; width: 110px;" type="text">
+              <input class="submit_search" value="" type="submit">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      <div>
+      <script type="text/javascript"><!--
+      google_ad_client = "pub-9251158678272471";
+      google_ad_slot = "0014950530";
+      google_ad_width = 728;
+      google_ad_height = 90;
+      //--></script>
+      <script type="text/javascript" src="642690_files/show_ads.js">
+      </script><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="90" scrolling="no" width="728"></iframe></ins></ins>
+    </div>
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="http://saplingidea.iteye.com/blog/642690">Cobbler批量部署RedHat</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://saplingidea.iteye.com/category/81935">CentOS</a></li> </ul>
+        <div class="news_tag"><a href="http://www.iteye.com/blogs/tag/RedHat">RedHat</a><a href="http://www.iteye.com/blogs/tag/CentOS">CentOS</a><a href="http://www.iteye.com/blogs/tag/%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86">配置管理</a><a href="http://www.iteye.com/blogs/tag/Linux">Linux</a><a href="http://www.iteye.com/blogs/tag/Blog">Blog</a>&nbsp;</div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    <span style="font-size: medium;">前面一篇介绍了使用<a target="_blank" href="http://saplingidea.iteye.com/blog/634987">Kickstart批量部署redhat</a>，但是这种方法配置起来比较麻烦。现在，我们有了更好的选择。那就是：<a target="_blank" href="https://fedorahosted.org/cobbler/">Cobbler</a>。在看以下内容时最好先看下：Kickstart批量部署redhat。
+<br>
+<br><strong>系统环境：CentOS 5</strong>
+<br>
+<br>CentOS5.4默认的Repository里找不到Cobbler，先安装rpmforce这个Repository。很全很强大，近10000个软件包。</span>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="642690_files/clipboard_new.swf" flashvars="clipboard=%2332%E4%BD%8D%EF%BC%9A%0Awget%20http%3A%2F%2Fpackages.sw.be%2Frpmforge-release%2Frpmforge-release-0.5.1-1.el5.rf.i386.rpm%0Arpm%20-ivh%20rpmforge-release-0.5.1-1.el5.rf.i386.rpm%0A%2364%E4%BD%8D%EF%BC%9A%0Awget%20http%3A%2F%2Fpackages.sw.be%2Frpmforge-release%2Frpmforge-release-0.5.1-1.el5.rf.x86_64.rpm%0Arpm%20-ivh%20rpmforge-release-0.5.1-1.el5.rf.x86_64.rpm" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="642690_files/icon_star.png" alt="收藏代码"><img class="spinner" src="642690_files/spinner.gif" style="display: none;"></a></div></div><ol class="dp-j" start="1"><li><span><span>#</span><span class="number">32</span><span>位：&nbsp;&nbsp;</span></span></li><li><span>wget&nbsp;http:<span class="comment">//packages.sw.be/rpmforge-release/rpmforge-release-0.5.1-1.el5.rf.i386.rpm</span><span>&nbsp;&nbsp;</span></span></li><li><span>rpm&nbsp;-ivh&nbsp;rpmforge-release-<span class="number">0.5</span><span>.</span><span class="number">1</span><span>-</span><span class="number">1</span><span>.el5.rf.i386.rpm&nbsp;&nbsp;</span></span></li><li><span>#<span class="number">64</span><span>位：&nbsp;&nbsp;</span></span></li><li><span>wget&nbsp;http:<span class="comment">//packages.sw.be/rpmforge-release/rpmforge-release-0.5.1-1.el5.rf.x86_64.rpm</span><span>&nbsp;&nbsp;</span></span></li><li><span>rpm&nbsp;-ivh&nbsp;rpmforge-release-<span class="number">0.5</span><span>.</span><span class="number">1</span><span>-</span><span class="number">1</span><span>.el5.rf.x86_64.rpm&nbsp;&nbsp;</span></span></li></ol></div><pre title="Cobbler批量部署RedHat" pre_index="0" source_url="http://saplingidea.iteye.com/blog/642690" codeable_type="Blog" codeable_id="642690" style="display: none;" name="code" class="java">#32位：
+wget http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.1-1.el5.rf.i386.rpm
+rpm -ivh rpmforge-release-0.5.1-1.el5.rf.i386.rpm
+#64位：
+wget http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.1-1.el5.rf.x86_64.rpm
+rpm -ivh rpmforge-release-0.5.1-1.el5.rf.x86_64.rpm</pre>
+<br>
+<br><strong><span style="font-size: medium;">1. 安装相关软件：</span></strong>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="642690_files/clipboard_new.swf" flashvars="clipboard=yum%20-y%20install%20cobbler%20dhcp%20httpd%20xinetd%20tftp-server" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="642690_files/icon_star.png" alt="收藏代码"><img class="spinner" src="642690_files/spinner.gif" style="display: none;"></a></div></div><ol class="dp-j" start="1"><li><span><span>yum&nbsp;-y&nbsp;install&nbsp;cobbler&nbsp;dhcp&nbsp;httpd&nbsp;xinetd&nbsp;tftp-server&nbsp;&nbsp;</span></span></li></ol></div><pre title="Cobbler批量部署RedHat" pre_index="1" source_url="http://saplingidea.iteye.com/blog/642690" codeable_type="Blog" codeable_id="642690" style="display: none;" name="code" class="java">yum -y install cobbler dhcp httpd xinetd tftp-server</pre>
+<br><span style="font-size: medium;"># cobbler的配置文件在/var/lib/cobbler/和/etc/cobbler下（不同版本可能不同）
+<br># xinetd tftp-server用来做tftp服务器，pxe启动需要。
+<br># httpd服务器主要存放ks文件和安装光盘。注意 /var/www/cobbler 目录必须具有足够容纳 Linux 安装文件的空间（移动，建软链接）</span>
+<br>
+<br>
+<br><strong><span style="font-size: medium;">2. 检查 cobbler 配置：</span></strong>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="642690_files/clipboard_new.swf" flashvars="clipboard=cobbler%20check" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="642690_files/icon_star.png" alt="收藏代码"><img class="spinner" src="642690_files/spinner.gif" style="display: none;"></a></div></div><ol class="dp-j" start="1"><li><span><span>cobbler&nbsp;check&nbsp;&nbsp;</span></span></li></ol></div><pre title="Cobbler批量部署RedHat" pre_index="2" source_url="http://saplingidea.iteye.com/blog/642690" codeable_type="Blog" codeable_id="642690" style="display: none;" name="code" class="java">cobbler check</pre>
+<br><span style="font-size: medium;">#0: The 'server' field in 
+/var/lib/cobbler/settings must be set to something other than localhost,
+ or kickstarting features will not work.&nbsp; This should be a 
+resolvable hostname or IP for the boot server as reachable by all 
+machines that will use it.
+<br>#1: For PXE to be functional, the 'next_server' field in 
+/var/lib/cobbler/settings must be set to something other than 127.0.0.1,
+ and should match the IP of the boot server on the PXE network.
+<br>#2: change 'disable' to 'no' in /etc/xinetd.d/tftp
+<br>
+<br># 按提示解决相关问题，把 /var/lib/cobbler/settings 中的 server 和 next_server 
+设为本服务器的 IP 地址，/etc/xinetd.d/tftp中disable = yes，manage_dhcp 设为 1，以便管理 
+DHCP</span>
+<br>
+<br><strong><span style="font-size: medium;">3. 导入 CentOS 5 安装 DVD ISO 中的文件：</span></strong>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="642690_files/clipboard_new.swf" flashvars="clipboard=mount%20-o%20loop%20home%2Fsapling%2FCentOS-5.4-x86_64-bin-DVD.iso%20%2Fmnt%2FredhatISO%0Acobbler%20import%20--mirror%3D%2Fmnt%2FredhatISO%20--name%3DCentOS-5-4-x86-64%20%0A%23%20%E4%BB%8E%20%2Fmnt%2FredhatISO%20%E7%9B%AE%E5%BD%95%E5%AF%BC%E5%85%A5%E6%89%80%E6%9C%89%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6%EF%BC%8C%E5%91%BD%E5%90%8D%E4%B8%BA%20CentOS-5-4-x86-64%0Acobbler%20list%0A%23%20%E6%9F%A5%E7%9C%8B%E5%AF%BC%E5%85%A5%E7%BB%93%E6%9E%9C%EF%BC%8C%E5%BA%94%E5%8C%85%E5%90%AB%E4%B8%80%E4%B8%AAxen%E7%9A%84" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="642690_files/icon_star.png" alt="收藏代码"><img class="spinner" src="642690_files/spinner.gif" style="display: none;"></a></div></div><ol class="dp-j" start="1"><li><span><span>mount&nbsp;-o&nbsp;loop&nbsp;home/sapling/CentOS-</span><span class="number">5.4</span><span>-x86_64-bin-DVD.iso&nbsp;/mnt/redhatISO&nbsp;&nbsp;</span></span></li><li><span>cobbler&nbsp;<span class="keyword">import</span><span>&nbsp;--mirror=/mnt/redhatISO&nbsp;--name=CentOS-</span><span class="number">5</span><span>-</span><span class="number">4</span><span>-x86-</span><span class="number">64</span><span>&nbsp;&nbsp;&nbsp;</span></span></li><li><span>#&nbsp;从&nbsp;/mnt/redhatISO&nbsp;目录导入所有安装文件，命名为&nbsp;CentOS-<span class="number">5</span><span>-</span><span class="number">4</span><span>-x86-</span><span class="number">64</span><span>&nbsp;&nbsp;</span></span></li><li><span>cobbler&nbsp;list&nbsp;&nbsp;</span></li><li><span>#&nbsp;查看导入结果，应包含一个xen的&nbsp;&nbsp;</span></li></ol></div><pre title="Cobbler批量部署RedHat" pre_index="3" source_url="http://saplingidea.iteye.com/blog/642690" codeable_type="Blog" codeable_id="642690" style="display: none;" name="code" class="java">mount -o loop home/sapling/CentOS-5.4-x86_64-bin-DVD.iso /mnt/redhatISO
+cobbler import --mirror=/mnt/redhatISO --name=CentOS-5-4-x86-64 
+# 从 /mnt/redhatISO 目录导入所有安装文件，命名为 CentOS-5-4-x86-64
+cobbler list
+# 查看导入结果，应包含一个xen的</pre>
+<br>
+<br><strong><span style="font-size: medium;">4. 修改 DHCP 和 Kickstart 配置模板：</span></strong>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="642690_files/clipboard_new.swf" flashvars="clipboard=vi%20%2Fetc%2Fcobbler%2Fdhcp.template%0A%23%20DHCP%20%E9%85%8D%E7%BD%AE%E6%A8%A1%E6%9D%BF%EF%BC%8C%E6%B3%A8%E6%84%8F%E4%BD%A0%E6%9C%AC%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%20IP%20%E5%9C%B0%E5%9D%80%E8%A6%81%E5%92%8Cdhcp%E9%85%8D%E7%BD%AE%E7%9A%84subnet%E4%B8%80%E4%B8%AA%E7%BD%91%E6%AE%B5%EF%BC%8C%E5%90%A6%E5%88%99%E4%BC%9A%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5%E3%80%82%0Avi%20%2Fetc%2Fcobbler%2Fdefault.ks%0A%23%20Kickstart%20%E9%85%8D%E7%BD%AE%E6%A8%A1%E6%9D%BF%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%94%A8system-config-kickstart%EF%BC%88%E5%BB%BA%E8%AE%AE%EF%BC%89%E7%94%9F%E6%88%90%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%90%8E%E5%9C%A8%2Froot%2Fanaconda-ks.cfg%E5%BE%97%E5%88%B0%E4%BD%A0%E6%89%80%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E7%9A%84%E9%85%8D%E7%BD%AE%E3%80%82" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="642690_files/icon_star.png" alt="收藏代码"><img class="spinner" src="642690_files/spinner.gif" style="display: none;"></a></div></div><ol class="dp-j" start="1"><li><span><span>vi&nbsp;/etc/cobbler/dhcp.template&nbsp;&nbsp;</span></span></li><li><span>#&nbsp;DHCP&nbsp;配置模板，注意你本服务器的&nbsp;IP&nbsp;地址要和dhcp配置的subnet一个网段，否则会启动失败。&nbsp;&nbsp;</span></li><li><span>vi&nbsp;/etc/cobbler/<span class="keyword">default</span><span>.ks&nbsp;&nbsp;</span></span></li><li><span>#&nbsp;Kickstart&nbsp;配置模板，可以用system-config-kickstart（建议）生成，也可以安装系统后在/root/anaconda-ks.cfg得到你所安装系统的配置。&nbsp;&nbsp;</span></li></ol></div><pre title="Cobbler批量部署RedHat" pre_index="4" source_url="http://saplingidea.iteye.com/blog/642690" codeable_type="Blog" codeable_id="642690" style="display: none;" name="code" class="java">vi /etc/cobbler/dhcp.template
+# DHCP 配置模板，注意你本服务器的 IP 地址要和dhcp配置的subnet一个网段，否则会启动失败。
+vi /etc/cobbler/default.ks
+# Kickstart 配置模板，可以用system-config-kickstart（建议）生成，也可以安装系统后在/root/anaconda-ks.cfg得到你所安装系统的配置。</pre>
+<br>
+<br><strong><span style="font-size: medium;">5. 生成并同步所有配置：</span></strong>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="642690_files/clipboard_new.swf" flashvars="clipboard=cobbler%20sync" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="642690_files/icon_star.png" alt="收藏代码"><img class="spinner" src="642690_files/spinner.gif" style="display: none;"></a></div></div><ol class="dp-j" start="1"><li><span><span>cobbler&nbsp;sync&nbsp;&nbsp;</span></span></li></ol></div><pre title="Cobbler批量部署RedHat" pre_index="5" source_url="http://saplingidea.iteye.com/blog/642690" codeable_type="Blog" codeable_id="642690" style="display: none;" name="code" class="java">cobbler sync</pre>
+<br>
+<br><strong><span style="font-size: medium;">6. 启动相关服务：</span></strong>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="642690_files/clipboard_new.swf" flashvars="clipboard=service%20xinetd%20start%0Aservice%20dhcpd%20start%0Aservice%20cobblerd%20start%0A%23%E8%AE%BE%E7%BD%AE%E7%9B%B8%E5%85%B3%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%0Antsysv" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="642690_files/icon_star.png" alt="收藏代码"><img class="spinner" src="642690_files/spinner.gif" style="display: none;"></a></div></div><ol class="dp-j" start="1"><li><span><span>service&nbsp;xinetd&nbsp;start&nbsp;&nbsp;</span></span></li><li><span>service&nbsp;dhcpd&nbsp;start&nbsp;&nbsp;</span></li><li><span>service&nbsp;cobblerd&nbsp;start&nbsp;&nbsp;</span></li><li><span>#设置相关服务开机启动&nbsp;&nbsp;</span></li><li><span>ntsysv&nbsp;&nbsp;</span></li></ol></div><pre title="Cobbler批量部署RedHat" pre_index="6" source_url="http://saplingidea.iteye.com/blog/642690" codeable_type="Blog" codeable_id="642690" style="display: none;" name="code" class="java">service xinetd start
+service dhcpd start
+service cobblerd start
+#设置相关服务开机启动
+ntsysv</pre>
+<br>
+<br><span style="font-size: medium;"><strong>7. 安装服务器：</strong>
+<br>启动另一台新服务器，通过 PXE 启动进入，提示"boot:"时输入"menu"即可进入蓝色的 Cobbler 安装界面，选择安装项，几分钟之内就能一气呵成，自动完成系统安装。 </span>
+<br><img class="magplus" title="点击查看原始大小图片" src="642690_files/4ab8f399-eeb6-3176-8a73-f85a13fd0679.jpg" height="389" width="700">
+<br>
+<br><strong><span style="font-size: medium;">8.重装系统：</span></strong>
+<br><div id="" class="dp-highlighter"><div class="bar"><div class="tools">Java代码 <embed wmode="transparent" src="642690_files/clipboard_new.swf" flashvars="clipboard=%23%20%E5%9C%A8%E8%A6%81%E9%87%8D%E8%A3%85%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AE%89%E8%A3%85koan%0Ayum%20install%20koan%0A%23%E6%9F%A5%E7%9C%8Bcobbler%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%89%E5%93%AA%E4%BA%9B%E5%AE%89%E8%A3%85%E7%9B%98%0Akoan%20--list-profiles%20--server%3D192.168.1.2%0A%23%E9%80%89%E6%8B%A9%E8%A6%81%E9%87%8D%E8%A3%85%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%B9%B6%E9%87%8D%E5%90%AF%0Akoan%20--replace-self%20--server%3D192.168.1.2%20--profile%3DCentOS-5-4-x86-64%0Areboot" quality="high" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="15" width="14">&nbsp;<a href="javascript:void()" title="收藏这段代码" onclick="code_favorites_do_favorite(this);return false;"><img class="star" src="642690_files/icon_star.png" alt="收藏代码"><img class="spinner" src="642690_files/spinner.gif" style="display: none;"></a></div></div><ol class="dp-j" start="1"><li><span><span>#&nbsp;在要重装的机器安装koan&nbsp;&nbsp;</span></span></li><li><span>yum&nbsp;install&nbsp;koan&nbsp;&nbsp;</span></li><li><span>#查看cobbler服务器有哪些安装盘&nbsp;&nbsp;</span></li><li><span>koan&nbsp;--list-profiles&nbsp;--server=<span class="number">192.168</span><span>.</span><span class="number">1.2</span><span>&nbsp;&nbsp;</span></span></li><li><span>#选择要重装的系统并重启&nbsp;&nbsp;</span></li><li><span>koan&nbsp;--replace-self&nbsp;--server=<span class="number">192.168</span><span>.</span><span class="number">1.2</span><span>&nbsp;--profile=CentOS-</span><span class="number">5</span><span>-</span><span class="number">4</span><span>-x86-</span><span class="number">64</span><span>&nbsp;&nbsp;</span></span></li><li><span>reboot&nbsp;&nbsp;</span></li></ol></div><pre title="Cobbler批量部署RedHat" pre_index="7" source_url="http://saplingidea.iteye.com/blog/642690" codeable_type="Blog" codeable_id="642690" style="display: none;" name="code" class="java"># 在要重装的机器安装koan
+yum install koan
+#查看cobbler服务器有哪些安装盘
+koan --list-profiles --server=192.168.1.2
+#选择要重装的系统并重启
+koan --replace-self --server=192.168.1.2 --profile=CentOS-5-4-x86-64
+reboot</pre>
+<br>
+<br><span style="font-size: medium;"><strong>9. 其他：</strong>
+<br>参考文献：<a target="_blank" href="http://hutuworm.blogspot.com/2008/08/cobblerlinux.html">http://hutuworm.blogspot.com/2008/08/cobblerlinux.html</a></span>
+  </div>
+
+  
+  <div class="attachments">
+    
+      
+        <ul style="display:none;">
+          <li><a href="http://dl2.iteye.com/upload/attachment/0023/3211/4ab8f399-eeb6-3176-8a73-f85a13fd0679.jpg" target="_blank"><img src="642690_files/4ab8f399-eeb6-3176-8a73-f85a13fd0679-thumb.jpg" class="magplus" title="点击查看原始大小图片"></a></li>
+          
+          <li>大小: 110.3 KB</li>
+        </ul>
+      
+    
+    
+      <ul>
+        <li><a href="#" onclick="$$('div.attachments ul').invoke('show');$(this).up(1).hide();return false;">查看图片附件</a></li>
+      </ul>
+    
+  </div>
+
+
+
+  
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="642690_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="642690_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://saplingidea.iteye.com/blog/642777" class="next" title="秒速5厘米">秒速5厘米</a>
+      |
+      <a href="http://saplingidea.iteye.com/blog/636770" class="pre" title="xfs文件系统优化">xfs文件系统优化</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2010-04-13 13:16</li>
+      <li>浏览 4783</li>
+      <li><a href="#comments">评论(0)</a></li>
+       <li>论坛回复 / <a href="http://saplingidea.iteye.com/topic/642690">浏览</a> (0 / 3955)</li> 
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/os">操作系统</a></li>      
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/642690" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="http://saplingidea.iteye.com/login" style="background-color: white;"> <img src="642690_files/login_icon.png" style="vertical-align: middle; margin-right: 10px;"></a><a href="http://saplingidea.iteye.com/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 642690;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'Cobbler批量部署RedHat');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'Cobbler批量部署RedHat');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://saplingidea.iteye.com/"><img alt="lz1130的博客" class="logo" src="642690_files/2abbd036-9fb9-3ca8-b091-ff94b8c8090d.jpg" title="lz1130的博客: 一个人的安静"></a></div>
+  <div id="blog_owner_name">lz1130</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 139259 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="642690_files/icon_minigender_1.gif" title="男"></li>
+              <li>来自: 福建</li>
+              <li><img src="642690_files/offline.gif"></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://saplingidea.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://dylinshi126.iteye.com/" target="_blank"><img alt="dylinshi126的博客" class="logo" src="642690_files/user-logo-thumb.gif" title="dylinshi126的博客: "></a></div>
+                <div class="left"><a href="http://dylinshi126.iteye.com/" target="_blank" title="dylinshi126">dylinshi126</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://sunkaige.iteye.com/" target="_blank"><img alt="sunkaige的博客" class="logo" src="642690_files/user-logo-thumb.gif" title="sunkaige的博客: "></a></div>
+                <div class="left"><a href="http://sunkaige.iteye.com/" target="_blank" title="sunkaige">sunkaige</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://yhf369.iteye.com/" target="_blank"><img alt="yhf369的博客" class="logo" src="642690_files/user-logo-thumb.gif" title="yhf369的博客: "></a></div>
+                <div class="left"><a href="http://yhf369.iteye.com/" target="_blank" title="yhf369">yhf369</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://sdojjy.iteye.com/" target="_blank"><img alt="sdojjy的博客" class="logo" src="642690_files/user-logo-thumb.gif" title="sdojjy的博客: "></a></div>
+                <div class="left"><a href="http://sdojjy.iteye.com/" target="_blank" title="sdojjy">sdojjy</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://saplingidea.iteye.com/">全部博客 (89)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/88219">About (2)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81564">自言自语 (8)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/62759">转载 (4)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/63345">纪念 (9)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/67070">mysql (12)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/67124">eAccelerator (1)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/69050">nginx (3)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81560">压力测试 (1)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81561">pureftp (1)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81562">gnome (1)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81563">iptables (2)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81587">linux常用命令 (8)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/62191">一点想法 (4)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81630">jira (1)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81704">subversion (3)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81705">脚本 (4)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81706">tomcat (1)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81770">ubuntu (1)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81772">ftp (1)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81935">CentOS (3)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/81982">linux (10)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/82009">cool软件 (1)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/85575">nagios (1)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/90017">windows (2)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/97771">openvz (1)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/97905">apache (2)</a></li>
+                
+                  <li><a href="http://saplingidea.iteye.com/category/101055">负载均衡 (1)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://saplingidea.iteye.com/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="http://saplingidea.iteye.com/blog/post">我的论坛</a> (35)
+                </li>
+                <li><a href="http://saplingidea.iteye.com/blog/answered_problems">我的问答</a> (2)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://saplingidea.iteye.com/blog/monthblog/2010-06">2010-06</a> (2)</li>
+                
+                  <li><a href="http://saplingidea.iteye.com/blog/monthblog/2010-04">2010-04</a> (11)</li>
+                
+                  <li><a href="http://saplingidea.iteye.com/blog/monthblog/2010-03">2010-03</a> (7)</li>
+                
+                <li><a href="http://saplingidea.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://saplingidea.iteye.com/" target="_blank" title="lz1130">lz1130</a>： 
+                  forcer521 写道这个是什么问题呢，启动了访问报错：引用 ...<br>
+                  <a href="http://saplingidea.iteye.com/blog/542516#bc2234337">viewvc安装配置</a>
+                </li>
+                
+                <li>
+                  <a href="http://forcer521.iteye.com/" target="_blank" title="forcer521">forcer521</a>： 
+                  这个是什么问题呢，启动了访问报错：引用An Exception ...<br>
+                  <a href="http://saplingidea.iteye.com/blog/542516#bc2226228">viewvc安装配置</a>
+                </li>
+                
+                <li>
+                  <a href="http://hnlixf.iteye.com/" target="_blank" title="hnlixf">hnlixf</a>： 
+                  很强大的一篇文章，看了大有帮助<br>
+                  <a href="http://saplingidea.iteye.com/blog/628716#bc1876021">haproxy_keepalived安装配置</a>
+                </li>
+                
+                <li>
+                  <a href="http://wangpeihu.iteye.com/" target="_blank" title="wangpeihu">wangpeihu</a>： 
+                  文章不错，如果加上适当的说明，就更好了。学习中...<br>
+                  <a href="http://saplingidea.iteye.com/blog/482056#bc1658386">mysql常用命令（持续更新）</a>
+                </li>
+                
+                <li>
+                  <a href="http://zxflb.iteye.com/" target="_blank" title="zxflb">zxflb</a>： 
+                  目前正在用vi/vim 觉得够用了。。看到这张图才知道 原来  ...<br>
+                  <a href="http://saplingidea.iteye.com/blog/611106#bc1589926">一张图介绍了vim基本使用</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2012 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script><img src="642690_files/a.gif" height="0" width="0">
+
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8368171-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+      
+    
+  
+
+</body></html>

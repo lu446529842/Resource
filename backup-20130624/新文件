@@ -1,0 +1,530 @@
+[2013-06-16T16:47:59-04:00] INFO: *** Chef 11.4.4 ***
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin os
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin kernel
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin ruby
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin languages
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin ruby -e "require 'rbconfig'; puts %Q(platform=#{RUBY_PLATFORM},version=#{RUBY_VERSION},release_date=#{RUBY_RELEASE_DATE},target=#{::Config::CONFIG['target']},target_cpu=#{::Config::CONFIG['target_cpu']},target_vendor=#{::Config::CONFIG['target_vendor']},target_os=#{::Config::CONFIG['target_os']},host=#{::Config::CONFIG['host']},host_cpu=#{::Config::CONFIG['host_cpu']},host_os=#{::Config::CONFIG['host_os']},host_vendor=#{::Config::CONFIG['host_vendor']},bin_dir=#{::Config::CONFIG['bindir']},ruby_bin=#{::File.join(::Config::CONFIG['bindir'], ::Config::CONFIG['ruby_install_name'])},)" STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: platform=i686-linux,version=1.9.3,release_date=2012-10-12,target=i686-pc-linux-gnu,target_cpu=i686,target_vendor=pc,target_os=linux,host=i686-pc-linux-gnu,host_cpu=i686,host_os=linux-gnu,host_vendor=pc,bin_dir=/opt/chef/embedded/bin,ruby_bin=/opt/chef/embedded/bin/ruby,
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End ruby -e "require 'rbconfig'; puts %Q(platform=#{RUBY_PLATFORM},version=#{RUBY_VERSION},release_date=#{RUBY_RELEASE_DATE},target=#{::Config::CONFIG['target']},target_cpu=#{::Config::CONFIG['target_cpu']},target_vendor=#{::Config::CONFIG['target_vendor']},target_os=#{::Config::CONFIG['target_os']},host=#{::Config::CONFIG['host']},host_cpu=#{::Config::CONFIG['host_cpu']},host_os=#{::Config::CONFIG['host_os']},host_vendor=#{::Config::CONFIG['host_vendor']},bin_dir=#{::Config::CONFIG['bindir']},ruby_bin=#{::File.join(::Config::CONFIG['bindir'], ::Config::CONFIG['ruby_install_name'])},)" STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin ruby -e "require 'rbconfig'; puts %Q(platform=#{RUBY_PLATFORM},version=#{RUBY_VERSION},release_date=#{RUBY_RELEASE_DATE},target=#{::Config::CONFIG['target']},target_cpu=#{::Config::CONFIG['target_cpu']},target_vendor=#{::Config::CONFIG['target_vendor']},target_os=#{::Config::CONFIG['target_os']},host=#{::Config::CONFIG['host']},host_cpu=#{::Config::CONFIG['host_cpu']},host_os=#{::Config::CONFIG['host_os']},host_vendor=#{::Config::CONFIG['host_vendor']},bin_dir=#{::Config::CONFIG['bindir']},ruby_bin=#{::File.join(::Config::CONFIG['bindir'], ::Config::CONFIG['ruby_install_name'])},)" STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: -e:1: Use RbConfig instead of obsolete and deprecated Config.
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End ruby -e "require 'rbconfig'; puts %Q(platform=#{RUBY_PLATFORM},version=#{RUBY_VERSION},release_date=#{RUBY_RELEASE_DATE},target=#{::Config::CONFIG['target']},target_cpu=#{::Config::CONFIG['target_cpu']},target_vendor=#{::Config::CONFIG['target_vendor']},target_os=#{::Config::CONFIG['target_os']},host=#{::Config::CONFIG['host']},host_cpu=#{::Config::CONFIG['host_cpu']},host_os=#{::Config::CONFIG['host_os']},host_vendor=#{::Config::CONFIG['host_vendor']},bin_dir=#{::Config::CONFIG['bindir']},ruby_bin=#{::File.join(::Config::CONFIG['bindir'], ::Config::CONFIG['ruby_install_name'])},)" STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Ran  (ruby -e "require 'rbconfig'; puts %Q(platform=#{RUBY_PLATFORM},version=#{RUBY_VERSION},release_date=#{RUBY_RELEASE_DATE},target=#{::Config::CONFIG['target']},target_cpu=#{::Config::CONFIG['target_cpu']},target_vendor=#{::Config::CONFIG['target_vendor']},target_os=#{::Config::CONFIG['target_os']},host=#{::Config::CONFIG['host']},host_cpu=#{::Config::CONFIG['host_cpu']},host_os=#{::Config::CONFIG['host_os']},host_vendor=#{::Config::CONFIG['host_vendor']},bin_dir=#{::Config::CONFIG['bindir']},ruby_bin=#{::File.join(::Config::CONFIG['bindir'], ::Config::CONFIG['ruby_install_name'])},)") returned 0
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin ruby -e "require 'rbconfig'; require 'rubygems'; puts ::Gem.default_exec_format % 'gem'" STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: gem
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End ruby -e "require 'rbconfig'; require 'rubygems'; puts ::Gem.default_exec_format % 'gem'" STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin ruby -e "require 'rbconfig'; require 'rubygems'; puts ::Gem.default_exec_format % 'gem'" STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: 
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End ruby -e "require 'rbconfig'; require 'rubygems'; puts ::Gem.default_exec_format % 'gem'" STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Ran  (ruby -e "require 'rbconfig'; require 'rubygems'; puts ::Gem.default_exec_format % 'gem'") returned 0
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin ruby -e "require 'rbconfig'; puts %x{/opt/chef/embedded/bin/ruby /opt/chef/embedded/bin/gem env gemdir}.chomp!" STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: /opt/chef/embedded/lib/ruby/gems/1.9.1
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End ruby -e "require 'rbconfig'; puts %x{/opt/chef/embedded/bin/ruby /opt/chef/embedded/bin/gem env gemdir}.chomp!" STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin ruby -e "require 'rbconfig'; puts %x{/opt/chef/embedded/bin/ruby /opt/chef/embedded/bin/gem env gemdir}.chomp!" STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: 
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End ruby -e "require 'rbconfig'; puts %x{/opt/chef/embedded/bin/ruby /opt/chef/embedded/bin/gem env gemdir}.chomp!" STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Ran  (ruby -e "require 'rbconfig'; puts %x{/opt/chef/embedded/bin/ruby /opt/chef/embedded/bin/gem env gemdir}.chomp!") returned 0
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin uname -s STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: Linux
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End uname -s STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin uname -s STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: 
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End uname -s STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Ran  (uname -s) returned 0
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin uname -r STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: 2.6.32-358.el6.i686
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End uname -r STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin uname -r STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: 
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End uname -r STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Ran  (uname -r) returned 0
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin uname -v STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: #1 SMP Tue Jan 29 11:48:01 EST 2013
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End uname -v STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin uname -v STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: 
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End uname -v STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Ran  (uname -v) returned 0
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin uname -m STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: i686
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End uname -m STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin uname -m STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: 
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End uname -m STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Ran  (uname -m) returned 0
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin dmi
+[2013-06-16T16:47:59-04:00] DEBUG: unexpected data line found before header; discarding:
+Table at 0xBFFCEE80.
+
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin java
+[2013-06-16T16:47:59-04:00] DEBUG: Plugin java threw exception #<Ohai::Exceptions::Exec: command java -version doesn't exist or is not in the PATH> /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:341:in `rescue in popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:345:in `popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:98:in `run_command_unix'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:50:in `block in run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `chdir'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/plugins/java.rb:30:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `instance_eval'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:216:in `block in require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:140:in `block (2 levels) in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `block in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:241:in `run_ohai'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:452:in `do_run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:200:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:190:in `run_chef_client'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:297:in `block in run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `loop'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:73:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/bin/chef-client:26:in `<top (required)>'
+/usr/bin/chef-client:23:in `load'
+/usr/bin/chef-client:23:in `<main>'
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin hostname
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linux::hostname
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin hostname -s STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: chefClientDemo
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End hostname -s STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin hostname -s STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: 
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End hostname -s STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Ran  (hostname -s) returned 0
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin hostname --fqdn STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: 
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End hostname --fqdn STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin hostname --fqdn STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: hostname: Unknown host
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End hostname --fqdn STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: hostname -f returned an error, probably no domain is set
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin eucalyptus
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin network
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linux::network
+[2013-06-16T16:47:59-04:00] DEBUG: default_interface set to eth0
+[2013-06-16T16:47:59-04:00] DEBUG: default_gateway set to 9.123.124.1
+[2013-06-16T16:47:59-04:00] DEBUG: default_inet6_interface set to eth0
+[2013-06-16T16:47:59-04:00] DEBUG: default_inet6_gateway set to fe80::21f:c9ff:fe47:1800
+[2013-06-16T16:47:59-04:00] DEBUG: [inet] Using default interface eth0 and default gateway 9.123.124.1 to set the default ip to 9.123.124.203
+[2013-06-16T16:47:59-04:00] DEBUG: [inet6] Using default interface eth0 and default gateway fe80::21f:c9ff:fe47:1800 to set the default ip to fe80::214:5eff:fefa:7514
+[2013-06-16T16:47:59-04:00] DEBUG: has_euca_mac? == false
+[2013-06-16T16:47:59-04:00] DEBUG: has_euca_mac? == false
+[2013-06-16T16:47:59-04:00] DEBUG: has_euca_mac? == false
+[2013-06-16T16:47:59-04:00] DEBUG: has_euca_mac? == false
+[2013-06-16T16:47:59-04:00] DEBUG: looks_like_euca? == false
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin nodejs
+[2013-06-16T16:47:59-04:00] DEBUG: Plugin nodejs threw exception #<Ohai::Exceptions::Exec: command node -v doesn't exist or is not in the PATH> /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:341:in `rescue in popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:345:in `popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:98:in `run_command_unix'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:50:in `block in run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `chdir'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/plugins/nodejs.rb:27:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `instance_eval'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:216:in `block in require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:140:in `block (2 levels) in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `block in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:241:in `run_ohai'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:452:in `do_run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:200:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:190:in `run_chef_client'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:297:in `block in run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `loop'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:73:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/bin/chef-client:26:in `<top (required)>'
+/usr/bin/chef-client:23:in `load'
+/usr/bin/chef-client:23:in `<main>'
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin ohai_time
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin uptime
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin passwd
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin groovy
+[2013-06-16T16:47:59-04:00] DEBUG: Plugin groovy threw exception #<Ohai::Exceptions::Exec: command groovy -v doesn't exist or is not in the PATH> /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:341:in `rescue in popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:345:in `popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:98:in `run_command_unix'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:50:in `block in run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `chdir'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/plugins/groovy.rb:27:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `instance_eval'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:216:in `block in require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:140:in `block (2 levels) in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `block in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:241:in `run_ohai'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:452:in `do_run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:200:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:190:in `run_chef_client'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:297:in `block in run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `loop'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:73:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/bin/chef-client:26:in `<top (required)>'
+/usr/bin/chef-client:23:in `load'
+/usr/bin/chef-client:23:in `<main>'
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin keys
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin mono
+[2013-06-16T16:47:59-04:00] DEBUG: Plugin mono threw exception #<Ohai::Exceptions::Exec: command mono -V doesn't exist or is not in the PATH> /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:341:in `rescue in popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:345:in `popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:98:in `run_command_unix'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:50:in `block in run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `chdir'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/plugins/mono.rb:27:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `instance_eval'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:216:in `block in require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:140:in `block (2 levels) in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `block in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:241:in `run_ohai'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:452:in `do_run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:200:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:190:in `run_chef_client'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:297:in `block in run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `loop'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:73:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/bin/chef-client:26:in `<top (required)>'
+/usr/bin/chef-client:23:in `load'
+/usr/bin/chef-client:23:in `<main>'
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin ip_scopes
+[2013-06-16T16:47:59-04:00] DEBUG: ip_scopes: cannot load gem, plugin disabled: cannot load such file -- ipaddr_extensions
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin chef
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin lua
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin lua -v STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: 
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End lua -v STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin lua -v STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Lua 5.1.4  Copyright (C) 1994-2008 Lua.org, PUC-Rio
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End lua -v STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Ran  (lua -v) returned 0
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin ssh_host_key
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin python
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin python -c "import sys; print sys.version" STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: 2.6.6 (r266:84292, Oct 12 2012, 14:36:13) 
+[GCC 4.4.6 20120305 (Red Hat 4.4.6-4)]
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End python -c "import sys; print sys.version" STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin python -c "import sys; print sys.version" STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: 
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End python -c "import sys; print sys.version" STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Ran  (python -c "import sys; print sys.version") returned 0
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin dmi_common
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin ec2
+[2013-06-16T16:47:59-04:00] DEBUG: has_ec2_mac? == false
+[2013-06-16T16:47:59-04:00] DEBUG: looks_like_ec2? == false
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin ohai
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin openstack
+[2013-06-16T16:47:59-04:00] DEBUG: NOT ohai openstack
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin c
+[2013-06-16T16:47:59-04:00] DEBUG: Plugin c threw exception #<Ohai::Exceptions::Exec: command gcc -v doesn't exist or is not in the PATH> /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:341:in `rescue in popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:345:in `popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:98:in `run_command_unix'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:50:in `block in run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `chdir'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/plugins/c.rb:28:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `instance_eval'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:216:in `block in require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:140:in `block (2 levels) in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `block in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:241:in `run_ohai'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:452:in `do_run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:200:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:190:in `run_chef_client'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:297:in `block in run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `loop'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:73:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/bin/chef-client:26:in `<top (required)>'
+/usr/bin/chef-client:23:in `load'
+/usr/bin/chef-client:23:in `<main>'
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin erlang
+[2013-06-16T16:47:59-04:00] DEBUG: Plugin erlang threw exception #<Ohai::Exceptions::Exec: command erl +V doesn't exist or is not in the PATH> /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:341:in `rescue in popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:345:in `popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:98:in `run_command_unix'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:50:in `block in run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `chdir'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/plugins/erlang.rb:26:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `instance_eval'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:216:in `block in require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:140:in `block (2 levels) in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `block in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:241:in `run_ohai'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:452:in `do_run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:200:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:190:in `run_chef_client'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:297:in `block in run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `loop'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:73:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/bin/chef-client:26:in `<top (required)>'
+/usr/bin/chef-client:23:in `load'
+/usr/bin/chef-client:23:in `<main>'
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linode
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin rackspace
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin platform
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linux::platform
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linux::lsb
+[2013-06-16T16:47:59-04:00] DEBUG: Skipping LSB, cannot find /etc/lsb-release or /usr/bin/lsb_release
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin network_listeners
+[2013-06-16T16:47:59-04:00] DEBUG: Plugin network_listeners threw exception #<LoadError: cannot load such file -- sigar> /opt/chef/embedded/lib/ruby/site_ruby/1.9.1/rubygems/custom_require.rb:36:in `require'
+/opt/chef/embedded/lib/ruby/site_ruby/1.9.1/rubygems/custom_require.rb:36:in `require'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/plugins/network_listeners.rb:19:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `instance_eval'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:216:in `block in require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:140:in `block (2 levels) in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `block in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:241:in `run_ohai'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:452:in `do_run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:200:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:190:in `run_chef_client'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:297:in `block in run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `loop'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:73:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/bin/chef-client:26:in `<top (required)>'
+/usr/bin/chef-client:23:in `load'
+/usr/bin/chef-client:23:in `<main>'
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin command
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin cloud
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin perl
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin perl -V:version -V:archname STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: version='5.10.1';
+archname='i386-linux-thread-multi';
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End perl -V:version -V:archname STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin perl -V:version -V:archname STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: 
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End perl -V:version -V:archname STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Ran  (perl -V:version -V:archname) returned 0
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin php
+[2013-06-16T16:47:59-04:00] DEBUG: Plugin php threw exception #<Ohai::Exceptions::Exec: command php -v doesn't exist or is not in the PATH> /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:341:in `rescue in popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:345:in `popen4'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:98:in `run_command_unix'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:50:in `block in run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `chdir'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/command.rb:49:in `run_command'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/plugins/php.rb:27:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `instance_eval'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/mixin/from_file.rb:29:in `from_file'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:216:in `block in require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:211:in `require_plugin'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:140:in `block (2 levels) in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:133:in `block in all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `each'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/ohai-6.16.0/lib/ohai/system.rb:131:in `all_plugins'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:241:in `run_ohai'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:452:in `do_run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:200:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:190:in `run_chef_client'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:297:in `block in run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `loop'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `run_application'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:73:in `run'
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/bin/chef-client:26:in `<top (required)>'
+/usr/bin/chef-client:23:in `load'
+/usr/bin/chef-client:23:in `<main>'
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin virtualization
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linux::virtualization
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linux::uptime
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linux::cpu
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linux::filesystem
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linux::ps
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linux::memory
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linux::block_device
+[2013-06-16T16:47:59-04:00] DEBUG: Loading plugin linux::kernel
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin uname -o STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: GNU/Linux
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End uname -o STDOUT ----
+[2013-06-16T16:47:59-04:00] DEBUG: ---- Begin uname -o STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: 
+[2013-06-16T16:47:59-04:00] DEBUG: ---- End uname -o STDERR ----
+[2013-06-16T16:47:59-04:00] DEBUG: Ran  (uname -o) returned 0
+[2013-06-16T16:47:59-04:00] DEBUG: Client key /etc/chef/client.pem is present - skipping registration
+[2013-06-16T16:47:59-04:00] DEBUG: Building node object for chefClientDemo
+[2013-06-16T16:47:59-04:00] DEBUG: Signing the request as chefClientDemo
+[2013-06-16T16:48:00-04:00] DEBUG: String to sign: 'Method:GET
+Hashed Path:Vp2unhdmT/KObYxDKNikPK7LDeY=
+X-Ops-Content-Hash:2jmj7l5rSw0yVb/vlWAYkK/YBwk=
+X-Ops-Timestamp:2013-06-16T20:47:59Z
+X-Ops-UserId:chefClientDemo'
+Header hash: {"X-Ops-Sign"=>"algorithm=sha1;version=1.0;", "X-Ops-Userid"=>"chefClientDemo", "X-Ops-Timestamp"=>"2013-06-16T20:47:59Z", "X-Ops-Content-Hash"=>"2jmj7l5rSw0yVb/vlWAYkK/YBwk=", "X-Ops-Authorization-1"=>"IASt1sEnaGtFLBJxBwohOSNxu4hC4QOXxyIf8ekeoPWu0BmScBfPS1cRZfw5", "X-Ops-Authorization-2"=>"KJLDcDNc3sO5jK8cMZE52Txha0CxKg1o97Uz7oJbzVIaszM2joQCKrUJMack", "X-Ops-Authorization-3"=>"D5nipGNbrnZipFa0HLsPCHUkN7WwQmCsPLmLAgJx4zhIBGSyrhC6shTxunyK", "X-Ops-Authorization-4"=>"yrMwJd9e6jk38yTmmWNzwG8DxQh7DyCwR6Ss/Tp2Y8bqD4iMA/DFACiEnUxW", "X-Ops-Authorization-5"=>"gbtxEK22izZz33DfKrOpGTkmy3w1WUQ2+l3y070+95QVcpD0uDao4+/0kcfX", "X-Ops-Authorization-6"=>"XbQXGh1qJOo+oZZPJrBXBLpwaf+xBkiDSSCv22Fs5A=="}
+[2013-06-16T16:48:00-04:00] DEBUG: Sending HTTP Request via GET to 9.181.25.33:443/nodes/chefClientDemo
+[2013-06-16T16:48:00-04:00] DEBUG: ---- HTTP Status and Header Data: ----
+[2013-06-16T16:48:00-04:00] DEBUG: HTTP 1.1 200 OK
+[2013-06-16T16:48:00-04:00] DEBUG: server: nginx/1.2.3
+[2013-06-16T16:48:00-04:00] DEBUG: date: Sun, 16 Jun 2013 09:10:10 GMT
+[2013-06-16T16:48:00-04:00] DEBUG: content-type: application/json
+[2013-06-16T16:48:00-04:00] DEBUG: transfer-encoding: chunked
+[2013-06-16T16:48:00-04:00] DEBUG: connection: close
+[2013-06-16T16:48:00-04:00] DEBUG: x-ops-api-info: flavor=osc;version=11.0.2;erchef=1.2.5
+[2013-06-16T16:48:00-04:00] DEBUG: content-encoding: gzip
+[2013-06-16T16:48:00-04:00] DEBUG: ---- End HTTP Status/Header Data ----
+[2013-06-16T16:48:00-04:00] DEBUG: decompressing gzip response
+[2013-06-16T16:48:00-04:00] DEBUG: Extracting run list from JSON attributes provided on command line
+[2013-06-16T16:48:00-04:00] DEBUG: Applying attributes from json file
+[2013-06-16T16:48:00-04:00] DEBUG: Platform is redhat version 6.4
+[2013-06-16T16:48:00-04:00] DEBUG: Signing the request as chefClientDemo
+[2013-06-16T16:48:00-04:00] DEBUG: String to sign: 'Method:GET
+Hashed Path:JVN/rGtIWLoJNl7q65n1k3bDXpc=
+X-Ops-Content-Hash:2jmj7l5rSw0yVb/vlWAYkK/YBwk=
+X-Ops-Timestamp:2013-06-16T20:48:00Z
+X-Ops-UserId:chefClientDemo'
+Header hash: {"X-Ops-Sign"=>"algorithm=sha1;version=1.0;", "X-Ops-Userid"=>"chefClientDemo", "X-Ops-Timestamp"=>"2013-06-16T20:48:00Z", "X-Ops-Content-Hash"=>"2jmj7l5rSw0yVb/vlWAYkK/YBwk=", "X-Ops-Authorization-1"=>"YhKYw+F6LaLEKjjB/70/oDVKqgGWcwV2FYv2FMdSAFMJo6BQf/6/EEU/Bljo", "X-Ops-Authorization-2"=>"TAAhn93vd+Zui7b6jVBxJ4Nj2zls2u3K4W6o1QIUh+uHz+82VTFIuz5HU+Ra", "X-Ops-Authorization-3"=>"WK8aAevFnG+7WuedZxxgrIjDDS1i/9b7LJSbE2srJtCgjt3uxHqbxlLrPu+X", "X-Ops-Authorization-4"=>"qlvm711aJ+jyx3qlRJ3JvAqCqMQKdIYZ/Vix53ZCeq/I78nwpPT0mQKim4qU", "X-Ops-Authorization-5"=>"NPYYeM9G+lGwOYAzmrTmgHxXs59PbKSNRCBnwgdU912nxrSqbCXRgGPjQtAu", "X-Ops-Authorization-6"=>"EI37hs0uOw+wgUnHmS7cJDHz5MHnAqZOHwzOsjfDdw=="}
+[2013-06-16T16:48:00-04:00] DEBUG: Sending HTTP Request via GET to 9.181.25.33:443/roles/vsftp
+[2013-06-16T16:48:00-04:00] DEBUG: ---- HTTP Status and Header Data: ----
+[2013-06-16T16:48:00-04:00] DEBUG: HTTP 1.1 200 OK
+[2013-06-16T16:48:00-04:00] DEBUG: server: nginx/1.2.3
+[2013-06-16T16:48:00-04:00] DEBUG: date: Sun, 16 Jun 2013 09:10:10 GMT
+[2013-06-16T16:48:00-04:00] DEBUG: content-type: application/json
+[2013-06-16T16:48:00-04:00] DEBUG: transfer-encoding: chunked
+[2013-06-16T16:48:00-04:00] DEBUG: connection: close
+[2013-06-16T16:48:00-04:00] DEBUG: x-ops-api-info: flavor=osc;version=11.0.2;erchef=1.2.5
+[2013-06-16T16:48:00-04:00] DEBUG: content-encoding: gzip
+[2013-06-16T16:48:00-04:00] DEBUG: ---- End HTTP Status/Header Data ----
+[2013-06-16T16:48:00-04:00] DEBUG: decompressing gzip response
+[2013-06-16T16:48:00-04:00] INFO: Run List is [role[vsftp]]
+[2013-06-16T16:48:00-04:00] INFO: Run List expands to [vsftpd, mysql::server]
+[2013-06-16T16:48:00-04:00] DEBUG: Signing the request as chefClientDemo
+[2013-06-16T16:48:00-04:00] DEBUG: String to sign: 'Method:POST
+Hashed Path:LrH0rV5XpX0hAaI/5hJmNRZHcuI=
+X-Ops-Content-Hash:MRhBuIXLswtWBb0IZgchGZ33/pg=
+X-Ops-Timestamp:2013-06-16T20:48:00Z
+X-Ops-UserId:chefClientDemo'
+Header hash: {"X-Ops-Sign"=>"algorithm=sha1;version=1.0;", "X-Ops-Userid"=>"chefClientDemo", "X-Ops-Timestamp"=>"2013-06-16T20:48:00Z", "X-Ops-Content-Hash"=>"MRhBuIXLswtWBb0IZgchGZ33/pg=", "X-Ops-Authorization-1"=>"sjr82nHZc9ZagdBzt6Go1oqPuHq3KzKa3jpkzRre1OobMBOiqdyZMiAAaSj/", "X-Ops-Authorization-2"=>"o//CdrgkM9GbemOCH6glsGdN8KdF8mPXRH2ILKjvqNOJN3JQCcBiid5jd27T", "X-Ops-Authorization-3"=>"BtK3WS2NayxyA5RSZT1kVIEnl9WNzG6jmAFiLfenKADLsBgDfvx3H3IMHEOf", "X-Ops-Authorization-4"=>"Hgz5RcYyE1RFWi7gdjwbmuAZcC918Nj49iftaxcabq2q7CmpcbjRwRxCQTCZ", "X-Ops-Authorization-5"=>"cLPCHeU0MLPIJEMJKBXy9CTYFLeIHt0pstJt7zC/JywL8GJgpnXf/cXlmtQK", "X-Ops-Authorization-6"=>"j67TGm/4C4U1UTOveCjlRbHLI+fAue6mWUyfla4a3g=="}
+[2013-06-16T16:48:00-04:00] DEBUG: Sending HTTP Request via POST to 9.181.25.33:443/reports/nodes/chefClientDemo/runs
+[2013-06-16T16:48:00-04:00] DEBUG: ---- HTTP Status and Header Data: ----
+[2013-06-16T16:48:00-04:00] DEBUG: HTTP 1.1 404 Object Not Found
+[2013-06-16T16:48:00-04:00] DEBUG: server: nginx/1.2.3
+[2013-06-16T16:48:00-04:00] DEBUG: date: Sun, 16 Jun 2013 09:10:10 GMT
+[2013-06-16T16:48:00-04:00] DEBUG: content-type: text/html
+[2013-06-16T16:48:00-04:00] DEBUG: transfer-encoding: chunked
+[2013-06-16T16:48:00-04:00] DEBUG: connection: close
+[2013-06-16T16:48:00-04:00] DEBUG: content-encoding: gzip
+[2013-06-16T16:48:00-04:00] DEBUG: ---- End HTTP Status/Header Data ----
+[2013-06-16T16:48:00-04:00] DEBUG: decompressing gzip response
+[2013-06-16T16:48:00-04:00] DEBUG: Received 404 attempting to generate run history id (URL Path: reports/nodes/chefClientDemo/runs), assuming feature is not supported on server.
+[2013-06-16T16:48:00-04:00] INFO: Starting Chef Run for chefClientDemo
+[2013-06-16T16:48:00-04:00] INFO: Running start handlers
+[2013-06-16T16:48:00-04:00] INFO: Start handlers complete.
+[2013-06-16T16:48:00-04:00] DEBUG: Synchronizing cookbooks
+[2013-06-16T16:48:00-04:00] DEBUG: Signing the request as chefClientDemo
+[2013-06-16T16:48:00-04:00] DEBUG: String to sign: 'Method:POST
+Hashed Path:zXHyJOjo6pCoVGEbbPQWMq1P1mY=
+X-Ops-Content-Hash:3GoOiYtOcVWFtzI+Dq5vT4f9JZI=
+X-Ops-Timestamp:2013-06-16T20:48:00Z
+X-Ops-UserId:chefClientDemo'
+Header hash: {"X-Ops-Sign"=>"algorithm=sha1;version=1.0;", "X-Ops-Userid"=>"chefClientDemo", "X-Ops-Timestamp"=>"2013-06-16T20:48:00Z", "X-Ops-Content-Hash"=>"3GoOiYtOcVWFtzI+Dq5vT4f9JZI=", "X-Ops-Authorization-1"=>"dIePuSQZ9biKa7wZpUaDN45JtrAd+5xJ98LXN4QWyCzpIhgzWe7pxhwm1r0a", "X-Ops-Authorization-2"=>"aX5PhYjsxe9WeqFMsPZsAAlJ4X8q9esSC7zJz+Xl1YvhkHhA+VToNcGYIP1j", "X-Ops-Authorization-3"=>"6xEb7OEilJTaQTZCcz4NYd6H/u5WUl3yuhISb2i3f8WAIE7STmEQziFoxoLE", "X-Ops-Authorization-4"=>"WDGUeZVsCLBXzzDR7NpOBHMlApbYcv605mRimPbMr9Yi2Q/0Gc/A5XrrJbMX", "X-Ops-Authorization-5"=>"QtD/dbFgNsFaTXMMTOD7Hd+IiZH71KBQw9+z399pj3hacFBnm6zpVH0PV3og", "X-Ops-Authorization-6"=>"OhV+XheXzpMQPmfMBLL7Poz4dWvJTRkDF899vYon9w=="}
+[2013-06-16T16:48:00-04:00] DEBUG: Sending HTTP Request via POST to 9.181.25.33:443/environments/_default/cookbook_versions
+[2013-06-16T16:48:00-04:00] DEBUG: ---- HTTP Status and Header Data: ----
+[2013-06-16T16:48:00-04:00] DEBUG: HTTP 1.1 200 OK
+[2013-06-16T16:48:00-04:00] DEBUG: server: nginx/1.2.3
+[2013-06-16T16:48:00-04:00] DEBUG: date: Sun, 16 Jun 2013 09:10:11 GMT
+[2013-06-16T16:48:00-04:00] DEBUG: content-type: application/json
+[2013-06-16T16:48:00-04:00] DEBUG: transfer-encoding: chunked
+[2013-06-16T16:48:00-04:00] DEBUG: connection: close
+[2013-06-16T16:48:00-04:00] DEBUG: x-ops-api-info: flavor=osc;version=11.0.2;erchef=1.2.5
+[2013-06-16T16:48:00-04:00] DEBUG: content-encoding: gzip
+[2013-06-16T16:48:00-04:00] DEBUG: ---- End HTTP Status/Header Data ----
+[2013-06-16T16:48:00-04:00] DEBUG: decompressing gzip response
+[2013-06-16T16:48:00-04:00] INFO: Loading cookbooks [build-essential, mysql, openssl, vsftpd]
+[2013-06-16T16:48:00-04:00] DEBUG: Cookbooks detail: [#<Chef::CookbookVersion:0x98e0eb4 @name="build-essential", @frozen=false, @attribute_filenames=[], @definition_filenames=[], @template_filenames=[], @file_filenames=[], @recipe_filenames=["default.rb"], @recipe_filenames_by_name={"default"=>"default.rb"}, @library_filenames=[], @resource_filenames=[], @provider_filenames=[], @metadata_filenames=[], @root_dir=nil, @root_filenames=["metadata.rb", "CHANGELOG.md", "metadata.json", "README.md"], @status=:ready, @manifest={"files"=>[], "cookbook_name"=>"build-essential", "definitions"=>[], "attributes"=>[], "resources"=>[], "frozen?"=>false, "libraries"=>[], "recipes"=>[{"specificity"=>"default", "name"=>"default.rb", "path"=>"recipes/default.rb", "checksum"=>"d6ed93fd454965b13b7943825dba5e51", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-d6ed93fd454965b13b7943825dba5e51?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=bM81IDv64KK6kW0eZpzGw8qi/H8%3D"}], "version"=>"1.0.0", "chef_type"=>"cookbook_version", "name"=>"build-essential-1.0.0", "json_class"=>"Chef::CookbookVersion", "templates"=>[], "root_files"=>[{"specificity"=>"default", "name"=>"metadata.rb", "path"=>"metadata.rb", "checksum"=>"5044d7a8afe4110d561f7c4d64822a89", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-5044d7a8afe4110d561f7c4d64822a89?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=stINKaJUXcp0gGw8CD7S01UhQbc%3D"}, {"specificity"=>"default", "name"=>"CHANGELOG.md", "path"=>"CHANGELOG.md", "checksum"=>"dc433eeff8758c905ca0414b422219de", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-dc433eeff8758c905ca0414b422219de?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=cXvRCMqFqxLUrB9Z0oAsYmHYpok%3D"}, {"specificity"=>"default", "name"=>"metadata.json", "path"=>"metadata.json", "checksum"=>"5303541433855e7c0d7d64b43f2d84a7", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-5303541433855e7c0d7d64b43f2d84a7?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=zbgjh9Zajr14FSU56iCRj9A%2BV3I%3D"}, {"specificity"=>"default", "name"=>"README.md", "path"=>"README.md", "checksum"=>"04243ad29fc87ab3eee7d4133e46971d", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-04243ad29fc87ab3eee7d4133e46971d?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=SDM04%2Bel/qonzRnYQO0rt69TV8A%3D"}], "providers"=>[], "metadata"=>{"name"=>"build-essential", "description"=>"Installs C compiler / build tools", "long_description"=>"", "maintainer"=>"Opscode, Inc.", "maintainer_email"=>"cookbooks@opscode.com", "license"=>"Apache 2.0", "platforms"=>{"ubuntu"=>">= 0.0.0", "fedora"=>">= 0.0.0", "debian"=>">= 0.0.0", "centos"=>">= 0.0.0", "redhat"=>">= 0.0.0"}, "dependencies"=>{}, "recommendations"=>{}, "suggestions"=>{}, "conflicting"=>{}, "providing"=>{"build-essential"=>">= 0.0.0"}, "replacing"=>{}, "attributes"=>{}, "groupings"=>{}, "recipes"=>{"build-essential"=>"Installs C compiler and build tools on Linux"}, "version"=>"1.0.0"}}, @file_vendor=nil, @metadata=#<Chef::Cookbook::Metadata:0x98df848 @cookbook=nil, @name="build-essential", @long_description="", @maintainer="Opscode, Inc.", @maintainer_email="cookbooks@opscode.com", @license="Apache 2.0", @description="Installs C compiler / build tools", @platforms={"ubuntu"=>">= 0.0.0", "fedora"=>">= 0.0.0", "debian"=>">= 0.0.0", "centos"=>">= 0.0.0", "redhat"=>">= 0.0.0"}, @dependencies={}, @recommendations={}, @suggestions={}, @conflicting={}, @providing={"build-essential"=>">= 0.0.0"}, @replacing={}, @attributes={}, @groupings={}, @recipes={"build-essential"=>"Installs C compiler and build tools on Linux"}, @version="1.0.0">, @checksums={"d6ed93fd454965b13b7943825dba5e51"=>nil, "5044d7a8afe4110d561f7c4d64822a89"=>nil, "dc433eeff8758c905ca0414b422219de"=>nil, "5303541433855e7c0d7d64b43f2d84a7"=>nil, "04243ad29fc87ab3eee7d4133e46971d"=>nil}, @manifest_records_by_path={"recipes/default.rb"=>{"specificity"=>"default", "name"=>"default.rb", "path"=>"recipes/default.rb", "checksum"=>"d6ed93fd454965b13b7943825dba5e51", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-d6ed93fd454965b13b7943825dba5e51?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=bM81IDv64KK6kW0eZpzGw8qi/H8%3D"}, "metadata.rb"=>{"specificity"=>"default", "name"=>"metadata.rb", "path"=>"metadata.rb", "checksum"=>"5044d7a8afe4110d561f7c4d64822a89", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-5044d7a8afe4110d561f7c4d64822a89?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=stINKaJUXcp0gGw8CD7S01UhQbc%3D"}, "CHANGELOG.md"=>{"specificity"=>"default", "name"=>"CHANGELOG.md", "path"=>"CHANGELOG.md", "checksum"=>"dc433eeff8758c905ca0414b422219de", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-dc433eeff8758c905ca0414b422219de?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=cXvRCMqFqxLUrB9Z0oAsYmHYpok%3D"}, "metadata.json"=>{"specificity"=>"default", "name"=>"metadata.json", "path"=>"metadata.json", "checksum"=>"5303541433855e7c0d7d64b43f2d84a7", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-5303541433855e7c0d7d64b43f2d84a7?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=zbgjh9Zajr14FSU56iCRj9A%2BV3I%3D"}, "README.md"=>{"specificity"=>"default", "name"=>"README.md", "path"=>"README.md", "checksum"=>"04243ad29fc87ab3eee7d4133e46971d", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-04243ad29fc87ab3eee7d4133e46971d?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=SDM04%2Bel/qonzRnYQO0rt69TV8A%3D"}}, @attribute_filenames_by_short_filename={}>, #<Chef::CookbookVersion:0x96ca378 @name="openssl", @frozen=false, @attribute_filenames=[], @definition_filenames=[], @template_filenames=[], @file_filenames=[], @recipe_filenames=["default.rb"], @recipe_filenames_by_name={"default"=>"default.rb"}, @library_filenames=["secure_password.rb"], @resource_filenames=[], @provider_filenames=[], @metadata_filenames=[], @root_dir=nil, @root_filenames=["metadata.rb", "CHANGELOG.md", "CONTRIBUTING", "LICENSE", "metadata.json", "README.md"], @status=:ready, @manifest={"files"=>[], "cookbook_name"=>"openssl", "definitions"=>[], "attributes"=>[], "resources"=>[], "frozen?"=>false, "libraries"=>[{"specificity"=>"default", "name"=>"secure_password.rb", "path"=>"libraries/secure_password.rb", "checksum"=>"b3bf8b34c97e21c5ee6aa0ddb11b133e", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-b3bf8b34c97e21c5ee6aa0ddb11b133e?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=AwrkmGT73u7q5gOGyyKt6ro6NYs%3D"}], "recipes"=>[{"specificity"=>"default", "name"=>"default.rb", "path"=>"recipes/default.rb", "checksum"=>"cd9b688975824954297838f7d4214b7f", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-cd9b688975824954297838f7d4214b7f?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=aTz1L6glZneDmXOJVadBAIyN4e4%3D"}], "version"=>"1.0.2", "chef_type"=>"cookbook_version", "name"=>"openssl-1.0.2", "json_class"=>"Chef::CookbookVersion", "templates"=>[], "root_files"=>[{"specificity"=>"default", "name"=>"metadata.rb", "path"=>"metadata.rb", "checksum"=>"818a38d41bd95ebec58b6d430eabd7cb", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-818a38d41bd95ebec58b6d430eabd7cb?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=dabIupTqKCPiZ5Rr9O6f5jAuHPs%3D"}, {"specificity"=>"default", "name"=>"CHANGELOG.md", "path"=>"CHANGELOG.md", "checksum"=>"4fd2c1e42e5d998ddd977689f404e104", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-4fd2c1e42e5d998ddd977689f404e104?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=kVahuEMkjI4ctQZalhfYYp6bCNY%3D"}, {"specificity"=>"default", "name"=>"CONTRIBUTING", "path"=>"CONTRIBUTING", "checksum"=>"e5600a5296cb1b69f978b6c2c4a1b1c1", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-e5600a5296cb1b69f978b6c2c4a1b1c1?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=I08Wg%2BCieNxfvBcqnyxykc66Ipg%3D"}, {"specificity"=>"default", "name"=>"LICENSE", "path"=>"LICENSE", "checksum"=>"8f7bb094c7232b058c7e9f2e431f389c", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-8f7bb094c7232b058c7e9f2e431f389c?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=Y7agLvxZ7tiocEr8XAualGFGFBk%3D"}, {"specificity"=>"default", "name"=>"metadata.json", "path"=>"metadata.json", "checksum"=>"0f78d6244d5e6731761f2f5e03958136", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-0f78d6244d5e6731761f2f5e03958136?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=jqJO/i%2BGcgdZrN14/YaIy/Lc168%3D"}, {"specificity"=>"default", "name"=>"README.md", "path"=>"README.md", "checksum"=>"f111ba97dc5160e26eee6473dc8e86d5", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-f111ba97dc5160e26eee6473dc8e86d5?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=uVY4EoH1FLkMAv6Dovu2c0up/xo%3D"}], "providers"=>[], "metadata"=>{"name"=>"openssl", "description"=>"Provides a library with a method for generating secure random passwords.", "long_description"=>"", "maintainer"=>"Opscode, Inc.", "maintainer_email"=>"cookbooks@opscode.com", "license"=>"Apache 2.0", "platforms"=>{}, "dependencies"=>{}, "recommendations"=>{}, "suggestions"=>{}, "conflicting"=>{}, "providing"=>{"openssl"=>">= 0.0.0"}, "replacing"=>{}, "attributes"=>{}, "groupings"=>{}, "recipes"=>{"openssl"=>"Empty, this cookbook provides a library, see README.md"}, "version"=>"1.0.2"}}, @file_vendor=nil, @metadata=#<Chef::Cookbook::Metadata:0x9766994 @cookbook=nil, @name="openssl", @long_description="", @maintainer="Opscode, Inc.", @maintainer_email="cookbooks@opscode.com", @license="Apache 2.0", @description="Provides a library with a method for generating secure random passwords.", @platforms={}, @dependencies={}, @recommendations={}, @suggestions={}, @conflicting={}, @providing={"openssl"=>">= 0.0.0"}, @replacing={}, @attributes={}, @groupings={}, @recipes={"openssl"=>"Empty, this cookbook provides a library, see README.md"}, @version="1.0.2">, @checksums={"cd9b688975824954297838f7d4214b7f"=>nil, "b3bf8b34c97e21c5ee6aa0ddb11b133e"=>nil, "818a38d41bd95ebec58b6d430eabd7cb"=>nil, "4fd2c1e42e5d998ddd977689f404e104"=>nil, "e5600a5296cb1b69f978b6c2c4a1b1c1"=>nil, "8f7bb094c7232b058c7e9f2e431f389c"=>nil, "0f78d6244d5e6731761f2f5e03958136"=>nil, "f111ba97dc5160e26eee6473dc8e86d5"=>nil}, @manifest_records_by_path={"recipes/default.rb"=>{"specificity"=>"default", "name"=>"default.rb", "path"=>"recipes/default.rb", "checksum"=>"cd9b688975824954297838f7d4214b7f", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-cd9b688975824954297838f7d4214b7f?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=aTz1L6glZneDmXOJVadBAIyN4e4%3D"}, "libraries/secure_password.rb"=>{"specificity"=>"default", "name"=>"secure_password.rb", "path"=>"libraries/secure_password.rb", "checksum"=>"b3bf8b34c97e21c5ee6aa0ddb11b133e", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-b3bf8b34c97e21c5ee6aa0ddb11b133e?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=AwrkmGT73u7q5gOGyyKt6ro6NYs%3D"}, "metadata.rb"=>{"specificity"=>"default", "name"=>"metadata.rb", "path"=>"metadata.rb", "checksum"=>"818a38d41bd95ebec58b6d430eabd7cb", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-818a38d41bd95ebec58b6d430eabd7cb?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=dabIupTqKCPiZ5Rr9O6f5jAuHPs%3D"}, "CHANGELOG.md"=>{"specificity"=>"default", "name"=>"CHANGELOG.md", "path"=>"CHANGELOG.md", "checksum"=>"4fd2c1e42e5d998ddd977689f404e104", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-4fd2c1e42e5d998ddd977689f404e104?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=kVahuEMkjI4ctQZalhfYYp6bCNY%3D"}, "CONTRIBUTING"=>{"specificity"=>"default", "name"=>"CONTRIBUTING", "path"=>"CONTRIBUTING", "checksum"=>"e5600a5296cb1b69f978b6c2c4a1b1c1", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-e5600a5296cb1b69f978b6c2c4a1b1c1?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=I08Wg%2BCieNxfvBcqnyxykc66Ipg%3D"}, "LICENSE"=>{"specificity"=>"default", "name"=>"LICENSE", "path"=>"LICENSE", "checksum"=>"8f7bb094c7232b058c7e9f2e431f389c", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-8f7bb094c7232b058c7e9f2e431f389c?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=Y7agLvxZ7tiocEr8XAualGFGFBk%3D"}, "metadata.json"=>{"specificity"=>"default", "name"=>"metadata.json", "path"=>"metadata.json", "checksum"=>"0f78d6244d5e6731761f2f5e03958136", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-0f78d6244d5e6731761f2f5e03958136?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=jqJO/i%2BGcgdZrN14/YaIy/Lc168%3D"}, "README.md"=>{"specificity"=>"default", "name"=>"README.md", "path"=>"README.md", "checksum"=>"f111ba97dc5160e26eee6473dc8e86d5", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-f111ba97dc5160e26eee6473dc8e86d5?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=uVY4EoH1FLkMAv6Dovu2c0up/xo%3D"}}, @attribute_filenames_by_short_filename={}>, #<Chef::CookbookVersion:0x9582380 @name="mysql", @frozen=false, @attribute_filenames=["client.rb", "percona_repo.rb", "server.rb"], @definition_filenames=[], @template_filenames=["my.cnf.erb", "mysql-server.seed.erb", "my.cnf.erb", "debian.cnf.erb", "port_mysql.erb", "grants.sql.erb"], @file_filenames=[], @recipe_filenames=["default.rb", "percona_repo.rb", "ruby.rb", "server_ec2.rb", "server.rb", "client.rb"], @recipe_filenames_by_name={"default"=>"default.rb", "percona_repo"=>"percona_repo.rb", "ruby"=>"ruby.rb", "server_ec2"=>"server_ec2.rb", "server"=>"server.rb", "client"=>"client.rb"}, @library_filenames=["helpers.rb"], @resource_filenames=[], @provider_filenames=[], @metadata_filenames=[], @root_dir=nil, @root_filenames=["metadata.rb", "CHANGELOG.md", "Berksfile", "CONTRIBUTING", "LICENSE", "metadata.json", "README.md", "TESTING.md"], @status=:ready, @manifest={"files"=>[], "cookbook_name"=>"mysql", "definitions"=>[], "attributes"=>[{"specificity"=>"default", "name"=>"client.rb", "path"=>"attributes/client.rb", "checksum"=>"7303234de637c04e9c559ece652e459e", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-7303234de637c04e9c559ece652e459e?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=iA7%2Bon4yrIplcPpf0rUPsh3xymc%3D"}, {"specificity"=>"default", "name"=>"percona_repo.rb", "path"=>"attributes/percona_repo.rb", "checksum"=>"b39eea4d8539c31d049d8fc05ad8c2d0", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-b39eea4d8539c31d049d8fc05ad8c2d0?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=tyFXMI41wn5yjcLALIqU/tZ5HXA%3D"}, {"specificity"=>"default", "name"=>"server.rb", "path"=>"attributes/server.rb", "checksum"=>"b65f6e9cc9c2959d8e13619e6415b22f", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-b65f6e9cc9c2959d8e13619e6415b22f?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=GoZOZo1oX13PL18TK272BuXLP74%3D"}], "resources"=>[], "frozen?"=>false, "libraries"=>[{"specificity"=>"default", "name"=>"helpers.rb", "path"=>"libraries/helpers.rb", "checksum"=>"993d6cbe100414968099ceb9eb992e5d", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-993d6cbe100414968099ceb9eb992e5d?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=%2B9W//6Ntm7BUAmdPWbNWrDL36oQ%3D"}], "recipes"=>[{"specificity"=>"default", "name"=>"default.rb", "path"=>"recipes/default.rb", "checksum"=>"bd3ba2d05dea6a8cf0dc2a45f540cc32", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-bd3ba2d05dea6a8cf0dc2a45f540cc32?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=nxyQkvQf7qZrRAplmSnW7Fbz9aw%3D"}, {"specificity"=>"default", "name"=>"percona_repo.rb", "path"=>"recipes/percona_repo.rb", "checksum"=>"03da42d8942c5e512dbf0005be598892", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-03da42d8942c5e512dbf0005be598892?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=bDIbruuSvAQMi9bWKxMUp0xkHg8%3D"}, {"specificity"=>"default", "name"=>"ruby.rb", "path"=>"recipes/ruby.rb", "checksum"=>"570e0784a1e77452f0d370d26d1725cf", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-570e0784a1e77452f0d370d26d1725cf?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=0nRivmcP4%2BlWdmLStpa%2BFELZhFw%3D"}, {"specificity"=>"default", "name"=>"server_ec2.rb", "path"=>"recipes/server_ec2.rb", "checksum"=>"cdfad5867a9ba114be0fda46df0fb902", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-cdfad5867a9ba114be0fda46df0fb902?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=1b1tM4RLhoT1A/e%2BHbRaKhRk%2Bv0%3D"}, {"specificity"=>"default", "name"=>"server.rb", "path"=>"recipes/server.rb", "checksum"=>"0b80d6bd7ddb16c3c292e45dd3518dcd", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-0b80d6bd7ddb16c3c292e45dd3518dcd?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=645zzFM/nC/eAdk7Kc5wlqv1h%2BY%3D"}, {"specificity"=>"default", "name"=>"client.rb", "path"=>"recipes/client.rb", "checksum"=>"b3e7169e3cf5a49497e705a462343be0", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-b3e7169e3cf5a49497e705a462343be0?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=3/zbIb3R6QC6a7EvI6B23Taa2lI%3D"}], "version"=>"3.0.0", "chef_type"=>"cookbook_version", "name"=>"mysql-3.0.0", "json_class"=>"Chef::CookbookVersion", "templates"=>[{"specificity"=>"default", "name"=>"my.cnf.erb", "path"=>"templates/default/my.cnf.erb", "checksum"=>"be07531f51c511d72e6ad75b52b4b24e", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-be07531f51c511d72e6ad75b52b4b24e?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=lIQzLimW5NYAKtW2SuYbNx50ybc%3D"}, {"specificity"=>"default", "name"=>"mysql-server.seed.erb", "path"=>"templates/default/mysql-server.seed.erb", "checksum"=>"6427b21d30bce8b91d697ad529361161", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-6427b21d30bce8b91d697ad529361161?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=XbWEU7bEpSZjHwuaTwPAwMt7/sA%3D"}, {"specificity"=>"windows", "name"=>"my.cnf.erb", "path"=>"templates/windows/my.cnf.erb", "checksum"=>"a8e967a94605fe78a4b89ca982230d69", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-a8e967a94605fe78a4b89ca982230d69?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=s/Cv5SJ05EXNV7Lkww0Amss8vAY%3D"}, {"specificity"=>"default", "name"=>"debian.cnf.erb", "path"=>"templates/default/debian.cnf.erb", "checksum"=>"9e6adf4f5dd61a7385ac32af9ee90abe", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-9e6adf4f5dd61a7385ac32af9ee90abe?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=7%2BxOoHHMGywQ4YM9JWS/1iPEook%3D"}, {"specificity"=>"default", "name"=>"port_mysql.erb", "path"=>"templates/default/port_mysql.erb", "checksum"=>"d2244150a145b3f658cd37c13269fafc", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-d2244150a145b3f658cd37c13269fafc?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=kIXP0/6nFCxCo36Z5%2BnPR49dKY4%3D"}, {"specificity"=>"default", "name"=>"grants.sql.erb", "path"=>"templates/default/grants.sql.erb", "checksum"=>"63ed83f32d5222b850082c10df0db253", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-63ed83f32d5222b850082c10df0db253?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=OhLsvaT6or3NTdHbTtwxNEO/fTQ%3D"}], "root_files"=>[{"specificity"=>"default", "name"=>"metadata.rb", "path"=>"metadata.rb", "checksum"=>"dc47b1a4b4e1b5dce1a7db028d1af307", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-dc47b1a4b4e1b5dce1a7db028d1af307?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=iK/3PPwJPnpcdvbMH/NXEUKgJcQ%3D"}, {"specificity"=>"default", "name"=>"CHANGELOG.md", "path"=>"CHANGELOG.md", "checksum"=>"10d46024104e25e71a7864fbbb80fefe", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-10d46024104e25e71a7864fbbb80fefe?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=qLQuPqIlNtXlSaBEEiCYGG5VPDY%3D"}, {"specificity"=>"default", "name"=>"Berksfile", "path"=>"Berksfile", "checksum"=>"fa19d4160f7519a1c65561bfcd7c9256", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-fa19d4160f7519a1c65561bfcd7c9256?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=qgQKuXlyqUFQRCtk1LI5Vz2HAh8%3D"}, {"specificity"=>"default", "name"=>"CONTRIBUTING", "path"=>"CONTRIBUTING", "checksum"=>"e5600a5296cb1b69f978b6c2c4a1b1c1", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-e5600a5296cb1b69f978b6c2c4a1b1c1?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=I08Wg%2BCieNxfvBcqnyxykc66Ipg%3D"}, {"specificity"=>"default", "name"=>"LICENSE", "path"=>"LICENSE", "checksum"=>"8f7bb094c7232b058c7e9f2e431f389c", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-8f7bb094c7232b058c7e9f2e431f389c?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=Y7agLvxZ7tiocEr8XAualGFGFBk%3D"}, {"specificity"=>"default", "name"=>"metadata.json", "path"=>"metadata.json", "checksum"=>"317d9d164096ceaa525088d2cdaf838e", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-317d9d164096ceaa525088d2cdaf838e?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=X0ed4TPq4KjXHXt5kPtpBzI9NQ0%3D"}, {"specificity"=>"default", "name"=>"README.md", "path"=>"README.md", "checksum"=>"ee281dce8ec19f0e909effa3399e59a2", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-ee281dce8ec19f0e909effa3399e59a2?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=5y/qbpvvJsUZ5E6fawJDKRJCEC4%3D"}, {"specificity"=>"default", "name"=>"TESTING.md", "path"=>"TESTING.md", "checksum"=>"92073837865e0514c39d8ce22558e8cf", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-92073837865e0514c39d8ce22558e8cf?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=tkdIcLh3XnNdutxSaZagSSoattg%3D"}], "providers"=>[], "metadata"=>{"name"=>"mysql", "description"=>"Installs and configures mysql for client or server", "long_description"=>"", "maintainer"=>"Opscode, Inc.", "maintainer_email"=>"cookbooks@opscode.com", "license"=>"Apache 2.0", "platforms"=>{"ubuntu"=>">= 0.0.0", "amazon"=>">= 0.0.0", "mac_os_x"=>">= 0.0.0", "freebsd"=>">= 0.0.0", "scientific"=>">= 0.0.0", "fedora"=>">= 0.0.0", "suse"=>">= 0.0.0", "debian"=>">= 0.0.0", "redhat"=>">= 0.0.0", "centos"=>">= 0.0.0", "windows"=>">= 0.0.0"}, "dependencies"=>{"openssl"=>">= 0.0.0", "build-essential"=>">= 0.0.0"}, "recommendations"=>{}, "suggestions"=>{"homebrew"=>">= 0.0.0", "windows"=>">= 0.0.0"}, "conflicting"=>{}, "providing"=>{"mysql"=>">= 0.0.0", "mysql::percona_repo"=>">= 0.0.0", "mysql::client"=>">= 0.0.0", "mysql::server"=>">= 0.0.0", "mysql::ruby"=>">= 0.0.0", "mysql::server_ec2"=>">= 0.0.0"}, "replacing"=>{}, "attributes"=>{}, "groupings"=>{}, "recipes"=>{"mysql"=>"", "mysql::percona_repo"=>"", "mysql::client"=>"Installs packages required for mysql clients using run_action magic", "mysql::server"=>"Installs packages required for mysql servers w/o manual intervention", "mysql::ruby"=>"", "mysql::server_ec2"=>"Performs EC2-specific mountpoint manipulation"}, "version"=>"3.0.0"}}, @file_vendor=nil, @metadata=#<Chef::Cookbook::Metadata:0x9b45010 @cookbook=nil, @name="mysql", @long_description="", @maintainer="Opscode, Inc.", @maintainer_email="cookbooks@opscode.com", @license="Apache 2.0", @description="Installs and configures mysql for client or server", @platforms={"ubuntu"=>">= 0.0.0", "amazon"=>">= 0.0.0", "mac_os_x"=>">= 0.0.0", "freebsd"=>">= 0.0.0", "scientific"=>">= 0.0.0", "fedora"=>">= 0.0.0", "suse"=>">= 0.0.0", "debian"=>">= 0.0.0", "redhat"=>">= 0.0.0", "centos"=>">= 0.0.0", "windows"=>">= 0.0.0"}, @dependencies={"openssl"=>">= 0.0.0", "build-essential"=>">= 0.0.0"}, @recommendations={}, @suggestions={"homebrew"=>">= 0.0.0", "windows"=>">= 0.0.0"}, @conflicting={}, @providing={"mysql"=>">= 0.0.0", "mysql::percona_repo"=>">= 0.0.0", "mysql::client"=>">= 0.0.0", "mysql::server"=>">= 0.0.0", "mysql::ruby"=>">= 0.0.0", "mysql::server_ec2"=>">= 0.0.0"}, @replacing={}, @attributes={}, @groupings={}, @recipes={"mysql"=>"", "mysql::percona_repo"=>"", "mysql::client"=>"Installs packages required for mysql clients using run_action magic", "mysql::server"=>"Installs packages required for mysql servers w/o manual intervention", "mysql::ruby"=>"", "mysql::server_ec2"=>"Performs EC2-specific mountpoint manipulation"}, @version="3.0.0">, @checksums={"bd3ba2d05dea6a8cf0dc2a45f540cc32"=>nil, "03da42d8942c5e512dbf0005be598892"=>nil, "570e0784a1e77452f0d370d26d1725cf"=>nil, "cdfad5867a9ba114be0fda46df0fb902"=>nil, "0b80d6bd7ddb16c3c292e45dd3518dcd"=>nil, "b3e7169e3cf5a49497e705a462343be0"=>nil, "993d6cbe100414968099ceb9eb992e5d"=>nil, "7303234de637c04e9c559ece652e459e"=>nil, "b39eea4d8539c31d049d8fc05ad8c2d0"=>nil, "b65f6e9cc9c2959d8e13619e6415b22f"=>nil, "be07531f51c511d72e6ad75b52b4b24e"=>nil, "6427b21d30bce8b91d697ad529361161"=>nil, "a8e967a94605fe78a4b89ca982230d69"=>nil, "9e6adf4f5dd61a7385ac32af9ee90abe"=>nil, "d2244150a145b3f658cd37c13269fafc"=>nil, "63ed83f32d5222b850082c10df0db253"=>nil, "dc47b1a4b4e1b5dce1a7db028d1af307"=>nil, "10d46024104e25e71a7864fbbb80fefe"=>nil, "fa19d4160f7519a1c65561bfcd7c9256"=>nil, "e5600a5296cb1b69f978b6c2c4a1b1c1"=>nil, "8f7bb094c7232b058c7e9f2e431f389c"=>nil, "317d9d164096ceaa525088d2cdaf838e"=>nil, "ee281dce8ec19f0e909effa3399e59a2"=>nil, "92073837865e0514c39d8ce22558e8cf"=>nil}, @manifest_records_by_path={"recipes/default.rb"=>{"specificity"=>"default", "name"=>"default.rb", "path"=>"recipes/default.rb", "checksum"=>"bd3ba2d05dea6a8cf0dc2a45f540cc32", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-bd3ba2d05dea6a8cf0dc2a45f540cc32?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=nxyQkvQf7qZrRAplmSnW7Fbz9aw%3D"}, "recipes/percona_repo.rb"=>{"specificity"=>"default", "name"=>"percona_repo.rb", "path"=>"recipes/percona_repo.rb", "checksum"=>"03da42d8942c5e512dbf0005be598892", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-03da42d8942c5e512dbf0005be598892?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=bDIbruuSvAQMi9bWKxMUp0xkHg8%3D"}, "recipes/ruby.rb"=>{"specificity"=>"default", "name"=>"ruby.rb", "path"=>"recipes/ruby.rb", "checksum"=>"570e0784a1e77452f0d370d26d1725cf", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-570e0784a1e77452f0d370d26d1725cf?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=0nRivmcP4%2BlWdmLStpa%2BFELZhFw%3D"}, "recipes/server_ec2.rb"=>{"specificity"=>"default", "name"=>"server_ec2.rb", "path"=>"recipes/server_ec2.rb", "checksum"=>"cdfad5867a9ba114be0fda46df0fb902", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-cdfad5867a9ba114be0fda46df0fb902?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=1b1tM4RLhoT1A/e%2BHbRaKhRk%2Bv0%3D"}, "recipes/server.rb"=>{"specificity"=>"default", "name"=>"server.rb", "path"=>"recipes/server.rb", "checksum"=>"0b80d6bd7ddb16c3c292e45dd3518dcd", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-0b80d6bd7ddb16c3c292e45dd3518dcd?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=645zzFM/nC/eAdk7Kc5wlqv1h%2BY%3D"}, "recipes/client.rb"=>{"specificity"=>"default", "name"=>"client.rb", "path"=>"recipes/client.rb", "checksum"=>"b3e7169e3cf5a49497e705a462343be0", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-b3e7169e3cf5a49497e705a462343be0?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=3/zbIb3R6QC6a7EvI6B23Taa2lI%3D"}, "libraries/helpers.rb"=>{"specificity"=>"default", "name"=>"helpers.rb", "path"=>"libraries/helpers.rb", "checksum"=>"993d6cbe100414968099ceb9eb992e5d", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-993d6cbe100414968099ceb9eb992e5d?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=%2B9W//6Ntm7BUAmdPWbNWrDL36oQ%3D"}, "attributes/client.rb"=>{"specificity"=>"default", "name"=>"client.rb", "path"=>"attributes/client.rb", "checksum"=>"7303234de637c04e9c559ece652e459e", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-7303234de637c04e9c559ece652e459e?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=iA7%2Bon4yrIplcPpf0rUPsh3xymc%3D"}, "attributes/percona_repo.rb"=>{"specificity"=>"default", "name"=>"percona_repo.rb", "path"=>"attributes/percona_repo.rb", "checksum"=>"b39eea4d8539c31d049d8fc05ad8c2d0", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-b39eea4d8539c31d049d8fc05ad8c2d0?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=tyFXMI41wn5yjcLALIqU/tZ5HXA%3D"}, "attributes/server.rb"=>{"specificity"=>"default", "name"=>"server.rb", "path"=>"attributes/server.rb", "checksum"=>"b65f6e9cc9c2959d8e13619e6415b22f", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-b65f6e9cc9c2959d8e13619e6415b22f?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=GoZOZo1oX13PL18TK272BuXLP74%3D"}, "templates/default/my.cnf.erb"=>{"specificity"=>"default", "name"=>"my.cnf.erb", "path"=>"templates/default/my.cnf.erb", "checksum"=>"be07531f51c511d72e6ad75b52b4b24e", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-be07531f51c511d72e6ad75b52b4b24e?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=lIQzLimW5NYAKtW2SuYbNx50ybc%3D"}, "templates/default/mysql-server.seed.erb"=>{"specificity"=>"default", "name"=>"mysql-server.seed.erb", "path"=>"templates/default/mysql-server.seed.erb", "checksum"=>"6427b21d30bce8b91d697ad529361161", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-6427b21d30bce8b91d697ad529361161?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=XbWEU7bEpSZjHwuaTwPAwMt7/sA%3D"}, "templates/windows/my.cnf.erb"=>{"specificity"=>"windows", "name"=>"my.cnf.erb", "path"=>"templates/windows/my.cnf.erb", "checksum"=>"a8e967a94605fe78a4b89ca982230d69", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-a8e967a94605fe78a4b89ca982230d69?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=s/Cv5SJ05EXNV7Lkww0Amss8vAY%3D"}, "templates/default/debian.cnf.erb"=>{"specificity"=>"default", "name"=>"debian.cnf.erb", "path"=>"templates/default/debian.cnf.erb", "checksum"=>"9e6adf4f5dd61a7385ac32af9ee90abe", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-9e6adf4f5dd61a7385ac32af9ee90abe?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=7%2BxOoHHMGywQ4YM9JWS/1iPEook%3D"}, "templates/default/port_mysql.erb"=>{"specificity"=>"default", "name"=>"port_mysql.erb", "path"=>"templates/default/port_mysql.erb", "checksum"=>"d2244150a145b3f658cd37c13269fafc", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-d2244150a145b3f658cd37c13269fafc?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=kIXP0/6nFCxCo36Z5%2BnPR49dKY4%3D"}, "templates/default/grants.sql.erb"=>{"specificity"=>"default", "name"=>"grants.sql.erb", "path"=>"templates/default/grants.sql.erb", "checksum"=>"63ed83f32d5222b850082c10df0db253", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-63ed83f32d5222b850082c10df0db253?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=OhLsvaT6or3NTdHbTtwxNEO/fTQ%3D"}, "metadata.rb"=>{"specificity"=>"default", "name"=>"metadata.rb", "path"=>"metadata.rb", "checksum"=>"dc47b1a4b4e1b5dce1a7db028d1af307", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-dc47b1a4b4e1b5dce1a7db028d1af307?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=iK/3PPwJPnpcdvbMH/NXEUKgJcQ%3D"}, "CHANGELOG.md"=>{"specificity"=>"default", "name"=>"CHANGELOG.md", "path"=>"CHANGELOG.md", "checksum"=>"10d46024104e25e71a7864fbbb80fefe", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-10d46024104e25e71a7864fbbb80fefe?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=qLQuPqIlNtXlSaBEEiCYGG5VPDY%3D"}, "Berksfile"=>{"specificity"=>"default", "name"=>"Berksfile", "path"=>"Berksfile", "checksum"=>"fa19d4160f7519a1c65561bfcd7c9256", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-fa19d4160f7519a1c65561bfcd7c9256?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=qgQKuXlyqUFQRCtk1LI5Vz2HAh8%3D"}, "CONTRIBUTING"=>{"specificity"=>"default", "name"=>"CONTRIBUTING", "path"=>"CONTRIBUTING", "checksum"=>"e5600a5296cb1b69f978b6c2c4a1b1c1", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-e5600a5296cb1b69f978b6c2c4a1b1c1?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=I08Wg%2BCieNxfvBcqnyxykc66Ipg%3D"}, "LICENSE"=>{"specificity"=>"default", "name"=>"LICENSE", "path"=>"LICENSE", "checksum"=>"8f7bb094c7232b058c7e9f2e431f389c", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-8f7bb094c7232b058c7e9f2e431f389c?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=Y7agLvxZ7tiocEr8XAualGFGFBk%3D"}, "metadata.json"=>{"specificity"=>"default", "name"=>"metadata.json", "path"=>"metadata.json", "checksum"=>"317d9d164096ceaa525088d2cdaf838e", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-317d9d164096ceaa525088d2cdaf838e?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=X0ed4TPq4KjXHXt5kPtpBzI9NQ0%3D"}, "README.md"=>{"specificity"=>"default", "name"=>"README.md", "path"=>"README.md", "checksum"=>"ee281dce8ec19f0e909effa3399e59a2", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-ee281dce8ec19f0e909effa3399e59a2?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=5y/qbpvvJsUZ5E6fawJDKRJCEC4%3D"}, "TESTING.md"=>{"specificity"=>"default", "name"=>"TESTING.md", "path"=>"TESTING.md", "checksum"=>"92073837865e0514c39d8ce22558e8cf", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-92073837865e0514c39d8ce22558e8cf?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=tkdIcLh3XnNdutxSaZagSSoattg%3D"}}, @attribute_filenames_by_short_filename={"client"=>"client.rb", "percona_repo"=>"percona_repo.rb", "server"=>"server.rb"}>, #<Chef::CookbookVersion:0x9c5a824 @name="vsftpd", @frozen=false, @attribute_filenames=["default.rb"], @definition_filenames=[], @template_filenames=["vsftpd.conf", "vsftpd.chroot_list"], @file_filenames=["ftp.example.com.pem", "ftp.example.com.key"], @recipe_filenames=["default.rb"], @recipe_filenames_by_name={"default"=>"default.rb"}, @library_filenames=[], @resource_filenames=[], @provider_filenames=[], @metadata_filenames=[], @root_dir=nil, @root_filenames=["metadata.rb", "README.rdoc", "metadata.json"], @status=:ready, @manifest={"files"=>[{"specificity"=>"default", "name"=>"ftp.example.com.pem", "path"=>"files/default/ftp.example.com.pem", "checksum"=>"6b2d145dba8bda4ebf8b5216bc522d6e", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-6b2d145dba8bda4ebf8b5216bc522d6e?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=O3Qxk2r0KZ%2BIQYiAcMSgHr74L68%3D"}, {"specificity"=>"default", "name"=>"ftp.example.com.key", "path"=>"files/default/ftp.example.com.key", "checksum"=>"8f6abfda85c44df6f645c73c075ee067", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-8f6abfda85c44df6f645c73c075ee067?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=0s5jnORnkz7RQaRRiSDKYVuI9Ug%3D"}], "cookbook_name"=>"vsftpd", "definitions"=>[], "attributes"=>[{"specificity"=>"default", "name"=>"default.rb", "path"=>"attributes/default.rb", "checksum"=>"6b7ad0106fd8aa591c1425b9924f7534", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-6b7ad0106fd8aa591c1425b9924f7534?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=BLdGj4Yl7CmBLL4FHNdaRwU2k6w%3D"}], "resources"=>[], "frozen?"=>false, "libraries"=>[], "recipes"=>[{"specificity"=>"default", "name"=>"default.rb", "path"=>"recipes/default.rb", "checksum"=>"97e234fb2ec2c8fac14bdf50c99487cf", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-97e234fb2ec2c8fac14bdf50c99487cf?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=t2zHiNADAqw96DhNXIZMgJJA7CU%3D"}], "version"=>"0.0.1", "chef_type"=>"cookbook_version", "name"=>"vsftpd-0.0.1", "json_class"=>"Chef::CookbookVersion", "templates"=>[{"specificity"=>"default", "name"=>"vsftpd.conf", "path"=>"templates/default/vsftpd.conf", "checksum"=>"ea380b2294c8c19c21d31e0a6f39f826", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-ea380b2294c8c19c21d31e0a6f39f826?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=hPLNAAC/JI/V823gYuJ3Qy0nzkI%3D"}, {"specificity"=>"default", "name"=>"vsftpd.chroot_list", "path"=>"templates/default/vsftpd.chroot_list", "checksum"=>"72a8be1f5ca365d3c97ca03a87e67df0", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-72a8be1f5ca365d3c97ca03a87e67df0?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=zfRcmOdMcuZmuMhzEztDDHVdXQU%3D"}], "root_files"=>[{"specificity"=>"default", "name"=>"metadata.rb", "path"=>"metadata.rb", "checksum"=>"bc4f260bba194519ec997b276ee8781d", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-bc4f260bba194519ec997b276ee8781d?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=fkUHXlOX1YGY%2B1d8DWv98bHFCnk%3D"}, {"specificity"=>"default", "name"=>"README.rdoc", "path"=>"README.rdoc", "checksum"=>"734b54766d2a43e97af79f58e48ec53b", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-734b54766d2a43e97af79f58e48ec53b?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=qvgmrsecojzW7sIaUleLu8d9FTc%3D"}, {"specificity"=>"default", "name"=>"metadata.json", "path"=>"metadata.json", "checksum"=>"9728bafefb9f6ffe244df1c8773370c8", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-9728bafefb9f6ffe244df1c8773370c8?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=bvrBRK1DE5BfpWx9JqPVrTf8hw4%3D"}], "providers"=>[], "metadata"=>{"name"=>"vsftpd", "description"=>"Installs/Configures vsftpd for Secure SSL SFTP", "long_description"=>"", "maintainer"=>"Robert J. Berger", "maintainer_email"=>"rberger+maintainer@ibd.com", "license"=>"Apache License, Version 2.0", "platforms"=>{}, "dependencies"=>{}, "recommendations"=>{}, "suggestions"=>{}, "conflicting"=>{}, "providing"=>{"vsftpd"=>">= 0.0.0"}, "replacing"=>{}, "attributes"=>{}, "groupings"=>{}, "recipes"=>{"vsftpd"=>""}, "version"=>"0.0.1"}}, @file_vendor=nil, @metadata=#<Chef::Cookbook::Metadata:0x9c597e4 @cookbook=nil, @name="vsftpd", @long_description="", @maintainer="Robert J. Berger", @maintainer_email="rberger+maintainer@ibd.com", @license="Apache License, Version 2.0", @description="Installs/Configures vsftpd for Secure SSL SFTP", @platforms={}, @dependencies={}, @recommendations={}, @suggestions={}, @conflicting={}, @providing={"vsftpd"=>">= 0.0.0"}, @replacing={}, @attributes={}, @groupings={}, @recipes={"vsftpd"=>""}, @version="0.0.1">, @checksums={"97e234fb2ec2c8fac14bdf50c99487cf"=>nil, "6b7ad0106fd8aa591c1425b9924f7534"=>nil, "6b2d145dba8bda4ebf8b5216bc522d6e"=>nil, "8f6abfda85c44df6f645c73c075ee067"=>nil, "ea380b2294c8c19c21d31e0a6f39f826"=>nil, "72a8be1f5ca365d3c97ca03a87e67df0"=>nil, "bc4f260bba194519ec997b276ee8781d"=>nil, "734b54766d2a43e97af79f58e48ec53b"=>nil, "9728bafefb9f6ffe244df1c8773370c8"=>nil}, @manifest_records_by_path={"recipes/default.rb"=>{"specificity"=>"default", "name"=>"default.rb", "path"=>"recipes/default.rb", "checksum"=>"97e234fb2ec2c8fac14bdf50c99487cf", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-97e234fb2ec2c8fac14bdf50c99487cf?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=t2zHiNADAqw96DhNXIZMgJJA7CU%3D"}, "attributes/default.rb"=>{"specificity"=>"default", "name"=>"default.rb", "path"=>"attributes/default.rb", "checksum"=>"6b7ad0106fd8aa591c1425b9924f7534", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-6b7ad0106fd8aa591c1425b9924f7534?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=BLdGj4Yl7CmBLL4FHNdaRwU2k6w%3D"}, "files/default/ftp.example.com.pem"=>{"specificity"=>"default", "name"=>"ftp.example.com.pem", "path"=>"files/default/ftp.example.com.pem", "checksum"=>"6b2d145dba8bda4ebf8b5216bc522d6e", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-6b2d145dba8bda4ebf8b5216bc522d6e?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=O3Qxk2r0KZ%2BIQYiAcMSgHr74L68%3D"}, "files/default/ftp.example.com.key"=>{"specificity"=>"default", "name"=>"ftp.example.com.key", "path"=>"files/default/ftp.example.com.key", "checksum"=>"8f6abfda85c44df6f645c73c075ee067", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-8f6abfda85c44df6f645c73c075ee067?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=0s5jnORnkz7RQaRRiSDKYVuI9Ug%3D"}, "templates/default/vsftpd.conf"=>{"specificity"=>"default", "name"=>"vsftpd.conf", "path"=>"templates/default/vsftpd.conf", "checksum"=>"ea380b2294c8c19c21d31e0a6f39f826", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-ea380b2294c8c19c21d31e0a6f39f826?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=hPLNAAC/JI/V823gYuJ3Qy0nzkI%3D"}, "templates/default/vsftpd.chroot_list"=>{"specificity"=>"default", "name"=>"vsftpd.chroot_list", "path"=>"templates/default/vsftpd.chroot_list", "checksum"=>"72a8be1f5ca365d3c97ca03a87e67df0", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-72a8be1f5ca365d3c97ca03a87e67df0?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=zfRcmOdMcuZmuMhzEztDDHVdXQU%3D"}, "metadata.rb"=>{"specificity"=>"default", "name"=>"metadata.rb", "path"=>"metadata.rb", "checksum"=>"bc4f260bba194519ec997b276ee8781d", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-bc4f260bba194519ec997b276ee8781d?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=fkUHXlOX1YGY%2B1d8DWv98bHFCnk%3D"}, "README.rdoc"=>{"specificity"=>"default", "name"=>"README.rdoc", "path"=>"README.rdoc", "checksum"=>"734b54766d2a43e97af79f58e48ec53b", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-734b54766d2a43e97af79f58e48ec53b?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=qvgmrsecojzW7sIaUleLu8d9FTc%3D"}, "metadata.json"=>{"specificity"=>"default", "name"=>"metadata.json", "path"=>"metadata.json", "checksum"=>"9728bafefb9f6ffe244df1c8773370c8", "url"=>"https://x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-9728bafefb9f6ffe244df1c8773370c8?AWSAccessKeyId=0daaff21bbbd7abe1cefcfde042ac994a581dc68&Expires=1371374711&Signature=bvrBRK1DE5BfpWx9JqPVrTf8hw4%3D"}}, @attribute_filenames_by_short_filename={"default"=>"default.rb"}>]
+[2013-06-16T16:48:00-04:00] DEBUG: Synchronizing cookbook build-essential
+[2013-06-16T16:48:00-04:00] DEBUG: Signing the request as chefClientDemo
+[2013-06-16T16:48:00-04:00] DEBUG: String to sign: 'Method:GET
+Hashed Path:jAj3W3JLj4dBI1obiVhAk0RTbHM=
+X-Ops-Content-Hash:2jmj7l5rSw0yVb/vlWAYkK/YBwk=
+X-Ops-Timestamp:2013-06-16T20:48:00Z
+X-Ops-UserId:chefClientDemo'
+Header hash: {"X-Ops-Sign"=>"algorithm=sha1;version=1.0;", "X-Ops-Userid"=>"chefClientDemo", "X-Ops-Timestamp"=>"2013-06-16T20:48:00Z", "X-Ops-Content-Hash"=>"2jmj7l5rSw0yVb/vlWAYkK/YBwk=", "X-Ops-Authorization-1"=>"vJRQF0KNQt2FOvskOXTFvyRyIKP0oEUF1Sru7Jk0F6G2ZbvW7UHhFbfr28s6", "X-Ops-Authorization-2"=>"kxFWLkv91lpu8shEyxV4Ckz+0KaTYQBmJN3QWn/jMhZ4P+57nbiJVb9c1Gf/", "X-Ops-Authorization-3"=>"E24H41Uuc7pm04vjZw4iqRNSq1gWYUm7z+y1VNTkIWmgHAw08shtHYUwumoQ", "X-Ops-Authorization-4"=>"VcyqePcsThN1trJwg3W9T5xkskDn/gru5NgtZ1X+Ggd4G05bM4AYcY0J90Co", "X-Ops-Authorization-5"=>"qiXksXRJlBZIMROxBNUF+pJnz9zaQoHo1dzgOkgk+FB0WfWGD4PHZN5tVr9z", "X-Ops-Authorization-6"=>"q1I71bMSa0wIOw+jQXKr9rBcrz8j0bCUH5oK0m3yDA=="}
+[2013-06-16T16:48:00-04:00] DEBUG: Sending HTTP Request via GET to x33:443/bookshelf/organization-00000000000000000000000000000000/checksum-d6ed93fd454965b13b7943825dba5e51
+[2013-06-16T16:48:00-04:00] ERROR: Connection refused connecting to x33:443 for /bookshelf/organization-00000000000000000000000000000000/checksum-d6ed93fd454965b13b7943825dba5e51, retry 1/5
+[2013-06-16T16:48:05-04:00] ERROR: Connection refused connecting to x33:443 for /bookshelf/organization-00000000000000000000000000000000/checksum-d6ed93fd454965b13b7943825dba5e51, retry 2/5
+[2013-06-16T16:48:07-04:00] FATAL: SIGINT received, stopping
+[0m
+================================================================================[0m
+[31mError Syncing Cookbooks:[0m
+================================================================================[0m
+
+[0m
+Unexpected Error:[0m
+-----------------[0m
+SystemExit: exit[0m
+
+[0m
+[2013-06-16T16:48:07-04:00] DEBUG: Re-raising exception: SystemExit - exit
+/opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:216:in `exit'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:216:in `fatal!'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:45:in `block in initialize'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/rest.rb:288:in `call'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/rest.rb:288:in `sleep'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/rest.rb:288:in `rescue in retriable_rest_request'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/rest.rb:277:in `retriable_rest_request'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/rest.rb:236:in `streaming_request'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/rest.rb:97:in `get'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/cookbook/synchronizer.rb:200:in `download_file'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/cookbook/synchronizer.rb:178:in `sync_file_in_cookbook'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/cookbook/synchronizer.rb:145:in `block (2 levels) in sync_cookbook'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/cookbook/synchronizer.rb:143:in `each'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/cookbook/synchronizer.rb:143:in `block in sync_cookbook'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/cookbook/synchronizer.rb:141:in `each'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/cookbook/synchronizer.rb:141:in `sync_cookbook'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/cookbook/synchronizer.rb:103:in `block in sync_cookbooks'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/cookbook/synchronizer.rb:102:in `each'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/cookbook/synchronizer.rb:102:in `sync_cookbooks'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:388:in `sync_cookbooks'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:218:in `setup_run_context'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:467:in `do_run'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/client.rb:200:in `run'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:190:in `run_chef_client'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:297:in `block in run_application'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `loop'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application/client.rb:290:in `run_application'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/lib/chef/application.rb:73:in `run'
+  /opt/chef/embedded/lib/ruby/gems/1.9.1/gems/chef-11.4.4/bin/chef-client:26:in `<top (required)>'
+  /usr/bin/chef-client:23:in `load'
+  /usr/bin/chef-client:23:in `<main>'
+[2013-06-16T16:48:07-04:00] ERROR: Running exception handlers
+[2013-06-16T16:48:07-04:00] FATAL: Saving node information to /var/chef/cache/failed-run-data.json
+[2013-06-16T16:48:07-04:00] ERROR: Exception handlers complete
+[2013-06-16T16:48:07-04:00] DEBUG: Server doesn't support resource history, skipping resource report.
+

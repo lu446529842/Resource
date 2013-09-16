@@ -1,0 +1,31 @@
+Installing the Chef Client
+1.安装
+http://www.opscode.com/chef/install/
+curl -L https://www.opscode.com/chef/install.sh | bash
+2.配置
+http://wiki.opscode.com/display/chef/Installing+Omnibus+Chef+Client+on+Linux+and+Mac
+
+
+安装配置一键搞定
+http://docs.opscode.com/install_bootstrap.html
+===============================================
+cookbook 工作流
+Cookbook Fast Start Guide
+http://wiki.opscode.com/display/chef/Cookbook+Fast+Start+Guide
+
+Working with Git and Cookbooks
+http://wiki.opscode.com/display/chef/Working+with+Git+and+Cookbooks
+
+Working with Chef cookbooks and roles
+http://agiletesting.blogspot.com/2010/07/working-with-chef-cookbooks-and-roles.html
+
+
+===============================================================
+Deploying OpenStack with Chef
+http://wiki.opscode.com/display/chef/Deploying+OpenStack+with+Chef
+
+Deploying OpenStack
+http://sourceforge.net/apps/mediawiki/xcat/index.php?title=Deploying_OpenStack
+
+
+https://github.com/opscode/openstack-chef-repo

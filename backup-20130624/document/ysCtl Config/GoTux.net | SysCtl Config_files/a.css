@@ -1,0 +1,10 @@
+.wp-tab-content-wrapper p {
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+font-size: 100% !important;
+}
+.wp-tabs {
+margin:0 !important;
+padding:0px !important;
+}
+.ui-tabs-vertical .ui-widget-content { width: 80% !important; }
