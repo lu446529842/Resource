@@ -1,0 +1,47 @@
+date:2013-07-18
+comment: those scripts are used to  deploy a swift proxy and some other function
+	1.delopy a swift proxy server, default auth system is tempAuth
+	2.create ring builder file 
+	3.add new device to build file by specific params
+	4.configure swift cluster ssh login without passward 
+	5.reconfig build script when add new storage node ,triger by the new storage node while finished delpoy
+	6.rebalance ring file and scp to each storage node in swift cluster
+
+	before you run those scripts,you should copy add the file in proxyServer to /root/scripts and read usage below
+
+
+usage:
+	configure_cluter_ssh.sh
+	configure swift cluster ssh login without passward,be suppose to run on swift proxy server
+	./configure_cluter_ssh.sh param
+	the param is the password use to ssh to every storage node by default user,like: ./configure_cluter_ssh.sh passw0rd
+
+	proxyBuildRing.sh 
+	 use default params to create builder file 
+	 ./proxyBuildRing.sh
+
+	proxyNodeAddRing.sh 
+	add new device to build file by specific params 
+	./proxyNodeAddRing.sh zone_id storage_ip "disk array",like: ./proxyNodeAddRing.sh 1  192.168.2.40 "sdb sdc sdd"
+
+	moduleSwiftProxy.sh  
+	 delopy a swift proxy server with a param, default auth system is tempAuth,you can modify proxy-server.conf to use keystone auth
+	./moduleSwiftProxy.sh keystone_auth_ip ,like :./moduleSwiftProxy.sh 192.168.0.51
+
+	rebalance_and_scp_ringfile.sh 
+	 rebalance ring file and scp to each storage node in swift cluster
+	./rebalance_and_scp_ringfile.sh 
+	this script will store  log in default directory /root/scripts/log/rebalance.log ,you can read  the log or use swift-recon -l to  check whether execution successful.
+
+	reconfig_ring.sh 
+	 use to expend swift cluter,you have to be very very carefully when you use it to expend swift cluster,it reconfig build script when add new storage node ,triger by the new storage node while finished delpoy
+	it a bit dangerous when use it in a real swift cluster,so ,when it run ,it will backup ring file and build file to /etc/swift/backups/backup_ip_address,you can use it make swift cluster back to normal if it fail to expend swift cluster
+	there are some variables in the script, you should check it  before run the script
+
+ 	export disks="sdb sdc sdd sde",the disk array of new storage node
+	expend_version ,how many times you  expend swift cluster ,if it is    frist time  you expend swift cluster ,it is supposed to like :expend_version=swift_expend_frist
+	expend_size ,how many storage servers you plan to expend,if there are 5,it is supposed to like :expend_size=5
+	password ,default password  for root user to login storage node default is passw0rd
+
+	after finished running ,you can check the log in /etc/swift/log/ip_address.log 
+

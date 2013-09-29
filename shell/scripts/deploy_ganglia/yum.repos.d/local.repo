@@ -1,0 +1,6 @@
+
+[http-source_2]
+name=http-source_2
+baseurl=http://9.111.215.34/cobbler/others/epel6/x86_64/
+enabled=1
+gpgcheck=0

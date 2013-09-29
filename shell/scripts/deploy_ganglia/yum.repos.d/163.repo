@@ -1,0 +1,11 @@
+[http-163]
+name=http-source_update
+baseurl=http://mirrors.163.com/centos/6.4/updates/x86_64
+enabled=1
+gpgcheck=0
+
+[http-163]
+name=http-source_os
+baseurl=http://mirrors.163.com/centos/6.4/os/x86_64
+enabled=1
+gpgcheck=0

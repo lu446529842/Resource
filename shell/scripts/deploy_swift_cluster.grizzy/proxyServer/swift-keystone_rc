@@ -1,0 +1,4 @@
+export OS_USERNAME=swift
+export OS_PASSWORD=swift
+export OS_TENANT_NAME=service
+export OS_AUTH_URL=http://keystone_auth_ip:5000/v2.0

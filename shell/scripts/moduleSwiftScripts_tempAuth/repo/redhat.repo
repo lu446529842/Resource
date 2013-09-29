@@ -1,0 +1,5 @@
+[http-source]
+name=redhat-source
+baseurl=<HTTP_SOURCE>
+enabled=1
+gpgcheck=0

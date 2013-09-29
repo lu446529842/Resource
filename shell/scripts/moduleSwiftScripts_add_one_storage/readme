@@ -1,0 +1,12 @@
+date:20130708
+comment: swift storage  install and configure scripts 
+
+
+file:moduleSwiftStroage.sh
+comment:install and configure storage
+
+file:reconfig_reblance_ring.sh
+comment:reblance ring and scp ring file to every storage node
+
+file:cleanUP.sh
+comment: clean package 

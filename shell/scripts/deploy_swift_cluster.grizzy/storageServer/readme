@@ -1,0 +1,10 @@
+date:2013-07-15
+comment:deploy a swift storage node by hand
+
+usage:
+
+	moduleSwiftStroage.sh 
+	./moduleSwiftStroage.sh
+	
+	cleanUp.sh  clean  everything which isntall by  moduleSwiftStroage.sh
+	./cleanUp.sh 

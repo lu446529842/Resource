@@ -1,0 +1,21 @@
+date:2013-07-29
+comment:deploy keystone auth system for swift cluster
+	1.default tenant
+		admin	service
+	2.default role
+		admin	Member
+	3.default user
+		username:password	admin:admin	swift:swift
+	4.default service 
+		keystone	swift
+	
+
+usage:
+	deploy_keystone.sh  deploy keystone auth system
+	./deploy_keystone.sh  param
+		the param is the proxy service ip like 192.168.9.31
+
+	cleanUp.sh	if keystone  fail to intall ,use it to clean.
+	./cleaUp.sh
+	
+

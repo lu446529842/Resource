@@ -1,0 +1,29 @@
+date:2013-07-15
+comment: all scripts to deploy swift cluster and Horizontal expansion,copy them to the /root/scripts directory if you want to exec them.
+
+
+
+install proxy
+	moduleSwiftProxy.sh	isntall and configure proxyserver
+	proxyBuildRing.sh	buildding swift ring
+	proxyNodeAddRing.sh	add device to ring by hand
+	reconfig_ring.sh	reconfig ring when add a new deivce to cluster,triger by the new storage node
+	rebalance_and_scp_ringfile.sh	after install proxy and storage nodes,build or reconfig ring data,use this to rebalance and scp ring file to every storage node
+
+
+install storage
+	moduleSwiftStroage.sh install and configure swift storage
+
+
+add a new storage
+	addSwiftStroage.sh  add new storage to a running swift cluster
+
+
+install fail 
+	cleanUp.sh 	use this to clean  evething up if fail to install
+
+
+
+config cluster ssh without password
+	configure_cluter_ssh.sh  this script should be runed on proxy server
+
