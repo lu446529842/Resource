@@ -1,0 +1,22 @@
+asdfasdfAS
+./exec_io.sh: line 14: asdfad: command not found
+./exec_io.sh: line 15: adfasdf: command not found
+总用量 68
+-rw-rw-r--. 1 yuzhe yuzhe    0 7月  17 11:38 192.168.2.31
+-rwxrwxr-x. 1 yuzhe yuzhe   39 7月   4 16:45 create_ssh.sh
+-rwxrwxr-x. 1 yuzhe yuzhe   78 6月  28 09:23 cutStr.sh
+-rwxrwxr-x. 1 yuzhe yuzhe   61 7月   4 13:59 diskArray.sh
+-rwxrwxr-x. 1 yuzhe yuzhe  121 7月  17 16:54 exec_io.sh
+-rwxrwxr-x. 1 yuzhe yuzhe  117 6月  24 17:02 for.sh
+-rwxrwxr-x. 1 yuzhe yuzhe   82 7月  15 14:34 if.sh
+-rwxrwxr-x. 1 yuzhe yuzhe  815 7月  17 11:02 ip_range_to_zone.sh
+-rwxrwxr-x. 1 yuzhe yuzhe  127 7月  17 13:40 ip_regex.sh
+-rw-rw-r--. 1 yuzhe yuzhe   51 7月   9 17:37 log
+-rwxrwxr-x. 1 yuzhe yuzhe 2228 7月  10 09:47 log_error_info.sh
+-rw-rw-r--. 1 yuzhe yuzhe  110 7月  18 11:58 log.log
+-rw-rw-r--. 1 yuzhe yuzhe  152 6月  24 16:37 myconfig.conf
+-rwxrwxr-x. 1 yuzhe yuzhe   21 7月   4 10:39 params_length.sh
+-rwxrwxr-x. 1 yuzhe yuzhe  530 7月   9 09:24 ssh.sh
+drwxrwxr-x. 3 yuzhe yuzhe 4096 7月  17 12:28 sw
+drwxrwxr-x. 2 yuzhe yuzhe 4096 7月  17 11:41 swift_expend_frist
+-rwxrwxr-x. 1 yuzhe yuzhe   27 7月  17 14:01 test.sh
