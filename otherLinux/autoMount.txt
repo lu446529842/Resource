@@ -1,0 +1,19 @@
+做个记录
+
+ 
+
+看你对/etc/fstab文件了解多少？
+                                                                         （发表日期：2008.6.29 更新日期：2008.8.30）
+       有很多人经常修改/etc/fstab文件，但是其中却有很多人对这个文件所表达的意义不太清楚，因为只要按照一定的模式，就可以轻而易举地添加一行挂载信息，而不需要完全理解其中的原理。下面就让我们来看看到底还有多少是我们不了解的。
+
+   /etc/fstab是用来存放文件系统的静态信息的文件。位于/etc/目录下，可以用命令less /etc/fstab 来查看，如果要修改的话，则用命令 vi /etc/fstab 来修改。
+
+       当系统启动的时候，系统会自动地从这个文件读取信息，并且会自动将此文件中指定的文件系统挂载到指定的目录。下面我来介绍如何在此文件下填写信息。
+
+   在这个文件下，我们要关注的是它的六个域，分别为：<file system>、<mount point>、<type> 、<options>、<dump>、<pass>。下面将详细介绍这六个域的详细意义。
+
+      1、<fie sysytem>。这里用来指定你要挂载的文件系统的设备名称或块信息，也可以是远程的文件系统。做过嵌入式linux开发的朋友都可能知道 mount 192.168.1.56:/home/nfs /mnt/nfs/ -o nolock (可以是其他IP)命令所代表的意义。它的任务是把IP为192.168.1.56的远程主机上的/home/nfs/目录挂载到本机的/mnt/nfs /目录之下。如果要把它写进/etc/fstab文件中，file system这部分应填写为：/192.168.1.56:/home/nfs/。
+
+   如果想把本机上的某个设备（device）挂载上来，写法如：/dev/sda1、/dev/hda2或/dev/cdrom，其中，/dev/sda1 表示第一个串口硬盘的第一个分区，也可以是第一个SCSI硬盘的第一个分区，/dev/hda1表示第一个IDE硬盘的第一个分区，/dev/cdrom 表示光驱。
+
+   此外，还可以label(卷标)或UUID（Universally Unique Identifier全局唯一标识符）来表示。用label表示之前，先要e2label创建卷标，如：e2label /dir_1 /dir_2，其意思是说用/dir_2来表示/dir_1的名称。然后，再在/etc/fstab下按如下形式添加：LABEL=/dir_2 /dir_2 <type>   <options> <dump> <pass>。重启后，系统就会将/dir_1挂载到/dir_2目录上。对于UUID，可以用vol_id -u /dev/sdax来获取。比如我想挂载第一块硬盘的第十一个分区，先用命令vol_id -u /dev/sda11 来取得UUID，比如是：5dc08a62-3472-471b-9ef5-0a91e5e2c126，然后在<file system>这个域上填写： UUID=5dc08a62-3472-471b-9ef5-0a91e5e2c126，即可表示/dev/sda11。Red Hat linux 一般会使用label，而Ubuntu linux 一般会用UUID。
