@@ -30,7 +30,7 @@ function setUp()
 
 	touch /etc/yum.repos.d/${fileName}
 
-	echo "[${title]"  > /etc/yum.repos.d/${fileName}
+	echo "[${title}]"  > /etc/yum.repos.d/${fileName}
 	echo "name=${repoName}" >> /etc/yum.repos.d/${fileName}
 	echo "baseurl=file:///${path}" >> /etc/yum.repos.d/${fileName}
 	echo "enable=1" >> /etc/yum.repos.d/${fileName}
