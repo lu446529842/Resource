@@ -16,7 +16,8 @@ int binarySearch(int * array,int v,int size)
 
 	while(l<r)
 	{
-		index = (l+r)/2;
+		index = l + (r-l)/2
+#index = (l+r)/2;
 
 		if(array[index]==v)
 		{

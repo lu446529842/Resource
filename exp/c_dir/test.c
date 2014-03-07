@@ -15,6 +15,6 @@ int test(int x)
 
 int main()
 {
-	int a = test(3);
+	int a = test(10000);
 	printf("my reslut is :%d",a);
 }

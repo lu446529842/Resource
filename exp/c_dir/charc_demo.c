@@ -25,6 +25,7 @@ int main()
 	for(int i = 0;i< 3;i++)
 	{
 		printfInt(array+i);
+		printfChar(array+i);
 	}
 
 	return 0;
