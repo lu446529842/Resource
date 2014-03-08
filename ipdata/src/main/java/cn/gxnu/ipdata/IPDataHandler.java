@@ -10,7 +10,7 @@ package cn.gxnu.ipdata;
  *1.fix ip to  int overflow issue
  *2.reduce memory use
  *3.clean the code ,make int more shorter and simple
- *4.default limit  size of ip data 17monipdb.dat is 2GB（not test yet） 
+ *4.default limit  size of ip data 17monipdb.dat is 2GB（not test yet）。  
  ************************************************************************/
 
 import java.io.DataInputStream;
@@ -92,10 +92,10 @@ public class IPDataHandler {
 	private static int getIntByBytes(byte[] b,int offSet)
 	{
 		if (b == null || (b.length < (offSet+3))) {
-			
+			return -1;
 		}
-		byte[] bytes = Arrays.copyOfRange(allData, offSet, offSet+3);
 		
+		byte[] bytes = Arrays.copyOfRange(allData, offSet, offSet+3);
 		byte[] bs = new byte[4];
 		bs[3] = 0;
 		for (int i = 0; i < 3;i++) {
